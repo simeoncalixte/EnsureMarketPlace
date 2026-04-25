@@ -1,0 +1,43 @@
+{
+  "name": "ensured-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fastify + Sequelize + TypeScript API template for Ensured Marketplace",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "debug": "tsx watch --inspect-brk  src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "test": "jest --runInBand --watchman=false",
+    "test:watch": "jest --watch --watchman=false",
+    "migrate": "tsx src/db/run-migrations.ts",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down -v"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.7.0",
+    "@fastify/swagger-ui": "^5.2.5",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "amqplib": "^0.10.3",
+    "sequelize": "^6.37.5",
+    "umzug": "^3.8.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.10.1",
+    "@types/supertest": "^6.0.3",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

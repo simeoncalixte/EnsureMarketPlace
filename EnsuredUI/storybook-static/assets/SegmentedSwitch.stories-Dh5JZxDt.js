@@ -1,0 +1,4 @@
+import{j as i}from"./jsx-runtime-BjG_zV1W.js";import{r as c}from"./index-B3TfwC44.js";import{S as s}from"./SegmentedSwitch-CW9Gb_Tg.js";import"./colors-CWt0Ylu9.js";const l={title:"XDS/SegmentedSwitch",component:s},e=()=>{const[a,n]=c.useState(0);return i.jsx(s,{options:["Real-time","Historical","Projected"],value:a,onChange:n})};e.__docgenInfo={description:"",methods:[],displayName:"Default"};var t,o,r;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`() => {
+  const [i, setI] = useState(0);
+  return <SegmentedSwitch options={["Real-time", "Historical", "Projected"]} value={i} onChange={setI} />;
+}`,...(r=(o=e.parameters)==null?void 0:o.docs)==null?void 0:r.source}}};const S=["Default"];export{e as Default,S as __namedExportsOrder,l as default};

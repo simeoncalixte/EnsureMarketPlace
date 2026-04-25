@@ -1,0 +1,64 @@
+:root {
+  /* Brand */
+  --brand-50: #eef2ff;
+  --brand-100: #e0e7ff;
+  --brand-200: #c7d2fe;
+  --brand-300: #a5b4fc;
+  --brand-400: #818cf8;
+  --brand-500: #6366f1;
+  --brand-600: #4f46e5;
+  --brand-700: #4338ca;
+  --brand-800: #3730a3;
+  --brand-900: #312e81;
+
+  /* Neutrals */
+  --neutral-0: #ffffff;
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1f2937;
+  --neutral-900: #0f172a;
+
+  /* Semantic */
+  --color-success: #16a34a;
+  --color-info: #0891b2;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+
+  /* Surfaces and text */
+  --bg: #071129;
+  --surface: #0b1220;
+  --text-primary: #e6eef8;
+  --text-secondary: #98a6bf;
+  --text-accent: rgba(75,142,255,1);
+  /* Navigation item container background using variable opacity like Tailwind's syntax */
+  --nav-item-bg: rgb(19 27 46 / var(--tw-bg-opacity, 1));
+
+  /* Semantic tokens used by XDS components */
+  --primary: #4b8eff;
+  --primary-container: #e6f0ff;
+  --on-primary-container: #05204b;
+
+  --secondary: #7ee787;
+  --secondary-container: #08220f;
+  --on-secondary-container: #05220a;
+
+  --error: #ff6b6b;
+  --error-container: #3a0b0b;
+  --on-error-container: #fff5f5;
+
+  --surface-container-low: #071423;
+  --surface-container: #0b1220;
+  --surface-container-high: #0f1726;
+  --surface-container-highest: #12202b;
+
+  --outline-variant: rgba(148,163,184,0.2);
+  --on-surface: #e6eef8;
+  --on-surface-variant: #98a6bf;
+  --tertiary-container: #1f2a37;
+}

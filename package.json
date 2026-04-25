@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix EnsuredUI run start",
+    "test": "npm --prefix EnsuredAPI test",
+    "test:api": "npm --prefix EnsuredAPI test"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.36",
+    "styled-components": "^6.3.12"
+  }
+}

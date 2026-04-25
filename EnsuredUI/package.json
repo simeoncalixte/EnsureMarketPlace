@@ -1,0 +1,35 @@
+{
+  "name": "ensured-ui",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "mapbox-gl": "^3.21.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router": "latest",
+    "recharts": "latest",
+    "styled-components": "^6.3.12"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "8.6.18",
+    "@storybook/react": "8.6.18",
+    "@storybook/react-vite": "8.6.18",
+    "@types/node": "^25.6.0",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "^5.1.3",
+    "storybook-addon-remix-react-router": "^4.0.1",
+    "typescript": "^5.1.6",
+    "vite": "^5.0.0"
+  }
+}

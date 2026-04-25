@@ -1,0 +1,1 @@
+exports.PostgresDialect = 'postgres';
