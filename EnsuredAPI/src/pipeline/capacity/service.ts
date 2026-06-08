@@ -1,4 +1,5 @@
 import { runStage } from '../stageResult';
+import { loadAppetiteForTenant } from '../validation/appetiteEngine';
 
 function toRecord(value: unknown): Record<string, any> {
   if (!value || typeof value !== 'object') return {};
@@ -10,31 +11,29 @@ function parseMoney(value: unknown): number {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
 }
 
-function loadRiskCapacity(): Record<string, number> {
-  const fallback = {
-    wind: 125_000_000,
-    hurricane: 100_000_000,
-    storm: 85_000_000,
-    flood: 75_000_000,
-    cyber: 25_000_000,
-  };
+/**
+ * Resolve the org's configured per-peril capacity. Single source of truth =
+ * `OrganizationAppetiteProfile.capacityByPeril` (keys lowercased). Injectable so
+ * the stage stays unit-testable without a database.
+ */
+export type CapacityByPerilLoader = (
+  tenantId: number | null | undefined,
+) => Promise<Record<string, number>>;
 
-  const raw = process.env.PIPELINE_OPEN_CAPACITY_BY_RISK_JSON;
-  if (!raw) return fallback;
-  try {
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
-    const normalized: Record<string, number> = {};
-    Object.entries(parsed).forEach(([key, value]) => {
-      const cap = Number(value);
-      if (Number.isFinite(cap) && cap >= 0) normalized[key.toLowerCase()] = cap;
-    });
-    return Object.keys(normalized).length > 0 ? normalized : fallback;
-  } catch (_) {
-    return fallback;
+const defaultCapacityByPerilLoader: CapacityByPerilLoader = async (tenantId) => {
+  const appetite = await loadAppetiteForTenant(tenantId);
+  const raw = (appetite?.profile?.capacityByPeril ?? {}) as Record<string, unknown>;
+  const normalized: Record<string, number> = {};
+  for (const [key, value] of Object.entries(raw)) {
+    const cap = Number(value);
+    if (Number.isFinite(cap) && cap >= 0) normalized[key.trim().toLowerCase()] = cap;
   }
-}
+  return normalized;
+};
 
 export class CapacityMatchService {
+  constructor(private readonly deps: { loadCapacityByPeril?: CapacityByPerilLoader } = {}) {}
+
   async process(payload: any): Promise<Record<string, unknown>> {
     return runStage('capacityMatch', () => this.runCapacityMatch(payload));
   }
@@ -42,20 +41,41 @@ export class CapacityMatchService {
   private async runCapacityMatch(payload: any): Promise<Record<string, unknown>> {
     const extraction = toRecord(payload?.extraction?.structuredData ?? payload?.extraction ?? {});
     const preRating = toRecord(payload?.preRating);
-    const riskType = String(extraction.riskType ?? extraction.perilType ?? preRating.riskType ?? 'unknown').trim().toLowerCase();
+    const appetite = toRecord(toRecord(payload?.validation).appetite);
+
+    const riskType = String(
+      extraction.riskType ?? extraction.perilType ?? preRating.riskType ?? 'unknown',
+    )
+      .trim()
+      .toLowerCase();
     const dealSize = parseMoney(extraction.limit ?? extraction.dealSize ?? extraction.notional);
     const expectedYield = Number(extraction.expectedYield ?? preRating.expectedYield ?? 0) || 0;
 
-    const capacityByRisk = loadRiskCapacity();
-    const totalOpenCapacity = Number(process.env.PIPELINE_TOTAL_OPEN_CAPACITY ?? 500_000_000);
-    const riskCapacity = Number(capacityByRisk[riskType] ?? 0);
-    const hasCapacity = riskCapacity >= dealSize;
+    // Appetite is owned by the validation stage's appetite engine. Capacity CONSUMES
+    // that single, org-configured decision instead of a hardcoded peril list. When no
+    // decision is present we do NOT block on missing info (the appetite engine already
+    // gates genuine out-of-appetite risks upstream).
+    const appetiteDecision = typeof appetite.decision === 'string' ? appetite.decision : null;
+    const inAppetite = appetiteDecision ? appetiteDecision !== 'OUT_OF_APPETITE' : true;
 
-    const preferredRiskTypes = String(process.env.PIPELINE_TARGET_RISK_TYPES ?? 'wind,hurricane,storm,flood')
-      .split(',')
-      .map((v) => v.trim().toLowerCase())
-      .filter(Boolean);
-    const inAppetite = preferredRiskTypes.includes(riskType);
+    // Per-peril capacity comes from the org's configured appetite profile
+    // (capacityByPeril) — NOT a hardcoded table.
+    const loadCapacityByPeril = this.deps.loadCapacityByPeril ?? defaultCapacityByPerilLoader;
+    const capacityByPeril = await loadCapacityByPeril(payload?.submission?.tenantId ?? null);
+
+    const hasConfiguredCap = Object.prototype.hasOwnProperty.call(capacityByPeril, riskType);
+    const riskCapacity = hasConfiguredCap ? Number(capacityByPeril[riskType]) : null;
+    const totalOpenCapacity = Object.values(capacityByPeril).reduce(
+      (sum, v) => sum + (Number(v) || 0),
+      0,
+    );
+
+    // No configured cap for this peril ⇒ unknown; do not fabricate a shortfall.
+    const hasCapacity = riskCapacity == null ? true : riskCapacity >= dealSize;
+
+    const flags: string[] = [];
+    if (!appetiteDecision) flags.push('appetite:no_decision_defaulted_in');
+    if (riskCapacity == null) flags.push('capacity:unconfigured_for_peril');
 
     let route = 'standard_queue';
     let destinationPool = 'primary';
@@ -75,11 +95,13 @@ export class CapacityMatchService {
       dealSize,
       totalOpenCapacity,
       riskCapacity,
-      remainingRiskCapacity: Math.max(0, riskCapacity - dealSize),
+      remainingRiskCapacity: riskCapacity == null ? null : Math.max(0, riskCapacity - dealSize),
       inAppetite,
       hasCapacity,
       route,
       destinationPool,
+      appetiteDecision,
+      flags,
     };
   }
 }
