@@ -7,7 +7,7 @@ import DealCard from '../../xds/components/DealCard'
 import MapPanel from '../../xds/components/MapPanel'
 import Button from '../../xds/components/Button'
 import { colors } from '../../xds/colors'
-import { spacing } from '../../xds/tokens'
+import { spacing, typography } from '../../xds/tokens'
 
 const Page = styled.main`
   padding: 0 ${spacing.lg}px;
@@ -21,6 +21,11 @@ const HeroSection = styled.section`
   flex-direction: column;
   justify-content: center;
   padding: 0 ${spacing.xl}px;
+
+  @media (max-width: 768px) {
+    min-height: auto;
+    padding: ${spacing.xl}px ${spacing.lg}px;
+  }
 `
 
 const HeroInner = styled.div`
@@ -32,24 +37,34 @@ const MetricsGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: ${spacing.sm}px;
   margin-top: ${spacing.lg}px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const HeroActions = styled.div`
-  margin-top: 20px;
+  margin-top: ${spacing.lg}px;
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: ${spacing.md}px;
 `
 
 const Section = styled.section`
-  padding: 48px 40px;
+  padding: ${spacing.xl}px;
+
+  @media (max-width: 768px) {
+    padding: ${spacing.lg}px ${spacing.md}px;
+  }
 `
 
 const SectionInner = styled.div`
+  max-width: 1200px;
   margin: 0 auto;
 `
 
 const SectionHeadingBlock = styled.div`
-  margin-bottom: 32px;
+  margin-bottom: ${spacing.lg}px;
 `
 
 const SectionHeadingRow = styled.div`
@@ -61,34 +76,49 @@ const SectionHeadingRow = styled.div`
 
 const Eyebrow = styled.div`
   font-family: ui-monospace, Menlo, monospace;
-  color: ${colors.primary};
-  font-size: 12px;
+  color: ${colors.primarySoft};
+  font-size: ${typography.sizes.xs}px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 `
 
 const SectionTitle = styled.h2`
-  font-size: 28px;
-  margin: 12px 0;
+  font-size: ${typography.sizes.xl}px;
+  margin: ${spacing.sm}px 0;
   color: ${colors.text.primary};
 `
 
 const ViewAllLink = styled.a`
-  color: ${colors.primary};
+  color: ${colors.primarySoft};
   font-family: ui-monospace, Menlo, monospace;
   text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.primary};
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 `
 
 const BentoGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: ${spacing.md}px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const DealList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: ${spacing.md}px;
 `
 
 const LandingPage: React.FC = () => {
@@ -99,7 +129,7 @@ const LandingPage: React.FC = () => {
           <HeroHeader title={'Programmable\nReinsurance Capital'} subtitle={'The sovereign infrastructure for parametric risk. Deploy capital into algorithmic tranches or hedge global catastrophes with real-time settlement logic.'} />
 
           <MetricsGrid>
-            <MetricCard label="Total Capital Locked" value="$1.28B" delta="+14.2% YoY" accent={undefined} />
+            <MetricCard label="Total Capital Locked" value="$1.28B" delta="+14.2% YoY" />
             <MetricCard label="Active Deals" value="142" delta="Verified Tranches" />
             <MetricCard label="Avg. Returns" value="12.4%" delta="NET APY" />
           </MetricsGrid>
@@ -119,7 +149,7 @@ const LandingPage: React.FC = () => {
           </SectionHeadingBlock>
 
           <BentoGrid>
-            <BentoStep index={1} title={'Tokenize Risk'} body={'Underwriters define catastrophe parameters. Risk is fractionalized into smart-contract tranches with transparent loss-exceedance curves.'} accent={undefined} />
+            <BentoStep index={1} title={'Tokenize Risk'} body={'Underwriters define catastrophe parameters. Risk is fractionalized into smart-contract tranches with transparent loss-exceedance curves.'} />
             <BentoStep index={2} title={'Pool Capital'} body={'Institutional liquidity providers deposit stablecoins into automated vaults, matching risk profiles with capital requirements.'} accent={colors.secondary} />
             <BentoStep index={3} title={'Execute Triggers'} body={'Oracles monitor real-time weather and tectonic data. Payouts are instant and automated when parameters are met.'} accent={colors.dataViz.amber} />
           </BentoGrid>

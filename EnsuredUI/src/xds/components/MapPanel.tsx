@@ -167,6 +167,10 @@ export const MapPanel: React.FC<{
   const FALLBACK_MAPBOX_TOKEN = (import.meta.env.VITE_MAPBOX_FALLBACK_TOKEN as string) || ''
   const hasToken = Boolean(MAPBOX_TOKEN)
   mapboxgl.accessToken = MAPBOX_TOKEN
+  // Key the init effect on the *content* of `points`, not its array identity. `points` defaults to a
+  // fresh `[]` on every render, so depending on the array directly tore the map down and rebuilt it
+  // on every render — and since map load → setCounts → re-render, that became an endless rebuild loop.
+  const pointsKey = JSON.stringify(points)
   useEffect(() => {
     if (!mapContainer.current) return
     if (mapRef.current) return // already initialized
@@ -224,7 +228,8 @@ export const MapPanel: React.FC<{
         mapRef.current = null
       }
     }
-  }, [points])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pointsKey])
 
   // Apply each layer's visibility whenever a toggle changes.
   useEffect(() => {
