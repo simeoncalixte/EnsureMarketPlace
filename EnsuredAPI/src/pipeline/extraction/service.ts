@@ -1,6 +1,9 @@
 import { ExtractedField, SubmissionDocument } from '../../db/models';
 import { runStage } from '../stageResult';
 import { ExtractionAgent, GeminiExtractionAgent } from './GeminiExtractionProvider';
+import { scoreFieldConfidence } from './confidence';
+import { extractSubjects } from './sov';
+import { computeNextExtractionVersion } from './versioning';
 
 type MaybeString = string | null;
 
@@ -27,39 +30,6 @@ function firstMoney(text: string, pattern: RegExp): number | null {
   const m = text.match(pattern);
   if (!m) return null;
   return parseScaledMoney(m[1], m[2]);
-}
-
-/**
- * Best-effort schedule parser for the fallback path. Looks for numbered or
- * bulleted line items that each carry a money amount (a common shape for a plain
- * schedule of values), e.g. "1. Warehouse #3, Miami FL — $2,000,000". This is
- * deliberately conservative: it only fires when at least two such items appear,
- * so prose mentioning a single dollar figure is not mistaken for a portfolio.
- * The Gemini agent does the real work; this keeps the heuristic path from losing
- * portfolio submissions entirely.
- */
-function extractSubjects(text: string): Array<Record<string, unknown>> {
-  const subjects: Array<Record<string, unknown>> = [];
-  const lineItem = /^\s*(?:\d{1,3}[.)]|[-*•])\s*(.+?)\s*[—:\-]\s*\$?\s*([\d.,]+)\s*([kmb])?\s*$/i;
-  for (const line of text.split(/\r?\n/)) {
-    const m = line.match(lineItem);
-    if (!m) continue;
-    const label = String(m[1]).trim().slice(0, 200);
-    const value = parseScaledMoney(m[2], m[3]);
-    if (!label || !Number.isFinite(value) || value <= 0) continue;
-    subjects.push({
-      label,
-      assetType: null,
-      constructionType: null,
-      occupancyType: null,
-      location: null,
-      riskType: null,
-      insuredValue: value,
-      limit: null,
-    });
-    if (subjects.length >= 200) break;
-  }
-  return subjects.length >= 2 ? subjects : [];
 }
 
 function extractEntities(text: string): Record<string, unknown> {
@@ -123,16 +93,26 @@ export class ExtractionService {
     const ocrText = String(payload?.ocr?.text ?? '').trim();
     const { entities, source } = await this.extractWithPolicy(ocrText);
 
-    const structuredData = {
+    const structuredData: Record<string, unknown> = {
       ...entities,
       source,
       extractedAt: new Date().toISOString(),
     };
 
     const persistedFields: string[] = [];
+    let extractionVersion: number | null = null;
     if (submission?.id) {
       const submissionId = Number(submission.id);
       let doc = await SubmissionDocument.findOne({ where: { submissionId } });
+
+      // Versioning: append a new generation of fields on each run. The next
+      // version is (max existing extractionVersion for this document) + 1; the
+      // very first run for a fresh document is 1. Prior rows are NEVER deleted —
+      // history is preserved and auditable. A brand-new document has no rows yet,
+      // so its first run is version 1 without a query.
+      extractionVersion = doc ? await computeNextExtractionVersion(doc.id) : 1;
+      structuredData.extractionVersion = extractionVersion;
+
       if (!doc) {
         doc = await SubmissionDocument.create({
           submissionId,
@@ -155,19 +135,6 @@ export class ExtractionService {
         await doc.save();
       }
 
-      const confidenceByField: Record<string, number> = {
-        limit: 0.9,
-        deductible: 0.88,
-        effectiveDate: 0.82,
-        expectedYield: 0.74,
-        riskType: 0.78,
-        triggerType: 0.75,
-        propertyLocation: 0.72,
-        companyDomain: 0.7,
-        oracleDataSource: 0.76,
-        subjectCount: 0.8,
-      };
-
       for (const [fieldName, fieldValue] of Object.entries(entities)) {
         if (fieldValue === null || fieldValue === undefined || String(fieldValue).trim().length === 0) continue;
         // Non-scalar fields (e.g. the `subjects` portfolio) live in structuredData,
@@ -178,8 +145,11 @@ export class ExtractionService {
           tenantId: submission.tenantId ?? null,
           fieldName,
           fieldValue: String(fieldValue),
-          confidence: confidenceByField[fieldName] ?? 0.65,
+          // Derived, deterministic confidence from the field's value + the actual
+          // extraction source — replaces the old hardcoded per-field constants.
+          confidence: scoreFieldConfidence(fieldName, fieldValue, source),
           sourceLocation: null,
+          extractionVersion,
         });
         persistedFields.push(fieldName);
       }
@@ -190,6 +160,7 @@ export class ExtractionService {
       service: 'extraction',
       structuredData,
       persistedFields,
+      extractionVersion,
     };
   }
 }

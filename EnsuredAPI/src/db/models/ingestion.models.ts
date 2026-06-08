@@ -54,6 +54,10 @@ export class ExtractedField extends Model<InferAttributes<ExtractedField>, Infer
   declare fieldValue: string | null;
   declare confidence: number | null;
   declare sourceLocation: Record<string, unknown> | null;
+  // Auditable extraction generation. Each rerun appends rows tagged with the next
+  // version (first run = 1) instead of clobbering history. underscored:true keeps
+  // the physical column snake_case (`extraction_version`).
+  declare extractionVersion: CreationOptional<number | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -180,6 +184,7 @@ export function initIngestionModels(sequelize: Sequelize): void {
       fieldValue: { type: DataTypes.TEXT, allowNull: true },
       confidence: { type: DataTypes.FLOAT, allowNull: true },
       sourceLocation: { type: DataTypes.JSONB, allowNull: true },
+      extractionVersion: { type: DataTypes.INTEGER, allowNull: true, defaultValue: 1 },
       createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
     } as any,
     { sequelize, modelName: 'ExtractedField', tableName: 'extracted_fields', underscored: true, updatedAt: false },

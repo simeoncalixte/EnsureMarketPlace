@@ -1,6 +1,6 @@
 {
   "process": "extraction",
-  "generatedAt": "2026-06-08T15:22:54.711Z",
+  "generatedAt": "2026-06-08T20:35:24.176Z",
   "transformationCount": 1,
   "transformations": [
     {
@@ -29,11 +29,12 @@
           "subjectCount": null,
           "subjects": [],
           "source": "ocr_ner",
-          "extractedAt": "2026-06-08T15:22:54.628Z"
+          "extractedAt": "2026-06-08T20:35:24.174Z"
         },
-        "persistedFields": []
+        "persistedFields": [],
+        "extractionVersion": null
       },
-      "recordedAt": "2026-06-08T15:22:54.634Z"
+      "recordedAt": "2026-06-08T20:35:24.175Z"
     }
   ]
 }
