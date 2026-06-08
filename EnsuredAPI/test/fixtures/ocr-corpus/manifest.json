@@ -1,0 +1,2698 @@
+[
+  {
+    "fileName": "0001-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3095,
+    "mustContain": [
+      "Acme Energy LLC",
+      "SUB-2026-1000",
+      "POL-26-40000",
+      "$5,000,000",
+      "CLM-0900"
+    ],
+    "expect": {
+      "namedInsured": "Acme Energy LLC",
+      "submissionId": "SUB-2026-1000",
+      "policyNumber": "POL-26-40000",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$5,000,000",
+      "requestedLimit": "$1,000,000",
+      "annualPremium": "$50,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0002-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3111,
+    "mustContain": [
+      "Summit Construction Group",
+      "SUB-2026-1001",
+      "POL-26-40001",
+      "$12,000,000",
+      "CLM-0901"
+    ],
+    "expect": {
+      "namedInsured": "Summit Construction Group",
+      "submissionId": "SUB-2026-1001",
+      "policyNumber": "POL-26-40001",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$12,000,000",
+      "requestedLimit": "$2,000,000",
+      "annualPremium": "$63,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0003-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3124,
+    "mustContain": [
+      "Harbor Technologies Partners",
+      "SUB-2026-1002",
+      "POL-26-40002",
+      "$19,000,000",
+      "CLM-0902"
+    ],
+    "expect": {
+      "namedInsured": "Harbor Technologies Partners",
+      "submissionId": "SUB-2026-1002",
+      "policyNumber": "POL-26-40002",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$19,000,000",
+      "requestedLimit": "$3,000,000",
+      "annualPremium": "$76,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0004-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3103,
+    "mustContain": [
+      "Cascade Properties Inc",
+      "SUB-2026-1003",
+      "POL-26-40003",
+      "$26,000,000",
+      "CLM-0903"
+    ],
+    "expect": {
+      "namedInsured": "Cascade Properties Inc",
+      "submissionId": "SUB-2026-1003",
+      "policyNumber": "POL-26-40003",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$26,000,000",
+      "requestedLimit": "$4,000,000",
+      "annualPremium": "$89,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0005-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3109,
+    "mustContain": [
+      "Granite Aerospace Holdings",
+      "SUB-2026-1004",
+      "POL-26-40004",
+      "$33,000,000",
+      "CLM-0904"
+    ],
+    "expect": {
+      "namedInsured": "Granite Aerospace Holdings",
+      "submissionId": "SUB-2026-1004",
+      "policyNumber": "POL-26-40004",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$33,000,000",
+      "requestedLimit": "$5,000,000",
+      "annualPremium": "$102,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0006-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3109,
+    "mustContain": [
+      "Liberty Distribution Industries",
+      "SUB-2026-1005",
+      "POL-26-40005",
+      "$40,000,000",
+      "CLM-0905"
+    ],
+    "expect": {
+      "namedInsured": "Liberty Distribution Industries",
+      "submissionId": "SUB-2026-1005",
+      "policyNumber": "POL-26-40005",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$40,000,000",
+      "requestedLimit": "$6,000,000",
+      "annualPremium": "$115,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0007-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3101,
+    "mustContain": [
+      "Meridian Healthcare Corp",
+      "SUB-2026-1006",
+      "POL-26-40006",
+      "$47,000,000",
+      "CLM-0906"
+    ],
+    "expect": {
+      "namedInsured": "Meridian Healthcare Corp",
+      "submissionId": "SUB-2026-1006",
+      "policyNumber": "POL-26-40006",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$47,000,000",
+      "requestedLimit": "$7,000,000",
+      "annualPremium": "$128,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0008-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3113,
+    "mustContain": [
+      "Pioneer Chemicals Co",
+      "SUB-2026-1007",
+      "POL-26-40007",
+      "$8,000,000",
+      "CLM-0907"
+    ],
+    "expect": {
+      "namedInsured": "Pioneer Chemicals Co",
+      "submissionId": "SUB-2026-1007",
+      "policyNumber": "POL-26-40007",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$8,000,000",
+      "requestedLimit": "$8,000,000",
+      "annualPremium": "$141,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0009-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3105,
+    "mustContain": [
+      "Sterling Maritime LLC",
+      "SUB-2026-1008",
+      "POL-26-40008",
+      "$15,000,000",
+      "CLM-0908"
+    ],
+    "expect": {
+      "namedInsured": "Sterling Maritime LLC",
+      "submissionId": "SUB-2026-1008",
+      "policyNumber": "POL-26-40008",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$15,000,000",
+      "requestedLimit": "$9,000,000",
+      "annualPremium": "$154,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0010-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3106,
+    "mustContain": [
+      "Vanguard Marine Group",
+      "SUB-2026-1009",
+      "POL-26-40009",
+      "$22,000,000",
+      "CLM-0909"
+    ],
+    "expect": {
+      "namedInsured": "Vanguard Marine Group",
+      "submissionId": "SUB-2026-1009",
+      "policyNumber": "POL-26-40009",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$22,000,000",
+      "requestedLimit": "$10,000,000",
+      "annualPremium": "$167,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0011-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3121,
+    "mustContain": [
+      "Atlas Hospitality Partners",
+      "SUB-2026-1010",
+      "POL-26-40010",
+      "$29,000,000",
+      "CLM-0910"
+    ],
+    "expect": {
+      "namedInsured": "Atlas Hospitality Partners",
+      "submissionId": "SUB-2026-1010",
+      "policyNumber": "POL-26-40010",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$29,000,000",
+      "requestedLimit": "$11,000,000",
+      "annualPremium": "$180,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0012-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3114,
+    "mustContain": [
+      "Beacon Logistics Inc",
+      "SUB-2026-1011",
+      "POL-26-40011",
+      "$36,000,000",
+      "CLM-0911"
+    ],
+    "expect": {
+      "namedInsured": "Beacon Logistics Inc",
+      "submissionId": "SUB-2026-1011",
+      "policyNumber": "POL-26-40011",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$36,000,000",
+      "requestedLimit": "$12,000,000",
+      "annualPremium": "$193,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0013-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3113,
+    "mustContain": [
+      "Crestline Robotics Holdings",
+      "SUB-2026-1012",
+      "POL-26-40012",
+      "$43,000,000",
+      "CLM-0912"
+    ],
+    "expect": {
+      "namedInsured": "Crestline Robotics Holdings",
+      "submissionId": "SUB-2026-1012",
+      "policyNumber": "POL-26-40012",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$43,000,000",
+      "requestedLimit": "$13,000,000",
+      "annualPremium": "$206,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0014-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3115,
+    "mustContain": [
+      "Delta Mining Industries",
+      "SUB-2026-1013",
+      "POL-26-40013",
+      "$50,000,000",
+      "CLM-0913"
+    ],
+    "expect": {
+      "namedInsured": "Delta Mining Industries",
+      "submissionId": "SUB-2026-1013",
+      "policyNumber": "POL-26-40013",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$50,000,000",
+      "requestedLimit": "$14,000,000",
+      "annualPremium": "$219,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0015-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3109,
+    "mustContain": [
+      "Evergreen Manufacturing Corp",
+      "SUB-2026-1014",
+      "POL-26-40014",
+      "$11,000,000",
+      "CLM-0914"
+    ],
+    "expect": {
+      "namedInsured": "Evergreen Manufacturing Corp",
+      "submissionId": "SUB-2026-1014",
+      "policyNumber": "POL-26-40014",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$11,000,000",
+      "requestedLimit": "$15,000,000",
+      "annualPremium": "$232,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0016-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3101,
+    "mustContain": [
+      "Foundry Pharma Co",
+      "SUB-2026-1015",
+      "POL-26-40015",
+      "$18,000,000",
+      "CLM-0915"
+    ],
+    "expect": {
+      "namedInsured": "Foundry Pharma Co",
+      "submissionId": "SUB-2026-1015",
+      "policyNumber": "POL-26-40015",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$18,000,000",
+      "requestedLimit": "$16,000,000",
+      "annualPremium": "$245,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0017-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3102,
+    "mustContain": [
+      "Horizon Textiles LLC",
+      "SUB-2026-1016",
+      "POL-26-40016",
+      "$25,000,000",
+      "CLM-0916"
+    ],
+    "expect": {
+      "namedInsured": "Horizon Textiles LLC",
+      "submissionId": "SUB-2026-1016",
+      "policyNumber": "POL-26-40016",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$25,000,000",
+      "requestedLimit": "$17,000,000",
+      "annualPremium": "$258,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0018-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3111,
+    "mustContain": [
+      "Ironclad Foods Group",
+      "SUB-2026-1017",
+      "POL-26-40017",
+      "$32,000,000",
+      "CLM-0917"
+    ],
+    "expect": {
+      "namedInsured": "Ironclad Foods Group",
+      "submissionId": "SUB-2026-1017",
+      "policyNumber": "POL-26-40017",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$32,000,000",
+      "requestedLimit": "$18,000,000",
+      "annualPremium": "$271,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0019-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3108,
+    "mustContain": [
+      "Juniper Retail Partners",
+      "SUB-2026-1018",
+      "POL-26-40018",
+      "$39,000,000",
+      "CLM-0918"
+    ],
+    "expect": {
+      "namedInsured": "Juniper Retail Partners",
+      "submissionId": "SUB-2026-1018",
+      "policyNumber": "POL-26-40018",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$39,000,000",
+      "requestedLimit": "$19,000,000",
+      "annualPremium": "$284,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0020-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3118,
+    "mustContain": [
+      "Keystone Agriculture Inc",
+      "SUB-2026-1019",
+      "POL-26-40019",
+      "$46,000,000",
+      "CLM-0919"
+    ],
+    "expect": {
+      "namedInsured": "Keystone Agriculture Inc",
+      "submissionId": "SUB-2026-1019",
+      "policyNumber": "POL-26-40019",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$46,000,000",
+      "requestedLimit": "$20,000,000",
+      "annualPremium": "$297,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0021-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3104,
+    "mustContain": [
+      "Acme Energy Holdings",
+      "SUB-2026-1020",
+      "POL-26-40020",
+      "$7,000,000",
+      "CLM-0920"
+    ],
+    "expect": {
+      "namedInsured": "Acme Energy Holdings",
+      "submissionId": "SUB-2026-1020",
+      "policyNumber": "POL-26-40020",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$7,000,000",
+      "requestedLimit": "$1,000,000",
+      "annualPremium": "$310,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0022-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3122,
+    "mustContain": [
+      "Summit Construction Industries",
+      "SUB-2026-1021",
+      "POL-26-40021",
+      "$14,000,000",
+      "CLM-0921"
+    ],
+    "expect": {
+      "namedInsured": "Summit Construction Industries",
+      "submissionId": "SUB-2026-1021",
+      "policyNumber": "POL-26-40021",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$14,000,000",
+      "requestedLimit": "$2,000,000",
+      "annualPremium": "$323,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0023-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3131,
+    "mustContain": [
+      "Harbor Technologies Corp",
+      "SUB-2026-1022",
+      "POL-26-40022",
+      "$21,000,000",
+      "CLM-0922"
+    ],
+    "expect": {
+      "namedInsured": "Harbor Technologies Corp",
+      "submissionId": "SUB-2026-1022",
+      "policyNumber": "POL-26-40022",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$21,000,000",
+      "requestedLimit": "$3,000,000",
+      "annualPremium": "$336,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0024-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3105,
+    "mustContain": [
+      "Cascade Properties Co",
+      "SUB-2026-1023",
+      "POL-26-40023",
+      "$28,000,000",
+      "CLM-0923"
+    ],
+    "expect": {
+      "namedInsured": "Cascade Properties Co",
+      "submissionId": "SUB-2026-1023",
+      "policyNumber": "POL-26-40023",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$28,000,000",
+      "requestedLimit": "$4,000,000",
+      "annualPremium": "$349,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0025-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3098,
+    "mustContain": [
+      "Granite Aerospace LLC",
+      "SUB-2026-1024",
+      "POL-26-40024",
+      "$35,000,000",
+      "CLM-0924"
+    ],
+    "expect": {
+      "namedInsured": "Granite Aerospace LLC",
+      "submissionId": "SUB-2026-1024",
+      "policyNumber": "POL-26-40024",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$35,000,000",
+      "requestedLimit": "$5,000,000",
+      "annualPremium": "$362,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0026-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3102,
+    "mustContain": [
+      "Liberty Distribution Group",
+      "SUB-2026-1025",
+      "POL-26-40025",
+      "$42,000,000",
+      "CLM-0925"
+    ],
+    "expect": {
+      "namedInsured": "Liberty Distribution Group",
+      "submissionId": "SUB-2026-1025",
+      "policyNumber": "POL-26-40025",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$42,000,000",
+      "requestedLimit": "$6,000,000",
+      "annualPremium": "$375,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0027-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3109,
+    "mustContain": [
+      "Meridian Healthcare Partners",
+      "SUB-2026-1026",
+      "POL-26-40026",
+      "$49,000,000",
+      "CLM-0926"
+    ],
+    "expect": {
+      "namedInsured": "Meridian Healthcare Partners",
+      "submissionId": "SUB-2026-1026",
+      "policyNumber": "POL-26-40026",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$49,000,000",
+      "requestedLimit": "$7,000,000",
+      "annualPremium": "$388,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0028-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3117,
+    "mustContain": [
+      "Pioneer Chemicals Inc",
+      "SUB-2026-1027",
+      "POL-26-40027",
+      "$10,000,000",
+      "CLM-0927"
+    ],
+    "expect": {
+      "namedInsured": "Pioneer Chemicals Inc",
+      "submissionId": "SUB-2026-1027",
+      "policyNumber": "POL-26-40027",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$10,000,000",
+      "requestedLimit": "$8,000,000",
+      "annualPremium": "$401,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0029-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3106,
+    "mustContain": [
+      "Sterling Maritime Holdings",
+      "SUB-2026-1028",
+      "POL-26-40028",
+      "$17,000,000",
+      "CLM-0928"
+    ],
+    "expect": {
+      "namedInsured": "Sterling Maritime Holdings",
+      "submissionId": "SUB-2026-1028",
+      "policyNumber": "POL-26-40028",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$17,000,000",
+      "requestedLimit": "$9,000,000",
+      "annualPremium": "$414,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0030-acord-application.pdf",
+    "format": "pdf-multi",
+    "provider": "pdf-text",
+    "byteLength": 3120,
+    "mustContain": [
+      "Vanguard Marine Industries",
+      "SUB-2026-1029",
+      "POL-26-40029",
+      "$24,000,000",
+      "CLM-0929"
+    ],
+    "expect": {
+      "namedInsured": "Vanguard Marine Industries",
+      "submissionId": "SUB-2026-1029",
+      "policyNumber": "POL-26-40029",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$24,000,000",
+      "requestedLimit": "$10,000,000",
+      "annualPremium": "$427,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0031-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1664,
+    "mustContain": [
+      "Atlas Hospitality Corp",
+      "POL-26-40030",
+      "$11,000,000",
+      "$440,000",
+      "2026-07-15"
+    ],
+    "expect": {
+      "namedInsured": "Atlas Hospitality Corp",
+      "submissionId": "SUB-2026-1030",
+      "policyNumber": "POL-26-40030",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$31,000,000",
+      "requestedLimit": "$11,000,000",
+      "annualPremium": "$440,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0032-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1662,
+    "mustContain": [
+      "Beacon Logistics Co",
+      "POL-26-40031",
+      "$12,000,000",
+      "$453,000",
+      "2026-08-15"
+    ],
+    "expect": {
+      "namedInsured": "Beacon Logistics Co",
+      "submissionId": "SUB-2026-1031",
+      "policyNumber": "POL-26-40031",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$38,000,000",
+      "requestedLimit": "$12,000,000",
+      "annualPremium": "$453,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0033-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1658,
+    "mustContain": [
+      "Crestline Robotics LLC",
+      "POL-26-40032",
+      "$13,000,000",
+      "$466,000",
+      "2026-09-15"
+    ],
+    "expect": {
+      "namedInsured": "Crestline Robotics LLC",
+      "submissionId": "SUB-2026-1032",
+      "policyNumber": "POL-26-40032",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$45,000,000",
+      "requestedLimit": "$13,000,000",
+      "annualPremium": "$466,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0034-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1657,
+    "mustContain": [
+      "Delta Mining Group",
+      "POL-26-40033",
+      "$14,000,000",
+      "$479,000",
+      "2026-10-15"
+    ],
+    "expect": {
+      "namedInsured": "Delta Mining Group",
+      "submissionId": "SUB-2026-1033",
+      "policyNumber": "POL-26-40033",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$6,000,000",
+      "requestedLimit": "$14,000,000",
+      "annualPremium": "$479,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0035-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1677,
+    "mustContain": [
+      "Evergreen Manufacturing Partners",
+      "POL-26-40034",
+      "$15,000,000",
+      "$492,000",
+      "2026-11-15"
+    ],
+    "expect": {
+      "namedInsured": "Evergreen Manufacturing Partners",
+      "submissionId": "SUB-2026-1034",
+      "policyNumber": "POL-26-40034",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$13,000,000",
+      "requestedLimit": "$15,000,000",
+      "annualPremium": "$492,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0036-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1655,
+    "mustContain": [
+      "Foundry Pharma Inc",
+      "POL-26-40035",
+      "$16,000,000",
+      "$505,000",
+      "2026-12-15"
+    ],
+    "expect": {
+      "namedInsured": "Foundry Pharma Inc",
+      "submissionId": "SUB-2026-1035",
+      "policyNumber": "POL-26-40035",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$20,000,000",
+      "requestedLimit": "$16,000,000",
+      "annualPremium": "$505,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0037-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1669,
+    "mustContain": [
+      "Horizon Textiles Holdings",
+      "POL-26-40036",
+      "$17,000,000",
+      "$518,000",
+      "2026-01-15"
+    ],
+    "expect": {
+      "namedInsured": "Horizon Textiles Holdings",
+      "submissionId": "SUB-2026-1036",
+      "policyNumber": "POL-26-40036",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$27,000,000",
+      "requestedLimit": "$17,000,000",
+      "annualPremium": "$518,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0038-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1671,
+    "mustContain": [
+      "Ironclad Foods Industries",
+      "POL-26-40037",
+      "$18,000,000",
+      "$531,000",
+      "2026-02-15"
+    ],
+    "expect": {
+      "namedInsured": "Ironclad Foods Industries",
+      "submissionId": "SUB-2026-1037",
+      "policyNumber": "POL-26-40037",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$34,000,000",
+      "requestedLimit": "$18,000,000",
+      "annualPremium": "$531,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0039-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1666,
+    "mustContain": [
+      "Juniper Retail Corp",
+      "POL-26-40038",
+      "$19,000,000",
+      "$544,000",
+      "2026-03-15"
+    ],
+    "expect": {
+      "namedInsured": "Juniper Retail Corp",
+      "submissionId": "SUB-2026-1038",
+      "policyNumber": "POL-26-40038",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$41,000,000",
+      "requestedLimit": "$19,000,000",
+      "annualPremium": "$544,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0040-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1663,
+    "mustContain": [
+      "Keystone Agriculture Co",
+      "POL-26-40039",
+      "$20,000,000",
+      "$557,000",
+      "2026-04-15"
+    ],
+    "expect": {
+      "namedInsured": "Keystone Agriculture Co",
+      "submissionId": "SUB-2026-1039",
+      "policyNumber": "POL-26-40039",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$48,000,000",
+      "requestedLimit": "$20,000,000",
+      "annualPremium": "$557,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0041-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1660,
+    "mustContain": [
+      "Acme Energy LLC",
+      "POL-26-40040",
+      "$1,000,000",
+      "$570,000",
+      "2026-05-15"
+    ],
+    "expect": {
+      "namedInsured": "Acme Energy LLC",
+      "submissionId": "SUB-2026-1040",
+      "policyNumber": "POL-26-40040",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$9,000,000",
+      "requestedLimit": "$1,000,000",
+      "annualPremium": "$570,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0042-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1661,
+    "mustContain": [
+      "Summit Construction Group",
+      "POL-26-40041",
+      "$2,000,000",
+      "$583,000",
+      "2026-06-15"
+    ],
+    "expect": {
+      "namedInsured": "Summit Construction Group",
+      "submissionId": "SUB-2026-1041",
+      "policyNumber": "POL-26-40041",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$16,000,000",
+      "requestedLimit": "$2,000,000",
+      "annualPremium": "$583,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0043-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1661,
+    "mustContain": [
+      "Harbor Technologies Partners",
+      "POL-26-40042",
+      "$3,000,000",
+      "$596,000",
+      "2026-07-15"
+    ],
+    "expect": {
+      "namedInsured": "Harbor Technologies Partners",
+      "submissionId": "SUB-2026-1042",
+      "policyNumber": "POL-26-40042",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$23,000,000",
+      "requestedLimit": "$3,000,000",
+      "annualPremium": "$596,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0044-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1658,
+    "mustContain": [
+      "Cascade Properties Inc",
+      "POL-26-40043",
+      "$4,000,000",
+      "$609,000",
+      "2026-08-15"
+    ],
+    "expect": {
+      "namedInsured": "Cascade Properties Inc",
+      "submissionId": "SUB-2026-1043",
+      "policyNumber": "POL-26-40043",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$30,000,000",
+      "requestedLimit": "$4,000,000",
+      "annualPremium": "$609,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0045-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1672,
+    "mustContain": [
+      "Granite Aerospace Holdings",
+      "POL-26-40044",
+      "$5,000,000",
+      "$622,000",
+      "2026-09-15"
+    ],
+    "expect": {
+      "namedInsured": "Granite Aerospace Holdings",
+      "submissionId": "SUB-2026-1044",
+      "policyNumber": "POL-26-40044",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$37,000,000",
+      "requestedLimit": "$5,000,000",
+      "annualPremium": "$622,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0046-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1660,
+    "mustContain": [
+      "Liberty Distribution Industries",
+      "POL-26-40045",
+      "$6,000,000",
+      "$635,000",
+      "2026-10-15"
+    ],
+    "expect": {
+      "namedInsured": "Liberty Distribution Industries",
+      "submissionId": "SUB-2026-1045",
+      "policyNumber": "POL-26-40045",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$44,000,000",
+      "requestedLimit": "$6,000,000",
+      "annualPremium": "$635,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0047-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1671,
+    "mustContain": [
+      "Meridian Healthcare Corp",
+      "POL-26-40046",
+      "$7,000,000",
+      "$648,000",
+      "2026-11-15"
+    ],
+    "expect": {
+      "namedInsured": "Meridian Healthcare Corp",
+      "submissionId": "SUB-2026-1046",
+      "policyNumber": "POL-26-40046",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$5,000,000",
+      "requestedLimit": "$7,000,000",
+      "annualPremium": "$648,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0048-quote-confirmation.pdf",
+    "format": "pdf-single",
+    "provider": "pdf-text",
+    "byteLength": 1664,
+    "mustContain": [
+      "Pioneer Chemicals Co",
+      "POL-26-40047",
+      "$8,000,000",
+      "$661,000",
+      "2026-12-15"
+    ],
+    "expect": {
+      "namedInsured": "Pioneer Chemicals Co",
+      "submissionId": "SUB-2026-1047",
+      "policyNumber": "POL-26-40047",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$12,000,000",
+      "requestedLimit": "$8,000,000",
+      "annualPremium": "$661,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0049-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8736,
+    "mustContain": [
+      "Sterling Maritime LLC",
+      "SUB-2026-1048",
+      "Directors and Officers",
+      "$9,000,000",
+      "$19,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Sterling Maritime LLC",
+      "submissionId": "SUB-2026-1048",
+      "policyNumber": "POL-26-40048",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$19,000,000",
+      "requestedLimit": "$9,000,000",
+      "annualPremium": "$674,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0050-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8734,
+    "mustContain": [
+      "Vanguard Marine Group",
+      "SUB-2026-1049",
+      "Environmental",
+      "$10,000,000",
+      "$26,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Vanguard Marine Group",
+      "submissionId": "SUB-2026-1049",
+      "policyNumber": "POL-26-40049",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$26,000,000",
+      "requestedLimit": "$10,000,000",
+      "annualPremium": "$687,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0051-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8742,
+    "mustContain": [
+      "Atlas Hospitality Partners",
+      "SUB-2026-1050",
+      "Commercial Property",
+      "$11,000,000",
+      "$33,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Atlas Hospitality Partners",
+      "submissionId": "SUB-2026-1050",
+      "policyNumber": "POL-26-40050",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$33,000,000",
+      "requestedLimit": "$11,000,000",
+      "annualPremium": "$700,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0052-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8736,
+    "mustContain": [
+      "Beacon Logistics Inc",
+      "SUB-2026-1051",
+      "General Liability",
+      "$12,000,000",
+      "$40,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Beacon Logistics Inc",
+      "submissionId": "SUB-2026-1051",
+      "policyNumber": "POL-26-40051",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$40,000,000",
+      "requestedLimit": "$12,000,000",
+      "annualPremium": "$713,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0053-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8735,
+    "mustContain": [
+      "Crestline Robotics Holdings",
+      "SUB-2026-1052",
+      "Cyber",
+      "$13,000,000",
+      "$47,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Crestline Robotics Holdings",
+      "submissionId": "SUB-2026-1052",
+      "policyNumber": "POL-26-40052",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$47,000,000",
+      "requestedLimit": "$13,000,000",
+      "annualPremium": "$726,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0054-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8737,
+    "mustContain": [
+      "Delta Mining Industries",
+      "SUB-2026-1053",
+      "Marine Cargo",
+      "$14,000,000",
+      "$8,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Delta Mining Industries",
+      "submissionId": "SUB-2026-1053",
+      "policyNumber": "POL-26-40053",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$8,000,000",
+      "requestedLimit": "$14,000,000",
+      "annualPremium": "$739,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0055-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8739,
+    "mustContain": [
+      "Evergreen Manufacturing Corp",
+      "SUB-2026-1054",
+      "Workers Compensation",
+      "$15,000,000",
+      "$15,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Evergreen Manufacturing Corp",
+      "submissionId": "SUB-2026-1054",
+      "policyNumber": "POL-26-40054",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$15,000,000",
+      "requestedLimit": "$15,000,000",
+      "annualPremium": "$752,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0056-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8732,
+    "mustContain": [
+      "Foundry Pharma Co",
+      "SUB-2026-1055",
+      "Inland Marine",
+      "$16,000,000",
+      "$22,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Foundry Pharma Co",
+      "submissionId": "SUB-2026-1055",
+      "policyNumber": "POL-26-40055",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$22,000,000",
+      "requestedLimit": "$16,000,000",
+      "annualPremium": "$765,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0057-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8740,
+    "mustContain": [
+      "Horizon Textiles LLC",
+      "SUB-2026-1056",
+      "Commercial Auto",
+      "$17,000,000",
+      "$29,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Horizon Textiles LLC",
+      "submissionId": "SUB-2026-1056",
+      "policyNumber": "POL-26-40056",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$29,000,000",
+      "requestedLimit": "$17,000,000",
+      "annualPremium": "$778,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0058-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8735,
+    "mustContain": [
+      "Ironclad Foods Group",
+      "SUB-2026-1057",
+      "Professional Liability",
+      "$18,000,000",
+      "$36,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Ironclad Foods Group",
+      "submissionId": "SUB-2026-1057",
+      "policyNumber": "POL-26-40057",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$36,000,000",
+      "requestedLimit": "$18,000,000",
+      "annualPremium": "$791,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0059-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8744,
+    "mustContain": [
+      "Juniper Retail Partners",
+      "SUB-2026-1058",
+      "Directors and Officers",
+      "$19,000,000",
+      "$43,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Juniper Retail Partners",
+      "submissionId": "SUB-2026-1058",
+      "policyNumber": "POL-26-40058",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$43,000,000",
+      "requestedLimit": "$19,000,000",
+      "annualPremium": "$804,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0060-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8740,
+    "mustContain": [
+      "Keystone Agriculture Inc",
+      "SUB-2026-1059",
+      "Environmental",
+      "$20,000,000",
+      "$50,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Keystone Agriculture Inc",
+      "submissionId": "SUB-2026-1059",
+      "policyNumber": "POL-26-40059",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$50,000,000",
+      "requestedLimit": "$20,000,000",
+      "annualPremium": "$817,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0061-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8734,
+    "mustContain": [
+      "Acme Energy Holdings",
+      "SUB-2026-1060",
+      "Commercial Property",
+      "$1,000,000",
+      "$11,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Acme Energy Holdings",
+      "submissionId": "SUB-2026-1060",
+      "policyNumber": "POL-26-40060",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$11,000,000",
+      "requestedLimit": "$1,000,000",
+      "annualPremium": "$830,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0062-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8746,
+    "mustContain": [
+      "Summit Construction Industries",
+      "SUB-2026-1061",
+      "General Liability",
+      "$2,000,000",
+      "$18,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Summit Construction Industries",
+      "submissionId": "SUB-2026-1061",
+      "policyNumber": "POL-26-40061",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$18,000,000",
+      "requestedLimit": "$2,000,000",
+      "annualPremium": "$843,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0063-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8732,
+    "mustContain": [
+      "Harbor Technologies Corp",
+      "SUB-2026-1062",
+      "Cyber",
+      "$3,000,000",
+      "$25,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Harbor Technologies Corp",
+      "submissionId": "SUB-2026-1062",
+      "policyNumber": "POL-26-40062",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$25,000,000",
+      "requestedLimit": "$3,000,000",
+      "annualPremium": "$856,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0064-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8735,
+    "mustContain": [
+      "Cascade Properties Co",
+      "SUB-2026-1063",
+      "Marine Cargo",
+      "$4,000,000",
+      "$32,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Cascade Properties Co",
+      "submissionId": "SUB-2026-1063",
+      "policyNumber": "POL-26-40063",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$32,000,000",
+      "requestedLimit": "$4,000,000",
+      "annualPremium": "$869,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0065-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8736,
+    "mustContain": [
+      "Granite Aerospace LLC",
+      "SUB-2026-1064",
+      "Workers Compensation",
+      "$5,000,000",
+      "$39,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Granite Aerospace LLC",
+      "submissionId": "SUB-2026-1064",
+      "policyNumber": "POL-26-40064",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$39,000,000",
+      "requestedLimit": "$5,000,000",
+      "annualPremium": "$882,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0066-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8731,
+    "mustContain": [
+      "Liberty Distribution Group",
+      "SUB-2026-1065",
+      "Inland Marine",
+      "$6,000,000",
+      "$46,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Liberty Distribution Group",
+      "submissionId": "SUB-2026-1065",
+      "policyNumber": "POL-26-40065",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$46,000,000",
+      "requestedLimit": "$6,000,000",
+      "annualPremium": "$895,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0067-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8740,
+    "mustContain": [
+      "Meridian Healthcare Partners",
+      "SUB-2026-1066",
+      "Commercial Auto",
+      "$7,000,000",
+      "$7,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Meridian Healthcare Partners",
+      "submissionId": "SUB-2026-1066",
+      "policyNumber": "POL-26-40066",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$7,000,000",
+      "requestedLimit": "$7,000,000",
+      "annualPremium": "$908,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0068-broker-cover-letter.docx",
+    "format": "docx",
+    "provider": "docx",
+    "byteLength": 8741,
+    "mustContain": [
+      "Pioneer Chemicals Inc",
+      "SUB-2026-1067",
+      "Professional Liability",
+      "$8,000,000",
+      "$14,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Pioneer Chemicals Inc",
+      "submissionId": "SUB-2026-1067",
+      "policyNumber": "POL-26-40067",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$14,000,000",
+      "requestedLimit": "$8,000,000",
+      "annualPremium": "$921,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0069-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 264,
+    "mustContain": [
+      "Sterling Maritime Holdings",
+      "SUB-2026-1068",
+      "$21,000,000",
+      "$9,000,000",
+      "Massachusetts"
+    ],
+    "expect": {
+      "namedInsured": "Sterling Maritime Holdings",
+      "submissionId": "SUB-2026-1068",
+      "policyNumber": "POL-26-40068",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$21,000,000",
+      "requestedLimit": "$9,000,000",
+      "annualPremium": "$934,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0070-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 267,
+    "mustContain": [
+      "Vanguard Marine Industries",
+      "SUB-2026-1069",
+      "$28,000,000",
+      "$10,000,000",
+      "Colorado"
+    ],
+    "expect": {
+      "namedInsured": "Vanguard Marine Industries",
+      "submissionId": "SUB-2026-1069",
+      "policyNumber": "POL-26-40069",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$28,000,000",
+      "requestedLimit": "$10,000,000",
+      "annualPremium": "$947,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0071-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 269,
+    "mustContain": [
+      "Atlas Hospitality Corp",
+      "SUB-2026-1070",
+      "$35,000,000",
+      "$11,000,000",
+      "United Kingdom"
+    ],
+    "expect": {
+      "namedInsured": "Atlas Hospitality Corp",
+      "submissionId": "SUB-2026-1070",
+      "policyNumber": "POL-26-40070",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$35,000,000",
+      "requestedLimit": "$11,000,000",
+      "annualPremium": "$960,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0072-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 257,
+    "mustContain": [
+      "Beacon Logistics Co",
+      "SUB-2026-1071",
+      "$42,000,000",
+      "$12,000,000",
+      "Singapore"
+    ],
+    "expect": {
+      "namedInsured": "Beacon Logistics Co",
+      "submissionId": "SUB-2026-1071",
+      "policyNumber": "POL-26-40071",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$42,000,000",
+      "requestedLimit": "$12,000,000",
+      "annualPremium": "$973,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0073-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 272,
+    "mustContain": [
+      "Crestline Robotics LLC",
+      "SUB-2026-1072",
+      "$49,000,000",
+      "$13,000,000",
+      "Florida"
+    ],
+    "expect": {
+      "namedInsured": "Crestline Robotics LLC",
+      "submissionId": "SUB-2026-1072",
+      "policyNumber": "POL-26-40072",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$49,000,000",
+      "requestedLimit": "$13,000,000",
+      "annualPremium": "$986,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0074-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 250,
+    "mustContain": [
+      "Delta Mining Group",
+      "SUB-2026-1073",
+      "$10,000,000",
+      "$14,000,000",
+      "California"
+    ],
+    "expect": {
+      "namedInsured": "Delta Mining Group",
+      "submissionId": "SUB-2026-1073",
+      "policyNumber": "POL-26-40073",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$10,000,000",
+      "requestedLimit": "$14,000,000",
+      "annualPremium": "$999,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0075-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 262,
+    "mustContain": [
+      "Evergreen Manufacturing Partners",
+      "SUB-2026-1074",
+      "$17,000,000",
+      "$15,000,000",
+      "Texas"
+    ],
+    "expect": {
+      "namedInsured": "Evergreen Manufacturing Partners",
+      "submissionId": "SUB-2026-1074",
+      "policyNumber": "POL-26-40074",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$17,000,000",
+      "requestedLimit": "$15,000,000",
+      "annualPremium": "$62,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0076-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 244,
+    "mustContain": [
+      "Foundry Pharma Inc",
+      "SUB-2026-1075",
+      "$24,000,000",
+      "$16,000,000",
+      "New York"
+    ],
+    "expect": {
+      "namedInsured": "Foundry Pharma Inc",
+      "submissionId": "SUB-2026-1075",
+      "policyNumber": "POL-26-40075",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$24,000,000",
+      "requestedLimit": "$16,000,000",
+      "annualPremium": "$75,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0077-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 262,
+    "mustContain": [
+      "Horizon Textiles Holdings",
+      "SUB-2026-1076",
+      "$31,000,000",
+      "$17,000,000",
+      "Louisiana"
+    ],
+    "expect": {
+      "namedInsured": "Horizon Textiles Holdings",
+      "submissionId": "SUB-2026-1076",
+      "policyNumber": "POL-26-40076",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$31,000,000",
+      "requestedLimit": "$17,000,000",
+      "annualPremium": "$88,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0078-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 271,
+    "mustContain": [
+      "Ironclad Foods Industries",
+      "SUB-2026-1077",
+      "$38,000,000",
+      "$18,000,000",
+      "Illinois"
+    ],
+    "expect": {
+      "namedInsured": "Ironclad Foods Industries",
+      "submissionId": "SUB-2026-1077",
+      "policyNumber": "POL-26-40077",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$38,000,000",
+      "requestedLimit": "$18,000,000",
+      "annualPremium": "$101,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0079-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 252,
+    "mustContain": [
+      "Juniper Retail Corp",
+      "SUB-2026-1078",
+      "$45,000,000",
+      "$19,000,000",
+      "Georgia"
+    ],
+    "expect": {
+      "namedInsured": "Juniper Retail Corp",
+      "submissionId": "SUB-2026-1078",
+      "policyNumber": "POL-26-40078",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$45,000,000",
+      "requestedLimit": "$19,000,000",
+      "annualPremium": "$114,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0080-underwriting-notes.txt",
+    "format": "txt",
+    "provider": "plain-text",
+    "byteLength": 265,
+    "mustContain": [
+      "Keystone Agriculture Co",
+      "SUB-2026-1079",
+      "$6,000,000",
+      "$20,000,000",
+      "Washington"
+    ],
+    "expect": {
+      "namedInsured": "Keystone Agriculture Co",
+      "submissionId": "SUB-2026-1079",
+      "policyNumber": "POL-26-40079",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$6,000,000",
+      "requestedLimit": "$20,000,000",
+      "annualPremium": "$127,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0081-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 259,
+    "mustContain": [
+      "Acme Energy LLC",
+      "SUB-2026-1080",
+      "Miami",
+      "$13,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Acme Energy LLC",
+      "submissionId": "SUB-2026-1080",
+      "policyNumber": "POL-26-40080",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$13,000,000",
+      "requestedLimit": "$1,000,000",
+      "annualPremium": "$140,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0082-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 271,
+    "mustContain": [
+      "Summit Construction Group",
+      "SUB-2026-1081",
+      "Los Angeles",
+      "$20,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Summit Construction Group",
+      "submissionId": "SUB-2026-1081",
+      "policyNumber": "POL-26-40081",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$20,000,000",
+      "requestedLimit": "$2,000,000",
+      "annualPremium": "$153,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0083-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 278,
+    "mustContain": [
+      "Harbor Technologies Partners",
+      "SUB-2026-1082",
+      "Houston",
+      "$27,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Harbor Technologies Partners",
+      "submissionId": "SUB-2026-1082",
+      "policyNumber": "POL-26-40082",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$27,000,000",
+      "requestedLimit": "$3,000,000",
+      "annualPremium": "$166,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0084-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 264,
+    "mustContain": [
+      "Cascade Properties Inc",
+      "SUB-2026-1083",
+      "New York",
+      "$34,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Cascade Properties Inc",
+      "submissionId": "SUB-2026-1083",
+      "policyNumber": "POL-26-40083",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$34,000,000",
+      "requestedLimit": "$4,000,000",
+      "annualPremium": "$179,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0085-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 270,
+    "mustContain": [
+      "Granite Aerospace Holdings",
+      "SUB-2026-1084",
+      "New Orleans",
+      "$41,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Granite Aerospace Holdings",
+      "submissionId": "SUB-2026-1084",
+      "policyNumber": "POL-26-40084",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$41,000,000",
+      "requestedLimit": "$5,000,000",
+      "annualPremium": "$192,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0086-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 273,
+    "mustContain": [
+      "Liberty Distribution Industries",
+      "SUB-2026-1085",
+      "Chicago",
+      "$48,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Liberty Distribution Industries",
+      "submissionId": "SUB-2026-1085",
+      "policyNumber": "POL-26-40085",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$48,000,000",
+      "requestedLimit": "$6,000,000",
+      "annualPremium": "$205,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0087-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 255,
+    "mustContain": [
+      "Meridian Healthcare Corp",
+      "SUB-2026-1086",
+      "Atlanta",
+      "$9,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Meridian Healthcare Corp",
+      "submissionId": "SUB-2026-1086",
+      "policyNumber": "POL-26-40086",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$9,000,000",
+      "requestedLimit": "$7,000,000",
+      "annualPremium": "$218,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0088-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 258,
+    "mustContain": [
+      "Pioneer Chemicals Co",
+      "SUB-2026-1087",
+      "Seattle",
+      "$16,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Pioneer Chemicals Co",
+      "submissionId": "SUB-2026-1087",
+      "policyNumber": "POL-26-40087",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$16,000,000",
+      "requestedLimit": "$8,000,000",
+      "annualPremium": "$231,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0089-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 259,
+    "mustContain": [
+      "Sterling Maritime LLC",
+      "SUB-2026-1088",
+      "Boston",
+      "$23,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Sterling Maritime LLC",
+      "submissionId": "SUB-2026-1088",
+      "policyNumber": "POL-26-40088",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$23,000,000",
+      "requestedLimit": "$9,000,000",
+      "annualPremium": "$244,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0090-statement-of-values.csv",
+    "format": "csv",
+    "provider": "plain-text",
+    "byteLength": 257,
+    "mustContain": [
+      "Vanguard Marine Group",
+      "SUB-2026-1089",
+      "Denver",
+      "$30,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Vanguard Marine Group",
+      "submissionId": "SUB-2026-1089",
+      "policyNumber": "POL-26-40089",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$30,000,000",
+      "requestedLimit": "$10,000,000",
+      "annualPremium": "$257,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0091-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 343,
+    "mustContain": [
+      "Atlas Hospitality Partners",
+      "SUB-2026-1090",
+      "$37,000,000",
+      "Commercial Property"
+    ],
+    "expect": {
+      "namedInsured": "Atlas Hospitality Partners",
+      "submissionId": "SUB-2026-1090",
+      "policyNumber": "POL-26-40090",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$37,000,000",
+      "requestedLimit": "$11,000,000",
+      "annualPremium": "$270,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0092-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 335,
+    "mustContain": [
+      "Beacon Logistics Inc",
+      "SUB-2026-1091",
+      "$44,000,000",
+      "General Liability"
+    ],
+    "expect": {
+      "namedInsured": "Beacon Logistics Inc",
+      "submissionId": "SUB-2026-1091",
+      "policyNumber": "POL-26-40091",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$44,000,000",
+      "requestedLimit": "$12,000,000",
+      "annualPremium": "$283,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0093-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 341,
+    "mustContain": [
+      "Crestline Robotics Holdings",
+      "SUB-2026-1092",
+      "$5,000,000",
+      "Cyber"
+    ],
+    "expect": {
+      "namedInsured": "Crestline Robotics Holdings",
+      "submissionId": "SUB-2026-1092",
+      "policyNumber": "POL-26-40092",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$5,000,000",
+      "requestedLimit": "$13,000,000",
+      "annualPremium": "$296,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0094-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 340,
+    "mustContain": [
+      "Delta Mining Industries",
+      "SUB-2026-1093",
+      "$12,000,000",
+      "Marine Cargo"
+    ],
+    "expect": {
+      "namedInsured": "Delta Mining Industries",
+      "submissionId": "SUB-2026-1093",
+      "policyNumber": "POL-26-40093",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$12,000,000",
+      "requestedLimit": "$14,000,000",
+      "annualPremium": "$309,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0095-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 347,
+    "mustContain": [
+      "Evergreen Manufacturing Corp",
+      "SUB-2026-1094",
+      "$19,000,000",
+      "Workers Compensation"
+    ],
+    "expect": {
+      "namedInsured": "Evergreen Manufacturing Corp",
+      "submissionId": "SUB-2026-1094",
+      "policyNumber": "POL-26-40094",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$19,000,000",
+      "requestedLimit": "$15,000,000",
+      "annualPremium": "$322,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0096-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 326,
+    "mustContain": [
+      "Foundry Pharma Co",
+      "SUB-2026-1095",
+      "$26,000,000",
+      "Inland Marine"
+    ],
+    "expect": {
+      "namedInsured": "Foundry Pharma Co",
+      "submissionId": "SUB-2026-1095",
+      "policyNumber": "POL-26-40095",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$26,000,000",
+      "requestedLimit": "$16,000,000",
+      "annualPremium": "$335,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0097-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 329,
+    "mustContain": [
+      "Horizon Textiles LLC",
+      "SUB-2026-1096",
+      "$33,000,000",
+      "Commercial Auto"
+    ],
+    "expect": {
+      "namedInsured": "Horizon Textiles LLC",
+      "submissionId": "SUB-2026-1096",
+      "policyNumber": "POL-26-40096",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$33,000,000",
+      "requestedLimit": "$17,000,000",
+      "annualPremium": "$348,000",
+      "effectiveDate": "2026-01-15"
+    }
+  },
+  {
+    "fileName": "0098-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 338,
+    "mustContain": [
+      "Ironclad Foods Group",
+      "SUB-2026-1097",
+      "$40,000,000",
+      "Professional Liability"
+    ],
+    "expect": {
+      "namedInsured": "Ironclad Foods Group",
+      "submissionId": "SUB-2026-1097",
+      "policyNumber": "POL-26-40097",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "California",
+      "totalInsuredValue": "$40,000,000",
+      "requestedLimit": "$18,000,000",
+      "annualPremium": "$361,000",
+      "effectiveDate": "2026-02-15"
+    }
+  },
+  {
+    "fileName": "0099-submission-extract.json",
+    "format": "json",
+    "provider": "plain-text",
+    "byteLength": 336,
+    "mustContain": [
+      "Juniper Retail Partners",
+      "SUB-2026-1098",
+      "$47,000,000",
+      "Directors and Officers"
+    ],
+    "expect": {
+      "namedInsured": "Juniper Retail Partners",
+      "submissionId": "SUB-2026-1098",
+      "policyNumber": "POL-26-40098",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Texas",
+      "totalInsuredValue": "$47,000,000",
+      "requestedLimit": "$19,000,000",
+      "annualPremium": "$374,000",
+      "effectiveDate": "2026-03-15"
+    }
+  },
+  {
+    "fileName": "0100-broker-email.eml",
+    "format": "eml",
+    "provider": "plain-text",
+    "byteLength": 342,
+    "mustContain": [
+      "Keystone Agriculture Inc",
+      "SUB-2026-1099",
+      "Environmental",
+      "$8,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Keystone Agriculture Inc",
+      "submissionId": "SUB-2026-1099",
+      "policyNumber": "POL-26-40099",
+      "lineOfBusiness": "Environmental",
+      "peril": "Cyber Breach",
+      "jurisdiction": "New York",
+      "totalInsuredValue": "$8,000,000",
+      "requestedLimit": "$20,000,000",
+      "annualPremium": "$387,000",
+      "effectiveDate": "2026-04-15"
+    }
+  },
+  {
+    "fileName": "0101-broker-email.eml",
+    "format": "eml",
+    "provider": "plain-text",
+    "byteLength": 333,
+    "mustContain": [
+      "Acme Energy Holdings",
+      "SUB-2026-1100",
+      "Commercial Property",
+      "$15,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Acme Energy Holdings",
+      "submissionId": "SUB-2026-1100",
+      "policyNumber": "POL-26-40100",
+      "lineOfBusiness": "Commercial Property",
+      "peril": "Hurricane",
+      "jurisdiction": "Louisiana",
+      "totalInsuredValue": "$15,000,000",
+      "requestedLimit": "$1,000,000",
+      "annualPremium": "$400,000",
+      "effectiveDate": "2026-05-15"
+    }
+  },
+  {
+    "fileName": "0102-broker-email.eml",
+    "format": "eml",
+    "provider": "plain-text",
+    "byteLength": 377,
+    "mustContain": [
+      "Summit Construction Industries",
+      "SUB-2026-1101",
+      "General Liability",
+      "$22,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Summit Construction Industries",
+      "submissionId": "SUB-2026-1101",
+      "policyNumber": "POL-26-40101",
+      "lineOfBusiness": "General Liability",
+      "peril": "Wildfire",
+      "jurisdiction": "Illinois",
+      "totalInsuredValue": "$22,000,000",
+      "requestedLimit": "$2,000,000",
+      "annualPremium": "$413,000",
+      "effectiveDate": "2026-06-15"
+    }
+  },
+  {
+    "fileName": "0103-broker-email.eml",
+    "format": "eml",
+    "provider": "plain-text",
+    "byteLength": 333,
+    "mustContain": [
+      "Harbor Technologies Corp",
+      "SUB-2026-1102",
+      "Cyber",
+      "$29,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Harbor Technologies Corp",
+      "submissionId": "SUB-2026-1102",
+      "policyNumber": "POL-26-40102",
+      "lineOfBusiness": "Cyber",
+      "peril": "Business Interruption",
+      "jurisdiction": "Georgia",
+      "totalInsuredValue": "$29,000,000",
+      "requestedLimit": "$3,000,000",
+      "annualPremium": "$426,000",
+      "effectiveDate": "2026-07-15"
+    }
+  },
+  {
+    "fileName": "0104-broker-email.eml",
+    "format": "eml",
+    "provider": "plain-text",
+    "byteLength": 340,
+    "mustContain": [
+      "Cascade Properties Co",
+      "SUB-2026-1103",
+      "Marine Cargo",
+      "$36,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Cascade Properties Co",
+      "submissionId": "SUB-2026-1103",
+      "policyNumber": "POL-26-40103",
+      "lineOfBusiness": "Marine Cargo",
+      "peril": "Tornado",
+      "jurisdiction": "Washington",
+      "totalInsuredValue": "$36,000,000",
+      "requestedLimit": "$4,000,000",
+      "annualPremium": "$439,000",
+      "effectiveDate": "2026-08-15"
+    }
+  },
+  {
+    "fileName": "0105-broker-email.eml",
+    "format": "eml",
+    "provider": "plain-text",
+    "byteLength": 344,
+    "mustContain": [
+      "Granite Aerospace LLC",
+      "SUB-2026-1104",
+      "Workers Compensation",
+      "$43,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Granite Aerospace LLC",
+      "submissionId": "SUB-2026-1104",
+      "policyNumber": "POL-26-40104",
+      "lineOfBusiness": "Workers Compensation",
+      "peril": "Flood",
+      "jurisdiction": "Massachusetts",
+      "totalInsuredValue": "$43,000,000",
+      "requestedLimit": "$5,000,000",
+      "annualPremium": "$452,000",
+      "effectiveDate": "2026-09-15"
+    }
+  },
+  {
+    "fileName": "0106-underwriting-memo.md",
+    "format": "md",
+    "provider": "plain-text",
+    "byteLength": 312,
+    "mustContain": [
+      "Liberty Distribution Group",
+      "SUB-2026-1105",
+      "Inland Marine",
+      "$50,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Liberty Distribution Group",
+      "submissionId": "SUB-2026-1105",
+      "policyNumber": "POL-26-40105",
+      "lineOfBusiness": "Inland Marine",
+      "peril": "Theft",
+      "jurisdiction": "Colorado",
+      "totalInsuredValue": "$50,000,000",
+      "requestedLimit": "$6,000,000",
+      "annualPremium": "$465,000",
+      "effectiveDate": "2026-10-15"
+    }
+  },
+  {
+    "fileName": "0107-underwriting-memo.md",
+    "format": "md",
+    "provider": "plain-text",
+    "byteLength": 328,
+    "mustContain": [
+      "Meridian Healthcare Partners",
+      "SUB-2026-1106",
+      "Commercial Auto",
+      "$11,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Meridian Healthcare Partners",
+      "submissionId": "SUB-2026-1106",
+      "policyNumber": "POL-26-40106",
+      "lineOfBusiness": "Commercial Auto",
+      "peril": "Windstorm",
+      "jurisdiction": "United Kingdom",
+      "totalInsuredValue": "$11,000,000",
+      "requestedLimit": "$7,000,000",
+      "annualPremium": "$478,000",
+      "effectiveDate": "2026-11-15"
+    }
+  },
+  {
+    "fileName": "0108-underwriting-memo.md",
+    "format": "md",
+    "provider": "plain-text",
+    "byteLength": 317,
+    "mustContain": [
+      "Pioneer Chemicals Inc",
+      "SUB-2026-1107",
+      "Professional Liability",
+      "$18,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Pioneer Chemicals Inc",
+      "submissionId": "SUB-2026-1107",
+      "policyNumber": "POL-26-40107",
+      "lineOfBusiness": "Professional Liability",
+      "peril": "Earthquake",
+      "jurisdiction": "Singapore",
+      "totalInsuredValue": "$18,000,000",
+      "requestedLimit": "$8,000,000",
+      "annualPremium": "$491,000",
+      "effectiveDate": "2026-12-15"
+    }
+  },
+  {
+    "fileName": "0109-underwriting-memo.md",
+    "format": "md",
+    "provider": "plain-text",
+    "byteLength": 319,
+    "mustContain": [
+      "Sterling Maritime Holdings",
+      "SUB-2026-1108",
+      "Directors and Officers",
+      "$25,000,000"
+    ],
+    "expect": {
+      "namedInsured": "Sterling Maritime Holdings",
+      "submissionId": "SUB-2026-1108",
+      "policyNumber": "POL-26-40108",
+      "lineOfBusiness": "Directors and Officers",
+      "peril": "Hail",
+      "jurisdiction": "Florida",
+      "totalInsuredValue": "$25,000,000",
+      "requestedLimit": "$9,000,000",
+      "annualPremium": "$504,000",
+      "effectiveDate": "2026-01-15"
+    }
+  }
+]

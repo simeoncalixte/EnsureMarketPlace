@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import { getApiBase } from '../../lib/api'
+import styled from 'styled-components'
+import { getChannel } from '../../api/ingestionChannels'
 import * as S from './InsurerDashboard.styles'
+import { colors } from '../../xds/colors'
+import {
+  Badge,
+  Breadcrumb,
+  Button,
+  DataTable,
+  FormField,
+  MaskedSecretInput,
+  ToggleSwitch,
+} from '../../xds'
 
 type DeliveryStatus = 'delivered' | 'pending' | 'failed'
 
@@ -41,21 +52,74 @@ const SEED_LOGS: DeliveryLog[] = [
   { id: 'evt_ZxJn1',  event: 'audit.flagged',          destination: 'https://compliance/events', timestamp: '1h ago',   latency: '—',      httpStatus: 503, status: 'failed'    },
 ]
 
-function Toggle({ checked, onChange }: { checked: boolean; onChange: () => void }) {
-  return (
-    <S.ToggleLabel onClick={onChange}>
-      <S.ToggleTrack $checked={checked}><S.ToggleKnob $checked={checked} /></S.ToggleTrack>
-    </S.ToggleLabel>
-  )
+const STATUS_VARIANT: Record<DeliveryStatus, 'success' | 'warning' | 'danger'> = {
+  delivered: 'success',
+  pending: 'warning',
+  failed: 'danger',
 }
 
-export default function WebhookConfig(): JSX.Element {
+const PanelTitleIcon = styled.span<{ $color: string }>`
+  font-size: 1.125rem;
+  color: ${(p) => p.$color};
+`
+
+const EventCountSpacer = styled.span`
+  margin-left: auto;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: ${colors.neutral[500]};
+`
+
+const LogsHeaderRight = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+`
+
+const ClearLogsIcon = styled.span`
+  font-size: 1.125rem;
+  color: ${colors.neutral[500]};
+  cursor: pointer;
+`
+
+const DestCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: ${colors.neutral[500]};
+`
+
+const LatencyCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+`
+
+const HttpCell = styled.span<{ $status: number }>`
+  font-family: 'JetBrains Mono', monospace;
+  color: ${(p) => (p.$status === 200 ? colors.accent : p.$status === 0 ? colors.vendor.googleYellow : colors.dangerBright)};
+`
+
+const TableScroll = styled.div`
+  overflow-x: auto;
+`
+
+const BtnIcon = styled.span`
+  font-size: 0.875rem;
+`
+
+const ReplayIcon = styled.span`
+  font-size: 0.75rem;
+`
+
+const OptionName = styled(S.WebhookEventName)`
+  font-family: inherit;
+  font-size: 0.875rem;
+`
+
+export default function WebhookConfig(): React.JSX.Element {
   const { channelId } = useParams() as { channelId?: string }
   const [channelLabel, setChannelLabel] = useState<string | null>(null)
   const [enabledEvents, setEnabledEvents]   = useState<boolean[]>(EVENT_TYPES.map(() => true))
   const [deliveryOpts, setDeliveryOpts]     = useState([true, true, true, true])
   const [secret, setSecret]                 = useState('whsec_s0v3re1gNcAp_X9pzQwLm4rKjTbU')
-  const [showSecret, setShowSecret]         = useState(false)
   const [copied, setCopied]                 = useState(false)
   const [rotating, setRotating]             = useState(false)
   const [target, setTarget]                 = useState('')
@@ -93,10 +157,8 @@ export default function WebhookConfig(): JSX.Element {
 
   useEffect(() => {
     if (!channelId) return
-    const base = getApiBase()
-    fetch(`${base}/api/ingestion-channels/${channelId}`, { credentials: 'include' })
-      .then((r) => { if (!r.ok) throw new Error('Not found'); return r.json() })
-      .then((data) => {
+    getChannel(channelId)
+      .then((data: any) => {
         if (data?.label) setChannelLabel(data.label)
         if (data?.config?.target) setTarget(String(data.config.target))
         if (typeof data?.meta === 'string' && !data?.config?.target) {
@@ -109,14 +171,13 @@ export default function WebhookConfig(): JSX.Element {
 
   return (
     <S.PageShell>
-      {/* Breadcrumb */}
-      <S.Breadcrumb aria-label="breadcrumb">
-        <S.BreadcrumbItem>Ingestion</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbItem>Channels</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbActive>{channelLabel ?? 'Webhooks'}</S.BreadcrumbActive>
-      </S.Breadcrumb>
+      <Breadcrumb
+        items={[
+          { label: 'Ingestion' },
+          { label: 'Channels' },
+          { label: channelLabel ?? 'Webhooks' },
+        ]}
+      />
 
       {/* Header */}
       <S.EmailPageHeader>
@@ -135,9 +196,7 @@ export default function WebhookConfig(): JSX.Element {
           <S.WebhookEndpointDecor aria-hidden>webhook</S.WebhookEndpointDecor>
 
           <S.WebhookEndpointTitle>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem', color: '#adc6ff' }}>
-              link
-            </span>
+            <PanelTitleIcon $color={colors.primarySoft} className="material-symbols-outlined">link</PanelTitleIcon>
             Inbound Endpoint
           </S.WebhookEndpointTitle>
 
@@ -154,50 +213,37 @@ export default function WebhookConfig(): JSX.Element {
           <S.WebhookSecretRow>
             <S.WebhookSecretField>
               <S.FieldLabel htmlFor="wh-secret">Signing Secret</S.FieldLabel>
-              <S.MaskedInput>
-                <S.Input
-                  id="wh-secret"
-                  type={showSecret ? 'text' : 'password'}
-                  value={secret}
-                  readOnly
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.8125rem', cursor: 'default' }}
-                />
-                <S.EyeBtn
-                  type="button"
-                  aria-label={showSecret ? 'Hide secret' : 'Show secret'}
-                  onClick={() => setShowSecret((v) => !v)}
-                >
-                  {showSecret ? 'visibility_off' : 'visibility'}
-                </S.EyeBtn>
-              </S.MaskedInput>
+              <MaskedSecretInput
+                id="wh-secret"
+                value={secret}
+                onChange={setSecret}
+                readOnly
+              />
             </S.WebhookSecretField>
             <S.WebhookRotateBtn type="button" onClick={rotateSecret} disabled={rotating} aria-label="Rotate signing secret">
-              <span className="material-symbols-outlined" style={{ fontSize: '0.875rem' }}>
+              <BtnIcon className="material-symbols-outlined">
                 {rotating ? 'hourglass_top' : 'autorenew'}
-              </span>
+              </BtnIcon>
               {rotating ? 'Rotating…' : 'Rotate'}
             </S.WebhookRotateBtn>
           </S.WebhookSecretRow>
 
           <S.FieldGroup>
-            <div>
-              <S.FieldLabel htmlFor="wh-target">Target Endpoint (outbound push)</S.FieldLabel>
-              <S.Input
-                id="wh-target"
-                type="url"
-                value={target}
-                onChange={(e) => setTarget(e.target.value)}
-                placeholder="https://your-service.com/hook"
-                style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-              />
-            </div>
+            <FormField
+              id="wh-target"
+              label="Target Endpoint (outbound push)"
+              type="url"
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+              placeholder="https://your-service.com/hook"
+            />
 
             <S.BtnRow>
-              <S.GhostBtn type="button">
-                <span className="material-symbols-outlined" style={{ fontSize: '0.875rem' }}>send</span>
+              <Button variant="ghost" type="button">
+                <BtnIcon className="material-symbols-outlined">send</BtnIcon>
                 Send Test Payload
-              </S.GhostBtn>
-              <S.FillBtn type="button">Save Endpoint</S.FillBtn>
+              </Button>
+              <Button variant="primary" type="button">Save Endpoint</Button>
             </S.BtnRow>
           </S.FieldGroup>
         </S.WebhookEndpointCard>
@@ -205,13 +251,11 @@ export default function WebhookConfig(): JSX.Element {
         {/* ── Event subscriptions card ── */}
         <S.WebhookEventsCard>
           <S.WebhookEventsTitle>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem', color: '#4edea3' }}>
-              bolt
-            </span>
+            <PanelTitleIcon $color={colors.accent} className="material-symbols-outlined">bolt</PanelTitleIcon>
             Event Subscriptions
-            <span style={{ marginLeft: 'auto', fontSize: '0.8125rem', fontWeight: 400, color: '#64748b' }}>
+            <EventCountSpacer>
               {activeEvents} / {EVENT_TYPES.length} active
-            </span>
+            </EventCountSpacer>
           </S.WebhookEventsTitle>
 
           {EVENT_TYPES.map((ev, i) => (
@@ -220,7 +264,7 @@ export default function WebhookConfig(): JSX.Element {
                 <S.WebhookEventName>{ev.name}</S.WebhookEventName>
                 <S.WebhookEventDesc>{ev.desc}</S.WebhookEventDesc>
               </S.WebhookEventMeta>
-              <Toggle
+              <ToggleSwitch
                 checked={enabledEvents[i]}
                 onChange={() =>
                   setEnabledEvents((prev) => prev.map((v, idx) => (idx === i ? !v : v)))
@@ -233,19 +277,17 @@ export default function WebhookConfig(): JSX.Element {
         {/* ── Delivery options card ── */}
         <S.WebhookDeliveryCard>
           <S.WebhookDeliveryTitle>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem', color: '#fbbc05' }}>
-              tune
-            </span>
+            <PanelTitleIcon $color={colors.vendor.googleYellow} className="material-symbols-outlined">tune</PanelTitleIcon>
             Delivery Options
           </S.WebhookDeliveryTitle>
 
           {DELIVERY_OPTIONS.map((opt, i) => (
             <S.WebhookEventRow key={opt.label}>
               <S.WebhookEventMeta>
-                <S.WebhookEventName style={{ fontFamily: 'inherit', fontSize: '0.875rem' }}>{opt.label}</S.WebhookEventName>
+                <OptionName>{opt.label}</OptionName>
                 <S.WebhookEventDesc>{opt.desc}</S.WebhookEventDesc>
               </S.WebhookEventMeta>
-              <Toggle
+              <ToggleSwitch
                 checked={deliveryOpts[i]}
                 onChange={() =>
                   setDeliveryOpts((prev) => prev.map((v, idx) => (idx === i ? !v : v)))
@@ -259,14 +301,10 @@ export default function WebhookConfig(): JSX.Element {
         <S.WebhookLogsSection>
           <S.WebhookLogsTop>
             <S.WebhookLogsTitle>Delivery Log</S.WebhookLogsTitle>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-              <S.StreamingBadge>
-                <S.StreamingDot aria-hidden />
-                Live
-              </S.StreamingBadge>
-              <span
+            <LogsHeaderRight>
+              <Badge variant="success" dot>Live</Badge>
+              <ClearLogsIcon
                 className="material-symbols-outlined"
-                style={{ fontSize: '1.125rem', color: '#64748b', cursor: 'pointer' }}
                 title="Clear logs"
                 onClick={() => setLogs([])}
                 role="button"
@@ -274,68 +312,42 @@ export default function WebhookConfig(): JSX.Element {
                 onKeyDown={(e) => { if (e.key === 'Enter') setLogs([]) }}
               >
                 delete_sweep
-              </span>
-            </div>
+              </ClearLogsIcon>
+            </LogsHeaderRight>
           </S.WebhookLogsTop>
 
-          <div style={{ overflowX: 'auto' }}>
-            <S.WebhookTable>
-              <thead>
-                <tr>
-                  <S.WebhookTh>Event</S.WebhookTh>
-                  <S.WebhookTh>Destination</S.WebhookTh>
-                  <S.WebhookTh>Timestamp</S.WebhookTh>
-                  <S.WebhookTh>Latency</S.WebhookTh>
-                  <S.WebhookTh>HTTP</S.WebhookTh>
-                  <S.WebhookTh>Status</S.WebhookTh>
-                  <S.WebhookTh style={{ textAlign: 'right' }}>Actions</S.WebhookTh>
-                </tr>
-              </thead>
-              <tbody>
-                {logs.length === 0 ? (
-                  <tr>
-                    <S.WebhookTd colSpan={7} style={{ textAlign: 'center', color: '#475569', padding: '2rem' }}>
-                      No deliveries yet
-                    </S.WebhookTd>
-                  </tr>
-                ) : (
-                  logs.map((log) => (
-                    <S.WebhookTr key={log.id}>
-                      <S.WebhookTd>
-                        <S.WebhookEventChip>{log.event}</S.WebhookEventChip>
-                      </S.WebhookTd>
-                      <S.WebhookTd style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#64748b' }}>
-                        {log.destination}
-                      </S.WebhookTd>
-                      <S.WebhookTd>{log.timestamp}</S.WebhookTd>
-                      <S.WebhookTd style={{ fontFamily: "'JetBrains Mono', monospace" }}>{log.latency}</S.WebhookTd>
-                      <S.WebhookTd
-                        style={{
-                          fontFamily: "'JetBrains Mono', monospace",
-                          color: log.httpStatus === 200 ? '#4edea3' : log.httpStatus === 0 ? '#fbbc05' : '#ff6464',
-                        }}
-                      >
-                        {log.httpStatus === 0 ? '—' : log.httpStatus}
-                      </S.WebhookTd>
-                      <S.WebhookTd>
-                        <S.WebhookStatusChip $status={log.status}>{log.status}</S.WebhookStatusChip>
-                      </S.WebhookTd>
-                      <S.WebhookTd style={{ textAlign: 'right' }}>
-                        <S.WebhookReplayBtn
-                          type="button"
-                          onClick={() => replayLog(log.id)}
-                          aria-label={`Replay ${log.id}`}
-                        >
-                          <span className="material-symbols-outlined" style={{ fontSize: '0.75rem' }}>replay</span>
-                          Replay
-                        </S.WebhookReplayBtn>
-                      </S.WebhookTd>
-                    </S.WebhookTr>
-                  ))
-                )}
-              </tbody>
-            </S.WebhookTable>
-          </div>
+          <TableScroll>
+            <DataTable<DeliveryLog>
+              emptyText="No deliveries yet"
+              columns={[
+                { key: 'event', header: 'Event', render: (log) => <S.WebhookEventChip>{log.event}</S.WebhookEventChip> },
+                { key: 'destination', header: 'Destination', render: (log) => <DestCell>{log.destination}</DestCell> },
+                { key: 'timestamp', header: 'Timestamp', render: (log) => log.timestamp },
+                { key: 'latency', header: 'Latency', render: (log) => <LatencyCell>{log.latency}</LatencyCell> },
+                {
+                  key: 'httpStatus',
+                  header: 'HTTP',
+                  render: (log) => <HttpCell $status={log.httpStatus}>{log.httpStatus === 0 ? '—' : log.httpStatus}</HttpCell>,
+                },
+                {
+                  key: 'status',
+                  header: 'Status',
+                  render: (log) => <Badge variant={STATUS_VARIANT[log.status]}>{log.status}</Badge>,
+                },
+              ]}
+              data={logs}
+              rowActions={(log) => (
+                <S.WebhookReplayBtn
+                  type="button"
+                  onClick={() => replayLog(log.id)}
+                  aria-label={`Replay ${log.id}`}
+                >
+                  <ReplayIcon className="material-symbols-outlined">replay</ReplayIcon>
+                  Replay
+                </S.WebhookReplayBtn>
+              )}
+            />
+          </TableScroll>
         </S.WebhookLogsSection>
 
       </S.WebhookGrid>

@@ -1,7 +1,9 @@
 import Fastify from 'fastify';
+import { createPipelineTransformationReporter } from '../../../test/helpers/pipelineTransformations';
 import { ingestionRoute } from './route';
 
 describe('Ingestion pipeline routes', () => {
+  const transformations = createPipelineTransformationReporter('ingestion');
   let app: any;
   beforeAll(async () => {
     app = Fastify({ logger: false });
@@ -12,6 +14,7 @@ describe('Ingestion pipeline routes', () => {
     if (app && typeof app.close === 'function') {
       await app.close();
     }
+    await transformations.write();
   });
 
   test('GET /api/pipeline/ingestion/health', async () => {
@@ -25,6 +28,13 @@ describe('Ingestion pipeline routes', () => {
     const res = await app.inject({ method: 'POST', url: '/api/pipeline/ingestion/process', payload });
     expect(res.statusCode).toBe(200);
     const body = JSON.parse(res.payload);
+    transformations.record({
+      stage: 'ingestion',
+      testName: 'POST /api/pipeline/ingestion/process',
+      description: 'Raw ingestion request is transformed into an ingestion service response.',
+      before: payload,
+      after: body,
+    });
     expect(body).toHaveProperty('ok', true);
     expect(body).toHaveProperty('service', 'ingestion');
   });

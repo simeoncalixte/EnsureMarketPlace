@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { useAuthMe } from '../lib/useAuthMe';
 import { saveAuthToken } from '../lib/auth';
 
@@ -72,5 +72,5 @@ const Demo: React.FC<{ apiBase?: string }> = ({ apiBase }) => {
   );
 };
 
-export const Default: Story = (args) => <Demo apiBase={args.apiBase} />;
+export const Default: StoryFn = (args) => <Demo apiBase={args.apiBase} />;
 Default.args = { apiBase: 'http://localhost:3001' };

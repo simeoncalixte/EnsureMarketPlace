@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router'
-import { colors } from '../../xds/colors'
+import { colors, withAlpha } from '../../xds/colors'
 import { spacing, radii } from '../../xds/tokens'
 
 export type NavItem = {
@@ -41,7 +41,7 @@ export const Navigation: React.FC<{ items: NavItem[]; showSubroutes?: boolean; o
           const isHover = hover === it.id
 
           // Use the exact accent hex requested, with a 10% left gradient
-          const accentHex = '#4b8eff'
+          const accentHex = colors.primary
           const leftColor = accentHex
           const transparentRight = hexToRgba(leftColor, 0)
           const bg = isActive || isHover
@@ -62,7 +62,7 @@ export const Navigation: React.FC<{ items: NavItem[]; showSubroutes?: boolean; o
             color,
             background: bg,
             borderLeft,
-            boxShadow: isActive ? '0 6px 18px rgba(15,23,42,0.45)' : undefined,
+            boxShadow: isActive ? `0 6px 18px ${withAlpha(colors.neutral[900], 0.45)}` : undefined,
             transition: 'background 160ms ease, box-shadow 160ms ease, color 120ms ease',
             fontSize: 14
           }

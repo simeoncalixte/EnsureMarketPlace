@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Panel,
-  PanelHeader,
-  PanelTitle,
-  PanelLink,
-  TableWrap,
-  Table,
-  THead,
-  THeadTr,
-  TH,
-  TBody,
-  TD,
-  ActionBtn,
-} from './AdminPage.styles';
+import { Panel } from './AdminPage.styles';
+import { PanelHeaderRow, PrimaryCell, RowActions } from './AdminTables.styles';
+import { SectionHeader, Button, DataTable, DataTableColumn } from '../../xds';
+import { listOrganizations } from '../../api/organizations';
 
 type Org = {
   id: number;
@@ -31,12 +21,7 @@ export default function OrganizationsSubpage({ onViewUsers }: { onViewUsers: (or
     setLoading(true);
     setError(null);
 
-    const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
-    fetch(`${API_BASE}/api/Organizations`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Status ${res.status}`);
-        return res.json();
-      })
+    listOrganizations<Org>()
       .then((data) => {
         if (!mounted) return;
         setOrgs(Array.isArray(data) ? data : []);
@@ -52,52 +37,36 @@ export default function OrganizationsSubpage({ onViewUsers }: { onViewUsers: (or
     };
   }, []);
 
+  const columns: DataTableColumn<Org>[] = [
+    { key: 'name', header: 'Organization', render: (o) => <PrimaryCell>{o.name}</PrimaryCell> },
+    { key: 'contact', header: 'Contact', render: (o) => o.contact ?? '-' },
+    { key: 'status', header: 'Status', render: (o) => o.status ?? '-' },
+  ];
+
   return (
     <Panel>
-      <PanelHeader>
-        <PanelTitle>Organizations</PanelTitle>
-        <PanelLink>
+      <PanelHeaderRow>
+        <SectionHeader title="Organizations" />
+        <Button variant="text" size="sm" onClick={() => undefined}>
           Export
           <span className="material-symbols-outlined">open_in_new</span>
-        </PanelLink>
-      </PanelHeader>
+        </Button>
+      </PanelHeaderRow>
 
-      <TableWrap>
-        <Table>
-          <THead>
-            <THeadTr>
-              <TH>Organization</TH>
-              <TH>Contact</TH>
-              <TH>Status</TH>
-              <TH style={{ textAlign: 'right' }}>Actions</TH>
-            </THeadTr>
-          </THead>
-          <TBody>
-            {loading ? (
-              <tr>
-                <TD>Loading...</TD>
-              </tr>
-            ) : error ? (
-              <tr>
-                <TD colSpan={4} style={{ color: '#ffb4ab' }}>
-                  Error: {error}
-                </TD>
-              </tr>
-            ) : (orgs || []).map((o) => (
-              <tr key={o.id}>
-                <TD>
-                  <div style={{ fontWeight: 700 }}>{o.name}</div>
-                </TD>
-                <TD>{o.contact ?? '-'}</TD>
-                <TD>{o.status ?? '-'}</TD>
-                <TD style={{ textAlign: 'right' }}>
-                  <ActionBtn onClick={() => onViewUsers(o)}>View Users</ActionBtn>
-                </TD>
-              </tr>
-            ))}
-          </TBody>
-        </Table>
-      </TableWrap>
+      <DataTable<Org>
+        columns={columns}
+        data={orgs || []}
+        loading={loading}
+        error={error ? `Error: ${error}` : undefined}
+        emptyText="No organizations"
+        rowActions={(o) => (
+          <RowActions>
+            <Button variant="text" size="sm" onClick={() => onViewUsers(o)}>
+              View Users
+            </Button>
+          </RowActions>
+        )}
+      />
     </Panel>
   );
 }

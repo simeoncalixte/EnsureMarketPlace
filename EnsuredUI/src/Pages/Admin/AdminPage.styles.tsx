@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { colors, withAlpha } from '../../xds/colors';
 
 // ─── Layout ────────────────────────────────────────────────────────────────────
 
 export const Page = styled.div`
-  background: #0b1326;
-  color: #dae2fd;
+  background: ${colors.surfaceDeep};
+  color: ${colors.onSurfaceStrong};
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   min-height: auto;
   overflow-x: hidden;
@@ -17,8 +18,8 @@ export const Sidebar = styled.aside`
   top: 0;
   height: 100vh;
   width: 16rem;
-  border-right: 1px solid rgba(65, 71, 85, 0.15);
-  background: #131b2e;
+  border-right: 1px solid ${withAlpha(colors.border, 0.15)};
+  background: ${colors.surfacePanel};
   display: flex;
   flex-direction: column;
   z-index: 50;
@@ -34,14 +35,14 @@ export const SidebarBrandTitle = styled.div`
   font-size: 1.125rem;
   font-weight: 900;
   letter-spacing: -0.04em;
-  color: #60a5fa;
+  color: ${colors.dataViz.blueLight};
 `;
 
 export const SidebarBrandSub = styled.div`
   font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #64748b;
+  color: ${colors.neutral[500]};
   margin-top: 0.25rem;
   font-family: 'JetBrains Mono', monospace;
 `;
@@ -60,16 +61,16 @@ export const SidebarNavItem = styled.div<{ active?: boolean }>`
   padding: 0.75rem 1rem;
   cursor: pointer;
   transition: background-color 150ms, color 150ms;
-  color: ${({ active }) => (active ? '#93c5fd' : '#94a3b8')};
-  background: ${({ active }) => (active ? '#171f33' : 'transparent')};
-  border-left: ${({ active }) => (active ? '2px solid #60a5fa' : '2px solid transparent')};
+  color: ${({ active }) => (active ? colors.dataViz.blueLight : colors.neutral[400])};
+  background: ${({ active }) => (active ? colors.surfaceRaised : 'transparent')};
+  border-left: ${({ active }) => (active ? `2px solid ${colors.dataViz.blueLight}` : '2px solid transparent')};
   font-size: 0.625rem;
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   &:hover {
-    color: ${({ active }) => (active ? '#93c5fd' : '#f1f5f9')};
-    background: ${({ active }) => (active ? '#171f33' : '#222a3d')};
+    color: ${({ active }) => (active ? colors.dataViz.blueLight : colors.neutral[100])};
+    background: ${({ active }) => (active ? colors.surfaceRaised : colors.surfaceHigh)};
   }
   &:active { transform: scale(0.95); }
   .material-symbols-outlined {
@@ -84,8 +85,8 @@ export const SidebarDeployWrap = styled.div`
 
 export const SidebarDeployBtn = styled.button`
   width: 100%;
-  background: #4b8eff;
-  color: #002e69;
+  background: ${colors.primary};
+  color: ${colors.onPrimary};
   padding: 0.625rem 0;
   border-radius: 0.25rem;
   font-size: 0.625rem;
@@ -100,7 +101,7 @@ export const SidebarDeployBtn = styled.button`
 `;
 
 export const SidebarFooter = styled.div`
-  border-top: 1px solid rgba(65, 71, 85, 0.15);
+  border-top: 1px solid ${withAlpha(colors.border, 0.15)};
   padding: 0.75rem;
   display: flex;
   flex-direction: column;
@@ -111,14 +112,14 @@ export const SidebarFooterItem = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  color: #94a3b8;
+  color: ${colors.neutral[400]};
   font-size: 0.625rem;
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: background 150ms, color 150ms;
-  &:hover { background: #222a3d; color: #f1f5f9; }
+  &:hover { background: ${colors.surfaceHigh}; color: ${colors.neutral[100]}; }
   .material-symbols-outlined {
     font-size: 1rem;
     margin-right: 0.75rem;
@@ -138,10 +139,10 @@ export const TopBar = styled.header`
   align-items: center;
   padding: 0 2rem;
   z-index: 40;
-  background: rgba(11, 19, 38, 0.6);
+  background: ${withAlpha(colors.surfaceDeep, 0.6)};
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(65, 71, 85, 0.15);
-  box-shadow: 0 40px 40px -15px rgba(173, 198, 255, 0.08);
+  border-bottom: 1px solid ${withAlpha(colors.border, 0.15)};
+  box-shadow: 0 40px 40px -15px ${withAlpha(colors.primarySoft, 0.08)};
 `;
 
 export const TopBarLeft = styled.div`
@@ -154,7 +155,7 @@ export const TopBarTitle = styled.div`
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: ${colors.white};
   font-family: 'Manrope', sans-serif;
 `;
 
@@ -172,11 +173,11 @@ export const TopBarNavLink = styled.a<{ active?: boolean }>`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: ${({ active }) => (active ? '#60a5fa' : '#94a3b8')};
+  color: ${({ active }) => (active ? colors.dataViz.blueLight : colors.neutral[400])};
   font-weight: ${({ active }) => (active ? '700' : '400')};
-  border-bottom: ${({ active }) => (active ? '2px solid #60a5fa' : '2px solid transparent')};
+  border-bottom: ${({ active }) => (active ? `2px solid ${colors.dataViz.blueLight}` : '2px solid transparent')};
   transition: color 150ms;
-  &:hover { color: #93c5fd; }
+  &:hover { color: ${colors.dataViz.blueLight}; }
 `;
 
 export const TopBarRight = styled.div`
@@ -193,11 +194,11 @@ export const TopBarIconGroup = styled.div`
 `;
 
 export const TopBarIcon = styled.span`
-  color: #94a3b8;
+  color: ${colors.neutral[400]};
   cursor: pointer;
   font-size: 1.25rem;
   transition: color 150ms;
-  &:hover { color: #93c5fd; }
+  &:hover { color: ${colors.dataViz.blueLight}; }
 `;
 
 export const TopBarBtn = styled.button<{ variant?: 'ghost' | 'primary' }>`
@@ -213,15 +214,15 @@ export const TopBarBtn = styled.button<{ variant?: 'ghost' | 'primary' }>`
   ${({ variant }) =>
     variant === 'primary'
       ? `
-    background: #4b8eff;
-    color: #002e69;
+    background: ${colors.primary};
+    color: ${colors.onPrimary};
     &:hover { filter: brightness(1.1); }
   `
       : `
-    background: #171f33;
-    color: #60a5fa;
-    border: 1px solid rgba(96, 165, 250, 0.2);
-    &:hover { background: rgba(96, 165, 250, 0.1); }
+    background: ${colors.surfaceRaised};
+    color: ${colors.dataViz.blueLight};
+    border: 1px solid ${withAlpha(colors.dataViz.blueLight, 0.2)};
+    &:hover { background: ${withAlpha(colors.dataViz.blueLight, 0.1)}; }
   `}
 `;
 
@@ -229,8 +230,8 @@ export const TopBarAvatar = styled.div`
   width: 2rem;
   height: 2rem;
   border-radius: 0.125rem;
-  background: #2d3449;
-  border: 1px solid rgba(65, 71, 85, 0.3);
+  background: ${colors.surfaceElevated};
+  border: 1px solid ${withAlpha(colors.border, 0.3)};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,79 +262,19 @@ export const MacroGrid = styled.section`
   @media (min-width: 768px) { grid-template-columns: repeat(4, 1fr); }
 `;
 
-export const MacroCard = styled.div<{ accentColor?: string; dim?: boolean }>`
-  background: #171f33;
-  padding: 1.25rem;
-  border-radius: 0.5rem;
-  border-left: 2px solid ${({ accentColor }) => accentColor || '#4b8eff'};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  opacity: ${({ dim }) => (dim ? 0.85 : 1)};
-`;
-
-export const MacroCardHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-`;
-
-export const MacroCardLabel = styled.span`
-  font-size: 0.625rem;
-  font-family: 'JetBrains Mono', monospace;
-  color: #c1c6d7;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-`;
-
-export const MacroCardIcon = styled.span<{ color?: string }>`
-  color: ${({ color }) => color || '#adc6ff'};
-  font-size: 1.125rem;
-`;
-
-export const MacroCardValue = styled.div`
+// Big value rendered inside the Approval Queue card.
+export const MacroBigValue = styled.span`
   font-size: 1.875rem;
   font-weight: 700;
-  font-family: 'Manrope', sans-serif;
 `;
 
-export const MacroCardNote = styled.div<{ color?: string }>`
-  font-size: 0.625rem;
+// Mono affix shown after a value (e.g. "Pending").
+export const MacroValueAffixMono = styled.span`
+  font-size: 0.75rem;
   font-family: 'JetBrains Mono', monospace;
-  color: ${({ color }) => color || '#c1c6d7'};
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  .material-symbols-outlined { font-size: 0.625rem; }
-`;
-
-export const AvatarStack = styled.div`
-  display: flex;
-  margin-top: 0.5rem;
-  & > * + * { margin-left: -0.5rem; }
-`;
-
-export const AvatarStackImg = styled.img`
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 9999px;
-  border: 1px solid #0b1326;
-  background: #2d3449;
-`;
-
-export const AvatarStackCount = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 9999px;
-  border: 1px solid #0b1326;
-  background: #222a3d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.5rem;
-  font-weight: 700;
+  font-weight: 400;
+  color: ${colors.onSurfaceMuted};
+  margin-left: 4px;
 `;
 
 // ─── Middle Grid ───────────────────────────────────────────────────────────────
@@ -348,7 +289,7 @@ export const MiddleGrid = styled.div`
 // ─── Simulation Engine ─────────────────────────────────────────────────────────
 
 export const SimCard = styled.section`
-  background: #171f33;
+  background: ${colors.surfaceRaised};
   padding: 2rem;
   border-radius: 0.5rem;
   position: relative;
@@ -375,6 +316,11 @@ export const SimHeader = styled.div`
   z-index: 1;
 `;
 
+export const SimHeaderText = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const SimTitle = styled.h2`
   font-size: 1.25rem;
   font-weight: 700;
@@ -385,21 +331,8 @@ export const SimTitle = styled.h2`
 
 export const SimSub = styled.p`
   font-size: 0.875rem;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   margin: 0;
-`;
-
-export const SimBadge = styled.span`
-  background: rgba(147, 0, 26, 0.2);
-  color: #ffb4ab;
-  padding: 0.25rem 0.75rem;
-  border-radius: 0.125rem;
-  font-size: 0.625rem;
-  font-family: 'JetBrains Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  border: 1px solid rgba(147, 0, 26, 0.4);
-  white-space: nowrap;
 `;
 
 export const SimScenarioGrid = styled.div`
@@ -413,12 +346,12 @@ export const SimScenarioGrid = styled.div`
 `;
 
 export const SimScenarioCard = styled.div`
-  background: #222a3d;
+  background: ${colors.surfaceHigh};
   padding: 1rem;
   border-radius: 0.25rem;
-  border: 1px solid rgba(65, 71, 85, 0.1);
+  border: 1px solid ${withAlpha(colors.border, 0.1)};
   transition: border-color 200ms;
-  &:hover { border-color: rgba(173, 198, 255, 0.4); }
+  &:hover { border-color: ${withAlpha(colors.primarySoft, 0.4)}; }
 `;
 
 export const SimScenarioTop = styled.div`
@@ -429,44 +362,8 @@ export const SimScenarioTop = styled.div`
 `;
 
 export const SimScenarioIcon = styled.span`
-  color: #adc6ff;
+  color: ${colors.primarySoft};
   font-size: 1.5rem;
-`;
-
-export const ToggleWrap = styled.label`
-  position: relative;
-  display: inline-block;
-  width: 2rem;
-  height: 1rem;
-  cursor: pointer;
-`;
-
-export const ToggleInput = styled.input.attrs({ type: 'checkbox' })`
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-  &:checked + span { background: #adc6ff; }
-  &:checked + span::after { transform: translateX(1rem); }
-`;
-
-export const ToggleSlider = styled.span`
-  position: absolute;
-  inset: 0;
-  background: #131b2e;
-  border-radius: 9999px;
-  transition: background 200ms;
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0.75rem;
-    height: 0.75rem;
-    left: 0.125rem;
-    top: 0.125rem;
-    background: white;
-    border-radius: 9999px;
-    transition: transform 200ms;
-  }
 `;
 
 export const SimScenarioTitle = styled.h3`
@@ -478,7 +375,7 @@ export const SimScenarioTitle = styled.h3`
 
 export const SimScenarioDesc = styled.p`
   font-size: 0.625rem;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   margin: 0;
   line-height: 1.5;
 `;
@@ -497,12 +394,13 @@ export const SimImpactLabel = styled.h4`
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   margin: 0 0 1rem;
 `;
 
+// Impact row: a labelled ProgressBar with a colored value readout.
 export const ImpactRow = styled.div`
-  margin-bottom: 0.5rem;
+  & + & { margin-top: 0.5rem; }
 `;
 
 export const ImpactMeta = styled.div`
@@ -513,58 +411,27 @@ export const ImpactMeta = styled.div`
   margin-bottom: 0.25rem;
 `;
 
-export const ImpactTrack = styled.div`
-  width: 100%;
-  background: #2d3449;
-  height: 4px;
-  border-radius: 9999px;
-  overflow: hidden;
-`;
-
-export const ImpactFill = styled.div<{ width: string; color: string }>`
-  height: 100%;
-  width: ${({ width }) => width};
-  background: ${({ color }) => color};
+export const ImpactValue = styled.span<{ color: string }>`
+  color: ${({ color }) => color};
 `;
 
 export const SimActions = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 0.75rem;
 `;
 
-export const SimDryRunBtn = styled.button`
-  padding: 0.75rem 1.5rem;
-  border: 1px solid rgba(65, 71, 85, 0.3);
-  border-radius: 0.25rem;
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  background: transparent;
-  color: #dae2fd;
-  cursor: pointer;
-  transition: background 120ms;
-  &:hover { background: #2d3449; }
+export const SimApplyLabel = styled.label`
+  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: ${colors.onSurfaceMuted};
 `;
 
-export const SimTriggerBtn = styled.button`
-  padding: 0.75rem 1.5rem;
-  background: #93001a;
-  color: #ffdad6;
-  border-radius: 0.25rem;
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(255, 180, 171, 0.1);
-  transition: filter 120ms;
-  &:hover { filter: brightness(1.1); }
-`;
-
-// ─── Data Seeding ──────────────────────────────────────────────────────────────
+// ─── Data Seeding (consumed by SeedingPanel) ─────────────────────────────────────
 
 export const SeedingSection = styled.section`
   display: flex;
@@ -577,7 +444,7 @@ export const SeedingSectionLabel = styled.h3`
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   margin: 0 0 0 0.25rem;
 `;
 
@@ -588,10 +455,10 @@ export const SeedList = styled.div`
 `;
 
 export const SeedItem = styled.div<{ dim?: boolean }>`
-  background: #171f33;
+  background: ${colors.surfaceRaised};
   padding: 1rem;
   border-radius: 0.25rem;
-  border-left: 4px solid ${({ dim }) => (dim ? '#414755' : '#4b8eff')};
+  border-left: 4px solid ${({ dim }) => (dim ? colors.border : colors.primary)};
   opacity: ${({ dim }) => (dim ? 0.5 : 1)};
 `;
 
@@ -607,7 +474,7 @@ export const SeedItemLeft = styled.div`
 `;
 
 export const SeedItemIcon = styled.span<{ color?: string }>`
-  color: ${({ color }) => color || '#4b8eff'};
+  color: ${({ color }) => color || colors.primary};
   font-size: 1.25rem;
   margin-right: 0.75rem;
 `;
@@ -620,7 +487,7 @@ export const SeedItemTitle = styled.div`
 export const SeedItemSub = styled.div`
   font-size: 0.625rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   margin-top: 0.1rem;
 `;
 
@@ -635,18 +502,18 @@ export const SeedIconBtn = styled.button<{ color?: string }>`
   background: transparent;
   border: none;
   cursor: pointer;
-  color: ${({ color }) => color || '#c1c6d7'};
+  color: ${({ color }) => color || colors.onSurfaceMuted};
   font-size: 0.875rem;
   transition: background 120ms;
-  &:hover { background: #2d3449; }
+  &:hover { background: ${colors.surfaceElevated}; }
   .material-symbols-outlined { font-size: 1rem; }
 `;
 
 export const IntegrityBox = styled.div`
-  background: rgba(34, 42, 61, 0.4);
+  background: ${withAlpha(colors.surfaceHigh, 0.4)};
   border-radius: 0.5rem;
   padding: 1rem;
-  border: 1px solid rgba(173, 198, 255, 0.1);
+  border: 1px solid ${withAlpha(colors.primarySoft, 0.1)};
 `;
 
 export const IntegrityHeader = styled.div`
@@ -657,7 +524,7 @@ export const IntegrityHeader = styled.div`
 `;
 
 export const IntegrityIcon = styled.span`
-  color: #4edea3;
+  color: ${colors.accent};
   font-size: 1.125rem;
 `;
 
@@ -666,12 +533,12 @@ export const IntegrityLabel = styled.span`
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #4edea3;
+  color: ${colors.accent};
 `;
 
 export const IntegrityText = styled.p`
   font-size: 0.625rem;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   font-style: italic;
   line-height: 1.5;
   margin: 0;
@@ -680,15 +547,15 @@ export const IntegrityText = styled.p`
 // ─── Tranches Table ────────────────────────────────────────────────────────────
 
 export const TrancheSection = styled.section`
-  background: #171f33;
+  background: ${colors.surfaceRaised};
   border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 25px 50px -12px ${withAlpha(colors.black, 0.4)};
 `;
 
 export const TrancheSectionHeader = styled.div`
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(65, 71, 85, 0.1);
+  border-bottom: 1px solid ${withAlpha(colors.border, 0.1)};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -712,7 +579,7 @@ export const LegendItem = styled.div`
   gap: 0.5rem;
   font-size: 0.625rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
 `;
 
 export const LegendDot = styled.span<{ color: string }>`
@@ -737,7 +604,7 @@ export const Table = styled.table`
 export const THead = styled.thead``;
 
 export const THeadTr = styled.tr`
-  background: #131b2e;
+  background: ${colors.surfacePanel};
 `;
 
 export const TH = styled.th`
@@ -746,16 +613,16 @@ export const TH = styled.th`
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   white-space: nowrap;
 `;
 
 export const TBody = styled.tbody`
   & > tr {
-    border-bottom: 1px solid rgba(65, 71, 85, 0.05);
+    border-bottom: 1px solid ${withAlpha(colors.border, 0.05)};
     transition: background 150ms;
     font-size: 0.75rem;
-    &:hover { background: #222a3d; }
+    &:hover { background: ${colors.surfaceHigh}; }
   }
 `;
 
@@ -765,84 +632,41 @@ export const TD = styled.td`
 
 export const TrancheName = styled.div`
   font-weight: 700;
-  color: #adc6ff;
+  color: ${colors.primarySoft};
 `;
 
 export const TrancheSub = styled.div`
   font-size: 0.625rem;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
 `;
 
+// Utilization cell: a fixed-width ProgressBar paired with a percentage readout.
 export const UtilizationWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 0.75rem;
 `;
 
-export const UtilizationTrack = styled.div`
+export const UtilizationBar = styled.div`
   width: 6rem;
-  background: #2d3449;
-  height: 6px;
-  border-radius: 9999px;
-  overflow: hidden;
 `;
 
-export const UtilizationFill = styled.div<{ width: string; color: string }>`
-  height: 100%;
-  width: ${({ width }) => width};
-  background: ${({ color }) => color};
-`;
-
-export const StatusBadge = styled.span<{
-  variant: 'performing' | 'rebalancing' | 'margin' | 'halted';
-}>`
-  padding: 0.125rem 0.5rem;
-  border-radius: 0.125rem;
-  font-size: 0.5625rem;
-  font-weight: 700;
-  border: 1px solid;
-  ${({ variant }) => {
-    switch (variant) {
-      case 'performing':
-        return `background: rgba(78,222,163,0.1); color: #4edea3; border-color: rgba(78,222,163,0.2);`;
-      case 'rebalancing':
-        return `background: rgba(255,179,173,0.1); color: #ffb3ad; border-color: rgba(255,179,173,0.2);`;
-      case 'margin':
-        return `background: rgba(147,0,26,0.2); color: #ffb4ab; border-color: rgba(147,0,26,0.4);`;
-      case 'halted':
-        return `background: rgba(255,0,0,0.1); color: #ff6b6b; border-color: rgba(255,0,0,0.2);`;
-    }
-  }}
+export const UtilizationValue = styled.span<{ color?: string }>`
+  color: ${({ color }) => color || 'inherit'};
 `;
 
 export const YTM = styled.span<{ color: string }>`
   color: ${({ color }) => color};
 `;
 
-export const ActionBtn = styled.button<{ danger?: boolean }>`
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: ${({ danger }) => (danger ? '#ffb4ab' : '#ff5451')};
-  transition: all 120ms;
-  ${({ danger }) =>
-    danger &&
-    `
-    background: rgba(255, 180, 171, 0.1);
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.125rem;
-    &:hover { background: rgba(255, 180, 171, 0.2); }
-  `}
+export const CellRight = styled.div`
+  text-align: right;
 `;
 
 export const TableFooter = styled.div`
   padding: 1rem;
-  background: #060e20;
-  border-top: 1px solid rgba(65, 71, 85, 0.1);
+  background: ${colors.background};
+  border-top: 1px solid ${withAlpha(colors.border, 0.1)};
   display: flex;
   justify-content: center;
 `;
@@ -850,7 +674,7 @@ export const TableFooter = styled.div`
 export const ViewAllBtn = styled.button`
   font-size: 0.625rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
   background: transparent;
   border: none;
   cursor: pointer;
@@ -858,7 +682,7 @@ export const ViewAllBtn = styled.button`
   align-items: center;
   gap: 0.5rem;
   transition: color 150ms;
-  &:hover { color: #fff; }
+  &:hover { color: ${colors.white}; }
   .material-symbols-outlined { font-size: 0.75rem; }
 `;
 
@@ -875,7 +699,7 @@ export const BottomGrid = styled.div`
 // ─── User Stats Panel ──────────────────────────────────────────────────────────
 
 export const Panel = styled.section`
-  background: #171f33;
+  background: ${colors.surfaceRaised};
   padding: 1.5rem;
   border-radius: 0.5rem;
   display: flex;
@@ -901,7 +725,7 @@ export const PanelTitle = styled.h3`
 export const PanelLink = styled.button`
   font-size: 0.625rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #adc6ff;
+  color: ${colors.primarySoft};
   background: none;
   border: none;
   cursor: pointer;
@@ -911,6 +735,12 @@ export const PanelLink = styled.button`
   .material-symbols-outlined { font-size: 0.75rem; }
 `;
 
+export const PanelLiveTag = styled.span`
+  font-size: 0.625rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.onSurfaceMuted};
+`;
+
 export const UserStatGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -918,30 +748,10 @@ export const UserStatGrid = styled.div`
 `;
 
 export const UserStatBox = styled.div`
-  background: #222a3d;
+  background: ${colors.surfaceHigh};
   padding: 1rem;
   border-radius: 0.25rem;
   text-align: center;
-`;
-
-export const UserStatLabel = styled.div`
-  font-size: 0.625rem;
-  font-family: 'JetBrains Mono', monospace;
-  text-transform: uppercase;
-  color: #c1c6d7;
-  margin-bottom: 0.25rem;
-`;
-
-export const UserStatValue = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-`;
-
-export const UserStatNote = styled.div<{ color?: string }>`
-  font-size: 0.625rem;
-  color: ${({ color }) => color || '#c1c6d7'};
-  margin-top: 0.5rem;
 `;
 
 export const ApprovalList = styled.div`
@@ -955,32 +765,18 @@ export const ApprovalItem = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem;
-  background: #131b2e;
+  background: ${colors.surfacePanel};
   border-radius: 0.125rem;
-  border: 1px solid rgba(65, 71, 85, 0.1);
+  border: 1px solid ${withAlpha(colors.border, 0.1)};
 `;
 
 export const ApprovalItemLeft = styled.div`
   display: flex;
   align-items: center;
+  gap: 0.75rem;
 `;
 
-export const ApprovalAvatar = styled.div<{ gradient: string }>`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 9999px;
-  background: ${({ gradient }) => gradient};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.625rem;
-  flex-shrink: 0;
-`;
-
-export const ApprovalInfo = styled.div`
-  margin-left: 0.75rem;
-`;
+export const ApprovalInfo = styled.div``;
 
 export const ApprovalName = styled.div`
   font-size: 0.6875rem;
@@ -990,7 +786,7 @@ export const ApprovalName = styled.div`
 export const ApprovalRole = styled.div`
   font-size: 0.5625rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
 `;
 
 export const ApprovalActions = styled.div`
@@ -1005,51 +801,22 @@ export const ApprovalBtn = styled.button<{ variant: 'approve' | 'reject' }>`
   cursor: pointer;
   background: transparent;
   transition: background 120ms;
-  color: ${({ variant }) => (variant === 'approve' ? '#4edea3' : '#ffb4ab')};
+  color: ${({ variant }) => (variant === 'approve' ? colors.accent : colors.errorSoft)};
   .material-symbols-outlined { font-size: 1rem; }
   &:hover {
     background: ${({ variant }) =>
       variant === 'approve'
-        ? 'rgba(0, 165, 114, 0.2)'
-        : 'rgba(147, 0, 26, 0.2)'};
+        ? withAlpha(colors.accentStrong, 0.2)
+        : withAlpha(colors.danger, 0.2)};
   }
 `;
 
 // ─── Event Ledger ──────────────────────────────────────────────────────────────
 
-export const LedgerList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.625rem;
-`;
-
-export const LedgerRow = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-export const LedgerTime = styled.span`
-  color: #c1c6d7;
-  white-space: nowrap;
-`;
-
-export const LedgerTag = styled.span<{ color: string }>`
-  color: ${({ color }) => color};
-`;
-
-export const LedgerText = styled.span`
-  color: #dae2fd;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
 export const LedgerFooter = styled.div`
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(65, 71, 85, 0.1);
+  border-top: 1px solid ${withAlpha(colors.border, 0.1)};
 `;
 
 export const LedgerFooterRow = styled.div`
@@ -1058,5 +825,38 @@ export const LedgerFooterRow = styled.div`
   align-items: center;
   font-size: 0.6875rem;
   font-family: 'JetBrains Mono', monospace;
-  color: #c1c6d7;
+  color: ${colors.onSurfaceMuted};
+`;
+
+export const LedgerStatusValue = styled.span`
+  color: ${colors.accent};
+`;
+
+// ─── Line of Business sub-view nav ───────────────────────────────────────────────
+
+export const SubViewBar = styled.div`
+  padding: 12px 24px;
+  border-bottom: 1px solid ${colors.surfaceRaised};
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+export const SubViewBackBtn = styled.button`
+  background: none;
+  border: 1px solid ${colors.surfaceElevated};
+  border-radius: 6px;
+  color: ${colors.primarySoft};
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  .material-symbols-outlined { font-size: 1rem; }
+`;
+
+export const SubViewLabel = styled.span`
+  color: ${colors.onSurfaceMuted};
+  font-size: 0.85rem;
 `;

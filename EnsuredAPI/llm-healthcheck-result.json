@@ -1,0 +1,17 @@
+{
+  "check": "gemini-llm-healthcheck",
+  "provider": "google-gemini",
+  "startedAt": "2026-06-05T19:32:09.150Z",
+  "model": "gemini-2.5-flash",
+  "prompt": "Connectivity health check. Reply with the single word: OK",
+  "latencyMs": 1073,
+  "status": "ok",
+  "connected": true,
+  "reply": "OK",
+  "usage": {
+    "input_tokens": 12,
+    "output_tokens": 1,
+    "total_tokens": 51
+  },
+  "finishedAt": "2026-06-05T19:32:10.224Z"
+}

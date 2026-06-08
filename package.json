@@ -2,8 +2,14 @@
   "private": true,
   "scripts": {
     "start": "npm --prefix EnsuredUI run start",
+    "submission:dev": "npm --prefix SubmissionUI run dev",
+    "submission:build": "npm --prefix SubmissionUI run build",
+    "submission:preview": "npm --prefix SubmissionUI run preview",
+    "start:api": "npm --prefix EnsuredAPI run dev",
     "test": "npm --prefix EnsuredAPI test",
-    "test:api": "npm --prefix EnsuredAPI test"
+    "test:api": "npm --prefix EnsuredAPI test",
+    "test:channels": "npm --prefix channels test",
+    "test:all": "npm run test:api && npm run test:channels"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.36",

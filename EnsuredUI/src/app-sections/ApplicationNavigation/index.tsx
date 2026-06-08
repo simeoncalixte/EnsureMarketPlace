@@ -33,6 +33,7 @@ export const insurerRoutes: NavItem[] = [
   { id: '/insurer/portfolio', label: 'Portfolio', icon: '📈' },
   { id: '/insurer/coverage', label: 'Coverage', icon: '🛡️', subItems: [
     { id: '/insurer/coverage/create', label: 'Create' },
+    { id: '/insurer/coverage/line-of-business', label: 'Line of Business' },
     { id: '/insurer/coverage/simulate', label: 'Simulate' },
     { id: '/insurer/coverage/pricing', label: 'Pricing' }
   ] },

@@ -1,6 +1,5 @@
 import { FastifyPluginAsync } from 'fastify';
 import { createImpersonationToken } from '../services/impersonationService';
-import { runPipelineOnce } from '../pipeline';
 import { userRoles } from '../db/models/constants';
 import { User } from '../db/models/identity.models';
 
@@ -25,22 +24,4 @@ export const impersonationRoute: FastifyPluginAsync = async (app) => {
     // Return token and expiry; frontend should use this token as the user's auth token.
     return reply.send({ token, expiresAt });
   });
-
-  app.post('/admin/pipeline/run',
-    {
-      schema: {
-        description: 'Trigger a single-run of the pipeline processor (admin only)',
-        response: { 200: { type: 'object', properties: { ok: { type: 'boolean' }, channelsProcessed: { type: 'integer' }, submissionsProcessed: { type: 'integer' } } } },
-      },
-    },
-    async (request, reply) => {
-        try {
-          const result = await runPipelineOnce({ batchSize: 1 });
-          return reply.send(result);
-        } catch (err: any) {
-          reply.code(500);
-          return reply.send({ ok: false, error: err?.message ?? String(err) });
-        }
-    }
-  );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import MarketplacePage from './Marketplace';
 
 const meta: Meta = {
@@ -9,4 +9,4 @@ const meta: Meta = {
 
 export default meta;
 
-export const Default: Story = () => <MarketplacePage />;
+export const Default: StoryFn = () => <MarketplacePage />;

@@ -1,5 +1,6 @@
-import React from 'react'
-import type { Meta } from '@storybook/react'
+import React, { useState } from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { within, userEvent, expect } from '@storybook/test'
 import Input from './Input'
 
 const meta: Meta<typeof Input> = {
@@ -9,6 +10,38 @@ const meta: Meta<typeof Input> = {
 
 export default meta
 
-export const Default = () => <Input placeholder="Enter alphanumeric key..." />
+type Story = StoryObj<typeof Input>
 
-export const Search = () => <Input placeholder="Global asset search..." />
+const ControlledInput = (args: { placeholder?: string; initialValue?: string }) => {
+  const [value, setValue] = useState(args.initialValue ?? '')
+  return (
+    <div style={{ maxWidth: 320 }}>
+      <Input
+        placeholder={args.placeholder}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    </div>
+  )
+}
+
+export const Default: Story = {
+  render: () => <Input placeholder="Enter alphanumeric key..." />
+}
+
+export const Search: Story = {
+  render: () => <Input placeholder="Global asset search..." />
+}
+
+export const TypesText: Story = {
+  render: () => <ControlledInput placeholder="Type here..." />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('Type here...') as HTMLInputElement
+
+    await expect(input).toHaveValue('')
+
+    await userEvent.type(input, 'hello world')
+    await expect(input).toHaveValue('hello world')
+  }
+}

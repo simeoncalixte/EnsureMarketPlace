@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { colors, withAlpha } from "../../xds/colors";
+import { spacing, radii, typography } from "../../xds/tokens";
+import { Button } from "../../xds/components/Button";
+import StatCard from "../../xds/components/StatCard";
+import InfoCard from "../../xds/components/InfoCard";
+import FormField from "../../xds/components/FormField";
+import FileDropzone from "../../xds/components/FileDropzone";
 
 const Page = styled.div`
-  background: #0b1326;
-  color: #dae2fd;
+  background: ${colors.surface};
+  color: ${colors.onSurface};
   min-height: 100vh;
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: ${typography.fontFamily};
 `;
 
 const Header = styled.header`
@@ -14,7 +21,7 @@ const Header = styled.header`
   left: 0;
   right: 0;
   z-index: 50;
-  background: #0b1326;
+  background: ${colors.surface};
 `;
 
 const HeaderInner = styled.div`
@@ -22,29 +29,26 @@ const HeaderInner = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 16px 32px;
+  padding: ${spacing.md}px ${spacing.lg}px;
   max-width: 1440px;
   margin: 0 auto;
 `;
 
+const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${spacing.lg}px;
+`;
+
 const Brand = styled.span`
-  font-size: 20px;
+  font-size: ${typography.sizes.lg}px;
   font-weight: 800;
-  color: #adc6ff;
+  color: ${colors.text.accent};
   font-family: Manrope, sans-serif;
 `;
 
-const HeaderButton = styled.button`
-  padding: 6px 14px;
-  border-radius: 8px;
-  background: #222a3d;
-  color: #adc6ff;
-  border: 0;
-  cursor: pointer;
-`;
-
 const TopDivider = styled.div`
-  background: #131b2e;
+  background: ${colors.outlineVariant};
   height: 1px;
   width: 100%;
 `;
@@ -60,15 +64,15 @@ const Aside = styled.aside`
   top: 73px;
   height: calc(100vh - 73px);
   width: 288px;
-  background: #131b2e;
-  padding: 32px 0;
+  background: ${colors.surfaceContainer};
+  padding: ${spacing.lg}px 0;
   display: flex;
   flex-direction: column;
 `;
 
 const SideInner = styled.div`
-  padding: 0 32px;
-  margin-bottom: 24px;
+  padding: 0 ${spacing.lg}px;
+  margin-bottom: ${spacing.lg}px;
 `;
 
 const SideTitle = styled.div`
@@ -78,55 +82,63 @@ const SideTitle = styled.div`
   margin-bottom: 6px;
 `;
 
+const SideIcon = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: ${radii.md}px;
+  background: ${withAlpha(colors.primary, 0.08)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & .material-symbols-outlined {
+    color: ${colors.primary};
+    font-variation-settings: 'FILL' 1;
+  }
+`;
+
 const SideLabel = styled.span`
-  color: #adc6ff;
+  color: ${colors.text.accent};
   font-weight: 800;
 `;
 
 const SideSub = styled.p`
-  color: #c1c6d7;
-  font-size: 12px;
+  color: ${colors.onSurfaceVariant};
+  font-size: ${typography.sizes.xs}px;
   margin: 0;
 `;
 
 const SideNav = styled.nav`
   flex: 1;
-  padding: 0 0 0 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: ${spacing.xs}px;
 `;
 
 const NavItem = styled.div<{ active?: boolean }>`
-  color: ${(p) => (p.active ? '#adc6ff' : '#c1c6d7')};
-  background: ${(p) => (p.active ? '#222a3d' : 'transparent')};
-  border-left: ${(p) => (p.active ? '4px solid #4b8eff' : '4px solid transparent')};
+  color: ${(p) => (p.active ? colors.text.accent : colors.onSurfaceVariant)};
+  background: ${(p) => (p.active ? colors.surfaceContainerHigh : "transparent")};
+  border-left: 4px solid ${(p) => (p.active ? colors.primary : "transparent")};
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 24px;
+  padding: 12px ${spacing.lg}px;
 `;
 
 const SaveWrapper = styled.div`
-  padding: 0 24px;
+  padding: 0 ${spacing.lg}px;
   margin-top: auto;
-`;
 
-const SaveButton = styled.button`
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  background: #2d3449;
-  color: #dae2fd;
-  border: 0;
-  cursor: pointer;
+  & > button {
+    width: 100%;
+  }
 `;
 
 const Main = styled.main`
   margin-left: 288px;
-  padding: 48px;
+  padding: ${spacing.xl + 8}px;
   flex: 1;
-  background: #0b1326;
+  background: ${colors.surface};
   width: calc(100% - 288px);
 `;
 
@@ -136,21 +148,21 @@ const Container = styled.div`
 `;
 
 const HeadSection = styled.section`
-  margin-bottom: 24px;
+  margin-bottom: ${spacing.lg}px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 `;
 
 const Heading = styled.h1`
-  font-size: 28px;
+  font-size: ${typography.sizes.xl}px;
   margin: 0 0 6px 0;
   font-family: Manrope, sans-serif;
   font-weight: 800;
 `;
 
 const SubText = styled.p`
-  color: #c1c6d7;
+  color: ${colors.onSurfaceVariant};
   max-width: 480px;
 `;
 
@@ -159,18 +171,19 @@ const StatRow = styled.div`
   gap: 12px;
 `;
 
-const StatCard = styled.div<{ variant?: 'primary' | 'secondary' }>`
-  background: #131b2e;
+const StatTile = styled.div<{ $tone?: "primary" | "secondary" }>`
+  background: ${colors.surfaceContainer};
   padding: 12px;
-  border-radius: 12px;
-  border-left: 4px solid ${(p) => (p.variant === 'secondary' ? '#4b8eff' : '#00a572')};
+  border-radius: ${radii.lg}px;
+  border-left: 4px solid
+    ${(p) => (p.$tone === "secondary" ? colors.primary : colors.secondary)};
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  @media(min-width: 1024px){
+  gap: ${spacing.lg}px;
+  @media (min-width: 1024px) {
     grid-template-columns: 7fr 5fr;
   }
 `;
@@ -178,107 +191,204 @@ const Grid = styled.div`
 const Left = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: ${spacing.lg}px;
 `;
 
 const Right = styled.div``;
 
-const TagList = styled.div`
-  display:flex;
-  flex-wrap: wrap;
-  gap: 8px;
+const FieldBlock = styled.div``;
+
+const FieldHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: ${spacing.sm}px;
 `;
 
-const TagButton = styled.button`
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid #4b8eff;
-  background: rgba(75,142,255,0.08);
-  color: #4b8eff;
-  font-size: 12px;
-  display:flex;
-  align-items:center;
-  gap:8px;
+const FieldLabel = styled.label`
+  font-size: ${typography.sizes.xs}px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${colors.onSurfaceVariant};
 `;
 
-const UploadBox = styled.div`
-  width: 100%;
-  height: 192px;
-  border: 2px dashed #414755;
-  border-radius: 12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: #131b2e;
-`;
-
-const MoneyInputWrapper = styled.div`
-  position: relative;
-`;
-
-const MoneyInput = styled.input`
-  width: 100%;
-  background: #131b2e;
-  border: 0;
-  border-bottom: 2px solid #414755;
-  padding: 18px 16px;
+const FieldHint = styled.div`
+  font-size: 11px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 20px;
-  color: #dae2fd;
+  color: ${colors.primary};
+`;
+
+const TagList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${spacing.sm}px;
+`;
+
+const TagButton = styled.button<{ $selected?: boolean }>`
+  padding: 6px 12px;
+  border-radius: ${radii.round}px;
+  border: 1px solid
+    ${(p) => (p.$selected ? colors.primary : colors.outlineVariant)};
+  background: ${(p) => (p.$selected ? withAlpha(colors.primary, 0.08) : "transparent")};
+  color: ${(p) => (p.$selected ? colors.primary : colors.onSurfaceVariant)};
+  font-size: ${typography.sizes.xs}px;
+  display: flex;
+  align-items: center;
+  gap: ${spacing.sm}px;
+  cursor: pointer;
+
+  & .material-symbols-outlined {
+    font-size: 12px;
+  }
+`;
+
+const CurrencyField = styled.div`
+  position: relative;
+
+  & input {
+    padding-left: 22px;
+    padding-right: 110px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: ${typography.sizes.lg}px;
+  }
+`;
+
+const CurrencyPrefix = styled.span`
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.primary};
+  pointer-events: none;
+`;
+
+const CurrencySuffix = styled.span`
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.onSurfaceVariant};
+  font-size: 11px;
+  pointer-events: none;
 `;
 
 const ActionRow = styled.div`
-  display:flex;
-  gap:12px;
-  margin-top:12px;
-`;
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
 
-const Primary = styled.button`
-  flex:1;
-  padding:14px;
-  background: linear-gradient(135deg,#4b8eff,#adc6ff);
-  color:#00285c;
-  border-radius:12px;
-  border:0;
-  font-weight:800;
-  cursor:pointer;
-`;
-
-const Secondary = styled.button`
-  padding:12px 18px;
-  background:#2d3449;
-  color:#c1c6d7;
-  border-radius:12px;
-  border:0;
-  cursor:pointer;
+  & > button:first-child {
+    flex: 1;
+  }
 `;
 
 const StickyColumn = styled.div`
   position: sticky;
   top: 96px;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  gap:16px;
+  gap: ${spacing.md}px;
 `;
 
-const InfoCard = styled.div`
-  background:#131b2e;
-  padding:16px;
-  border-radius:12px;
+const FeedCard = styled.div`
+  position: relative;
+  border-radius: ${radii.lg}px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: ${colors.surfaceContainerHigh};
+`;
+
+const FeedImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+`;
+
+const FeedScrim = styled.div`
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, ${colors.surface}, transparent);
+`;
+
+const FeedCaption = styled.div`
+  position: absolute;
+  bottom: ${spacing.md}px;
+  left: ${spacing.md}px;
+  right: ${spacing.md}px;
+  color: ${colors.onSurface};
+`;
+
+const FeedEyebrow = styled.div`
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.primary};
+  text-transform: uppercase;
+  margin-bottom: 6px;
+`;
+
+const FeedBody = styled.div`
+  font-size: ${typography.sizes.sm}px;
+`;
+
+const ComplianceCard = styled.div`
+  background: ${colors.surfaceContainer};
+  padding: ${spacing.md}px;
+  border-radius: ${radii.lg}px;
+`;
+
+const ComplianceTitle = styled.h3`
+  font-size: ${typography.sizes.xs}px;
+  color: ${colors.primary};
+  text-transform: uppercase;
+  margin: 0;
+`;
+
+const ComplianceList = styled.ul`
+  margin-top: 12px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const ComplianceItem = styled.li`
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+`;
+
+const ComplianceIcon = styled.span<{ $tone: "success" | "pending" }>`
+  color: ${(p) => (p.$tone === "success" ? colors.secondary : colors.primary)};
+  font-variation-settings: ${(p) =>
+    p.$tone === "success" ? "'FILL' 1" : "normal"};
+`;
+
+const ComplianceItemTitle = styled.div`
+  font-size: ${typography.sizes.xs}px;
+  font-weight: 700;
+`;
+
+const ComplianceItemMeta = styled.div<{ $italic?: boolean }>`
+  font-size: 11px;
+  color: ${colors.onSurfaceVariant};
+  font-style: ${(p) => (p.$italic ? "italic" : "normal")};
 `;
 
 const MobileNav = styled.nav`
-  display:none;
-  @media(max-width: 768px){
-    display:flex;
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
     position: fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    background:#171f33;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: ${colors.surfaceContainerHigh};
     justify-content: space-around;
-    padding:12px 0;
-    z-index:50;
+    padding: 12px 0;
+    z-index: 50;
   }
 `;
 
@@ -287,11 +397,10 @@ const InsurerMGAProfile: React.FC = () => {
     <Page>
       <Header>
         <HeaderInner>
-          <div style={{display:'flex',alignItems:'center',gap:24}}>
+          <HeaderLeft>
             <Brand>Sovereign Re</Brand>
-            <div style={{display:'none'}} />
-          </div>
-          <HeaderButton>Institutional Login</HeaderButton>
+          </HeaderLeft>
+          <Button variant="secondary" size="sm">Institutional Login</Button>
         </HeaderInner>
         <TopDivider />
       </Header>
@@ -300,9 +409,9 @@ const InsurerMGAProfile: React.FC = () => {
         <Aside>
           <SideInner>
             <SideTitle>
-              <div style={{width:32,height:32,borderRadius:8,background:'rgba(75,142,255,0.08)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                <span className="material-symbols-outlined" style={{color:'#4b8eff',fontVariationSettings: "'FILL' 1"}}>domain</span>
-              </div>
+              <SideIcon>
+                <span className="material-symbols-outlined">domain</span>
+              </SideIcon>
               <SideLabel>Registration</SideLabel>
             </SideTitle>
             <SideSub>Step 3 of 5: Insurer Profile</SideSub>
@@ -311,13 +420,13 @@ const InsurerMGAProfile: React.FC = () => {
           <SideNav>
             <NavItem> <span className="material-symbols-outlined">account_balance</span> Account Type</NavItem>
             <NavItem> <span className="material-symbols-outlined">domain</span> Business Details</NavItem>
-            <NavItem active> <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>verified_user</span> KYC Verification</NavItem>
+            <NavItem active> <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span> KYC Verification</NavItem>
             <NavItem> <span className="material-symbols-outlined">monitoring</span> Capital Profile</NavItem>
             <NavItem> <span className="material-symbols-outlined">fact_check</span> Final Review</NavItem>
           </SideNav>
 
           <SaveWrapper>
-            <SaveButton>Save Progress</SaveButton>
+            <Button variant="secondary">Save Progress</Button>
           </SaveWrapper>
         </Aside>
 
@@ -329,113 +438,98 @@ const InsurerMGAProfile: React.FC = () => {
                 <SubText>Define your operational scope and regulatory standing to finalize the sovereign capital underwriting parameters.</SubText>
               </div>
               <StatRow>
-                <StatCard>
-                  <div style={{fontSize:10, textTransform:'uppercase', color:'#4b8eff', marginBottom:6}}>Application Health</div>
-                  <div style={{display:'flex',alignItems:'center',gap:8}}>
-                    <div style={{fontFamily:'JetBrains Mono', fontSize:20, color:'#4edea3', fontWeight:800}}>94%</div>
-                    <span className="material-symbols-outlined" style={{color:'#4edea3', fontVariationSettings: "'FILL' 1"}}>bolt</span>
-                  </div>
-                </StatCard>
-                <StatCard variant="secondary">
-                  <div style={{fontSize:10, textTransform:'uppercase', color:'#4b8eff', marginBottom:6}}>Tier Status</div>
-                  <div style={{fontFamily:'JetBrains Mono', fontSize:18, color:'#4b8eff', fontWeight:700}}>Institutional B+</div>
-                </StatCard>
+                <StatTile>
+                  <StatCard label="Application Health" value="94%" tone="success" />
+                </StatTile>
+                <StatTile $tone="secondary">
+                  <StatCard label="Tier Status" value="Institutional B+" tone="info" />
+                </StatTile>
               </StatRow>
             </HeadSection>
 
             <Grid>
               <Left>
-                <div>
-                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8}}>
-                    <label style={{fontSize:12,fontWeight:800,letterSpacing:'0.08em',textTransform:'uppercase',color:'#c1c6d7'}}>Risk Jurisdictions</label>
-                    <div style={{fontSize:11,fontFamily:'JetBrains Mono',color:'#4b8eff'}}>Primary Underwriting Seats</div>
-                  </div>
+                <FieldBlock>
+                  <FieldHead>
+                    <FieldLabel>Risk Jurisdictions</FieldLabel>
+                    <FieldHint>Primary Underwriting Seats</FieldHint>
+                  </FieldHead>
                   <TagList>
-                    <TagButton>United Kingdom <span className="material-symbols-outlined" style={{fontSize:12}}>close</span></TagButton>
-                    <TagButton>United States <span className="material-symbols-outlined" style={{fontSize:12}}>close</span></TagButton>
-                    <TagButton>Bermuda <span className="material-symbols-outlined" style={{fontSize:12}}>close</span></TagButton>
-                    <TagButton style={{border:'1px solid #414755', color:'#c1c6d7', background:'transparent'}}>Singapore <span className="material-symbols-outlined" style={{fontSize:12}}>add</span></TagButton>
-                    <TagButton style={{border:'1px solid #414755', color:'#c1c6d7', background:'transparent'}}>EU (Passport) <span className="material-symbols-outlined" style={{fontSize:12}}>add</span></TagButton>
-                    <TagButton style={{border:'1px solid #414755', color:'#c1c6d7', background:'transparent'}}>Cayman Islands <span className="material-symbols-outlined" style={{fontSize:12}}>add</span></TagButton>
+                    <TagButton $selected type="button">United Kingdom <span className="material-symbols-outlined">close</span></TagButton>
+                    <TagButton $selected type="button">United States <span className="material-symbols-outlined">close</span></TagButton>
+                    <TagButton $selected type="button">Bermuda <span className="material-symbols-outlined">close</span></TagButton>
+                    <TagButton type="button">Singapore <span className="material-symbols-outlined">add</span></TagButton>
+                    <TagButton type="button">EU (Passport) <span className="material-symbols-outlined">add</span></TagButton>
+                    <TagButton type="button">Cayman Islands <span className="material-symbols-outlined">add</span></TagButton>
                   </TagList>
-                </div>
+                </FieldBlock>
 
-                <div>
-                  <div style={{marginBottom:8}}>
-                    <label style={{fontSize:12,fontWeight:800,letterSpacing:'0.08em',textTransform:'uppercase',color:'#c1c6d7'}}>Regulatory License</label>
-                  </div>
-                  <div style={{position:'relative'}}>
-                    <UploadBox>
-                      <div style={{textAlign:'center'}}>
-                        <span className="material-symbols-outlined" style={{fontSize:36,color:'#8b90a0',display:'block',marginBottom:8}}>cloud_upload</span>
-                        <div style={{color:'#dae2fd'}}>Drop license certificate here</div>
-                        <div style={{color:'#c1c6d7',fontSize:12,marginTop:6}}>PDF, PNG or JPG (Max 25MB)</div>
-                      </div>
-                    </UploadBox>
-                    <input style={{position:'absolute',inset:0,opacity:0,cursor:'pointer'}} type="file" />
-                  </div>
-                </div>
+                <FieldBlock>
+                  <FieldHead>
+                    <FieldLabel>Regulatory License</FieldLabel>
+                  </FieldHead>
+                  <FileDropzone
+                    title="Drop license certificate here"
+                    helperText="PDF, PNG or JPG (Max 25MB)"
+                    accept="application/pdf,image/png,image/jpeg"
+                  />
+                </FieldBlock>
 
-                <div>
-                  <label style={{fontSize:12,fontWeight:800,letterSpacing:'0.08em',textTransform:'uppercase',color:'#c1c6d7'}}>Annual Underwriting Limit</label>
-                  <MoneyInputWrapper>
-                    <span style={{position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',fontFamily:'JetBrains Mono',color:'#4b8eff'}}>$</span>
-                    <MoneyInput defaultValue="500,000,000" />
-                    <span style={{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',fontFamily:'JetBrains Mono',color:'#c1c6d7',fontSize:11}}>USD Equivalent</span>
-                  </MoneyInputWrapper>
-                </div>
+                <FieldBlock>
+                  <CurrencyField>
+                    <FormField label="Annual Underwriting Limit" defaultValue="500,000,000" />
+                    <CurrencyPrefix>$</CurrencyPrefix>
+                    <CurrencySuffix>USD Equivalent</CurrencySuffix>
+                  </CurrencyField>
+                </FieldBlock>
 
                 <ActionRow>
-                  <Primary>Continue to Capital Profile</Primary>
-                  <Secondary>Back</Secondary>
+                  <Button variant="primary">Continue to Capital Profile</Button>
+                  <Button variant="secondary">Back</Button>
                 </ActionRow>
               </Left>
 
               <Right>
                 <StickyColumn>
-                  <div style={{borderRadius:12,overflow:'hidden',aspectRatio:'16/9',background:'#2d3449'}}>
-                    <img style={{width:'100%',height:'100%',objectFit:'cover',opacity:0.6}} src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0gMqT7eN_PtR_32_iQYQbA7aerJXAhauHqe95kfS7IOyzW5vlJeHVUjtS35Bp4EE6ZwYfVmLs7Ern7qddDY2Zs5TbQIKxXNRToSCYYLqM95jye9YBhlJ1jsvxPD6v0hR6_zQvJB_TYzSnC_-H-LiIt8YW1dnXnqpyUmbBwDWFVQGjc3kdpQNcgDBU5sE0bd8nOLRqK4ZDyMEj8WMHWZjleaInh6oxqEs7iBiyGc0ilHpvZ6sVsKuCDmNs8ibuzebKoQEdLxKbYAV7" alt="skyscraper" />
-                    <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, #0b1326, transparent)'}} />
-                    <div style={{position:'absolute',bottom:16,left:16,right:16,color:'#dae2fd'}}>
-                      <div style={{fontSize:11,fontFamily:'JetBrains Mono',color:'#4b8eff',textTransform:'uppercase',marginBottom:6}}>Intelligence Feed</div>
-                      <div style={{fontSize:14}}>Global reinsurance capacity for Insurer entities currently sits at $42.8B across primary hubs.</div>
-                    </div>
-                  </div>
+                  <FeedCard>
+                    <FeedImage src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0gMqT7eN_PtR_32_iQYQbA7aerJXAhauHqe95kfS7IOyzW5vlJeHVUjtS35Bp4EE6ZwYfVmLs7Ern7qddDY2Zs5TbQIKxXNRToSCYYLqM95jye9YBhlJ1jsvxPD6v0hR6_zQvJB_TYzSnC_-H-LiIt8YW1dnXnqpyUmbBwDWFVQGjc3kdpQNcgDBU5sE0bd8nOLRqK4ZDyMEj8WMHWZjleaInh6oxqEs7iBiyGc0ilHpvZ6sVsKuCDmNs8ibuzebKoQEdLxKbYAV7" alt="skyscraper" />
+                    <FeedScrim />
+                    <FeedCaption>
+                      <FeedEyebrow>Intelligence Feed</FeedEyebrow>
+                      <FeedBody>Global reinsurance capacity for Insurer entities currently sits at $42.8B across primary hubs.</FeedBody>
+                    </FeedCaption>
+                  </FeedCard>
 
-                  <InfoCard>
-                    <h3 style={{fontSize:12,color:'#4b8eff',textTransform:'uppercase',margin:0}}>Compliance Verification</h3>
-                    <ul style={{marginTop:12,listStyle:'none',padding:0,display:'flex',flexDirection:'column',gap:12}}>
-                      <li style={{display:'flex',gap:12,alignItems:'flex-start'}}>
-                        <span className="material-symbols-outlined" style={{color:'#4edea3',fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+                  <ComplianceCard>
+                    <ComplianceTitle>Compliance Verification</ComplianceTitle>
+                    <ComplianceList>
+                      <ComplianceItem>
+                        <ComplianceIcon $tone="success" className="material-symbols-outlined">check_circle</ComplianceIcon>
                         <div>
-                          <div style={{fontSize:12,fontWeight:700}}>LEI Identifier Authenticated</div>
-                          <div style={{fontSize:11,color:'#c1c6d7'}}>ID: 549300V6Y6XF0C5N8M41</div>
+                          <ComplianceItemTitle>LEI Identifier Authenticated</ComplianceItemTitle>
+                          <ComplianceItemMeta>ID: 549300V6Y6XF0C5N8M41</ComplianceItemMeta>
                         </div>
-                      </li>
-                      <li style={{display:'flex',gap:12,alignItems:'flex-start'}}>
-                        <span className="material-symbols-outlined" style={{color:'#4edea3',fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+                      </ComplianceItem>
+                      <ComplianceItem>
+                        <ComplianceIcon $tone="success" className="material-symbols-outlined">check_circle</ComplianceIcon>
                         <div>
-                          <div style={{fontSize:12,fontWeight:700}}>Officer Background Check</div>
-                          <div style={{fontSize:11,color:'#c1c6d7'}}>Cleared by GlobalRef 12/2023</div>
+                          <ComplianceItemTitle>Officer Background Check</ComplianceItemTitle>
+                          <ComplianceItemMeta>Cleared by GlobalRef 12/2023</ComplianceItemMeta>
                         </div>
-                      </li>
-                      <li style={{display:'flex',gap:12,alignItems:'flex-start'}}>
-                        <span className="material-symbols-outlined" style={{color:'#4b8eff'}}>hourglass_empty</span>
+                      </ComplianceItem>
+                      <ComplianceItem>
+                        <ComplianceIcon $tone="pending" className="material-symbols-outlined">hourglass_empty</ComplianceIcon>
                         <div>
-                          <div style={{fontSize:12,fontWeight:700}}>Capital Adequacy Ratio</div>
-                          <div style={{fontSize:11,color:'#c1c6d7',fontStyle:'italic'}}>Pending license upload</div>
+                          <ComplianceItemTitle>Capital Adequacy Ratio</ComplianceItemTitle>
+                          <ComplianceItemMeta $italic>Pending license upload</ComplianceItemMeta>
                         </div>
-                      </li>
-                    </ul>
+                      </ComplianceItem>
+                    </ComplianceList>
+                  </ComplianceCard>
+
+                  <InfoCard tone="info" icon="info" title="Protocol Note">
+                    Providing accurate jurisdictional data ensures your capital tranches are matched with appropriate risk providers in our Bermuda-domiciled sidecar structure.
                   </InfoCard>
-
-                  <div style={{padding:16,borderRadius:12,background:'rgba(75,142,255,0.04)',border:'1px solid rgba(75,142,255,0.12)'}}>
-                    <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:8}}>
-                      <span className="material-symbols-outlined" style={{color:'#4b8eff'}}>info</span>
-                      <div style={{fontSize:11,color:'#4b8eff',fontWeight:800,textTransform:'uppercase'}}>Protocol Note</div>
-                    </div>
-                    <div style={{fontSize:12,color:'#c1c6d7'}}>Providing accurate jurisdictional data ensures your capital tranches are matched with appropriate risk providers in our Bermuda-domiciled sidecar structure.</div>
-                  </div>
                 </StickyColumn>
               </Right>
             </Grid>
@@ -445,7 +539,7 @@ const InsurerMGAProfile: React.FC = () => {
 
       <MobileNav>
         <span className="material-symbols-outlined">home</span>
-        <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>how_to_reg</span>
+        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>how_to_reg</span>
         <span className="material-symbols-outlined">analytics</span>
         <span className="material-symbols-outlined">person</span>
       </MobileNav>

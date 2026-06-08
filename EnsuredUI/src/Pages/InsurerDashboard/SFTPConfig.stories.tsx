@@ -1,5 +1,5 @@
 import React from 'react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import SFTPConfig from './SFTPConfig'
 
 const meta: Meta = {
@@ -10,4 +10,4 @@ const meta: Meta = {
 
 export default meta
 
-export const Default: Story = () => <SFTPConfig />
+export const Default: StoryFn = () => <SFTPConfig />

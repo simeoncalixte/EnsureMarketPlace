@@ -31,9 +31,16 @@ jest.mock('../../db/models', () => {
   return { SubmissionFile, IngestionChannel };
 });
 
+import { createPipelineTransformationReporter } from '../../../test/helpers/pipelineTransformations';
 import { IngestionService } from './service';
 
 describe('IngestionService AMQP wiring', () => {
+  const transformations = createPipelineTransformationReporter('ingestion-amqp');
+
+  afterAll(async () => {
+    await transformations.write();
+  });
+
   test('startAmqpListener registers consumer and processes messages', async () => {
     const amqpModule = require('../connectors/amqp');
     const service = new IngestionService();
@@ -46,7 +53,16 @@ describe('IngestionService AMQP wiring', () => {
 
     const spy = jest.spyOn(service, 'process').mockResolvedValue({ ok: true });
 
-    await handler({ submission: { id: 42 } }, {});
+    const message = { submission: { id: 42 } };
+    await handler(message, {});
+
+    transformations.record({
+      stage: 'amqp-consume',
+      testName: 'startAmqpListener registers consumer and processes messages',
+      description: 'AMQP delivery is transformed into a channel-tagged ingestion process call.',
+      before: { queueConfig: { queueNames: ['test-queue'] }, message },
+      after: { processCall: spy.mock.calls[0] },
+    });
 
     expect(spy).toHaveBeenCalledWith({ submission: { id: 42 }, _ingestionChannelId: 1 });
 
@@ -65,7 +81,8 @@ describe('IngestionService AMQP wiring', () => {
     const handler = amqpModule.amqpConnector.__getSavedHandler();
 
     // first delivery, no attempts
-    await handler({ submission: { id: 99 } }, {});
+    const firstDelivery = { submission: { id: 99 } };
+    await handler(firstDelivery, {});
 
     // advance timers to allow scheduled retry (baseBackoffMs = 10)
     jest.advanceTimersByTime(20);
@@ -74,7 +91,22 @@ describe('IngestionService AMQP wiring', () => {
     expect(amqpModule.amqpConnector.publishToQueue).toHaveBeenCalledWith('test-queue', expect.objectContaining({ _ingestionAttempts: 1 }));
 
     // simulate re-delivery of the retried message (attempts = 1) which will exceed maxRetries=1
-    await handler({ submission: { id: 99 }, _ingestionAttempts: 1 }, {});
+    const retriedDelivery = { submission: { id: 99 }, _ingestionAttempts: 1 };
+    await handler(retriedDelivery, {});
+
+    transformations.record({
+      stage: 'amqp-retry-dlq',
+      testName: 'retries failed messages and sends to DLQ after max retries',
+      description: 'Failed AMQP deliveries are transformed into retry and dead-letter queue publish calls.',
+      before: {
+        firstDelivery,
+        retriedDelivery,
+        retryPolicy: { maxRetries: 1, baseBackoffMs: 10, deadLetterQueue: 'dead-queue' },
+      },
+      after: {
+        publishCalls: amqpModule.amqpConnector.publishToQueue.mock.calls,
+      },
+    });
 
     // DLQ publish should have occurred
     expect(amqpModule.amqpConnector.publishToQueue).toHaveBeenCalledWith('dead-queue', expect.objectContaining({ _ingestionAttempts: 2 }));

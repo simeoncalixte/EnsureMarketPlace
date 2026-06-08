@@ -1,0 +1,383 @@
+import { createHash } from 'crypto';
+import type { Transaction } from 'sequelize';
+import { PipelineArtifact, PipelineRun, StageExecution } from '../../db/models';
+
+/**
+ * Playback service — records and reads the pipeline's replayable history.
+ *
+ * The board's stage-advance calls {@link prepareStageRun} before running a stage
+ * (to open/reuse a run and assemble the stage's input from prior outputs) and
+ * {@link recordStageRun} after (to persist the input/output artifacts and the
+ * execution). {@link getSubmissionPlayback} / {@link getArtifact} back the
+ * playback endpoints, and {@link seedPipelineRunForSubmission} lets the seeders
+ * emit believable historical runs so the timeline has something to show.
+ *
+ * Everything here is best-effort at the call sites: if these tables are missing
+ * (migration not yet run) the capture is skipped and the core pipeline still
+ * advances — playback is additive, never load-bearing.
+ */
+
+export interface PreparedStageRun {
+  run: PipelineRun;
+  /** Prior stage outputs for this run, keyed by stage (e.g. `{ ocr, extraction }`). */
+  priorOutputs: Record<string, unknown>;
+}
+
+function hashPayload(value: unknown): { json: string; contentHash: string; sizeBytes: number } {
+  const json = JSON.stringify(value ?? null);
+  const contentHash = createHash('sha256').update(json).digest('hex');
+  return { json, contentHash, sizeBytes: Buffer.byteLength(json, 'utf8') };
+}
+
+async function createArtifact(
+  attrs: {
+    runId: number;
+    submissionId: number | null;
+    tenantId: number | null;
+    stageKey: string;
+    role: 'input' | 'output';
+    payload: Record<string, unknown> | unknown;
+  },
+  transaction?: Transaction,
+): Promise<PipelineArtifact> {
+  const { contentHash, sizeBytes } = hashPayload(attrs.payload);
+  return PipelineArtifact.create(
+    {
+      runId: attrs.runId,
+      submissionId: attrs.submissionId,
+      tenantId: attrs.tenantId,
+      stageKey: attrs.stageKey,
+      role: attrs.role,
+      contentHash,
+      mediaType: 'application/json',
+      payload: (attrs.payload ?? null) as Record<string, unknown> | null,
+      sizeBytes,
+    } as never,
+    { transaction },
+  );
+}
+
+/** Load this run's stage outputs, keyed by stage key (latest write wins). */
+async function loadPriorStageOutputs(runId: number): Promise<Record<string, unknown>> {
+  const outputs = await PipelineArtifact.findAll({
+    where: { runId, role: 'output' },
+    order: [['id', 'ASC']],
+  });
+  const byStage: Record<string, unknown> = {};
+  for (const artifact of outputs) {
+    byStage[artifact.stageKey] = artifact.payload;
+  }
+  return byStage;
+}
+
+/**
+ * Open (or reuse) the active run for a submission and return the prior stage
+ * outputs so the caller can thread them into the next stage's input. A run stays
+ * `running` across advances and is closed by {@link recordStageRun} at the final
+ * stage; replays create their own run via {@link seedPipelineRunForSubmission} or
+ * an explicit replay (future).
+ */
+export async function prepareStageRun(args: {
+  submissionId: number;
+  tenantId: number | null;
+  fromStageKey: string;
+  toStageKey: string;
+  trigger?: string;
+  triggeredByUserId?: number | null;
+}): Promise<PreparedStageRun> {
+  let run = await PipelineRun.findOne({
+    where: { submissionId: args.submissionId, status: 'running' },
+    order: [['id', 'DESC']],
+  });
+  if (!run) {
+    run = await PipelineRun.create({
+      submissionId: args.submissionId,
+      tenantId: args.tenantId,
+      trigger: args.trigger ?? 'manual',
+      triggeredByUserId: args.triggeredByUserId ?? null,
+      fromStage: args.fromStageKey,
+      toStage: args.toStageKey,
+      status: 'running',
+      startedAt: new Date(),
+    });
+  }
+  const priorOutputs = await loadPriorStageOutputs(run.id);
+  return { run, priorOutputs };
+}
+
+/**
+ * Persist a stage's input + output artifacts and its execution record, advancing
+ * the run (and closing it once the final stage completes).
+ */
+export async function recordStageRun(args: {
+  run: PipelineRun;
+  submissionId: number;
+  tenantId: number | null;
+  stageKey: string;
+  isFinalStage: boolean;
+  status: 'completed' | 'failed';
+  inputPayload: unknown;
+  outputPayload: unknown;
+  provider?: string | null;
+  startedAt: Date;
+  finishedAt: Date;
+  errorMessage?: string | null;
+  /** Quick-query scalar signals projected from the stage result (e.g. templatePersisted). */
+  metadata?: Record<string, unknown> | null;
+}): Promise<{ runId: number; inputArtifactId: number; outputArtifactId: number; executionId: number }> {
+  const { run } = args;
+  const inputArtifact = await createArtifact({
+    runId: run.id,
+    submissionId: args.submissionId,
+    tenantId: args.tenantId,
+    stageKey: args.stageKey,
+    role: 'input',
+    payload: args.inputPayload,
+  });
+  const outputArtifact = await createArtifact({
+    runId: run.id,
+    submissionId: args.submissionId,
+    tenantId: args.tenantId,
+    stageKey: args.stageKey,
+    role: 'output',
+    payload: args.outputPayload,
+  });
+
+  const attempt = (await StageExecution.count({ where: { runId: run.id, stageKey: args.stageKey } })) + 1;
+  const execution = await StageExecution.create({
+    runId: run.id,
+    submissionId: args.submissionId,
+    tenantId: args.tenantId,
+    stageKey: args.stageKey,
+    attempt,
+    status: args.status,
+    inputArtifactId: inputArtifact.id,
+    outputArtifactId: outputArtifact.id,
+    provider: args.provider ?? null,
+    providerVersion: null,
+    durationMs: Math.max(0, args.finishedAt.getTime() - args.startedAt.getTime()),
+    startedAt: args.startedAt,
+    finishedAt: args.finishedAt,
+    errorMessage: args.errorMessage ?? null,
+    metadata: args.metadata && Object.keys(args.metadata).length > 0 ? args.metadata : null,
+  } as never);
+
+  // Advance the run pointer; close it only when the final stage completes. A
+  // failure leaves the run `running` so the next advance retries within it.
+  run.toStage = args.stageKey;
+  if (args.isFinalStage && args.status === 'completed') {
+    run.status = 'completed';
+    run.finishedAt = new Date();
+  }
+  await run.save();
+
+  return {
+    runId: run.id,
+    inputArtifactId: inputArtifact.id,
+    outputArtifactId: outputArtifact.id,
+    executionId: execution.id,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Read APIs (playback endpoints)
+// ---------------------------------------------------------------------------
+
+export async function getSubmissionPlayback(submissionId: number): Promise<{
+  submissionId: number;
+  runCount: number;
+  runs: Array<Record<string, unknown>>;
+}> {
+  const runs = await PipelineRun.findAll({ where: { submissionId }, order: [['id', 'ASC']] });
+  const runIds = runs.map((r) => r.id);
+
+  const executions = runIds.length
+    ? await StageExecution.findAll({ where: { runId: runIds }, order: [['id', 'ASC']] })
+    : [];
+  // Artifact *summaries* only (payloads are fetched on demand via getArtifact).
+  const artifacts = runIds.length
+    ? await PipelineArtifact.findAll({
+        where: { runId: runIds },
+        attributes: { exclude: ['payload'] },
+        order: [['id', 'ASC']],
+      })
+    : [];
+
+  return {
+    submissionId,
+    runCount: runs.length,
+    runs: runs.map((run) => ({
+      id: run.id,
+      trigger: run.trigger,
+      status: run.status,
+      parentRunId: run.parentRunId,
+      fromStage: run.fromStage,
+      toStage: run.toStage,
+      startedAt: run.startedAt,
+      finishedAt: run.finishedAt,
+      executions: executions
+        .filter((e) => e.runId === run.id)
+        .map((e) => ({
+          id: e.id,
+          stageKey: e.stageKey,
+          attempt: e.attempt,
+          status: e.status,
+          provider: e.provider,
+          durationMs: e.durationMs,
+          startedAt: e.startedAt,
+          finishedAt: e.finishedAt,
+          errorMessage: e.errorMessage,
+          inputArtifactId: e.inputArtifactId,
+          outputArtifactId: e.outputArtifactId,
+        })),
+      artifacts: artifacts
+        .filter((a) => a.runId === run.id)
+        .map((a) => ({
+          id: a.id,
+          stageKey: a.stageKey,
+          role: a.role,
+          contentHash: a.contentHash,
+          mediaType: a.mediaType,
+          sizeBytes: a.sizeBytes,
+          createdAt: a.createdAt,
+        })),
+    })),
+  };
+}
+
+export async function getArtifact(artifactId: number): Promise<PipelineArtifact | null> {
+  return PipelineArtifact.findByPk(artifactId);
+}
+
+// ---------------------------------------------------------------------------
+// Seeder support — emit believable historical runs
+// ---------------------------------------------------------------------------
+
+export interface SeedStageSpec {
+  stageKey: string;
+  output: Record<string, unknown>;
+}
+
+/**
+ * Build synthetic per-stage outputs for the stages a submission has already
+ * passed (up to and including `throughStageKey`), derived from its document
+ * manifest — so a seeded "completed" run reads like a real one.
+ */
+export function syntheticStageOutputs(
+  input: {
+    lineOfBusinessCode: string | null;
+    summaryText: string;
+    structuredData: Record<string, unknown>;
+    throughStageKey: string;
+  },
+  orderedStageKeys: string[],
+): SeedStageSpec[] {
+  const idx = orderedStageKeys.indexOf(input.throughStageKey);
+  const upto = idx < 0 ? orderedStageKeys.length - 1 : idx;
+  const specs: SeedStageSpec[] = [];
+  for (let i = 0; i <= upto; i += 1) {
+    const stageKey = orderedStageKeys[i];
+    specs.push({ stageKey, output: outputForStage(stageKey, input) });
+  }
+  return specs;
+}
+
+function outputForStage(
+  stageKey: string,
+  ctx: { lineOfBusinessCode: string | null; summaryText: string; structuredData: Record<string, unknown> },
+): Record<string, unknown> {
+  switch (stageKey) {
+    case 'ingestion':
+      return { ok: true, service: 'ingestion', fileCount: ctx.structuredData.fileCount ?? null };
+    case 'ocr':
+      return { ok: true, service: 'ocr', text: ctx.summaryText, provider: 'tesseract' };
+    case 'classification':
+      return { ok: true, service: 'classification', lineOfBusinessCode: ctx.lineOfBusinessCode, confidence: 0.95 };
+    case 'extraction':
+      return { ok: true, service: 'extraction', structuredData: ctx.structuredData };
+    case 'normalization':
+      return { ok: true, service: 'normalization', normalized: ctx.structuredData };
+    case 'validation':
+      return { ok: true, service: 'validation', valid: true, issues: [] };
+    case 'workflow':
+      return { ok: true, service: 'workflow', decision: 'approved', score: 0.8 };
+    default:
+      return { ok: true, service: stageKey };
+  }
+}
+
+/**
+ * Persist a completed historical run (with input/output artifacts + executions)
+ * for a submission. Runs inside the caller's transaction when provided.
+ */
+export async function seedPipelineRunForSubmission(
+  args: {
+    submissionId: number;
+    tenantId: number | null;
+    stages: SeedStageSpec[];
+    baseTime: Date;
+    trigger?: string;
+  },
+  transaction?: Transaction,
+): Promise<PipelineRun | null> {
+  if (args.stages.length === 0) return null;
+
+  const stepMs = 45_000; // ~45s between stages for a believable timeline
+  const startedAt = args.baseTime;
+  const finishedAt = new Date(startedAt.getTime() + args.stages.length * stepMs);
+
+  const run = await PipelineRun.create(
+    {
+      submissionId: args.submissionId,
+      tenantId: args.tenantId,
+      trigger: args.trigger ?? 'seed',
+      fromStage: args.stages[0].stageKey,
+      toStage: args.stages[args.stages.length - 1].stageKey,
+      status: 'completed',
+      startedAt,
+      finishedAt,
+    },
+    { transaction },
+  );
+
+  const priorOutputs: Record<string, unknown> = {};
+  for (let i = 0; i < args.stages.length; i += 1) {
+    const spec = args.stages[i];
+    const stageStarted = new Date(startedAt.getTime() + i * stepMs);
+    const stageFinished = new Date(stageStarted.getTime() + Math.floor(stepMs / 2));
+    const inputPayload = { submission: { id: args.submissionId, tenantId: args.tenantId }, ...priorOutputs };
+
+    const inputArtifact = await createArtifact(
+      { runId: run.id, submissionId: args.submissionId, tenantId: args.tenantId, stageKey: spec.stageKey, role: 'input', payload: inputPayload },
+      transaction,
+    );
+    const outputArtifact = await createArtifact(
+      { runId: run.id, submissionId: args.submissionId, tenantId: args.tenantId, stageKey: spec.stageKey, role: 'output', payload: spec.output },
+      transaction,
+    );
+    await StageExecution.create(
+      {
+        runId: run.id,
+        submissionId: args.submissionId,
+        tenantId: args.tenantId,
+        stageKey: spec.stageKey,
+        attempt: 1,
+        status: 'completed',
+        inputArtifactId: inputArtifact.id,
+        outputArtifactId: outputArtifact.id,
+        provider: spec.stageKey === 'ocr' ? 'tesseract' : null,
+        providerVersion: null,
+        durationMs: Math.floor(stepMs / 2),
+        startedAt: stageStarted,
+        finishedAt: stageFinished,
+        errorMessage: null,
+        metadata: { trigger: 'seed' },
+      } as never,
+      { transaction },
+    );
+
+    priorOutputs[spec.stageKey] = spec.output;
+  }
+
+  return run;
+}

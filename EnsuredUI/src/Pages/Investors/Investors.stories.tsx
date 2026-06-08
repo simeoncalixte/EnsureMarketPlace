@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import InvestorsPage from './Investors';
 
 const meta: Meta = {
@@ -9,4 +9,4 @@ const meta: Meta = {
 
 export default meta;
 
-export const Default: Story = () => <InvestorsPage />;
+export const Default: StoryFn = () => <InvestorsPage />;

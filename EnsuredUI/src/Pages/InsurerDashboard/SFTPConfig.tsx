@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import { getApiBase } from '../../lib/api'
+import styled from 'styled-components'
+import { getChannel } from '../../api/ingestionChannels'
 import * as S from './InsurerDashboard.styles'
+import { colors } from '../../xds/colors'
+import {
+  Badge,
+  Breadcrumb,
+  Button,
+  FormField,
+  MaskedSecretInput,
+  SegmentedSwitch,
+  Textarea,
+  ToggleSwitch,
+  DataTable,
+} from '../../xds'
 
 type AuthMethod = 'password' | 'key'
 type SessionStatus = 'connected' | 'idle' | 'error'
@@ -31,15 +44,46 @@ const STAT_ROWS = [
   { label: 'Host key algorithm', value: 'ED25519' },
 ]
 
-function Toggle({ checked, onChange }: { checked: boolean; onChange: () => void }) {
-  return (
-    <S.ToggleLabel onClick={onChange}>
-      <S.ToggleTrack $checked={checked}><S.ToggleKnob $checked={checked} /></S.ToggleTrack>
-    </S.ToggleLabel>
-  )
+const STATUS_VARIANT: Record<SessionStatus, 'success' | 'neutral' | 'danger'> = {
+  connected: 'success',
+  idle: 'neutral',
+  error: 'danger',
 }
 
-export default function SFTPConfig(): JSX.Element {
+const PanelTitleIcon = styled.span`
+  font-size: 1.125rem;
+  color: ${colors.primarySoft};
+`
+
+const MonoCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.primarySoft};
+`
+
+const MutedMonoCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.neutral[500]};
+`
+
+const PlainMonoCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+`
+
+const ActionRow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.375rem;
+`
+
+const TableScroll = styled.div`
+  overflow-x: auto;
+`
+
+const BtnIcon = styled.span`
+  font-size: 0.875rem;
+`
+
+export default function SFTPConfig(): React.JSX.Element {
   const { channelId } = useParams() as { channelId?: string }
   const [channelLabel, setChannelLabel] = useState<string | null>(null)
   const [authMethod, setAuthMethod] = useState<AuthMethod>('key')
@@ -47,10 +91,8 @@ export default function SFTPConfig(): JSX.Element {
   const [port, setPort]             = useState('22')
   const [username, setUsername]     = useState('')
   const [password, setPassword]     = useState('')
-  const [showPw, setShowPw]         = useState(false)
   const [privateKey, setPrivateKey] = useState('')
   const [passphrase, setPassphrase] = useState('')
-  const [showPp, setShowPp]         = useState(false)
   const [strictHost, setStrictHost] = useState(true)
   const [compress, setCompress]     = useState(false)
   const [sessions, setSessions]     = useState<SFTPSession[]>(SEED_SESSIONS)
@@ -65,10 +107,8 @@ export default function SFTPConfig(): JSX.Element {
 
   useEffect(() => {
     if (!channelId) return
-    const base = getApiBase()
-    fetch(`${base}/api/ingestion-channels/${channelId}`, { credentials: 'include' })
-      .then((r) => { if (!r.ok) throw new Error('Not found'); return r.json() })
-      .then((data) => {
+    getChannel(channelId)
+      .then((data: any) => {
         if (data?.label) setChannelLabel(data.label)
         if (typeof data?.meta === 'string') {
           const parts = data.meta.split(':')
@@ -90,14 +130,13 @@ export default function SFTPConfig(): JSX.Element {
 
   return (
     <S.PageShell>
-      {/* Breadcrumb */}
-      <S.Breadcrumb aria-label="breadcrumb">
-        <S.BreadcrumbItem>Ingestion</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbItem>Channels</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbActive>{channelLabel ?? 'SFTP'}</S.BreadcrumbActive>
-      </S.Breadcrumb>
+      <Breadcrumb
+        items={[
+          { label: 'Ingestion' },
+          { label: 'Channels' },
+          { label: channelLabel ?? 'SFTP' },
+        ]}
+      />
 
       {/* Header */}
       <S.EmailPageHeader>
@@ -116,107 +155,84 @@ export default function SFTPConfig(): JSX.Element {
           <S.SFTPConnCardDecor aria-hidden>terminal</S.SFTPConnCardDecor>
 
           <S.SFTPConnTitle>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem', color: '#adc6ff' }}>
-              lan
-            </span>
+            <PanelTitleIcon className="material-symbols-outlined">lan</PanelTitleIcon>
             Connection Settings
           </S.SFTPConnTitle>
 
           <S.FieldGroup>
             {/* Host + Port side-by-side */}
             <S.TwoFields>
-              <div>
-                <S.FieldLabel htmlFor="sftp-host">Host / IP</S.FieldLabel>
-                <S.Input
-                  id="sftp-host"
-                  type="text"
-                  value={host}
-                  onChange={(e) => setHost(e.target.value)}
-                  placeholder="sftp.example.com"
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-                />
-              </div>
-              <div>
-                <S.FieldLabel htmlFor="sftp-port">Port</S.FieldLabel>
-                <S.Input
-                  id="sftp-port"
-                  type="number"
-                  value={port}
-                  onChange={(e) => setPort(e.target.value)}
-                  placeholder="22"
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-                />
-              </div>
+              <FormField
+                id="sftp-host"
+                label="Host / IP"
+                type="text"
+                value={host}
+                onChange={(e) => setHost(e.target.value)}
+                placeholder="sftp.example.com"
+              />
+              <FormField
+                id="sftp-port"
+                label="Port"
+                type="number"
+                value={port}
+                onChange={(e) => setPort(e.target.value)}
+                placeholder="22"
+              />
             </S.TwoFields>
 
-            <div>
-              <S.FieldLabel htmlFor="sftp-user">Username</S.FieldLabel>
-              <S.Input
-                id="sftp-user"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="ingest_svc"
-                style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-              />
-            </div>
+            <FormField
+              id="sftp-user"
+              label="Username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="ingest_svc"
+            />
 
             {/* Auth method tabs */}
             <div>
               <S.FieldLabel as="span">Authentication Method</S.FieldLabel>
-              <S.SFTPAuthRow>
-                <S.SFTPAuthTab $active={authMethod === 'key'} type="button" onClick={() => setAuthMethod('key')}>
-                  SSH Private Key
-                </S.SFTPAuthTab>
-                <S.SFTPAuthTab $active={authMethod === 'password'} type="button" onClick={() => setAuthMethod('password')}>
-                  Password
-                </S.SFTPAuthTab>
-              </S.SFTPAuthRow>
+              <SegmentedSwitch
+                aria-label="Authentication Method"
+                options={[
+                  { label: 'SSH Private Key', value: 'key' },
+                  { label: 'Password', value: 'password' },
+                ]}
+                value={authMethod}
+                onChange={(v: string) => setAuthMethod(v as AuthMethod)}
+              />
             </div>
 
             {authMethod === 'password' ? (
               <div>
                 <S.FieldLabel htmlFor="sftp-pw">Password</S.FieldLabel>
-                <S.MaskedInput>
-                  <S.Input
-                    id="sftp-pw"
-                    type={showPw ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••••••"
-                    style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-                  />
-                  <S.EyeBtn type="button" aria-label={showPw ? 'Hide password' : 'Show password'} onClick={() => setShowPw((v) => !v)}>
-                    {showPw ? 'visibility_off' : 'visibility'}
-                  </S.EyeBtn>
-                </S.MaskedInput>
+                <MaskedSecretInput
+                  id="sftp-pw"
+                  value={password}
+                  onChange={setPassword}
+                  placeholder="••••••••••••"
+                />
               </div>
             ) : (
               <>
                 <div>
                   <S.FieldLabel htmlFor="sftp-key">Private Key (PEM)</S.FieldLabel>
-                  <S.SFTPKeyArea
+                  <Textarea
                     id="sftp-key"
+                    rows={6}
                     value={privateKey}
                     onChange={(e) => setPrivateKey(e.target.value)}
-                    placeholder="-----BEGIN OPENSSH PRIVATE KEY-----&#10;…&#10;-----END OPENSSH PRIVATE KEY-----"
+                    placeholder={'-----BEGIN OPENSSH PRIVATE KEY-----\n…\n-----END OPENSSH PRIVATE KEY-----'}
                   />
                 </div>
                 <div>
                   <S.FieldLabel htmlFor="sftp-pp">Key Passphrase (optional)</S.FieldLabel>
-                  <S.MaskedInput>
-                    <S.Input
-                      id="sftp-pp"
-                      type={showPp ? 'text' : 'password'}
-                      value={passphrase}
-                      onChange={(e) => setPassphrase(e.target.value)}
-                      placeholder="••••••••••••"
-                      style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-                    />
-                    <S.EyeBtn type="button" aria-label={showPp ? 'Hide passphrase' : 'Show passphrase'} onClick={() => setShowPp((v) => !v)}>
-                      {showPp ? 'visibility_off' : 'visibility'}
-                    </S.EyeBtn>
-                  </S.MaskedInput>
+                  <MaskedSecretInput
+                    id="sftp-pp"
+                    value={passphrase}
+                    onChange={setPassphrase}
+                    placeholder="••••••••••••"
+                  />
                 </div>
               </>
             )}
@@ -226,7 +242,7 @@ export default function SFTPConfig(): JSX.Element {
               <S.ToggleText>
                 <S.ToggleLabel as="div">Strict Host Key Checking</S.ToggleLabel>
               </S.ToggleText>
-              <Toggle checked={strictHost} onChange={() => setStrictHost((v) => !v)} />
+              <ToggleSwitch checked={strictHost} onChange={() => setStrictHost((v) => !v)} />
             </S.TogglesRow>
             <S.SFTPKnownHostsRow>
               <S.SFTPKnownHostsLabel>Stored fingerprint</S.SFTPKnownHostsLabel>
@@ -239,15 +255,15 @@ export default function SFTPConfig(): JSX.Element {
               <S.ToggleText>
                 <S.ToggleLabel as="div">Enable SSH Compression</S.ToggleLabel>
               </S.ToggleText>
-              <Toggle checked={compress} onChange={() => setCompress((v) => !v)} />
+              <ToggleSwitch checked={compress} onChange={() => setCompress((v) => !v)} />
             </S.TogglesRow>
 
             <S.BtnRow>
-              <S.GhostBtn type="button" onClick={handleTest} disabled={testing}>
-                <span className="material-symbols-outlined" style={{ fontSize: '0.875rem' }}>sync</span>
+              <Button variant="ghost" type="button" onClick={handleTest} disabled={testing}>
+                <BtnIcon className="material-symbols-outlined">sync</BtnIcon>
                 {testing ? 'Testing…' : testResult === 'ok' ? 'Connected ✓' : testResult === 'fail' ? 'Failed ✗' : 'Test Connection'}
-              </S.GhostBtn>
-              <S.FillBtn type="button">Save Credentials</S.FillBtn>
+              </Button>
+              <Button variant="primary" type="button">Save Credentials</Button>
             </S.BtnRow>
           </S.FieldGroup>
         </S.SFTPConnCard>
@@ -267,49 +283,34 @@ export default function SFTPConfig(): JSX.Element {
         <S.SFTPSessionsCard>
           <S.SFTPSessionsTop>
             <S.SFTPSessionsTitle>Configured Servers</S.SFTPSessionsTitle>
-            <S.StreamingBadge>
-              <S.StreamingDot aria-hidden />
-              {connectedCount} Active
-            </S.StreamingBadge>
+            <Badge variant="success" dot>{connectedCount} Active</Badge>
           </S.SFTPSessionsTop>
 
-          <div style={{ overflowX: 'auto' }}>
-            <S.SFTPTable>
-              <thead>
-                <tr>
-                  <S.SFTPTh>Host</S.SFTPTh>
-                  <S.SFTPTh>User</S.SFTPTh>
-                  <S.SFTPTh>Port</S.SFTPTh>
-                  <S.SFTPTh>Path</S.SFTPTh>
-                  <S.SFTPTh>Last Activity</S.SFTPTh>
-                  <S.SFTPTh>Status</S.SFTPTh>
-                  <S.SFTPTh style={{ textAlign: 'right' }}>Actions</S.SFTPTh>
-                </tr>
-              </thead>
-              <tbody>
-                {sessions.map((s, i) => (
-                  <S.SFTPTr key={`${s.host}-${i}`}>
-                    <S.SFTPHostCell>{s.host}</S.SFTPHostCell>
-                    <S.SFTPTd style={{ fontFamily: "'JetBrains Mono', monospace", color: '#c8d8f0' }}>{s.user}</S.SFTPTd>
-                    <S.SFTPTd style={{ fontFamily: "'JetBrains Mono', monospace" }}>{s.port}</S.SFTPTd>
-                    <S.SFTPTd style={{ fontFamily: "'JetBrains Mono', monospace", color: '#64748b' }}>{s.path}</S.SFTPTd>
-                    <S.SFTPTd>{s.lastActivity}</S.SFTPTd>
-                    <S.SFTPTd>
-                      <S.SFTPStatusChip $status={s.status}>{s.status}</S.SFTPStatusChip>
-                    </S.SFTPTd>
-                    <S.SFTPTd style={{ textAlign: 'right' }}>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.375rem' }}>
-                        <S.SFTPActionBtn aria-label={`Sync ${s.host}`}>sync</S.SFTPActionBtn>
-                        <S.AccountRevokeBtn type="button" onClick={() => removeSession(i)} aria-label={`Remove ${s.host}`}>
-                          Remove
-                        </S.AccountRevokeBtn>
-                      </div>
-                    </S.SFTPTd>
-                  </S.SFTPTr>
-                ))}
-              </tbody>
-            </S.SFTPTable>
-          </div>
+          <TableScroll>
+            <DataTable<SFTPSession & { __idx: number }>
+              columns={[
+                { key: 'host', header: 'Host', render: (s) => <S.SFTPHostCell as="span">{s.host}</S.SFTPHostCell> },
+                { key: 'user', header: 'User', render: (s) => <MonoCell>{s.user}</MonoCell> },
+                { key: 'port', header: 'Port', render: (s) => <PlainMonoCell>{s.port}</PlainMonoCell> },
+                { key: 'path', header: 'Path', render: (s) => <MutedMonoCell>{s.path}</MutedMonoCell> },
+                { key: 'lastActivity', header: 'Last Activity', render: (s) => s.lastActivity },
+                {
+                  key: 'status',
+                  header: 'Status',
+                  render: (s) => <Badge variant={STATUS_VARIANT[s.status]}>{s.status}</Badge>,
+                },
+              ]}
+              data={sessions.map((s, i) => ({ ...s, __idx: i }))}
+              rowActions={(s) => (
+                <ActionRow>
+                  <S.SFTPActionBtn aria-label={`Sync ${s.host}`}>sync</S.SFTPActionBtn>
+                  <Button variant="outline" tone="danger" size="sm" type="button" onClick={() => removeSession(s.__idx)} aria-label={`Remove ${s.host}`}>
+                    Remove
+                  </Button>
+                </ActionRow>
+              )}
+            />
+          </TableScroll>
         </S.SFTPSessionsCard>
 
       </S.SFTPGrid>

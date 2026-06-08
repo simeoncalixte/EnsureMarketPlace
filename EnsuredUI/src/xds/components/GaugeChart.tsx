@@ -1,5 +1,6 @@
 import React from 'react';
 import { PolarAngleAxis, RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts';
+import { colors } from '../colors';
 
 interface Threshold {
   /** Upper bound for this color band (inclusive) */
@@ -21,17 +22,17 @@ interface Props {
 }
 
 const DEFAULT_THRESHOLDS: Threshold[] = [
-  { upTo: 1.0, color: '#ef4444' },   // danger – below minimum solvency
-  { upTo: 1.5, color: '#f97316' },   // warning
-  { upTo: 2.5, color: '#22c55e' },   // healthy
-  { upTo: Infinity, color: '#4b8eff' }, // strong
+  { upTo: 1.0, color: colors.dataViz.red },   // danger – below minimum solvency
+  { upTo: 1.5, color: colors.dataViz.orange },   // warning
+  { upTo: 2.5, color: colors.dataViz.green },   // healthy
+  { upTo: Infinity, color: colors.dataViz.blue }, // strong
 ];
 
 function pickColor(value: number, thresholds: Threshold[]): string {
   for (const t of thresholds) {
     if (value <= t.upTo) return t.color;
   }
-  return thresholds[thresholds.length - 1]?.color ?? '#4b8eff';
+  return thresholds[thresholds.length - 1]?.color ?? colors.dataViz.blue;
 }
 
 export default function GaugeChart({
@@ -59,7 +60,7 @@ export default function GaugeChart({
           <RadialBar
             dataKey="value"
             cornerRadius={6}
-            background={{ fill: '#131b2e' }}
+            background={{ fill: colors.surfacePanel }}
           />
         </RadialBarChart>
       </ResponsiveContainer>
@@ -81,10 +82,10 @@ export default function GaugeChart({
           {value.toFixed(2)}x
         </span>
         {label && (
-          <span style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>{label}</span>
+          <span style={{ fontSize: 11, color: colors.neutral[400], marginTop: 4 }}>{label}</span>
         )}
         {sublabel && (
-          <span style={{ fontSize: 10, color: '#64748b', marginTop: 2 }}>{sublabel}</span>
+          <span style={{ fontSize: 10, color: colors.neutral[500], marginTop: 2 }}>{sublabel}</span>
         )}
       </div>
     </div>

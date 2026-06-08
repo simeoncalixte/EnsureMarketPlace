@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import {
   SeedingSection,
   SeedingSectionLabel,
@@ -11,19 +12,274 @@ import {
   SeedItemSub,
   SeedItemActions,
   SeedIconBtn,
-  IntegrityBox,
-  IntegrityHeader,
-  IntegrityIcon,
-  IntegrityLabel,
-  IntegrityText,
 } from './AdminPage.styles';
 
 import Input from '../../xds/components/Input';
 import NumberInput from '../../xds/components/NumberInput';
-import { apiFetch } from '../../lib/auth';
+import Button from '../../xds/components/Button';
+import Badge from '../../xds/components/Badge';
+import Select from '../../xds/components/Select';
+import Checkbox from '../../xds/components/Checkbox';
+import InfoCard from '../../xds/components/InfoCard';
+import { colors, withAlpha } from '../../xds/colors';
+import { getCrestaCatalog, startCrestaImport, stopCrestaImport } from '../../api/crestaZones';
+import { seedRoute, seedPipelineSubmissions, purgeSubmissions } from '../../api/seed';
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Page-local types — typing the seed records and status map removes the
+ * TS7015 "index expression is not of type number" errors that came from the
+ * previous `any[]` arrays being indexed into a Record<number, string>.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+interface SeedSource {
+  id: number;
+  title: string;
+  route: string;
+  sub: string;
+  count?: number;
+  dim?: boolean;
+}
+
+type StatusKey = number | string;
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Page-local styled composites (built over xds primitives / tokens).
+ * These are NOT design-system primitives, so they live in the page.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+const Row = styled.div<{ $mt?: number; $mb?: number }>`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  ${(p) => (p.$mt != null ? `margin-top: ${p.$mt}px;` : '')}
+  ${(p) => (p.$mb != null ? `margin-bottom: ${p.$mb}px;` : '')}
+`;
+
+const RowWrap = styled(Row)`
+  flex-wrap: wrap;
+`;
+
+const FieldGroup = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
+
+const FieldLabel = styled.label`
+  font-size: 12px;
+  color: ${colors.neutral[400]};
+`;
+
+const StatusSlot = styled.div<{ $minWidth?: number; $ml?: number }>`
+  font-size: 12px;
+  color: ${colors.onSurfaceMuted};
+  min-width: ${(p) => p.$minWidth ?? 140}px;
+  ${(p) => (p.$ml != null ? `margin-left: ${p.$ml}px;` : '')}
+`;
+
+const MonoInput = styled(Input)<{ $minWidth?: number }>`
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid ${withAlpha(colors.border, 0.12)};
+  background: ${colors.surfaceDeep};
+  font-family: 'JetBrains Mono', monospace;
+  ${(p) => (p.$minWidth != null ? `min-width: ${p.$minWidth}px;` : '')}
+`;
+
+const MonoNumberInput = styled(NumberInput)`
+  width: 84px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid ${withAlpha(colors.border, 0.12)};
+  background: ${colors.surfaceDeep};
+  font-family: 'JetBrains Mono', monospace;
+`;
+
+const FixedNumberInput = styled(NumberInput)<{ $width?: number }>`
+  ${(p) => (p.$width != null ? `width: ${p.$width}px;` : '')}
+`;
+
+const PlainInput = styled(Input)<{ $minWidth?: number }>`
+  padding: 8px;
+  border-radius: 6px;
+  ${(p) => (p.$minWidth != null ? `min-width: ${p.$minWidth}px;` : '')}
+`;
+
+const CalloutTitle = styled.div`
+  color: ${colors.onSurface};
+  font-weight: 700;
+  font-size: 13px;
+`;
+
+const CalloutMeta = styled.div`
+  color: ${colors.neutral[400]};
+  font-size: 12px;
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+`;
+
+const Grow = styled.div`
+  flex: 1;
+`;
+
+const SubHeading = styled.h4`
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.onSurfaceMuted};
+  margin: 0 0 8px 0;
+`;
+
+const SectionBlock = styled.div`
+  margin-top: 28px;
+`;
+
+const SeedRoute = styled.div`
+  font-size: 12px;
+  color: ${colors.neutral[400]};
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+`;
+
+const ResultBox = styled.div`
+  margin-top: 12px;
+  background: ${colors.background};
+  padding: 12px;
+  border-radius: 6px;
+`;
+
+const ResultLine = styled.div<{ $tone?: 'muted' | 'accent' | 'gain' | 'error' | 'note'; $mt?: number }>`
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  ${(p) => (p.$mt != null ? `margin-top: ${p.$mt}px;` : '')}
+  color: ${({ $tone }) =>
+    $tone === 'accent'
+      ? colors.dataViz.amber
+      : $tone === 'gain'
+      ? colors.dataViz.mint
+      : $tone === 'error'
+      ? colors.errorSoft
+      : $tone === 'note'
+      ? colors.neutral[400]
+      : colors.onSurfaceMuted};
+`;
+
+const ResultNote = styled.div`
+  font-size: 12px;
+  color: ${colors.neutral[400]};
+  margin-top: 6px;
+`;
+
+const SubmissionList = styled.div`
+  margin-top: 8px;
+`;
+
+const SubmissionRow = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+`;
+
+const SubmissionDot = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: ${colors.accent};
+`;
+
+const SubmissionId = styled.span`
+  color: ${colors.onSurface};
+  font-family: 'JetBrains Mono', monospace;
+`;
+
+const SubmissionStatus = styled.span`
+  color: ${colors.dataViz.mint};
+  margin-left: 8px;
+`;
+
+const SubmissionSource = styled.span`
+  color: ${colors.neutral[500]};
+  margin-left: 8px;
+`;
+
+const SubmissionLob = styled.span`
+  color: ${colors.dataViz.violet};
+  margin-left: 8px;
+`;
+
+const SubmissionCx = styled.span`
+  color: ${colors.dataViz.amber};
+  margin-left: 8px;
+`;
+
+const SubmissionFiles = styled.span`
+  color: ${colors.neutral[500]};
+  margin-left: 8px;
+`;
+
+const SubscribedStages = styled.div`
+  font-size: 11px;
+  color: ${colors.neutral[500]};
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+`;
+
+const CrestaIdle = styled.span`
+  color: ${colors.neutral[500]};
+`;
+
+const CrestaRunning = styled.span`
+  color: ${colors.dataViz.amber};
+`;
+
+const CrestaStatRow = styled.div`
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+`;
+
+const CrestaStat = styled.span`
+  color: ${colors.onSurfaceMuted};
+  strong {
+    color: ${colors.onSurface};
+  }
+`;
+
+const CrestaZonesStat = styled.span`
+  color: ${colors.neutral[400]};
+  strong {
+    color: ${colors.dataViz.mint};
+  }
+`;
+
+const CrestaError = styled.span`
+  color: ${colors.errorSoft};
+`;
+
+const CrestaStateRight = styled.div`
+  font-size: 12px;
+  min-width: 170px;
+  text-align: right;
+`;
+
+/**
+ * Status pill — renders an ok/error Badge from the free-form status strings the
+ * seeding handlers emit (e.g. "ok 200 : seeded", "error 500: ...", "pending").
+ */
+const StatusBadge: React.FC<{ status?: string }> = ({ status }) => {
+  if (!status) return null;
+  const variant = status.startsWith('ok') ? 'success' : 'danger';
+  return (
+    <Badge variant={variant} dot>
+      {status}
+    </Badge>
+  );
+};
 
 export default function SeedingPanel() {
-  const [sources, setSources] = useState<any[]>([
+  const [sources, setSources] = useState<SeedSource[]>([
     { id: 1, title: 'NOAA Meteo-Feed', route: '/api/seed/noaa', sub: 'Latency: 0.8s | Connected' },
     { id: 2, title: 'Orbital Imagery Link', route: '/api/seed/orbital', sub: 'Res: 15cm | Active Stream' },
     { id: 3, title: 'Cedent Ingestion Port', route: '/api/seed/cedent', sub: 'Batch #402-A | Syncing' },
@@ -31,12 +287,12 @@ export default function SeedingPanel() {
   ]);
 
   const [form, setForm] = useState({ title: '', route: '', sub: '' });
-  const [statuses, setStatuses] = useState<Record<number, string>>({});
+  const [statuses, setStatuses] = useState<Record<StatusKey, string>>({});
 
-  const [orgSeeds, setOrgSeeds] = useState<any[]>([
+  const [orgSeeds, setOrgSeeds] = useState<SeedSource[]>([
     { id: 101, title: 'Org Seeding', route: '/api/seed/organizations', sub: 'Creates sample organizations', count: 10 },
   ]);
-  const [userSeeds, setUserSeeds] = useState<any[]>([
+  const [userSeeds, setUserSeeds] = useState<SeedSource[]>([
     { id: 201, title: 'User Seeding', route: '/api/seed/users', sub: 'Creates sample users', count: 25 },
   ]);
 
@@ -54,6 +310,68 @@ export default function SeedingPanel() {
 
   const [exposureForm, setExposureForm] = useState<{ points: number; dealId?: string; includeAllActive?: boolean }>({ points: 12, dealId: '', includeAllActive: false });
   const [pipelineResult, setPipelineResult] = useState<any | null>(null);
+  const [incomingCount, setIncomingCount] = useState<number>(3);
+  const [purgeResult, setPurgeResult] = useState<any | null>(null);
+
+  // CRESTA zone import (cresta.org API) — long-running, throttled, resumable background job.
+  const [crestaForm, setCrestaForm] = useState<{ only: string; level: string }>({ only: '', level: '' });
+  const [crestaProgress, setCrestaProgress] = useState<any | null>(null);
+
+  async function refreshCrestaProgress() {
+    try {
+      const res = await getCrestaCatalog();
+      if (res.ok) setCrestaProgress(await res.json());
+    } catch (_) {
+      /* ignore poll errors */
+    }
+  }
+
+  // Poll progress so the panel reflects the background job (it runs server-side, ~1 page / 30s).
+  useEffect(() => {
+    refreshCrestaProgress();
+    const t = setInterval(refreshCrestaProgress, 5000);
+    return () => clearInterval(t);
+  }, []);
+
+  async function triggerCrestaImport() {
+    setStatuses((st) => ({ ...st, cresta: 'pending' }));
+    try {
+      const body: { only?: string; level?: string } = {};
+      if (crestaForm.only.trim()) body.only = crestaForm.only.trim();
+      if (crestaForm.level) body.level = crestaForm.level;
+      const res = await startCrestaImport(body);
+      let json: any = null;
+      try {
+        json = await res.clone().json();
+      } catch (_) {
+        /* non-json */
+      }
+      setStatuses((st) => ({
+        ...st,
+        cresta: res.ok ? `ok: ${json?.message ?? res.status}` : `error ${res.status}: ${json?.message ?? ''}`,
+      }));
+      refreshCrestaProgress();
+    } catch (err: any) {
+      setStatuses((st) => ({ ...st, cresta: `failed (${err.message || 'network'})` }));
+    }
+    setTimeout(() => setStatuses((st) => ({ ...st, cresta: '' })), 9000);
+  }
+
+  async function stopCrestaImportRun() {
+    try {
+      const res = await stopCrestaImport();
+      let json: any = null;
+      try {
+        json = await res.clone().json();
+      } catch (_) {
+        /* non-json */
+      }
+      setStatuses((st) => ({ ...st, cresta: json?.message ?? `stop ${res.status}` }));
+      refreshCrestaProgress();
+    } catch (err: any) {
+      setStatuses((st) => ({ ...st, cresta: `failed (${err.message || 'network'})` }));
+    }
+  }
 
   function addSource() {
     if (!form.title || !form.route) return;
@@ -74,8 +392,8 @@ export default function SeedingPanel() {
     if (!src || !src.route) return;
     setStatuses((st) => ({ ...st, [id]: 'pending' }));
 
-    const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
-    let url = src.route && (src.route.startsWith('http') ? src.route : `${API_BASE}${src.route}`);
+    // apiFetch resolves relative `/api/*` paths and passes absolute URLs through.
+    let url = src.route;
 
     try {
       let res: Response;
@@ -83,20 +401,14 @@ export default function SeedingPanel() {
       if (src.route?.includes('/seed/organizations')) {
         const extras = Number(src.count ?? 2);
         url = `${url}${url.includes('?') ? '&' : '?'}extras=${extras}`;
-        res = await apiFetch(url, { method: 'POST' });
+        res = await seedRoute(url);
       } else if (src.route?.includes('/seed/users')) {
         const extraInvestors = Number(src.count ?? 2);
-        res = await apiFetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ extraInvestors }) });
+        res = await seedRoute(url, { extraInvestors });
       } else {
-        const opts: RequestInit = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: src.id, title: src.title, metadata: src.sub }),
-        };
-
-        res = await apiFetch(url, opts);
+        res = await seedRoute(url, { id: src.id, title: src.title, metadata: src.sub });
         if (res.status === 405) {
-          res = await apiFetch(url, { method: 'GET' });
+          res = await seedRoute(url, undefined, { method: 'GET' });
         }
       }
 
@@ -143,25 +455,25 @@ export default function SeedingPanel() {
 
   async function triggerPortfolio(type: 'insurer' | 'investor') {
     setStatuses((st) => ({ ...st, [type]: 'pending' }));
-    const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
 
     try {
-      let url = '';
-      let opts: RequestInit = { method: 'POST', headers: { 'Content-Type': 'application/json' } };
+      let route = '';
+      let body: Record<string, unknown>;
+      const headers: Record<string, string> = {};
 
       if (type === 'insurer') {
-        url = `${API_BASE}${portfolioForm.insurerRoute}`;
-        opts.body = JSON.stringify({ investorCount: 3, policyCount: Number(portfolioForm.policyCount), exposuresPerPolicy: Number(portfolioForm.exposuresPerPolicy), tranchesPerDeal: Number(portfolioForm.tranchesPerDeal) });
+        route = portfolioForm.insurerRoute;
+        body = { investorCount: 3, policyCount: Number(portfolioForm.policyCount), exposuresPerPolicy: Number(portfolioForm.exposuresPerPolicy), tranchesPerDeal: Number(portfolioForm.tranchesPerDeal) };
       } else {
-        url = `${API_BASE}${portfolioForm.investorRoute}`;
-        opts.body = JSON.stringify({ extraInvestors: Number(portfolioForm.investorExtra), tranchesPerDeal: Number(portfolioForm.tranchesPerDeal), policyCount: Number(portfolioForm.policyCount), exposuresPerPolicy: Number(portfolioForm.exposuresPerPolicy) });
+        route = portfolioForm.investorRoute;
+        body = { extraInvestors: Number(portfolioForm.investorExtra), tranchesPerDeal: Number(portfolioForm.tranchesPerDeal), policyCount: Number(portfolioForm.policyCount), exposuresPerPolicy: Number(portfolioForm.exposuresPerPolicy) };
         if (portfolioForm.investorToken) {
           // include provided bearer token to target a specific investor session
-          (opts.headers as Record<string, string>)['Authorization'] = `Bearer ${portfolioForm.investorToken}`;
+          headers['Authorization'] = `Bearer ${portfolioForm.investorToken}`;
         }
       }
 
-      const res = await apiFetch(url, opts);
+      const res = await seedRoute(route, body, { headers });
       let message = '';
       try { message = JSON.stringify(await res.clone().json()); } catch (_) { message = res.statusText; }
       setStatuses((st) => ({ ...st, [type]: res.ok ? `ok ${res.status}` : `error ${res.status}: ${message}` }));
@@ -173,15 +485,13 @@ export default function SeedingPanel() {
 
   async function triggerExposureSeries() {
     setStatuses((st) => ({ ...st, exposure: 'pending' }));
-    const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
 
     try {
-      const url = `${API_BASE}/api/seed/exposure-time-series`;
       const body: any = { points: Number(exposureForm.points ?? 12) };
       if (exposureForm.dealId && String(exposureForm.dealId).trim() !== '') body.dealId = Number(exposureForm.dealId);
       if (exposureForm.includeAllActive) body.includeAllActive = true;
 
-      const res = await apiFetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const res = await seedRoute('/api/seed/exposure-time-series', body);
       let message = '';
       try { message = JSON.stringify(await res.clone().json()); } catch (_) { message = res.statusText; }
       setStatuses((st) => ({ ...st, exposure: res.ok ? `ok ${res.status}` : `error ${res.status}: ${message}` }));
@@ -191,12 +501,14 @@ export default function SeedingPanel() {
     setTimeout(() => setStatuses((st) => ({ ...st, exposure: '' })), 7000);
   }
 
-  async function triggerRunPipeline() {
+  // Seed "incoming" submissions into the signed-in user's organization pipeline so
+  // the ingestion pipeline can be exercised manually on the Pipeline Processes
+  // board. A relative apiFetch path lets auth.ts attach the current session's
+  // bearer token, which the backend uses to resolve the target organization.
+  async function triggerSeedIncoming() {
     setStatuses((st) => ({ ...st, pipeline: 'pending' }));
-    const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
     try {
-      const url = `${API_BASE}/api/admin/pipeline/run`;
-      const res = await apiFetch(url, { method: 'POST' });
+      const res = await seedPipelineSubmissions(Number(incomingCount) || 3);
       let message = '';
       let jsonBody: any = null;
       try {
@@ -218,61 +530,189 @@ export default function SeedingPanel() {
     setTimeout(() => setStatuses((st) => ({ ...st, pipeline: '' })), 7000);
   }
 
+  // Destructive admin reset: remove every submission and the business data
+  // derived from it (pipeline, underwriting, capital markets). Organizations and
+  // users are preserved by the backend. Guarded by a browser confirm + the
+  // backend's { confirm: true } requirement.
+  async function triggerPurgeSubmissions() {
+    const confirmed =
+      typeof window === 'undefined' ||
+      window.confirm(
+        'Remove ALL submissions and associated data (pipeline runs, documents, policies, pricing, deals, tranches, tokens, claims, payouts)?\n\nOrganizations and users are kept. This cannot be undone.',
+      );
+    if (!confirmed) return;
+    setStatuses((st) => ({ ...st, purge: 'pending' }));
+    setPurgeResult(null);
+    try {
+      const res = await purgeSubmissions();
+      let json: any = null;
+      let message = '';
+      try {
+        json = await res.clone().json();
+        message = json?.message || JSON.stringify(json);
+      } catch (_) {
+        message = res.statusText;
+      }
+      if (res.ok) {
+        setStatuses((st) => ({ ...st, purge: `ok ${res.status}` }));
+        setPurgeResult(json);
+      } else {
+        setStatuses((st) => ({ ...st, purge: `error ${res.status}: ${message}` }));
+        setPurgeResult(json || { error: message });
+      }
+    } catch (err: any) {
+      setStatuses((st) => ({ ...st, purge: `failed (${err.message || 'network'})` }));
+    }
+    setTimeout(() => setStatuses((st) => ({ ...st, purge: '' })), 9000);
+  }
+
   return (
     <SeedingSection>
       <SeedingSectionLabel>Live Data Seeding</SeedingSectionLabel>
 
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <Input
+      <Row>
+        <MonoInput
           placeholder="Source title"
           value={form.title}
           onChange={(e) => setForm({ ...form, title: (e.target as HTMLInputElement).value })}
-          style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }}
         />
-        <Input
+        <MonoInput
           placeholder="Route (e.g. /api/seed/noaa)"
           value={form.route}
           onChange={(e) => setForm({ ...form, route: (e.target as HTMLInputElement).value })}
-          style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace", minWidth: 260 }}
+          $minWidth={260}
         />
-        <Input
+        <MonoInput
           placeholder="Metadata (latency / status)"
           value={form.sub}
           onChange={(e) => setForm({ ...form, sub: (e.target as HTMLInputElement).value })}
-          style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }}
         />
-        <button onClick={addSource} style={{ padding: '8px 12px', background: '#4b8eff', color: '#002e69', border: 'none', borderRadius: 6, fontWeight: 700 }}>Add Source</button>
-        <button onClick={triggerRunPipeline} style={{ padding: '8px 12px', background: '#ffb547', color: '#2b1a00', border: 'none', borderRadius: 6, fontWeight: 700 }}>Run Pipeline Now</button>
-      </div>
+        <Button onClick={addSource}>Add Source</Button>
+      </Row>
 
-      <SeedList style={{ marginTop: 12 }}>
+      <InfoCard tone="info">
+        <Row>
+          <Grow>
+            <CalloutTitle>Seed incoming submissions into my pipeline</CalloutTitle>
+            <CalloutMeta>
+              POST /api/seed/pipeline-submissions — creates submissions for your signed-in organization so you can advance them on Pipeline Processes.
+            </CalloutMeta>
+          </Grow>
+          <FieldLabel>Count</FieldLabel>
+          <MonoNumberInput
+            placeholder="Count"
+            value={String(incomingCount)}
+            onChange={(e) => setIncomingCount(Number((e.target as HTMLInputElement).value))}
+          />
+          <Button tone="warning" onClick={triggerSeedIncoming}>Seed Incoming Submissions</Button>
+          <StatusSlot>
+            <StatusBadge status={statuses['pipeline']} />
+          </StatusSlot>
+        </Row>
+      </InfoCard>
+
+      <InfoCard tone="success">
+        <Row>
+          <SeedItemIcon color={colors.accent} className="material-symbols-outlined">public</SeedItemIcon>
+          <Grow>
+            <CalloutTitle>CRESTA Zones (cresta.org API)</CalloutTitle>
+            <CalloutMeta>
+              POST /api/cresta-zones/import — resumable. Up to 3 countries in parallel, throttled to 1 request / 10s per country. Loads state/province + city zones into crestaZones.
+            </CalloutMeta>
+          </Grow>
+          <CrestaStateRight>
+            {crestaProgress?.import?.running ? (
+              <CrestaRunning>running… {crestaProgress.import.current ?? ''}</CrestaRunning>
+            ) : (
+              <CrestaIdle>idle</CrestaIdle>
+            )}
+          </CrestaStateRight>
+        </Row>
+
+        <RowWrap>
+          <FieldLabel>Only (ISO3, comma)</FieldLabel>
+          <MonoInput
+            placeholder="e.g. ATG,RUS — blank = all"
+            value={crestaForm.only}
+            onChange={(e) => setCrestaForm({ ...crestaForm, only: (e.target as HTMLInputElement).value })}
+            $minWidth={200}
+          />
+          <FieldLabel>Level</FieldLabel>
+          <Select
+            value={crestaForm.level}
+            onChange={(e) => setCrestaForm({ ...crestaForm, level: (e.target as HTMLSelectElement).value })}
+          >
+            <option value="">both</option>
+            <option value="state_province">state/province</option>
+            <option value="city">city</option>
+          </Select>
+          <Button
+            tone="success"
+            onClick={triggerCrestaImport}
+            disabled={Boolean(crestaProgress?.import?.running)}
+          >
+            Start Import
+          </Button>
+          <Button
+            tone="danger"
+            onClick={stopCrestaImportRun}
+            disabled={!crestaProgress?.import?.running}
+          >
+            Stop
+          </Button>
+          <StatusSlot $minWidth={160}>
+            <StatusBadge status={statuses['cresta']} />
+          </StatusSlot>
+        </RowWrap>
+
+        {crestaProgress ? (
+          <CrestaStatRow>
+            {['complete', 'in_progress', 'pending', 'unavailable', 'failed'].map((k) => (
+              <CrestaStat key={k}>
+                {k}: <strong>{crestaProgress.byStatus?.[k] ?? 0}</strong>
+              </CrestaStat>
+            ))}
+            <CrestaZonesStat>
+              zones imported:{' '}
+              <strong>
+                {(crestaProgress.targets || []).reduce((a: number, t: any) => a + (t.imported || 0), 0).toLocaleString()}
+              </strong>
+            </CrestaZonesStat>
+            {crestaProgress.import?.lastError ? (
+              <CrestaError>err: {crestaProgress.import.lastError}</CrestaError>
+            ) : null}
+          </CrestaStatRow>
+        ) : null}
+      </InfoCard>
+
+      <SeedList>
         {sources.map((s) => (
-          <SeedItem key={s.id} dim={Boolean((s as any).dim)}>
+          <SeedItem key={s.id} dim={Boolean(s.dim)}>
             <SeedItemInner>
               <SeedItemLeft>
-                <SeedItemIcon color="#4b8eff" className="material-symbols-outlined">cloud</SeedItemIcon>
+                <SeedItemIcon color={colors.primary} className="material-symbols-outlined">cloud</SeedItemIcon>
                 <div>
                   <SeedItemTitle>{s.title}</SeedItemTitle>
                   <SeedItemSub>{s.sub}</SeedItemSub>
-                  <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 6, fontFamily: "'JetBrains Mono', monospace" }}>{s.route}</div>
+                  <SeedRoute>{s.route}</SeedRoute>
                 </div>
               </SeedItemLeft>
               <SeedItemActions>
                 <SeedIconBtn title="Audit">
                   <span className="material-symbols-outlined">rule</span>
                 </SeedIconBtn>
-                <SeedIconBtn color="#adc6ff" title="Re-initialize" onClick={() => triggerSource(s.id)}>
+                <SeedIconBtn color={colors.primarySoft} title="Re-initialize" onClick={() => triggerSource(s.id)}>
                   <span className="material-symbols-outlined">refresh</span>
                 </SeedIconBtn>
-                <SeedIconBtn color="#22c55e" title="Trigger Route" onClick={() => triggerSource(s.id)}>
+                <SeedIconBtn color={colors.dataViz.green} title="Trigger Route" onClick={() => triggerSource(s.id)}>
                   <span className="material-symbols-outlined">bolt</span>
                 </SeedIconBtn>
-                <SeedIconBtn color="#ff6b6b" onClick={() => removeSource(s.id)} title="Remove">
+                <SeedIconBtn color={colors.error} onClick={() => removeSource(s.id)} title="Remove">
                   <span className="material-symbols-outlined">delete</span>
                 </SeedIconBtn>
-                <div style={{ fontSize: 12, color: '#c1c6d7', marginLeft: 8, minWidth: 120 }}>
-                  {statuses[s.id] ? <span style={{ color: statuses[s.id].startsWith('ok') ? '#4edea3' : '#ffb4ab' }}>{statuses[s.id]}</span> : null}
-                </div>
+                <StatusSlot $minWidth={120} $ml={8}>
+                  <StatusBadge status={statuses[s.id]} />
+                </StatusSlot>
               </SeedItemActions>
             </SeedItemInner>
           </SeedItem>
@@ -280,167 +720,215 @@ export default function SeedingPanel() {
       </SeedList>
 
       {pipelineResult ? (
-        <div style={{ marginTop: 12, background: '#071025', padding: 12, borderRadius: 6 }}>
-          <div style={{ fontSize: 12, color: '#c1c6d7', fontFamily: "'JetBrains Mono', monospace" }}>
-            Pipeline Run Summary: {pipelineResult.channelsProcessed ?? (pipelineResult.channels ? pipelineResult.channels.length : 0)} channels, {pipelineResult.submissionsProcessed ?? (pipelineResult.channels ? pipelineResult.channels.reduce((acc: number, c: any) => acc + (c.processedCount ?? (c.results ? c.results.length : 0)), 0) : 0)} submissions
-          </div>
-          <div style={{ marginTop: 8 }}>
-            {pipelineResult.channels?.map((ch: any) => (
-              <div key={ch.channelId} style={{ marginTop: 8, padding: 8, border: '1px solid rgba(65,71,85,0.12)', borderRadius: 6 }}>
-                <div style={{ fontWeight: 700, color: '#e6eefc' }}>{ch.label || ch.channelId} — Processed: {ch.processedCount ?? (ch.results ? ch.results.length : 0)}</div>
-                <div style={{ marginTop: 6 }}>
-                  {ch.results?.map((r: any, idx: number) => (
-                    <div key={idx} style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13 }}>
-                      <div style={{ width: 8, height: 8, borderRadius: 4, background: r.ok ? '#4edea3' : '#ffb4ab' }} />
-                      <div style={{ color: '#c1c6d7' }}>{r.submissionId ?? r.id ?? 'submission'}</div>
-                      <div style={{ color: r.ok ? '#9ee6c5' : '#ffb4ab', marginLeft: 8 }}>{r.ok ? 'ok' : (r.error || 'failed')}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ResultBox>
+          {pipelineResult.error ? (
+            <ResultLine $tone="error">
+              Seed failed: {pipelineResult.message || pipelineResult.error}
+            </ResultLine>
+          ) : (
+            <>
+              <ResultLine>
+                Seeded {pipelineResult.submissionsCreated ?? (pipelineResult.submissions ? pipelineResult.submissions.length : 0)} incoming submission(s){typeof pipelineResult.documentsCreated === 'number' ? ` with ${pipelineResult.documentsCreated} document(s)` : ''} into organization #{pipelineResult.organizationId ?? '—'} via channel {pipelineResult.channelLabel ?? pipelineResult.channelId ?? '—'}.
+              </ResultLine>
+              {typeof pipelineResult.averageComplexity === 'number' ? (
+                <ResultLine $tone="accent" $mt={4}>
+                  Avg complexity {pipelineResult.averageComplexity}/10
+                  {pipelineResult.complexityRange ? ` (range ${pipelineResult.complexityRange.min}–${pipelineResult.complexityRange.max})` : ''}
+                  {typeof pipelineResult.filesCreated === 'number' ? ` · ${pipelineResult.filesCreated} attachment(s) — PDFs, spreadsheets, images` : ''}.
+                </ResultLine>
+              ) : null}
+              <ResultNote>
+                Open <strong>Insurer → Pipeline Processes</strong> to advance them through the pipeline stages manually.
+              </ResultNote>
+              <SubmissionList>
+                {(pipelineResult.submissions ?? []).map((s: any) => (
+                  <SubmissionRow key={s.id}>
+                    <SubmissionDot />
+                    <SubmissionId>{s.submissionNumber ?? s.id}</SubmissionId>
+                    <SubmissionStatus>{s.status}</SubmissionStatus>
+                    <SubmissionSource>{s.source}{s.transport ? ` · ${s.transport}` : ''}</SubmissionSource>
+                    {s.lineOfBusiness ? <SubmissionLob>{s.lineOfBusiness}</SubmissionLob> : null}
+                    {typeof s.complexity === 'number' ? <SubmissionCx>cx {s.complexity}/10</SubmissionCx> : null}
+                    {typeof s.fileCount === 'number' ? <SubmissionFiles>{s.fileCount} file{s.fileCount === 1 ? '' : 's'}</SubmissionFiles> : null}
+                  </SubmissionRow>
+                ))}
+              </SubmissionList>
+              {pipelineResult.subscribedStages?.length ? (
+                <SubscribedStages>
+                  Subscribed stages: {pipelineResult.subscribedStages.join(', ')}
+                </SubscribedStages>
+              ) : null}
+            </>
+          )}
+        </ResultBox>
       ) : null}
 
-      <div style={{ marginTop: 28 }}>
-        <h4 style={{ fontSize: 12, fontFamily: "'JetBrains Mono', monospace", color: '#c1c6d7', marginBottom: 8 }}>Organization Seeding</h4>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
-          <Input placeholder="Org name" value={orgForm.title} onChange={(e) => setOrgForm({ ...orgForm, title: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }} />
-          <Input placeholder="Route (e.g. /api/seed/organizations)" value={orgForm.route} onChange={(e) => setOrgForm({ ...orgForm, route: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace", minWidth: 260 }} />
-          <NumberInput placeholder="Count" value={String(orgForm.count)} onChange={(e) => setOrgForm({ ...orgForm, count: Number((e.target as HTMLInputElement).value) })} style={{ width: 84, padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }} />
-          <Input placeholder="Metadata" value={orgForm.sub} onChange={(e) => setOrgForm({ ...orgForm, sub: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }} />
-          <button onClick={addOrg} style={{ padding: '8px 12px', background: '#4b8eff', color: '#002e69', border: 'none', borderRadius: 6, fontWeight: 700 }}>Add Org</button>
-        </div>
+      <SectionBlock>
+        <SubHeading>Organization Seeding</SubHeading>
+        <Row $mb={12}>
+          <MonoInput placeholder="Org name" value={orgForm.title} onChange={(e) => setOrgForm({ ...orgForm, title: (e.target as HTMLInputElement).value })} />
+          <MonoInput placeholder="Route (e.g. /api/seed/organizations)" value={orgForm.route} onChange={(e) => setOrgForm({ ...orgForm, route: (e.target as HTMLInputElement).value })} $minWidth={260} />
+          <MonoNumberInput placeholder="Count" value={String(orgForm.count)} onChange={(e) => setOrgForm({ ...orgForm, count: Number((e.target as HTMLInputElement).value) })} />
+          <MonoInput placeholder="Metadata" value={orgForm.sub} onChange={(e) => setOrgForm({ ...orgForm, sub: (e.target as HTMLInputElement).value })} />
+          <Button onClick={addOrg}>Add Org</Button>
+        </Row>
         <SeedList>
           {orgSeeds.map((o) => (
-            <SeedItem key={o.id} dim={Boolean((o as any).dim)}>
+            <SeedItem key={o.id} dim={Boolean(o.dim)}>
               <SeedItemInner>
                 <SeedItemLeft>
-                  <SeedItemIcon color="#00a572" className="material-symbols-outlined">store</SeedItemIcon>
+                  <SeedItemIcon color={colors.accentStrong} className="material-symbols-outlined">store</SeedItemIcon>
                   <div>
                     <SeedItemTitle>{o.title}</SeedItemTitle>
                     <SeedItemSub>{o.sub}</SeedItemSub>
-                    <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 6, fontFamily: "'JetBrains Mono', monospace" }}>{o.route}</div>
+                    <SeedRoute>{o.route}</SeedRoute>
                   </div>
                 </SeedItemLeft>
                 <SeedItemActions>
-                  <SeedIconBtn color="#adc6ff" title="Trigger" onClick={() => triggerSource(o.id)}>
+                  <SeedIconBtn color={colors.primarySoft} title="Trigger" onClick={() => triggerSource(o.id)}>
                     <span className="material-symbols-outlined">bolt</span>
                   </SeedIconBtn>
-                  <SeedIconBtn color="#ff6b6b" onClick={() => removeOrg(o.id)} title="Remove">
+                  <SeedIconBtn color={colors.error} onClick={() => removeOrg(o.id)} title="Remove">
                     <span className="material-symbols-outlined">delete</span>
                   </SeedIconBtn>
-                  <div style={{ fontSize: 12, color: '#c1c6d7', marginLeft: 8, minWidth: 120 }}>
-                    {statuses[o.id] ? <span style={{ color: statuses[o.id].startsWith('ok') ? '#4edea3' : '#ffb4ab' }}>{statuses[o.id]}</span> : null}
-                  </div>
+                  <StatusSlot $minWidth={120} $ml={8}>
+                    <StatusBadge status={statuses[o.id]} />
+                  </StatusSlot>
                 </SeedItemActions>
               </SeedItemInner>
             </SeedItem>
           ))}
         </SeedList>
-      </div>
+      </SectionBlock>
 
-      <div style={{ marginTop: 28 }}>
-        <h4 style={{ fontSize: 12, fontFamily: "'JetBrains Mono', monospace", color: '#c1c6d7', marginBottom: 8 }}>User Seeding</h4>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
-          <Input placeholder="User id / name" value={userForm.title} onChange={(e) => setUserForm({ ...userForm, title: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }} />
-          <Input placeholder="Route (e.g. /api/seed/users)" value={userForm.route} onChange={(e) => setUserForm({ ...userForm, route: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace", minWidth: 260 }} />
-          <NumberInput placeholder="Count" value={String(userForm.count)} onChange={(e) => setUserForm({ ...userForm, count: Number((e.target as HTMLInputElement).value) })} style={{ width: 84, padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }} />
-          <Input placeholder="Metadata" value={userForm.sub} onChange={(e) => setUserForm({ ...userForm, sub: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)', background: '#0b1326', color: '#dae2fd', fontFamily: "'JetBrains Mono', monospace" }} />
-          <button onClick={addUser} style={{ padding: '8px 12px', background: '#4b8eff', color: '#002e69', border: 'none', borderRadius: 6, fontWeight: 700 }}>Add User</button>
-        </div>
+      <SectionBlock>
+        <SubHeading>User Seeding</SubHeading>
+        <Row $mb={12}>
+          <MonoInput placeholder="User id / name" value={userForm.title} onChange={(e) => setUserForm({ ...userForm, title: (e.target as HTMLInputElement).value })} />
+          <MonoInput placeholder="Route (e.g. /api/seed/users)" value={userForm.route} onChange={(e) => setUserForm({ ...userForm, route: (e.target as HTMLInputElement).value })} $minWidth={260} />
+          <MonoNumberInput placeholder="Count" value={String(userForm.count)} onChange={(e) => setUserForm({ ...userForm, count: Number((e.target as HTMLInputElement).value) })} />
+          <MonoInput placeholder="Metadata" value={userForm.sub} onChange={(e) => setUserForm({ ...userForm, sub: (e.target as HTMLInputElement).value })} />
+          <Button onClick={addUser}>Add User</Button>
+        </Row>
         <SeedList>
           {userSeeds.map((u) => (
-            <SeedItem key={u.id} dim={Boolean((u as any).dim)}>
+            <SeedItem key={u.id} dim={Boolean(u.dim)}>
               <SeedItemInner>
                 <SeedItemLeft>
-                  <SeedItemIcon color="#ffb3ad" className="material-symbols-outlined">person</SeedItemIcon>
+                  <SeedItemIcon color={colors.errorSoft} className="material-symbols-outlined">person</SeedItemIcon>
                   <div>
                     <SeedItemTitle>{u.title}</SeedItemTitle>
                     <SeedItemSub>{u.sub}</SeedItemSub>
-                    <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 6, fontFamily: "'JetBrains Mono', monospace" }}>{u.route}</div>
+                    <SeedRoute>{u.route}</SeedRoute>
                   </div>
                 </SeedItemLeft>
                 <SeedItemActions>
-                  <SeedIconBtn color="#adc6ff" title="Trigger" onClick={() => triggerSource(u.id)}>
+                  <SeedIconBtn color={colors.primarySoft} title="Trigger" onClick={() => triggerSource(u.id)}>
                     <span className="material-symbols-outlined">bolt</span>
                   </SeedIconBtn>
-                  <SeedIconBtn color="#ff6b6b" onClick={() => removeUser(u.id)} title="Remove">
+                  <SeedIconBtn color={colors.error} onClick={() => removeUser(u.id)} title="Remove">
                     <span className="material-symbols-outlined">delete</span>
                   </SeedIconBtn>
-                  <div style={{ fontSize: 12, color: '#c1c6d7', marginLeft: 8, minWidth: 120 }}>
-                    {statuses[u.id] ? <span style={{ color: statuses[u.id].startsWith('ok') ? '#4edea3' : '#ffb4ab' }}>{statuses[u.id]}</span> : null}
-                  </div>
+                  <StatusSlot $minWidth={120} $ml={8}>
+                    <StatusBadge status={statuses[u.id]} />
+                  </StatusSlot>
                 </SeedItemActions>
               </SeedItemInner>
             </SeedItem>
           ))}
         </SeedList>
-      </div>
+      </SectionBlock>
 
-      <div style={{ marginTop: 28 }}>
-        <h4 style={{ fontSize: 12, fontFamily: "'JetBrains Mono', monospace", color: '#c1c6d7', marginBottom: 8 }}>Portfolio Seeding</h4>
+      <SectionBlock>
+        <SubHeading>Portfolio Seeding</SubHeading>
 
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <label style={{ fontSize: 12, color: '#94a3b8' }}>Tranches</label>
-            <NumberInput placeholder="Tranches" value={String(portfolioForm.tranchesPerDeal)} onChange={(e) => setPortfolioForm({ ...portfolioForm, tranchesPerDeal: Number((e.target as HTMLInputElement).value) })} style={{ width: 84 }} />
-          </div>
+        <Row $mb={12}>
+          <FieldGroup>
+            <FieldLabel>Tranches</FieldLabel>
+            <FixedNumberInput placeholder="Tranches" value={String(portfolioForm.tranchesPerDeal)} onChange={(e) => setPortfolioForm({ ...portfolioForm, tranchesPerDeal: Number((e.target as HTMLInputElement).value) })} $width={84} />
+          </FieldGroup>
 
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <label style={{ fontSize: 12, color: '#94a3b8' }}>Policies</label>
-            <NumberInput placeholder="Policies" value={String(portfolioForm.policyCount)} onChange={(e) => setPortfolioForm({ ...portfolioForm, policyCount: Number((e.target as HTMLInputElement).value) })} style={{ width: 84 }} />
-          </div>
+          <FieldGroup>
+            <FieldLabel>Policies</FieldLabel>
+            <FixedNumberInput placeholder="Policies" value={String(portfolioForm.policyCount)} onChange={(e) => setPortfolioForm({ ...portfolioForm, policyCount: Number((e.target as HTMLInputElement).value) })} $width={84} />
+          </FieldGroup>
 
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <label style={{ fontSize: 12, color: '#94a3b8' }}>Exposures</label>
-            <NumberInput placeholder="Exposures" value={String(portfolioForm.exposuresPerPolicy)} onChange={(e) => setPortfolioForm({ ...portfolioForm, exposuresPerPolicy: Number((e.target as HTMLInputElement).value) })} style={{ width: 84 }} />
-          </div>
+          <FieldGroup>
+            <FieldLabel>Exposures</FieldLabel>
+            <FixedNumberInput placeholder="Exposures" value={String(portfolioForm.exposuresPerPolicy)} onChange={(e) => setPortfolioForm({ ...portfolioForm, exposuresPerPolicy: Number((e.target as HTMLInputElement).value) })} $width={84} />
+          </FieldGroup>
 
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <label style={{ fontSize: 12, color: '#94a3b8' }}>Extra Investors</label>
-            <NumberInput placeholder="Extra" value={String(portfolioForm.investorExtra)} onChange={(e) => setPortfolioForm({ ...portfolioForm, investorExtra: Number((e.target as HTMLInputElement).value) })} style={{ width: 84 }} />
-          </div>
-        </div>
+          <FieldGroup>
+            <FieldLabel>Extra Investors</FieldLabel>
+            <FixedNumberInput placeholder="Extra" value={String(portfolioForm.investorExtra)} onChange={(e) => setPortfolioForm({ ...portfolioForm, investorExtra: Number((e.target as HTMLInputElement).value) })} $width={84} />
+          </FieldGroup>
+        </Row>
 
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 8 }}>
-          <Input placeholder="Insurer seed route" value={portfolioForm.insurerRoute} onChange={(e) => setPortfolioForm({ ...portfolioForm, insurerRoute: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, minWidth: 320 }} />
-          <button onClick={() => triggerPortfolio('insurer')} style={{ padding: '8px 12px', background: '#4b8eff', color: '#002e69', border: 'none', borderRadius: 6, fontWeight: 700 }}>Seed Insurer Package</button>
-          <div style={{ fontSize: 12, color: '#c1c6d7', minWidth: 180 }}>{statuses['insurer'] ? <span style={{ color: statuses['insurer'].startsWith('ok') ? '#4edea3' : '#ffb4ab' }}>{statuses['insurer']}</span> : null}</div>
-        </div>
+        <Row $mb={8}>
+          <PlainInput placeholder="Insurer seed route" value={portfolioForm.insurerRoute} onChange={(e) => setPortfolioForm({ ...portfolioForm, insurerRoute: (e.target as HTMLInputElement).value })} $minWidth={320} />
+          <Button onClick={() => triggerPortfolio('insurer')}>Seed Insurer Package</Button>
+          <StatusSlot $minWidth={180}>
+            <StatusBadge status={statuses['insurer']} />
+          </StatusSlot>
+        </Row>
 
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
-          <Input placeholder="Investor seed route" value={portfolioForm.investorRoute} onChange={(e) => setPortfolioForm({ ...portfolioForm, investorRoute: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, minWidth: 320 }} />
-          <Input placeholder="Optional: Bearer token for target investor" value={portfolioForm.investorToken} onChange={(e) => setPortfolioForm({ ...portfolioForm, investorToken: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, minWidth: 420 }} />
-        </div>
+        <Row $mb={12}>
+          <PlainInput placeholder="Investor seed route" value={portfolioForm.investorRoute} onChange={(e) => setPortfolioForm({ ...portfolioForm, investorRoute: (e.target as HTMLInputElement).value })} $minWidth={320} />
+          <PlainInput placeholder="Optional: Bearer token for target investor" value={portfolioForm.investorToken} onChange={(e) => setPortfolioForm({ ...portfolioForm, investorToken: (e.target as HTMLInputElement).value })} $minWidth={420} />
+        </Row>
 
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          <button onClick={() => triggerPortfolio('investor')} style={{ padding: '8px 12px', background: '#22c55e', color: '#022607', border: 'none', borderRadius: 6, fontWeight: 700 }}>Seed Investor Portfolio</button>
-          <div style={{ fontSize: 12, color: '#c1c6d7', minWidth: 180 }}>{statuses['investor'] ? <span style={{ color: statuses['investor'].startsWith('ok') ? '#4edea3' : '#ffb4ab' }}>{statuses['investor']}</span> : null}</div>
-        </div>
+        <Row>
+          <Button tone="success" onClick={() => triggerPortfolio('investor')}>Seed Investor Portfolio</Button>
+          <StatusSlot $minWidth={180}>
+            <StatusBadge status={statuses['investor']} />
+          </StatusSlot>
+        </Row>
 
-        <div style={{ marginTop: 12, display: 'flex', gap: 12, alignItems: 'center' }}>
-          <NumberInput placeholder="Points" value={String(exposureForm.points)} onChange={(e) => setExposureForm({ ...exposureForm, points: Number((e.target as HTMLInputElement).value) })} style={{ width: 120 }} />
-          <Input placeholder="Deal ID (optional)" value={String(exposureForm.dealId ?? '')} onChange={(e) => setExposureForm({ ...exposureForm, dealId: (e.target as HTMLInputElement).value })} style={{ padding: 8, borderRadius: 6, minWidth: 160 }} />
-          <label style={{ color: '#c1c6d7', fontSize: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <input type="checkbox" checked={Boolean(exposureForm.includeAllActive)} onChange={(e) => setExposureForm({ ...exposureForm, includeAllActive: (e.target as HTMLInputElement).checked })} />
-            <span>All active deals</span>
-          </label>
-          <button onClick={() => triggerExposureSeries()} style={{ padding: '8px 12px', background: '#4b8eff', color: '#002e69', border: 'none', borderRadius: 6, fontWeight: 700 }}>Seed Exposure Time Series</button>
-          <div style={{ fontSize: 12, color: '#c1c6d7', minWidth: 220 }}>{statuses['exposure'] ? <span style={{ color: statuses['exposure'].startsWith('ok') ? '#4edea3' : '#ffb4ab' }}>{statuses['exposure']}</span> : null}</div>
-        </div>
-      </div>
+        <Row $mt={12}>
+          <FixedNumberInput placeholder="Points" value={String(exposureForm.points)} onChange={(e) => setExposureForm({ ...exposureForm, points: Number((e.target as HTMLInputElement).value) })} $width={120} />
+          <PlainInput placeholder="Deal ID (optional)" value={String(exposureForm.dealId ?? '')} onChange={(e) => setExposureForm({ ...exposureForm, dealId: (e.target as HTMLInputElement).value })} $minWidth={160} />
+          <Checkbox
+            label="All active deals"
+            checked={Boolean(exposureForm.includeAllActive)}
+            onChange={(e) => setExposureForm({ ...exposureForm, includeAllActive: (e.target as HTMLInputElement).checked })}
+          />
+          <Button onClick={() => triggerExposureSeries()}>Seed Exposure Time Series</Button>
+          <StatusSlot $minWidth={220}>
+            <StatusBadge status={statuses['exposure']} />
+          </StatusSlot>
+        </Row>
+      </SectionBlock>
 
-      <IntegrityBox style={{ marginTop: 12 }}>
-        <IntegrityHeader>
-          <IntegrityIcon className="material-symbols-outlined">verified_user</IntegrityIcon>
-          <IntegrityLabel>Integrity Protocol Active</IntegrityLabel>
-        </IntegrityHeader>
-        <IntegrityText>
-          All ingestion streams are cross-validated by decentralized oracles. Actions here are non-destructive in the UI demo.
-        </IntegrityText>
-      </IntegrityBox>
+      <InfoCard tone="danger" icon="warning" title="Danger Zone">
+        Permanently remove <strong>all submissions and associated data</strong> — pipeline runs, documents, policies,
+        pricing, deals, tranches, tokens, claims and payouts. <strong>Organizations and users are kept.</strong> This
+        cannot be undone.
+        <Row $mt={12}>
+          <Button tone="danger" onClick={triggerPurgeSubmissions}>
+            Remove All Submissions
+          </Button>
+          <StatusSlot $minWidth={160}>
+            <StatusBadge status={statuses['purge']} />
+          </StatusSlot>
+        </Row>
+        {purgeResult ? (
+          purgeResult.error ? (
+            <ResultLine $tone="error" $mt={10}>
+              Purge failed: {purgeResult.message || purgeResult.error}
+            </ResultLine>
+          ) : (
+            <ResultLine $tone="gain" $mt={10}>
+              {purgeResult.message
+                ? purgeResult.message
+                : `Removed ${purgeResult.totalDeleted ?? 0} record(s); kept ${purgeResult.keptOrganizations ?? '—'} org(s) and ${purgeResult.keptUsers ?? '—'} user(s).`}
+            </ResultLine>
+          )
+        ) : null}
+      </InfoCard>
+
+      <InfoCard tone="success" icon="verified_user" title="Integrity Protocol Active">
+        All ingestion streams are cross-validated by decentralized oracles. Actions here are non-destructive in the UI demo.
+      </InfoCard>
     </SeedingSection>
   );
 }

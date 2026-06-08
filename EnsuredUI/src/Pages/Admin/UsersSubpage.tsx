@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Panel,
-  PanelHeader,
-  PanelTitle,
-  PanelLink,
-  TableWrap,
-  Table,
-  THead,
-  THeadTr,
-  TH,
-  TBody,
-  TD,
-  ActionBtn,
-} from './AdminPage.styles';
+import { Panel } from './AdminPage.styles';
+import { PanelHeaderRow, HeaderActions, PrimaryCell, RowActions } from './AdminTables.styles';
+import { SectionHeader, Button, DataTable, DataTableColumn } from '../../xds';
 import { saveAuthToken, getAuthToken } from '../../lib/auth';
+import { listUsers, type ApiUser } from '../../api/users';
+import { impersonateUser } from '../../api/admin';
 
-type User = {
-  id: number;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  role?: string;
-  organizationId?: number | null;
-};
+type User = ApiUser;
 
 export default function UsersSubpage() {
   const [hasToken, setHasToken] = useState(false);
@@ -34,13 +18,8 @@ export default function UsersSubpage() {
     let mounted = true;
     setLoading(true);
     setError(null);
-    const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
 
-    fetch(`${API_BASE}/api/users`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Status ${res.status}`);
-        return res.json();
-      })
+    listUsers()
       .then((data) => {
         if (!mounted) return;
         setUsers(Array.isArray(data) ? data : []);
@@ -70,10 +49,7 @@ export default function UsersSubpage() {
 
   async function handleImpersonate(targetUserId: number) {
     try {
-      const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
-      const url = `${API_BASE}/api/admin/impersonate/${targetUserId}`;
-
-      const res = await fetch(url, { method: 'POST' });
+      const res = await impersonateUser(targetUserId);
       const json = await res.json().catch(() => ({}));
       if (!res.ok) {
         alert(`Impersonation failed: ${json?.error || res.statusText || res.status}`);
@@ -104,50 +80,51 @@ export default function UsersSubpage() {
     alert('Signed out');
   }
 
+  const columns: DataTableColumn<User>[] = [
+    {
+      key: 'name',
+      header: 'Name',
+      render: (u) => <PrimaryCell>{`${u.firstName ?? ''} ${u.lastName ?? ''}`.trim() || '—'}</PrimaryCell>,
+    },
+    { key: 'email', header: 'Email', render: (u) => u.email ?? '—' },
+    { key: 'role', header: 'Role', render: (u) => u.role ?? '—' },
+    { key: 'organizationId', header: 'Organization', render: (u) => u.organizationId ?? '—' },
+  ];
+
   return (
     <Panel>
-      <PanelHeader>
-        <PanelTitle>Users</PanelTitle>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          {hasToken && <ActionBtn onClick={signOut}>Sign out</ActionBtn>}
-          <PanelLink>
+      <PanelHeaderRow>
+        <SectionHeader title="Users" />
+        <HeaderActions>
+          {hasToken && (
+            <Button variant="text" size="sm" tone="danger" onClick={signOut}>
+              Sign out
+            </Button>
+          )}
+          <Button variant="text" size="sm" onClick={() => undefined}>
             Invite User
             <span className="material-symbols-outlined">open_in_new</span>
-          </PanelLink>
-        </div>
-      </PanelHeader>
+          </Button>
+        </HeaderActions>
+      </PanelHeaderRow>
 
-      <TableWrap>
-        <Table>
-          <THead>
-            <THeadTr>
-              <TH>Name</TH>
-              <TH>Email</TH>
-              <TH>Role</TH>
-              <TH>Organization</TH>
-              <TH style={{ textAlign: 'right' }}>Actions</TH>
-            </THeadTr>
-          </THead>
-          <TBody>
-            {loading ? (
-              <tr><TD>Loading...</TD></tr>
-            ) : error ? (
-              <tr><TD colSpan={5} style={{ color: '#ffb4ab' }}>Error: {error}</TD></tr>
-            ) : (users || []).map((u) => (
-              <tr key={u.id}>
-                <TD style={{ fontWeight: 700 }}>{`${u.firstName ?? ''} ${u.lastName ?? ''}`.trim() || '—'}</TD>
-                <TD>{u.email ?? '—'}</TD>
-                <TD>{u.role ?? '—'}</TD>
-                <TD>{u.organizationId ?? '—'}</TD>
-                <TD style={{ textAlign: 'right' }}>
-                  <ActionBtn onClick={() => alert('Reset password flow not implemented yet')}>Reset Password</ActionBtn>
-                  <ActionBtn style={{ marginLeft: 8 }} onClick={() => handleImpersonate(u.id)}>Impersonate</ActionBtn>
-                </TD>
-              </tr>
-            ))}
-          </TBody>
-        </Table>
-      </TableWrap>
+      <DataTable<User>
+        columns={columns}
+        data={users || []}
+        loading={loading}
+        error={error ? `Error: ${error}` : undefined}
+        emptyText="No users"
+        rowActions={(u) => (
+          <RowActions>
+            <Button variant="text" size="sm" onClick={() => alert('Reset password flow not implemented yet')}>
+              Reset Password
+            </Button>
+            <Button variant="text" size="sm" onClick={() => handleImpersonate(u.id)}>
+              Impersonate
+            </Button>
+          </RowActions>
+        )}
+      />
     </Panel>
   );
 }

@@ -69,21 +69,21 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           insurerProfileId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: { table: 'insurerProfiles', key: 'id' },
+            references: { model: 'insurerProfiles', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
           portfolioId: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            references: { table: 'riskPortfolios', key: 'id' },
+            references: { model: 'riskPortfolios', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
           },
           submissionId: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            references: { table: 'submissions', key: 'id' },
+            references: { model: 'submissions', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
           },
@@ -131,7 +131,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           policyId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: { table: 'policies', key: 'id' },
+            references: { model: 'policies', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
@@ -156,7 +156,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
     await addColumnIfMissing(context, 'deals', 'portfolioId', {
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: { table: 'riskPortfolios', key: 'id' },
+      references: { model: 'riskPortfolios', key: 'id' },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
     }, transaction);
@@ -173,14 +173,14 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           trancheId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: { table: 'tranches', key: 'id' },
+            references: { model: 'tranches', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
           investorProfileId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: { table: 'investorProfiles', key: 'id' },
+            references: { model: 'investorProfiles', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
@@ -202,7 +202,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
     await addColumnIfMissing(context, 'tokens', 'trancheId', {
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: { table: 'tranches', key: 'id' },
+      references: { model: 'tranches', key: 'id' },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
     }, transaction);
@@ -210,7 +210,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
     await addColumnIfMissing(context, 'claims', 'portfolioId', {
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: { table: 'riskPortfolios', key: 'id' },
+      references: { model: 'riskPortfolios', key: 'id' },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
     }, transaction);
@@ -230,7 +230,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           uploadedByUserId: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            references: { table: 'users', key: 'id' },
+            references: { model: 'users', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
           },
@@ -249,14 +249,14 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           portfolioId: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            references: { table: 'riskPortfolios', key: 'id' },
+            references: { model: 'riskPortfolios', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
           },
           dealId: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            references: { table: 'deals', key: 'id' },
+            references: { model: 'deals', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
           },
@@ -276,7 +276,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           triggerId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: { table: 'triggers', key: 'id' },
+            references: { model: 'triggers', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
@@ -297,7 +297,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           claimId: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: { table: 'claims', key: 'id' },
+            references: { model: 'claims', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
@@ -308,7 +308,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
           executedByUserId: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            references: { table: 'users', key: 'id' },
+            references: { model: 'users', key: 'id' },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL',
           },

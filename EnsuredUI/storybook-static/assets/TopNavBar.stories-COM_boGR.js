@@ -1,0 +1,3 @@
+import{j as r}from"./jsx-runtime-BjG_zV1W.js";import{T as s}from"./TopNavBar-D16Kii80.js";import"./styled-components.browser.esm-BtVlB3rV.js";import"./index-B3TfwC44.js";import"./chunk-OE4NN4TA-D-lI_iOm.js";const c={title:"XDS/TopNavBar",component:s},o=()=>r.jsx("div",{style:{background:"#071129"},children:r.jsx(s,{})});o.__docgenInfo={description:"",methods:[],displayName:"Default"};var e,a,t;o.parameters={...o.parameters,docs:{...(e=o.parameters)==null?void 0:e.docs,source:{originalSource:`() => <div style={{
+  background: '#071129'
+}}><TopNavBar /></div>`,...(t=(a=o.parameters)==null?void 0:a.docs)==null?void 0:t.source}}};const l=["Default"];export{o as Default,l as __namedExportsOrder,c as default};

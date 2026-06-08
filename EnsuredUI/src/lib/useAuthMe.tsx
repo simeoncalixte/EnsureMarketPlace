@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { getAuthToken, decodeJwtPayload, apiFetch } from './auth';
+import { getAuthToken, decodeJwtPayload } from './auth';
+import { getAuthMe } from '../api/auth';
 
 export type AuthUser = {
   id: number;
@@ -19,9 +20,7 @@ export function useAuthMe() {
     setLoading(true);
     setError(null);
     try {
-      const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
-      const url = (API_BASE ? String(API_BASE).replace(/\/$/, '') : '') + '/api/auth/me';
-      const res = await apiFetch(url, { method: 'GET' });
+      const res = await getAuthMe();
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         // If server-side /auth/me isn't available but we have a token, fall back to decoding it.

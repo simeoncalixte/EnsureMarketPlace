@@ -1,0 +1,10 @@
+UNDERWRITING NOTES
+Insured: Delta Mining Group
+Submission: SUB-2026-1073
+LOB: Marine Cargo
+Peril: Tornado
+Jurisdiction: California
+TIV: $10,000,000
+Limit: $14,000,000
+Premium: $999,000
+Underwriter recommendation: refer to senior for Tornado exposure.

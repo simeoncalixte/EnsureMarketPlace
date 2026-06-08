@@ -1,0 +1,10 @@
+UNDERWRITING NOTES
+Insured: Foundry Pharma Inc
+Submission: SUB-2026-1075
+LOB: Inland Marine
+Peril: Theft
+Jurisdiction: New York
+TIV: $24,000,000
+Limit: $16,000,000
+Premium: $75,000
+Underwriter recommendation: refer to senior for Theft exposure.

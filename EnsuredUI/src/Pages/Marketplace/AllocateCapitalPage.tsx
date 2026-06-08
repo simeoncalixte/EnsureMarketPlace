@@ -1,5 +1,15 @@
 import { useMemo, useState, useEffect } from 'react';
-import { getApiBase } from '../../lib/api';
+import { getActivePendingFunding } from '../../api/marketplace';
+import {
+  Breadcrumb,
+  Stepper,
+  MetricCard,
+  ProgressBar,
+  SelectionCard,
+  Button,
+  InfoCard,
+  colors,
+} from '../../xds';
 import * as S from './AllocateCapitalPage.styles';
 
 type Tranche = {
@@ -99,13 +109,10 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
       setIsLoading(true);
       setLoadError(null);
       try {
-        const base = getApiBase();
         const isNumericId = /^[0-9]+$/.test(String(currentPoolId));
-        const path = isNumericId
-          ? `http://localhost:3001/api/marketplace/opportunities/active-pending-funding?dealId=${encodeURIComponent(currentPoolId)}`
-          : `http://localhost:3001/api/marketplace/opportunities/active-pending-funding?dealName=${encodeURIComponent(currentPoolId)}`;
-        const url = base ? `${base}${path}` : path;
-        const res = await fetch(url);
+        const res = await getActivePendingFunding(
+          isNumericId ? { dealId: currentPoolId } : { dealName: currentPoolId },
+        );
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         const mapped: Tranche[] = [];
@@ -184,63 +191,47 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
   return (
     <S.Page>
       <S.Main>
-        <section>
-          <S.Breadcrumbs>
-            <span>Invest</span>
-            <span className="material-symbols-outlined">chevron_right</span>
-            <span>Hurricane Ian Reinsurance Pool</span>
-            <span className="material-symbols-outlined">chevron_right</span>
-            <span className="is-current">Capital Allocation Flow</span>
-          </S.Breadcrumbs>
+        <S.Intro>
+          <Breadcrumb
+            label="Trail"
+            items={[
+              { label: 'Invest' },
+              { label: 'Hurricane Ian Reinsurance Pool' },
+              { label: 'Capital Allocation Flow' },
+            ]}
+          />
           <h1>New Allocation Flow</h1>
           <p>Configure your institutional deployment into the CAT-Risk Pool 2024. All tranches are subject to smart-contract auditing.</p>
-        </section>
+        </S.Intro>
 
         {isLoading && (
-          <S.LoadingBanner className="mono-data">Loading opportunities from marketplace…</S.LoadingBanner>
+          <InfoCard tone="info" icon="hourglass_top" title="Loading">
+            Loading opportunities from marketplace…
+          </InfoCard>
         )}
 
         {loadError && (
-          <S.ErrorBanner role="alert" className="mono-data">Error loading opportunities: {loadError}</S.ErrorBanner>
+          <InfoCard tone="danger" icon="error" title="Error loading opportunities">
+            {loadError}
+          </InfoCard>
         )}
 
-        <S.Stepper>
-          <S.Step active>
-            <S.StepIndex className="mono-data">01</S.StepIndex>
-            <S.StepMeta>
-              <S.StepLabel>Step One</S.StepLabel>
-              <S.StepTitle>Amount</S.StepTitle>
-            </S.StepMeta>
-          </S.Step>
-          <S.Step>
-            <S.StepIndex className="mono-data">02</S.StepIndex>
-            <S.StepMeta>
-              <S.StepLabel>Step Two</S.StepLabel>
-              <S.StepTitle>Tranche Selection</S.StepTitle>
-            </S.StepMeta>
-          </S.Step>
-          <S.Step>
-            <S.StepIndex className="mono-data">03</S.StepIndex>
-            <S.StepMeta>
-              <S.StepLabel>Step Three</S.StepLabel>
-              <S.StepTitle>Portfolio Impact</S.StepTitle>
-            </S.StepMeta>
-          </S.Step>
-          <S.Step>
-            <S.StepIndex className="mono-data">04</S.StepIndex>
-            <S.StepMeta>
-              <S.StepLabel>Step Four</S.StepLabel>
-              <S.StepTitle>Funding</S.StepTitle>
-            </S.StepMeta>
-          </S.Step>
-        </S.Stepper>
+        <Stepper
+          activeIndex={0}
+          steps={[
+            { label: 'Step One', title: 'Amount' },
+            { label: 'Step Two', title: 'Tranche Selection' },
+            { label: 'Step Three', title: 'Portfolio Impact' },
+            { label: 'Step Four', title: 'Funding' },
+          ]}
+        />
 
         <S.Grid>
           <S.LeftRail>
             <S.PanelHighlight>
               <S.Watermark className="mono-data">USD</S.Watermark>
               <S.PanelHead>
-                <h3><span className="material-symbols-outlined">payments</span>1. Define Capital Commitment</h3>
+                <S.PanelTitle><span className="material-symbols-outlined">payments</span>1. Define Capital Commitment</S.PanelTitle>
                 <S.MaxTag className="mono-data">MAX: $10,000,000</S.MaxTag>
               </S.PanelHead>
 
@@ -250,9 +241,7 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
               </S.InputWrap>
 
               <div>
-                <S.ProgressTrack>
-                  <S.ProgressFill style={{ width: `${amountPct}%` }} />
-                </S.ProgressTrack>
+                <ProgressBar value={amountPct} tone="primary" size="sm" />
                 <S.ProgressLabels className="mono-data"><span>$10,000 MIN</span><span>$10,000,000 MAX</span></S.ProgressLabels>
               </div>
 
@@ -264,17 +253,23 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
             </S.PanelHighlight>
 
             <S.Panel>
-              <h3><span className="material-symbols-outlined">layers</span>2. Select Tranche Exposure</h3>
+              <S.PanelTitle><span className="material-symbols-outlined">layers</span>2. Select Tranche Exposure</S.PanelTitle>
               <S.TrancheGrid>
                 {displayedTranches.map((tranche) => {
                   const isSelected = tranche.id === selectedTranche.id;
+                  const accent = tranche.tone === 'tertiary' ? colors.error : colors.primary;
                   return (
-                    <S.TrancheCard key={tranche.id} tone={tranche.tone} selected={isSelected} type="button" onClick={() => setSelectedTrancheId(tranche?.id)}>
-                      <S.TrancheHead>
-                        <span>{tranche.name}</span>
-                        <span className="material-symbols-outlined" data-fill={isSelected ? '1' : '0'}>{tranche.icon}</span>
-                      </S.TrancheHead>
-                      <S.TrancheYield className="mono-data">{Number.isFinite(tranche.expectedYield) ? `${tranche.expectedYield.toFixed(1)}%` : '—'}<p>Expected Yield</p></S.TrancheYield>
+                    <SelectionCard
+                      key={tranche.id}
+                      selectionId={tranche.id}
+                      title={Number.isFinite(tranche.expectedYield) ? `${tranche.expectedYield.toFixed(1)}%` : '—'}
+                      subtitle={tranche.name}
+                      accentColor={accent}
+                      active={isSelected}
+                      icon={<span className="material-symbols-outlined" data-fill={isSelected ? '1' : '0'}>{tranche.icon}</span>}
+                      footerLabel="Expected Yield"
+                      onSelect={(id) => setSelectedTrancheId(id)}
+                    >
                       <S.TrancheStats className="mono-data">
                         <div><span>Risk Score:</span><strong>{tranche.riskScore}</strong></div>
                         <div><span>Attachment Point:</span><strong>{tranche.attachPoint ?? 'N/A'}</strong></div>
@@ -284,45 +279,47 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
                           <small> / {formatCurrency(tranche.capitalRequired ?? 0)} ({tranche.fundingProgressPct ?? 0}%)</small>
                         </div>
                       </S.TrancheStats>
-                    </S.TrancheCard>
+                    </SelectionCard>
                   );
                 })}
               </S.TrancheGrid>
             </S.Panel>
 
             <S.Panel>
-              <h3><span className="material-symbols-outlined">monitoring</span>3. Portfolio Impact Simulation</h3>
+              <S.PanelTitle><span className="material-symbols-outlined">monitoring</span>3. Portfolio Impact Simulation</S.PanelTitle>
               <S.ImpactGrid>
                 <S.MetricStack>
-                  <S.MetricCard>
-                    <div>
-                      <span>Aggregate IRR</span>
-                      <div className="mono-data"><strong>14.2%</strong><span className="material-symbols-outlined up">trending_up</span><b>14.8%</b></div>
-                    </div>
-                    <small className="gain mono-data">+0.6% Shift</small>
-                  </S.MetricCard>
-                  <S.MetricCard>
-                    <div>
-                      <span>Value at Risk (VaR)</span>
-                      <div className="mono-data"><strong>$4.2M</strong><span className="material-symbols-outlined risk">trending_up</span><b>$4.35M</b></div>
-                    </div>
-                    <small className="risk mono-data">+3.5% Risk</small>
-                  </S.MetricCard>
+                  <MetricCard
+                    label="Aggregate IRR"
+                    value="14.2%"
+                    projectedValue="14.8%"
+                    trend="up"
+                    tone="success"
+                    delta="+0.6% Shift"
+                  />
+                  <MetricCard
+                    label="Value at Risk (VaR)"
+                    value="$4.2M"
+                    projectedValue="$4.35M"
+                    trend="up"
+                    tone="danger"
+                    delta="+3.5% Risk"
+                  />
                 </S.MetricStack>
                 <div>
                   <S.MiniLabel>Regional Drift</S.MiniLabel>
                   <S.RegionStack>
                     <div>
                       <S.RowBetween><span>Florida Wind (Secondary)</span><span className="gain mono-data">+5.0%</span></S.RowBetween>
-                      <S.MiniTrack><S.MiniFill variant="gain" style={{ width: '65%' }} /></S.MiniTrack>
+                      <ProgressBar value={65} tone="gain" size="sm" />
                     </div>
                     <div>
                       <S.RowBetween><span>Gulf Coast Flood</span><span className="mono-data">+1.2%</span></S.RowBetween>
-                      <S.MiniTrack><S.MiniFill variant="primary" style={{ width: '30%' }} /></S.MiniTrack>
+                      <ProgressBar value={30} tone="primary" size="sm" />
                     </div>
                     <div>
                       <S.RowBetween><span>California Quake</span><span className="mono-data">0.0%</span></S.RowBetween>
-                      <S.MiniTrack><S.MiniFill variant="neutral" style={{ width: '15%' }} /></S.MiniTrack>
+                      <ProgressBar value={15} tone="neutral" size="sm" />
                     </div>
                   </S.RegionStack>
                 </div>
@@ -350,7 +347,9 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
                   </S.FundingSteps>
                 </S.FundingBox>
 
-                <S.ConfirmButton type="button"><span className="material-symbols-outlined">fingerprint</span>Confirm &amp; Deploy Capital</S.ConfirmButton>
+                <S.ConfirmButtonWrap>
+                  <Button type="button" variant="primary"><span className="material-symbols-outlined">fingerprint</span>Confirm &amp; Deploy Capital</Button>
+                </S.ConfirmButtonWrap>
                 <p>By clicking confirm, you authorize the smart-contract to initiate a bank transfer and mint your Tranche B-2 ERC-3525 tokens. Multi-sig authentication required for amounts &gt; $1M.</p>
               </S.TotalBlock>
             </S.Summary>
@@ -359,7 +358,7 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
               <S.ContextImage><img alt="Satellite thermal map of Atlantic storm patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsKIoVXJ2f6sXwEJ0mG-hWt1yRR5gd4fKqTZoVOSW0BbylVy9t8-YYNxwHLAn9QyiG65C_8yZCag-eemWFQo5E6WU_ADjwxN1aAX8CD-X0t_RwK4c5kw5XA7g8XByGv9o1E8O_lYVw5zkBOXOcgG28vwafHIvxhRZ_QmEcB6I0VmtdA6X21vw-PxVf2GY8_5ZbAvnfzKMUFLh7V37MrSBrmtm0ajE5bWtrzyfjWoZlJdZuF7gt5lCJ1NzzG-mvXf48eaeESg9c2f8z" /></S.ContextImage>
               <h5>Hurricane Ian Reinsurance</h5>
               <p>Program ID: {currentPoolId}</p>
-              <div className="acp-context-stats mono-data"><div><span>Total Pool</span><strong>$450.0M</strong></div><div><span>Subscribed</span><strong className="gain">82%</strong></div></div>
+              <S.ContextStats className="mono-data"><div><span>Total Pool</span><strong>$450.0M</strong></div><div><span>Subscribed</span><strong className="gain">82%</strong></div></S.ContextStats>
             </S.ContextCard>
           </S.RightRail>
         </S.Grid>
@@ -367,8 +366,8 @@ export default function AllocateCapitalPage({ initialTrancheId, initialPoolId }:
 
       <S.Footer>
         <S.FooterInner>
-          <div className="acp-footer-links"><a href="#">Legal Disclosure</a><a href="#">Smart Contract Audit</a><a href="#">Institutional API</a></div>
-          <div className="acp-footer-status mono-data"><div className="acp-pulse" /><span>Network Node Status: Optimal (0.012ms)</span></div>
+          <S.FooterLinks><a href="#">Legal Disclosure</a><a href="#">Smart Contract Audit</a><a href="#">Institutional API</a></S.FooterLinks>
+          <S.FooterStatus className="mono-data"><S.Pulse /><span>Network Node Status: Optimal (0.012ms)</span></S.FooterStatus>
         </S.FooterInner>
       </S.Footer>
     </S.Page>

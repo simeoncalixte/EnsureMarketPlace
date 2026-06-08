@@ -1,5 +1,5 @@
 import React from 'react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import CloudStorageConfig from './CloudStorageConfig'
 
 export default {
@@ -8,4 +8,4 @@ export default {
   parameters: { layout: 'fullscreen' },
 } as Meta
 
-export const Default: Story = () => <CloudStorageConfig />
+export const Default: StoryFn = () => <CloudStorageConfig />

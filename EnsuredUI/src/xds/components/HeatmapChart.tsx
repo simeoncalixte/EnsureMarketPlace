@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { colors } from '../colors';
 
 export interface HeatCell {
   /** Column axis value (e.g. perilType) */
@@ -52,8 +53,8 @@ export default function HeatmapChart({
   xAxisLabel,
   yAxisLabel,
   formatValue,
-  colorLow = '#1a2744',
-  colorHigh = '#4b8eff',
+  colorLow = colors.surfaceRaised,
+  colorHigh = colors.dataViz.blue,
   height,
 }: Props) {
   if (!cells || cells.length === 0) {
@@ -64,7 +65,7 @@ export default function HeatmapChart({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#94a3b8',
+          color: colors.neutral[400],
         }}
       >
         No data
@@ -97,7 +98,7 @@ export default function HeatmapChart({
             x={8}
             y={HEADER_H + (ys.length * ROW_H) / 2}
             textAnchor="middle"
-            fill="#64748b"
+            fill={colors.neutral[500]}
             fontSize={10}
             transform={`rotate(-90, 8, ${HEADER_H + (ys.length * ROW_H) / 2})`}
           >
@@ -112,7 +113,7 @@ export default function HeatmapChart({
             x={LABEL_W + xi * COL_W + COL_W / 2}
             y={HEADER_H - 10}
             textAnchor="middle"
-            fill="#94a3b8"
+            fill={colors.neutral[400]}
             fontSize={10}
           >
             {x.length > 11 ? `${x.slice(0, 10)}…` : x}
@@ -125,7 +126,7 @@ export default function HeatmapChart({
             x={LABEL_W + (xs.length * COL_W) / 2}
             y={svgH - 4}
             textAnchor="middle"
-            fill="#64748b"
+            fill={colors.neutral[500]}
             fontSize={10}
           >
             {xAxisLabel}
@@ -139,7 +140,7 @@ export default function HeatmapChart({
               x={LABEL_W - 8}
               y={HEADER_H + yi * ROW_H + ROW_H / 2 + 4}
               textAnchor="end"
-              fill="#94a3b8"
+              fill={colors.neutral[400]}
               fontSize={10}
             >
               {y.length > 15 ? `${y.slice(0, 14)}…` : y}
@@ -148,7 +149,7 @@ export default function HeatmapChart({
             {xs.map((x, xi) => {
               const val = cellMap[`${x}|${y}`] ?? 0;
               const t = maxVal > 0 ? val / maxVal : 0;
-              const bg = t === 0 ? '#0f1724' : lerpColor(colorLow, colorHigh, t);
+              const bg = t === 0 ? colors.surfaceLow : lerpColor(colorLow, colorHigh, t);
               const textDark = t < 0.5;
 
               return (
@@ -166,7 +167,7 @@ export default function HeatmapChart({
                       x={LABEL_W + xi * COL_W + COL_W / 2}
                       y={HEADER_H + yi * ROW_H + ROW_H / 2 + 4}
                       textAnchor="middle"
-                      fill={textDark ? '#94a3b8' : '#dae2fd'}
+                      fill={textDark ? colors.neutral[400] : colors.onSurfaceStrong}
                       fontSize={9}
                     >
                       {fmt(val)}

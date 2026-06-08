@@ -1,0 +1,46 @@
+{
+  "process": "normalization",
+  "generatedAt": "2026-06-08T15:22:54.826Z",
+  "transformationCount": 1,
+  "transformations": [
+    {
+      "process": "normalization",
+      "stage": "normalization",
+      "testName": "POST /api/pipeline/normalization/process preserves canonical extracted fields",
+      "description": "Structured extraction output is shaped into normalized data for downstream services.",
+      "before": {
+        "extraction": {
+          "structuredData": {
+            "riskType": "Hurricane",
+            "limit": 3000000,
+            "expectedYield": 0.12
+          }
+        }
+      },
+      "after": {
+        "ok": true,
+        "service": "normalization",
+        "normalized": {
+          "riskType": "Hurricane",
+          "limit": 3000000,
+          "expectedYield": 0.12
+        },
+        "data": {
+          "riskType": "Hurricane",
+          "limit": 3000000,
+          "expectedYield": 0.12
+        },
+        "received": {
+          "extraction": {
+            "structuredData": {
+              "riskType": "Hurricane",
+              "limit": 3000000,
+              "expectedYield": 0.12
+            }
+          }
+        }
+      },
+      "recordedAt": "2026-06-08T15:22:54.820Z"
+    }
+  ]
+}

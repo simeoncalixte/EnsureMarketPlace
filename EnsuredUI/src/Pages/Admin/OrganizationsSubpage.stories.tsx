@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import OrganizationsSubpage from './OrganizationsSubpage';
 import OrgUsersSubpage from './OrgUsersSubpage';
 
@@ -27,4 +27,4 @@ const StoryApp: React.FC = () => {
   return <OrganizationsSubpage onViewUsers={(org) => setSelectedOrg(org)} />;
 };
 
-export const Default: Story = () => <StoryApp />;
+export const Default: StoryFn = () => <StoryApp />;

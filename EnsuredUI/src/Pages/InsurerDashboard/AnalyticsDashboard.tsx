@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import getApiBase from '../../lib/api'
+import styled from 'styled-components'
+import {
+  getFinancialHealth,
+  getProfitabilityByLob,
+  getCapitalAdequacy,
+  getReinsuranceUtilization,
+  getExposureConcentration,
+} from '../../api/analytics'
+import { getCapitalExposureMetrics } from '../../api/marketplace'
 import TimeSeriesChart from '../../xds/components/TimeSeriesChart'
 import MultiLineChart from '../../xds/components/MultiLineChart'
 import StackedBarChart from '../../xds/components/StackedBarChart'
 import GaugeChart from '../../xds/components/GaugeChart'
 import HeatmapChart, { HeatCell } from '../../xds/components/HeatmapChart'
+import SectionHeader from '../../xds/components/SectionHeader'
+import StatCard from '../../xds/components/StatCard'
+import Badge from '../../xds/components/Badge'
+import { colors } from '../../xds/colors'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type ExposurePoint = { calculatedAt: string; value: number };
@@ -37,48 +49,96 @@ function shortMonth(iso: string): string {
   return d.toLocaleDateString(undefined, { month: 'short', year: '2-digit' });
 }
 
+// ─── Layout ───────────────────────────────────────────────────────────────────
+const PageRoot = styled.div`
+  padding: 2rem 2.5rem;
+  max-width: 1200px;
+`;
+
+const HeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+`;
+
+const NewDealLink = styled(Link)`
+  color: ${colors.primary};
+  text-decoration: none;
+  font-size: 13px;
+`;
+
+const KpiRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+`;
+
+const GroupLabel = styled.div`
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: ${colors.neutral[500]};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+`;
+
+const Grid2 = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+`;
+
+const GaugeRow = styled.div`
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+`;
+
+const SectionBlock = styled.div<{ $mb?: number }>`
+  margin-bottom: ${({ $mb }) => `${$mb ?? 20}px`};
+`;
+
 // ─── Card shell ───────────────────────────────────────────────────────────────
+const CardRoot = styled.div`
+  background: ${colors.surfaceContainerHigh};
+  border-radius: 10px;
+  padding: 16px 20px 20px;
+`;
+
+const CardHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+`;
+
+const CardTitle = styled.span`
+  font-size: 12px;
+  color: ${colors.onSurfaceVariant};
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+`;
+
 function Card({
   title,
   badge,
   children,
-  style,
 }: {
   title: string;
   badge?: { text: string; ok: boolean };
   children: React.ReactNode;
-  style?: React.CSSProperties;
 }) {
   return (
-    <div
-      style={{
-        background: '#0f1724',
-        borderRadius: 10,
-        padding: '16px 20px 20px',
-        ...style,
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <span style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          {title}
-        </span>
-        {badge && (
-          <span
-            style={{
-              fontSize: 10,
-              fontWeight: 700,
-              padding: '2px 6px',
-              borderRadius: 4,
-              background: badge.ok ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)',
-              color: badge.ok ? '#22c55e' : '#ef4444',
-            }}
-          >
-            {badge.text}
-          </span>
-        )}
-      </div>
+    <CardRoot>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        {badge && <Badge variant={badge.ok ? 'success' : 'danger'}>{badge.text}</Badge>}
+      </CardHeader>
       {children}
-    </div>
+    </CardRoot>
   );
 }
 
@@ -92,12 +152,9 @@ export default function AnalyticsDashboard() {
   const [concentration, setConcentration] = useState<HeatCell[]>([]);
 
   useEffect(() => {
-    const base = getApiBase();
-
-    async function load<T>(path: string, setter: (v: T) => void) {
+    async function load<T>(fetcher: () => Promise<T>, setter: (v: T) => void) {
       try {
-        const res = await fetch(`${base}${path}`);
-        if (res.ok) setter(await res.json());
+        setter(await fetcher());
       } catch {
         // ignore — charts show "No data" state
       }
@@ -107,15 +164,12 @@ export default function AnalyticsDashboard() {
     const start = new Date(end);
     start.setMonth(end.getMonth() - 11);
 
-    load<ExposurePoint[]>(
-      `/api/marketplace/metrics/capital-exposure?start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}`,
-      setExposure,
-    );
-    load<HealthRow[]>('/api/analytics/financial-health?months=12', setHealth);
-    load<LobRow[]>('/api/analytics/profitability-by-lob', setLob);
-    load<SolvencyRow[]>('/api/analytics/capital-adequacy?months=12', setSolvency);
-    load<ReinsRow[]>('/api/analytics/reinsurance-utilization', setReins);
-    load<ConcentrationRow[]>('/api/analytics/exposure-concentration', (rows) =>
+    load<ExposurePoint[]>(() => getCapitalExposureMetrics(start, end), setExposure);
+    load<HealthRow[]>(() => getFinancialHealth(12), setHealth);
+    load<LobRow[]>(() => getProfitabilityByLob(), setLob);
+    load<SolvencyRow[]>(() => getCapitalAdequacy(12), setSolvency);
+    load<ReinsRow[]>(() => getReinsuranceUtilization(), setReins);
+    load<ConcentrationRow[]>(() => getExposureConcentration(), (rows) =>
       setConcentration(rows.map((r) => ({ x: r.perilType, y: r.region, value: r.exposure }))),
     );
   }, []);
@@ -128,41 +182,31 @@ export default function AnalyticsDashboard() {
   const avgCombined = health.length > 0 ? health.reduce((s, r) => s + r.combinedRatio, 0) / health.length : 0;
   const currentSolvency = latestSolvency?.solvencyRatio ?? 0;
 
-  const grid2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 };
-  const grid3: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 };
+  const kpis = [
+    { label: 'Annual GWP', value: fmtMoney(totalGWP), ok: totalGWP > 0 },
+    { label: 'Avg Loss Ratio', value: fmtPct(avgLossRatio), ok: avgLossRatio < 0.65 },
+    { label: 'Avg Combined Ratio', value: fmtPct(avgCombined), ok: avgCombined < 1.0 },
+    { label: 'Solvency Ratio', value: currentSolvency > 0 ? `${currentSolvency.toFixed(2)}x` : '—', ok: currentSolvency >= 1.5 },
+  ];
 
   return (
-    <div style={{ padding: '2rem 2.5rem', maxWidth: 1200 }}>
+    <PageRoot>
       {/* ── Header ── */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800 }}>Analytics Dashboard</h1>
-        <Link to="/insurer/coverage/create" style={{ color: '#4b8eff', textDecoration: 'none', fontSize: 13 }}>
-          + New Deal
-        </Link>
-      </div>
+      <HeaderRow>
+        <SectionHeader title="Analytics Dashboard" />
+        <NewDealLink to="/insurer/coverage/create">+ New Deal</NewDealLink>
+      </HeaderRow>
 
       {/* ── KPI Row ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 24 }}>
-        {[
-          { label: 'Annual GWP', value: fmtMoney(totalGWP), ok: totalGWP > 0 },
-          { label: 'Avg Loss Ratio', value: fmtPct(avgLossRatio), ok: avgLossRatio < 0.65 },
-          { label: 'Avg Combined Ratio', value: fmtPct(avgCombined), ok: avgCombined < 1.0 },
-          { label: 'Solvency Ratio', value: currentSolvency > 0 ? `${currentSolvency.toFixed(2)}x` : '—', ok: currentSolvency >= 1.5 },
-        ].map(({ label, value, ok }) => (
-          <div key={label} style={{ background: '#0f1724', borderRadius: 10, padding: '14px 18px' }}>
-            <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 4 }}>{label}</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: ok ? '#dae2fd' : '#f97316' }}>{value}</div>
-          </div>
+      <KpiRow>
+        {kpis.map(({ label, value, ok }) => (
+          <StatCard key={label} label={label} value={value} tone={ok ? 'default' : 'warning'} />
         ))}
-      </div>
+      </KpiRow>
 
       {/* ── Section 1: Core Financial Health ── */}
-      <div style={{ marginBottom: 8 }}>
-        <span style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          Core Financial Health
-        </span>
-      </div>
-      <div style={{ ...grid2, marginBottom: 20 }}>
+      <GroupLabel>Core Financial Health</GroupLabel>
+      <SectionBlock as={Grid2}>
         <Card
           title="Loss Ratio Trend"
           badge={latestHealth ? { text: fmtPct(latestHealth.lossRatio), ok: latestHealth.lossRatio < 0.65 } : undefined}
@@ -170,7 +214,7 @@ export default function AnalyticsDashboard() {
           <MultiLineChart
             data={health.map((r) => ({ ...r, month: shortMonth(r.month) }))}
             xKey="month"
-            series={[{ key: 'lossRatio', label: 'Loss Ratio', color: '#4b8eff' }]}
+            series={[{ key: 'lossRatio', label: 'Loss Ratio', color: colors.primary }]}
             yFormatter={fmtPct}
             height={180}
           />
@@ -184,9 +228,9 @@ export default function AnalyticsDashboard() {
             data={health.map((r) => ({ ...r, month: shortMonth(r.month) }))}
             xKey="month"
             series={[
-              { key: 'lossRatio', label: 'Loss Ratio', color: '#4b8eff' },
-              { key: 'expenseRatio', label: 'Expense Ratio', color: '#a78bfa', dashed: true },
-              { key: 'combinedRatio', label: 'Combined Ratio', color: '#f97316' },
+              { key: 'lossRatio', label: 'Loss Ratio', color: colors.primary },
+              { key: 'expenseRatio', label: 'Expense Ratio', color: colors.dataViz.purple, dashed: true },
+              { key: 'combinedRatio', label: 'Combined Ratio', color: colors.dataViz.orange },
             ]}
             yFormatter={fmtPct}
             refLine={1.0}
@@ -194,59 +238,47 @@ export default function AnalyticsDashboard() {
             height={180}
           />
         </Card>
-      </div>
+      </SectionBlock>
 
       {/* ── Section 2: GWP vs Earned Premium ── */}
-      <div style={{ marginBottom: 8 }}>
-        <span style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          Premium Overview
-        </span>
-      </div>
-      <div style={{ marginBottom: 20 }}>
+      <GroupLabel>Premium Overview</GroupLabel>
+      <SectionBlock>
         <Card title="Gross Written Premium vs Earned Premium">
           <MultiLineChart
             data={health.map((r) => ({ ...r, month: shortMonth(r.month) }))}
             xKey="month"
             series={[
-              { key: 'gwp', label: 'GWP', color: '#4b8eff' },
-              { key: 'earnedPremium', label: 'Earned Premium', color: '#22c55e', dashed: true },
+              { key: 'gwp', label: 'GWP', color: colors.primary },
+              { key: 'earnedPremium', label: 'Earned Premium', color: colors.dataViz.green, dashed: true },
             ]}
             yFormatter={fmtMoney}
             height={200}
           />
         </Card>
-      </div>
+      </SectionBlock>
 
       {/* ── Section 3: Profitability by LoB ── */}
-      <div style={{ marginBottom: 8 }}>
-        <span style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          By Line of Business
-        </span>
-      </div>
-      <div style={{ marginBottom: 20 }}>
+      <GroupLabel>By Line of Business</GroupLabel>
+      <SectionBlock>
         <Card title="Profitability by Line of Business">
           <StackedBarChart
             data={lob}
             xKey="line"
             stacked={false}
             bars={[
-              { key: 'premium', label: 'Written Premium', color: '#4b8eff' },
-              { key: 'losses', label: 'Incurred Losses', color: '#ef4444' },
-              { key: 'net', label: 'Net Profit', color: '#22c55e' },
+              { key: 'premium', label: 'Written Premium', color: colors.primary },
+              { key: 'losses', label: 'Incurred Losses', color: colors.dataViz.red },
+              { key: 'net', label: 'Net Profit', color: colors.dataViz.green },
             ]}
             yFormatter={fmtMoney}
             height={220}
           />
         </Card>
-      </div>
+      </SectionBlock>
 
       {/* ── Section 4: Capital & Exposure ── */}
-      <div style={{ marginBottom: 8 }}>
-        <span style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          Capital &amp; Exposure
-        </span>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 16, marginBottom: 20 }}>
+      <GroupLabel>Capital &amp; Exposure</GroupLabel>
+      <GaugeRow>
         <Card title="Capital Adequacy">
           <GaugeChart
             value={currentSolvency}
@@ -262,7 +294,7 @@ export default function AnalyticsDashboard() {
             data={solvency.map((r) => ({ ...r, month: shortMonth(r.month) }))}
             xKey="month"
             series={[
-              { key: 'solvencyRatio', label: 'Solvency Ratio', color: '#22c55e' },
+              { key: 'solvencyRatio', label: 'Solvency Ratio', color: colors.dataViz.green },
             ]}
             yFormatter={(v) => `${v.toFixed(2)}x`}
             refLine={1.0}
@@ -270,44 +302,36 @@ export default function AnalyticsDashboard() {
             height={200}
           />
         </Card>
-      </div>
+      </GaugeRow>
 
       {/* ── Capital Exposure Time Series ── */}
-      <div style={{ marginBottom: 20 }}>
+      <SectionBlock>
         <Card title="Capital Exposure Over Time">
           <TimeSeriesChart points={exposure} height={180} />
         </Card>
-      </div>
+      </SectionBlock>
 
       {/* ── Section 5: Reinsurance ── */}
-      <div style={{ marginBottom: 8 }}>
-        <span style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          Reinsurance
-        </span>
-      </div>
-      <div style={{ marginBottom: 20 }}>
+      <GroupLabel>Reinsurance</GroupLabel>
+      <SectionBlock>
         <Card title="Reinsurance Utilization — Retained vs Ceded Risk">
           <StackedBarChart
             data={reins}
             xKey="name"
             stacked
             bars={[
-              { key: 'retained', label: 'Retained', color: '#4b8eff' },
-              { key: 'ceded', label: 'Ceded (Reinsured)', color: '#a78bfa' },
+              { key: 'retained', label: 'Retained', color: colors.primary },
+              { key: 'ceded', label: 'Ceded (Reinsured)', color: colors.dataViz.purple },
             ]}
             yFormatter={fmtMoney}
             height={220}
           />
         </Card>
-      </div>
+      </SectionBlock>
 
       {/* ── Section 6: Concentration Heatmap ── */}
-      <div style={{ marginBottom: 8 }}>
-        <span style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          Concentration
-        </span>
-      </div>
-      <div style={{ marginBottom: 32 }}>
+      <GroupLabel>Concentration</GroupLabel>
+      <SectionBlock $mb={32}>
         <Card title="Exposure Concentration — Region × Peril">
           <HeatmapChart
             cells={concentration}
@@ -315,7 +339,7 @@ export default function AnalyticsDashboard() {
             yAxisLabel="Region"
           />
         </Card>
-      </div>
-    </div>
+      </SectionBlock>
+    </PageRoot>
   );
 }

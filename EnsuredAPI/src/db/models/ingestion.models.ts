@@ -41,7 +41,6 @@ export class SubmissionDocument extends Model<InferAttributes<SubmissionDocument
   declare tenantId: number | null;
   declare documentType: string | null;
   declare classificationConfidence: number | null;
-  declare extractedText: string | null;
   declare structuredData: Record<string, unknown> | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -65,6 +64,11 @@ export class CanonicalSubmission extends Model<InferAttributes<CanonicalSubmissi
   declare tenantId: number | null;
   declare data: Record<string, unknown> | null;
   declare version: number | null;
+  // Additive Slice-1 pin columns (all nullable). When `schemaVersionId` is null the
+  // submission is unpinned ⇒ `data` stays freeform/unenforced exactly as before.
+  declare schemaVersionId: number | null;
+  declare lineOfBusinessCode: string | null;
+  declare lineOfBusinessSubTypeCode: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -128,9 +132,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
       checksum: { type: DataTypes.STRING, allowNull: true },
       uploadedAt: { type: DataTypes.DATE, allowNull: true, defaultValue: DataTypes.NOW },
       createdAt: { type: DataTypes.DATE, allowNull: true },
-      updatedAt: { type: DataTypes.DATE, allowNull: true },
-    },
-    { sequelize, modelName: 'SubmissionFile', tableName: 'submission_files', underscored: true },
+    } as any,
+    { sequelize, modelName: 'SubmissionFile', tableName: 'submission_files', underscored: true, updatedAt: false },
   );
 
   IngestionEvent.init(
@@ -145,13 +148,14 @@ export function initIngestionModels(sequelize: Sequelize): void {
       errorMessage: { type: DataTypes.TEXT, allowNull: true },
       metadata: { type: DataTypes.JSONB, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
-      updatedAt: { type: DataTypes.DATE, allowNull: true },
     } as any,
     {
       sequelize,
       modelName: 'IngestionEvent',
       tableName: 'ingestion_events',
       underscored: true,
+      // The ingestion_events table only has created_at (append-only event log).
+      updatedAt: false,
     },
   );
 
@@ -162,12 +166,9 @@ export function initIngestionModels(sequelize: Sequelize): void {
       tenantId: { type: DataTypes.INTEGER, allowNull: true },
       documentType: { type: DataTypes.STRING, allowNull: true },
       classificationConfidence: { type: DataTypes.FLOAT, allowNull: true },
-      extractedText: { type: DataTypes.TEXT, allowNull: true },
       structuredData: { type: DataTypes.JSONB, allowNull: true },
-      createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
-      updatedAt: { type: DataTypes.DATE, allowNull: true },
-    },
-    { sequelize, modelName: 'SubmissionDocument', tableName: 'submission_documents', underscored: true },
+    } as any,
+    { sequelize, modelName: 'SubmissionDocument', tableName: 'submission_outputs', underscored: true },
   );
 
   ExtractedField.init(
@@ -180,9 +181,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
       confidence: { type: DataTypes.FLOAT, allowNull: true },
       sourceLocation: { type: DataTypes.JSONB, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
-      updatedAt: { type: DataTypes.DATE, allowNull: true },
     } as any,
-    { sequelize, modelName: 'ExtractedField', tableName: 'extracted_fields', underscored: true },
+    { sequelize, modelName: 'ExtractedField', tableName: 'extracted_fields', underscored: true, updatedAt: false },
   );
 
   CanonicalSubmission.init(
@@ -192,9 +192,12 @@ export function initIngestionModels(sequelize: Sequelize): void {
       tenantId: { type: DataTypes.INTEGER, allowNull: true },
       data: { type: DataTypes.JSONB, allowNull: false, defaultValue: {} },
       version: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
+      schemaVersionId: { type: DataTypes.INTEGER, allowNull: true },
+      lineOfBusinessCode: { type: DataTypes.STRING, allowNull: true },
+      lineOfBusinessSubTypeCode: { type: DataTypes.STRING, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: true },
       updatedAt: { type: DataTypes.DATE, allowNull: true },
-    },
+    } as any,
     { sequelize, modelName: 'CanonicalSubmission', tableName: 'canonical_submissions', underscored: true },
   );
 
@@ -206,9 +209,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
       enrichmentType: { type: DataTypes.STRING, allowNull: true },
       data: { type: DataTypes.JSONB, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
-      updatedAt: { type: DataTypes.DATE, allowNull: true },
     } as any,
-    { sequelize, modelName: 'EnrichmentData', tableName: 'enrichment_data', underscored: true },
+    { sequelize, modelName: 'EnrichmentData', tableName: 'enrichment_data', underscored: true, updatedAt: false },
   );
 
   TriageResult.init(

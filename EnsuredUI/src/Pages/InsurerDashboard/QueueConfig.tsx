@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router'
-import { getApiBase } from '../../lib/api'
+import styled from 'styled-components'
+import { getChannel, updateQueueConfig } from '../../api/ingestionChannels'
 import * as S from './InsurerDashboard.styles'
+import { Breadcrumb, Button, FormField, Select, ToggleSwitch } from '../../xds'
 
 type ActionType = 'ingest' | 'archive' | 'forward' | 'drop'
 
-export default function QueueConfig(): JSX.Element {
+const ToggleRow = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+`
+
+export default function QueueConfig(): React.JSX.Element {
   const { channelId, queueName } = useParams() as { channelId?: string; queueName?: string }
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
@@ -18,11 +26,9 @@ export default function QueueConfig(): JSX.Element {
   useEffect(() => {
     if (!channelId || !queueName) return
     setLoading(true)
-    const base = getApiBase()
-    fetch(`${base}/api/ingestion-channels/${channelId}`, { credentials: 'include' })
-      .then((r) => { if (!r.ok) throw new Error('Not found'); return r.json() })
+    getChannel(channelId)
       .then((data) => {
-        const qc = data?.config?.queueConfigs ?? {}
+        const qc = (data?.config as any)?.queueConfigs ?? {}
         const qcfg = qc?.[queueName] ?? {}
         setConfig(qcfg)
         setAction(qcfg.action ?? 'ingest')
@@ -37,14 +43,8 @@ export default function QueueConfig(): JSX.Element {
     if (!channelId || !queueName) return
     setSaving(true)
     try {
-      const base = getApiBase()
       const payload = { queueConfig: { action, forwardUrl: action === 'forward' ? forwardUrl : undefined, persist } }
-      const res = await fetch(`${base}/api/ingestion-channels/${channelId}/queues/${encodeURIComponent(queueName)}/config`, {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
+      const res = await updateQueueConfig(channelId, queueName, payload)
       if (!res.ok) throw new Error('Failed to save')
       // navigate back to channel view
       navigate(-1)
@@ -58,11 +58,12 @@ export default function QueueConfig(): JSX.Element {
 
   return (
     <S.PageShell>
-      <S.Breadcrumb aria-label="breadcrumb">
-        <S.BreadcrumbItem onClick={() => navigate(-1)} style={{ cursor: 'pointer' }}>Back</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbActive>Queue Configuration</S.BreadcrumbActive>
-      </S.Breadcrumb>
+      <Breadcrumb
+        items={[
+          { label: 'Back', onClick: (e) => { e.preventDefault(); navigate(-1) } },
+          { label: 'Queue Configuration' },
+        ]}
+      />
 
       <S.RabbitPageHeader>
         <S.RabbitPageTitle>Queue: {queueName}</S.RabbitPageTitle>
@@ -73,42 +74,34 @@ export default function QueueConfig(): JSX.Element {
         <S.FieldGroup>
           <div>
             <S.FieldLabel>Action</S.FieldLabel>
-            <S.Select value={action} onChange={(e) => setAction(e.target.value as ActionType)}>
+            <Select value={action} onChange={(e) => setAction(e.target.value as ActionType)}>
               <option value="ingest">Ingest into pipeline (default)</option>
               <option value="archive">Archive to cold storage</option>
               <option value="forward">Forward to HTTP endpoint</option>
               <option value="drop">Drop messages (discard)</option>
-            </S.Select>
+            </Select>
           </div>
 
           {action === 'forward' && (
-            <div>
-              <S.FieldLabel>Forward URL</S.FieldLabel>
-              <S.Input value={forwardUrl} onChange={(e) => setForwardUrl(e.target.value)} placeholder="https://example.com/ingest" />
-            </div>
+            <FormField
+              label="Forward URL"
+              value={forwardUrl}
+              onChange={(e) => setForwardUrl(e.target.value)}
+              placeholder="https://example.com/ingest"
+            />
           )}
 
           <div>
             <S.FieldLabel>Persist messages</S.FieldLabel>
-            <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-              <S.ToggleLabel onClick={() => setPersist(true)}>
-                <S.ToggleTrack $checked={persist}>
-                  <S.ToggleKnob $checked={persist} />
-                </S.ToggleTrack>
-                <S.ToggleText>Yes</S.ToggleText>
-              </S.ToggleLabel>
-              <S.ToggleLabel onClick={() => setPersist(false)}>
-                <S.ToggleTrack $checked={!persist}>
-                  <S.ToggleKnob $checked={!persist} />
-                </S.ToggleTrack>
-                <S.ToggleText>No</S.ToggleText>
-              </S.ToggleLabel>
-            </div>
+            <ToggleRow>
+              <ToggleSwitch checked={persist} onChange={() => setPersist(true)} label="Yes" />
+              <ToggleSwitch checked={!persist} onChange={() => setPersist(false)} label="No" />
+            </ToggleRow>
           </div>
 
           <S.BtnRow>
-            <S.GhostBtn type="button" onClick={() => navigate(-1)}>Cancel</S.GhostBtn>
-            <S.FillBtn type="button" onClick={handleSave} disabled={saving}>{saving ? 'Saving…' : 'Save'}</S.FillBtn>
+            <Button variant="ghost" type="button" onClick={() => navigate(-1)}>Cancel</Button>
+            <Button variant="primary" type="button" onClick={handleSave} disabled={saving}>{saving ? 'Saving…' : 'Save'}</Button>
           </S.BtnRow>
         </S.FieldGroup>
       </S.ConfigCard>

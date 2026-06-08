@@ -1,8 +1,9 @@
 import { FastifyPluginAsync } from 'fastify';
 import { CanonicalSubmission, InsurerProfile, ModelRun, Organization, Pricing, PricingVersion, RiskPortfolio, Submission, TriageResult, User, WorkflowState } from '../db/models';
 import { resolveOrganizationIdFromRequest } from '../lib/org';
+import { computePriority, formatCurrency, formatRelativeTime, humanize, type SubmissionPriority } from '../lib/boardFormat';
+import { computeForSubmission } from '../pipeline/compute/service';
 
-type SubmissionPriority = 'urgent' | 'high' | 'normal';
 type SubmissionStageKey = 'intake' | 'analysis' | 'pricing' | 'closed';
 
 type BoardFieldFormat = 'text' | 'currency' | 'number' | 'date' | 'badge';
@@ -185,93 +186,8 @@ function normalizeBoardConfig(raw: unknown): BoardConfig {
   return normalized;
 }
 
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function humanize(value: string | null | undefined): string {
-  if (!value) {
-    return 'Unspecified';
-  }
-
-  return value
-    .replace(/[_-]+/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
-function formatRelativeTime(dateLike: Date | string | null | undefined): string {
-  if (!dateLike) {
-    return 'Recently';
-  }
-
-  const date = dateLike instanceof Date ? dateLike : new Date(dateLike);
-  if (Number.isNaN(date.getTime())) {
-    return 'Recently';
-  }
-
-  const diffMs = Date.now() - date.getTime();
-  const diffMinutes = Math.max(0, Math.round(diffMs / 60000));
-  if (diffMinutes < 1) {
-    return 'Just now';
-  }
-  if (diffMinutes < 60) {
-    return `${diffMinutes} min ago`;
-  }
-
-  const diffHours = Math.round(diffMinutes / 60);
-  if (diffHours < 24) {
-    return `${diffHours}h ago`;
-  }
-
-  const diffDays = Math.round(diffHours / 24);
-  return `${diffDays}d ago`;
-}
-
-function normalizeScore(score: unknown): number | null {
-  const numeric = Number(score);
-  if (!Number.isFinite(numeric)) {
-    return null;
-  }
-
-  if (numeric > 1) {
-    return Math.max(0, Math.min(1, numeric / 100));
-  }
-
-  return Math.max(0, Math.min(1, numeric));
-}
-
-function computePriority(args: { triageScore?: unknown; premium: number; exposure: number; status: string }): SubmissionPriority {
-  const normalizedScore = normalizeScore(args.triageScore);
-  if (normalizedScore !== null) {
-    if (normalizedScore <= 0.35) {
-      return 'urgent';
-    }
-
-    if (normalizedScore <= 0.65) {
-      return 'high';
-    }
-  }
-
-  if (args.status === 'submitted' || args.status === 'draft') {
-    if (args.premium >= 12000000 || args.exposure >= 220000000) {
-      return 'urgent';
-    }
-
-    if (args.premium >= 6000000 || args.exposure >= 120000000) {
-      return 'high';
-    }
-  }
-
-  if (args.status === 'modeling' && (args.premium >= 8000000 || args.exposure >= 150000000)) {
-    return 'high';
-  }
-
-  return 'normal';
-}
+// Currency/relative-time/humanize formatters and priority scoring now live in
+// `../lib/boardFormat` so the pipeline-processing board can reuse them.
 
 function resolveStageIndex(status: string, stages: BoardStageDefinition[]): number {
   const index = stages.findIndex((stage) => stage.statuses.includes(status));
@@ -311,6 +227,39 @@ async function loadLiveItem(submission: Submission, config: BoardConfig): Promis
 
   const premiumSource = Number(pricingVersion?.premium ?? portfolio?.totalPremium ?? 0);
   const exposureSource = Number(portfolio?.totalExposure ?? 0);
+
+  // Slice 5.4 — additively surface the compute spine's provenance to the board.
+  // The latest PricingVersion.assumptionsJson IS the persisted ComputeProvenance
+  // (see pipeline/compute/service.ts). Read it null-safely so legacy submissions
+  // (seed-priced rows without a compute run, or a pricingVersion authored before
+  // 5.4) render exactly as before — every new field falls back to null.
+  const provenance =
+    pricingVersion?.assumptionsJson && typeof pricingVersion.assumptionsJson === 'object'
+      ? (pricingVersion.assumptionsJson as Record<string, unknown>)
+      : null;
+  const provenanceParametric =
+    provenance && typeof provenance.parametric === 'object' && provenance.parametric !== null
+      ? (provenance.parametric as Record<string, unknown>)
+      : null;
+  const confidenceLabel =
+    provenance && typeof provenance.confidenceLabel === 'string' ? provenance.confidenceLabel : null;
+  const rateOnLine =
+    provenanceParametric && typeof provenanceParametric.rateOnLine === 'number'
+      ? provenanceParametric.rateOnLine
+      : null;
+  // expectedLoss: prefer the persisted ModelRun, fall back to the provenance blend.
+  const blendDetail =
+    provenance && typeof provenance.blendDetail === 'object' && provenance.blendDetail !== null
+      ? (provenance.blendDetail as Record<string, unknown>)
+      : null;
+  const blendedLoss =
+    blendDetail && typeof blendDetail.blended === 'number' ? blendDetail.blended : null;
+  const expectedLoss =
+    modelRun?.expectedLoss != null
+      ? Number(modelRun.expectedLoss)
+      : blendedLoss;
+  const priorSource =
+    provenance && typeof provenance.priorSource === 'string' ? provenance.priorSource : null;
   const stage = resolveStageForStatus(String(submission.status), config.stages);
   const stageIndex = resolveStageIndex(String(submission.status), config.stages);
   const nextStage = resolveNextStage(stageIndex, config.stages);
@@ -350,6 +299,11 @@ async function loadLiveItem(submission: Submission, config: BoardConfig): Promis
     triageScore: triageResult?.score ?? null,
     modelVersion,
     pricingVersion: pricingVersion?.versionNumber ?? null,
+    // Slice 5.4 — additive compute-spine fields (all null-safe for legacy rows).
+    confidenceLabel,
+    rateOnLine,
+    expectedLoss,
+    priorSource,
     receivedAt: submission.receivedAt ? new Date(submission.receivedAt).toISOString() : null,
     canonicalSummary: canonicalSubmission?.data ? 'Available' : null,
     priority: null,
@@ -562,6 +516,51 @@ export const underwritingSubmissionsRoute: FastifyPluginAsync = async (app) => {
       const dashboard = await buildDashboard(request);
       const item = dashboard.items.find((entry) => entry.id === submission.id);
       return reply.code(200).send(item ?? { ok: true });
+    },
+  );
+
+  // Slice 5.0 — the credibility-weighted compute path. Resolves the risk class +
+  // benchmark prior, runs the modeling/rating strategies, applies the credibility
+  // blend (Z=0 today — no internal experience), and persists a ModelRun + a NEW
+  // PricingVersion (+ RiskMetric when a Deal exists), with full provenance. var99
+  // stays NULL (not modeled until the cat engine, 5.2); expectedReturn/riskScore
+  // are derived-or-null+flagged — never the old constants. Recompute → new version.
+  app.post(
+    '/underwriting/submissions/:id/compute',
+    {
+      schema: {
+        description:
+          'Compute (and persist) loss + price for a submission via the credibility-weighted compute spine. Returns the computed result + full provenance. Recompute creates a new PricingVersion (audit trail preserved).',
+        params: {
+          type: 'object',
+          required: ['id'],
+          properties: {
+            id: { type: 'integer' },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+
+      // Tenant scoping mirrors the status route: only enforce when an org resolves.
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      const submission = await Submission.findByPk(id);
+      if (!submission) {
+        return reply.code(404).send({ error: 'submission_not_found' });
+      }
+      if (organizationId && submission.tenantId != null && submission.tenantId !== organizationId) {
+        return reply.code(404).send({ error: 'submission_not_found' });
+      }
+
+      try {
+        const result = await computeForSubmission(id);
+        return reply.code(200).send(result);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'compute_failed';
+        const statusCode = message === 'submission_not_found' ? 404 : 400;
+        return reply.code(statusCode).send({ error: message });
+      }
     },
   );
 };

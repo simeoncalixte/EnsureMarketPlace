@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import { getApiBase } from '../../lib/api'
+import styled from 'styled-components'
+import { getChannel } from '../../api/ingestionChannels'
 import * as S from './InsurerDashboard.styles'
+import { colors, withAlpha } from '../../xds/colors'
+import {
+  Badge,
+  Breadcrumb,
+  Button,
+  DataTable,
+  FormField,
+  MaskedSecretInput,
+  SelectionCard,
+  ToggleSwitch,
+} from '../../xds'
 
 type CloudProvider = 'aws' | 'gcs' | 'azure'
 type BucketStatus = 'syncing' | 'idle' | 'error'
@@ -27,8 +39,8 @@ const PROVIDER_CFG = {
     label: 'Amazon S3',
     sublabel: 'AWS / S3-compatible',
     logo: '🟡',
-    bg: 'linear-gradient(135deg,#ff9900,#e05a00)',
-    accent: '#ff9900',
+    bg: `linear-gradient(135deg,${colors.vendor.awsOrange},${colors.vendor.awsOrangeDeep})`,
+    accent: colors.vendor.awsOrange,
     credFields: [
       { id: 'accessKey',  label: 'Access Key ID',        placeholder: 'AKIA…',             secret: false },
       { id: 'secretKey',  label: 'Secret Access Key',    placeholder: '••••••••••••••••',  secret: true  },
@@ -40,8 +52,8 @@ const PROVIDER_CFG = {
     label: 'Google Cloud Storage',
     sublabel: 'GCP / GCS',
     logo: '🔵',
-    bg: 'linear-gradient(135deg,#4285f4,#34a853)',
-    accent: '#4285f4',
+    bg: `linear-gradient(135deg,${colors.vendor.googleBlue},${colors.vendor.googleGreen})`,
+    accent: colors.vendor.googleBlue,
     credFields: [
       { id: 'projectId',    label: 'Project ID',            placeholder: 'my-gcp-project',   secret: false },
       { id: 'serviceAcct',  label: 'Service Account JSON',  placeholder: '{"type":"service_account",…}', secret: true },
@@ -51,8 +63,8 @@ const PROVIDER_CFG = {
     label: 'Azure Blob Storage',
     sublabel: 'Microsoft Azure',
     logo: '🔷',
-    bg: 'linear-gradient(135deg,#00a4ef,#0078d4)',
-    accent: '#00a4ef',
+    bg: `linear-gradient(135deg,${colors.vendor.microsoftBlue},${colors.vendor.microsoftAzure})`,
+    accent: colors.vendor.microsoftBlue,
     credFields: [
       { id: 'accountName', label: 'Storage Account Name', placeholder: 'mystorage',         secret: false },
       { id: 'accountKey',  label: 'Account Key',          placeholder: '••••••••••••••••',  secret: true  },
@@ -62,26 +74,101 @@ const PROVIDER_CFG = {
 } as const
 
 const OPTIONS = [
-  { icon: 'verified',        color: '#4edea3', name: 'Checksum Verification',   desc: 'Validate MD5/SHA-256 of every downloaded object before parsing.' },
-  { icon: 'compress',        color: '#4b8eff', name: 'Auto-decompress Archives', desc: 'Unzip .gz and .zip files in-flight during ingestion.' },
-  { icon: 'folder_delete',   color: '#ffb3ad', name: 'Archive after Ingest',     desc: 'Move processed objects to an /archived/ prefix automatically.' },
-  { icon: 'notifications',   color: '#fbbc05', name: 'Error Alerts',             desc: 'Emit a pipeline alert when an object fails schema validation.' },
+  { icon: 'verified',        color: colors.accent, name: 'Checksum Verification',   desc: 'Validate MD5/SHA-256 of every downloaded object before parsing.' },
+  { icon: 'compress',        color: colors.primary, name: 'Auto-decompress Archives', desc: 'Unzip .gz and .zip files in-flight during ingestion.' },
+  { icon: 'folder_delete',   color: colors.errorSoft, name: 'Archive after Ingest',     desc: 'Move processed objects to an /archived/ prefix automatically.' },
+  { icon: 'notifications',   color: colors.vendor.googleYellow, name: 'Error Alerts',             desc: 'Emit a pipeline alert when an object fails schema validation.' },
 ]
 
-function Toggle({ checked, onChange }: { checked: boolean; onChange: () => void }) {
-  return (
-    <S.ToggleLabel onClick={onChange}>
-      <S.ToggleTrack $checked={checked}><S.ToggleKnob $checked={checked} /></S.ToggleTrack>
-    </S.ToggleLabel>
-  )
+const STATUS_VARIANT: Record<BucketStatus, 'success' | 'neutral' | 'danger'> = {
+  syncing: 'success',
+  idle: 'neutral',
+  error: 'danger',
 }
 
-export default function CloudStorageConfig(): JSX.Element {
+const PanelTitleIcon = styled.span`
+  font-size: 1.125rem;
+  color: ${colors.primarySoft};
+`
+
+const FolderIcon = styled.span`
+  font-size: 0.875rem;
+  color: ${colors.neutral[500]};
+`
+
+const MonoFieldWrap = styled.div`
+  input {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+  }
+`
+
+const HeaderRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`
+
+const SearchIcon = styled.span`
+  font-size: 1.25rem;
+  color: ${colors.neutral[500]};
+  cursor: pointer;
+`
+
+const MutedCell = styled.span`
+  color: ${colors.onSurfaceVariant};
+`
+
+const MonoCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.primarySoft};
+`
+
+const ActionRow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+`
+
+const BucketCellWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+`
+
+const TableScroll = styled.div`
+  overflow-x: auto;
+`
+
+const BtnIcon = styled.span`
+  font-size: 0.875rem;
+`
+
+const OptionTextFill = styled(S.OptionText)`
+  flex: 1;
+`
+
+const MonoPathInput = styled(S.Input)`
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+`
+
+const GlowLayer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16rem;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(to top, ${withAlpha(colors.primary, 0.06)}, transparent);
+`
+
+export default function CloudStorageConfig(): React.JSX.Element {
   const { channelId } = useParams() as { channelId?: string }
   const [channelLabel, setChannelLabel] = useState<string | null>(null)
   const [provider, setProvider]   = useState<CloudProvider>('aws')
   const [creds, setCreds]         = useState<Record<string, string>>({})
-  const [showSecret, setShowSecret] = useState<Record<string, boolean>>({})
   const [watchPaths, setWatchPaths] = useState<string[]>(['/raw-exposure-data', '/submissions/inbound'])
   const [newPath, setNewPath]     = useState('')
   const [options, setOptions]     = useState([true, true, false, true])
@@ -115,10 +202,8 @@ export default function CloudStorageConfig(): JSX.Element {
 
   useEffect(() => {
     if (!channelId) return
-    const base = getApiBase()
-    fetch(`${base}/api/ingestion-channels/${channelId}`, { credentials: 'include' })
-      .then((r) => { if (!r.ok) throw new Error('Not found'); return r.json() })
-      .then((data) => {
+    getChannel(channelId)
+      .then((data: any) => {
         if (data?.label) setChannelLabel(data.label)
         if (typeof data?.meta === 'string') setWatchPaths([String(data.meta)])
         if (data?.config?.watchPaths && Array.isArray(data.config.watchPaths)) setWatchPaths(data.config.watchPaths)
@@ -128,14 +213,13 @@ export default function CloudStorageConfig(): JSX.Element {
 
   return (
     <S.PageShell>
-      {/* Breadcrumb */}
-      <S.Breadcrumb aria-label="breadcrumb">
-        <S.BreadcrumbItem>Ingestion</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbItem>Channels</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbActive>{channelLabel ?? 'Cloud Storage'}</S.BreadcrumbActive>
-      </S.Breadcrumb>
+      <Breadcrumb
+        items={[
+          { label: 'Ingestion' },
+          { label: 'Channels' },
+          { label: channelLabel ?? 'Cloud Storage' },
+        ]}
+      />
 
       {/* Header */}
       <S.EmailPageHeader>
@@ -154,23 +238,16 @@ export default function CloudStorageConfig(): JSX.Element {
           {(['aws', 'gcs', 'azure'] as CloudProvider[]).map((p) => {
             const c = PROVIDER_CFG[p]
             return (
-              <S.ProviderCard
+              <SelectionCard
                 key={p}
-                $selected={provider === p}
-                $accent={c.accent}
+                selectionId={p}
+                title={c.label}
+                subtitle={c.sublabel}
+                icon={<span aria-hidden>{c.logo}</span>}
+                accentColor={c.accent}
+                active={provider === p}
                 onClick={() => { setProvider(p); setCreds({}); setTestResult('idle') }}
-                type="button"
-                aria-pressed={provider === p}
-              >
-                <S.ProviderLogo $bg={c.bg}>{c.logo}</S.ProviderLogo>
-                <div>
-                  <S.ProviderName>{c.label}</S.ProviderName>
-                  <S.ProviderMeta>{c.sublabel}</S.ProviderMeta>
-                </div>
-                <S.ProviderCheckmark $accent={c.accent} $visible={provider === p}>
-                  check
-                </S.ProviderCheckmark>
-              </S.ProviderCard>
+              />
             )
           })}
         </S.CloudProviderRow>
@@ -180,35 +257,35 @@ export default function CloudStorageConfig(): JSX.Element {
           <S.CloudConnCardDecor aria-hidden>cloud</S.CloudConnCardDecor>
 
           <S.CloudConnTitle>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem', color: '#adc6ff' }}>
-              vpn_key
-            </span>
+            <PanelTitleIcon className="material-symbols-outlined">vpn_key</PanelTitleIcon>
             {cfg.label} — Credentials
           </S.CloudConnTitle>
 
           <S.FieldGroup>
             {cfg.credFields.map((f) => (
               <div key={f.id}>
-                <S.FieldLabel htmlFor={`cloud-${f.id}`}>{f.label}</S.FieldLabel>
-                <S.MaskedInput>
-                  <S.Input
-                    id={`cloud-${f.id}`}
-                    type={f.secret && !showSecret[f.id] ? 'password' : 'text'}
-                    value={creds[f.id] ?? ''}
-                    onChange={(e) => setCreds((prev) => ({ ...prev, [f.id]: e.target.value }))}
-                    placeholder={f.placeholder}
-                    style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem', paddingRight: f.secret ? '2rem' : undefined }}
-                  />
-                  {f.secret && (
-                    <S.EyeBtn
-                      type="button"
-                      aria-label={showSecret[f.id] ? `Hide ${f.label}` : `Show ${f.label}`}
-                      onClick={() => setShowSecret((prev) => ({ ...prev, [f.id]: !prev[f.id] }))}
-                    >
-                      {showSecret[f.id] ? 'visibility_off' : 'visibility'}
-                    </S.EyeBtn>
-                  )}
-                </S.MaskedInput>
+                {f.secret ? (
+                  <>
+                    <S.FieldLabel htmlFor={`cloud-${f.id}`}>{f.label}</S.FieldLabel>
+                    <MaskedSecretInput
+                      id={`cloud-${f.id}`}
+                      value={creds[f.id] ?? ''}
+                      onChange={(v) => setCreds((prev) => ({ ...prev, [f.id]: v }))}
+                      placeholder={f.placeholder}
+                    />
+                  </>
+                ) : (
+                  <MonoFieldWrap>
+                    <FormField
+                      id={`cloud-${f.id}`}
+                      label={f.label}
+                      type="text"
+                      value={creds[f.id] ?? ''}
+                      onChange={(e) => setCreds((prev) => ({ ...prev, [f.id]: e.target.value }))}
+                      placeholder={f.placeholder}
+                    />
+                  </MonoFieldWrap>
+                )}
               </div>
             ))}
 
@@ -219,9 +296,7 @@ export default function CloudStorageConfig(): JSX.Element {
                 {watchPaths.map((path, i) => (
                   <S.WatchPathRow key={path}>
                     <S.WatchPathChip>
-                      <span className="material-symbols-outlined" style={{ fontSize: '0.875rem', color: '#64748b' }}>
-                        folder
-                      </span>
+                      <FolderIcon className="material-symbols-outlined">folder</FolderIcon>
                       {path}
                     </S.WatchPathChip>
                     <S.WatchPathRemove
@@ -234,16 +309,15 @@ export default function CloudStorageConfig(): JSX.Element {
                   </S.WatchPathRow>
                 ))}
                 <S.WatchPathRow>
-                  <S.Input
+                  <MonoPathInput
                     type="text"
                     value={newPath}
                     onChange={(e) => setNewPath(e.target.value)}
                     onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addPath() } }}
                     placeholder="/new/path/to/watch"
-                    style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.8125rem' }}
                   />
                   <S.AddPathBtn type="button" onClick={addPath}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '0.875rem' }}>add</span>
+                    <BtnIcon className="material-symbols-outlined">add</BtnIcon>
                     Add
                   </S.AddPathBtn>
                 </S.WatchPathRow>
@@ -251,11 +325,11 @@ export default function CloudStorageConfig(): JSX.Element {
             </div>
 
             <S.BtnRow>
-              <S.GhostBtn type="button" onClick={handleTest} disabled={testing}>
-                <span className="material-symbols-outlined" style={{ fontSize: '0.875rem' }}>sync</span>
+              <Button variant="ghost" type="button" onClick={handleTest} disabled={testing}>
+                <BtnIcon className="material-symbols-outlined">sync</BtnIcon>
                 {testing ? 'Testing…' : testResult === 'ok' ? 'Connected ✓' : testResult === 'fail' ? 'Failed ✗' : 'Test Connection'}
-              </S.GhostBtn>
-              <S.FillBtn type="button" onClick={handleSave}>Save Credentials</S.FillBtn>
+              </Button>
+              <Button variant="primary" type="button" onClick={handleSave}>Save Credentials</Button>
             </S.BtnRow>
           </S.FieldGroup>
         </S.CloudConnCard>
@@ -263,20 +337,18 @@ export default function CloudStorageConfig(): JSX.Element {
         {/* ── Options panel ── */}
         <S.CloudOptionsPanel>
           <S.CloudOptionTitle>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.125rem', color: '#adc6ff' }}>
-              tune
-            </span>
+            <PanelTitleIcon className="material-symbols-outlined">tune</PanelTitleIcon>
             Ingest Options
           </S.CloudOptionTitle>
 
           {OPTIONS.map((opt, i) => (
             <S.OptionRow key={opt.name}>
               <S.ScopeIcon $color={opt.color}>{opt.icon}</S.ScopeIcon>
-              <S.OptionText style={{ flex: 1 }}>
+              <OptionTextFill>
                 <S.OptionName>{opt.name}</S.OptionName>
                 <S.OptionDesc>{opt.desc}</S.OptionDesc>
-              </S.OptionText>
-              <Toggle
+              </OptionTextFill>
+              <ToggleSwitch
                 checked={options[i]}
                 onChange={() => setOptions((prev) => prev.map((v, idx) => (idx === i ? !v : v)))}
               />
@@ -288,80 +360,60 @@ export default function CloudStorageConfig(): JSX.Element {
         <S.BucketsSection>
           <S.BucketsTableTop>
             <S.BucketsTableTitle>Connected Buckets</S.BucketsTableTitle>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <S.StreamingBadge>
-                <S.StreamingDot aria-hidden />
+            <HeaderRight>
+              <Badge variant="success" dot>
                 {buckets.filter((b) => b.status === 'syncing').length} Syncing
-              </S.StreamingBadge>
-              <span
-                className="material-symbols-outlined"
-                style={{ fontSize: '1.25rem', color: '#64748b', cursor: 'pointer' }}
-              >
-                search
-              </span>
-            </div>
+              </Badge>
+              <SearchIcon className="material-symbols-outlined">search</SearchIcon>
+            </HeaderRight>
           </S.BucketsTableTop>
 
-          <div style={{ overflowX: 'auto' }}>
-            <S.BucketsTable>
-              <thead>
-                <tr>
-                  <S.BucketsTH style={{ width: '2.5rem', paddingRight: 0 }} />
-                  <S.BucketsTH>Bucket / Container</S.BucketsTH>
-                  <S.BucketsTH>Provider</S.BucketsTH>
-                  <S.BucketsTH>Region</S.BucketsTH>
-                  <S.BucketsTH>Files Ingested</S.BucketsTH>
-                  <S.BucketsTH>Last Sync</S.BucketsTH>
-                  <S.BucketsTH>Status</S.BucketsTH>
-                  <S.BucketsTH style={{ textAlign: 'right' }}>Actions</S.BucketsTH>
-                </tr>
-              </thead>
-              <tbody>
-                {buckets.map((row, i) => {
-                  const pc = PROVIDER_CFG[row.provider]
-                  return (
-                    <S.BucketsTR key={`${row.bucket}-${i}`}>
-                      <S.BucketsTD style={{ paddingRight: 0 }}>
-                        <S.AccountLogo $bg={pc.bg}>{pc.logo}</S.AccountLogo>
-                      </S.BucketsTD>
-                      <S.BucketNameCell>{row.bucket}</S.BucketNameCell>
-                      <S.BucketsTD style={{ color: '#98a6bf' }}>{pc.label}</S.BucketsTD>
-                      <S.BucketMonoCell>{row.region}</S.BucketMonoCell>
-                      <S.BucketMonoCell>{row.files}</S.BucketMonoCell>
-                      <S.BucketMonoCell>{row.lastSync}</S.BucketMonoCell>
-                      <S.BucketsTD>
-                        <S.BucketStatusChip $status={row.status}>{row.status}</S.BucketStatusChip>
-                      </S.BucketsTD>
-                      <S.BucketsTD style={{ textAlign: 'right' }}>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                          <S.BucketActionBtn aria-label={`Sync ${row.bucket}`}>sync</S.BucketActionBtn>
-                          <S.AccountRevokeBtn
-                            type="button"
-                            onClick={() => removeBucket(i)}
-                            aria-label={`Disconnect ${row.bucket}`}
-                          >
-                            Disconnect
-                          </S.AccountRevokeBtn>
-                        </div>
-                      </S.BucketsTD>
-                    </S.BucketsTR>
-                  )
-                })}
-              </tbody>
-            </S.BucketsTable>
-          </div>
+          <TableScroll>
+            <DataTable<BucketRow & { __idx: number }>
+              columns={[
+                {
+                  key: 'bucket',
+                  header: 'Bucket / Container',
+                  render: (row) => (
+                    <BucketCellWrap>
+                      <S.AccountLogo $bg={PROVIDER_CFG[row.provider].bg}>{PROVIDER_CFG[row.provider].logo}</S.AccountLogo>
+                      <S.BucketNameCell as="span">{row.bucket}</S.BucketNameCell>
+                    </BucketCellWrap>
+                  ),
+                },
+                { key: 'provider', header: 'Provider', render: (row) => <MutedCell>{PROVIDER_CFG[row.provider].label}</MutedCell> },
+                { key: 'region', header: 'Region', render: (row) => <MonoCell>{row.region}</MonoCell> },
+                { key: 'files', header: 'Files Ingested', render: (row) => <MonoCell>{row.files}</MonoCell> },
+                { key: 'lastSync', header: 'Last Sync', render: (row) => <MonoCell>{row.lastSync}</MonoCell> },
+                {
+                  key: 'status',
+                  header: 'Status',
+                  render: (row) => <Badge variant={STATUS_VARIANT[row.status]}>{row.status}</Badge>,
+                },
+              ]}
+              data={buckets.map((row, i) => ({ ...row, __idx: i }))}
+              rowActions={(row) => (
+                <ActionRow>
+                  <S.BucketActionBtn aria-label={`Sync ${row.bucket}`}>sync</S.BucketActionBtn>
+                  <Button
+                    variant="outline"
+                    tone="danger"
+                    size="sm"
+                    type="button"
+                    onClick={() => removeBucket(row.__idx)}
+                    aria-label={`Disconnect ${row.bucket}`}
+                  >
+                    Disconnect
+                  </Button>
+                </ActionRow>
+              )}
+            />
+          </TableScroll>
         </S.BucketsSection>
 
       </S.CloudGrid>
 
-      <div
-        aria-hidden
-        style={{
-          position: 'fixed', bottom: 0, left: 0, width: '100%', height: '16rem',
-          pointerEvents: 'none', zIndex: -1,
-          background: 'linear-gradient(to top, rgba(75,142,255,0.06), transparent)',
-        }}
-      />
+      <GlowLayer aria-hidden />
     </S.PageShell>
   )
 }

@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Panel,
-  PanelHeader,
-  PanelTitle,
-  PanelLink,
-  TableWrap,
-  Table,
-  THead,
-  THeadTr,
-  TH,
-  TBody,
-  TD,
-  ActionBtn,
-} from './AdminPage.styles';
+import { Panel } from './AdminPage.styles';
+import { PanelHeaderRow, BackNav, PrimaryCell, RowActions } from './AdminTables.styles';
+import { SectionHeader, Button, DataTable, DataTableColumn } from '../../xds';
+import { listUsers, type ApiUser } from '../../api/users';
 
 type Org = { id: number; name: string };
 
+type OrgUser = ApiUser;
+
 export default function OrgUsersSubpage({ org, onBack }: { org: Org; onBack: () => void }) {
-  const [users, setUsers] = useState<any[] | null>(null);
+  const [users, setUsers] = useState<OrgUser[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,13 +17,8 @@ export default function OrgUsersSubpage({ org, onBack }: { org: Org; onBack: () 
     let mounted = true;
     setLoading(true);
     setError(null);
-    const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
 
-    fetch(`${API_BASE}/api/users`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Status ${res.status}`);
-        return res.json();
-      })
+    listUsers()
       .then((data) => {
         if (!mounted) return;
         // plugin doesn't support arbitrary filters on the list endpoint; filter client-side
@@ -48,49 +35,45 @@ export default function OrgUsersSubpage({ org, onBack }: { org: Org; onBack: () 
     return () => { mounted = false };
   }, [org.id]);
 
+  const columns: DataTableColumn<OrgUser>[] = [
+    {
+      key: 'name',
+      header: 'Name',
+      render: (u) => <PrimaryCell>{`${u.firstName ?? ''} ${u.lastName ?? ''}`.trim() || '—'}</PrimaryCell>,
+    },
+    { key: 'email', header: 'Email', render: (u) => u.email ?? '—' },
+    { key: 'role', header: 'Role', render: (u) => u.role ?? '—' },
+  ];
+
   return (
     <Panel>
-      <PanelHeader>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <ActionBtn onClick={onBack} style={{ padding: '0.25rem 0.5rem' }}>
+      <PanelHeaderRow>
+        <BackNav>
+          <Button variant="text" size="sm" onClick={onBack} aria-label="Back">
             <span className="material-symbols-outlined">arrow_back</span>
-          </ActionBtn>
-          <PanelTitle>Users — {org.name}</PanelTitle>
-        </div>
-        <PanelLink>
+          </Button>
+          <SectionHeader title={`Users — ${org.name}`} />
+        </BackNav>
+        <Button variant="text" size="sm" onClick={() => undefined}>
           Export
           <span className="material-symbols-outlined">open_in_new</span>
-        </PanelLink>
-      </PanelHeader>
+        </Button>
+      </PanelHeaderRow>
 
-      <TableWrap>
-        <Table>
-          <THead>
-            <THeadTr>
-              <TH>Name</TH>
-              <TH>Email</TH>
-              <TH>Role</TH>
-              <TH style={{ textAlign: 'right' }}>Actions</TH>
-            </THeadTr>
-          </THead>
-          <TBody>
-            {loading ? (
-              <tr><TD>Loading...</TD></tr>
-            ) : error ? (
-              <tr><TD colSpan={4} style={{ color: '#ffb4ab' }}>Error: {error}</TD></tr>
-            ) : (users || []).map((u) => (
-              <tr key={u.id}>
-                <TD style={{ fontWeight: 700 }}>{`${u.firstName ?? ''} ${u.lastName ?? ''}`.trim() || '—'}</TD>
-                <TD>{u.email ?? '—'}</TD>
-                <TD>{u.role ?? '—'}</TD>
-                <TD style={{ textAlign: 'right' }}>
-                  <ActionBtn>Revoke</ActionBtn>
-                </TD>
-              </tr>
-            ))}
-          </TBody>
-        </Table>
-      </TableWrap>
+      <DataTable<OrgUser>
+        columns={columns}
+        data={users || []}
+        loading={loading}
+        error={error ? `Error: ${error}` : undefined}
+        emptyText="No users"
+        rowActions={() => (
+          <RowActions>
+            <Button variant="text" size="sm" tone="danger" onClick={() => undefined}>
+              Revoke
+            </Button>
+          </RowActions>
+        )}
+      />
     </Panel>
   );
 }

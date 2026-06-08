@@ -1,6 +1,33 @@
 import { FastifyPluginAsync } from 'fastify';
-import { IngestionChannel } from '../db/models';
+import { IngestionChannel, Submission } from '../db/models';
 import { resolveOrganizationIdFromRequest } from '../lib/org';
+import { IngestionService } from '../pipeline/ingestion/service';
+import {
+  getMailboxClient,
+  readCredentials,
+  resolveProvider,
+  persistAuthorization,
+  buildAuthorizeUrl,
+  exchangeCodeForTokens,
+  resolveScopes,
+  encodeState,
+  decodeState,
+} from '../pipeline/connectors/email';
+
+const EMAIL_CHANNEL_TYPES = ['email', 'gmail', 'microsoft', 'office365', 'email-sso'];
+
+// Shared so poll start/stop operate on the same in-memory poller registry.
+const ingestionService = new IngestionService();
+
+function isEmailChannel(channel: typeof IngestionChannel.prototype): boolean {
+  return EMAIL_CHANNEL_TYPES.includes(String(channel.get('type') ?? '').toLowerCase());
+}
+
+/** Redirect URI registered with the OAuth providers (must match their console config). */
+function oauthRedirectUri(): string {
+  const base = (process.env.OAUTH_REDIRECT_BASE_URL ?? '').replace(/\/$/, '');
+  return `${base}/api/ingestion-channels/oauth/callback`;
+}
 
 export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
   // List all channels for a tenant
@@ -29,6 +56,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
                 status: { type: 'string' },
                 meta: { type: ['string', 'null'] },
                 config: { type: 'object' },
+                submissionCount: { type: 'integer' },
                 createdAt: { type: 'string' },
                 updatedAt: { type: 'string' },
               },
@@ -61,6 +89,21 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       }
 
       const channels = await IngestionChannel.findAll({ where, order: [['id', 'ASC']] });
+
+      // Count the submissions each channel produced (one batched query).
+      const channelIds = channels.map((c) => c.id);
+      const submissionCounts = new Map<number, number>();
+      if (channelIds.length > 0) {
+        const subs = await Submission.findAll({
+          attributes: ['id', 'ingestionChannelId'],
+          where: { ingestionChannelId: channelIds },
+        });
+        for (const s of subs) {
+          const cid = s.ingestionChannelId;
+          if (cid != null) submissionCounts.set(cid, (submissionCounts.get(cid) ?? 0) + 1);
+        }
+      }
+
       return channels.map((c) => {
         const json = c.toJSON() as Record<string, unknown>;
         // expose organizationId while preserving legacy tenantId in DB
@@ -68,6 +111,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         json.organizationId = json.organizationId ?? json.tenantId ?? null;
+        json.submissionCount = submissionCounts.get(c.id) ?? 0;
         return json;
       });
     }
@@ -196,6 +240,59 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       // @ts-ignore
       json.organizationId = json.organizationId ?? json.tenantId ?? null;
       return json;
+    }
+  );
+
+  // List the submissions a channel produced (channel→submission lineage)
+  app.get(
+    '/ingestion-channels/:id/submissions',
+    {
+      schema: {
+        description: 'List submissions produced by a given ingestion channel',
+        params: {
+          type: 'object',
+          required: ['id'],
+          properties: { id: { type: 'integer' } },
+        },
+        response: {
+          200: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                id: { type: 'integer' },
+                submissionNumber: { type: 'string' },
+                status: { type: 'string' },
+                source: { type: ['string', 'null'] },
+                transport: { type: ['string', 'null'] },
+                receivedAt: { type: ['string', 'null'] },
+              },
+            },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const channel = await IngestionChannel.findByPk(id);
+      if (!channel) {
+        reply.code(404);
+        return { error: 'Channel not found' };
+      }
+
+      const submissions = await Submission.findAll({
+        where: { ingestionChannelId: id },
+        order: [['receivedAt', 'DESC'], ['id', 'DESC']],
+      });
+
+      return submissions.map((s) => ({
+        id: s.id,
+        submissionNumber: `SUB-${String(s.id).padStart(4, '0')}`,
+        status: s.status,
+        source: s.source ?? null,
+        transport: s.transport ?? null,
+        receivedAt: s.receivedAt ? new Date(s.receivedAt).toISOString() : null,
+      }));
     }
   );
 
@@ -396,6 +493,24 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       if (!channel) {
         reply.code(404);
         return { ok: false, error: 'Channel not found' };
+      }
+
+      // Email channels: probe the mailbox using stored OAuth credentials.
+      if (isEmailChannel(channel)) {
+        try {
+          const provider = resolveProvider(channel);
+          const creds = readCredentials(channel);
+          if (!creds.refreshToken) {
+            reply.code(400);
+            return { ok: false, error: 'Channel is not authorized yet — complete the OAuth flow first' };
+          }
+          const client = getMailboxClient(provider, creds);
+          const result = await client.verifyConnection();
+          return { ok: result.ok };
+        } catch (err: any) {
+          reply.code(400);
+          return { ok: false, error: err?.message ?? String(err) };
+        }
       }
 
       // Build URI from stored meta and config
@@ -895,6 +1010,195 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
         reply.code(500);
         return { error: err?.message ?? String(err) };
       }
+    }
+  );
+
+  // ---- Email connector: OAuth + polling lifecycle ----
+
+  // Begin the one-time OAuth consent. Returns the provider consent URL (the SPA
+  // opens it) or 302-redirects when ?redirect=1 is passed.
+  app.get(
+    '/ingestion-channels/:id/oauth/start',
+    {
+      schema: {
+        description: 'Start the email OAuth consent flow for a channel',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+        querystring: { type: 'object', properties: { redirect: { type: ['string', 'boolean'] } } },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const { redirect } = request.query as { redirect?: string | boolean };
+      const channel = await IngestionChannel.findByPk(id);
+      if (!channel) {
+        reply.code(404);
+        return { ok: false, error: 'Channel not found' };
+      }
+      if (!isEmailChannel(channel)) {
+        reply.code(400);
+        return { ok: false, error: 'OAuth is only available for email channels' };
+      }
+
+      const base = (process.env.OAUTH_REDIRECT_BASE_URL ?? '').trim();
+      if (!base) {
+        reply.code(500);
+        return { ok: false, error: 'OAUTH_REDIRECT_BASE_URL is not configured' };
+      }
+
+      const provider = resolveProvider(channel);
+      const creds = readCredentials(channel);
+      if (!creds.clientId || !creds.clientSecret) {
+        reply.code(400);
+        return { ok: false, error: 'Missing OAuth client credentials for this provider' };
+      }
+
+      const scopes = resolveScopes(provider, Boolean(creds.allowWrite), creds.scopes, creds.tenantId);
+      // nonce derived from channel id (no server-side store this round — see plan).
+      const state = encodeState({ channelId: Number(id), nonce: `c${id}`, ts: Date.now() });
+      const url = buildAuthorizeUrl({
+        provider,
+        clientId: creds.clientId,
+        redirectUri: oauthRedirectUri(),
+        scopes,
+        state,
+        tenantId: creds.tenantId,
+      });
+
+      if (redirect === '1' || redirect === 'true' || redirect === true) {
+        reply.code(302).header('Location', url);
+        return reply.send();
+      }
+      return { ok: true, url };
+    }
+  );
+
+  // OAuth callback (fixed redirect URI). Resolves the channel from `state`,
+  // exchanges the code for tokens, and persists the refresh token.
+  app.get(
+    '/ingestion-channels/oauth/callback',
+    {
+      schema: {
+        description: 'OAuth redirect callback for email channels',
+        querystring: {
+          type: 'object',
+          properties: {
+            code: { type: 'string' },
+            state: { type: 'string' },
+            error: { type: 'string' },
+            error_description: { type: 'string' },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { code, state, error, error_description } = request.query as {
+        code?: string;
+        state?: string;
+        error?: string;
+        error_description?: string;
+      };
+
+      if (error) {
+        reply.code(400);
+        return { ok: false, error: `${error}: ${error_description ?? ''}`.trim() };
+      }
+      if (!code || !state) {
+        reply.code(400);
+        return { ok: false, error: 'Missing code or state' };
+      }
+      const decoded = decodeState(state);
+      if (!decoded) {
+        reply.code(400);
+        return { ok: false, error: 'Invalid state' };
+      }
+
+      const channel = await IngestionChannel.findByPk(decoded.channelId);
+      if (!channel) {
+        reply.code(404);
+        return { ok: false, error: 'Channel not found' };
+      }
+
+      try {
+        const provider = resolveProvider(channel);
+        const creds = readCredentials(channel);
+        const scopes = resolveScopes(provider, Boolean(creds.allowWrite), creds.scopes, creds.tenantId);
+        const tokens = await exchangeCodeForTokens({
+          provider,
+          clientId: creds.clientId,
+          clientSecret: creds.clientSecret,
+          code,
+          redirectUri: oauthRedirectUri(),
+          tenantId: creds.tenantId,
+          scopes,
+        });
+        if (!tokens.refreshToken) {
+          reply.code(400);
+          return { ok: false, error: 'Provider did not return a refresh token; ensure offline access / prompt=consent' };
+        }
+        await persistAuthorization(channel, tokens);
+
+        const config = (channel.get('config') as Record<string, any>) ?? {};
+        const postAuthRedirect = typeof config.postAuthRedirect === 'string' ? config.postAuthRedirect : null;
+        if (postAuthRedirect) {
+          reply.code(302).header('Location', postAuthRedirect);
+          return reply.send();
+        }
+        return { ok: true, channelId: decoded.channelId, status: 'active' };
+      } catch (err: any) {
+        reply.code(400);
+        return { ok: false, error: err?.message ?? String(err) };
+      }
+    }
+  );
+
+  // Start background polling for an email channel.
+  app.post(
+    '/ingestion-channels/:id/poll/start',
+    {
+      schema: {
+        description: 'Start background polling for an email channel',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const channel = await IngestionChannel.findByPk(id);
+      if (!channel) {
+        reply.code(404);
+        return { ok: false, error: 'Channel not found' };
+      }
+      if (!isEmailChannel(channel)) {
+        reply.code(400);
+        return { ok: false, error: 'Polling control is only available for email channels' };
+      }
+      try {
+        await ingestionService.startEmailPollingForChannel(Number(id));
+        return { ok: true, polling: true };
+      } catch (err: any) {
+        reply.code(400);
+        return { ok: false, error: err?.message ?? String(err) };
+      }
+    }
+  );
+
+  // Stop background polling for an email channel.
+  app.post(
+    '/ingestion-channels/:id/poll/stop',
+    {
+      schema: {
+        description: 'Stop background polling for an email channel',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const channel = await IngestionChannel.findByPk(id);
+      if (!channel) {
+        reply.code(404);
+        return { ok: false, error: 'Channel not found' };
+      }
+      await ingestionService.stopEmailPollingForChannel(Number(id));
+      return { ok: true, polling: false };
     }
   );
 };

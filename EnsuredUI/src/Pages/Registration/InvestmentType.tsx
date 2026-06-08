@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SideNavBar from '../../xds/components/SideNavBar'
+import styled from 'styled-components'
 import { Button } from '../../xds/components/Button'
 import SelectionCard from '../../xds/components/SelectionCard'
 import InfoCard from '../../xds/components/InfoCard'
@@ -7,29 +7,143 @@ import { colors } from '../../xds/colors'
 
 type ProfileType = 'institutional' | 'retail' | null
 
-const cardStyle: React.CSSProperties = {
-	borderRadius: 16,
-	padding: 28,
-	background: colors.surfaceContainer,
-	boxShadow: '0 8px 30px rgba(2,6,23,0.6)',
-	display: 'flex',
-	flexDirection: 'column',
-	minHeight: 360,
-}
+const PageHeader = styled.section`
+  margin-bottom: 40px;
+`
 
-// using shared InfoCard component from xds/components
+const PageTitle = styled.h1`
+  font-size: 40px;
+  margin: 0;
+  font-weight: 900;
+`
+
+const GradientText = styled.span`
+  background: linear-gradient(90deg, ${colors.primary}, ${colors.secondary});
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+`
+
+const PageLede = styled.p`
+  color: ${colors.onSurfaceVariant};
+  margin-top: 10px;
+  max-width: 680px;
+`
+
+const CardsGrid = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+`
+
+const SummaryGrid = styled.section`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+`
+
+const CardIntro = styled.p`
+  color: ${colors.onSurfaceVariant};
+  margin-bottom: 18px;
+`
+
+const FeatureList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+`
+
+const FeatureItem = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`
+
+const FeatureCheck = styled.span`
+  color: ${colors.secondary};
+`
+
+const FeatureLabel = styled.div`
+  font-size: 12px;
+  color: ${colors.onSurface};
+`
+
+const Footer = styled.footer`
+  margin-top: 28px;
+  border-top: 1px solid ${colors.outlineVariant};
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const SecurityNote = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+`
+
+const LockBadge = styled.div`
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: ${colors.surfaceContainerHighest};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+`
+
+const SecurityText = styled.p`
+  max-width: 520px;
+  color: ${colors.onSurfaceVariant};
+  font-size: 13px;
+`
+
+const FooterActions = styled.div`
+  display: flex;
+  gap: 12px;
+`
+
+const BackButton = styled(Button)`
+  background: transparent;
+  border: 1px solid ${colors.outlineVariant};
+  color: ${colors.onSurfaceVariant};
+`
+
+const ContinueButton = styled(Button)`
+  padding: 10px 20px;
+  font-weight: 800;
+`
+
+const CardFeatures: React.FC<{ intro: string; features: string[] }> = ({ intro, features }) => (
+  <>
+    <CardIntro>{intro}</CardIntro>
+    <FeatureList>
+      {features.map((feature) => (
+        <FeatureItem key={feature}>
+          <FeatureCheck>✔</FeatureCheck>
+          <FeatureLabel>{feature}</FeatureLabel>
+        </FeatureItem>
+      ))}
+    </FeatureList>
+  </>
+)
 
 const InvestmentType: React.FC = () => {
 	const [selected, setSelected] = useState<ProfileType>(null)
 
 	return (
-			<main >
-				<section style={{ marginBottom: 40 }}>
-					<h1 style={{ fontSize: 40, margin: 0, fontWeight: 900 }}>Define Your <span style={{ background: `linear-gradient(90deg, ${colors.primary}, ${colors.secondary})`, WebkitBackgroundClip: 'text' as any, color: 'transparent' }}>Investment Architecture.</span></h1>
-					<p style={{ color: colors.onSurfaceVariant, marginTop: 10, maxWidth: 680 }}>Select your operational profile to access specialized tranches, custom liquidity pools, and programmable risk parameters.</p>
-				</section>
+			<main>
+				<PageHeader>
+					<PageTitle>Define Your <GradientText>Investment Architecture.</GradientText></PageTitle>
+					<PageLede>Select your operational profile to access specialized tranches, custom liquidity pools, and programmable risk parameters.</PageLede>
+				</PageHeader>
 
-				<section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 28 }}>
+				<CardsGrid>
 					<SelectionCard
 						title="Institutional"
 						subtitle="High Density Access"
@@ -40,12 +154,10 @@ const InvestmentType: React.FC = () => {
 						footerLabel="Requires LEI Verification"
 						ctaText="Configure Entity"
 					>
-						<p style={{ color: colors.onSurfaceVariant, marginBottom: 18 }}>For entities, sovereign wealth funds, and corporate treasuries requiring programmatic capital allocation and direct ledger interaction.</p>
-						<div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 'auto' }}>
-							<div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ color: colors.secondary }}>✔</span><div style={{ fontSize: 12, color: colors.onSurface }}>Bespoke Risk Tranches</div></div>
-							<div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ color: colors.secondary }}>✔</span><div style={{ fontSize: 12, color: colors.onSurface }}>Tax-Optimized Structures</div></div>
-							<div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ color: colors.secondary }}>✔</span><div style={{ fontSize: 12, color: colors.onSurface }}>Full API Node Access</div></div>
-						</div>
+						<CardFeatures
+							intro="For entities, sovereign wealth funds, and corporate treasuries requiring programmatic capital allocation and direct ledger interaction."
+							features={['Bespoke Risk Tranches', 'Tax-Optimized Structures', 'Full API Node Access']}
+						/>
 					</SelectionCard>
 
 					<SelectionCard
@@ -58,34 +170,30 @@ const InvestmentType: React.FC = () => {
 						footerLabel="Accreditation Auto-Check"
 						ctaText="Proceed as Individual"
 					>
-						<p style={{ color: colors.onSurfaceVariant, marginBottom: 18 }}>For professional individual investors seeking institutional-grade reinsurance yield through a streamlined, low-latency interface.</p>
-						<div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 'auto' }}>
-							<div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ color: colors.secondary }}>✔</span><div style={{ fontSize: 12, color: colors.onSurface }}>Curated Opportunity Funds</div></div>
-							<div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ color: colors.secondary }}>✔</span><div style={{ fontSize: 12, color: colors.onSurface }}>Simplified Dashboard UI</div></div>
-							<div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ color: colors.secondary }}>✔</span><div style={{ fontSize: 12, color: colors.onSurface }}>Lower Minimum Thresholds</div></div>
-						</div>
+						<CardFeatures
+							intro="For professional individual investors seeking institutional-grade reinsurance yield through a streamlined, low-latency interface."
+							features={['Curated Opportunity Funds', 'Simplified Dashboard UI', 'Lower Minimum Thresholds']}
+						/>
 					</SelectionCard>
-				</section>
+				</CardsGrid>
 
-				<section style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginTop: 12 }}>
+				<SummaryGrid>
 					<InfoCard title="Global TVL Index" value="$1.24B" tone="primary" />
 					<InfoCard title="Active Claims Pool" value="312" tone="secondary" />
 					<InfoCard title="Epoch Status" value="Settling" tone="secondary" />
-				</section>
+				</SummaryGrid>
 
-				<footer style={{ marginTop: 28, borderTop: `1px solid ${colors.outlineVariant}`, paddingTop: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-					<div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-						<div style={{ width: 44, height: 44, borderRadius: 8, background: colors.surfaceContainerHighest, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.7 }}>
-							🔒
-						</div>
-						<p style={{ maxWidth: 520, color: colors.onSurfaceVariant, fontSize: 13 }}>Programmable Capital utilizes end-to-end encryption for all identity verification. Your data is stored on-ledger with zero-knowledge proof protocols.</p>
-					</div>
+				<Footer>
+					<SecurityNote>
+						<LockBadge>🔒</LockBadge>
+						<SecurityText>Programmable Capital utilizes end-to-end encryption for all identity verification. Your data is stored on-ledger with zero-knowledge proof protocols.</SecurityText>
+					</SecurityNote>
 
-					<div style={{ display: 'flex', gap: 12 }}>
-						<Button variant="ghost" style={{ background: 'transparent', border: `1px solid ${colors.outlineVariant}`, color: colors.onSurfaceVariant }}>Back</Button>
-						<Button variant="primary" onClick={() => selected ? alert(`Proceeding as ${selected}`) : alert('Please select a profile')} style={{ padding: '10px 20px', fontWeight: 800 }}>{selected ? 'Continue' : 'Skip for now'}</Button>
-					</div>
-				</footer>
+					<FooterActions>
+						<BackButton variant="ghost">Back</BackButton>
+						<ContinueButton variant="primary" onClick={() => selected ? alert(`Proceeding as ${selected}`) : alert('Please select a profile')}>{selected ? 'Continue' : 'Skip for now'}</ContinueButton>
+					</FooterActions>
+				</Footer>
 			</main>
 	)
 }

@@ -1,0 +1,10 @@
+UNDERWRITING NOTES
+Insured: Keystone Agriculture Co
+Submission: SUB-2026-1079
+LOB: Environmental
+Peril: Cyber Breach
+Jurisdiction: Washington
+TIV: $6,000,000
+Limit: $20,000,000
+Premium: $127,000
+Underwriter recommendation: refer to senior for Cyber Breach exposure.

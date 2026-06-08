@@ -2,3 +2,16 @@
 **/dist
 **/.vscode
 **/channels
+
+# Large geographic source datasets (loaded via `npm run import:worldcities`, not committed)
+worldcities.csv
+**/worldcities.csv
+simplemaps_worldcities_*
+
+# Tesseract OCR trained-data models (downloadable binaries, ~5MB+, not committed)
+**/*.traineddata
+
+# Environment files — secrets, never commit. Templates (.env.example) are kept.
+**/.env
+**/.env.*
+!**/.env.example

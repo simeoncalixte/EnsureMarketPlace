@@ -1,0 +1,81 @@
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { GeminiSchemaAgent, buildSchemaMessages } from './GeminiSchemaProvider';
+import { buildBaselineSchema, gatherContext } from './logic';
+
+jest.mock('@langchain/google-genai');
+const MockChat = ChatGoogleGenerativeAI as unknown as jest.Mock;
+const invoke = jest.fn();
+const env = (o: Record<string, string>) => o as unknown as NodeJS.ProcessEnv;
+
+beforeEach(() => {
+  MockChat.mockReset();
+  invoke.mockReset();
+  MockChat.mockImplementation(() => ({ invoke }));
+});
+
+const context = gatherContext({
+  submission: { id: 1, tenantId: 1 },
+  classification: { lineOfBusinessLabel: 'Property' },
+  extraction: { structuredData: { riskType: 'hurricane', triggerType: 'parametric', subjectCount: 3, subjects: [{ label: 'A' }] } },
+});
+const baseline = buildBaselineSchema(context);
+
+describe('GeminiSchemaAgent.isAvailable', () => {
+  it('is available only when a Gemini key is set', () => {
+    expect(new GeminiSchemaAgent(env({})).isAvailable()).toBe(false);
+    expect(new GeminiSchemaAgent(env({ GEMINI_API_KEY: 'k' })).isAvailable()).toBe(true);
+  });
+});
+
+describe('buildSchemaMessages', () => {
+  it('presents submission facts as untrusted data and asks for the form JSON', () => {
+    const { system, user } = buildSchemaMessages({ context, baseline });
+    expect(system).toMatch(/untrusted DATA/i);
+    expect(system).toMatch(/EXTEND the base/i);
+    expect(system).toMatch(/SUB-TYPE/i);
+    expect(system).toMatch(/currency/);
+    expect(user).toMatch(/Base form/);
+    expect(user).toMatch(/Submission facts/);
+    expect(user).toMatch(/parametric/);
+  });
+
+  it('makes the agent taxonomy-aware: valid LOB/sub-type options in the facts', () => {
+    const { system, user } = buildSchemaMessages({ context, baseline });
+    // The system prompt constrains choice fields to the provided taxonomy.
+    expect(system).toMatch(/lineOfBusinessSubTypeOptions/);
+    expect(system).toMatch(/never invent line-of-business or sub-type values/i);
+    // The classified 'Property' line resolves its valid sub-types into the facts.
+    const facts = JSON.parse(user.slice(user.indexOf('{', user.indexOf('Submission facts'))));
+    expect(facts.lineOfBusinessRecognized).toBe(true);
+    expect(facts.lineOfBusinessOptions).toContainEqual({ code: 'property', label: 'Property' });
+    expect(facts.lineOfBusinessSubTypeOptions.map((o: { code: string }) => o.code)).toContain('property_all_risk');
+  });
+});
+
+describe('GeminiSchemaAgent.generate (mocked model)', () => {
+  const agent = () => new GeminiSchemaAgent(env({ GEMINI_API_KEY: 'secret', GEMINI_MODEL: 'test-model' }));
+
+  it('coerces the model JSON and grafts back baseline sections', async () => {
+    invoke.mockResolvedValue({
+      content: JSON.stringify({
+        title: 'Custom',
+        sections: [
+          { key: 'parametric', label: 'Parametric', fields: [{ key: 'oracle', label: 'Oracle', type: 'text' }] },
+        ],
+      }),
+    });
+
+    const schema = await agent().generate({ context, baseline });
+    const keys = schema.sections.map((s) => s.key);
+    expect(keys).toContain('parametric'); // new AI section
+    // base sections preserved
+    expect(keys).toContain('deal-parameters');
+    expect(keys).toContain('insured-subjects');
+    expect(MockChat).toHaveBeenCalledWith(expect.objectContaining({ apiKey: 'secret', model: 'test-model', json: true }));
+  });
+
+  it('returns the baseline when the model emits junk (coercion fallback)', async () => {
+    invoke.mockResolvedValue({ content: 'totally not json {' });
+    await expect(agent().generate({ context, baseline })).rejects.toThrow(); // no JSON object -> extractJsonObject throws
+  });
+});
