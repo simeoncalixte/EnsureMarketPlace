@@ -1,5 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getApiBase } from '../lib/api';
+import {
+  listChannels,
+  createChannel,
+  patchChannel as apiPatchChannel,
+  deleteChannel,
+  type ApiChannel,
+} from '../api/ingestionChannels';
 
 export type ChannelType   = 'rabbitmq' | 'email-sso' | 'cloud-storage' | 'sftp' | 'webhooks';
 export type ChannelStatus = 'active' | 'syncing' | 'idle' | 'error';
@@ -13,17 +19,7 @@ export interface Channel {
   meta: string;
   config: Record<string, unknown>;
   organizationId?: number | null;
-}
-
-interface ApiChannel {
-  id: number;
-  organizationId?: number | null;
-  type: string;
-  label: string;
-  enabled: boolean;
-  status: string;
-  meta: string | null;
-  config: Record<string, unknown>;
+  submissionCount: number;
 }
 
 function toChannel(a: ApiChannel): Channel {
@@ -37,6 +33,7 @@ function toChannel(a: ApiChannel): Channel {
     meta:   a.meta ?? '',
     config: a.config ?? {},
     organizationId: orgId,
+    submissionCount: a.submissionCount ?? 0,
   };
 }
 
@@ -56,25 +53,18 @@ export function useIngestionChannels(organizationId?: number): UseIngestionChann
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
 
-  const base = getApiBase();
-
   const fetchChannels = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const url = organizationId !== undefined
-        ? `${base}/api/ingestion-channels?organizationId=${organizationId}`
-        : `${base}/api/ingestion-channels`;
-      const res = await fetch(url, { credentials: 'include' });
-      if (!res.ok) throw new Error(`Failed to load channels: ${res.status}`);
-      const data: ApiChannel[] = await res.json();
+      const data = await listChannels(organizationId);
       setChannels(data.map(toChannel));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     } finally {
       setLoading(false);
     }
-  }, [base, organizationId]);
+  }, [organizationId]);
 
   useEffect(() => {
     fetchChannels();
@@ -82,45 +72,31 @@ export function useIngestionChannels(organizationId?: number): UseIngestionChann
 
   const addChannel = useCallback(
     async (type: ChannelType, label: string, meta: string, orgId?: number): Promise<Channel> => {
-      const res = await fetch(`${base}/api/ingestion-channels`, {
-        method:      'POST',
-        credentials: 'include',
-        headers:     { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          organizationId: orgId ?? organizationId ?? undefined,
-          type,
-          label,
-          enabled: false,
-          status:  'idle',
-          meta,
-          config:  {},
-        }),
+      const data = await createChannel({
+        organizationId: orgId ?? organizationId ?? undefined,
+        type,
+        label,
+        enabled: false,
+        status:  'idle',
+        meta,
+        config:  {},
       });
-      if (!res.ok) throw new Error(`Failed to create channel: ${res.status}`);
-      const data: ApiChannel = await res.json();
       const ch = toChannel(data);
       setChannels((prev) => [...prev, ch]);
       return ch;
     },
-    [base, organizationId]
+    [organizationId]
   );
 
   const patchChannel = useCallback(
     async (id: string, patch: Partial<Pick<ApiChannel, 'enabled' | 'status' | 'meta' | 'config' | 'label'>>) => {
       const ch = channels.find((c) => c.id === id);
       if (!ch) return;
-      const res = await fetch(`${base}/api/ingestion-channels/${ch.dbId}`, {
-        method:      'PATCH',
-        credentials: 'include',
-        headers:     { 'Content-Type': 'application/json' },
-        body:        JSON.stringify(patch),
-      });
-      if (!res.ok) throw new Error(`Failed to update channel: ${res.status}`);
-      const data: ApiChannel = await res.json();
+      const data = await apiPatchChannel(ch.dbId, patch);
       const updated = toChannel(data);
       setChannels((prev) => prev.map((c) => (c.id === id ? updated : c)));
     },
-    [base, channels]
+    [channels]
   );
 
   const toggleChannel = useCallback(
@@ -148,14 +124,11 @@ export function useIngestionChannels(organizationId?: number): UseIngestionChann
     async (id: string) => {
       const ch = channels.find((c) => c.id === id);
       if (!ch) return;
-      const res = await fetch(`${base}/api/ingestion-channels/${ch.dbId}`, {
-        method:      'DELETE',
-        credentials: 'include',
-      });
+      const res = await deleteChannel(ch.dbId);
       if (!res.ok && res.status !== 204) throw new Error(`Failed to delete channel: ${res.status}`);
       setChannels((prev) => prev.filter((c) => c.id !== id));
     },
-    [base, channels]
+    [channels]
   );
 
   return { channels, loading, error, addChannel, toggleChannel, updateStatus, removeChannel, saveConfig };

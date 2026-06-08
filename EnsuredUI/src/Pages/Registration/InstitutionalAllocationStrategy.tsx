@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Checkbox from '../../xds/components/Checkbox'
+import { Card } from '../../xds/components/Card'
+import SectionHeader from '../../xds/components/SectionHeader'
+import FormField from '../../xds/components/FormField'
+import { Select } from '../../xds/components/Select'
+import { ProgressBar } from '../../xds/components/ProgressBar'
+import { Button } from '../../xds/components/Button'
+import { colors, withAlpha } from '../../xds/colors'
 
 const Main = styled.main`
   padding-top: 6rem; /* pt-24 */
@@ -27,7 +34,7 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
-  color: rgba(193,198,215,0.9); /* text-on-surface-variant */
+  color: ${withAlpha(colors.onSurfaceMuted, 0.9)}; /* text-on-surface-variant */
   font-size: 1.125rem; /* text-lg */
   max-width: 40rem;
   line-height: 1.4;
@@ -40,14 +47,8 @@ const ProgressGrid = styled.div`
   margin-bottom: 4rem;
 `;
 
-const ProgressBar = styled.div`
-  height: 0.375rem; /* 1.5 */
-  border-radius: 9999px;
-  background: ${props => props.theme?.primary || "#adc6ff"};
-` as any;
-
-const SubtleProgressBar = styled(ProgressBar)`
-  background: rgba(23,31,51,1); /* surface-container-high */
+const ActiveStep = styled(ProgressBar)`
+  filter: drop-shadow(0 0 10px ${withAlpha(colors.primarySoft, 0.4)});
 `;
 
 const Grid = styled.div`
@@ -78,34 +79,33 @@ const RightCol = styled.div`
   }
 `;
 
-const Card = styled.section`
-  background: #171f33; /* surface-container */
-  padding: 2rem; /* p-8 */
-  border-radius: 1rem; /* rounded-xl */
+const CardLow = styled(Card)`
+  background: ${colors.surfacePanel}; /* surface-container-low */
+  padding: 2rem;
+  border-radius: 1rem;
   position: relative;
   overflow: hidden;
 `;
 
-const CardLow = styled(Card)`
-  background: #131b2e; /* surface-container-low */
-`;
-
 const CardHigh = styled(Card)`
-  background: #222a3d; /* surface-container-high */
+  background: ${colors.surfaceHigh}; /* surface-container-high */
+  padding: 2rem;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
 `;
 
 const CardOutline = styled(Card)`
-  border: 1px solid rgba(65,71,85,0.15); /* border-outline-variant/15 */
+  background: ${colors.surfaceRaised}; /* surface-container */
+  padding: 2rem;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid ${withAlpha(colors.border, 0.15)}; /* border-outline-variant/15 */
 `;
 
-const H3 = styled.h3`
-  font-family: Manrope, sans-serif;
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+const FaintOutlineCard = styled(CardOutline)`
+  border-color: ${withAlpha(colors.border, 0.1)};
 `;
 
 const GridTwo = styled.div`
@@ -114,56 +114,48 @@ const GridTwo = styled.div`
   gap: 2rem;
 `;
 
-const Label = styled.label`
+const CapitalSourceSection = styled.div`
+  margin-top: 2rem;
+`;
+
+const FieldLabel = styled.label`
   display: block;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(139,144,160,1); /* outline */
+  color: ${withAlpha(colors.outline, 1)}; /* outline */
   margin-bottom: 0.5rem;
 `;
 
-const TextInput = styled.input`
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #414755; /* border-outline-variant */
-  padding: 0.5rem 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.875rem;
-  color: inherit;
-  outline: none;
-
-  &::placeholder { opacity: 0.3; }
+const CapitalSourceGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
 `;
 
-const Select = styled.select`
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #414755;
-  padding: 0.5rem 0;
-  font-size: 0.875rem;
-  color: inherit;
-  outline: none;
-`;
-
-const ButtonSmall = styled.button`
+const SourceButton = styled.button`
   padding: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #414755;
+  border: 1px solid ${colors.border};
   text-align: left;
   font-size: 0.875rem;
   background: transparent;
+  color: inherit;
   cursor: pointer;
 `;
 
-const PrimaryButtonSmall = styled(ButtonSmall)`
-  border-color: #adc6ff; /* primary */
-  background: rgba(75,142,255,0.06); /* primary-container/10 */
-  color: #adc6ff;
+const SourceButtonActive = styled(SourceButton)`
+  border-color: ${colors.primarySoft}; /* primary */
+  background: ${withAlpha(colors.primary, 0.06)}; /* primary-container/10 */
+  color: ${colors.primarySoft};
   font-weight: 700;
+`;
+
+const MandateList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const MandateCard = styled.div`
@@ -174,8 +166,167 @@ const MandateCard = styled.div`
   align-items: center;
 `;
 
-const RightSmallCard = styled(Card)`
-  border: 1px solid rgba(65,71,85,0.1);
+const MandateCardActive = styled(MandateCard)`
+  background: ${colors.surfacePanel};
+  border-left: 4px solid ${colors.accent};
+`;
+
+const MandateCardIdle = styled(MandateCard)`
+  border: 1px solid ${withAlpha(colors.border, 0.3)};
+  background: transparent;
+`;
+
+const MandateTitle = styled.p<{ $muted?: boolean }>`
+  font-weight: 700;
+  color: ${(p) => (p.$muted ? withAlpha(colors.onSurfaceStrong, 0.7) : colors.onSurfaceStrong)};
+`;
+
+const MandateDesc = styled.p<{ $muted?: boolean }>`
+  font-size: 0.75rem;
+  color: ${(p) => (p.$muted ? withAlpha(colors.onSurfaceStrong, 0.4) : withAlpha(colors.onSurfaceStrong, 0.8))};
+`;
+
+const PerilHint = styled.p`
+  font-size: 0.75rem;
+  color: ${withAlpha(colors.onSurfaceMuted, 0.9)};
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: 'JetBrains Mono', monospace;
+`;
+
+const PerilList = styled.div`
+  display: grid;
+  gap: 0.5rem;
+`;
+
+const PerilRow = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: ${colors.surfaceRaised};
+  border-radius: 0.5rem;
+`;
+
+const PerilLeft = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+`;
+
+const PerilName = styled.span`
+  font-weight: 500;
+`;
+
+const ProjectionHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+`;
+
+const ProjectionEyebrow = styled.p`
+  font-size: 0.625rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: ${colors.primarySoft};
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+`;
+
+const ProjectionValue = styled.h4`
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+`;
+
+const ProjectionUnit = styled.span`
+  font-size: 1rem;
+  opacity: 0.5;
+  margin-left: 0.25rem;
+`;
+
+const FadedIcon = styled.span`
+  opacity: 0.4;
+`;
+
+const ProjectionMeters = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+`;
+
+const ProjectionFootnote = styled.p`
+  font-size: 0.625rem;
+  color: ${withAlpha(colors.onSurfaceMuted, 0.9)};
+`;
+
+const ZoneHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+`;
+
+const ZoneIcon = styled.span`
+  font-size: 0.75rem;
+`;
+
+const ZoneLabel = styled.span`
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: ${withAlpha(colors.outline, 1)};
+`;
+
+const MapFrame = styled.div`
+  width: 100%;
+  height: 8rem;
+  border-radius: 0.5rem;
+  background: ${colors.background};
+  position: relative;
+  overflow: hidden;
+`;
+
+const MapImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  filter: grayscale(1);
+  transition: filter 200ms;
+`;
+
+const MapGradient = styled.div`
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, ${withAlpha(colors.surfaceRaised, 1)}, transparent);
+`;
+
+const MapTag = styled.div`
+  position: absolute;
+  bottom: 0.75rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const MapPulse = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: ${colors.accent};
+  animation: pulse 2s infinite;
+`;
+
+const MapTagText = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
 `;
 
 const FooterBar = styled.footer`
@@ -183,23 +334,38 @@ const FooterBar = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(65,71,85,0.2);
+  border-top: 1px solid ${withAlpha(colors.border, 0.2)};
   padding-top: 2rem;
 `;
 
-const GhostButton = styled.button`
+const BackLink = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  color: ${withAlpha(colors.onSurfaceStrong, 0.7)};
+  cursor: pointer;
+`;
+
+const FooterActions = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const GhostButton = styled(Button)`
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
-  border: 1px solid #414755;
+  border: 1px solid ${colors.border};
   background: transparent;
   color: inherit;
 `;
 
-const PrimaryAction = styled.button`
+const PrimaryAction = styled(Button)`
   padding: 0.75rem 2.5rem;
   border-radius: 0.5rem;
-  background: #adc6ff;
-  color: #002e69; /* on-primary */
+  background: ${colors.primarySoft};
+  color: ${colors.onPrimary}; /* on-primary */
   font-weight: 700;
 `;
 
@@ -215,27 +381,23 @@ const InstitutionalAllocationStrategy: React.FC = () => {
         </Header>
 
         <ProgressGrid>
-          <ProgressBar />
-          <ProgressBar />
-          <ProgressBar style={{ boxShadow: '0 0 10px rgba(173,198,255,0.4)' }} />
-          <SubtleProgressBar />
+          <ProgressBar value={100} tone="primary" size="sm" />
+          <ProgressBar value={100} tone="primary" size="sm" />
+          <ActiveStep value={100} tone="primary" size="sm" />
+          <ProgressBar value={0} tone="primary" size="sm" />
         </ProgressGrid>
 
         <Grid>
           <LeftCol>
             <CardLow>
-              <div style={{ position: 'absolute', top: 0, left: 0, width: 4, height: '100%', background: 'transparent' }} />
-              <H3>
-                <span className="material-symbols-outlined text-primary">gavel</span>
-                Entity Information
-              </H3>
+              <SectionHeader
+                icon={<span className="material-symbols-outlined text-primary">gavel</span>}
+                title="Entity Information"
+              />
               <GridTwo>
+                <FormField label="Legal Entity Identifier (LEI)" placeholder="549300..." type="text" />
                 <div>
-                  <Label>Legal Entity Identifier (LEI)</Label>
-                  <TextInput placeholder="549300..." type="text" />
-                </div>
-                <div>
-                  <Label>Tax Jurisdiction</Label>
+                  <FieldLabel>Tax Jurisdiction</FieldLabel>
                   <Select>
                     <option value="bermuda">Bermuda (Class 4)</option>
                     <option value="usa">United States</option>
@@ -244,128 +406,128 @@ const InstitutionalAllocationStrategy: React.FC = () => {
                   </Select>
                 </div>
               </GridTwo>
-              <div style={{ marginTop: '2rem' }}>
-                <Label>Primary Capital Source</Label>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
-                  <ButtonSmall>Pension Fund</ButtonSmall>
-                  <PrimaryButtonSmall>Sovereign Wealth</PrimaryButtonSmall>
-                  <ButtonSmall>ILS Fund</ButtonSmall>
-                </div>
-              </div>
+              <CapitalSourceSection>
+                <FieldLabel>Primary Capital Source</FieldLabel>
+                <CapitalSourceGrid>
+                  <SourceButton>Pension Fund</SourceButton>
+                  <SourceButtonActive>Sovereign Wealth</SourceButtonActive>
+                  <SourceButton>ILS Fund</SourceButton>
+                </CapitalSourceGrid>
+              </CapitalSourceSection>
             </CardLow>
 
             <CardOutline>
-              <H3>
-                <span className="material-symbols-outlined text-secondary">assignment_turned_in</span>
-                Investment Mandate
-              </H3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <MandateCard style={{ background: '#131b2e', borderLeft: '4px solid #4edea3' }}>
+              <SectionHeader
+                icon={<span className="material-symbols-outlined text-secondary">assignment_turned_in</span>}
+                title="Investment Mandate"
+              />
+              <MandateList>
+                <MandateCardActive>
                   <div>
-                    <p style={{ fontWeight: 700, color: '#dae2fd' }}>Yield Seeker</p>
-                    <p style={{ fontSize: '0.75rem', color: 'rgba(218,226,253,0.8)' }}>Targeting high-risk layers with 12-18% IRR expectations.</p>
+                    <MandateTitle>Yield Seeker</MandateTitle>
+                    <MandateDesc>Targeting high-risk layers with 12-18% IRR expectations.</MandateDesc>
                   </div>
                   <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>radio_button_checked</span>
-                </MandateCard>
-                <MandateCard style={{ border: '1px solid rgba(65,71,85,0.3)', background: 'transparent' }}>
+                </MandateCardActive>
+                <MandateCardIdle>
                   <div>
-                    <p style={{ fontWeight: 700, color: 'rgba(218,226,253,0.7)' }}>Diversified Exposure</p>
-                    <p style={{ fontSize: '0.75rem', color: 'rgba(218,226,253,0.4)' }}>Balanced risk profile across peak and non-peak zones.</p>
+                    <MandateTitle $muted>Diversified Exposure</MandateTitle>
+                    <MandateDesc $muted>Balanced risk profile across peak and non-peak zones.</MandateDesc>
                   </div>
                   <span className="material-symbols-outlined text-outline">radio_button_unchecked</span>
-                </MandateCard>
-                <MandateCard style={{ border: '1px solid rgba(65,71,85,0.3)', background: 'transparent' }}>
+                </MandateCardIdle>
+                <MandateCardIdle>
                   <div>
-                    <p style={{ fontWeight: 700, color: 'rgba(218,226,253,0.7)' }}>Conservative Protection</p>
-                    <p style={{ fontSize: '0.75rem', color: 'rgba(218,226,253,0.4)' }}>Senior layers with capital preservation priority.</p>
+                    <MandateTitle $muted>Conservative Protection</MandateTitle>
+                    <MandateDesc $muted>Senior layers with capital preservation priority.</MandateDesc>
                   </div>
                   <span className="material-symbols-outlined text-outline">radio_button_unchecked</span>
-                </MandateCard>
-              </div>
+                </MandateCardIdle>
+              </MandateList>
             </CardOutline>
           </LeftCol>
 
           <RightCol>
-            <CardLow style={{ border: '1px solid rgba(65,71,85,0.1)' }}>
-              <H3>
-                <span className="material-symbols-outlined text-tertiary">category</span>
-                Asset Class Preference
-              </H3>
-              <p style={{ fontSize: '0.75rem', color: 'rgba(193,198,215,0.9)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: "'JetBrains Mono', monospace" }}>
+            <FaintOutlineCard>
+              <SectionHeader
+                icon={<span className="material-symbols-outlined text-tertiary">category</span>}
+                title="Asset Class Preference"
+              />
+              <PerilHint>
                 Select multiple perils for the portfolio:
-              </p>
-              <div style={{ display: 'grid', gap: '0.5rem' }}>
-                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: '#171f33', borderRadius: '0.5rem' }}>
-                  <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+              </PerilHint>
+              <PerilList>
+                <PerilRow>
+                  <PerilLeft>
                     <span className="material-symbols-outlined text-primary">cyclone</span>
-                    <span style={{ fontWeight: 500 }}>Wind (Hurricanes/Typhoons)</span>
-                  </div>
+                    <PerilName>Wind (Hurricanes/Typhoons)</PerilName>
+                  </PerilLeft>
                   <Checkbox defaultChecked />
-                </label>
-                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: '#171f33', borderRadius: '0.5rem' }}>
-                  <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                </PerilRow>
+                <PerilRow>
+                  <PerilLeft>
                     <span className="material-symbols-outlined text-tertiary">volcano</span>
-                    <span style={{ fontWeight: 500 }}>Quake (Seismic Activity)</span>
-                  </div>
+                    <PerilName>Quake (Seismic Activity)</PerilName>
+                  </PerilLeft>
                   <Checkbox defaultChecked />
-                </label>
-                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: '#171f33', borderRadius: '0.5rem' }}>
-                  <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                </PerilRow>
+                <PerilRow>
+                  <PerilLeft>
                     <span className="material-symbols-outlined text-secondary">water_drop</span>
-                    <span style={{ fontWeight: 500 }}>Flood (Pluvial/Fluvial)</span>
-                  </div>
+                    <PerilName>Flood (Pluvial/Fluvial)</PerilName>
+                  </PerilLeft>
                   <Checkbox />
-                </label>
-              </div>
-            </CardLow>
+                </PerilRow>
+              </PerilList>
+            </FaintOutlineCard>
 
             <CardHigh>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+              <ProjectionHeader>
                 <div>
-                  <p style={{ fontSize: '0.625rem', fontFamily: "'JetBrains Mono', monospace", color: '#adc6ff', textTransform: 'uppercase', marginBottom: '0.25rem' }}>Risk Exposure Estimate</p>
-                  <h4 style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '2rem', fontWeight: 700 }}>7.42<span style={{ fontSize: '1rem', opacity: 0.5, marginLeft: '0.25rem' }}>%</span></h4>
+                  <ProjectionEyebrow>Risk Exposure Estimate</ProjectionEyebrow>
+                  <ProjectionValue>7.42<ProjectionUnit>%</ProjectionUnit></ProjectionValue>
                 </div>
-                <span className="material-symbols-outlined" style={{ opacity: 0.4 }}>query_stats</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.25rem', height: '6rem', marginBottom: '1rem' }}>
-                <div style={{ flex: 1, background: 'rgba(75,142,255,0.12)', height: '50%' }} />
-                <div style={{ flex: 1, background: 'rgba(75,142,255,0.24)', height: '66%' }} />
-                <div style={{ flex: 1, background: 'rgba(75,142,255,0.36)', height: '83%', boxShadow: '0 0 10px #adc6ff33' }} />
-                <div style={{ flex: 1, background: 'rgba(75,142,255,0.48)', height: '100%', boxShadow: '0 0 15px #adc6ff66' }} />
-                <div style={{ flex: 1, background: 'rgba(78,222,163,0.4)', height: '58%' }} />
-                <div style={{ flex: 1, background: 'rgba(255,179,173,0.3)', height: '41%' }} />
-              </div>
-              <p style={{ fontSize: '0.625rem', color: 'rgba(193,198,215,0.9)' }}>
+                <FadedIcon className="material-symbols-outlined">query_stats</FadedIcon>
+              </ProjectionHeader>
+              <ProjectionMeters>
+                <ProgressBar value={50} tone="primary" size="sm" />
+                <ProgressBar value={66} tone="primary" size="sm" />
+                <ProgressBar value={83} tone="primary" size="sm" />
+                <ProgressBar value={100} tone="primary" size="sm" />
+                <ProgressBar value={58} tone="gain" size="sm" />
+                <ProgressBar value={41} tone="danger" size="sm" />
+              </ProjectionMeters>
+              <ProjectionFootnote>
                 Projected return profile based on selected perils and Bermuda tax jurisdiction logic. Subject to dynamic pricing fluctuations.
-              </p>
+              </ProjectionFootnote>
             </CardHigh>
 
             <CardOutline>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '0.75rem' }}>public</span>
-                <span style={{ fontSize: '0.625rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(139,144,160,1)' }}>Primary Allocation Zone</span>
-              </div>
-              <div style={{ width: '100%', height: '8rem', borderRadius: '0.5rem', background: '#060e20', position: 'relative', overflow: 'hidden' }}>
-                <img alt="stylized geographic map showing island of bermuda with data overlay points in electric blue" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6, filter: 'grayscale(1)', transition: 'filter 200ms' }} data-location="Bermuda" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb5XNlayiudINaosntKG5OY0k8QgChFRTZ37i_dpz7pnFB2sH0cP1PFx7Xw6xh2KEx_B6h_LpaaE2umouxckuLSTZ4WQv6BpZhEAwyFumzQ2-1NSlGk_QxjozniT5ZIXFxmBPB8E0awTw0_Pold3rfy3gtj_1Wbww8gIaD77wNQ_Y03KSdcWloar4eVVmQTt5gG_tWu4fyQm7WOmeUFdP4uyrgL9zbRGcx0ph3EWPG4pClOolgfAlFy94Ze5pu0mXN0zPFlRVaQZkp" />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(23,27,46,1), transparent)' }} />
-                <div style={{ position: 'absolute', bottom: '0.75rem', left: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ width: 8, height: 8, borderRadius: 9999, background: '#4edea3', animation: 'pulse 2s infinite' }} />
-                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: '0.75rem' }}>ACTIVE REGION: BM</span>
-                </div>
-              </div>
+              <ZoneHeader>
+                <ZoneIcon className="material-symbols-outlined">public</ZoneIcon>
+                <ZoneLabel>Primary Allocation Zone</ZoneLabel>
+              </ZoneHeader>
+              <MapFrame>
+                <MapImage alt="stylized geographic map showing island of bermuda with data overlay points in electric blue" data-location="Bermuda" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb5XNlayiudINaosntKG5OY0k8QgChFRTZ37i_dpz7pnFB2sH0cP1PFx7Xw6xh2KEx_B6h_LpaaE2umouxckuLSTZ4WQv6BpZhEAwyFumzQ2-1NSlGk_QxjozniT5ZIXFxmBPB8E0awTw0_Pold3rfy3gtj_1Wbww8gIaD77wNQ_Y03KSdcWloar4eVVmQTt5gG_tWu4fyQm7WOmeUFdP4uyrgL9zbRGcx0ph3EWPG4pClOolgfAlFy94Ze5pu0mXN0zPFlRVaQZkp" />
+                <MapGradient />
+                <MapTag>
+                  <MapPulse />
+                  <MapTagText>ACTIVE REGION: BM</MapTagText>
+                </MapTag>
+              </MapFrame>
             </CardOutline>
           </RightCol>
         </Grid>
 
         <FooterBar>
-          <button style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'transparent', border: 'none', color: 'rgba(218,226,253,0.7)' }}>
+          <BackLink>
             <span className="material-symbols-outlined">arrow_back</span>
             Previous: Institutional Role
-          </button>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <GhostButton>Skip for now</GhostButton>
-            <PrimaryAction>Complete Strategy &amp; Verification</PrimaryAction>
-          </div>
+          </BackLink>
+          <FooterActions>
+            <GhostButton variant="ghost">Skip for now</GhostButton>
+            <PrimaryAction variant="primary">Complete Strategy &amp; Verification</PrimaryAction>
+          </FooterActions>
         </FooterBar>
       </Inner>
     </Main>

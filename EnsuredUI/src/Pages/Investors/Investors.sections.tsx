@@ -1,13 +1,28 @@
 import React from 'react';
 import {
   HeaderRow,
+  HeaderActions,
   Card,
+  RiskCard,
+  RiskLabel,
+  RiskValue,
+  RiskNote,
+  StatGrid,
+  ExposureGrid,
+  ExposureSidebar,
+  AllocationsHeader,
   TableWrap,
   FooterBar,
+  FooterLinks,
+  TightSubtitle,
 } from './Investors.styles';
+import Button from '../../xds/components/Button';
 import StatCard from '../../xds/components/StatCard';
 import MapPanel from '../../xds/components/MapPanel';
+import { ActivityFeed } from '../../xds/components/ActivityFeed';
+import { PageTitle } from '../../xds/components/Typography';
 import DataTable, { Row as DataRow } from '../../xds/components/DataTable';
+import { colors } from '../../xds/colors';
 
 export type InvestorSummary = {
   totalInvested: number;
@@ -38,15 +53,15 @@ export const InvestorHeaderSection = React.memo(function InvestorHeaderSection({
   return (
     <HeaderRow>
       <div>
-        <h1>Investor Dashboard</h1>
-        <p style={{ color: '#9aa3bb', margin: 0 }}>
+        <PageTitle>Investor Dashboard</PageTitle>
+        <TightSubtitle>
           Portfolio overview for {investorName}. Monitoring live exposure across investor-applicable tranches.
-        </p>
+        </TightSubtitle>
       </div>
-      <div style={{ display: 'flex', gap: '0.5rem' }}>
-        <button style={{ background: '#4b8eff', color: '#fff', padding: '0.5rem 1rem', borderRadius: 6, fontWeight: 700 }}>Allocate Capital</button>
-        <button style={{ background: 'transparent', color: '#9aa3bb', padding: '0.5rem 1rem', borderRadius: 6, border: '1px solid rgba(65,71,85,0.12)' }}>Generate Report</button>
-      </div>
+      <HeaderActions>
+        <Button variant="primary">Allocate Capital</Button>
+        <Button variant="outline">Generate Report</Button>
+      </HeaderActions>
     </HeaderRow>
   );
 });
@@ -57,12 +72,12 @@ export const InvestorSummaryStatsSection = React.memo(function InvestorSummarySt
   summary: InvestorSummary;
 }): React.ReactElement {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 20 }}>
+    <StatGrid>
       <StatCard label="Total Portfolio Value" value={asCurrency(summary.totalInvested)} delta={`${summary.activePositions} active positions`} />
       <StatCard label="Total Capital Available" value={asCurrency(summary.totalAvailable)} delta={`${summary.availableDeals} available deals`} />
       <StatCard label="Projected Annual Return" value={asCurrency(summary.projectedAnnualReturn)} delta={`${summary.blendedIrr.toFixed(2)}% blended`} />
       <StatCard label="Blended IRR" value={`${summary.blendedIrr.toFixed(2)}%`} delta={`${summary.liveTranches} live tranches`} />
-    </div>
+    </StatGrid>
   );
 });
 
@@ -72,7 +87,7 @@ export const InvestorExposureSection = React.memo(function InvestorExposureSecti
   summary: InvestorSummary;
 }): React.ReactElement {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20, marginBottom: 20 }}>
+    <ExposureGrid>
       <MapPanel
         title={'Active Exposure Map'}
         stats={[
@@ -81,31 +96,32 @@ export const InvestorExposureSection = React.memo(function InvestorExposureSecti
         ]}
       />
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <Card style={{ padding: 16 }}>
-          <div style={{ fontSize: 12, fontWeight: 800, color: '#ffb3ad' }}>Capital At Risk</div>
-          <div style={{ fontSize: 28, fontWeight: 800, marginTop: 8 }}>{asCurrency(summary.capitalAtRisk)}</div>
-          <div style={{ color: '#9aa3bb', marginTop: 8 }}>Backend-calculated committed capital across active investor positions.</div>
-        </Card>
+      <ExposureSidebar>
+        <RiskCard>
+          <RiskLabel>Capital At Risk</RiskLabel>
+          <RiskValue>{asCurrency(summary.capitalAtRisk)}</RiskValue>
+          <RiskNote>Backend-calculated committed capital across active investor positions.</RiskNote>
+        </RiskCard>
 
-        <Card style={{ padding: 0 }}>
-          <div style={{ padding: 12, borderBottom: '1px solid rgba(65,71,85,0.06)', display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ fontWeight: 700 }}>Live Risk Feed</div>
-            <div style={{ width: 8, height: 8, borderRadius: 999, background: '#ffb3ad' }} />
-          </div>
-          <div style={{ padding: 12 }}>
-            <div style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: 11, color: '#9aa3bb' }}>12:42 UTC | NOAA-EVENT-422</div>
-              <div style={{ color: '#dae2fd' }}>Hurricane Milton upgraded to Category 4. Landfall projected T-18hrs Tampa Bay.</div>
-            </div>
-            <div style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: 11, color: '#9aa3bb' }}>11:15 UTC | RECON-DELTA</div>
-              <div style={{ color: '#dae2fd' }}>Secondary tranches in SE Region fully subscribed. Total TVL increase +$240k.</div>
-            </div>
-          </div>
-        </Card>
-      </div>
-    </div>
+        <ActivityFeed
+          title="Live Risk Feed"
+          live
+          items={[
+            {
+              time: '12:42 UTC',
+              source: 'NOAA-EVENT-422',
+              tagColor: colors.error,
+              message: 'Hurricane Milton upgraded to Category 4. Landfall projected T-18hrs Tampa Bay.',
+            },
+            {
+              time: '11:15 UTC',
+              source: 'RECON-DELTA',
+              message: 'Secondary tranches in SE Region fully subscribed. Total TVL increase +$240k.',
+            },
+          ]}
+        />
+      </ExposureSidebar>
+    </ExposureGrid>
   );
 });
 
@@ -116,10 +132,10 @@ export const InvestorAllocationsSection = React.memo(function InvestorAllocation
 }): React.ReactElement {
   return (
     <Card>
-      <div style={{ padding: 16, borderBottom: '1px solid rgba(65,71,85,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3 style={{ margin: 0 }}>Active Allocations</h3>
-        <button style={{ color: '#4b8eff', fontSize: '0.75rem', fontWeight: 700 }}>View All Deals</button>
-      </div>
+      <AllocationsHeader>
+        <h3>Active Allocations</h3>
+        <Button variant="text" size="sm">View All Deals</Button>
+      </AllocationsHeader>
       <TableWrap>
         <DataTable rows={rows} />
       </TableWrap>
@@ -131,11 +147,11 @@ export const InvestorFooterSection = React.memo(function InvestorFooterSection()
   return (
     <FooterBar>
       <div>Hurricane Milton: Cat 4 approaching Florida... | Global TVL: $4.2B | Active Tranches: 142</div>
-      <div>
-        <a style={{ color: '#9aa3bb', marginRight: '1rem' }} href="#">Network Status</a>
-        <a style={{ color: '#9aa3bb', marginRight: '1rem' }} href="#">Risk Feed</a>
-        <a style={{ color: '#9aa3bb' }} href="#">Documentation</a>
-      </div>
+      <FooterLinks>
+        <a href="#">Network Status</a>
+        <a href="#">Risk Feed</a>
+        <a href="#">Documentation</a>
+      </FooterLinks>
     </FooterBar>
   );
 });

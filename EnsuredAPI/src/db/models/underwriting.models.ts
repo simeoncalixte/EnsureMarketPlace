@@ -52,6 +52,10 @@ export class Policy extends Model<InferAttributes<Policy>, InferCreationAttribut
   declare normalizedCurrency: string | null;
   declare normalizationRate: string | null;
   declare normalizationAt: Date | null;
+  declare addressId: CreationOptional<number | null>;
+  declare countryId: CreationOptional<number | null>;
+  declare stateProvinceId: CreationOptional<number | null>;
+  declare cityId: CreationOptional<number | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -69,6 +73,9 @@ export class ExposureUnit extends Model<InferAttributes<ExposureUnit>, InferCrea
   declare latitude: number | null;
   declare longitude: number | null;
   declare vulnerabilityScore: string | null;
+  declare addressId: CreationOptional<number | null>;
+  declare cityId: CreationOptional<number | null>;
+  declare countryId: CreationOptional<number | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -83,6 +90,7 @@ export class Submission extends Model<InferAttributes<Submission>, InferCreation
   declare source: string | null;
   declare transport: string | null;
   declare receivedAt: Date | null;
+  declare ingestionChannelId: number | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -175,6 +183,10 @@ export function initUnderwritingModels(sequelize: Sequelize): void {
       normalizedCurrency: { type: DataTypes.STRING(3), allowNull: true },
       normalizationRate: { type: DataTypes.DECIMAL(24, 12), allowNull: true },
       normalizationAt: { type: DataTypes.DATE, allowNull: true },
+      addressId: { type: DataTypes.INTEGER, allowNull: true },
+      countryId: { type: DataTypes.INTEGER, allowNull: true },
+      stateProvinceId: { type: DataTypes.INTEGER, allowNull: true },
+      cityId: { type: DataTypes.INTEGER, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: true },
       updatedAt: { type: DataTypes.DATE, allowNull: true },
     },
@@ -204,6 +216,9 @@ export function initUnderwritingModels(sequelize: Sequelize): void {
       latitude: { type: DataTypes.DECIMAL(9, 6), allowNull: true },
       longitude: { type: DataTypes.DECIMAL(9, 6), allowNull: true },
       vulnerabilityScore: { type: DataTypes.DECIMAL(6, 4), allowNull: true },
+      addressId: { type: DataTypes.INTEGER, allowNull: true },
+      cityId: { type: DataTypes.INTEGER, allowNull: true },
+      countryId: { type: DataTypes.INTEGER, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: true },
       updatedAt: { type: DataTypes.DATE, allowNull: true },
     },
@@ -231,6 +246,7 @@ export function initUnderwritingModels(sequelize: Sequelize): void {
       source: { type: DataTypes.STRING, allowNull: true },
       transport: { type: DataTypes.STRING, allowNull: true },
       receivedAt: { type: DataTypes.DATE, allowNull: true, defaultValue: DataTypes.NOW, field: 'received_at' },
+      ingestionChannelId: { type: DataTypes.INTEGER, allowNull: true, field: 'ingestion_channel_id' },
       createdAt: { type: DataTypes.DATE, allowNull: true, field: 'created_at' },
       updatedAt: { type: DataTypes.DATE, allowNull: true, field: 'updated_at' },
     },

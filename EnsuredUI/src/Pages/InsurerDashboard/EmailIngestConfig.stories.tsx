@@ -1,5 +1,5 @@
 import React from 'react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import EmailIngestConfig from './EmailIngestConfig'
 
 const meta: Meta = {
@@ -10,4 +10,4 @@ const meta: Meta = {
 
 export default meta
 
-export const Default: Story = () => <EmailIngestConfig />
+export const Default: StoryFn = () => <EmailIngestConfig />

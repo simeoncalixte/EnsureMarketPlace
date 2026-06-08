@@ -6,14 +6,79 @@ import os from 'os';
 import path from 'path';
 import fs from 'fs/promises';
 
+type RetryPolicy = {
+  maxRetries: number;
+  baseBackoffMs: number;
+  backoffMultiplier: number;
+  maxBackoffMs: number;
+  retryQueue: string;
+  deadLetterQueue: string;
+};
+
+function parseAmqpPayload(body: any): any {
+  return typeof body === 'string' ? JSON.parse(body) : body;
+}
+
+function hasSubmissionId(payload: any): boolean {
+  return Boolean(payload && payload.submission && payload.submission.id);
+}
+
+function getNextAttempt(payload: any): number {
+  const attemptsSoFar = Number(payload?._ingestionAttempts ?? 0);
+  return attemptsSoFar + 1;
+}
+
+function resolveRetryPolicy(config: Record<string, any>, queueName: string): RetryPolicy {
+  return {
+    maxRetries: Number(config.maxRetries ?? process.env.AMQP_MAX_RETRIES ?? 3),
+    baseBackoffMs: Number(config.baseBackoffMs ?? process.env.AMQP_BACKOFF_MS ?? 1000),
+    backoffMultiplier: Number(config.backoffMultiplier ?? 2),
+    maxBackoffMs: Number(config.maxBackoffMs ?? process.env.AMQP_MAX_BACKOFF_MS ?? 60000),
+    retryQueue: typeof config.retryQueue === 'string' && config.retryQueue.length ? config.retryQueue : queueName,
+    deadLetterQueue:
+      typeof config.deadLetterQueue === 'string' && config.deadLetterQueue.length
+        ? config.deadLetterQueue
+        : (process.env.AMQP_DEAD_LETTER_QUEUE ?? 'ingestion_dead'),
+  };
+}
+
+function computeBackoffMs(policy: RetryPolicy, nextAttempt: number): number {
+  return Math.min(
+    policy.maxBackoffMs,
+    Math.round(policy.baseBackoffMs * Math.pow(policy.backoffMultiplier, nextAttempt - 1)),
+  );
+}
+
+function withAttempt(payload: any, nextAttempt: number): any {
+  return { ...payload, _ingestionAttempts: nextAttempt };
+}
+
+function withDlqError(payload: any, nextAttempt: number, err: any): any {
+  return { ...payload, _ingestionAttempts: nextAttempt, _lastError: err?.message ?? String(err) };
+}
+
+function createFallbackAmqpChannel() {
+  return {
+    get: (key: string) => {
+      if (key === 'config') return {};
+      if (key === 'tenantId' || key === 'organizationId') return null;
+      if (key === 'type') return 'amqp';
+      return null;
+    },
+  };
+}
+
 export class IngestionService {
   private _amqpConsumerTag?: string | null = null;
   private _amqpConsumers: Record<number, Array<{ queue: string; consumerTag?: string | null }>> = {};
   private _sftpPollers: Record<number, NodeJS.Timeout | null> = {};
+  private _emailPollers: Record<number, NodeJS.Timeout | null> = {};
 
   async process(payload: any): Promise<Record<string, unknown>> {
     const submission = payload?.submission;
-    if (!submission || !submission.id) return { ok: false, error: 'missing submission' };
+    if (!submission || !submission.id) {
+      return { ok: true, service: 'ingestion', noop: true, reason: 'missing submission' };
+    }
     const submissionId = submission.id;
     const files = await SubmissionFile.findAll({ where: { submissionId } });
     const fetched: Array<{ file: any; buffer?: Buffer }> = [];
@@ -43,7 +108,7 @@ export class IngestionService {
       fetched.push({ file: f, buffer: buf });
     }
 
-    return { ok: true, files: fetched };
+    return { ok: true, service: 'ingestion', files: fetched };
   }
 
   /**
@@ -52,32 +117,29 @@ export class IngestionService {
   async startAmqpListener(queueName?: string) {
     // Backwards-compatible single-queue listener
     const q = queueName ?? process.env.AMQP_INGEST_QUEUE ?? 'ingestion_submission';
-    const res = await amqpConnector.consumeQueue(q, async (body: any, rawMsg: any) => {
-      const payload = typeof body === 'string' ? JSON.parse(body) : body;
-      try {
-        if (payload && payload.submission && payload.submission.id) {
-          await this.process({ ...payload });
-          return;
-        }
-        // create submission from payload when missing
-        try {
-          const fakeChannel = { get: (k: string) => { if (k === 'config') return {}; if (k === 'tenantId' || k === 'organizationId') return null; if (k === 'type') return 'amqp'; return null; } } as any;
-          const created = await this.createSubmissionFromAmqpPayload(fakeChannel, payload).catch(() => null);
-          if (created && (created as any).id) {
-            await this.process({ submission: { id: (created as any).id }, _ingestionChannelId: null });
-            return;
-          }
-        } catch (e) {
-          // fallthrough to error handling
-        }
-        // fallback: try to process raw payload (may fail)
-        await this.process(payload);
-      } catch (err) {
-        throw err;
-      }
-    });
+    const res = await amqpConnector.consumeQueue(q, async (body: any, rawMsg: any) => this.handleLegacyAmqpMessage(body));
     this._amqpConsumerTag = res?.consumerTag ?? null;
     return res;
+  }
+
+  private async handleLegacyAmqpMessage(body: any) {
+    const payload = parseAmqpPayload(body);
+    if (hasSubmissionId(payload)) {
+      await this.process({ ...payload });
+      return;
+    }
+
+    try {
+      const created = await this.createSubmissionFromAmqpPayload(createFallbackAmqpChannel() as any, payload).catch(() => null);
+      if (created && (created as any).id) {
+        await this.process({ submission: { id: (created as any).id }, _ingestionChannelId: null });
+        return;
+      }
+    } catch (_) {
+      // fallback below
+    }
+
+    await this.process(payload);
   }
 
   async stopAmqpListener() {
@@ -91,6 +153,22 @@ export class IngestionService {
   }
 
   /**
+   * Resolve queue names from channel config, with fallback to environment or default
+   */
+  private resolveQueueNames(config: Record<string, any>): string[] {
+    let queueNames: string[] = [];
+    if (Array.isArray(config.queueNames)) queueNames = config.queueNames as string[];
+    else if (typeof config.queueName === 'string') queueNames = [config.queueName as string];
+    else if (typeof config.queue === 'string') queueNames = [config.queue as string];
+    
+    if (!queueNames || queueNames.length === 0) {
+      const fallback = process.env.AMQP_INGEST_QUEUE ?? process.env.AMQP_QUEUE ?? 'ingestion_submissions';
+      queueNames = [fallback];
+    }
+    return queueNames;
+  }
+
+  /**
    * Start AMQP consumers for a saved IngestionChannel by id.
    * The channel's `config.queueNames` (array) or `config.queueName` (string)
    * will be used. Falls back to env/default queue when none provided.
@@ -99,95 +177,75 @@ export class IngestionService {
     const channel = await IngestionChannel.findByPk(channelId);
     if (!channel) throw new Error('Channel not found');
     const config = (channel.get('config') as Record<string, unknown>) ?? {};
-    const meta = (channel.get('meta') as string) ?? '';
-    let queueNames: string[] = [];
-    if (Array.isArray(config.queueNames)) queueNames = config.queueNames as string[];
-    else if (typeof config.queueName === 'string') queueNames = [config.queueName as string];
-    else if (typeof config.queue === 'string') queueNames = [config.queue as string];
-    // if none configured, fallback to environment or default
-    if (!queueNames || queueNames.length === 0) {
-      const fallback = process.env.AMQP_INGEST_QUEUE ?? process.env.AMQP_QUEUE ?? 'ingestion_submissions';
-      queueNames = [fallback];
-    }
+    const queueNames = this.resolveQueueNames(config as Record<string, any>);
 
     this._amqpConsumers[channelId] = [];
     for (const q of queueNames) {
-      // Wrap handler to implement per-channel retry/backoff and dead-lettering
-      const res = await amqpConnector.consumeQueue(q, async (body: any, rawMsg: any) => {
-        const payload = typeof body === 'string' ? JSON.parse(body) : body;
-        const attemptsSoFar = Number(payload?._ingestionAttempts ?? 0);
-        const nextAttempt = attemptsSoFar + 1;
-        const config = (channel.get('config') as Record<string, any>) ?? {};
-        const maxRetries = Number(config.maxRetries ?? process.env.AMQP_MAX_RETRIES ?? 3);
-        const baseBackoffMs = Number(config.baseBackoffMs ?? process.env.AMQP_BACKOFF_MS ?? 1000);
-        const backoffMultiplier = Number(config.backoffMultiplier ?? 2);
-        const maxBackoffMs = Number(config.maxBackoffMs ?? process.env.AMQP_MAX_BACKOFF_MS ?? 60000);
-        const retryQueue = typeof config.retryQueue === 'string' && config.retryQueue.length ? config.retryQueue : q;
-        const deadLetterQueue = typeof config.deadLetterQueue === 'string' && config.deadLetterQueue.length ? config.deadLetterQueue : (process.env.AMQP_DEAD_LETTER_QUEUE ?? 'ingestion_dead');
-
-        try {
-          // If message already contains a submission id, pass through
-          if (payload && payload.submission && payload.submission.id) {
-            await this.process({ ...payload, _ingestionChannelId: channelId });
-            // success: connector will ack
-            return;
-          }
-
-          // Otherwise create a Submission record from the payload according to channel config
-          try {
-            const created = await this.createSubmissionFromAmqpPayload(channel, payload);
-            await this.process({ submission: { id: (created as any).id }, _ingestionChannelId: channelId });
-            return;
-          } catch (subErr) {
-            // fall through to outer catch to trigger retry/DLQ logic
-            throw subErr;
-          }
-        } catch (err: any) {
-          // decide retry vs DLQ
-          try {
-            if (nextAttempt <= maxRetries) {
-              const backoffMs = Math.min(maxBackoffMs, Math.round(baseBackoffMs * Math.pow(backoffMultiplier, nextAttempt - 1)));
-              // schedule republish to retryQueue with incremented attempts
-              setTimeout(async () => {
-                try {
-                  await amqpConnector.publishToQueue(retryQueue, { ...payload, _ingestionAttempts: nextAttempt });
-                } catch (pubErr) {
-                  console.error('Failed to publish retry message', pubErr);
-                }
-              }, backoffMs);
-              // swallow original error so connector acks the original message
-              return;
-            }
-
-            // exceeded retries -> publish to DLQ immediately
-            try {
-              await amqpConnector.publishToQueue(deadLetterQueue, { ...payload, _ingestionAttempts: nextAttempt, _lastError: err?.message ?? String(err) });
-            } catch (pubErr) {
-              console.error('Failed to publish to DLQ', pubErr);
-            }
-            return;
-          } catch (innerErr) {
-            console.error('Error handling AMQP retry/dlq logic', innerErr);
-            return;
-          }
-        }
-      });
+      const res = await amqpConnector.consumeQueue(q, async (body: any, rawMsg: any) => this.handleChannelAmqpMessage(channel, channelId, q, body));
       this._amqpConsumers[channelId].push({ queue: q, consumerTag: res?.consumerTag ?? null });
     }
     return this._amqpConsumers[channelId];
   }
 
+  private async handleChannelAmqpMessage(channel: typeof IngestionChannel.prototype, channelId: number, queueName: string, body: any) {
+    const payload = parseAmqpPayload(body);
+    const config = (channel.get('config') as Record<string, any>) ?? {};
+    const retryPolicy = resolveRetryPolicy(config, queueName);
+    const nextAttempt = getNextAttempt(payload);
+
+    try {
+      if (hasSubmissionId(payload)) {
+        await this.process({ ...payload, _ingestionChannelId: channelId });
+        return;
+      }
+
+      const created = await this.createSubmissionFromAmqpPayload(channel, payload);
+      await this.process({ submission: { id: (created as any).id }, _ingestionChannelId: channelId });
+    } catch (err: any) {
+      await this.handleAmqpRetryOrDlq(payload, nextAttempt, retryPolicy, err);
+    }
+  }
+
+  private async handleAmqpRetryOrDlq(payload: any, nextAttempt: number, retryPolicy: RetryPolicy, err: any) {
+    try {
+      if (nextAttempt <= retryPolicy.maxRetries) {
+        const backoffMs = computeBackoffMs(retryPolicy, nextAttempt);
+        setTimeout(async () => {
+          try {
+            await amqpConnector.publishToQueue(retryPolicy.retryQueue, withAttempt(payload, nextAttempt));
+          } catch (pubErr) {
+            console.error('Failed to publish retry message', pubErr);
+          }
+        }, backoffMs);
+        return;
+      }
+
+      try {
+        await amqpConnector.publishToQueue(retryPolicy.deadLetterQueue, withDlqError(payload, nextAttempt, err));
+      } catch (pubErr) {
+        console.error('Failed to publish to DLQ', pubErr);
+      }
+    } catch (innerErr) {
+      console.error('Error handling AMQP retry/dlq logic', innerErr);
+    }
+  }
+
   /**
    * Create a Submission and related SubmissionFile rows from a message payload.
    */
-  async createSubmissionFromAmqpPayload(channel: typeof IngestionChannel.prototype, payload: any) {
+  async createSubmissionFromAmqpPayload(
+    channel: typeof IngestionChannel.prototype,
+    payload: any,
+    opts?: { transport?: string; source?: string; ingestionChannelId?: number },
+  ) {
     const config = (channel && typeof channel.get === 'function') ? (channel.get('config') as Record<string, any>) ?? {} : {};
     // Resolve organization id with the following precedence:
     // 1. payload.organizationId | payload.orgId | payload.tenantId
     // 2. channel.config.organizationId
     // 3. channel.organizationId (legacy) or channel.tenantId (legacy stored value)
     const chanOrg = (channel && typeof channel.get === 'function') ? ((channel.get('organizationId') as number) ?? (channel.get('tenantId') as number) ?? null) : ((channel as any)?.tenantId ?? null);
-    const rawOrg = payload?.submission.tenantId ?? null;
+    const payloadSubmission = (payload && typeof payload.submission === 'object') ? payload.submission : {};
+    const rawOrg = payloadSubmission.tenantId ?? payload?.tenantId ?? null;
     let organizationId: number | null = null;
     if (rawOrg !== undefined && rawOrg !== null) {
       const n = Number(rawOrg);
@@ -195,17 +253,28 @@ export class IngestionService {
     }
     if (!organizationId && chanOrg) organizationId = Number(chanOrg) || null;
 
-    const insurerProfileId = Number(config?.insurerProfileId ?? config?.organizationId ?? organizationId ?? 0) || 0;
-    const portfolioId = Number(config?.portfolioId ?? 0) || 0;
+    const insurerProfileId = Number(config?.insurerProfileId ?? 0) || null;
+    const portfolioId = Number(config?.portfolioId ?? 0) || null;
+
+    const channelType = (channel && typeof channel.get === 'function') ? (channel.get('type') as string) : null;
+    // Transport/source default to the AMQP behavior so existing callers are unchanged;
+    // inbound connectors (e.g. email) override via opts or payload._transport.
+    const transport = opts?.transport ?? payload?._transport ?? 'amqp';
+    const source = opts?.source ?? channelType ?? 'amqp';
+    // Link the submission back to its channel so GET /ingestion-channels/:id/submissions
+    // can find it. Previously never set, so AMQP/SFTP submissions were orphaned.
+    const channelId = opts?.ingestionChannelId
+      ?? ((channel && typeof channel.get === 'function') ? (Number(channel.get('id')) || null) : null);
 
     const submission = await Submission.create({
       insurerProfileId,
       portfolioId,
-      submittedByUserId: null,
+      submittedByUserId: Number(payloadSubmission.submittedByUserId ?? payload?.submittedByUserId ?? 0) || null,
       status: 'submitted',
       tenantId: organizationId,
-      source: (channel && typeof channel.get === 'function') ? (channel.get('type') as string) ?? 'amqp' : 'amqp',
-      transport: 'amqp',
+      source,
+      transport,
+      ingestionChannelId: channelId,
       receivedAt: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -260,7 +329,9 @@ export class IngestionService {
     }
 
     try {
-      await IngestionEvent.create({ submissionId: submission.id, tenantId: submission.tenantId ?? null, stage: 'received', status: 'submitted', metadata: { payloadSummary: { fileCount: createdFiles.length } } });
+      const metadata: Record<string, unknown> = { payloadSummary: { fileCount: createdFiles.length, transport } };
+      if (payload?.email && typeof payload.email === 'object') metadata.email = payload.email;
+      await IngestionEvent.create({ submissionId: submission.id, tenantId: submission.tenantId ?? null, stage: 'received', status: 'submitted', metadata });
     } catch (_) {}
 
     return submission;
@@ -357,6 +428,52 @@ export class IngestionService {
     }
     delete this._sftpPollers[channelId];
     try { await sftpConnector.end(); } catch (_) {}
+  }
+
+  /**
+   * Poll a Gmail / Microsoft mailbox for new messages and turn them into
+   * submissions. Mirrors the SFTP poller: initial poll + interval, re-reading
+   * the channel each tick so a disable/delete takes effect promptly.
+   */
+  async startEmailPollingForChannel(channelId: number) {
+    const channel = await IngestionChannel.findByPk(channelId);
+    if (!channel) throw new Error('Channel not found');
+    const config = (channel.get('config') as Record<string, any>) ?? {};
+    const pollIntervalMs = Number(config.pollIntervalMs ?? process.env.EMAIL_POLL_INTERVAL_MS ?? 60000);
+    const batchSize = Number(config.batchSize ?? 10);
+
+    if (this._emailPollers[channelId]) {
+      try { clearInterval(this._emailPollers[channelId] as NodeJS.Timeout); } catch (_) {}
+    }
+
+    // Lazy import avoids a static import cycle (strategies.ts imports this service).
+    const { getStrategyForChannel } = await import('../strategies');
+
+    const pollFn = async () => {
+      try {
+        const fresh = await IngestionChannel.findByPk(channelId);
+        if (!fresh || !fresh.get('enabled')) return;
+        // Stop hammering a mailbox whose authorization was revoked; wait for re-auth.
+        if (fresh.get('status') === 'reauth_required') return;
+        const strategy = getStrategyForChannel(fresh);
+        await strategy.ensureSubmissions(fresh, batchSize);
+      } catch (e: any) {
+        console.error('Email poll error for channel', channelId, e?.message ?? e);
+      }
+    };
+
+    await pollFn();
+    const timer = setInterval(() => { pollFn().catch((err) => console.error('Email poller error', err)); }, pollIntervalMs);
+    this._emailPollers[channelId] = timer as NodeJS.Timeout;
+    return timer;
+  }
+
+  async stopEmailPollingForChannel(channelId: number) {
+    const timer = this._emailPollers[channelId];
+    if (timer) {
+      try { clearInterval(timer); } catch (_) {}
+    }
+    delete this._emailPollers[channelId];
   }
 
   async stopAmqpListenerForChannel(channelId: number) {

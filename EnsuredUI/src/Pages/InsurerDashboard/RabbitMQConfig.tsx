@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
-import { getApiBase } from '../../lib/api'
+import styled from 'styled-components'
+import {
+  getChannel,
+  createChannel,
+  patchChannel,
+  testConnection,
+  testConnectionAdhoc,
+  listQueues,
+  queueStatsByNames,
+  createQueue,
+  deleteQueue,
+  updateQueuesConfig,
+} from '../../api/ingestionChannels'
 import * as S from './InsurerDashboard.styles'
+import { colors, withAlpha } from '../../xds/colors'
+import { Badge, Breadcrumb, Button, DataTable, FormField, ToggleSwitch } from '../../xds'
 
 type QueueStatus = 'active' | 'idle' | 'slow'
 
@@ -22,26 +36,61 @@ const QUEUE_DATA: QueueRow[] = [
 
 const BAR_HEIGHTS = ['50%', '75%', '50%', '100%', '65%', '85%', '100%']
 
-function Toggle({
-  checked,
-  onChange,
-  label,
-}: {
-  checked: boolean
-  onChange: () => void
-  label: string
-}) {
-  return (
-    <S.ToggleLabel onClick={onChange}>
-      <S.ToggleTrack $checked={checked}>
-        <S.ToggleKnob $checked={checked} />
-      </S.ToggleTrack>
-      <S.ToggleText>{label}</S.ToggleText>
-    </S.ToggleLabel>
-  )
+const STATUS_VARIANT: Record<QueueStatus, 'success' | 'neutral' | 'warning'> = {
+  active: 'success',
+  idle: 'neutral',
+  slow: 'warning',
 }
 
-export default function RabbitMQConfig(): JSX.Element {
+const PanelTitleIcon = styled.span`
+  font-size: 1.125rem;
+  color: ${colors.primarySoft};
+`
+
+const SyncIcon = styled.span<{ $spinning?: boolean }>`
+  font-size: 0.875rem;
+  ${(p) => (p.$spinning ? 'animation: spin 1s linear infinite;' : '')}
+`
+
+const ThroughputIcon = styled.span`
+  font-size: 1.75rem;
+  color: ${colors.accent};
+`
+
+const HeaderRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`
+
+const SearchIcon = styled.span`
+  font-size: 1.25rem;
+  color: ${colors.neutral[500]};
+  cursor: pointer;
+`
+
+const CreateQueueRow = styled.div`
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+`
+
+const CreateQueueField = styled.div`
+  flex: 1;
+`
+
+const CreateQueueControls = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+`
+
+const TableScroll = styled.div`
+  overflow-x: auto;
+`
+
+export default function RabbitMQConfig(): React.JSX.Element {
   const { channelId } = useParams() as { channelId?: string }
   const [channelLabel, setChannelLabel] = useState<string | null>(null)
   const [clusterUrl, setClusterUrl] = useState(
@@ -66,22 +115,10 @@ export default function RabbitMQConfig(): JSX.Element {
   async function handleTest() {
     setTestStatus('testing')
     try {
-      const base = getApiBase()
       const numericId = channelId && /^[0-9]+$/.test(channelId) ? channelId : null
-      let res: Response
-      if (numericId) {
-        res = await fetch(`${base}/api/ingestion-channels/${numericId}/test-connection`, {
-          method: 'POST',
-          credentials: 'include',
-        })
-      } else {
-        res = await fetch(`${base}/api/ingestion-channels/test-connection`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ clusterUrl, port, vhost }),
-        })
-      }
+      const res = numericId
+        ? await testConnection(numericId)
+        : await testConnectionAdhoc({ clusterUrl, port, vhost })
       const body = await res.json().catch(() => ({}))
       if (res.ok && body?.ok !== false) {
         setTestStatus('ok')
@@ -99,29 +136,15 @@ export default function RabbitMQConfig(): JSX.Element {
   async function handleSave() {
     setSaveStatus('saving')
     try {
-      const base = getApiBase()
       const body = {
         meta: clusterUrl,
         config: { port, vhost, durable, autoDelete },
       }
       if (channelId && /^[0-9]+$/.test(channelId)) {
-        const res = await fetch(`${base}/api/ingestion-channels/${channelId}`, {
-          method: 'PATCH',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        })
-        if (!res.ok) throw new Error('Failed to save channel')
+        await patchChannel(channelId, body)
       } else {
         // create a new channel if none exists
-        const res = await fetch(`${base}/api/ingestion-channels`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'rabbitmq', label: 'RabbitMQ', ...body }),
-        })
-        if (!res.ok) throw new Error('Failed to create channel')
-        const data = await res.json()
+        const data = await createChannel({ type: 'rabbitmq', label: 'RabbitMQ', ...body })
         if (data?.id) {
           setChannelLabel(data.label ?? channelLabel)
         }
@@ -137,9 +160,7 @@ export default function RabbitMQConfig(): JSX.Element {
 
   useEffect(() => {
     if (!channelId) return
-    const base = getApiBase()
-    fetch(`${base}/api/ingestion-channels/${channelId}`, { credentials: 'include' })
-      .then((r) => { if (!r.ok) throw new Error('Not found'); return r.json() })
+    getChannel(channelId)
       .then((data) => {
         if (data?.label) setChannelLabel(data.label)
         if (typeof data?.meta === 'string') setClusterUrl(String(data.meta))
@@ -157,12 +178,8 @@ export default function RabbitMQConfig(): JSX.Element {
     if (!channelId || !/^[0-9]+$/.test(channelId)) return
     setLoadingQueues(true)
     try {
-      const base = getApiBase()
       // Prefer the management-based listing endpoint (GET)
-      const res = await fetch(`${base}/api/ingestion-channels/${channelId}/queues`, {
-        method: 'GET',
-        credentials: 'include',
-      })
+      const res = await listQueues(channelId)
       const body = await res.json().catch(() => null)
       if (res.ok && Array.isArray(body)) {
         const mapped: QueueRow[] = body.map((r: any) => {
@@ -179,12 +196,7 @@ export default function RabbitMQConfig(): JSX.Element {
         return
       }
       // Fallback: if management listing not available, try the stats-by-name endpoint
-      const fallback = await fetch(`${base}/api/ingestion-channels/${channelId}/queues`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ queueNames: names ?? QUEUE_DATA.map((q) => q.name) }),
-      })
+      const fallback = await queueStatsByNames(channelId, names ?? QUEUE_DATA.map((q) => q.name))
       const fb = await fallback.json().catch(() => null)
       if (fallback.ok && Array.isArray(fb)) {
         const mapped: QueueRow[] = fb.map((r: any) => ({
@@ -211,11 +223,7 @@ export default function RabbitMQConfig(): JSX.Element {
     }
     setActionLoading(true)
     try {
-      const base = getApiBase()
-      const res = await fetch(`${base}/api/ingestion-channels/${channelId}/queues/${encodeURIComponent(name)}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      })
+      const res = await deleteQueue(channelId, name)
       if (!res.ok && res.status !== 204) throw new Error('Failed to delete queue')
       // refresh list
       await fetchQueues()
@@ -237,13 +245,7 @@ export default function RabbitMQConfig(): JSX.Element {
     }
     setActionLoading(true)
     try {
-      const base = getApiBase()
-      const res = await fetch(`${base}/api/ingestion-channels/${channelId}/queues-config`, {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ queueName: name }),
-      })
+      const res = await updateQueuesConfig(channelId, { queueName: name })
       if (!res.ok) throw new Error('Failed to update channel config')
       // refresh queues — config removal may affect what names are polled
       await fetchQueues()
@@ -270,13 +272,7 @@ export default function RabbitMQConfig(): JSX.Element {
     }
     setCreatingQueue(true)
     try {
-      const base = getApiBase()
-      const res = await fetch(`${base}/api/ingestion-channels/${channelId}/queues/create`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ queueName: name, durable: newQueueDurable, autoDelete: newQueueAutoDelete }),
-      })
+      const res = await createQueue(channelId, { queueName: name, durable: newQueueDurable, autoDelete: newQueueAutoDelete })
       if (!res.ok) {
         const body = await res.json().catch(() => null)
         throw new Error(body?.error ?? 'Failed to create queue')
@@ -294,14 +290,13 @@ export default function RabbitMQConfig(): JSX.Element {
 
   return (
     <S.PageShell>
-      {/* Breadcrumb */}
-      <S.Breadcrumb aria-label="breadcrumb">
-        <S.BreadcrumbItem>Ingestion</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbItem>Channels</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbActive>{channelLabel ?? 'Messaging Queue'}</S.BreadcrumbActive>
-      </S.Breadcrumb>
+      <Breadcrumb
+        items={[
+          { label: 'Ingestion' },
+          { label: 'Channels' },
+          { label: channelLabel ?? 'Messaging Queue' },
+        ]}
+      />
 
       {/* Page header */}
       <S.RabbitPageHeader>
@@ -320,73 +315,56 @@ export default function RabbitMQConfig(): JSX.Element {
           <S.ConfigCardDecor aria-hidden>settings_ethernet</S.ConfigCardDecor>
 
           <S.ConfigCardTitle>
-            <span
-              className="material-symbols-outlined"
-              style={{ fontSize: '1.125rem', color: '#adc6ff' }}
-            >
-              tune
-            </span>
+            <PanelTitleIcon className="material-symbols-outlined">tune</PanelTitleIcon>
             Channel Configuration
           </S.ConfigCardTitle>
 
           <S.FieldGroup>
             {/* Cluster URL */}
-            <div>
-              <S.FieldLabel htmlFor="rmq-cluster-url">Cluster URL</S.FieldLabel>
-              <S.Input
-                id="rmq-cluster-url"
-                type="text"
-                value={clusterUrl}
-                onChange={(e) => setClusterUrl(e.target.value)}
-                placeholder="Enter endpoint…"
-                style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-              />
-            </div>
+            <FormField
+              id="rmq-cluster-url"
+              label="Cluster URL"
+              type="text"
+              value={clusterUrl}
+              onChange={(e) => setClusterUrl(e.target.value)}
+              placeholder="Enter endpoint…"
+            />
 
             {/* Port + Virtual Host */}
             <S.TwoFields>
-              <div>
-                <S.FieldLabel htmlFor="rmq-port">Port</S.FieldLabel>
-                <S.Input
-                  id="rmq-port"
-                  type="text"
-                  value={port}
-                  onChange={(e) => setPort(e.target.value)}
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-                />
-              </div>
-              <div>
-                <S.FieldLabel htmlFor="rmq-vhost">Virtual Host</S.FieldLabel>
-                <S.Input
-                  id="rmq-vhost"
-                  type="text"
-                  value={vhost}
-                  onChange={(e) => setVhost(e.target.value)}
-                  style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-                />
-              </div>
+              <FormField
+                id="rmq-port"
+                label="Port"
+                type="text"
+                value={port}
+                onChange={(e) => setPort(e.target.value)}
+              />
+              <FormField
+                id="rmq-vhost"
+                label="Virtual Host"
+                type="text"
+                value={vhost}
+                onChange={(e) => setVhost(e.target.value)}
+              />
             </S.TwoFields>
 
             {/* Toggles */}
             <S.TogglesRow>
-              <Toggle checked={durable}    onChange={() => setDurable(!durable)}       label="Durable" />
-              <Toggle checked={autoDelete} onChange={() => setAutoDelete(!autoDelete)} label="Auto-Delete" />
+              <ToggleSwitch checked={durable}    onChange={() => setDurable(!durable)}       label="Durable" />
+              <ToggleSwitch checked={autoDelete} onChange={() => setAutoDelete(!autoDelete)} label="Auto-Delete" />
             </S.TogglesRow>
 
             {/* Actions */}
             <S.BtnRow>
-              <S.GhostBtn type="button" onClick={handleTest} disabled={testStatus === 'testing'}>
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: '0.875rem', ...(testStatus === 'testing' ? { animation: 'spin 1s linear infinite' } : {}) }}
-                >
+              <Button variant="ghost" type="button" onClick={handleTest} disabled={testStatus === 'testing'}>
+                <SyncIcon className="material-symbols-outlined" $spinning={testStatus === 'testing'}>
                   sync
-                </span>
+                </SyncIcon>
                 {testStatus === 'testing' ? 'Testing…' : testStatus === 'ok' ? 'Connected ✓' : 'Test Connection'}
-              </S.GhostBtn>
-              <S.FillBtn type="button" onClick={handleSave} disabled={saveStatus === 'saving'}>
+              </Button>
+              <Button variant="primary" type="button" onClick={handleSave} disabled={saveStatus === 'saving'}>
                 {saveStatus === 'saving' ? 'Saving…' : saveStatus === 'ok' ? 'Saved ✓' : 'Save Channel'}
-              </S.FillBtn>
+              </Button>
             </S.BtnRow>
           </S.FieldGroup>
         </S.ConfigCard>
@@ -403,12 +381,7 @@ export default function RabbitMQConfig(): JSX.Element {
                   <S.ThroughputUnit>GB/s</S.ThroughputUnit>
                 </S.ThroughputNum>
               </div>
-              <span
-                className="material-symbols-outlined"
-                style={{ fontSize: '1.75rem', color: '#4edea3' }}
-              >
-                insights
-              </span>
+              <ThroughputIcon className="material-symbols-outlined">insights</ThroughputIcon>
             </S.ThroughputHeader>
 
             <S.BarsWrap aria-hidden>
@@ -421,11 +394,11 @@ export default function RabbitMQConfig(): JSX.Element {
           {/* Active consumers / Acknowledge card */}
           <S.MetricsCard>
             <S.MetricsList>
-              <S.MetricEntry $accent="#adc6ff">
+              <S.MetricEntry $accent={colors.primarySoft}>
                 <S.MetricLabel>Active Cons</S.MetricLabel>
                 <S.MetricValue>128</S.MetricValue>
               </S.MetricEntry>
-              <S.MetricEntry $accent="#4edea3">
+              <S.MetricEntry $accent={colors.accent}>
                 <S.MetricLabel>Acknowledge</S.MetricLabel>
                 <S.MetricValue>99.98%</S.MetricValue>
               </S.MetricEntry>
@@ -437,127 +410,104 @@ export default function RabbitMQConfig(): JSX.Element {
         <S.QueueSection>
           <S.QueueTableTop>
             <S.QueueTableTitle>Live Queues</S.QueueTableTitle>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <S.StreamingBadge>
-                <S.StreamingDot aria-hidden />
-                Streaming
-              </S.StreamingBadge>
-              <span
-                className="material-symbols-outlined"
-                style={{ fontSize: '1.25rem', color: '#64748b', cursor: 'pointer' }}
-              >
-                search
-              </span>
-            </div>
+            <HeaderRight>
+              <Badge variant="success" dot>Streaming</Badge>
+              <SearchIcon className="material-symbols-outlined">search</SearchIcon>
+            </HeaderRight>
           </S.QueueTableTop>
 
-          <div style={{ padding: '1rem 2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            <div style={{ flex: 1 }}>
-              <S.FieldLabel htmlFor="new-queue-name">Create Queue</S.FieldLabel>
-              <S.Input
+          <CreateQueueRow>
+            <CreateQueueField>
+              <FormField
                 id="new-queue-name"
+                label="Create Queue"
                 type="text"
                 value={newQueueName}
                 onChange={(e) => setNewQueueName(e.target.value)}
                 placeholder="e.g., submissions_inbound"
-                style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
               />
-            </div>
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-              <Toggle checked={newQueueDurable} onChange={() => setNewQueueDurable(!newQueueDurable)} label="Durable" />
-              <Toggle checked={newQueueAutoDelete} onChange={() => setNewQueueAutoDelete(!newQueueAutoDelete)} label="Auto-Delete" />
-              <S.FillBtn type="button" onClick={handleCreateQueue} disabled={creatingQueue}>
+            </CreateQueueField>
+            <CreateQueueControls>
+              <ToggleSwitch checked={newQueueDurable} onChange={() => setNewQueueDurable(!newQueueDurable)} label="Durable" />
+              <ToggleSwitch checked={newQueueAutoDelete} onChange={() => setNewQueueAutoDelete(!newQueueAutoDelete)} label="Auto-Delete" />
+              <Button variant="primary" type="button" onClick={handleCreateQueue} disabled={creatingQueue}>
                 {creatingQueue ? 'Creating…' : 'Create Queue'}
-              </S.FillBtn>
-            </div>
-          </div>
+              </Button>
+            </CreateQueueControls>
+          </CreateQueueRow>
 
-          <div style={{ overflowX: 'auto' }}>
-            <S.QueueTable>
-              <thead>
-                <tr>
-                  <S.QueueTH>Queue Name</S.QueueTH>
-                  <S.QueueTH>Messages (MSGS)</S.QueueTH>
-                  <S.QueueTH>Consumers (CONS)</S.QueueTH>
-                  <S.QueueTH>Memory (MEM)</S.QueueTH>
-                  <S.QueueTH>Status</S.QueueTH>
-                  <S.QueueTH style={{ textAlign: 'right' }}>Actions</S.QueueTH>
-                </tr>
-              </thead>
-              <tbody>
-                {(liveQueues ?? QUEUE_DATA).map((row) => (
-                  <S.QueueTR key={row.name}>
-                    <S.QueueNameCell>{row.name}</S.QueueNameCell>
-                    <S.QueueMonoCell>{row.messages}</S.QueueMonoCell>
-                    <S.QueueMonoCell>{row.consumers}</S.QueueMonoCell>
-                    <S.QueueMonoCell>{row.memory}</S.QueueMonoCell>
-                    <S.QueueTD>
-                      <S.QueueStatusChip $status={row.status}>
-                        {row.status}
-                      </S.QueueStatusChip>
-                    </S.QueueTD>
-                    <S.QueueTD style={{ textAlign: 'right' }}>
-                      <S.QueueMenuWrap onClick={(e) => e.stopPropagation()}>
-                        <S.QueueActionBtn
-                          aria-label={`Configure ${row.name}`}
-                          onClick={() => {
-                            if (!channelId || !/^[0-9]+$/.test(channelId)) return
-                            const q = row.name
-                            try {
-                              // Emit an event so Storybook or other hosts can respond
-                              if (typeof window !== 'undefined' && (window as any).dispatchEvent) {
-                                const ev = new CustomEvent('ensured:openQueueConfig', { detail: { channelId, queueName: q } })
-                                window.dispatchEvent(ev)
-                              }
-                            } catch (_) {
-                              // ignore
-                            }
-                            navigate(`/insurer/pipeline-ingestion/rabbitmq/${channelId}/queue/${encodeURIComponent(row.name)}`)
-                          }}
-                        >
-                          settings
-                        </S.QueueActionBtn>
-                        <S.QueueActionBtn
-                          aria-label={`Actions for ${row.name}`}
-                          onClick={() => setMenuOpenFor(menuOpenFor === row.name ? null : row.name)}
-                        >
-                          more_horiz
-                        </S.QueueActionBtn>
-                        {menuOpenFor === row.name && (
-                          <S.QueueMenu className="rmq-queue-menu" role="menu">
-                            <S.QueueMenuItem onClick={() => handleDeleteBrokerQueue(row.name)} disabled={actionLoading}>
-                              Delete from broker
-                            </S.QueueMenuItem>
-                            <S.QueueMenuItem onClick={() => handleRemoveFromConfig(row.name)} disabled={actionLoading}>
-                              Remove from saved config
-                            </S.QueueMenuItem>
-                          </S.QueueMenu>
-                        )}
-                      </S.QueueMenuWrap>
-                    </S.QueueTD>
-                  </S.QueueTR>
-                ))}
-              </tbody>
-            </S.QueueTable>
-          </div>
+          <TableScroll>
+            <DataTable<QueueRow>
+              columns={[
+                { key: 'name', header: 'Queue Name', render: (row) => <S.QueueNameCell as="span">{row.name}</S.QueueNameCell> },
+                { key: 'messages', header: 'Messages (MSGS)', render: (row) => <S.QueueMonoCell as="span">{row.messages}</S.QueueMonoCell> },
+                { key: 'consumers', header: 'Consumers (CONS)', render: (row) => <S.QueueMonoCell as="span">{row.consumers}</S.QueueMonoCell> },
+                { key: 'memory', header: 'Memory (MEM)', render: (row) => <S.QueueMonoCell as="span">{row.memory}</S.QueueMonoCell> },
+                {
+                  key: 'status',
+                  header: 'Status',
+                  render: (row) => <Badge variant={STATUS_VARIANT[row.status]}>{row.status}</Badge>,
+                },
+              ]}
+              data={liveQueues ?? QUEUE_DATA}
+              rowActions={(row) => (
+                <S.QueueMenuWrap onClick={(e) => e.stopPropagation()}>
+                  <S.QueueActionBtn
+                    aria-label={`Configure ${row.name}`}
+                    onClick={() => {
+                      if (!channelId || !/^[0-9]+$/.test(channelId)) return
+                      const q = row.name
+                      try {
+                        // Emit an event so Storybook or other hosts can respond
+                        if (typeof window !== 'undefined' && (window as any).dispatchEvent) {
+                          const ev = new CustomEvent('ensured:openQueueConfig', { detail: { channelId, queueName: q } })
+                          window.dispatchEvent(ev)
+                        }
+                      } catch (_) {
+                        // ignore
+                      }
+                      navigate(`/insurer/pipeline-ingestion/rabbitmq/${channelId}/queue/${encodeURIComponent(row.name)}`)
+                    }}
+                  >
+                    settings
+                  </S.QueueActionBtn>
+                  <S.QueueActionBtn
+                    aria-label={`Actions for ${row.name}`}
+                    onClick={() => setMenuOpenFor(menuOpenFor === row.name ? null : row.name)}
+                  >
+                    more_horiz
+                  </S.QueueActionBtn>
+                  {menuOpenFor === row.name && (
+                    <S.QueueMenu className="rmq-queue-menu" role="menu">
+                      <S.QueueMenuItem onClick={() => handleDeleteBrokerQueue(row.name)} disabled={actionLoading}>
+                        Delete from broker
+                      </S.QueueMenuItem>
+                      <S.QueueMenuItem onClick={() => handleRemoveFromConfig(row.name)} disabled={actionLoading}>
+                        Remove from saved config
+                      </S.QueueMenuItem>
+                    </S.QueueMenu>
+                  )}
+                </S.QueueMenuWrap>
+              )}
+            />
+          </TableScroll>
         </S.QueueSection>
 
       </S.RabbitGrid>
 
       {/* Ambient glow layer */}
-      <div
-        aria-hidden
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          width: '100%',
-          height: '16rem',
-          pointerEvents: 'none',
-          zIndex: -1,
-          background: 'linear-gradient(to top, rgba(75,142,255,0.06), transparent)',
-        }}
-      />
+      <GlowLayer aria-hidden />
     </S.PageShell>
   )
 }
+
+const GlowLayer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16rem;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(to top, ${withAlpha(colors.primary, 0.06)}, transparent);
+`

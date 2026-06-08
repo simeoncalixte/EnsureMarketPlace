@@ -1,0 +1,11 @@
+import{j as r}from"./jsx-runtime-BjG_zV1W.js";import{M as m,R as p,a as o}from"./chunk-OE4NN4TA-D-lI_iOm.js";import{A as s}from"./AnalyticsDashboard-CWBhD3MT.js";import{I as n}from"./InsurerDashboard-DaLAwgfL.js";import"./index-B3TfwC44.js";import"./api-2uxkEE_U.js";import"./index-CLF8vIaC.js";import"./tiny-invariant-CopsF_GD.js";import"./useAuthMe-B_qCSjfZ.js";import"./auth-DmpauaO1.js";import"./InsurerDashboard.styles-BNsNl3gT.js";import"./styled-components.browser.esm-BtVlB3rV.js";import"./SubNavigation-8Fv3DXYl.js";import"./colors-BpeaZ3Jo.js";import"./tokens-C6qfnSfg.js";import"./SubjectInsuranceSection-CtTyPOqa.js";import"./Button-BdN1JsLa.js";import"./SubjectInsuranceCard-D5sJ76h_.js";import"./Input-BOqlzFhj.js";import"./Select-Vu80i_dn.js";import"./SubjectTemplateFields-CH0jMXl_.js";import"./ConnectedGrid-mgqUdqx5.js";import"./Badge-BMblvUa5.js";import"./SegmentedSwitch-B7FGOm21.js";import"./Checkbox-DszoQXQ5.js";import"./NumberInput-B6u1J8fd.js";import"./DealParametersSection-BH7AvN_3.js";import"./FinancialsSection-9u2gXHiK.js";import"./TrancheStructureSection-wKLEwB6h.js";import"./ValidationSection-C42tG3xU.js";import"./SubmissionSection-XfqW1n5m.js";import"./SigningSection-CFtiCcvN.js";import"./LiveSummaryAside-dJ_b758p.js";const H={title:"Pages/Insurer Dashboard/Analytics Dashboard",component:s,parameters:{layout:"fullscreen"}},t=()=>(typeof window<"u"&&(window.__VITE_API_BASE="http://localhost:3001"),r.jsx(m,{initialEntries:["/insurer/dashboard"],children:r.jsxs(p,{children:[r.jsx(o,{path:"/insurer/dashboard",element:r.jsx(s,{})}),r.jsx(o,{path:"/insurer/coverage/create",element:r.jsx(n,{})})]})}));t.__docgenInfo={description:"",methods:[],displayName:"Default"};var e,i,a;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`() => {
+  if (typeof window !== 'undefined') {
+    (window as any).__VITE_API_BASE = 'http://localhost:3001';
+  }
+  return <MemoryRouter initialEntries={['/insurer/dashboard']}>
+      <Routes>
+        <Route path="/insurer/dashboard" element={<AnalyticsDashboard />} />
+        <Route path="/insurer/coverage/create" element={<InsurerDashboard />} />
+      </Routes>
+    </MemoryRouter>;
+}`,...(a=(i=t.parameters)==null?void 0:i.docs)==null?void 0:a.source}}};const J=["Default"];export{t as Default,J as __namedExportsOrder,H as default};

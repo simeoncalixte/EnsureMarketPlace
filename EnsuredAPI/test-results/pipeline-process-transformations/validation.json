@@ -1,0 +1,80 @@
+{
+  "process": "validation",
+  "generatedAt": "2026-06-08T15:22:55.497Z",
+  "transformationCount": 1,
+  "transformations": [
+    {
+      "process": "validation",
+      "stage": "validation",
+      "testName": "POST /api/pipeline/validation/process flags bad submissions for more info",
+      "description": "Incomplete or low-quality normalized data is transformed into a MORE_INFO validation decision.",
+      "before": {
+        "normalization": {
+          "normalized": {
+            "riskType": "wind"
+          }
+        },
+        "extraction": {
+          "structuredData": {
+            "companyDomain": "foo.invalid",
+            "propertyLocation": "x"
+          }
+        }
+      },
+      "after": {
+        "ok": true,
+        "service": "validation",
+        "autoScrub": {
+          "provider": "local-heuristics",
+          "findings": [
+            {
+              "check": "property_location",
+              "status": "fail",
+              "reason": "Invalid or missing property location"
+            },
+            {
+              "check": "company_domain_security",
+              "status": "fail",
+              "reason": "Domain is insecure or unresolved"
+            }
+          ],
+          "address": "x",
+          "domain": "foo.invalid"
+        },
+        "schemaValidation": {
+          "missingRequired": [
+            "limit",
+            "effectiveDate"
+          ],
+          "dataQualityScore": 24
+        },
+        "appetite": {
+          "decision": "IN_APPETITE",
+          "profileId": null,
+          "profileName": null,
+          "findings": [],
+          "reasons": [],
+          "diagnostics": []
+        },
+        "semantic": {
+          "available": false,
+          "decision": "IN_APPETITE",
+          "confidence": null,
+          "reasons": [],
+          "findings": [],
+          "diagnostics": [],
+          "modelVersion": null
+        },
+        "flaggedForMoreInfo": true,
+        "decision": "MORE_INFO",
+        "reasons": [
+          "Invalid or missing property location",
+          "Domain is insecure or unresolved",
+          "Missing required fields: limit, effectiveDate"
+        ],
+        "validatedAt": "2026-06-08T15:22:55.303Z"
+      },
+      "recordedAt": "2026-06-08T15:22:55.419Z"
+    }
+  ]
+}

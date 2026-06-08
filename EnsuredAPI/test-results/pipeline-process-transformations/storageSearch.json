@@ -1,0 +1,50 @@
+{
+  "process": "storageSearch",
+  "generatedAt": "2026-06-08T15:23:03.932Z",
+  "transformationCount": 1,
+  "transformations": [
+    {
+      "process": "storageSearch",
+      "stage": "storage-search",
+      "testName": "POST /api/pipeline/storage-search/process returns completed payload envelope",
+      "description": "Completed pipeline payload is handed to storage/search and returned as a received envelope.",
+      "before": {
+        "submission": {
+          "id": 42,
+          "tenantId": 7
+        },
+        "workflow": {
+          "decision": "PRIORITY_ROUTE",
+          "queue": "priority_queue"
+        },
+        "normalization": {
+          "normalized": {
+            "riskType": "Hurricane",
+            "limit": 3000000
+          }
+        }
+      },
+      "after": {
+        "ok": true,
+        "service": "storageSearch",
+        "received": {
+          "submission": {
+            "id": 42,
+            "tenantId": 7
+          },
+          "workflow": {
+            "decision": "PRIORITY_ROUTE",
+            "queue": "priority_queue"
+          },
+          "normalization": {
+            "normalized": {
+              "riskType": "Hurricane",
+              "limit": 3000000
+            }
+          }
+        }
+      },
+      "recordedAt": "2026-06-08T15:23:03.929Z"
+    }
+  ]
+}

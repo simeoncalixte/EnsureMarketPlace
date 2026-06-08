@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import InstitutionalAllocationStrategy from "./InstitutionalAllocationStrategy";
 
 export default {
@@ -7,6 +7,6 @@ export default {
   component: InstitutionalAllocationStrategy,
 } as Meta;
 
-const Template: Story = () => <InstitutionalAllocationStrategy />;
+const Template: StoryFn = () => <InstitutionalAllocationStrategy />;
 
 export const Default = Template.bind({});

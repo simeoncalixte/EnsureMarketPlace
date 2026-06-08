@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { colors } from '../colors'
+import { colors, withAlpha } from '../colors'
+import { radii, spacing } from '../tokens'
 
 export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: React.ReactNode
@@ -9,17 +10,17 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
 const Label = styled.label`
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: ${spacing.sm}px;
 `
 
 const Input = styled.input`
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: ${radii.sm}px;
   accent-color: ${colors.primary};
   appearance: none;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid ${withAlpha(colors.white, 0.06)};
   display: inline-block;
 
   &:checked {

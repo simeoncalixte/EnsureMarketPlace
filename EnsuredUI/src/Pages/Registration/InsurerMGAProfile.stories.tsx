@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import InsurerMGAProfile from "./InsurerMGAProfile";
 
 const meta: Meta = {
@@ -9,7 +9,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = () => <InsurerMGAProfile />;
+const Template: StoryFn = () => <InsurerMGAProfile />;
 
 export const Default = Template.bind({});
 Default.storyName = "Default View";

@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Button from '../../xds/components/Button'
 import SegmentedSwitch from '../../xds/components/SegmentedSwitch'
-import { apiFetch } from '../../lib/auth'
-import { Link } from 'react-router'
+import Badge from '../../xds/components/Badge'
+import MetricCard from '../../xds/components/MetricCard'
+import KanbanBoard, { KanbanStage, KanbanItem } from '../../xds/components/KanbanBoard'
+import ConfidenceBadge, { type ConfidenceLabel } from '../../xds/components/ConfidenceBadge'
+import { radii, typography } from '../../xds/tokens'
+import { colors, withAlpha } from '../../xds/colors'
+import { getSubmissions, updateSubmissionStatus, saveSubmissionsConfig } from '../../api/underwriting'
+import { Link, useNavigate } from 'react-router'
+import { CREATE_COVERAGE_PATH, createDealSubmissionSeed } from '../InsurerDashboard/createCoverageNavigation'
 
 type SubmissionStatus = 'new' | 'triage' | 'underwriting' | 'approved'
 type SubmissionPriority = 'urgent' | 'high' | 'normal'
@@ -21,21 +28,6 @@ type Submission = {
   priority: SubmissionPriority
   notes: string
   source: string
-}
-
-type DealSubmissionSeed = {
-  submissionId: number
-  submissionNumber: string
-  cedent: string
-  lineOfBusiness: string
-  locationText?: string
-  region: string
-  premium: number
-  exposure: number
-  receivedLabel: string
-  owner: string
-  source: string
-  notes: string
 }
 
 const initialSubmissions: Submission[] = [
@@ -153,84 +145,20 @@ const initialSubmissions: Submission[] = [
   },
 ]
 
-const STATUS_META: Record<SubmissionStatus, { label: string; accent: string; background: string; border: string }> = {
-  new: {
-    label: 'New',
-    accent: '#4b8eff',
-    background: 'rgba(75, 142, 255, 0.12)',
-    border: 'rgba(75, 142, 255, 0.28)',
-  },
-  triage: {
-    label: 'Triage',
-    accent: '#f59e0b',
-    background: 'rgba(245, 158, 11, 0.12)',
-    border: 'rgba(245, 158, 11, 0.28)',
-  },
-  underwriting: {
-    label: 'Underwriting',
-    accent: '#22c55e',
-    background: 'rgba(34, 197, 94, 0.12)',
-    border: 'rgba(34, 197, 94, 0.28)',
-  },
-  approved: {
-    label: 'Approved',
-    accent: '#a78bfa',
-    background: 'rgba(167, 139, 250, 0.12)',
-    border: 'rgba(167, 139, 250, 0.28)',
-  },
-}
-
-const PRIORITY_META: Record<SubmissionPriority, { label: string; tone: 'red' | 'amber' | 'blue'; background: string; border: string; color: string }> = {
-  urgent: {
-    label: 'Urgent',
-    tone: 'red',
-    background: 'rgba(255, 107, 107, 0.12)',
-    border: 'rgba(255, 107, 107, 0.25)',
-    color: '#ff8b8b',
-  },
-  high: {
-    label: 'High',
-    tone: 'amber',
-    background: 'rgba(245, 158, 11, 0.12)',
-    border: 'rgba(245, 158, 11, 0.25)',
-    color: '#f7b955',
-  },
-  normal: {
-    label: 'Normal',
-    tone: 'blue',
-    background: 'rgba(75, 142, 255, 0.10)',
-    border: 'rgba(75, 142, 255, 0.22)',
-    color: '#9ec0ff',
-  },
-}
-
-const BOARD_ORDER: SubmissionStatus[] = ['new', 'triage', 'underwriting', 'approved']
-
-const NEXT_STATUS: Record<SubmissionStatus, SubmissionStatus> = {
-  new: 'triage',
-  triage: 'underwriting',
-  underwriting: 'approved',
-  approved: 'approved',
-}
-
-const TOKEN_BASE: React.CSSProperties = {
-  padding: '0.4rem 0.7rem',
-  borderRadius: 999,
-  fontSize: 11,
-  fontWeight: 800,
-  textTransform: 'uppercase',
-  letterSpacing: '0.08em',
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  border: '1px solid transparent',
-}
-
 function formatCurrency(value: number): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     maximumFractionDigits: 0,
+  }).format(value)
+}
+
+// rateOnLine is a 0..1 fraction from the backend; surface it as a percent (e.g. 0.0317 -> "3.17%").
+function formatPercent(value: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'percent',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(value)
 }
 
@@ -240,46 +168,6 @@ function escapeCsvCell(value: string): string {
   }
 
   return value
-}
-
-function statusTone(status: SubmissionStatus): 'new' | 'triage' | 'underwriting' | 'approved' {
-  return status
-}
-
-function priorityTone(priority: SubmissionPriority): 'urgent' | 'high' | 'normal' {
-  return priority
-}
-
-function Token({ tone, children }: { tone: keyof typeof STATUS_META | keyof typeof PRIORITY_META; children: React.ReactNode }) {
-  if (tone in STATUS_META) {
-    const meta = STATUS_META[tone as SubmissionStatus]
-    return (
-      <span
-        style={{
-          ...TOKEN_BASE,
-          background: meta.background,
-          borderColor: meta.border,
-          color: meta.accent,
-        }}
-      >
-        {children}
-      </span>
-    )
-  }
-
-  const meta = PRIORITY_META[tone as SubmissionPriority]
-  return (
-    <span
-      style={{
-        ...TOKEN_BASE,
-        background: meta.background,
-        borderColor: meta.border,
-        color: meta.color,
-      }}
-    >
-      {children}
-    </span>
-  )
 }
 
 const PageShell = styled.div`
@@ -293,11 +181,11 @@ const HeroPanel = styled.section`
   overflow: hidden;
   padding: 1.5rem;
   border-radius: 28px;
-  border: 1px solid rgba(148, 163, 184, 0.12);
+  border: 1px solid ${withAlpha(colors.neutral[400], 0.12)};
   background:
-    radial-gradient(circle at top right, rgba(75, 142, 255, 0.26), transparent 30%),
-    linear-gradient(135deg, rgba(11, 19, 38, 0.98), rgba(11, 19, 38, 0.76));
-  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.35);
+    radial-gradient(circle at top right, ${withAlpha(colors.primary, 0.26)}, transparent 30%),
+    linear-gradient(135deg, ${withAlpha(colors.surfaceDeep, 0.98)}, ${withAlpha(colors.surfaceDeep, 0.76)});
+  box-shadow: 0 24px 60px ${withAlpha(colors.scrim, 0.35)};
 `
 
 const HeroInner = styled.div`
@@ -315,7 +203,7 @@ const Eyebrow = styled.div`
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #9ec0ff;
+  color: ${colors.primarySoft};
   margin-bottom: 0.7rem;
 `
 
@@ -324,13 +212,13 @@ const HeroTitle = styled.h1`
   font-family: var(--font-headline, Manrope, sans-serif);
   font-size: clamp(1.8rem, 3vw, 2.7rem);
   line-height: 1.05;
-  color: #f3f7ff;
+  color: ${colors.primaryContainer};
 `
 
 const HeroCopy = styled.p`
   margin: 0.8rem 0 0;
   max-width: 62ch;
-  color: rgba(218, 226, 253, 0.78);
+  color: ${withAlpha(colors.onSurfaceStrong, 0.78)};
   line-height: 1.6;
 `
 
@@ -356,39 +244,11 @@ const MetricsGrid = styled.div`
   }
 `
 
-const MetricCard = styled.div`
-  border-radius: 20px;
-  padding: 1rem 1.05rem;
-  background: rgba(11, 18, 32, 0.76);
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  box-shadow: 0 10px 28px rgba(2, 8, 23, 0.18);
-`
-
-const MetricLabel = styled.div`
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #98a6bf;
-  margin-bottom: 0.45rem;
-`
-
-const MetricValue = styled.div`
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #f3f7ff;
-`
-
-const MetricMeta = styled.div`
-  margin-top: 0.35rem;
-  color: #98a6bf;
-  font-size: 0.85rem;
-`
-
 const WorkspacePanel = styled.section`
   border-radius: 28px;
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  background: rgba(7, 17, 41, 0.72);
-  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.28);
+  border: 1px solid ${withAlpha(colors.neutral[400], 0.12)};
+  background: ${withAlpha(colors.background, 0.72)};
+  box-shadow: 0 24px 60px ${withAlpha(colors.scrim, 0.28)};
   padding: 1.2rem;
 `
 
@@ -411,14 +271,14 @@ const ToolbarMeta = styled.div`
 const TableShell = styled.div`
   overflow-x: auto;
   border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  border: 1px solid ${withAlpha(colors.neutral[400], 0.1)};
 `
 
 const SubmissionsTable = styled.table`
   width: 100%;
   min-width: 1120px;
   border-collapse: collapse;
-  background: rgba(11, 18, 32, 0.72);
+  background: ${withAlpha(colors.surfaceDeep, 0.72)};
 `
 
 const TableHeadCell = styled.th`
@@ -426,104 +286,51 @@ const TableHeadCell = styled.th`
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: #98a6bf;
+  color: ${colors.onSurfaceVariant};
   text-align: left;
-  background: rgba(255, 255, 255, 0.02);
+  background: ${withAlpha(colors.white, 0.02)};
 `
 
-const TableRow = styled.tr`
-  border-top: 1px solid rgba(148, 163, 184, 0.08);
+const TableRow = styled.tr<{ $clickable?: boolean }>`
+  border-top: 1px solid ${withAlpha(colors.neutral[400], 0.08)};
   transition: background 160ms ease, transform 160ms ease;
+  cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
 
   &:hover {
-    background: rgba(75, 142, 255, 0.05);
+    background: ${withAlpha(colors.primary, 0.05)};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${withAlpha(colors.primary, 0.6)};
+    outline-offset: -2px;
   }
 `
 
 const TableCell = styled.td`
   padding: 0.95rem;
   vertical-align: top;
-  color: #dae2fd;
-`
-
-const RowMain = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-`
-
-const RowTitle = styled.div`
-  font-weight: 800;
-  color: #f3f7ff;
+  color: ${colors.onSurfaceStrong};
 `
 
 const RowMeta = styled.div`
-  color: #98a6bf;
+  color: ${colors.onSurfaceVariant};
   font-size: 0.82rem;
 `
 
-const BoardGrid = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-  overflow-x: auto;
-  padding-bottom: 2rem;
-`
-
-const LaneCard = styled.div<{ $accent: string; $isDropTarget: boolean }>`
-  flex: 0 0 20rem;
-  display: flex;
-  flex-direction: column;
-  transition: transform 160ms ease, box-shadow 160ms ease;
-  box-shadow: ${({ $isDropTarget }) => ($isDropTarget ? '0 0 0 1px rgba(75, 142, 255, 0.22), 0 18px 36px rgba(2, 8, 23, 0.18)' : 'none')};
-  transform: ${({ $isDropTarget }) => ($isDropTarget ? 'translateY(-2px)' : 'translateY(0)')};
-`
-
-const LaneHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  padding: 0 0.25rem;
-`
-
-const LaneTitleWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-`
-
-const LaneTitle = styled.div`
-  color: #dbe2fd;
-  font-family: 'Manrope', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-`
-
-const LaneDescription = styled.div`
-  display: none;
-`
-
-const LaneBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`
-
-const SubmissionCard = styled.article<{ $accent: string; $isDragging: boolean }>`
+const SubmissionCard = styled.article<{ $accent: string }>`
   position: relative;
   overflow: hidden;
   padding: 1rem;
-  background: #131b2e;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, opacity 180ms ease;
-  cursor: grab;
+  background: ${colors.surfacePanel};
+  border: 1px solid ${withAlpha(colors.white, 0.15)};
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   user-select: none;
-  opacity: ${({ $isDragging }) => ($isDragging ? 0.55 : 1)};
-  transform: ${({ $isDragging }) => ($isDragging ? 'scale(0.985)' : 'translateY(0)')};
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid ${withAlpha(colors.primary, 0.6)};
+    outline-offset: 2px;
+  }
 
   &::before {
     content: '';
@@ -536,8 +343,8 @@ const SubmissionCard = styled.article<{ $accent: string; $isDragging: boolean }>
   }
 
   &:hover {
-    border-color: rgba(75, 142, 255, 0.5);
-    box-shadow: 0 16px 28px rgba(2, 8, 23, 0.24);
+    border-color: ${withAlpha(colors.primary, 0.5)};
+    box-shadow: 0 16px 28px ${withAlpha(colors.scrim, 0.24)};
     transform: translateY(-1px);
   }
 `
@@ -550,18 +357,10 @@ const CardTop = styled.div`
   margin-bottom: 0.75rem;
 `
 
-const CardTitle = styled.div`
-  margin-bottom: 0.2rem;
-  color: #f3f7ff;
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1.4;
-`
-
 const CardTitleLink = styled(Link)`
   display: inline-block;
   margin-bottom: 0.2rem;
-  color: #f3f7ff;
+  color: ${colors.primaryContainer};
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.4;
@@ -569,13 +368,13 @@ const CardTitleLink = styled(Link)`
 
   &:hover,
   &:focus-visible {
-    color: #9ec0ff;
+    color: ${colors.primarySoft};
     text-decoration: underline;
   }
 `
 
 const CardMeta = styled.div`
-  color: #98a6bf;
+  color: ${colors.onSurfaceVariant};
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   line-height: 1.2;
@@ -589,8 +388,8 @@ const CardFacts = styled.div`
   gap: 0.75rem 0.6rem;
   padding: 0.85rem 0;
   margin: 0.7rem 0 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid ${withAlpha(colors.white, 0.05)};
+  border-bottom: 1px solid ${withAlpha(colors.white, 0.05)};
 `
 
 const Fact = styled.div`
@@ -599,7 +398,7 @@ const Fact = styled.div`
 
 const FactLabel = styled.div`
   margin-bottom: 0.25rem;
-  color: #98a6bf;
+  color: ${colors.onSurfaceVariant};
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   font-weight: 700;
@@ -609,7 +408,7 @@ const FactLabel = styled.div`
 `
 
 const FactValue = styled.div`
-  color: #dbe2fd;
+  color: ${colors.onSurfaceStrong};
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 500;
@@ -631,9 +430,9 @@ const EmptyState = styled.div`
   justify-content: center;
   gap: 0.75rem;
   padding: 1.5rem 1rem;
-  border: 2px dashed rgba(255, 255, 255, 0.05);
+  border: 2px dashed ${withAlpha(colors.white, 0.05)};
   border-radius: 8px;
-  color: #5c667f;
+  color: ${colors.neutral[500]};
   text-align: center;
 `
 
@@ -644,14 +443,177 @@ const CardBody = styled.div`
 `
 
 const CardBodyLine = styled.div`
-  color: #98a6bf;
+  color: ${colors.onSurfaceVariant};
   font-size: 0.84rem;
   line-height: 1.45;
 `
 
 const CardBodyLabel = styled.span`
-  color: #dae2fd;
+  color: ${colors.onSurfaceStrong};
   font-weight: 700;
+`
+
+const ConfigPanel = styled.div`
+  margin-bottom: 1rem;
+  border-radius: 24px;
+  border: 1px solid ${withAlpha(colors.neutral[400], 0.12)};
+  background: linear-gradient(135deg, ${withAlpha(colors.surfaceDeep, 0.94)}, ${withAlpha(colors.surfaceDeep, 0.74)});
+  padding: 1rem;
+  box-shadow: 0 16px 36px ${withAlpha(colors.scrim, 0.2)};
+`
+
+const ConfigHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+`
+
+const ConfigEyebrow = styled.div`
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: ${colors.primarySoft};
+  margin-bottom: 6px;
+`
+
+const ConfigCopy = styled.div`
+  color: ${colors.onSurfaceStrong};
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 72ch;
+`
+
+const ConfigActions = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+`
+
+const ConfigBanner = styled.div<{ $error: boolean }>`
+  margin-top: 0.9rem;
+  border-radius: 16px;
+  border: 1px solid ${({ $error }) => ($error ? withAlpha(colors.error, 0.25) : withAlpha(colors.primary, 0.22))};
+  background: ${({ $error }) => ($error ? withAlpha(colors.error, 0.08) : withAlpha(colors.primary, 0.08))};
+  color: ${({ $error }) => ($error ? colors.errorSoft : colors.onSurfaceStrong)};
+  padding: 0.85rem 1rem;
+  font-size: 13px;
+`
+
+const FieldGrid = styled.div`
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+`
+
+const Field = styled.label`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`
+
+const FieldLabel = styled.span`
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: ${colors.onSurfaceVariant};
+  font-weight: 700;
+`
+
+const FieldInput = styled.input`
+  border-radius: 12px;
+  border: 1px solid ${withAlpha(colors.neutral[400], 0.16)};
+  background: ${colors.surfaceLow};
+  color: ${colors.primaryContainer};
+  padding: 0.8rem 0.9rem;
+  outline: none;
+`
+
+const StatesRow = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+`
+
+const StagePreviewGrid = styled.div`
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+`
+
+const StageCard = styled.div<{ $border: string }>`
+  border-radius: 20px;
+  border: 1px solid ${({ $border }) => $border};
+  background: ${withAlpha(colors.surfaceLow, 0.9)};
+  padding: 0.9rem 1rem;
+`
+
+const StageCardHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+`
+
+const StageCardTitle = styled.div`
+  font-weight: 800;
+  color: ${colors.primaryContainer};
+`
+
+const StageCardDesc = styled.div`
+  margin-top: 4px;
+  font-size: 12px;
+  color: ${colors.onSurfaceVariant};
+`
+
+const StatusList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+`
+
+const ErrorState = styled.div`
+  margin-bottom: 0.75rem;
+`
+
+const AdvanceButton = styled.button`
+  border-radius: ${radii.md}px;
+  border: 1px solid ${withAlpha(colors.primary, 0.18)};
+  background: ${withAlpha(colors.primary, 0.1)};
+  color: ${colors.primaryContainer};
+  font-weight: ${typography.weights.semibold};
+  font-family: Inter, system-ui, sans-serif;
+  padding: 8px 14px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    background: ${withAlpha(colors.neutral[400], 0.06)};
+    color: ${colors.onSurfaceVariant};
+  }
+`
+
+const ExportButton = styled.button`
+  border-radius: ${radii.md}px;
+  border: 1px solid ${withAlpha(colors.primary, 0.22)};
+  background: ${withAlpha(colors.primary, 0.1)};
+  color: ${colors.onSurfaceStrong};
+  font-weight: ${typography.weights.semibold};
+  font-family: Inter, system-ui, sans-serif;
+  padding: 8px 14px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `
 
 type BoardFieldFormat = 'text' | 'currency' | 'number' | 'date' | 'badge'
@@ -700,11 +662,6 @@ type BoardSummaryCard = {
   format: 'number' | 'currency'
 }
 
-type BoardDragPayload = {
-  submissionId: number
-  sourceStageKey: string
-}
-
 type BoardItem = {
   id: number
   status: string
@@ -718,7 +675,13 @@ type BoardItem = {
   nextStageLabel: string | null
   nextStageAccent: string | null
   priority: 'urgent' | 'high' | 'normal'
-  values: Record<string, string | number | null>
+  // Slice 5.4: risk-compute pricing fields are additive and null-safe; legacy rows omit them.
+  values: Record<string, string | number | null> & {
+    confidenceLabel?: ConfidenceLabel | string | null
+    rateOnLine?: number | null
+    expectedLoss?: number | null
+    priorSource?: string | null
+  }
 }
 
 type BoardResponse = {
@@ -729,16 +692,34 @@ type BoardResponse = {
 }
 
 const PRIORITY_TONES = {
-  urgent: { label: 'Urgent', background: 'rgba(255, 107, 107, 0.12)', border: 'rgba(255, 107, 107, 0.25)', color: '#ff8b8b' },
-  high: { label: 'High', background: 'rgba(245, 158, 11, 0.12)', border: 'rgba(245, 158, 11, 0.25)', color: '#f7b955' },
-  normal: { label: 'Normal', background: 'rgba(75, 142, 255, 0.10)', border: 'rgba(75, 142, 255, 0.22)', color: '#9ec0ff' },
+  urgent: { label: 'Urgent', background: withAlpha(colors.error, 0.12), border: withAlpha(colors.error, 0.25), color: colors.dangerBright },
+  high: { label: 'High', background: withAlpha(colors.warning, 0.12), border: withAlpha(colors.warning, 0.25), color: colors.dataViz.amber },
+  normal: { label: 'Normal', background: withAlpha(colors.primary, 0.10), border: withAlpha(colors.primary, 0.22), color: colors.primarySoft },
 } as const
 
 const SYSTEM_TONE = {
-  background: 'rgba(148, 163, 184, 0.08)',
-  border: 'rgba(148, 163, 184, 0.2)',
-  color: '#dae2fd',
+  background: withAlpha(colors.neutral[400], 0.08),
+  border: withAlpha(colors.neutral[400], 0.2),
+  color: colors.onSurfaceStrong,
 }
+
+// Slice 5.4: inline cluster placing the premium value alongside the
+// ConfidenceBadge + rate-on-line adornment. Wraps gracefully in narrow cells.
+const PremiumCluster = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+`
+
+const RateOnLine = styled.span`
+  color: ${colors.onSurfaceVariant};
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+`
 
 const BoardToken = styled.span<{ $background: string; $border: string; $color: string }>`
   padding: 0.4rem 0.7rem;
@@ -755,54 +736,6 @@ const BoardToken = styled.span<{ $background: string; $border: string; $color: s
   color: ${({ $color }) => $color};
 `
 
-const KanbanChip = styled.span<{ $background: string; $border: string; $color: string }>`
-  padding: 0.4rem 0.7rem;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid ${({ $border }) => $border};
-  background: ${({ $background }) => $background};
-  color: ${({ $color }) => $color};
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-`
-
-const BoardMoveButton = styled.button`
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border: 0;
-  background: #adc6ff;
-  color: #002e69;
-  font-family: 'Manrope', sans-serif;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  transition: opacity 150ms ease, transform 150ms ease, filter 150ms ease, background 150ms ease;
-
-  &:hover:not(:disabled) {
-    filter: brightness(1.04);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.98);
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    background: rgba(148, 163, 184, 0.08);
-    color: #98a6bf;
-  }
-`
 
 function renderBadgeLabel(item: BoardItem, field: BoardFieldDefinition, value: string | number | null): string {
   if (field.badgeSource === 'priority') {
@@ -878,30 +811,13 @@ function formatMetricValue(card: BoardSummaryCard): string {
   return new Intl.NumberFormat('en-US').format(card.value)
 }
 
-function createDealSubmissionSeed(item: BoardItem): DealSubmissionSeed {
-  return {
-    submissionId: Number(item.values.submissionId ?? item.id),
-    submissionNumber: String(item.values.submissionNumber ?? `SUB-${String(item.id).padStart(4, '0')}`),
-    cedent: String(item.values.cedent ?? ''),
-    lineOfBusiness: String(item.values.lineOfBusiness ?? ''),
-    locationText: String(item.values.locationText ?? item.values.location ?? item.values.address ?? item.values.region ?? ''),
-    region: String(item.values.region ?? ''),
-    premium: Number(item.values.premium ?? 0),
-    exposure: Number(item.values.exposure ?? 0),
-    receivedLabel: String(item.values.receivedLabel ?? ''),
-    owner: String(item.values.owner ?? ''),
-    source: String(item.values.source ?? ''),
-    notes: String(item.values.notes ?? ''),
-  }
-}
-
 const STAGE_TONES = [
-  { accent: '#4b8eff', background: 'rgba(75, 142, 255, 0.12)', border: 'rgba(75, 142, 255, 0.28)' },
-  { accent: '#f59e0b', background: 'rgba(245, 158, 11, 0.12)', border: 'rgba(245, 158, 11, 0.28)' },
-  { accent: '#22c55e', background: 'rgba(34, 197, 94, 0.12)', border: 'rgba(34, 197, 94, 0.28)' },
-  { accent: '#a78bfa', background: 'rgba(167, 139, 250, 0.12)', border: 'rgba(167, 139, 250, 0.28)' },
-  { accent: '#f97316', background: 'rgba(249, 115, 22, 0.12)', border: 'rgba(249, 115, 22, 0.28)' },
-  { accent: '#14b8a6', background: 'rgba(20, 184, 166, 0.12)', border: 'rgba(20, 184, 166, 0.28)' },
+  { accent: colors.primary, background: withAlpha(colors.primary, 0.12), border: withAlpha(colors.primary, 0.28) },
+  { accent: colors.warning, background: withAlpha(colors.warning, 0.12), border: withAlpha(colors.warning, 0.28) },
+  { accent: colors.dataViz.green, background: withAlpha(colors.dataViz.green, 0.12), border: withAlpha(colors.dataViz.green, 0.28) },
+  { accent: colors.dataViz.purple, background: withAlpha(colors.dataViz.purple, 0.12), border: withAlpha(colors.dataViz.purple, 0.28) },
+  { accent: colors.dataViz.orange, background: withAlpha(colors.dataViz.orange, 0.12), border: withAlpha(colors.dataViz.orange, 0.28) },
+  { accent: colors.dataViz.teal, background: withAlpha(colors.dataViz.teal, 0.12), border: withAlpha(colors.dataViz.teal, 0.28) },
 ]
 
 function slugifyStageKey(value: string): string {
@@ -1022,46 +938,14 @@ function applySubmissionStageMove(board: BoardResponse, itemId: number, nextStat
   }
 }
 
-function readBoardDragPayload(event: React.DragEvent<HTMLElement>): BoardDragPayload | null {
-  const rawPayload = event.dataTransfer.getData('application/x-ensured-submission')
-  if (rawPayload) {
-    try {
-      const parsed = JSON.parse(rawPayload) as Partial<BoardDragPayload>
-      if (
-        typeof parsed.submissionId === 'number' &&
-        Number.isFinite(parsed.submissionId) &&
-        typeof parsed.sourceStageKey === 'string'
-      ) {
-        return {
-          submissionId: parsed.submissionId,
-          sourceStageKey: parsed.sourceStageKey,
-        }
-      }
-    } catch {
-      return null
-    }
-  }
-
-  const fallbackSubmissionId = Number(event.dataTransfer.getData('text/plain'))
-  if (Number.isFinite(fallbackSubmissionId)) {
-    return {
-      submissionId: fallbackSubmissionId,
-      sourceStageKey: '',
-    }
-  }
-
-  return null
-}
-
 export default function IncomingSubmissionsPage() {
+  const navigate = useNavigate()
   const [viewMode, setViewMode] = useState(0)
   const [dashboard, setDashboard] = useState<BoardResponse | null>(null)
   const [draftConfig, setDraftConfig] = useState<BoardConfig | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [reloadNonce, setReloadNonce] = useState(0)
-  const [draggingItemId, setDraggingItemId] = useState<number | null>(null)
-  const [dragOverStageKey, setDragOverStageKey] = useState<string | null>(null)
   const [newColumnLabel, setNewColumnLabel] = useState('')
   const [newColumnStateKey, setNewColumnStateKey] = useState('')
   const [newColumnDescription, setNewColumnDescription] = useState('')
@@ -1078,7 +962,7 @@ export default function IncomingSubmissionsPage() {
       setError(null)
 
       try {
-        const response = await apiFetch('/api/underwriting/submissions')
+        const response = await getSubmissions()
         if (!response.ok) {
           throw new Error(`Status ${response.status}`)
         }
@@ -1122,23 +1006,6 @@ export default function IncomingSubmissionsPage() {
     setReloadNonce((current) => current + 1)
   }
 
-  function clearDragState() {
-    setDraggingItemId(null)
-    setDragOverStageKey(null)
-  }
-
-  function handleSubmissionDragStart(event: React.DragEvent<HTMLElement>, item: BoardItem) {
-    event.dataTransfer.effectAllowed = 'move'
-    event.dataTransfer.setData('application/x-ensured-submission', JSON.stringify({ submissionId: item.id, sourceStageKey: item.stageKey }))
-    event.dataTransfer.setData('text/plain', String(item.id))
-    setDraggingItemId(item.id)
-    setDragOverStageKey(item.stageKey)
-  }
-
-  function handleSubmissionDragEnd() {
-    clearDragState()
-  }
-
   async function moveSubmissionToStatus(item: BoardItem, nextStatus: string) {
     if (!config) {
       return
@@ -1150,11 +1017,7 @@ export default function IncomingSubmissionsPage() {
 
     setError(null)
 
-    const response = await apiFetch(`/api/underwriting/submissions/${item.id}/status`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: nextStatus }),
-    })
+    const response = await updateSubmissionStatus(item.id, nextStatus)
 
     if (!response.ok) {
       setError(`Unable to update submission ${item.id}: ${response.status}`)
@@ -1183,35 +1046,6 @@ export default function IncomingSubmissionsPage() {
     }
 
     await moveSubmissionToStatus(item, nextStatus)
-  }
-
-  function handleLaneDragOver(event: React.DragEvent<HTMLElement>, stageKey: string) {
-    event.preventDefault()
-    event.dataTransfer.dropEffect = 'move'
-    setDragOverStageKey(stageKey)
-  }
-
-  function handleLaneDrop(event: React.DragEvent<HTMLElement>, stageKey: string) {
-    event.preventDefault()
-    const payload = readBoardDragPayload(event)
-    if (!payload) {
-      clearDragState()
-      return
-    }
-
-    const draggedItem = items.find((item) => item.id === payload.submissionId)
-    if (!draggedItem) {
-      clearDragState()
-      return
-    }
-
-    if (payload.sourceStageKey && draggedItem.stageKey !== payload.sourceStageKey) {
-      clearDragState()
-      return
-    }
-
-    clearDragState()
-    void moveSubmissionToStage(draggedItem, stageKey)
   }
 
   function addBoardColumn() {
@@ -1256,11 +1090,7 @@ export default function IncomingSubmissionsPage() {
     setConfigMessage(null)
 
     try {
-      const response = await apiFetch('/api/underwriting/submissions/config', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config),
-      })
+      const response = await saveSubmissionsConfig(config)
 
       if (!response.ok) {
         throw new Error(`Status ${response.status}`)
@@ -1283,6 +1113,10 @@ export default function IncomingSubmissionsPage() {
     }
 
     await moveSubmissionToStatus(item, item.nextStatus)
+  }
+
+  function openSubmission(item: BoardItem) {
+    navigate(CREATE_COVERAGE_PATH, { state: { sourceSubmission: createDealSubmissionSeed(item) } })
   }
 
   function exportCsv() {
@@ -1321,7 +1155,139 @@ export default function IncomingSubmissionsPage() {
       return renderBadge(item, field)
     }
 
+    // Slice 5.4: where the premium is shown, attach the risk-compute confidence
+    // flag + (parametric) rate-on-line. Additive: when both are absent this is
+    // identical to today's plain rendered value (legacy rows).
+    if (field.valueKey === 'premium') {
+      return renderPremiumWithConfidence(item, value, field.format)
+    }
+
     return renderValue(value, field.format)
+  }
+
+  function renderPremiumWithConfidence(
+    item: BoardItem,
+    value: string | number | null | undefined,
+    format?: BoardFieldFormat,
+  ) {
+    const confidenceLabel = item.values.confidenceLabel ?? null
+    const priorSource = typeof item.values.priorSource === 'string' ? item.values.priorSource : undefined
+    const rateOnLine = item.values.rateOnLine
+
+    const hasConfidence = Boolean(confidenceLabel)
+    const hasRol = typeof rateOnLine === 'number' && Number.isFinite(rateOnLine)
+
+    // Legacy / null path: render exactly as before — no wrapper, no new nodes.
+    if (!hasConfidence && !hasRol) {
+      return renderValue(value, format)
+    }
+
+    return (
+      <PremiumCluster>
+        {renderValue(value, format)}
+        {hasConfidence ? (
+          <ConfidenceBadge confidenceLabel={confidenceLabel} title={priorSource} />
+        ) : null}
+        {hasRol ? <RateOnLine>ROL {formatPercent(rateOnLine as number)}</RateOnLine> : null}
+      </PremiumCluster>
+    )
+  }
+
+  const kanbanStages: KanbanStage[] = (config?.stages ?? []).map((stage) => ({
+    key: stage.key,
+    label: stage.label,
+    accent: stage.accent,
+  }))
+
+  const kanbanItems: KanbanItem[] = items.map((item) => ({
+    id: String(item.id),
+    stageKey: item.stageKey,
+  }))
+
+  function handleKanbanMove(itemId: string, stageKey: string) {
+    const draggedItem = items.find((item) => String(item.id) === itemId)
+    if (!draggedItem) {
+      return
+    }
+
+    void moveSubmissionToStage(draggedItem, stageKey)
+  }
+
+  function renderKanbanCard(kanbanItem: KanbanItem) {
+    if (!config) {
+      return null
+    }
+
+    const item = items.find((candidate) => String(candidate.id) === kanbanItem.id)
+    if (!item) {
+      return null
+    }
+
+    const headerTitleField = getFieldByKey(config, config.header.titleFieldKey)
+    const headerSubtitleField = config.header.subtitleFieldKey ? getFieldByKey(config, config.header.subtitleFieldKey) : undefined
+    const headerBadgeField = config.header.badgeFieldKey ? getFieldByKey(config, config.header.badgeFieldKey) : undefined
+
+    return (
+      <SubmissionCard
+        $accent={item.stageAccent}
+        role="button"
+        tabIndex={0}
+        onClick={() => openSubmission(item)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault()
+            openSubmission(item)
+          }
+        }}
+        title={`Open ${String(renderValue(item.values[headerTitleField?.valueKey ?? config.header.titleFieldKey], headerTitleField?.format))} in Create Coverage`}
+      >
+        <CardTop>
+          <div>
+            <CardTitleLink
+              to={CREATE_COVERAGE_PATH}
+              state={{ sourceSubmission: createDealSubmissionSeed(item) }}
+              onClick={(event) => event.stopPropagation()}
+              title={`Create coverage from ${String(renderValue(item.values[headerTitleField?.valueKey ?? config.header.titleFieldKey], headerTitleField?.format))}`}
+            >
+              {renderValue(item.values[headerTitleField?.valueKey ?? config.header.titleFieldKey], headerTitleField?.format)}
+            </CardTitleLink>
+            <CardMeta>{renderValue(item.values[headerSubtitleField?.valueKey ?? config.header.subtitleFieldKey ?? 'cedent'], headerSubtitleField?.format)}</CardMeta>
+          </div>
+          {headerBadgeField ? renderBadge(item, headerBadgeField) : null}
+        </CardTop>
+
+        <CardFacts>
+          {cardGroups.facts.map((field) => (
+            <Fact key={field.key}>
+              <FactLabel>{field.label}</FactLabel>
+              <FactValue>{field.format === 'badge' ? renderBadge(item, field) : renderField(item, field)}</FactValue>
+            </Fact>
+          ))}
+        </CardFacts>
+
+        <CardBody>
+          {cardGroups.body.map((field) => (
+            <CardBodyLine key={field.key}>
+              <CardBodyLabel>{field.label}:</CardBodyLabel> {renderField(item, field)}
+            </CardBodyLine>
+          ))}
+        </CardBody>
+
+        <CardFooter>
+          <RowMeta>{item.values.owner} • {item.values.receivedLabel}</RowMeta>
+          <AdvanceButton
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation()
+              void advanceSubmission(item)
+            }}
+            disabled={item.nextStatus === null}
+          >
+            {item.nextStatus === null ? 'Closed' : `Move to ${item.nextStageLabel ?? 'next stage'}`}
+          </AdvanceButton>
+        </CardFooter>
+      </SubmissionCard>
+    )
   }
 
   return (
@@ -1337,15 +1303,13 @@ export default function IncomingSubmissionsPage() {
           </div>
 
           <HeroActions>
-            <BoardToken $background={SYSTEM_TONE.background} $border={SYSTEM_TONE.border} $color={SYSTEM_TONE.color}>
+            <Badge variant="neutral" dot>
               {isLoading ? 'Loading live data' : `${items.length} live submissions`}
-            </BoardToken>
-            <BoardToken $background={SYSTEM_TONE.background} $border={SYSTEM_TONE.border} $color={SYSTEM_TONE.color}>
-              Backend-configured
-            </BoardToken>
-            <Button variant="ghost" type="button" onClick={exportCsv} disabled={!dashboard} style={{ border: '1px solid rgba(75,142,255,0.22)', background: 'rgba(75,142,255,0.10)', color: '#dae2fd' }}>
+            </Badge>
+            <Badge variant="neutral">Backend-configured</Badge>
+            <ExportButton type="button" onClick={exportCsv} disabled={!dashboard}>
               Export CSV
-            </Button>
+            </ExportButton>
             <Button variant="secondary" type="button" onClick={refreshBoard}>
               Refresh board
             </Button>
@@ -1355,11 +1319,7 @@ export default function IncomingSubmissionsPage() {
 
       <MetricsGrid>
         {summary.map((card) => (
-          <MetricCard key={card.label}>
-            <MetricLabel>{card.label}</MetricLabel>
-            <MetricValue>{formatMetricValue(card)}</MetricValue>
-            <MetricMeta>{card.meta}</MetricMeta>
-          </MetricCard>
+          <MetricCard key={card.label} label={card.label} value={formatMetricValue(card)} delta={card.meta} />
         ))}
       </MetricsGrid>
 
@@ -1367,18 +1327,18 @@ export default function IncomingSubmissionsPage() {
         <Toolbar>
           <SegmentedSwitch options={['Table', 'Kanban']} value={viewMode} onChange={setViewMode} />
           <ToolbarMeta>
-            <BoardToken $background={SYSTEM_TONE.background} $border={SYSTEM_TONE.border} $color={SYSTEM_TONE.color}>
+            <Badge variant="neutral">
               {config ? `${config.stages.length} stages` : 'Backend stages'}
-            </BoardToken>
-            <BoardToken $background={SYSTEM_TONE.background} $border={SYSTEM_TONE.border} $color={SYSTEM_TONE.color}>
+            </Badge>
+            <Badge variant="neutral">
               {dashboard ? `Synced ${new Date(dashboard.refreshedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : 'Waiting for backend sync'}
-            </BoardToken>
+            </Badge>
           </ToolbarMeta>
         </Toolbar>
 
         {error ? (
           <EmptyState>
-            <div style={{ marginBottom: '0.75rem' }}>Unable to load live submissions: {error}</div>
+            <ErrorState>Unable to load live submissions: {error}</ErrorState>
             <Button variant="secondary" type="button" onClick={refreshBoard}>
               Retry
             </Button>
@@ -1401,7 +1361,20 @@ export default function IncomingSubmissionsPage() {
                   const isFinal = item.nextStatus === null
 
                   return (
-                    <TableRow key={item.id}>
+                    <TableRow
+                      key={item.id}
+                      $clickable
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openSubmission(item)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault()
+                          openSubmission(item)
+                        }
+                      }}
+                      title={`Open ${String(item.values.submissionNumber ?? item.id)} in Create Coverage`}
+                    >
                       {config.tableColumns.map((column) => {
                         const field = getFieldByKey(config, column.key) ?? column
 
@@ -1412,20 +1385,16 @@ export default function IncomingSubmissionsPage() {
                         )
                       })}
                       <TableCell>
-                        <Button
-                          variant="ghost"
+                        <AdvanceButton
                           type="button"
-                          onClick={() => advanceSubmission(item)}
-                          disabled={isFinal}
-                          style={{
-                            border: '1px solid rgba(75,142,255,0.18)',
-                            background: isFinal ? 'rgba(148,163,184,0.06)' : 'rgba(75,142,255,0.10)',
-                            color: isFinal ? '#98a6bf' : '#dbe9ff',
-                            cursor: isFinal ? 'not-allowed' : 'pointer',
+                          onClick={(event) => {
+                            event.stopPropagation()
+                            void advanceSubmission(item)
                           }}
+                          disabled={isFinal}
                         >
                           {isFinal ? 'Closed' : `Move to ${item.nextStageLabel ?? 'next stage'}`}
-                        </Button>
+                        </AdvanceButton>
                       </TableCell>
                     </TableRow>
                   )
@@ -1435,274 +1404,108 @@ export default function IncomingSubmissionsPage() {
           </TableShell>
         ) : (
           <>
-            <div
-              style={{
-                marginBottom: '1rem',
-                borderRadius: 24,
-                border: '1px solid rgba(148, 163, 184, 0.12)',
-                background: 'linear-gradient(135deg, rgba(11, 18, 32, 0.94), rgba(11, 18, 32, 0.74))',
-                padding: '1rem',
-                boxShadow: '0 16px 36px rgba(2, 8, 23, 0.2)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+            <ConfigPanel>
+              <ConfigHead>
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#9ec0ff', marginBottom: 6 }}>
-                    Board columns
-                  </div>
-                  <div style={{ color: '#dae2fd', fontSize: 14, lineHeight: 1.5, maxWidth: '72ch' }}>
+                  <ConfigEyebrow>Board columns</ConfigEyebrow>
+                  <ConfigCopy>
                     Add a new Kanban column here. The state key becomes an available backend submission status when you save changes.
-                  </div>
+                  </ConfigCopy>
                 </div>
 
-                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                  <Button variant="ghost" type="button" onClick={addBoardColumn} style={{ border: '1px solid rgba(75,142,255,0.18)', background: 'rgba(75,142,255,0.10)', color: '#dae2fd' }}>
+                <ConfigActions>
+                  <ExportButton type="button" onClick={addBoardColumn}>
                     Add column
-                  </Button>
+                  </ExportButton>
                   <Button variant="secondary" type="button" onClick={saveBoardConfig} disabled={isSavingConfig}>
                     {isSavingConfig ? 'Saving…' : 'Save board'}
                   </Button>
-                </div>
-              </div>
+                </ConfigActions>
+              </ConfigHead>
 
               {(configMessage || configError) && (
-                <div
-                  style={{
-                    marginTop: '0.9rem',
-                    borderRadius: 16,
-                    border: `1px solid ${configError ? 'rgba(255, 107, 107, 0.25)' : 'rgba(75, 142, 255, 0.22)'}`,
-                    background: configError ? 'rgba(255, 107, 107, 0.08)' : 'rgba(75, 142, 255, 0.08)',
-                    color: configError ? '#ffb3ad' : '#dae2fd',
-                    padding: '0.85rem 1rem',
-                    fontSize: 13,
-                  }}
-                >
+                <ConfigBanner $error={Boolean(configError)}>
                   {configError ?? configMessage}
-                </div>
+                </ConfigBanner>
               )}
 
-              <div
-                style={{
-                  marginTop: '1rem',
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
-                  gap: '0.75rem',
-                }}
-              >
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#98a6bf', fontWeight: 700 }}>Column label</span>
-                  <input
+              <FieldGrid>
+                <Field>
+                  <FieldLabel>Column label</FieldLabel>
+                  <FieldInput
                     value={newColumnLabel}
                     onChange={(event) => setNewColumnLabel(event.target.value)}
                     placeholder="Client review"
-                    style={{
-                      borderRadius: 12,
-                      border: '1px solid rgba(148, 163, 184, 0.16)',
-                      background: '#0f1724',
-                      color: '#f3f7ff',
-                      padding: '0.8rem 0.9rem',
-                      outline: 'none',
-                    }}
                   />
-                </label>
+                </Field>
 
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#98a6bf', fontWeight: 700 }}>Backend state key</span>
-                  <input
+                <Field>
+                  <FieldLabel>Backend state key</FieldLabel>
+                  <FieldInput
                     value={newColumnStateKey}
                     onChange={(event) => setNewColumnStateKey(event.target.value)}
                     placeholder="client_review"
-                    style={{
-                      borderRadius: 12,
-                      border: '1px solid rgba(148, 163, 184, 0.16)',
-                      background: '#0f1724',
-                      color: '#f3f7ff',
-                      padding: '0.8rem 0.9rem',
-                      outline: 'none',
-                    }}
                   />
-                </label>
+                </Field>
 
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#98a6bf', fontWeight: 700 }}>Description</span>
-                  <input
+                <Field>
+                  <FieldLabel>Description</FieldLabel>
+                  <FieldInput
                     value={newColumnDescription}
                     onChange={(event) => setNewColumnDescription(event.target.value)}
                     placeholder="Awaiting customer-side review."
-                    style={{
-                      borderRadius: 12,
-                      border: '1px solid rgba(148, 163, 184, 0.16)',
-                      background: '#0f1724',
-                      color: '#f3f7ff',
-                      padding: '0.8rem 0.9rem',
-                      outline: 'none',
-                    }}
                   />
-                </label>
+                </Field>
 
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#98a6bf', fontWeight: 700 }}>Empty column text</span>
-                  <input
+                <Field>
+                  <FieldLabel>Empty column text</FieldLabel>
+                  <FieldInput
                     value={newColumnEmptyState}
                     onChange={(event) => setNewColumnEmptyState(event.target.value)}
                     placeholder="No client review submissions yet."
-                    style={{
-                      borderRadius: 12,
-                      border: '1px solid rgba(148, 163, 184, 0.16)',
-                      background: '#0f1724',
-                      color: '#f3f7ff',
-                      padding: '0.8rem 0.9rem',
-                      outline: 'none',
-                    }}
                   />
-                </label>
-              </div>
+                </Field>
+              </FieldGrid>
 
-              <div style={{ marginTop: '1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
-                <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#98a6bf', fontWeight: 700 }}>Backend states</span>
+              <StatesRow>
+                <FieldLabel>Backend states</FieldLabel>
                 {availableStatuses.map((status) => (
-                  <BoardToken key={status} $background={SYSTEM_TONE.background} $border={SYSTEM_TONE.border} $color={SYSTEM_TONE.color}>
+                  <Badge key={status} variant="neutral">
                     {status}
-                  </BoardToken>
+                  </Badge>
                 ))}
-              </div>
+              </StatesRow>
 
-              <div
-                style={{
-                  marginTop: '1rem',
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: '0.75rem',
-                }}
-              >
+              <StagePreviewGrid>
                 {config.stages.map((stage) => (
-                  <div
-                    key={stage.key}
-                    style={{
-                      borderRadius: 20,
-                      border: `1px solid ${stage.border}`,
-                      background: 'rgba(15, 23, 36, 0.9)',
-                      padding: '0.9rem 1rem',
-                    }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                  <StageCard key={stage.key} $border={stage.border}>
+                    <StageCardHead>
                       <div>
-                        <div style={{ fontWeight: 800, color: '#f3f7ff' }}>{stage.label}</div>
-                        <div style={{ marginTop: 4, fontSize: 12, color: '#98a6bf' }}>{stage.description}</div>
+                        <StageCardTitle>{stage.label}</StageCardTitle>
+                        <StageCardDesc>{stage.description}</StageCardDesc>
                       </div>
                       <BoardToken $background={stage.background} $border={stage.border} $color={stage.accent}>
                         {stage.key}
                       </BoardToken>
-                    </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                    </StageCardHead>
+                    <StatusList>
                       {stage.statuses.map((status) => (
                         <BoardToken key={status} $background={stage.background} $border={stage.border} $color={stage.accent}>
                           {status}
                         </BoardToken>
                       ))}
-                    </div>
-                  </div>
+                    </StatusList>
+                  </StageCard>
                 ))}
-              </div>
-            </div>
+              </StagePreviewGrid>
+            </ConfigPanel>
 
-            <BoardGrid>
-            {config.stages.map((stage) => {
-              const laneItems = items.filter((item) => item.stageKey === stage.key)
-
-              return (
-                <LaneCard
-                  key={stage.key}
-                  $accent={stage.accent}
-                  $isDropTarget={draggingItemId !== null && dragOverStageKey === stage.key}
-                  onDragOver={(event) => handleLaneDragOver(event, stage.key)}
-                  onDrop={(event) => handleLaneDrop(event, stage.key)}
-                >
-                  <LaneHeader>
-                    <LaneTitleWrap>
-                      <LaneTitle>{stage.label}</LaneTitle>
-                      <LaneDescription>{stage.description}</LaneDescription>
-                    </LaneTitleWrap>
-                    <BoardToken $background={stage.background} $border={stage.border} $color={stage.accent}>
-                      {laneItems.length} items
-                    </BoardToken>
-                  </LaneHeader>
-
-                  <LaneBody>
-                    {laneItems.length === 0 ? (
-                      <EmptyState>{stage.emptyState}</EmptyState>
-                    ) : (
-                      laneItems.map((item) => {
-                        const headerTitleField = getFieldByKey(config, config.header.titleFieldKey)
-                        const headerSubtitleField = config.header.subtitleFieldKey ? getFieldByKey(config, config.header.subtitleFieldKey) : undefined
-                        const headerBadgeField = config.header.badgeFieldKey ? getFieldByKey(config, config.header.badgeFieldKey) : undefined
-
-                        return (
-                          <SubmissionCard
-                            key={item.id}
-                            $accent={item.stageAccent}
-                            $isDragging={draggingItemId === item.id}
-                            draggable
-                            onDragStart={(event) => handleSubmissionDragStart(event, item)}
-                            onDragEnd={handleSubmissionDragEnd}
-                          >
-                            <CardTop>
-                              <div>
-                                <CardTitleLink
-                                  to="/admin/deals/create"
-                                  state={{ sourceSubmission: createDealSubmissionSeed(item) }}
-                                  title={`Create deal from ${String(renderValue(item.values[headerTitleField?.valueKey ?? config.header.titleFieldKey], headerTitleField?.format))}`}
-                                >
-                                  {renderValue(item.values[headerTitleField?.valueKey ?? config.header.titleFieldKey], headerTitleField?.format)}
-                                </CardTitleLink>
-                                <CardMeta>{renderValue(item.values[headerSubtitleField?.valueKey ?? config.header.subtitleFieldKey ?? 'cedent'], headerSubtitleField?.format)}</CardMeta>
-                              </div>
-                              {headerBadgeField ? renderBadge(item, headerBadgeField) : null}
-                            </CardTop>
-
-                            <CardFacts>
-                              {cardGroups.facts.map((field) => (
-                                <Fact key={field.key}>
-                                  <FactLabel>{field.label}</FactLabel>
-                                  <FactValue>{field.format === 'badge' ? renderBadge(item, field) : renderField(item, field)}</FactValue>
-                                </Fact>
-                              ))}
-                            </CardFacts>
-
-                            <CardBody>
-                              {cardGroups.body.map((field) => (
-                                <CardBodyLine key={field.key}>
-                                  <CardBodyLabel>{field.label}:</CardBodyLabel> {renderField(item, field)}
-                                </CardBodyLine>
-                              ))}
-                            </CardBody>
-
-                            <CardFooter>
-                              <RowMeta>{item.values.owner} • {item.values.receivedLabel}</RowMeta>
-                              <Button
-                                variant="ghost"
-                                type="button"
-                                onClick={() => advanceSubmission(item)}
-                                disabled={item.nextStatus === null}
-                                style={{
-                                  border: '1px solid rgba(75,142,255,0.18)',
-                                  background: item.nextStatus === null ? 'rgba(148,163,184,0.06)' : 'rgba(75,142,255,0.10)',
-                                  color: item.nextStatus === null ? '#98a6bf' : '#dbe9ff',
-                                  cursor: item.nextStatus === null ? 'not-allowed' : 'pointer',
-                                }}
-                              >
-                                {item.nextStatus === null ? 'Closed' : `Move to ${item.nextStageLabel ?? 'next stage'}`}
-                              </Button>
-                            </CardFooter>
-                          </SubmissionCard>
-                        )
-                      })
-                    )}
-                  </LaneBody>
-                </LaneCard>
-              )
-            })}
-            </BoardGrid>
+            <KanbanBoard
+              stages={kanbanStages}
+              items={kanbanItems}
+              onMoveItem={handleKanbanMove}
+              renderCard={renderKanbanCard}
+            />
           </>
         )}
       </WorkspacePanel>

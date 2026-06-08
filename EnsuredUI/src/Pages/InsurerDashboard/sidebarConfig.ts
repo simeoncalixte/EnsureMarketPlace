@@ -10,6 +10,7 @@ export const insurerSidebar: NavItem[] = [
   { id: '/insurer/portfolio', label: 'Portfolio', icon: '📈' },
   { id: '/insurer/coverage', label: 'Coverage', icon: '🛡️', subItems: [
     { id: '/insurer/coverage/create', label: 'Create' },
+    { id: '/insurer/coverage/line-of-business', label: 'Line of Business' },
     { id: '/insurer/coverage/simulate', label: 'Simulate' },
     { id: '/insurer/coverage/pricing', label: 'Pricing' }
   ] },
@@ -21,6 +22,7 @@ export const insurerSidebar: NavItem[] = [
     { id: '/insurer/pipeline-ingestion/sftp', label: 'SFTP' },
     { id: '/insurer/pipeline-ingestion/webhooks', label: 'Webhooks' }
   ] },
+  { id: '/insurer/pipeline-processes', label: 'Pipeline Processes', icon: 'PP' },
   { id: '/insurer/claims', label: 'Claims', icon: '📝' },
   { id: '/insurer/reports', label: 'Reports', icon: '📑' },
   { id: '/insurer/settings', label: 'Settings', icon: '⚙️' }

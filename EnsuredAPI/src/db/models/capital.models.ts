@@ -15,6 +15,11 @@ import {
   spvStatuses,
   tokenTransactionTypes,
 } from './constants';
+import type {
+  PageTemplateDefinition,
+  PageTemplateFieldDefinition,
+  PageTemplateSectionDefinition,
+} from './pageTemplates.models';
 
 export class SPVEntity extends Model<InferAttributes<SPVEntity>, InferCreationAttributes<SPVEntity>> {
   declare id: CreationOptional<number>;
@@ -47,6 +52,44 @@ export class SPVOwnership extends Model<InferAttributes<SPVOwnership>, InferCrea
   declare updatedAt: CreationOptional<Date>;
 }
 
+export type DealSubjectTemplateFieldSnapshot = PageTemplateFieldDefinition & {
+  value?: unknown;
+};
+
+export type DealSubjectTemplateSectionSnapshot = Omit<PageTemplateSectionDefinition, 'fields'> & {
+  fields: DealSubjectTemplateFieldSnapshot[];
+};
+
+export type DealSubjectTemplateSnapshot = Omit<PageTemplateDefinition, 'sections'> & {
+  scopeKey: string;
+  organizationId: number | null;
+  lineOfBusinessCode: string;
+  lineOfBusinessSubTypeCode: string;
+  sections: DealSubjectTemplateSectionSnapshot[];
+};
+
+export type DealSubjectRecord = {
+  subjectId?: string;
+  subjectLabel: string;
+  subjectIndex: number;
+  lineOfBusiness?: string | null;
+  lineOfBusinessSubType?: string | null;
+  fieldValues?: Record<string, unknown>;
+  locationText?: string | null;
+  assetType?: string | null;
+  constructionType?: string | null;
+  occupancyType?: string | null;
+  replacementCost?: unknown;
+  latitude?: unknown;
+  longitude?: unknown;
+  vulnerabilityScore?: unknown;
+  // Optional links into the normalized geographic hierarchy (geography.models.ts).
+  addressId?: number | null;
+  cityId?: number | null;
+  countryId?: number | null;
+  templateSnapshot?: DealSubjectTemplateSnapshot;
+};
+
 export class Deal extends Model<InferAttributes<Deal>, InferCreationAttributes<Deal>> {
   declare id: CreationOptional<number>;
   declare spvId: number;
@@ -62,7 +105,7 @@ export class Deal extends Model<InferAttributes<Deal>, InferCreationAttributes<D
   declare premium: string;
   declare startDate: Date;
   declare endDate: Date;
-  declare subjectsJson: CreationOptional<Record<string, unknown>[] | null>;
+  declare subjectsJson: CreationOptional<DealSubjectRecord[] | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -78,6 +121,7 @@ export class Tranche extends Model<InferAttributes<Tranche>, InferCreationAttrib
   declare capitalRequired: string | null;
   declare expectedReturn: string | null;
   declare lossProbability: string | null;
+  declare subjectSelectionJson: CreationOptional<{ mode: 'all' | 'selective'; subjectIds: string[] } | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -314,6 +358,11 @@ export function initCapitalModels(sequelize: Sequelize): void {
       capitalRequired: { type: DataTypes.DECIMAL(18, 2), allowNull: true },
       expectedReturn: { type: DataTypes.DECIMAL(10, 4), allowNull: true },
       lossProbability: { type: DataTypes.DECIMAL(10, 6), allowNull: true },
+      subjectSelectionJson: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+        defaultValue: { mode: 'all', subjectIds: [] },
+      },
       ...timestampColumns,
     },
     { sequelize, modelName: 'Tranche', tableName: 'tranches' },

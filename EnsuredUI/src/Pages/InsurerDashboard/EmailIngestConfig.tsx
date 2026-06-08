@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import { getApiBase } from '../../lib/api'
+import styled from 'styled-components'
+import { getChannel } from '../../api/ingestionChannels'
 import * as S from './InsurerDashboard.styles'
+import { colors, withAlpha } from '../../xds/colors'
+import { Badge, Breadcrumb, Button, DataTable, FormField, SelectionCard, ToggleSwitch } from '../../xds'
 
 type Provider = 'google' | 'microsoft'
 
@@ -42,19 +45,19 @@ const SEED_ACCOUNTS: ConnectedAccount[] = [
 const SCOPES_GOOGLE = [
   {
     icon: 'mail',
-    color: '#4285f4',
+    color: colors.vendor.googleBlue,
     name: 'Read Mail (readonly)',
     desc: 'Allows the pipeline to read incoming messages and extract submission attachments.',
   },
   {
     icon: 'label',
-    color: '#34a853',
+    color: colors.vendor.googleGreen,
     name: 'Manage Labels',
     desc: 'Apply processing labels (e.g. "Ingested", "Failed") after a message is consumed.',
   },
   {
     icon: 'person',
-    color: '#fbbc05',
+    color: colors.vendor.googleYellow,
     name: 'Basic Profile',
     desc: 'Read the authenticated account email address for audit logging.',
   },
@@ -63,19 +66,19 @@ const SCOPES_GOOGLE = [
 const SCOPES_MICROSOFT = [
   {
     icon: 'mail',
-    color: '#00a4ef',
+    color: colors.vendor.microsoftBlue,
     name: 'Mail.Read',
     desc: 'Read messages from the watched mailbox folder.',
   },
   {
     icon: 'category',
-    color: '#7fba00',
+    color: colors.vendor.microsoftGreen,
     name: 'MailboxSettings.ReadWrite',
     desc: 'Configure auto-reply rules and folder routing for processed items.',
   },
   {
     icon: 'person',
-    color: '#f25022',
+    color: colors.vendor.microsoftRed,
     name: 'User.Read',
     desc: 'Read the signed-in account profile for audit trail enrichment.',
   },
@@ -86,37 +89,72 @@ const PROVIDER_CONFIG = {
     label: 'Google Workspace',
     sublabel: 'Gmail / Google Workspace SSO',
     logo: '✉️',
-    bg: 'linear-gradient(135deg,#4285f4,#34a853)',
-    accent: '#4285f4',
+    bg: `linear-gradient(135deg,${colors.vendor.googleBlue},${colors.vendor.googleGreen})`,
+    accent: colors.vendor.googleBlue,
     scopes: SCOPES_GOOGLE,
   },
   microsoft: {
     label: 'Microsoft 365',
     sublabel: 'Outlook / Exchange SSO',
     logo: '📧',
-    bg: 'linear-gradient(135deg,#00a4ef,#7fba00)',
-    accent: '#00a4ef',
+    bg: `linear-gradient(135deg,${colors.vendor.microsoftBlue},${colors.vendor.microsoftGreen})`,
+    accent: colors.vendor.microsoftBlue,
     scopes: SCOPES_MICROSOFT,
   },
 } as const
 
-function Toggle({
-  checked,
-  onChange,
-}: {
-  checked: boolean
-  onChange: () => void
-}) {
-  return (
-    <S.ToggleLabel onClick={onChange}>
-      <S.ToggleTrack $checked={checked}>
-        <S.ToggleKnob $checked={checked} />
-      </S.ToggleTrack>
-    </S.ToggleLabel>
-  )
-}
+const PanelTitleIcon = styled.span`
+  font-size: 1.125rem;
+  color: ${colors.primarySoft};
+`
 
-export default function EmailIngestConfig(): JSX.Element {
+const SecurityNoteIcon = styled.span`
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+`
+
+const MonoCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  color: ${colors.onSurfaceVariant};
+`
+
+const MutedMonoCell = styled.span`
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  color: ${colors.neutral[500]};
+`
+
+const AccountCellWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+`
+
+const TableScroll = styled.div`
+  overflow-x: auto;
+`
+
+const ConnectBtnIcon = styled.span`
+  font-size: 1rem;
+`
+
+const SaveBtnRow = styled(S.BtnRow)`
+  padding-top: 0;
+`
+
+const FullWidthButton = styled(Button)`
+  flex: 1;
+`
+
+const ProviderLabelCell = styled.span`
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: ${colors.onSurfaceVariant};
+`
+
+export default function EmailIngestConfig(): React.JSX.Element {
   const { channelId } = useParams() as { channelId?: string }
   const [channelLabel, setChannelLabel] = useState<string | null>(null)
   const [provider, setProvider] = useState<Provider>('google')
@@ -153,10 +191,8 @@ export default function EmailIngestConfig(): JSX.Element {
 
   useEffect(() => {
     if (!channelId) return
-    const base = getApiBase()
-    fetch(`${base}/api/ingestion-channels/${channelId}`, { credentials: 'include' })
-      .then((r) => { if (!r.ok) throw new Error('Not found'); return r.json() })
-      .then((data) => {
+    getChannel(channelId)
+      .then((data: any) => {
         if (data?.label) setChannelLabel(data.label)
         if (typeof data?.meta === 'string') setFolder(String(data.meta))
         if (data?.config) {
@@ -175,14 +211,13 @@ export default function EmailIngestConfig(): JSX.Element {
 
   return (
     <S.PageShell>
-      {/* Breadcrumb */}
-      <S.Breadcrumb aria-label="breadcrumb">
-        <S.BreadcrumbItem>Ingestion</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbItem>Channels</S.BreadcrumbItem>
-        <S.BreadcrumbSep aria-hidden>›</S.BreadcrumbSep>
-        <S.BreadcrumbActive>{channelLabel ?? 'Email SSO'}</S.BreadcrumbActive>
-      </S.Breadcrumb>
+      <Breadcrumb
+        items={[
+          { label: 'Ingestion' },
+          { label: 'Channels' },
+          { label: channelLabel ?? 'Email SSO' },
+        ]}
+      />
 
       {/* Header */}
       <S.EmailPageHeader>
@@ -201,23 +236,16 @@ export default function EmailIngestConfig(): JSX.Element {
           {(['google', 'microsoft'] as Provider[]).map((p) => {
             const c = PROVIDER_CONFIG[p]
             return (
-              <S.ProviderCard
+              <SelectionCard
                 key={p}
-                $selected={provider === p}
-                $accent={c.accent}
+                selectionId={p}
+                title={c.label}
+                subtitle={c.sublabel}
+                icon={<span aria-hidden>{c.logo}</span>}
+                accentColor={c.accent}
+                active={provider === p}
                 onClick={() => setProvider(p)}
-                type="button"
-                aria-pressed={provider === p}
-              >
-                <S.ProviderLogo $bg={c.bg}>{c.logo}</S.ProviderLogo>
-                <div>
-                  <S.ProviderName>{c.label}</S.ProviderName>
-                  <S.ProviderMeta>{c.sublabel}</S.ProviderMeta>
-                </div>
-                <S.ProviderCheckmark $accent={c.accent} $visible={provider === p}>
-                  check
-                </S.ProviderCheckmark>
-              </S.ProviderCard>
+              />
             )
           })}
         </S.ProviderRow>
@@ -225,12 +253,7 @@ export default function EmailIngestConfig(): JSX.Element {
         {/* ── OAuth connect panel ── */}
         <S.OAuthPanel>
           <S.OAuthPanelTitle>
-            <span
-              className="material-symbols-outlined"
-              style={{ fontSize: '1.125rem', color: '#adc6ff' }}
-            >
-              lock
-            </span>
+            <PanelTitleIcon className="material-symbols-outlined">lock</PanelTitleIcon>
             OAuth 2.0 Permissions — {cfg.label}
           </S.OAuthPanelTitle>
 
@@ -243,7 +266,7 @@ export default function EmailIngestConfig(): JSX.Element {
                   <S.ScopeDesc>{scope.desc}</S.ScopeDesc>
                 </S.ScopeText>
                 <S.ScopeToggleWrap>
-                  <Toggle
+                  <ToggleSwitch
                     checked={scopeEnabled[i]}
                     onChange={() =>
                       setScopeEnabled((prev) =>
@@ -262,21 +285,16 @@ export default function EmailIngestConfig(): JSX.Element {
             onClick={handleConnect}
             disabled={connecting}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>
+            <ConnectBtnIcon className="material-symbols-outlined">
               {connecting ? 'sync' : 'login'}
-            </span>
+            </ConnectBtnIcon>
             {connecting
               ? 'Redirecting to SSO…'
               : `Connect ${cfg.label} Account`}
           </S.ConnectBtn>
 
           <S.SecurityNote>
-            <span
-              className="material-symbols-outlined"
-              style={{ fontSize: '0.875rem', flexShrink: 0, marginTop: 1 }}
-            >
-              shield
-            </span>
+            <SecurityNoteIcon className="material-symbols-outlined">shield</SecurityNoteIcon>
             Sovereign Cap uses read-only OAuth scopes. No passwords are stored. Access can be
             revoked at any time from your provider's security settings or the table below.
           </S.SecurityNote>
@@ -285,41 +303,30 @@ export default function EmailIngestConfig(): JSX.Element {
         {/* ── Filter settings panel ── */}
         <S.FilterPanel>
           <S.FilterPanelTitle>
-            <span
-              className="material-symbols-outlined"
-              style={{ fontSize: '1.125rem', color: '#adc6ff' }}
-            >
-              filter_alt
-            </span>
+            <PanelTitleIcon className="material-symbols-outlined">filter_alt</PanelTitleIcon>
             Inbox Filter Settings
           </S.FilterPanelTitle>
 
           <S.FilterFieldGroup>
             {/* Folder */}
-            <div>
-              <S.FieldLabel htmlFor="email-folder">Watch Folder</S.FieldLabel>
-              <S.Input
-                id="email-folder"
-                type="text"
-                value={folder}
-                onChange={(e) => setFolder(e.target.value)}
-                placeholder="e.g. INBOX/submissions"
-                style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-              />
-            </div>
+            <FormField
+              id="email-folder"
+              label="Watch Folder"
+              type="text"
+              value={folder}
+              onChange={(e) => setFolder(e.target.value)}
+              placeholder="e.g. INBOX/submissions"
+            />
 
             {/* Subject filter */}
-            <div>
-              <S.FieldLabel htmlFor="email-subject">Subject Filter</S.FieldLabel>
-              <S.Input
-                id="email-subject"
-                type="text"
-                value={subjectFilter}
-                onChange={(e) => setSubjectFilter(e.target.value)}
-                placeholder="e.g. SUBJ:risk-submission"
-                style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.875rem' }}
-              />
-            </div>
+            <FormField
+              id="email-subject"
+              label="Subject Filter"
+              type="text"
+              value={subjectFilter}
+              onChange={(e) => setSubjectFilter(e.target.value)}
+              placeholder="e.g. SUBJ:risk-submission"
+            />
 
             {/* Sync frequency */}
             <div>
@@ -339,11 +346,11 @@ export default function EmailIngestConfig(): JSX.Element {
             </div>
 
             {/* Save */}
-            <S.BtnRow style={{ paddingTop: 0 }}>
-              <S.FillBtn type="button" style={{ flex: 1 }}>
+            <SaveBtnRow>
+              <FullWidthButton variant="primary" type="button">
                 Save Filter Settings
-              </S.FillBtn>
-            </S.BtnRow>
+              </FullWidthButton>
+            </SaveBtnRow>
           </S.FilterFieldGroup>
         </S.FilterPanel>
 
@@ -351,92 +358,84 @@ export default function EmailIngestConfig(): JSX.Element {
         <S.AccountsSection>
           <S.AccountsTableTop>
             <S.AccountsTableTitle>Connected Accounts</S.AccountsTableTitle>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <S.StreamingBadge style={{ color: '#4b8eff' }}>
-                <S.StreamingDot style={{ background: '#4b8eff' }} aria-hidden />
-                {accounts.length} Active
-              </S.StreamingBadge>
-            </div>
+            <Badge variant="primary" dot>{accounts.length} Active</Badge>
           </S.AccountsTableTop>
 
-          <div style={{ overflowX: 'auto' }}>
-            <S.AccountsTable>
-              <thead>
-                <tr>
-                  <S.AccountsTH style={{ width: '2.5rem', paddingRight: 0 }} />
-                  <S.AccountsTH>Account</S.AccountsTH>
-                  <S.AccountsTH>Provider</S.AccountsTH>
-                  <S.AccountsTH>Watch Folder</S.AccountsTH>
-                  <S.AccountsTH>Last Sync</S.AccountsTH>
-                  <S.AccountsTH>Status</S.AccountsTH>
-                  <S.AccountsTH style={{ textAlign: 'right' }}>Actions</S.AccountsTH>
-                </tr>
-              </thead>
-              <tbody>
-                {accounts.map((acc, i) => {
-                  const pcfg = PROVIDER_CONFIG[acc.provider]
-                  return (
-                    <S.AccountsTR key={`${acc.email}-${i}`}>
-                      <S.AccountLogoCell>
-                        <S.AccountLogo $bg={pcfg.bg}>{pcfg.logo}</S.AccountLogo>
-                      </S.AccountLogoCell>
-                      <S.AccountEmailCell>{acc.email}</S.AccountEmailCell>
-                      <S.AccountsTD style={{ color: '#98a6bf' }}>{pcfg.label}</S.AccountsTD>
-                      <S.AccountsTD
-                        style={{
-                          fontFamily: "'JetBrains Mono', monospace",
-                          color: '#98a6bf',
-                          fontSize: '0.8125rem',
-                        }}
-                      >
-                        {acc.folder}
-                      </S.AccountsTD>
-                      <S.AccountsTD
-                        style={{
-                          fontFamily: "'JetBrains Mono', monospace",
-                          fontSize: '0.8125rem',
-                          color: '#64748b',
-                        }}
-                      >
-                        {acc.lastSync}
-                      </S.AccountsTD>
-                      <S.AccountsTD>
-                        <S.AccountStatusChip $ok={acc.healthy}>
-                          {acc.healthy ? 'Active' : 'Error'}
-                        </S.AccountStatusChip>
-                      </S.AccountsTD>
-                      <S.AccountsTD style={{ textAlign: 'right' }}>
-                        <S.AccountRevokeBtn
-                          type="button"
-                          onClick={() => handleRevoke(i)}
-                          aria-label={`Revoke access for ${acc.email}`}
-                        >
-                          Revoke
-                        </S.AccountRevokeBtn>
-                      </S.AccountsTD>
-                    </S.AccountsTR>
-                  )
-                })}
-              </tbody>
-            </S.AccountsTable>
-          </div>
+          <TableScroll>
+            <DataTable<ConnectedAccount & { __idx: number }>
+              columns={[
+                {
+                  key: 'email',
+                  header: 'Account',
+                  render: (acc) => (
+                    <AccountCellWrap>
+                      <S.AccountLogo $bg={PROVIDER_CONFIG[acc.provider].bg}>
+                        {PROVIDER_CONFIG[acc.provider].logo}
+                      </S.AccountLogo>
+                      <S.AccountEmailCell as="span">{acc.email}</S.AccountEmailCell>
+                    </AccountCellWrap>
+                  ),
+                },
+                {
+                  key: 'provider',
+                  header: 'Provider',
+                  render: (acc) => <ProviderLabelCell>{PROVIDER_CONFIG[acc.provider].label}</ProviderLabelCell>,
+                },
+                {
+                  key: 'folder',
+                  header: 'Watch Folder',
+                  render: (acc) => <MonoCell>{acc.folder}</MonoCell>,
+                },
+                {
+                  key: 'lastSync',
+                  header: 'Last Sync',
+                  render: (acc) => <MutedMonoCell>{acc.lastSync}</MutedMonoCell>,
+                },
+                {
+                  key: 'status',
+                  header: 'Status',
+                  render: (acc) => (
+                    <Badge variant={acc.healthy ? 'success' : 'danger'}>
+                      {acc.healthy ? 'Active' : 'Error'}
+                    </Badge>
+                  ),
+                },
+              ]}
+              data={accounts.map((acc, i) => ({ ...acc, __idx: i }))}
+              rowActions={(acc) => (
+                <Button
+                  variant="outline"
+                  tone="danger"
+                  size="sm"
+                  type="button"
+                  onClick={() => handleRevoke(acc.__idx)}
+                  aria-label={`Revoke access for ${acc.email}`}
+                >
+                  Revoke
+                </Button>
+              )}
+            />
+          </TableScroll>
         </S.AccountsSection>
 
       </S.EmailGrid>
 
-      <div
-        aria-hidden
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          width: '100%',
-          height: '16rem',
-          pointerEvents: 'none',
-          zIndex: -1,
-          background: 'linear-gradient(to top, rgba(75,142,255,0.06), transparent)',
-        }}
-      />
+      <AmbientGlow />
     </S.PageShell>
   )
+}
+
+const GlowLayer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16rem;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(to top, ${withAlpha(colors.primary, 0.06)}, transparent);
+`
+
+function AmbientGlow() {
+  return <GlowLayer aria-hidden />
 }

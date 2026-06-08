@@ -2,8 +2,12 @@ import { buildApp } from './app';
 import { env } from './config/env';
 import { closeSequelize, getSequelize } from './config/database';
 import { createMigrator } from './db/migrator';
+import { ensureDefaultPageTemplates } from './db/pageTemplateDefaults';
 import { ReinsuranceSeedService } from './services/ReinsuranceSeedService';
-import { Deal } from './db/models';
+import { ChannelSeedService } from './services/ChannelSeedService';
+import { Deal, IngestionChannel } from './db/models';
+import { seedBenchmarkPriors } from './pipeline/benchmarkPriors/seed';
+import { seedCasualtyRegistryRows, seedCatRegistryRows } from './pipeline/registry/seed';
 
 async function start(): Promise<void> {
   const app = buildApp();
@@ -12,6 +16,7 @@ async function start(): Promise<void> {
   try {
     await sequelize.authenticate();
     await createMigrator(sequelize).up();
+    await ensureDefaultPageTemplates(sequelize);
 
     // In development, if no deals exist, seed sample reinsurance data so
     // the marketplace endpoint returns real opportunities for the UI.
@@ -29,6 +34,37 @@ async function start(): Promise<void> {
       } catch (err) {
         // eslint-disable-next-line no-console
         console.warn('Dev seed failed:', err);
+      }
+
+      // Seed ingestion channels (per current configs) and the submissions each
+      // channel produced, so the Pipeline Monitor can show channel→submission
+      // lineage. Runs once, after the reinsurance seed has created the org.
+      try {
+        const channelCount = await IngestionChannel.count();
+        if (channelCount === 0) {
+          // eslint-disable-next-line no-console
+          console.info('No ingestion channels found — seeding development channels and submissions');
+          await new ChannelSeedService().seed();
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('Channel seed failed:', err);
+      }
+
+      // Slice 5.3 — fuel the credibility machinery: seed the platform-default
+      // benchmark priors (the cited tranche) and the platform-default casualty
+      // registry rows (ratingMethod=casualty_ilf). BOTH are idempotent (upsert by
+      // scope), so this runs safely on every boot — re-running changes nothing. A
+      // failure here is logged and swallowed so it can never block startup.
+      try {
+        await seedBenchmarkPriors();
+        await seedCasualtyRegistryRows();
+        // Slice 5.2 — platform-default cat_exposure registry row for
+        // catastrophe_property (idempotent; no new table).
+        await seedCatRegistryRows();
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('Benchmark prior / casualty registry seed failed:', err);
       }
     }
 

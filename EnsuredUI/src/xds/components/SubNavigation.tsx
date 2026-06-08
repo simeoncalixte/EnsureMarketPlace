@@ -1,15 +1,15 @@
 import React from 'react'
-import { colors } from '../colors'
+import { colors, withAlpha } from '../colors'
 import { spacing, radii } from '../tokens'
 
 export type Tab = { id: string; label: string }
 
-export const SubNavigation: React.FC<{ tabs: Tab[]; activeId?: string; onChange?: (id: string) => void }> = ({ tabs, activeId, onChange }) => {
+export const SubNavigation: React.FC<{ tabs: Tab[]; activeId?: string; onChange?: (id: string) => void; label?: string | null }> = ({ tabs, activeId, onChange, label = 'Sub-Navigation Tabs' }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.md }}>
-      <label style={{ fontSize: 10, fontFamily: 'ui-monospace, Menlo, monospace', textTransform: 'uppercase', color: 'var(--text-secondary)', display: 'block', marginBottom: 8 }}>Sub-Navigation Tabs</label>
+      {label != null && <label style={{ fontSize: 10, fontFamily: 'ui-monospace, Menlo, monospace', textTransform: 'uppercase', color: 'var(--text-secondary)', display: 'block', marginBottom: 8 }}>{label}</label>}
 
-      <div style={{ display: 'flex', gap: 32, borderBottom: '1px solid rgba(148,163,184,0.15)' }}>
+      <div style={{ display: 'flex', gap: 32, borderBottom: `1px solid ${withAlpha(colors.neutral[400], 0.15)}` }}>
         {tabs.map((t) => {
           const active = t.id === activeId
           return (

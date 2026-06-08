@@ -1,4 +1,5 @@
-import { apiFetch } from '../lib/auth';
+import { seedRoute } from '../api/seed';
+import { colors } from '../xds/colors';
 
 export type SimEvent = {
   id: string;
@@ -41,7 +42,7 @@ class SimulationEngine {
     this.applyToApi = !!opts?.applyToApi;
     if (opts?.minDelay) this.minDelay = opts.minDelay;
     if (opts?.maxDelay) this.maxDelay = opts.maxDelay;
-    this.emitSystem('SIMULATION_STARTED', '[SYS]', '#adc6ff', 'Simulation started');
+    this.emitSystem('SIMULATION_STARTED', '[SYS]', colors.primarySoft, 'Simulation started');
     this.scheduleNext();
   }
 
@@ -50,7 +51,7 @@ class SimulationEngine {
     this.running = false;
     if (this.timer) window.clearTimeout(this.timer);
     this.timer = null;
-    this.emitSystem('SIMULATION_STOPPED', '[SYS]', '#adc6ff', 'Simulation stopped');
+    this.emitSystem('SIMULATION_STOPPED', '[SYS]', colors.primarySoft, 'Simulation stopped');
   }
 
   dryRun(count = 6, applyToApi = false) {
@@ -95,7 +96,7 @@ class SimulationEngine {
         type,
         ts,
         tag: '[OK]',
-        color: '#4edea3',
+        color: colors.accent,
         message: `Registered new ${role} ${id}`,
         meta: { id, role },
       };
@@ -109,7 +110,7 @@ class SimulationEngine {
         type,
         ts,
         tag: '[OK]',
-        color: '#adc6ff',
+        color: colors.primarySoft,
         message: `Allocated ${fmtCurrency(amount)} to ${tranche}`,
         meta: { tranche, amount },
       };
@@ -124,7 +125,7 @@ class SimulationEngine {
         type,
         ts,
         tag: sev === 'High' ? '[WARN]' : '[OK]',
-        color: sev === 'High' ? '#ffb3ad' : '#4edea3',
+        color: sev === 'High' ? colors.errorSoft : colors.accent,
         message: `Claim filed ${fmtCurrency(amount)} on ${policy} (sev=${sev})`,
         meta: { policy, amount, severity: sev },
       };
@@ -138,7 +139,7 @@ class SimulationEngine {
         type,
         ts,
         tag: '[OK]',
-        color: '#4edea3',
+        color: colors.accent,
         message: `Claim settled ${fmtCurrency(amount)} (id=${claim})`,
         meta: { claim, amount },
       };
@@ -151,7 +152,7 @@ class SimulationEngine {
       type: 'deal_created',
       ts,
       tag: '[SYS]',
-      color: '#adc6ff',
+      color: colors.primarySoft,
       message: `New deal created ${dealId}`,
       meta: { dealId },
     };
@@ -160,17 +161,13 @@ class SimulationEngine {
   private async maybeApplyToApi(ev: SimEvent) {
     // Only apply a few event types to seeding endpoints that exist.
     try {
-      const API_BASE = (typeof window !== 'undefined' && ((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE)) || (import.meta as any).env?.VITE_API_BASE || '';
       if (ev.type === 'user_registration') {
-        const url = `${API_BASE}/api/seed/users`;
-        await apiFetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ extraInvestors: 1 }), useAuth: false });
+        await seedRoute('/api/seed/users', { extraInvestors: 1 }, { useAuth: false });
       } else if (ev.type === 'capital_allocation' || ev.type === 'deal_created') {
-        const url = `${API_BASE}/api/seed/reinsurance`;
-        await apiFetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ investorCount: 1, tranchesPerDeal: 1 }), useAuth: false });
+        await seedRoute('/api/seed/reinsurance', { investorCount: 1, tranchesPerDeal: 1 }, { useAuth: false });
       } else if (ev.type === 'claim_created') {
         // no dedicated seed endpoint for claims in the demo; send to /api/seed/my-portfolio as a placeholder
-        const url = `${API_BASE}/api/seed/my-portfolio`;
-        await apiFetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ extraInvestors: 0 }), useAuth: false });
+        await seedRoute('/api/seed/my-portfolio', { extraInvestors: 0 }, { useAuth: false });
       }
     } catch (err) {
       // ignore network failures; simulation still produces local events

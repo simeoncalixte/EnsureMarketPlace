@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import OrgUsersSubpage from './OrgUsersSubpage';
 
 const meta: Meta = {
@@ -56,4 +56,4 @@ const StoryApp: React.FC = () => {
   return <OrgUsersSubpage org={org} onBack={() => undefined} />;
 };
 
-export const Default: Story = () => <StoryApp />;
+export const Default: StoryFn = () => <StoryApp />;

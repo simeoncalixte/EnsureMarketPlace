@@ -10,6 +10,10 @@ import {
   User,
   Wallet,
 } from './identity.models';
+import { initPageTemplateModels, PageTemplate } from './pageTemplates.models';
+import { initRiskClassSchemaModels, RiskClassSchemaVersion } from './riskClassSchema.models';
+import { initRiskClassRegistryModels, RiskClassRegistry } from './riskClassRegistry.models';
+import { initBenchmarkPriorModels, BenchmarkPrior } from './benchmarkPrior.models';
 import {
   CapitalCommitment,
   CollateralAccount,
@@ -74,6 +78,34 @@ import {
   WorkflowState,
   initIngestionModels,
 } from './ingestion.models';
+import {
+  initPipelineConfigModels,
+  OrganizationPipelineConfig,
+  OrganizationPipelineConfigOperation,
+  PipelineLifecycleSubscription,
+  PipelineOperationCatalog,
+} from './pipelineConfig.models';
+import {
+  initAppetiteModels,
+  OrganizationAppetiteProfile,
+  OrganizationValidationRule,
+} from './appetite.models';
+import {
+  initPipelineModels,
+  PipelineArtifact,
+  PipelineRun,
+  StageExecution,
+} from './pipeline.models';
+import { CrestaImportProgress, CrestaZone, initCrestaModels } from './cresta.models';
+import { initBillingModels, Subscription } from './billing.models';
+import {
+  Address,
+  City,
+  Continent,
+  Country,
+  StateProvince,
+  initGeographyModels,
+} from './geography.models';
 
 let initialized = false;
 
@@ -83,11 +115,53 @@ export function initModels(sequelize: Sequelize): void {
   }
 
   initIdentityModels(sequelize);
+  initPageTemplateModels(sequelize);
+  initRiskClassSchemaModels(sequelize);
+  initRiskClassRegistryModels(sequelize);
+  initBenchmarkPriorModels(sequelize);
   initLineOfBusinessModels(sequelize);
   initUnderwritingModels(sequelize);
   initIngestionModels(sequelize);
+  initPipelineConfigModels(sequelize);
+  initAppetiteModels(sequelize);
+  initPipelineModels(sequelize);
   initCapitalModels(sequelize);
   initGovernanceModels(sequelize);
+  initCrestaModels(sequelize);
+  initGeographyModels(sequelize);
+  initBillingModels(sequelize);
+
+  // Geographic hierarchy: Continent -> Country -> StateProvince -> City, plus Address.
+  Continent.hasMany(Country, { foreignKey: 'continentId', as: 'countries' });
+  Country.belongsTo(Continent, { foreignKey: 'continentId', as: 'continent' });
+
+  Country.hasMany(StateProvince, { foreignKey: 'countryId', as: 'stateProvinces' });
+  StateProvince.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
+
+  Country.hasMany(City, { foreignKey: 'countryId', as: 'cities' });
+  City.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
+
+  StateProvince.hasMany(City, { foreignKey: 'stateProvinceId', as: 'cities' });
+  City.belongsTo(StateProvince, { foreignKey: 'stateProvinceId', as: 'stateProvince' });
+
+  City.hasMany(Address, { foreignKey: 'cityId', as: 'addresses' });
+  Address.belongsTo(City, { foreignKey: 'cityId', as: 'city' });
+  Address.belongsTo(StateProvince, { foreignKey: 'stateProvinceId', as: 'stateProvince' });
+  Address.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
+
+  // CRESTA zones resolve to a canonical country (backfilled by iso3).
+  Country.hasMany(CrestaZone, { foreignKey: 'countryId', as: 'crestaZones' });
+  CrestaZone.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
+
+  // Domain entities reference canonical geography (nullable, additive retrofit).
+  Policy.belongsTo(Address, { foreignKey: 'addressId', as: 'address' });
+  Policy.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
+  Policy.belongsTo(StateProvince, { foreignKey: 'stateProvinceId', as: 'stateProvince' });
+  Policy.belongsTo(City, { foreignKey: 'cityId', as: 'city' });
+
+  ExposureUnit.belongsTo(Address, { foreignKey: 'addressId', as: 'address' });
+  ExposureUnit.belongsTo(City, { foreignKey: 'cityId', as: 'city' });
+  ExposureUnit.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
 
   LineOfBusinessPrimaryType.hasMany(LineOfBusinessSubType, { foreignKey: 'primaryCode', as: 'subTypes' });
   LineOfBusinessSubType.belongsTo(LineOfBusinessPrimaryType, { foreignKey: 'primaryCode', as: 'primaryType' });
@@ -105,6 +179,55 @@ export function initModels(sequelize: Sequelize): void {
   Organization.hasMany(APIKey, { foreignKey: 'organizationId', as: 'apiKeys' });
   APIKey.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
+  Organization.hasMany(PageTemplate, { foreignKey: 'organizationId', as: 'pageTemplates' });
+  PageTemplate.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  User.hasMany(PageTemplate, { foreignKey: 'createdByUserId', as: 'createdPageTemplates' });
+  PageTemplate.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdBy' });
+
+  PageTemplate.belongsTo(PageTemplate, { foreignKey: 'parentTemplateId', as: 'parentTemplate' });
+  PageTemplate.hasMany(PageTemplate, { foreignKey: 'parentTemplateId', as: 'childTemplates' });
+
+  // Risk-class schema versions (immutable compiled artifacts). Additive — these
+  // associations do not alter any existing model's behavior.
+  Organization.hasMany(RiskClassSchemaVersion, { foreignKey: 'organizationId', as: 'riskClassSchemaVersions' });
+  RiskClassSchemaVersion.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  PageTemplate.hasMany(RiskClassSchemaVersion, { foreignKey: 'sourceTemplateId', as: 'publishedSchemaVersions' });
+  RiskClassSchemaVersion.belongsTo(PageTemplate, { foreignKey: 'sourceTemplateId', as: 'sourceTemplate' });
+
+  User.hasMany(RiskClassSchemaVersion, { foreignKey: 'publishedByUserId', as: 'publishedSchemaVersions' });
+  RiskClassSchemaVersion.belongsTo(User, { foreignKey: 'publishedByUserId', as: 'publishedBy' });
+
+  RiskClassSchemaVersion.belongsTo(RiskClassSchemaVersion, { foreignKey: 'baseSchemaVersionId', as: 'baseSchemaVersion' });
+  RiskClassSchemaVersion.hasMany(RiskClassSchemaVersion, { foreignKey: 'baseSchemaVersionId', as: 'extensionSchemaVersions' });
+
+  // Risk Class Registry (Slice 2) — per-org behavior declaration bound to a
+  // taxonomy code. All associations are additive and nullable; they do not alter
+  // any existing model's behavior.
+  Organization.hasMany(RiskClassRegistry, { foreignKey: 'organizationId', as: 'riskClassRegistryEntries' });
+  RiskClassRegistry.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  RiskClassSchemaVersion.hasMany(RiskClassRegistry, { foreignKey: 'activeSchemaVersionId', as: 'registryEntries' });
+  RiskClassRegistry.belongsTo(RiskClassSchemaVersion, { foreignKey: 'activeSchemaVersionId', as: 'activeSchemaVersion' });
+
+  User.hasMany(RiskClassRegistry, { foreignKey: 'createdByUserId', as: 'createdRiskClassRegistryEntries' });
+  RiskClassRegistry.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdBy' });
+
+  // Benchmark priors (Slice 5.0) — credibility-weighting anchors bound to a
+  // taxonomy code, optionally per org. All associations are additive and nullable;
+  // they do not alter any existing model's behavior.
+  Organization.hasMany(BenchmarkPrior, { foreignKey: 'organizationId', as: 'benchmarkPriors' });
+  BenchmarkPrior.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  User.hasMany(BenchmarkPrior, { foreignKey: 'createdByUserId', as: 'createdBenchmarkPriors' });
+  BenchmarkPrior.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdBy' });
+
+  // A canonical submission optionally pins to the immutable schema version it was
+  // created under (nullable ⇒ legacy/unpinned submissions unchanged).
+  RiskClassSchemaVersion.hasMany(CanonicalSubmission, { foreignKey: 'schemaVersionId', as: 'canonicalSubmissions' });
+  CanonicalSubmission.belongsTo(RiskClassSchemaVersion, { foreignKey: 'schemaVersionId', as: 'schemaVersion' });
+
   User.hasOne(InvestorProfile, { foreignKey: 'userId', as: 'investorProfile' });
   InvestorProfile.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
@@ -116,6 +239,12 @@ export function initModels(sequelize: Sequelize): void {
 
   User.hasMany(Notification, { foreignKey: 'userId', as: 'notifications' });
   Notification.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+  // Subscriptions are owned by a user and optionally scoped to their organization.
+  User.hasMany(Subscription, { foreignKey: 'userId', as: 'subscriptions' });
+  Subscription.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+  Organization.hasMany(Subscription, { foreignKey: 'organizationId', as: 'subscriptions' });
+  Subscription.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
   InsurerProfile.hasMany(RiskPortfolio, { foreignKey: 'insurerProfileId', as: 'riskPortfolios' });
   RiskPortfolio.belongsTo(InsurerProfile, { foreignKey: 'insurerProfileId', as: 'insurerProfile' });
@@ -151,6 +280,11 @@ export function initModels(sequelize: Sequelize): void {
   Submission.hasMany(IngestionEvent, { foreignKey: 'submissionId', as: 'ingestionEvents' });
   IngestionEvent.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
 
+  // Each submission is produced by the ingestion channel it arrived through.
+  // The channel↔org assignment is fixed; submissions inherit that relationship.
+  IngestionChannel.hasMany(Submission, { foreignKey: 'ingestionChannelId', as: 'submissions' });
+  Submission.belongsTo(IngestionChannel, { foreignKey: 'ingestionChannelId', as: 'ingestionChannel' });
+
   Submission.hasMany(SubmissionDocument, { foreignKey: 'submissionId', as: 'submissionDocuments' });
   SubmissionDocument.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
 
@@ -171,6 +305,89 @@ export function initModels(sequelize: Sequelize): void {
 
   User.hasMany(WorkflowState, { foreignKey: 'assignedTo', as: 'assignedWorkflows' });
   WorkflowState.belongsTo(User, { foreignKey: 'assignedTo', as: 'assignedToUser' });
+
+  // Pipeline run / execution / artifact lineage (replayable history)
+  Submission.hasMany(PipelineRun, { foreignKey: 'submissionId', as: 'pipelineRuns' });
+  PipelineRun.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  PipelineRun.belongsTo(PipelineRun, { foreignKey: 'parentRunId', as: 'parentRun' });
+
+  PipelineRun.hasMany(StageExecution, { foreignKey: 'runId', as: 'executions' });
+  StageExecution.belongsTo(PipelineRun, { foreignKey: 'runId', as: 'run' });
+  Submission.hasMany(StageExecution, { foreignKey: 'submissionId', as: 'stageExecutions' });
+  StageExecution.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+
+  PipelineRun.hasMany(PipelineArtifact, { foreignKey: 'runId', as: 'artifacts' });
+  PipelineArtifact.belongsTo(PipelineRun, { foreignKey: 'runId', as: 'run' });
+  Submission.hasMany(PipelineArtifact, { foreignKey: 'submissionId', as: 'pipelineArtifacts' });
+  PipelineArtifact.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+
+  StageExecution.belongsTo(PipelineArtifact, { foreignKey: 'inputArtifactId', as: 'inputArtifact' });
+  StageExecution.belongsTo(PipelineArtifact, { foreignKey: 'outputArtifactId', as: 'outputArtifact' });
+
+  // Organization-level pipeline configuration associations
+  Organization.hasMany(OrganizationPipelineConfig, {
+    foreignKey: 'organizationId',
+    as: 'pipelineConfigs',
+  });
+  OrganizationPipelineConfig.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  User.hasMany(OrganizationPipelineConfig, {
+    foreignKey: 'createdByUserId',
+    as: 'createdPipelineConfigs',
+  });
+  OrganizationPipelineConfig.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdByUser' });
+
+  OrganizationPipelineConfig.hasMany(OrganizationPipelineConfigOperation, {
+    foreignKey: 'organizationPipelineConfigId',
+    as: 'operations',
+  });
+  OrganizationPipelineConfigOperation.belongsTo(OrganizationPipelineConfig, {
+    foreignKey: 'organizationPipelineConfigId',
+    as: 'pipelineConfig',
+  });
+
+  PipelineOperationCatalog.hasMany(OrganizationPipelineConfigOperation, {
+    foreignKey: 'operationCatalogId',
+    as: 'organizationConfigs',
+  });
+  OrganizationPipelineConfigOperation.belongsTo(PipelineOperationCatalog, {
+    foreignKey: 'operationCatalogId',
+    as: 'operationCatalog',
+  });
+
+  Organization.hasMany(PipelineLifecycleSubscription, {
+    foreignKey: 'organizationId',
+    as: 'pipelineLifecycleSubscriptions',
+  });
+  PipelineLifecycleSubscription.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  // Organization-level underwriting & investment appetite associations
+  Organization.hasMany(OrganizationAppetiteProfile, {
+    foreignKey: 'organizationId',
+    as: 'appetiteProfiles',
+  });
+  OrganizationAppetiteProfile.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  User.hasMany(OrganizationAppetiteProfile, {
+    foreignKey: 'createdByUserId',
+    as: 'createdAppetiteProfiles',
+  });
+  OrganizationAppetiteProfile.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdByUser' });
+
+  OrganizationAppetiteProfile.hasMany(OrganizationValidationRule, {
+    foreignKey: 'appetiteProfileId',
+    as: 'rules',
+  });
+  OrganizationValidationRule.belongsTo(OrganizationAppetiteProfile, {
+    foreignKey: 'appetiteProfileId',
+    as: 'appetiteProfile',
+  });
+
+  Organization.hasMany(OrganizationValidationRule, {
+    foreignKey: 'organizationId',
+    as: 'validationRules',
+  });
+  OrganizationValidationRule.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
   Submission.hasMany(ModelRun, { foreignKey: 'submissionId', as: 'modelRuns' });
   ModelRun.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
@@ -349,7 +566,14 @@ export function initModels(sequelize: Sequelize): void {
 
 export {
   AccreditationCheck,
+  Address,
   APIKey,
+  City,
+  Continent,
+  Country,
+  CrestaImportProgress,
+  CrestaZone,
+  StateProvince,
   AuditEvent,
   BankAccount,
   CapitalCommitment,
@@ -372,14 +596,24 @@ export {
   Order,
   OrderBookSnapshot,
   Organization,
+  PageTemplate,
   Payout,
   ParametricDefinition,
   Policy,
+  RiskClassSchemaVersion,
+  RiskClassRegistry,
+  BenchmarkPrior,
   PlatformEvent,
   Pricing,
   PricingVersion,
+  PipelineLifecycleSubscription,
+  PipelineOperationCatalog,
   RiskMetric,
   RiskPortfolio,
+  OrganizationPipelineConfig,
+  OrganizationPipelineConfigOperation,
+  OrganizationAppetiteProfile,
+  OrganizationValidationRule,
   SubmissionFile,
   IngestionChannel,
   IngestionEvent,
@@ -391,10 +625,14 @@ export {
   EnrichmentData,
   TriageResult,
   WorkflowState,
+  PipelineRun,
+  StageExecution,
+  PipelineArtifact,
   SPV,
   SPVEntity,
   SPVOwnership,
   Submission,
+  Subscription,
   Token,
   TokenHolder,
   TokenLock,

@@ -1,11 +1,80 @@
 import React from 'react'
 import { Link } from 'react-router'
+import styled from 'styled-components'
 import * as S from '../InsurerDashboard/InsurerDashboard.styles'
+import SectionHeader from '../../xds/components/SectionHeader'
+import StatCard from '../../xds/components/StatCard'
+import Badge from '../../xds/components/Badge'
+import DataTable, { DataTableColumn } from '../../xds/components/DataTable'
+import { colors } from '../../xds/colors'
+import { spacing, radii } from '../../xds/tokens'
 
-const sampleClaims = [
+type Claim = { id: string; claimant: string; amount: number; status: string }
+
+const sampleClaims: Claim[] = [
   { id: 'CL-001', claimant: 'Acme Corp', amount: 125000, status: 'Open' },
   { id: 'CL-002', claimant: 'Beta Holdings', amount: 420000, status: 'Under Review' },
   { id: 'CL-003', claimant: 'Gamma Re', amount: 98000, status: 'Settled' }
+]
+
+const HeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: ${spacing.lg}px;
+`
+
+const BackLink = styled(Link)`
+  color: ${colors.primary};
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const TableShell = styled.div`
+  border: 1px solid ${colors.outlineVariant};
+  border-radius: ${radii.lg}px;
+  overflow: hidden;
+`
+
+const ViewLink = styled(Link)`
+  color: ${colors.secondary};
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+
+function statusVariant(status: string): 'primary' | 'warning' | 'success' | 'neutral' {
+  if (status === 'Open') return 'primary'
+  if (status === 'Under Review') return 'warning'
+  if (status === 'Settled') return 'success'
+  return 'neutral'
+}
+
+const columns: DataTableColumn<Claim>[] = [
+  {
+    key: 'claimant',
+    header: 'Claimant',
+    render: (c) => (
+      <span>
+        {c.claimant} <span className="mono-data">{c.id}</span>
+      </span>
+    )
+  },
+  { key: 'amount', header: 'Amount', align: 'right', render: (c) => currencyFormatter.format(c.amount) },
+  {
+    key: 'status',
+    header: 'Status',
+    render: (c) => <Badge variant={statusVariant(c.status)}>{c.status}</Badge>
+  }
 ]
 
 export default function ClaimsDashboard() {
@@ -13,33 +82,23 @@ export default function ClaimsDashboard() {
     <>
       <S.ContentArea>
         <S.LeftColumn>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
-            <h1 style={{ margin: 0, fontSize: 24 }}>Claims</h1>
-            <Link to="/" style={{ color: '#4b8eff', textDecoration: 'none' }}>Back to Dashboard</Link>
-          </div>
+          <HeaderRow>
+            <SectionHeader title="Claims" subtitle="Recent claim activity" />
+            <BackLink to="/">Back to Dashboard</BackLink>
+          </HeaderRow>
 
-          <div style={{ display: 'grid', gap: 12 }}>
-            {sampleClaims.map((c) => (
-              <div key={c.id} style={{ background: '#0f1724', padding: 12, borderRadius: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                  <div style={{ fontWeight: 700 }}>{c.claimant} <span style={{ color: '#94a3b8', fontSize: 12, marginLeft: 8 }}>{c.id}</span></div>
-                  <div style={{ color: '#94a3b8', fontSize: 12 }}>{c.status} • {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(c.amount)}</div>
-                </div>
-                <div>
-                  <Link to={`/insurer/claims/${c.id}`} style={{ color: '#4edea3', textDecoration: 'none' }}>View</Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TableShell>
+            <DataTable<Claim>
+              columns={columns}
+              data={sampleClaims}
+              emptyText="No claims yet."
+              rowActions={(c) => <ViewLink to={`/insurer/claims/${c.id}`}>View</ViewLink>}
+            />
+          </TableShell>
         </S.LeftColumn>
 
         <S.RightAside>
-          <S.SummaryCard>
-            <S.SummaryInner>
-              <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8 }}>Recent Claims</div>
-              <div style={{ fontWeight: 800, fontSize: 18 }}>3 Items</div>
-            </S.SummaryInner>
-          </S.SummaryCard>
+          <StatCard label="Recent Claims" value="3" note="Items" />
         </S.RightAside>
       </S.ContentArea>
     </>

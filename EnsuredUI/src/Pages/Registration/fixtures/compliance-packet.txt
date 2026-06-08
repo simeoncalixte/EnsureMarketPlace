@@ -1,0 +1,2 @@
+Mock Compliance Packet for Storybook upload tests.
+Includes: UBO disclosure, accreditation note, regulatory references.

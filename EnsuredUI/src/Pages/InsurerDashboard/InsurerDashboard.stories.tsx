@@ -5,10 +5,12 @@ import ClaimsDashboard from '../Claims/ClaimsDashboard';
 import InsurerLayout from './InsurerLayout';
 import AnalyticsDashboard from './AnalyticsDashboard';
 import ActiveCoverage from './ActiveCoverage';
+import LineOfBusinessPage, { LineOfBusinessActiveTemplatePage } from './LineOfBusinessPage';
 import Reports from './Reports';
 import Settings from './Settings';
 import { Routes, Route } from 'react-router';
 import PipelineIngestion from './PipelineIngestion';
+import PipelineProcesses from './PipelineProcesses';
 import RabbitMQConfig from './RabbitMQConfig';
 import QueueConfig from './QueueConfig';
 import EmailIngestConfig from './EmailIngestConfig';
@@ -38,10 +40,14 @@ export const Default: StoryFn = () => {
         <Route path="insurer/dashboard" element={<AnalyticsDashboard />} />
         <Route path="insurer/claims" element={<ClaimsDashboard />} />
         <Route path="insurer/coverage/create" element={<InsurerDashboard />} />
+        <Route path="insurer/coverage/line-of-business" element={<LineOfBusinessPage />}>
+          <Route path="active-template" element={<LineOfBusinessActiveTemplatePage />} />
+        </Route>
         <Route path="insurer/coverage-active" element={<ActiveCoverage />} />
         <Route path="insurer/reports" element={<Reports />} />
         <Route path="insurer/settings" element={<Settings />} />
         <Route path="insurer/pipeline-ingestion" element={<PipelineIngestion />} />
+        <Route path="insurer/pipeline-processes" element={<PipelineProcesses />} />
         <Route path="insurer/pipeline-ingestion/rabbitmq" element={<RabbitMQConfig />} />
         <Route path="insurer/pipeline-ingestion/rabbitmq/:channelId" element={<RabbitMQConfig />} />
         <Route path="insurer/pipeline-ingestion/rabbitmq/:channelId/queue/:queueName" element={<QueueConfig />} />
@@ -57,5 +63,4 @@ export const Default: StoryFn = () => {
     </Routes>
   );
 };
-
 

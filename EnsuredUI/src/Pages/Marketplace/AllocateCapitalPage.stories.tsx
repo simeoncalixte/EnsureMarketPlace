@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import AllocateCapitalPage from './AllocateCapitalPage';
 
 // Preload available deal IDs at module load so stories can reuse them.
@@ -41,10 +41,11 @@ export default meta;
 
 type StoryArgs = {
   initialTrancheId?: string;
-  initialPoolId?: string;
+  initialPoolId?: number | string;
+  apiBase?: string;
 };
 
-const Template: Story<StoryArgs> = (args) => {
+const Template: StoryFn<StoryArgs> = (args) => {
   const [dealIds, setDealIds] = useState<Array<number | string>>([]);
   const [selectedDeal, setSelectedDeal] = useState<number | string | undefined>(args.initialPoolId);
 
@@ -78,7 +79,7 @@ const Template: Story<StoryArgs> = (args) => {
           ))}
         </select>
       </div>
-      <AllocateCapitalPage {...args} initialPoolId={1} />
+      <AllocateCapitalPage {...args} initialPoolId={1 as unknown as string} />
     </div>
   );
 };

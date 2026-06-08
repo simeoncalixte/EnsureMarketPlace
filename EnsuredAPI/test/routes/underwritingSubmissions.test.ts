@@ -3,6 +3,9 @@ import { buildApp } from '../../src/app';
 import { initTestDb } from '../helpers/db';
 import { User } from '../../src/db/models/identity.models';
 
+// Full schema sync + reinsurance seed per test runs past Jest's 5s default.
+jest.setTimeout(60000);
+
 describe('underwriting submissions dashboard', () => {
   let app: ReturnType<typeof buildApp>;
 

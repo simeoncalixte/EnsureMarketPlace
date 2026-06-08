@@ -1,0 +1,77 @@
+{
+  "process": "preRating",
+  "generatedAt": "2026-06-08T15:22:51.000Z",
+  "transformationCount": 2,
+  "transformations": [
+    {
+      "process": "preRating",
+      "stage": "pre-rating",
+      "testName": "assigns strong grade for in-appetite validated risks",
+      "description": "Validated in-appetite risk data is transformed into a strong pre-rating grade.",
+      "before": {
+        "normalization": {
+          "normalized": {
+            "riskType": "wind",
+            "expectedYield": 0.11
+          }
+        },
+        "validation": {
+          "flaggedForMoreInfo": false,
+          "appetite": {
+            "decision": "IN_APPETITE",
+            "reasons": []
+          }
+        }
+      },
+      "after": {
+        "ok": true,
+        "service": "preRating",
+        "model": "heuristic-prerating-v1",
+        "grade": "A",
+        "numericScore": 91,
+        "riskType": "wind",
+        "expectedYield": 0.11,
+        "priorityRank": 10,
+        "reasons": [
+          "Risk is within the configured underwriting appetite",
+          "Expected yield exceeds target floor",
+          "Validation passed auto-scrub checks"
+        ]
+      },
+      "recordedAt": "2026-06-08T15:22:50.741Z"
+    },
+    {
+      "process": "preRating",
+      "stage": "pre-rating",
+      "testName": "downgrades grade when validation fails",
+      "description": "A validation failure is transformed into a lower score and grade.",
+      "before": {
+        "extraction": {
+          "structuredData": {
+            "riskType": "wind",
+            "expectedYield": 0.1
+          }
+        },
+        "validation": {
+          "flaggedForMoreInfo": true
+        }
+      },
+      "after": {
+        "ok": true,
+        "service": "preRating",
+        "model": "heuristic-prerating-v1",
+        "grade": "D",
+        "numericScore": 35,
+        "riskType": "wind",
+        "expectedYield": 0.1,
+        "priorityRank": 66,
+        "reasons": [
+          "No appetite decision available (no profile configured)",
+          "Expected yield exceeds target floor",
+          "Validation requires additional information"
+        ]
+      },
+      "recordedAt": "2026-06-08T15:22:50.753Z"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import AdminSeedPage from './AdminSeedPage';
 
 const meta: Meta = {
@@ -10,7 +10,7 @@ const meta: Meta = {
 
 export default meta;
 
-export const Default: Story = () => {
+export const Default: StoryFn = () => {
   // Ensure Storybook runs against local API by default
   if (typeof window !== 'undefined') {
     (window as any).__VITE_API_BASE = 'http://localhost:3001';

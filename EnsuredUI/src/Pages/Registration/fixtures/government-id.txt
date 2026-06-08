@@ -1,0 +1,3 @@
+Mock Government-issued ID document for Storybook upload tests.
+Document ID: GOV-ID-123456
+Issued By: Test Authority

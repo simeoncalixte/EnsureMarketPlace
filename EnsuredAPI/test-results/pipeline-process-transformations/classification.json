@@ -1,0 +1,51 @@
+{
+  "process": "classification",
+  "generatedAt": "2026-06-08T15:23:04.677Z",
+  "transformationCount": 1,
+  "transformations": [
+    {
+      "process": "classification",
+      "stage": "classification",
+      "testName": "pure classifier maps hurricane submissions to catastrophe property windstorm",
+      "description": "Extracted submission text is classified into line of business and subtype.",
+      "before": {
+        "text": "Risk Type: Hurricane\nTrigger Type: Parametric\nOracle Source: NOAA certified_weather_station feed\nProperty Location: 123 Coast Road, Miami, FL"
+      },
+      "after": {
+        "modelVersion": "lob-keyword-taxonomy-v1",
+        "lineOfBusinessCode": "catastrophe_property",
+        "lineOfBusinessLabel": "Catastrophe Property",
+        "lineOfBusinessSubTypeCode": "catastrophe_property_windstorm",
+        "lineOfBusinessSubTypeLabel": "Windstorm",
+        "confidence": 0.98,
+        "needsReview": false,
+        "evidence": [
+          "cat",
+          "hurricane",
+          "noaa",
+          "parametric",
+          "hurricane",
+          "noaa"
+        ],
+        "alternatives": [
+          {
+            "lineOfBusinessCode": "property",
+            "lineOfBusinessLabel": "Property",
+            "score": 9
+          },
+          {
+            "lineOfBusinessCode": "catastrophe_bond",
+            "lineOfBusinessLabel": "Catastrophe Bond",
+            "score": 6
+          },
+          {
+            "lineOfBusinessCode": "parametric_weather",
+            "lineOfBusinessLabel": "Parametric Weather",
+            "score": 6
+          }
+        ]
+      },
+      "recordedAt": "2026-06-08T15:23:04.644Z"
+    }
+  ]
+}

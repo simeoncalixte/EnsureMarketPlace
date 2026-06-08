@@ -1,14 +1,38 @@
 import React from 'react'
+import styled from 'styled-components'
 import { colors } from '../colors'
+import { radii, spacing } from '../tokens'
+
+const Wrapper = styled.div`
+  position: relative;
+`
+
+const StyledSelect = styled.select`
+  width: 100%;
+  padding: ${spacing.sm + 2}px ${spacing.md - 2}px;
+  border-radius: ${radii.lg - 2}px;
+  background: ${colors.surfaceContainer};
+  border: none;
+  color: ${colors.text.primary};
+`
+
+const Chevron = styled.span`
+  position: absolute;
+  right: ${spacing.md - 4}px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: ${colors.onSurfaceVariant};
+  pointer-events: none;
+`
 
 export const Select: React.FC<React.SelectHTMLAttributes<HTMLSelectElement>> = ({ children, style, ...rest }) => {
   return (
-    <div style={{ position: 'relative' }}>
-      <select {...rest} style={{ width: '100%', padding: '10px 14px', borderRadius: 10, background: colors.surfaceContainer, border: 'none', color: colors.text.primary, ...style }}>
+    <Wrapper>
+      <StyledSelect {...rest} style={style}>
         {children}
-      </select>
-      <span style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', color: colors.onSurfaceVariant, pointerEvents: 'none' }}>▾</span>
-    </div>
+      </StyledSelect>
+      <Chevron>▾</Chevron>
+    </Wrapper>
   )
 }
 

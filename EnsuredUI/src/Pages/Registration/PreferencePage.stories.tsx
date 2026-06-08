@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import PreferencePage from "./PreferencePage";
 
 export default {
@@ -7,6 +7,6 @@ export default {
   component: PreferencePage,
 } as Meta;
 
-const Template: Story = () => <PreferencePage />;
+const Template: StoryFn = () => <PreferencePage />;
 
 export const Default = Template.bind({});

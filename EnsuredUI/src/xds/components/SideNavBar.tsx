@@ -2,42 +2,48 @@ import React from 'react'
 import styled from 'styled-components'
 import Navigation from './Navigation'
 import type { NavItem } from './Navigation'
+import { colors, withAlpha } from '../colors'
 
-const Aside = styled.aside<{ $isOpen?: boolean }>`
-  position: fixed;
-  left: 0;
-  top: 4rem;
-  z-index: 40;
-  width: min(18rem, calc(100vw - 2rem));
+const Aside = styled.aside<{ $isOpen?: boolean; $layoutMode: 'overlay' | 'grid' }>`
+  position: ${({ $layoutMode }) => ($layoutMode === 'grid' ? 'sticky' : 'fixed')};
+  left: ${({ $layoutMode }) => ($layoutMode === 'grid' ? 'auto' : '0')};
+  top: ${({ $layoutMode }) => ($layoutMode === 'grid' ? '0' : '4rem')};
+  z-index: ${({ $layoutMode }) => ($layoutMode === 'grid' ? '10' : '40')};
+  width: ${({ $layoutMode }) => ($layoutMode === 'grid' ? '100%' : 'min(18rem, calc(100vw - 2rem))')};
   height: calc(100vh - 4rem);
-  padding: 2rem 0;
-  background: #131b2e;
+  padding: 1.5rem 0;
+  background: ${colors.surfacePanel};
   flex-direction: column;
   display: flex;
-  overflow-y: auto;
-  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.28);
-  transform: translateX(${({ $isOpen }) => ($isOpen ? '0' : '-100%')});
-  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
-  visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
-  pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
+  overflow: hidden;
+  box-shadow: 0 24px 60px ${withAlpha(colors.scrim, 0.28)};
+  transform: ${({ $layoutMode, $isOpen }) => ($layoutMode === 'grid' ? 'none' : `translateX(${$isOpen ? '0' : '-100%'})`)};
+  opacity: ${({ $layoutMode, $isOpen }) => ($layoutMode === 'grid' ? 1 : ($isOpen ? 1 : 0))};
+  visibility: ${({ $layoutMode, $isOpen }) => ($layoutMode === 'grid' ? 'visible' : ($isOpen ? 'visible' : 'hidden'))};
+  pointer-events: ${({ $layoutMode, $isOpen }) => ($layoutMode === 'grid' ? 'auto' : ($isOpen ? 'auto' : 'none'))};
   transition: transform 220ms ease, opacity 180ms ease;
+
+  @media (min-width: 1024px) {
+    border-right: ${({ $layoutMode }) => ($layoutMode === 'grid' ? `1px solid ${withAlpha(colors.primarySoft, 0.1)}` : '0')};
+    box-shadow: ${({ $layoutMode }) => ($layoutMode === 'grid' ? 'none' : `0 24px 60px ${withAlpha(colors.scrim, 0.28)}`)};
+  }
 `
 
 const HeaderBlock = styled.div`
   padding: 0 2rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 `
 
 const Title = styled.div`
   margin-bottom: 0.25rem;
-  color: #adc6ff;
+  color: ${colors.primarySoft};
   font-size: 1.125rem;
   font-weight: 900;
   cursor: text;
 `
 
 const Subtitle = styled.div`
-  color: #9aa3bb;
+  color: ${colors.onSurfaceVariant};
   font-size: 0.75rem;
   font-weight: 500;
   cursor: text;
@@ -59,13 +65,13 @@ const NavItem = styled.div<{ $active?: boolean }>`
   font-weight: 500;
   cursor: text;
   transition: background-color 180ms ease, color 180ms ease;
-  background: ${({ $active }) => ($active ? '#222a3d' : 'transparent')};
-  color: ${({ $active }) => ($active ? '#adc6ff' : '#c1c6d7')};
-  border-left: ${({ $active }) => ($active ? '4px solid #4b8eff' : '4px solid transparent')};
+  background: ${({ $active }) => ($active ? colors.surfaceHigh : 'transparent')};
+  color: ${({ $active }) => ($active ? colors.primarySoft : colors.onSurfaceMuted)};
+  border-left: ${({ $active }) => ($active ? `4px solid ${colors.primary}` : '4px solid transparent')};
 
   &:hover {
-    background: ${({ $active }) => ($active ? '#222a3d' : '#171f33')};
-    color: #adc6ff;
+    background: ${({ $active }) => ($active ? colors.surfaceHigh : colors.surfaceRaised)};
+    color: ${colors.primarySoft};
   }
 `
 
@@ -76,6 +82,9 @@ const Icon = styled.span`
 const FooterActions = styled.div`
   margin-top: auto;
   padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 `
 
 const SaveButton = styled.button`
@@ -87,15 +96,41 @@ const SaveButton = styled.button`
   border: 0;
   border-radius: 0.375rem;
   padding: 0.75rem;
-  background: #222a3d;
-  color: #adc6ff;
+  background: ${colors.surfaceHigh};
+  color: ${colors.primarySoft};
   font-size: 0.875rem;
   font-weight: 700;
   transition: background-color 200ms ease, transform 200ms ease;
   cursor: text;
 
   &:hover {
-    background: #171f33;
+    background: ${colors.surfaceRaised};
+  }
+
+  &:active {
+    transform: translateX(1px);
+  }
+`
+
+const LogoutButton = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid ${withAlpha(colors.errorSoft, 0.24)};
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  background: ${withAlpha(colors.errorSoft, 0.1)};
+  color: ${colors.errorSoft};
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: background-color 200ms ease, transform 200ms ease, border-color 200ms ease;
+  cursor: pointer;
+
+  &:hover {
+    background: ${withAlpha(colors.errorSoft, 0.16)};
+    border-color: ${withAlpha(colors.errorSoft, 0.34)};
   }
 
   &:active {
@@ -107,11 +142,21 @@ const SaveIcon = styled.span`
   font-size: 0.875rem;
 `
 
-export const SideNavBar: React.FC<{ items?: NavItem[]; title?: string; subtitle?: string; isOpen?: boolean; onRequestClose?: () => void }> = ({ items, title, subtitle, isOpen = false, onRequestClose }) => {
+type SideNavBarProps = {
+  items?: NavItem[];
+  title?: string;
+  subtitle?: string;
+  isOpen?: boolean;
+  layoutMode?: 'overlay' | 'grid';
+  onRequestClose?: () => void;
+  onLogout?: () => void;
+}
+
+export const SideNavBar: React.FC<SideNavBarProps> = ({ items, title, subtitle, isOpen = false, layoutMode = 'overlay', onRequestClose, onLogout }) => {
   const hasCustom = Array.isArray(items) && items.length > 0
 
   return (
-    <Aside data-stitch-vh="h-[1024px]===h-screen" $isOpen={isOpen}>
+    <Aside data-stitch-vh="h-[1024px]===h-screen" $isOpen={isOpen} $layoutMode={layoutMode}>
       <HeaderBlock>
         <Title contentEditable={false} spellCheck={false} data-stitch-editable-idx="6" data-stitch-added-classes="cursor-text">
           {title ?? 'Registration'}
@@ -122,7 +167,7 @@ export const SideNavBar: React.FC<{ items?: NavItem[]; title?: string; subtitle?
       </HeaderBlock>
 
       {hasCustom ? (
-        <div style={{ padding: '0 1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '0 1.5rem', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
           <Navigation items={items!} onItemClick={onRequestClose} />
         </div>
       ) : (
@@ -155,6 +200,12 @@ export const SideNavBar: React.FC<{ items?: NavItem[]; title?: string; subtitle?
           <SaveIcon className="material-symbols-outlined" aria-hidden data-icon="save">save</SaveIcon>
           Save Progress
         </SaveButton>
+        {onLogout && (
+          <LogoutButton type="button" onClick={onLogout} aria-label="Log out of the application">
+            <SaveIcon className="material-symbols-outlined" aria-hidden data-icon="logout">logout</SaveIcon>
+            Log out
+          </LogoutButton>
+        )}
       </FooterActions>
     </Aside>
   )

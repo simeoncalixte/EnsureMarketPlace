@@ -1,5 +1,35 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 import * as S from './InsurerDashboard.styles'
+import StatCard from '../../xds/components/StatCard'
+import FormField from '../../xds/components/FormField'
+import Select from '../../xds/components/Select'
+import Button from '../../xds/components/Button'
+import { colors } from '../../xds/colors'
+
+const SettingsForm = styled.div`
+  display: grid;
+  gap: 12px;
+  max-width: 640px;
+`
+
+const FieldLabel = styled.label`
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: ${colors.onSurfaceVariant};
+  font-weight: 700;
+`
+
+const SaveRow = styled.div`
+  margin-top: 8px;
+`
+
+const AsideNote = styled.div`
+  padding: 16px;
+  font-size: 13px;
+  color: ${colors.onSurfaceVariant};
+`
 
 export default function Settings() {
   const [companyName, setCompanyName] = useState('Acme Re')
@@ -14,35 +44,33 @@ export default function Settings() {
             <S.SectionRule />
           </S.SectionHeader>
 
-          <div style={{ display: 'grid', gap: 12, maxWidth: 640 }}>
-            <div>
-              <label style={{ fontSize: 10, textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700 }}>Company Name</label>
-              <S.Input value={companyName} onChange={(e: any) => setCompanyName(e.target.value)} />
-            </div>
+          <SettingsForm>
+            <FormField
+              label="Company Name"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            />
 
             <div>
-              <label style={{ fontSize: 10, textTransform: 'uppercase', color: '#94a3b8', fontWeight: 700 }}>Timezone</label>
-              <S.Select value={timezone} onChange={(e: any) => setTimezone(e.target.value)}>
+              <FieldLabel>Timezone</FieldLabel>
+              <Select value={timezone} onChange={(e: any) => setTimezone(e.target.value)}>
                 <option>UTC</option>
                 <option>America/New_York</option>
                 <option>Europe/London</option>
-              </S.Select>
+              </Select>
             </div>
 
-            <div style={{ marginTop: 8 }}>
-              <button style={{ background: '#4b8eff', color: '#001a41', padding: '0.6rem 1rem', borderRadius: 8, border: 'none', fontWeight: 800 }}>Save Settings</button>
-            </div>
-          </div>
+            <SaveRow>
+              <Button variant="primary">Save Settings</Button>
+            </SaveRow>
+          </SettingsForm>
         </S.Section>
       </S.LeftColumn>
 
       <S.RightAside>
         <S.SummaryCard>
-          <S.SummaryInner>
-            <div style={{ fontSize: 12, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Preferences</div>
-            <div style={{ fontSize: 14, fontWeight: 700, marginTop: 8 }}>{companyName}</div>
-          </S.SummaryInner>
-          <div style={{ padding: 16, fontSize: 13, color: '#94a3b8' }}>Update basic insurer account settings and preferences.</div>
+          <StatCard label="Preferences" value={companyName} />
+          <AsideNote>Update basic insurer account settings and preferences.</AsideNote>
         </S.SummaryCard>
       </S.RightAside>
     </S.ContentArea>

@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   PageWrapper,
   Main,
-  Container,
 } from './Investors.styles';
 import { Row as DataRow } from '../../xds/components/DataTable';
 import {
@@ -13,6 +12,7 @@ import {
   InvestorSummary,
   InvestorSummaryStatsSection,
 } from './Investors.sections';
+import { getDefaultInvestor, getInvestorDashboard } from '../../api/investors';
 
 type InvestorDealApiRow = {
   id: string;
@@ -45,23 +45,6 @@ type InvestorContext = {
   lastName?: string;
   email?: string;
 };
-
-function resolveApiBase(): string {
-  const raw =
-    (typeof window !== 'undefined' && (((window as any).__VITE_API_BASE || (window as any).VITE_API_BASE) as string | undefined))
-    || (import.meta as any).env?.VITE_API_BASE
-    || '';
-
-  if (!raw) return '';
-  const firstHttp = raw.indexOf('http');
-  const lastHttp = raw.lastIndexOf('http');
-  let base = raw;
-  if (lastHttp > firstHttp) {
-    base = raw.slice(lastHttp);
-  }
-
-  return base.replace(/\/+$/g, '');
-}
 
 function resolveInvestorUserIdFromClient(): number | null {
   if (typeof window !== 'undefined') {
@@ -115,12 +98,9 @@ export default function InvestorsPage(): React.ReactElement {
       setDealsError(null);
 
       try {
-        const API_BASE = resolveApiBase();
-        const makeUrl = (path: string) => (API_BASE ? `${API_BASE}${path}` : path);
-
         let investorUserId = resolveInvestorUserIdFromClient();
         if (!investorUserId) {
-          const defaultInvestorRes = await fetch(makeUrl('/api/investors/default'));
+          const defaultInvestorRes = await getDefaultInvestor();
           if (!defaultInvestorRes.ok) {
             throw new Error(`Unable to resolve an investor (status ${defaultInvestorRes.status})`);
           }
@@ -138,7 +118,7 @@ export default function InvestorsPage(): React.ReactElement {
           setInvestorContext({ investorUserId, investorProfileId: 0 });
         }
 
-        const dashboardRes = await fetch(makeUrl(`/api/investors/${investorUserId}/dashboard`));
+        const dashboardRes = await getInvestorDashboard(investorUserId);
         if (!dashboardRes.ok) {
           throw new Error(`Unable to load investor dashboard (status ${dashboardRes.status})`);
         }
