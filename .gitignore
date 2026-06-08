@@ -15,3 +15,8 @@ simplemaps_worldcities_*
 **/.env
 **/.env.*
 !**/.env.example
+
+# Runtime-uploaded files (registration documents, submission uploads) — user data /
+# PII, never commit. The app recreates these dirs at runtime.
+**/storage/registration-documents/
+**/storage/uploads/
