@@ -16,6 +16,7 @@
     "import:cresta-zones": "ts-node --transpile-only src/db/import-cresta-zones.ts",
     "import:benchmark-priors": "ts-node --transpile-only src/db/import-benchmark-priors.ts",
     "seed:benchmark-priors": "ts-node --transpile-only src/db/seed-benchmark-priors.ts",
+    "sync:pipeline-operations": "ts-node --transpile-only src/db/sync-pipeline-operations.ts",
     "corpus:generate": "ts-node --transpile-only test/helpers/generateOcrCorpus.ts",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down -v"

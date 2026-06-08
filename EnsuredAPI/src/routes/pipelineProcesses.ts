@@ -6,6 +6,7 @@ import { User } from '../db/models/identity.models';
 import { PipelineLifecycleSubscription } from '../db/models/pipelineConfig.models';
 import { advanceSubmissionToNextStage, rerunSubmissionStage, buildPipelineBoard } from '../pipeline/board/service';
 import { getArtifact, getSubmissionPlayback } from '../pipeline/playback/service';
+import { PIPELINE_OPERATION_KEYS } from '../pipeline/operations/catalog';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_jwt_secret_for_impersonation';
 
@@ -47,22 +48,9 @@ type PipelineLifecycleSubscriptionResponse = {
   enabled: boolean;
 };
 
-const processOrder = [
-  'ingestion',
-  'ingestion-amqp',
-  'ocr',
-  'classification',
-  'extraction',
-  'normalization',
-  'validation',
-  'schemaGeneration',
-  'preRating',
-  'capacity',
-  'oracleAttestation',
-  'workflow',
-  'riskCompute',
-  'storageSearch',
-];
+// Execution order derives from the single canonical operation registry
+// (src/pipeline/operations/catalog.ts) so a new module can never drift out of sync.
+const processOrder = PIPELINE_OPERATION_KEYS;
 
 function defaultReportDir(): string {
   return path.resolve(process.cwd(), 'test-results', 'pipeline-process-transformations');

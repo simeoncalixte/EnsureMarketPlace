@@ -8,6 +8,7 @@ import { ChannelSeedService } from './services/ChannelSeedService';
 import { Deal, IngestionChannel } from './db/models';
 import { seedBenchmarkPriors } from './pipeline/benchmarkPriors/seed';
 import { seedCasualtyRegistryRows, seedCatRegistryRows } from './pipeline/registry/seed';
+import { syncPipelineOperationCatalog } from './pipeline/operations/catalog';
 
 async function start(): Promise<void> {
   const app = buildApp();
@@ -17,6 +18,22 @@ async function start(): Promise<void> {
     await sequelize.authenticate();
     await createMigrator(sequelize).up();
     await ensureDefaultPageTemplates(sequelize);
+
+    // Registry process — register any pipeline operation module missing from
+    // pipelineOperationCatalogs. Reference data needed in ALL environments (orgs
+    // configure pipelines against it). Idempotent + additive; failure is logged,
+    // never blocks startup.
+    try {
+      const opSync = await syncPipelineOperationCatalog();
+      if (opSync.added.length > 0) {
+        console.info(`Registered ${opSync.added.length} new pipeline operation(s): ${opSync.added.join(', ')}`);
+      }
+      if (opSync.pruned.length > 0) {
+        console.info(`Pruned ${opSync.pruned.length} stale pipeline operation(s): ${opSync.pruned.join(', ')}`);
+      }
+    } catch (err) {
+      console.warn('Pipeline operation catalog sync failed:', err);
+    }
 
     // In development, if no deals exist, seed sample reinsurance data so
     // the marketplace endpoint returns real opportunities for the UI.
