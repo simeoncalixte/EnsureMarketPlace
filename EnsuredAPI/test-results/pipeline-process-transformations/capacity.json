@@ -1,6 +1,6 @@
 {
   "process": "capacity",
-  "generatedAt": "2026-06-08T15:22:56.595Z",
+  "generatedAt": "2026-06-08T16:54:58.628Z",
   "transformationCount": 2,
   "transformations": [
     {
@@ -19,6 +19,11 @@
         "preRating": {
           "grade": "A",
           "expectedYield": 0.1
+        },
+        "validation": {
+          "appetite": {
+            "decision": "IN_APPETITE"
+          }
         }
       },
       "after": {
@@ -27,15 +32,17 @@
         "riskType": "wind",
         "expectedYield": 0.1,
         "dealSize": 10000000,
-        "totalOpenCapacity": 500000000,
+        "totalOpenCapacity": 125000000,
         "riskCapacity": 125000000,
         "remainingRiskCapacity": 115000000,
         "inAppetite": true,
         "hasCapacity": true,
         "route": "priority_queue",
-        "destinationPool": "primary-priority"
+        "destinationPool": "primary-priority",
+        "appetiteDecision": "IN_APPETITE",
+        "flags": []
       },
-      "recordedAt": "2026-06-08T15:22:56.567Z"
+      "recordedAt": "2026-06-08T16:54:58.528Z"
     },
     {
       "process": "capacity",
@@ -45,30 +52,37 @@
       "before": {
         "extraction": {
           "structuredData": {
-            "riskType": "cyber",
+            "riskType": "earthquake",
             "limit": 50000000,
             "expectedYield": 0.08
           }
         },
         "preRating": {
           "grade": "B"
+        },
+        "validation": {
+          "appetite": {
+            "decision": "OUT_OF_APPETITE"
+          }
         }
       },
       "after": {
         "ok": true,
         "service": "capacityMatch",
-        "riskType": "cyber",
+        "riskType": "earthquake",
         "expectedYield": 0.08,
         "dealSize": 50000000,
-        "totalOpenCapacity": 500000000,
-        "riskCapacity": 25000000,
-        "remainingRiskCapacity": 0,
+        "totalOpenCapacity": 200000000,
+        "riskCapacity": 200000000,
+        "remainingRiskCapacity": 150000000,
         "inAppetite": false,
-        "hasCapacity": false,
+        "hasCapacity": true,
         "route": "partner_pool",
-        "destinationPool": "external-partner"
+        "destinationPool": "external-partner",
+        "appetiteDecision": "OUT_OF_APPETITE",
+        "flags": []
       },
-      "recordedAt": "2026-06-08T15:22:56.580Z"
+      "recordedAt": "2026-06-08T16:54:58.539Z"
     }
   ]
 }
