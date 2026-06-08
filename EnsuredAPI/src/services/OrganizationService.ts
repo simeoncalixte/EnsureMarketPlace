@@ -1,4 +1,4 @@
-import faker from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { Organization } from '../db/models/identity.models';
 import { organizationTypes } from '../db/models/constants';
 
