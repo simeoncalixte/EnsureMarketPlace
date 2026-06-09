@@ -4,6 +4,7 @@
 // (e.g. several modules export a `getChannel`-style verb).
 export * as client from './client';
 export * as authApi from './auth';
+export * as navigationApi from './navigation';
 export * as usersApi from './users';
 export * as adminApi from './admin';
 export * as organizationsApi from './organizations';

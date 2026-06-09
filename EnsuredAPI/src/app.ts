@@ -11,6 +11,7 @@ import { myPortfolioSeedRoute } from './routes/myPortfolioSeed';
 import { analyticsRoute } from './routes/analytics';
 import { impersonationRoute } from './routes/impersonation';
 import { authRoute } from './routes/auth';
+import { navigationRoute } from './routes/navigation';
 import { registrationRoute } from './routes/registration';
 import { subscriptionsRoute } from './routes/subscriptions';
 import { organizationsRoute } from './routes/organizations';
@@ -137,6 +138,7 @@ export function buildApp(): FastifyInstance {
   app.register(usersRoute, { prefix: '/api' });
   app.register(impersonationRoute, { prefix: '/api' });
   app.register(authRoute, { prefix: '/api' });
+  app.register(navigationRoute, { prefix: '/api' });
   app.register(registrationRoute, { prefix: '/api' });
   app.register(subscriptionsRoute, { prefix: '/api' });
   app.register(ingestionChannelsRoute, { prefix: '/api' });

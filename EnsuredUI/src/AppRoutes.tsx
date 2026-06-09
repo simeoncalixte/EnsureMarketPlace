@@ -34,6 +34,7 @@ import TopBarNav from './xds/components/TopBarNav';
 import type { NavItem } from './xds/components/Navigation';
 import { saveAuthToken } from './lib/auth';
 import { useAuthMe, type AuthUser } from './lib/useAuthMe';
+import { useSessionNavigation } from './lib/useSessionNavigation';
 import { colors, withAlpha } from './xds/colors';
 
 const ShellRoot = styled.div`
@@ -604,34 +605,10 @@ type PublicAppShellProps = {
 
 const AppChromeContext = createContext<AppChromeState>({ isAuthenticated: false, user: null });
 
-const baseNavigationItems: NavItem[] = [
-  { id: '/', label: 'Home', icon: 'H' },
-  { id: '/investors', label: 'Investors', icon: 'INV' },
-  { id: '/claims', label: 'Claims', icon: 'CLM' },
-  { id: '/underwriting/submissions', label: 'Incoming Submissions', icon: 'SUB' },
-  { id: '/marketplace', label: 'Marketplace', icon: 'MKT' },
-  { id: '/line-of-business', label: 'Line of Business', icon: 'LB' },
-  { id: '/insurer/pipeline-ingestion', label: 'Ingestion Config', icon: 'ING' },
-  { id: '/insurer/pipeline-processes', label: 'Pipeline Processes', icon: 'PIP' },
-  { id: '/admin', label: 'Admin', icon: 'ADM' },
-  {
-    id: '/insurer',
-    label: 'Insurer',
-    icon: 'INS',
-    subItems: [
-      { id: '/insurer', label: 'Dashboard', icon: 'DB' },
-      { id: '/insurer/coverage/create', label: 'Create Coverage', icon: 'CR' },
-      { id: '/insurer/coverage/choice-controls', label: 'Choice Controls', icon: 'CC' },
-      { id: '/insurer/coverage-active', label: 'Active Coverage', icon: 'AC' },
-      { id: '/insurer/pipeline-ingestion', label: 'Pipeline Ingestion', icon: 'PL' },
-      { id: '/insurer/pipeline-processes', label: 'Pipeline Processes', icon: 'PP' },
-      { id: '/insurer/reports', label: 'Reports', icon: 'RP' },
-      { id: '/insurer/appetite', label: 'Underwriting Appetite', icon: 'AP' },
-      { id: '/insurer/settings', label: 'Settings', icon: 'ST' },
-      { id: '/insurer/claims', label: 'Claims', icon: 'CL' }
-    ]
-  }
-];
+// The sidebar is no longer defined here. The backend returns the role-scoped
+// menu for the current session (`GET /api/navigation`, via useSessionNavigation),
+// so the links a user sees — and can click — are governed server-side rather
+// than by a hardcoded client list.
 
 function normalizePath(pathname: string): string {
   if (pathname === '/') return '/';
@@ -854,7 +831,8 @@ function AuthenticatedAppShell({ children }: AuthenticatedAppShellProps = {}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true));
 
   const path = location.pathname;
-  const navigationItems = useMemo(() => markActiveNavItems(baseNavigationItems, path), [path]);
+  const { items: sessionNavItems } = useSessionNavigation(user?.role ?? null);
+  const navigationItems = useMemo(() => markActiveNavItems(sessionNavItems, path), [sessionNavItems, path]);
   const userLabel = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || user.email || 'Authenticated session' : 'Authenticated session';
   const subtitle = user?.role ? `${user.role} | ${userLabel}` : userLabel;
 
