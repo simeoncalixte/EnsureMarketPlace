@@ -39,6 +39,17 @@ describe('buildSchemaMessages', () => {
     expect(user).toMatch(/parametric/);
   });
 
+  it('makes the agent aware sections render as logically-separated sub-nav tabs', () => {
+    const { system } = buildSchemaMessages({ context, baseline });
+    // Knows the rendering model: one tab per section.
+    expect(system).toMatch(/sub-navigation/i);
+    expect(system).toMatch(/tab/i);
+    // Instructed to separate sections by a single theme and not fragment/cram.
+    expect(system).toMatch(/LOGICALLY SEPARATE THE SECTIONS/);
+    expect(system).toMatch(/one clear theme/i);
+    expect(system).toMatch(/single-field or near-empty sections/i);
+  });
+
   it('makes the agent taxonomy-aware: valid LOB/sub-type options in the facts', () => {
     const { system, user } = buildSchemaMessages({ context, baseline });
     // The system prompt constrains choice fields to the provided taxonomy.

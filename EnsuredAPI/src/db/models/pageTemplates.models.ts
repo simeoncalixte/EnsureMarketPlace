@@ -80,6 +80,24 @@ export type PageTemplateSectionDefinition = {
   description?: string;
   fields: PageTemplateFieldDefinition[];
   layout?: PageTemplateSectionLayoutDefinition;
+  // --- Additive repeatable-section keys (all optional) ---
+  /**
+   * When true the section is a schedule: it captures one *row* per item and the
+   * UI renders it as a repeatable card list ("add another"). Old templates omit
+   * this and behave exactly as before (a single, flat instance). On publish, a
+   * repeatable section compiles to a JSON-Schema `array` under `collectionKey`
+   * whose `items` carry this section's fields — instead of hoisting those fields
+   * to the top level. See `compileToJsonSchema`.
+   */
+  repeatable?: boolean;
+  /** Canonical key the array of rows is stored under (e.g. `statementOfValues`). Defaults to a camelCase of `key`. */
+  collectionKey?: string;
+  /** Minimum number of rows required when the section is repeatable. */
+  minItems?: number;
+  /** Maximum number of rows allowed when the section is repeatable. */
+  maxItems?: number;
+  /** Singular noun for one row, used by the UI for the add button / card title (e.g. `Value Item`). */
+  itemLabel?: string;
 };
 
 export type PageTemplateDefinition = {

@@ -127,9 +127,62 @@ function compileFieldSchema(field: PageTemplateFieldDefinition): Record<string, 
 }
 
 /**
- * Compile a PageTemplate definition into a JSON Schema draft-07 object keyed by
- * each field's `canonicalKey` (falling back to `key`). A field is `required` in
- * the compiled schema when `required === true` and it is not declared nullable.
+ * Compile the fields of one section into an object schema fragment
+ * `{ properties, required }`, keyed by each field's canonical key. Shared by the
+ * flat (top-level) and repeatable (array `items`) compilation paths.
+ */
+function compileFieldsObjectSchema(fields: PageTemplateFieldDefinition[]): {
+  properties: Record<string, Record<string, unknown>>;
+  required: string[];
+} {
+  const properties: Record<string, Record<string, unknown>> = {};
+  const requiredSet = new Set<string>();
+
+  for (const field of fields) {
+    const canonicalKey = resolveFieldCanonicalKey(field);
+    if (!canonicalKey) {
+      continue;
+    }
+    properties[canonicalKey] = compileFieldSchema(field);
+    const isNullable = field.constraints?.nullable === true;
+    if (field.required === true && !isNullable) {
+      requiredSet.add(canonicalKey);
+    }
+  }
+
+  return { properties, required: [...requiredSet].sort() };
+}
+
+/** Stable camelCase fallback for a repeatable section's collection key (e.g. `statement-of-values` → `statementOfValues`). */
+function camelCaseKey(value: string): string {
+  return String(value ?? '')
+    .trim()
+    .split(/[^a-zA-Z0-9]+/)
+    .filter(Boolean)
+    .map((part, index) => (index === 0 ? part.charAt(0).toLowerCase() + part.slice(1) : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join('');
+}
+
+/** Canonical key under which a repeatable section's rows are stored. */
+function resolveSectionCollectionKey(section: { key?: string; collectionKey?: string }): string {
+  const explicit = typeof section.collectionKey === 'string' ? section.collectionKey.trim() : '';
+  return explicit.length > 0 ? explicit : camelCaseKey(String(section.key ?? ''));
+}
+
+/**
+ * Compile a PageTemplate definition into a JSON Schema draft-07 object.
+ *
+ * Non-repeatable sections hoist their fields to the top level, keyed by each
+ * field's `canonicalKey` (falling back to `key`); a field is `required` when
+ * `required === true` and not declared nullable.
+ *
+ * Repeatable sections (a schedule) instead emit a single `array` property under
+ * the section's `collectionKey`, whose `items` is an object built from that
+ * section's fields (field-level `required` becomes item-level `required`). The
+ * array property is intentionally NOT added to the top-level `required` set:
+ * enforcement stays additive so legacy/flat canonical data is never rejected,
+ * while `minItems`/`maxItems` and item-level `required` still validate any rows
+ * that ARE present.
  *
  * Deterministic: properties and the `required` array are emitted in a stable
  * (sorted) order so the compiled output — and therefore its content hash — does
@@ -142,18 +195,40 @@ export function compileToJsonSchema(definitionJson: PageTemplateDefinition): Com
   const sections = Array.isArray(definitionJson?.sections) ? definitionJson.sections : [];
   for (const section of sections) {
     const fields = Array.isArray(section?.fields) ? section.fields : [];
-    for (const field of fields) {
-      const canonicalKey = resolveFieldCanonicalKey(field);
-      if (!canonicalKey) {
+    const { properties: fieldProps, required: fieldRequired } = compileFieldsObjectSchema(fields);
+
+    if (section?.repeatable === true) {
+      const collectionKey = resolveSectionCollectionKey(section);
+      if (!collectionKey) {
         continue;
       }
 
-      properties[canonicalKey] = compileFieldSchema(field);
-
-      const isNullable = field.constraints?.nullable === true;
-      if (field.required === true && !isNullable) {
-        requiredSet.add(canonicalKey);
+      const itemsSchema: Record<string, unknown> = {
+        type: 'object',
+        properties: fieldProps,
+        additionalProperties: true,
+      };
+      if (fieldRequired.length > 0) {
+        itemsSchema.required = fieldRequired;
       }
+
+      const arraySchema: Record<string, unknown> = { type: 'array', items: itemsSchema };
+      if (typeof section.minItems === 'number') {
+        arraySchema.minItems = section.minItems;
+      }
+      if (typeof section.maxItems === 'number') {
+        arraySchema.maxItems = section.maxItems;
+      }
+
+      properties[collectionKey] = arraySchema;
+      continue;
+    }
+
+    for (const [key, value] of Object.entries(fieldProps)) {
+      properties[key] = value;
+    }
+    for (const key of fieldRequired) {
+      requiredSet.add(key);
     }
   }
 

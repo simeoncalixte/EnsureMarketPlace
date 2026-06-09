@@ -17,6 +17,7 @@ import { OcrService } from '../ocr/service';
 import { persistOcrResult } from '../ocr/persistOcrResult';
 import { ClassificationService } from '../classification/service';
 import { ExtractionService } from '../extraction/service';
+import { LocationDiscoveryService } from '../locationDiscovery/service';
 import { NormalizationService } from '../normalization/service';
 import { ValidationService } from '../validation/service';
 import { SchemaGenerationService } from '../schemaGeneration/service';
@@ -139,6 +140,10 @@ const PIPELINE_STAGES: PipelineStageDefinition[] = [
   defineStage('ocr', 'OCR', '#4b8eff', ['ocr'], []),
   defineStage('classification', 'Classification', '#adc6ff', ['classification'], []),
   defineStage('extraction', 'Extraction', '#7dd3fc', ['extraction'], []),
+  // Discover + normalize a location for each insured subject (geocoding). Sits
+  // after extraction (where subjects are born) and before normalization, so the
+  // geocoded coordinates/addresses flow into canonicalization and modeling.
+  defineStage('locationDiscovery', 'Location Discovery', '#5eead4', ['location-discovery', 'locationdiscovery'], []),
   defineStage('normalization', 'Normalization', '#a7f3d0', ['normalization'], []),
   defineStage('validation', 'Validation', '#fbbf24', ['validation'], ['modeling']),
   defineStage('schemaGeneration', 'Schema Generation', '#f0abfc', ['schema-generation', 'schemageneration'], []),
@@ -431,6 +436,7 @@ const STAGE_RUNNERS: Record<string, (payload: unknown) => Promise<Record<string,
   ocr: (payload) => new OcrService().process(payload, { onSuccess: persistOcrResult }),
   classification: (payload) => new ClassificationService().process(payload),
   extraction: (payload) => new ExtractionService().process(payload),
+  locationDiscovery: (payload) => new LocationDiscoveryService().process(payload),
   normalization: (payload) => new NormalizationService().process(payload),
   validation: (payload) => new ValidationService().process(payload),
   schemaGeneration: (payload) => new SchemaGenerationService().process(payload),
