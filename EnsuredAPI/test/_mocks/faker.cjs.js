@@ -22,3 +22,7 @@ const faker = {
 
 module.exports = faker;
 module.exports.default = faker;
+// Named export — real @faker-js/faker v10 is ESM and exports `{ faker }` (no
+// default), so app code uses `import { faker }`. Expose it here too so the mock
+// satisfies both the named import (app/runtime) and the legacy default import.
+module.exports.faker = faker;

@@ -1,4 +1,4 @@
-import faker  from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { User } from '../db/models/identity.models';
 import { userRoles } from '../db/models/constants';
 
