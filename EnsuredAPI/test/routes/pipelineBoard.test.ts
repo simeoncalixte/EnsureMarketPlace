@@ -8,7 +8,7 @@ import { PipelineLifecycleSubscription } from '../../src/db/models/pipelineConfi
 // Includes the Slice 5.4 additive 'riskCompute' (Pricing) lane appended after
 // 'workflow'. The board's lane catalog grew by one; every prior lane is unchanged
 // in order and key.
-const PIPELINE_STAGE_KEYS = ['ingestion', 'ocr', 'classification', 'extraction', 'normalization', 'validation', 'schemaGeneration', 'workflow', 'riskCompute'];
+const PIPELINE_STAGE_KEYS = ['ingestion', 'ocr', 'classification', 'extraction', 'locationDiscovery', 'normalization', 'validation', 'schemaGeneration', 'workflow', 'riskCompute'];
 
 // Full schema sync + reinsurance seed per test runs well past Jest's 5s default.
 jest.setTimeout(60000);

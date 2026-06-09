@@ -35,7 +35,7 @@ describe('PageTemplate model defaults', () => {
     });
 
     const sectionKeys = template.definitionJson.sections.map((section) => section.key);
-    expect(sectionKeys).toEqual(['subject-identity', 'subject-location', 'subject-exposure', 'subject-coverage', 'statement-of-values']);
+    expect(sectionKeys).toEqual(['subject-identity', 'subject-location', 'subject-exposure', 'subject-coverage', 'statement-of-values', 'loss-history']);
     expect(
       template.definitionJson.sections.every(
         (section) =>
@@ -50,14 +50,18 @@ describe('PageTemplate model defaults', () => {
     expect(fieldKeys).toEqual(
       expect.arrayContaining([
         'subjectLabel',
+        'subjectReference',
         'lineOfBusiness',
         'lineOfBusinessSubType',
+        'riskDescription',
         'locationText',
-        'assetType',
-        'constructionType',
-        'occupancyType',
-        'replacementCost',
-        'vulnerabilityScore',
+        'countryCode',
+        'latitude',
+        'longitude',
+        'exposureBasis',
+        'exposureAmount',
+        'exposureUnitCount',
+        'riskQualityScore',
         'coverageLayerName',
         'coverageLayerType',
         'coverageLayerAttachmentPoint',
@@ -71,6 +75,11 @@ describe('PageTemplate model defaults', () => {
         'sovValuationBasis',
         'sovCurrency',
         'sovNotes',
+        'lossHistoryYears',
+        'claimCount',
+        'totalIncurredLosses',
+        'largestLoss',
+        'lossNotes',
       ]),
     );
   });

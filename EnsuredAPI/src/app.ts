@@ -30,6 +30,7 @@ import { ingestionRoute } from './pipeline/ingestion/route';
 import { classificationRoute } from './pipeline/classification/route';
 import { ocrRoute } from './pipeline/ocr/route';
 import { extractionRoute } from './pipeline/extraction/route';
+import { locationDiscoveryRoute } from './pipeline/locationDiscovery/route';
 import { normalizationRoute } from './pipeline/normalization/route';
 import { validationRoute } from './pipeline/validation/route';
 import { schemaGenerationRoute } from './pipeline/schemaGeneration/route';
@@ -148,6 +149,7 @@ export function buildApp(): FastifyInstance {
   app.register(classificationRoute, { prefix: '/api' });
   app.register(ocrRoute, { prefix: '/api' });
   app.register(extractionRoute, { prefix: '/api' });
+  app.register(locationDiscoveryRoute, { prefix: '/api' });
   app.register(normalizationRoute, { prefix: '/api' });
   app.register(validationRoute, { prefix: '/api' });
   app.register(schemaGenerationRoute, { prefix: '/api' });

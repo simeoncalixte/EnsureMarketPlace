@@ -1,5 +1,4 @@
 import { DataTypes, QueryInterface, Transaction } from 'sequelize';
-import { ensureDefaultPageTemplates } from '../pageTemplateDefaults';
 
 async function tableExists(context: QueryInterface, tableName: string, transaction: Transaction): Promise<boolean> {
   const tableNames = await context.showAllTables({ transaction });
@@ -16,7 +15,6 @@ function baseColumns() {
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
   const transaction = await context.sequelize.transaction();
-  let committed = false;
 
   try {
     if (!(await tableExists(context, 'pageTemplates', transaction))) {
@@ -76,16 +74,19 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
     }
 
     await transaction.commit();
-    committed = true;
-
-    await ensureDefaultPageTemplates(context.sequelize);
   } catch (error) {
-    if (!committed) {
-      await transaction.rollback();
-    }
+    await transaction.rollback();
     throw error;
   }
 }
+
+// NOTE: default page templates are seeded at server boot via
+// `ensureDefaultPageTemplates` (server.ts), which runs AFTER all migrations. The
+// seed must NOT run from inside this migration: it goes through the live
+// `PageTemplate` model, which has since gained columns (e.g. `source`, added by
+// 20260607000000-add-page-template-source) that do not exist at this migration's
+// point in the sequence — seeding here fails a fresh migrate with
+// `column "source" does not exist`.
 
 export async function down({ context }: { context: QueryInterface }): Promise<void> {
   const transaction = await context.sequelize.transaction();

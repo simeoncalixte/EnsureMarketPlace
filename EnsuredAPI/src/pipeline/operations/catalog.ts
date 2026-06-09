@@ -35,6 +35,7 @@ const OPERATIONS: ReadonlyArray<OperationSeed> = [
   { operationKey: 'ocr', stageName: 'ocr', displayName: 'OCR', description: 'Extract text from uploaded documents.', category: 'extraction' },
   { operationKey: 'classification', stageName: 'classification', displayName: 'Classification', description: 'Classify document types.', category: 'extraction' },
   { operationKey: 'extraction', stageName: 'extraction', displayName: 'Extraction', description: 'Extract structured fields from documents.', category: 'extraction' },
+  { operationKey: 'locationDiscovery', stageName: 'locationDiscovery', displayName: 'Location Discovery', description: 'Geocode and normalize a location for each insured subject (open-source Nominatim, premium Google).', category: 'extraction' },
   { operationKey: 'normalization', stageName: 'normalization', displayName: 'Normalization', description: 'Canonicalize extracted fields into the submission schema.', category: 'extraction', canDisable: false },
   { operationKey: 'validation', stageName: 'validation', displayName: 'Validation & Appetite', description: 'Run scrub, schema validation, and underwriting appetite.', category: 'underwriting', canDisable: false },
   { operationKey: 'schemaGeneration', stageName: 'schemaGeneration', displayName: 'Schema Generation', description: 'Generate/tailor the dynamic submission schema.', category: 'underwriting' },

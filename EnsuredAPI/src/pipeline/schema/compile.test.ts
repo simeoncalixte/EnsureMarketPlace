@@ -96,6 +96,118 @@ describe('compileToJsonSchema', () => {
     expect(compiled.properties).toEqual({});
     expect(compiled.required).toEqual([]);
   });
+
+  test('compiles a repeatable section to an array under its collectionKey', () => {
+    const def: PageTemplateDefinition = {
+      schemaVersion: 1,
+      pageKey: 'insured-subjects',
+      title: 'Schedule',
+      sections: [
+        {
+          key: 'subject-identity',
+          label: 'Identity',
+          order: 10,
+          fields: [{ key: 'subjectLabel', label: 'Subject', type: 'text', order: 10, required: true, canonicalKey: 'subjectLabel' }],
+        },
+        {
+          key: 'statement-of-values',
+          label: 'Statement of Values',
+          order: 60,
+          repeatable: true,
+          collectionKey: 'statementOfValues',
+          minItems: 1,
+          maxItems: 50,
+          itemLabel: 'Value Item',
+          fields: [
+            { key: 'sovItemDescription', label: 'Item', type: 'text', order: 10, required: true },
+            { key: 'sovInsuredValue', label: 'Value', type: 'number', order: 20, required: true, constraints: { min: 0, unit: 'USD' } },
+            { key: 'sovNotes', label: 'Notes', type: 'textarea', order: 30 },
+          ],
+        },
+      ],
+    };
+
+    const compiled = compileToJsonSchema(def);
+
+    // Flat field hoisted as before.
+    expect(compiled.properties.subjectLabel).toEqual({ type: 'string' });
+    // Repeatable section becomes an array keyed by collectionKey, NOT flat fields.
+    expect(compiled.properties.sovItemDescription).toBeUndefined();
+    expect(compiled.properties.statementOfValues).toEqual({
+      type: 'array',
+      minItems: 1,
+      maxItems: 50,
+      items: {
+        type: 'object',
+        additionalProperties: true,
+        properties: {
+          sovItemDescription: { type: 'string' },
+          sovInsuredValue: { type: 'number', minimum: 0, unit: 'USD' },
+          sovNotes: { type: 'string' },
+        },
+        required: ['sovInsuredValue', 'sovItemDescription'],
+      },
+    });
+    // The array itself stays additive — only the flat required field is top-level required.
+    expect(compiled.required).toEqual(['subjectLabel']);
+  });
+
+  test('falls back to a camelCase collectionKey when none is given', () => {
+    const compiled = compileToJsonSchema({
+      schemaVersion: 1,
+      pageKey: 'p',
+      title: 't',
+      sections: [
+        {
+          key: 'coverage-layers',
+          label: 'Coverage Layers',
+          order: 10,
+          repeatable: true,
+          fields: [{ key: 'limit', label: 'Limit', type: 'number', order: 10, required: true }],
+        },
+      ],
+    });
+    expect(Object.keys(compiled.properties)).toEqual(['coverageLayers']);
+    expect((compiled.properties.coverageLayers as { type: string }).type).toBe('array');
+  });
+
+  test('validates rows inside a repeatable array (minItems + item required + bounds)', () => {
+    const compiled = compileToJsonSchema({
+      schemaVersion: 1,
+      pageKey: 'p',
+      title: 't',
+      sections: [
+        {
+          key: 'statement-of-values',
+          label: 'SOV',
+          order: 10,
+          repeatable: true,
+          collectionKey: 'statementOfValues',
+          minItems: 1,
+          fields: [
+            { key: 'sovItemDescription', label: 'Item', type: 'text', order: 10, required: true },
+            { key: 'sovInsuredValue', label: 'Value', type: 'number', order: 20, required: true, constraints: { min: 0 } },
+          ],
+        },
+      ],
+    });
+
+    // Absent array is tolerated (additive — legacy/flat data still passes).
+    expect(validateCanonicalData({}, compiled).ok).toBe(true);
+    // Present-but-empty violates minItems.
+    expect(validateCanonicalData({ statementOfValues: [] }, compiled).ok).toBe(false);
+    // A row missing a required field fails.
+    expect(validateCanonicalData({ statementOfValues: [{ sovInsuredValue: 100 }] }, compiled).ok).toBe(false);
+    // A negative value fails the item-level bound.
+    expect(validateCanonicalData({ statementOfValues: [{ sovItemDescription: 'Building', sovInsuredValue: -1 }] }, compiled).ok).toBe(false);
+    // A well-formed schedule passes.
+    expect(
+      validateCanonicalData(
+        { statementOfValues: [{ sovItemDescription: 'Building', sovInsuredValue: 100 }, { sovItemDescription: 'Contents', sovInsuredValue: 50 }] },
+        compiled,
+      ).ok,
+    ).toBe(true);
+  });
 });
 
 describe('validateCanonicalData', () => {

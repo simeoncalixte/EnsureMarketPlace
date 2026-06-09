@@ -104,7 +104,7 @@ export class Address extends Model<InferAttributes<Address>, InferCreationAttrib
   declare longitude: number | null;
   declare formattedAddress: string | null;
   declare placeId: string | null;
-  declare metadata: CreationOptional<unknown>;
+  declare metadata: CreationOptional<Record<string, unknown> | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
