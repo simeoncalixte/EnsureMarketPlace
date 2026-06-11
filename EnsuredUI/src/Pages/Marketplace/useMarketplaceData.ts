@@ -1,11 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   getActivePendingFunding,
   getLineOfBusinessTaxonomyResponse,
   OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH,
 } from '../../api/marketplace';
+import { getActiveEvents } from '../../api/riskLayers';
+import { cleanDealName } from './Marketplace.utils';
 
 const TAXONOMY_PATH = '/api/marketplace/line-of-business-taxonomy';
+
+// Marketplace data refresh cadence — matches the map's active-events layer.
+const REFRESH_INTERVAL_MS = 5 * 60_000;
 
 export type MarketplaceOpportunity = {
   id: string;
@@ -157,13 +162,16 @@ export function useMarketplaceOpportunities() {
   const [opportunitiesError, setOpportunitiesError] = useState<string | null>(
     null
   );
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const mountedRef = useRef(true);
+  // Only the very first load shows the loading state; periodic refreshes swap
+  // data in place so the list doesn't flash every five minutes.
+  const hasLoadedRef = useRef(false);
 
-  useEffect(() => {
-    let mounted = true;
-    setIsLoadingOpportunities(true);
-    setOpportunitiesError(null);
-
-    const endpoint = OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH;
+  const load = useCallback(() => {
+    if (!hasLoadedRef.current) {
+      setIsLoadingOpportunities(true);
+    }
 
     getActivePendingFunding()
       .then((res) => {
@@ -173,34 +181,101 @@ export function useMarketplaceOpportunities() {
         return res.json();
       })
       .then((data) => {
-        if (!mounted) {
+        if (!mountedRef.current) {
           return;
         }
 
         setOpportunities(normalizeOpportunitiesPayload(data));
+        setOpportunitiesError(null);
+        setLastUpdated(new Date());
       })
       .catch((error) => {
-        if (!mounted) {
+        if (!mountedRef.current) {
           return;
         }
 
-        setOpportunities([]);
-        setOpportunitiesError(
-          `${String(error?.message || error)} (endpoint: ${endpoint})`
+        console.warn(
+          `Marketplace opportunities fetch failed (endpoint: ${OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH}):`,
+          error
         );
+        // Keep any previously loaded data on a refresh failure; only surface
+        // the (non-technical) error when we have nothing to show.
+        if (!hasLoadedRef.current) {
+          setOpportunities([]);
+          setOpportunitiesError(
+            'The live opportunities feed is unreachable right now. It retries automatically.'
+          );
+        }
       })
       .finally(() => {
-        if (mounted) {
+        if (mountedRef.current) {
+          hasLoadedRef.current = true;
           setIsLoadingOpportunities(false);
         }
       });
+  }, []);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    load();
+
+    const interval = window.setInterval(load, REFRESH_INTERVAL_MS);
+    const onFocus = () => load();
+    window.addEventListener('focus', onFocus);
 
     return () => {
-      mounted = false;
+      mountedRef.current = false;
+      window.clearInterval(interval);
+      window.removeEventListener('focus', onFocus);
+    };
+  }, [load]);
+
+  return {
+    opportunities,
+    isLoadingOpportunities,
+    opportunitiesError,
+    lastUpdated,
+    refetchOpportunities: load,
+  };
+}
+
+// Live catastrophe events shared by the footer ticker, the market-signal card
+// and (via its own layer) the map. Refreshes on the marketplace cadence.
+export type LiveRiskEvent = {
+  title?: string;
+  place?: string;
+  peril?: string;
+  severityLevel?: 'low' | 'moderate' | 'high' | 'severe' | string;
+};
+
+export function useLiveRiskEvents(): LiveRiskEvent[] {
+  const [events, setEvents] = useState<LiveRiskEvent[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = () => {
+      getActiveEvents<{ features?: Array<{ properties?: LiveRiskEvent }> }>()
+        .then((data) => {
+          if (cancelled) return;
+          const items = (data?.features ?? [])
+            .map((f) => f.properties)
+            .filter((p): p is LiveRiskEvent => Boolean(p && p.title));
+          setEvents(items);
+        })
+        .catch(() => {
+          /* feed is optional — callers render their static fallback */
+        });
+    };
+
+    load();
+    const handle = window.setInterval(load, REFRESH_INTERVAL_MS);
+    return () => {
+      cancelled = true;
+      window.clearInterval(handle);
     };
   }, []);
 
-  return { opportunities, isLoadingOpportunities, opportunitiesError };
+  return events;
 }
 
 export function useMarketplaceSummary(
@@ -268,7 +343,12 @@ export function useAggregatedDeals(
 export function useMarketplaceMapPoints(opportunities: MarketplaceOpportunity[]) {
   return useMemo(() => {
     const duplicateCounts = new Map<string, number>();
-    const points: Array<{ latitude: number; longitude: number; label?: string }> = [];
+    const points: Array<{
+      latitude: number;
+      longitude: number;
+      label?: string;
+      id?: string;
+    }> = [];
 
     for (const opportunity of opportunities) {
       const lat = Number(opportunity.latitude);
@@ -293,7 +373,9 @@ export function useMarketplaceMapPoints(opportunities: MarketplaceOpportunity[])
       points.push({
         latitude: adjustedLat,
         longitude: adjustedLng,
-        label: `${opportunity.dealName} • ${opportunity.trancheName}`,
+        label: `${cleanDealName(opportunity.dealName)} • ${opportunity.trancheName}`,
+        // Marker clicks resolve back to the owning deal card in the list.
+        id: String(opportunity.dealId),
       });
     }
 
@@ -349,10 +431,9 @@ export function useMarketplaceLineOfBusinessTaxonomy() {
           return;
         }
 
+        console.warn(`Taxonomy fetch failed (endpoint: ${endpoint}):`, error);
         setPrimaryTypes([]);
-        setTaxonomyError(
-          `${String(error?.message || error)} (endpoint: ${endpoint})`
-        );
+        setTaxonomyError('Line-of-business filters are unavailable right now.');
       })
       .finally(() => {
         if (mounted) {

@@ -135,6 +135,15 @@ export const DealGrid = styled.div`
   flex: 1;
 `;
 
+/** Main content column to the right of the filter rail: map panel above deals. */
+export const DealColumn = styled.div`
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
 /** Generic page-local surface wrapper for opportunity / state cards. */
 export const DealCardSurface = styled.div`
   background: var(--surface-container-low, ${colors.surfaceLow});
@@ -284,18 +293,40 @@ export const SectionTitle = styled.h2`
   font-weight: 800;
 `;
 
-export const SortControls = styled.div`
-  display: flex;
-  gap: 0.5rem;
+/** Data-freshness stamp shown next to the page title. */
+export const UpdatedStamp = styled.span`
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--on-surface-variant, ${colors.neutral[400]});
+  white-space: nowrap;
 `;
 
-/** Pushes the view-mode switch to the right edge of the section header. */
-export const ViewModeControls = styled.div`
+/** All view controls (sort, view mode, map toggle) on the right of the header. */
+export const HeadControls = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 0.75rem;
   align-items: center;
   margin-left: auto;
-  min-width: 16rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+`;
+
+/** Indented block under a map-layer checkbox: its status note + facet options. */
+export const FilterIndent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-left: 1.75rem;
+  margin-top: 0.25rem;
+`;
+
+/** Muted helper line in the filter rail (layer status, slider value). */
+export const LayerNote = styled.span`
+  display: block;
+  font-size: 0.7rem;
+  font-family: monospace;
+  color: var(--on-surface-variant, ${colors.neutral[400]});
+  margin-top: 0.25rem;
 `;
 
 export const CardsGrid = styled.div`
@@ -328,27 +359,6 @@ export const CardBody = styled.div`
   padding: 1.5rem;
 `;
 
-export const CardTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-`;
-
-/** Row holding the risk badge + contract id above a card title. */
-export const CardBadgeRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
-`;
-
-export const CardId = styled.span`
-  font-size: 0.75rem;
-  font-family: monospace;
-  color: var(--on-surface-variant, ${colors.neutral[400]});
-`;
-
 export const CardTitle = styled.h3`
   font-size: 1.125rem;
   font-weight: 800;
@@ -358,87 +368,6 @@ export const CardTitle = styled.h3`
 export const CardSub = styled.p`
   font-size: 0.875rem;
   color: var(--on-surface-variant, ${colors.neutral[400]});
-`;
-
-export const CardRight = styled.div`
-  text-align: right;
-`;
-
-export const ExpReturn = styled.div<{ $tone: 'primary' | 'tertiary' }>`
-  font-size: 1.5rem;
-  font-family: monospace;
-  font-weight: 700;
-  color: ${({ $tone }) =>
-    $tone === 'tertiary' ? `var(--tertiary, ${colors.errorSoft})` : `var(--primary, ${colors.primary})`};
-`;
-
-export const ExpReturnLabel = styled.div`
-  font-size: 0.625rem;
-  font-family: monospace;
-  text-transform: uppercase;
-  color: var(--on-surface-variant, ${colors.neutral[400]});
-`;
-
-export const StatGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-`;
-
-export const StatLabel = styled.p`
-  font-size: 0.625rem;
-  font-family: monospace;
-  text-transform: uppercase;
-  color: var(--on-surface-variant, ${colors.neutral[400]});
-`;
-
-export const StatValueLarge = styled.p<{ $tone?: 'error' | 'secondary' | 'mono' | 'default' }>`
-  font-size: 1.125rem;
-  font-weight: 800;
-  font-family: ${({ $tone }) => ($tone === 'mono' ? 'monospace' : 'inherit')};
-  color: ${({ $tone }) =>
-    $tone === 'error'
-      ? `var(--error, ${colors.error})`
-      : $tone === 'secondary'
-      ? `var(--secondary, ${colors.dataViz.blueSky})`
-      : 'inherit'};
-`;
-
-export const ProgressWrap = styled.div`
-  display: block;
-`;
-
-export const ProgressMeta = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  font-family: monospace;
-  margin-bottom: 0.5rem;
-`;
-
-export const ProgressMetaLabel = styled.span`
-  color: var(--on-surface-variant, ${colors.neutral[400]});
-`;
-
-export const ProgressMetaValue = styled.span<{ $tone: 'primary' | 'tertiary' }>`
-  color: ${({ $tone }) =>
-    $tone === 'tertiary' ? `var(--tertiary, ${colors.errorSoft})` : `var(--primary, ${colors.primary})`};
-`;
-
-export const CardActions = styled.div`
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 0.75rem;
-`;
-
-/** Full-width allocate button used in individual opportunity cards. */
-export const AllocateFullButton = styled.div`
-  flex: 1;
-  display: flex;
-  & > button {
-    width: 100%;
-  }
 `;
 
 export const FooterStatus = styled.div`
@@ -528,11 +457,17 @@ export const AggregatedCardsStack = styled.div`
   gap: 1.5rem;
 `;
 
-export const AggregatedDealCard = styled(DealCardSurface)`
-  border: 1px solid ${withAlpha(colors.border, 0.18)};
+export const AggregatedDealCard = styled(DealCardSurface)<{ $highlighted?: boolean }>`
+  border: 1px solid
+    ${({ $highlighted }) =>
+      $highlighted ? withAlpha(colors.primary, 0.65) : withAlpha(colors.border, 0.18)};
   border-radius: 0.125rem;
   background: ${colors.surfaceRaised};
-  box-shadow: inset 0 1px 0 ${withAlpha(colors.white, 0.02)};
+  box-shadow: ${({ $highlighted }) =>
+    $highlighted
+      ? `0 0 0 1px ${withAlpha(colors.primary, 0.35)}, inset 0 1px 0 ${withAlpha(colors.white, 0.02)}`
+      : `inset 0 1px 0 ${withAlpha(colors.white, 0.02)}`};
+  transition: border-color 240ms ease, box-shadow 240ms ease;
   &:hover {
     background: ${colors.surfaceRaised};
   }
@@ -548,9 +483,9 @@ export const AggregatedAccentBar = styled.div<{ $tone: 'primary' | 'secondary' |
 `;
 
 export const AggregatedCardInner = styled.div`
-  padding: 2rem;
+  padding: 1.5rem;
   @media (max-width: 767px) {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 `;
 
@@ -559,10 +494,10 @@ export const AggregatedDealHeader = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 1.5rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
   @media (max-width: 767px) {
     flex-direction: column;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -581,33 +516,34 @@ export const AggregatedBadgeRow = styled.div`
 
 export const AggregatedDealReference = styled.span`
   color: ${colors.onSurfaceMuted};
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-family: monospace;
   letter-spacing: 0.03em;
 `;
 
+/* Card heading sits one step below the page title (SectionTitle, 1.5rem). */
 export const AggregatedDealTitle = styled.h3`
   margin: 0;
   color: ${colors.onSurfaceStrong};
   font-family: Manrope, var(--font-headline, sans-serif);
-  font-size: clamp(1.9rem, 3vw, 2.45rem);
-  line-height: 1.02;
+  font-size: 1.25rem;
+  line-height: 1.2;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
 `;
 
 export const AggregatedDealDescription = styled.p`
   margin: 0;
   max-width: 40rem;
   color: ${colors.onSurfaceMuted};
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.45;
 `;
 
 export const AggregatedSummary = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 2.25rem;
+  gap: 1.5rem;
   text-align: right;
   @media (max-width: 767px) {
     width: 100%;
@@ -626,20 +562,21 @@ export const AggregatedSummaryMetric = styled.div`
 export const AggregatedSummaryLabel = styled.p`
   margin: 0;
   color: ${colors.onSurfaceMuted};
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-family: monospace;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
 `;
 
+/* Card-level metric: prominent within the card, but below the page stat cards. */
 export const AggregatedSummaryValue = styled.p`
   margin: 0;
   color: ${colors.onSurfaceStrong};
   font-family: Manrope, var(--font-headline, sans-serif);
-  font-size: clamp(1.9rem, 2.5vw, 2.6rem);
+  font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 0.95;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 `;
 
 export const AggregatedTrancheTable = styled.div`
@@ -653,14 +590,14 @@ export const AggregatedTrancheHeader = styled.div`
   grid-template-columns: minmax(0, 3.3fr) 1fr 1fr 1fr 1.1fr;
   gap: 1rem;
   align-items: center;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   background: ${withAlpha(colors.background, 0.55)};
   color: ${colors.onSurfaceMuted};
   border-bottom: 1px solid ${withAlpha(colors.border, 0.14)};
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-family: monospace;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   @media (max-width: 900px) {
     display: none;
   }
@@ -674,17 +611,16 @@ export const AggregatedTrancheHeaderRight = styled.div`
   text-align: right;
 `;
 
-export const AggregatedTrancheRow = styled.div<{ $selected?: boolean }>`
+export const AggregatedTrancheRow = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 3.3fr) 1fr 1fr 1fr 1.1fr;
   gap: 1rem;
   align-items: center;
-  padding: 1.5rem;
-  border-left: ${({ $selected }) => ($selected ? `2px solid ${colors.primary}` : '2px solid transparent')};
-  background: ${({ $selected }) => ($selected ? withAlpha(colors.primary, 0.1) : 'transparent')};
+  padding: 0.875rem 1.25rem;
+  border-left: 2px solid transparent;
   transition: background 160ms ease;
   &:hover {
-    background: ${({ $selected }) => ($selected ? withAlpha(colors.primary, 0.12) : withAlpha(colors.primary, 0.05))};
+    background: ${withAlpha(colors.primary, 0.05)};
   }
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -700,14 +636,14 @@ export const AggregatedTrancheMain = styled.div`
 export const AggregatedTrancheTitle = styled.p`
   margin: 0;
   color: ${colors.onSurfaceStrong};
-  font-size: 1rem;
-  font-weight: 800;
+  font-size: 0.875rem;
+  font-weight: 700;
 `;
 
 export const AggregatedTrancheCaption = styled.p`
-  margin: 0.35rem 0 0;
+  margin: 0.25rem 0 0;
   color: ${colors.onSurfaceMuted};
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-family: monospace;
   letter-spacing: 0.08em;
 `;
@@ -737,14 +673,15 @@ export const AggregatedMetricLabel = styled.span`
 export const AggregatedRiskScore = styled.span<{ $tone: 'primary' | 'secondary' | 'tertiary' }>`
   color: ${({ $tone }) => ($tone === 'secondary' ? colors.accent : $tone === 'tertiary' ? colors.errorSoft : colors.primarySoft)};
   font-family: Manrope, var(--font-headline, sans-serif);
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 800;
+  letter-spacing: 0.06em;
 `;
 
 export const AggregatedYieldValue = styled.span<{ $tone: 'primary' | 'secondary' | 'tertiary' }>`
   color: ${({ $tone }) => ($tone === 'secondary' ? colors.dataViz.mint : $tone === 'tertiary' ? colors.errorSoft : colors.primarySoft)};
   font-family: Manrope, var(--font-headline, sans-serif);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 800;
 `;
 
@@ -766,7 +703,7 @@ export const AggregatedFundedBarWrap = styled.div`
 
 export const AggregatedFundedValue = styled.span`
   color: ${colors.onSurfaceMuted};
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-family: monospace;
   font-weight: 600;
 `;
@@ -779,14 +716,14 @@ export const AggregatedActionCell = styled.div`
   }
 `;
 
-export const AggregatedAllocateButton = styled.button<{ $primary?: boolean }>`
-  min-width: 7.5rem;
-  padding: 0.95rem 1.15rem;
+export const AggregatedAllocateButton = styled.button`
+  min-width: 6.25rem;
+  padding: 0.55rem 1rem;
   border: none;
   border-radius: 0.1875rem;
-  background: ${({ $primary }) => ($primary ? colors.primarySoft : colors.surfaceElevated)};
-  color: ${({ $primary }) => ($primary ? colors.onPrimary : colors.onSurfaceStrong)};
-  font-size: 0.92rem;
+  background: ${colors.surfaceElevated};
+  color: ${colors.onSurfaceStrong};
+  font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
@@ -800,8 +737,8 @@ export const AggregatedAllocateButton = styled.button<{ $primary?: boolean }>`
 `;
 
 export const AggregatedFooter = styled.div`
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid ${withAlpha(colors.border, 0.14)};
   display: flex;
   justify-content: flex-end;
@@ -817,7 +754,7 @@ export const AggregatedFooterAction = styled.button`
   border: none;
   background: transparent;
   color: ${colors.onSurfaceMuted};
-  font-size: 0.92rem;
+  font-size: 0.75rem;
   font-family: monospace;
   text-transform: uppercase;
   letter-spacing: 0.06em;

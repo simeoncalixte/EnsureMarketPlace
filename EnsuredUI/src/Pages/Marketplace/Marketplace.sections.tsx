@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import MapPanel from '../../xds/components/MapPanel';
 import DataTable, { type Row as DataTableRow } from '../../xds/components/DataTable';
 import StatCard from '../../xds/components/StatCard';
@@ -10,10 +10,12 @@ import ProgressBar from '../../xds/components/ProgressBar';
 import SegmentedSwitch from '../../xds/components/SegmentedSwitch';
 import CollapsibleSection from '../../xds/components/CollapsibleSection';
 import Range from '../../xds/components/Range';
+import { MAP_LAYERS } from '../../xds/components/mapLayers';
 import {
   Footer,
   FooterLink,
   DealGrid,
+  DealColumn,
   StatsSection,
   StatCardSurface,
   StatNoteRow,
@@ -22,6 +24,8 @@ import {
   FilterStack,
   FilterFieldStack,
   FilterTwoColGrid,
+  FilterIndent,
+  LayerNote,
   CheckboxFilterScroll,
   CheckboxFilterItems,
   CheckboxFilterMessage,
@@ -34,8 +38,8 @@ import {
   SignalText,
   SectionHead,
   SectionTitle,
-  SortControls,
-  ViewModeControls,
+  UpdatedStamp,
+  HeadControls,
   CardsGrid,
   TableScroll,
   MapSectionWrap,
@@ -43,23 +47,8 @@ import {
   AccentBarPrimary,
   AccentBarTertiary,
   CardBody,
-  CardTop,
-  CardBadgeRow,
-  CardId,
   CardTitle,
   CardSub,
-  CardRight,
-  ExpReturn,
-  ExpReturnLabel,
-  StatGrid,
-  StatLabel,
-  StatValueLarge,
-  ProgressWrap,
-  ProgressMeta,
-  ProgressMetaLabel,
-  ProgressMetaValue,
-  CardActions,
-  AllocateFullButton,
   FooterStatus,
   FooterStrong,
   FooterLinks,
@@ -108,36 +97,36 @@ import {
 import type {
   AggregatedDeal,
   LineOfBusinessPrimaryType,
+  LiveRiskEvent,
   MarketplaceOpportunity,
 } from './useMarketplaceData';
-import { getActiveEvents } from '../../api/riskLayers';
+import {
+  primaryTypeKey,
+  subTypeKey,
+  DURATION_MONTHS_MAX,
+  DURATION_MONTHS_MIN,
+  type MarketplaceSort,
+  type MarketplaceViewMode,
+} from './useMarketplaceFilters';
 import { colors } from '../../xds/colors';
 import {
+  cleanDealName,
   dealBadgeLabel,
   dealTone,
   formatDealReference,
   formatPct,
   formatShortCurrency,
-  fundingStateLabel,
   riskPresentation,
   toCompactParts,
   trancheCaption,
   trancheTone,
 } from './Marketplace.utils';
 
-export type MarketplaceViewMode = 'aggregated' | 'individual' | 'table';
-
 type Summary = {
   totalOpenCapacity: number;
   totalFunded: number;
   activeDeals: number;
 };
-
-const VIEW_MODE_OPTIONS = [
-  { label: 'Aggregated', value: 'aggregated' },
-  { label: 'Individual', value: 'individual' },
-  { label: 'Table', value: 'table' },
-];
 
 const toneToBadgeVariant = (
   tone: 'primary' | 'secondary' | 'tertiary'
@@ -183,11 +172,10 @@ export function MarketplaceStatsSection({ summary }: { summary: Summary }) {
         <StatCard
           label="Active Deals"
           value={String(summary.activeDeals)}
-          suffix="Deals"
-          tone="danger"
+          tone="default"
           note={
             <StatNoteRow>
-              <span className="material-symbols-outlined">emergency_home</span>
+              <span className="material-symbols-outlined">pending_actions</span>
               Active Opportunities Pending Funding
             </StatNoteRow>
           }
@@ -197,54 +185,100 @@ export function MarketplaceStatsSection({ summary }: { summary: Summary }) {
   );
 }
 
-// Page-level toggle between the geographic map and the marketplace deal section (filters + listing).
-const MARKETPLACE_VIEW_OPTIONS = [
-  { label: 'Map', value: 'map' },
-  { label: 'Deals', value: 'deals' },
+const VIEW_MODE_OPTIONS = [
+  { label: 'Aggregated', value: 'aggregated' },
+  { label: 'Table', value: 'table' },
 ];
 
-export type MarketplaceSectionView = 'map' | 'deals';
+const SORT_OPTIONS = [
+  { label: 'Recent', value: 'recent' },
+  { label: 'Top Yield', value: 'yield' },
+];
 
-export function MarketplaceViewToggle({
-  view,
-  onChange,
+function formatUpdatedTime(date: Date): string {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+/** Single page header: title + freshness stamp on the left, all view controls on the right. */
+export function MarketplaceSectionHead({
+  viewMode,
+  onViewModeChange,
+  sort,
+  onSortChange,
+  showMap,
+  onToggleMap,
+  lastUpdated,
 }: {
-  view: MarketplaceSectionView;
-  onChange: (view: MarketplaceSectionView) => void;
+  viewMode: MarketplaceViewMode;
+  onViewModeChange: (mode: MarketplaceViewMode) => void;
+  sort: MarketplaceSort;
+  onSortChange: (sort: MarketplaceSort) => void;
+  showMap: boolean;
+  onToggleMap: () => void;
+  lastUpdated: Date | null;
 }) {
   return (
     <SectionHead>
-      <SectionTitle>{view === 'map' ? 'Deal Locations' : 'Deal Inventory'}</SectionTitle>
-      <ViewModeControls>
+      <SectionTitle>Deal Inventory</SectionTitle>
+      {lastUpdated ? (
+        <UpdatedStamp>Updated {formatUpdatedTime(lastUpdated)}</UpdatedStamp>
+      ) : null}
+      <HeadControls>
         <SegmentedSwitch
-          aria-label="Map or deals view"
-          options={MARKETPLACE_VIEW_OPTIONS}
-          value={view}
-          onChange={(value: string) => onChange(value as MarketplaceSectionView)}
+          aria-label="Sort order"
+          options={SORT_OPTIONS}
+          value={sort}
+          onChange={(value: string) => onSortChange(value as MarketplaceSort)}
         />
-      </ViewModeControls>
+        <SegmentedSwitch
+          aria-label="View mode"
+          options={VIEW_MODE_OPTIONS}
+          value={viewMode}
+          onChange={(value: string) => onViewModeChange(value as MarketplaceViewMode)}
+        />
+        <Button variant="outline" size="sm" onClick={onToggleMap}>
+          <span className="material-symbols-outlined">map</span>
+          {showMap ? 'Hide Map' : 'Show Map'}
+        </Button>
+      </HeadControls>
     </SectionHead>
   );
 }
 
+export type MapLayerControlProps = {
+  layersEnabled: Record<string, boolean>;
+  onToggleLayer: (layerId: string) => void;
+  layerFacets: Record<string, string[]>;
+  onToggleLayerFacet: (layerId: string, value: string) => void;
+  layerCounts: Record<string, number | null>;
+  is3D: boolean;
+  onToggle3D: () => void;
+};
+
+/** Supporting geographic context for the deal list. Controls live in the filter rail. */
 export function MarketplaceMapSection({
-  dealsCount,
-  totalOpenCapacity,
   mapPoints,
+  onPointClick,
+  layers,
 }: {
-  dealsCount: number;
-  totalOpenCapacity: number;
-  mapPoints: Array<{ latitude: number; longitude: number; label?: string }>;
+  mapPoints: Array<{ latitude: number; longitude: number; label?: string; id?: string }>;
+  onPointClick: (dealId: string) => void;
+  layers: MapLayerControlProps & {
+    onLayerCounts: (counts: Record<string, number | null>) => void;
+  };
 }) {
   return (
     <MapSectionWrap>
       <MapPanel
-        title="Deal Locations"
         points={mapPoints}
-        stats={[
-          { label: 'Deals', value: String(dealsCount) },
-          { label: 'Open Capacity', value: formatShortCurrency(totalOpenCapacity) },
-        ]}
+        onPointClick={onPointClick}
+        showLayerBar={false}
+        layersEnabled={layers.layersEnabled}
+        onToggleLayer={layers.onToggleLayer}
+        layerFacets={layers.layerFacets}
+        onToggleLayerFacet={layers.onToggleLayerFacet}
+        is3D={layers.is3D}
+        onLayerCounts={layers.onLayerCounts}
       />
     </MapSectionWrap>
   );
@@ -260,7 +294,7 @@ export function MarketplaceBodyLayout({
   return (
     <FlexRow>
       {filters}
-      {deals}
+      <DealColumn>{deals}</DealColumn>
     </FlexRow>
   );
 }
@@ -353,14 +387,48 @@ function CheckboxFilterList({
   );
 }
 
+// Highest-severity live event first; used to pick the market-signal headline.
+const SEVERITY_RANK: Record<string, number> = {
+  severe: 3,
+  high: 2,
+  moderate: 1,
+  low: 0,
+};
+
 export function MarketplaceFiltersSection({
   primaryTypes,
   isLoadingTaxonomy,
   taxonomyError,
+  selectedLineOfBusiness,
+  onSelectedLineOfBusinessChange,
+  selectedSubTypes,
+  onSelectedSubTypesChange,
+  maxDurationMonths,
+  onMaxDurationChange,
+  yieldMin,
+  onYieldMinChange,
+  yieldMax,
+  onYieldMaxChange,
+  showMap,
+  mapLayers,
+  events,
 }: {
   primaryTypes: LineOfBusinessPrimaryType[];
   isLoadingTaxonomy: boolean;
   taxonomyError: string | null;
+  selectedLineOfBusiness: Set<string>;
+  onSelectedLineOfBusinessChange: React.Dispatch<React.SetStateAction<Set<string>>>;
+  selectedSubTypes: Set<string>;
+  onSelectedSubTypesChange: React.Dispatch<React.SetStateAction<Set<string>>>;
+  maxDurationMonths: number;
+  onMaxDurationChange: (months: number) => void;
+  yieldMin: string;
+  onYieldMinChange: (value: string) => void;
+  yieldMax: string;
+  onYieldMaxChange: (value: string) => void;
+  showMap: boolean;
+  mapLayers: MapLayerControlProps;
+  events: LiveRiskEvent[];
 }) {
   const [lineOfBusinessQuery, setLineOfBusinessQuery] = useState('');
   const [subTypeQuery, setSubTypeQuery] = useState('');
@@ -369,13 +437,8 @@ export function MarketplaceFiltersSection({
     subTypes: true,
     duration: true,
     expectedYield: true,
+    mapLayers: false,
   });
-  const [selectedLineOfBusiness, setSelectedLineOfBusiness] = useState<Set<string>>(
-    new Set()
-  );
-  const [selectedSubTypes, setSelectedSubTypes] = useState<Set<string>>(
-    new Set()
-  );
 
   const debouncedLineOfBusinessQuery = useDebouncedValue(lineOfBusinessQuery, 250);
   const debouncedSubTypeQuery = useDebouncedValue(subTypeQuery, 250);
@@ -384,18 +447,6 @@ export function MarketplaceFiltersSection({
     .trim()
     .toLowerCase();
   const normalizedSubTypeQuery = debouncedSubTypeQuery.trim().toLowerCase();
-
-  useEffect(() => {
-    const allPrimaryKeys = primaryTypes.map(
-      (primaryType) => primaryType.code || primaryType.label
-    );
-    const allSubtypeKeys = primaryTypes.flatMap((primaryType) =>
-      primaryType.subTypes.map((subType) => `${primaryType.code}:${subType.code}`)
-    );
-
-    setSelectedLineOfBusiness(new Set(allPrimaryKeys));
-    setSelectedSubTypes(new Set(allSubtypeKeys));
-  }, [primaryTypes]);
 
   const filteredPrimaryTypes = useMemo(() => {
     if (!normalizedLineOfBusinessQuery) {
@@ -411,7 +462,7 @@ export function MarketplaceFiltersSection({
     () =>
       primaryTypes.flatMap((primaryType) =>
         primaryType.subTypes.map((subType) => ({
-          key: `${primaryType.code}:${subType.code}`,
+          key: subTypeKey(primaryType, subType),
           label: `${primaryType.label} - ${subType.label}`,
         }))
       ),
@@ -431,7 +482,7 @@ export function MarketplaceFiltersSection({
   const lineOfBusinessItems = useMemo(
     () =>
       filteredPrimaryTypes.map((primaryType) => ({
-        key: primaryType.code || primaryType.label,
+        key: primaryTypeKey(primaryType),
         label: primaryType.label,
       })),
     [filteredPrimaryTypes]
@@ -454,7 +505,7 @@ export function MarketplaceFiltersSection({
   ).length;
 
   const toggleLineOfBusinessSelection = (key: string) => {
-    setSelectedLineOfBusiness((prev) => {
+    onSelectedLineOfBusinessChange((prev) => {
       const next = new Set(prev);
       if (next.has(key)) {
         next.delete(key);
@@ -466,7 +517,7 @@ export function MarketplaceFiltersSection({
   };
 
   const toggleSubTypeSelection = (key: string) => {
-    setSelectedSubTypes((prev) => {
+    onSelectedSubTypesChange((prev) => {
       const next = new Set(prev);
       if (next.has(key)) {
         next.delete(key);
@@ -478,7 +529,7 @@ export function MarketplaceFiltersSection({
   };
 
   const selectAllLineOfBusiness = () => {
-    setSelectedLineOfBusiness((prev) => {
+    onSelectedLineOfBusinessChange((prev) => {
       const next = new Set(prev);
       for (const key of allPrimaryKeys) {
         next.add(key);
@@ -488,7 +539,7 @@ export function MarketplaceFiltersSection({
   };
 
   const clearLineOfBusiness = () => {
-    setSelectedLineOfBusiness((prev) => {
+    onSelectedLineOfBusinessChange((prev) => {
       const next = new Set(prev);
       for (const key of allPrimaryKeys) {
         next.delete(key);
@@ -498,7 +549,7 @@ export function MarketplaceFiltersSection({
   };
 
   const selectAllSubTypes = () => {
-    setSelectedSubTypes((prev) => {
+    onSelectedSubTypesChange((prev) => {
       const next = new Set(prev);
       for (const key of allFilteredSubtypeKeys) {
         next.add(key);
@@ -508,7 +559,7 @@ export function MarketplaceFiltersSection({
   };
 
   const clearSubTypes = () => {
-    setSelectedSubTypes((prev) => {
+    onSelectedSubTypesChange((prev) => {
       const next = new Set(prev);
       for (const key of allFilteredSubtypeKeys) {
         next.delete(key);
@@ -517,14 +568,23 @@ export function MarketplaceFiltersSection({
     });
   };
 
-  const toggleSection = (
-    section: 'lineOfBusiness' | 'subTypes' | 'duration' | 'expectedYield'
-  ) => {
+  const toggleSection = (section: keyof typeof collapsedSections) => {
     setCollapsedSections((prev) => ({
       ...prev,
       [section]: !prev[section],
     }));
   };
+
+  const topEvent = useMemo(() => {
+    if (events.length === 0) {
+      return null;
+    }
+    return [...events].sort(
+      (a, b) =>
+        (SEVERITY_RANK[b.severityLevel ?? ''] ?? -1) -
+        (SEVERITY_RANK[a.severityLevel ?? ''] ?? -1)
+    )[0];
+  }, [events]);
 
   return (
     <FiltersAside>
@@ -597,13 +657,27 @@ export function MarketplaceFiltersSection({
             collapsed={collapsedSections.duration}
             onToggle={() => toggleSection('duration')}
           >
-            <Range />
+            <Range
+              min={DURATION_MONTHS_MIN}
+              max={DURATION_MONTHS_MAX}
+              step={1}
+              value={maxDurationMonths}
+              onChange={(event) =>
+                onMaxDurationChange(Number(event.target.value))
+              }
+              aria-label="Maximum duration in months"
+            />
             <RangeLabels>
               <span>3M</span>
               <span>12M</span>
               <span>24M</span>
               <span>36M</span>
             </RangeLabels>
+            <LayerNote>
+              {maxDurationMonths >= DURATION_MONTHS_MAX
+                ? 'Any duration'
+                : `Up to ${maxDurationMonths} months`}
+            </LayerNote>
           </CollapsibleSection>
 
           <CollapsibleSection
@@ -612,23 +686,76 @@ export function MarketplaceFiltersSection({
             onToggle={() => toggleSection('expectedYield')}
           >
             <FilterTwoColGrid>
-              <Input placeholder="Min" />
-              <Input placeholder="Max" />
+              <Input
+                placeholder="Min"
+                type="number"
+                inputMode="decimal"
+                value={yieldMin}
+                onChange={(event) => onYieldMinChange(event.target.value)}
+                aria-label="Minimum expected yield"
+              />
+              <Input
+                placeholder="Max"
+                type="number"
+                inputMode="decimal"
+                value={yieldMax}
+                onChange={(event) => onYieldMaxChange(event.target.value)}
+                aria-label="Maximum expected yield"
+              />
             </FilterTwoColGrid>
           </CollapsibleSection>
 
-          {taxonomyError ? (
-            <SignalText>Unable to load taxonomy metadata.</SignalText>
+          {showMap ? (
+            <CollapsibleSection
+              title="Map Layers"
+              collapsed={collapsedSections.mapLayers}
+              onToggle={() => toggleSection('mapLayers')}
+            >
+              <FilterFieldStack>
+                {MAP_LAYERS.map((layer) => (
+                  <div key={layer.id}>
+                    <Checkbox
+                      label={layer.label}
+                      checked={Boolean(mapLayers.layersEnabled[layer.id])}
+                      onChange={() => mapLayers.onToggleLayer(layer.id)}
+                    />
+                    <FilterIndent>
+                      <LayerNote>
+                        {layer.note(mapLayers.layerCounts[layer.id] ?? null)}
+                      </LayerNote>
+                      {layer.filter && mapLayers.layersEnabled[layer.id]
+                        ? layer.filter.options.map((option) => (
+                            <Checkbox
+                              key={option.value}
+                              label={option.label}
+                              checked={(mapLayers.layerFacets[layer.id] ?? []).includes(
+                                option.value
+                              )}
+                              onChange={() =>
+                                mapLayers.onToggleLayerFacet(layer.id, option.value)
+                              }
+                            />
+                          ))
+                        : null}
+                    </FilterIndent>
+                  </div>
+                ))}
+                <Checkbox
+                  label="3D Buildings"
+                  checked={mapLayers.is3D}
+                  onChange={mapLayers.onToggle3D}
+                />
+              </FilterFieldStack>
+            </CollapsibleSection>
           ) : null}
         </FilterStack>
       </div>
-      <SignalCard>
-        <SignalTitle>Live Market Signal</SignalTitle>
-        <SignalText>
-          High demand for Florida Cat 4-5 layers detected. Premiums increased by
-          140bps in last 72h.
-        </SignalText>
-      </SignalCard>
+      {topEvent ? (
+        <SignalCard>
+          <SignalTitle>Live Risk Signal</SignalTitle>
+          <SignalText>{formatTickerEvent(topEvent)}</SignalText>
+        </SignalCard>
+      ) : null}
     </FiltersAside>
   );
 }
@@ -653,29 +780,56 @@ function MarketplaceStateCard({
   );
 }
 
-function MarketplaceAggregatedDeals({ deals }: { deals: AggregatedDeal[] }) {
+function MarketplaceAggregatedDeals({
+  deals,
+  highlightedDealId,
+}: {
+  deals: AggregatedDeal[];
+  highlightedDealId: string | null;
+}) {
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // A map-marker click hands us a deal id; bring its card into view.
+  useEffect(() => {
+    if (!highlightedDealId) {
+      return;
+    }
+    cardRefs.current[highlightedDealId]?.scrollIntoView({ block: 'center' });
+  }, [highlightedDealId]);
+
   return (
     <AggregatedCardsStack>
       {deals.map((deal) => {
-        const tone = dealTone(deal.dealName, deal.tranches);
+        const tone = dealTone(deal.tranches);
+        const dealKey = String(deal.dealId);
 
         return (
-          <AggregatedDealCard key={deal.dealId}>
+          <AggregatedDealCard
+            key={deal.dealId}
+            ref={(el: HTMLDivElement | null) => {
+              cardRefs.current[dealKey] = el;
+            }}
+            $highlighted={highlightedDealId === dealKey}
+          >
             <AggregatedAccentBar $tone={tone} />
             <AggregatedCardInner>
               <AggregatedDealHeader>
                 <AggregatedDealMeta>
                   <AggregatedBadgeRow>
                     <Badge variant={toneToBadgeVariant(tone)}>
-                      {dealBadgeLabel(deal.dealName)}
+                      {dealBadgeLabel(deal.tranches)}
                     </Badge>
                     <AggregatedDealReference>
                       {formatDealReference(deal)}
                     </AggregatedDealReference>
                   </AggregatedBadgeRow>
-                  <AggregatedDealTitle>{deal.dealName}</AggregatedDealTitle>
+                  <AggregatedDealTitle>
+                    {cleanDealName(deal.dealName)}
+                  </AggregatedDealTitle>
                   <AggregatedDealDescription>
-                    {deal.dealStatus ? `${deal.dealStatus}. ` : ''}
+                    {deal.dealStatus
+                      ? `${deal.dealStatus.charAt(0).toUpperCase()}${deal.dealStatus.slice(1)}. `
+                      : ''}
                     {deal.tranches.length} tranche
                     {deal.tranches.length === 1 ? '' : 's'} currently open for
                     allocation.
@@ -701,15 +855,16 @@ function MarketplaceAggregatedDeals({ deals }: { deals: AggregatedDeal[] }) {
               <AggregatedTrancheTable>
                 <AggregatedTrancheHeader>
                   <div>Tranche Class</div>
-                  <AggregatedTrancheHeaderCenter>Risk Score</AggregatedTrancheHeaderCenter>
+                  <AggregatedTrancheHeaderCenter>Risk Level</AggregatedTrancheHeaderCenter>
                   <AggregatedTrancheHeaderCenter>Exp. Yield</AggregatedTrancheHeaderCenter>
                   <AggregatedTrancheHeaderCenter>Funded</AggregatedTrancheHeaderCenter>
                   <AggregatedTrancheHeaderRight>Action</AggregatedTrancheHeaderRight>
                 </AggregatedTrancheHeader>
 
-                {deal.tranches.map((tranche, index) => {
+                {deal.tranches.map((tranche) => {
                   const risk = riskPresentation(tranche.riskLevel);
                   const toneForTranche = trancheTone(tranche.riskLevel);
+                  const caption = trancheCaption(tranche);
                   const progress = Math.max(
                     0,
                     Math.min(100, tranche.fundingProgressPct)
@@ -722,18 +877,20 @@ function MarketplaceAggregatedDeals({ deals }: { deals: AggregatedDeal[] }) {
                       : 'primary';
 
                   return (
-                    <AggregatedTrancheRow key={tranche.id} $selected={index === 0}>
+                    <AggregatedTrancheRow key={tranche.id}>
                       <AggregatedTrancheMain>
                         <AggregatedTrancheTitle>
                           {tranche.trancheName}
                         </AggregatedTrancheTitle>
-                        <AggregatedTrancheCaption>
-                          {trancheCaption(tranche.trancheName, index)}
-                        </AggregatedTrancheCaption>
+                        {caption ? (
+                          <AggregatedTrancheCaption>
+                            {caption}
+                          </AggregatedTrancheCaption>
+                        ) : null}
                       </AggregatedTrancheMain>
 
                       <AggregatedMetricCell>
-                        <AggregatedMetricLabel>Risk Score</AggregatedMetricLabel>
+                        <AggregatedMetricLabel>Risk Level</AggregatedMetricLabel>
                         <AggregatedRiskScore $tone={toneForTranche}>
                           {risk.score}
                         </AggregatedRiskScore>
@@ -757,9 +914,7 @@ function MarketplaceAggregatedDeals({ deals }: { deals: AggregatedDeal[] }) {
                       </AggregatedFundedCell>
 
                       <AggregatedActionCell>
-                        <AggregatedAllocateButton $primary={index === 0}>
-                          Allocate
-                        </AggregatedAllocateButton>
+                        <AggregatedAllocateButton>Allocate</AggregatedAllocateButton>
                       </AggregatedActionCell>
                     </AggregatedTrancheRow>
                   );
@@ -788,94 +943,6 @@ function MarketplaceAggregatedDeals({ deals }: { deals: AggregatedDeal[] }) {
   );
 }
 
-function MarketplaceIndividualCards({
-  opportunities,
-}: {
-  opportunities: MarketplaceOpportunity[];
-}) {
-  return (
-    <CardsGrid>
-      {opportunities.map((opportunity) => {
-        const risk = riskPresentation(opportunity.riskLevel);
-        const progress = Math.max(0, Math.min(100, opportunity.fundingProgressPct));
-
-        return (
-          <DealCardSurface key={opportunity.id}>
-            {risk.highRisk ? <AccentBarTertiary /> : <AccentBarPrimary />}
-            <CardBody>
-              <CardTop>
-                <div>
-                  <CardBadgeRow>
-                    <Badge variant={risk.highRisk ? 'tertiary' : 'secondary'}>
-                      {risk.label}
-                    </Badge>
-                    <CardId>
-                      #{opportunity.dealId}-{opportunity.trancheId}
-                    </CardId>
-                  </CardBadgeRow>
-                  <CardTitle>{opportunity.dealName}</CardTitle>
-                  <CardSub>
-                    {opportunity.trancheName} -
-                    {' '}
-                    {fundingStateLabel(opportunity.fundingState)}
-                  </CardSub>
-                </div>
-                <CardRight>
-                  <ExpReturn $tone={risk.highRisk ? 'tertiary' : 'primary'}>
-                    {formatPct(opportunity.expectedReturnPct)}
-                  </ExpReturn>
-                  <ExpReturnLabel>Exp. Return</ExpReturnLabel>
-                </CardRight>
-              </CardTop>
-              <StatGrid>
-                <div>
-                  <StatLabel>Risk Score</StatLabel>
-                  <StatValueLarge $tone={risk.highRisk ? 'error' : 'secondary'}>
-                    {risk.score}
-                  </StatValueLarge>
-                </div>
-                <div>
-                  <StatLabel>Committed Capital</StatLabel>
-                  <StatValueLarge $tone="mono">
-                    {formatShortCurrency(opportunity.committedCapital)}
-                  </StatValueLarge>
-                </div>
-                <div>
-                  <StatLabel>Duration</StatLabel>
-                  <StatValueLarge>{opportunity.durationMonths} Mo</StatValueLarge>
-                </div>
-              </StatGrid>
-              <ProgressWrap>
-                <ProgressMeta>
-                  <ProgressMetaLabel>Funding Progress</ProgressMetaLabel>
-                  <ProgressMetaValue $tone={risk.highRisk ? 'tertiary' : 'primary'}>
-                    {formatPct(progress)}
-                  </ProgressMetaValue>
-                </ProgressMeta>
-                <ProgressBar
-                  value={progress}
-                  tone={risk.highRisk ? 'tertiary' : 'primary'}
-                  size="sm"
-                />
-              </ProgressWrap>
-              <CardActions>
-                <AllocateFullButton>
-                  <Button variant="primary">ALLOCATE CAPITAL</Button>
-                </AllocateFullButton>
-                <Button variant="outline" aria-label="View opportunity">
-                  <span className="material-symbols-outlined">
-                    visibility
-                  </span>
-                </Button>
-              </CardActions>
-            </CardBody>
-          </DealCardSurface>
-        );
-      })}
-    </CardsGrid>
-  );
-}
-
 function MarketplaceTableSection({ rows }: { rows: DataTableRow[] }) {
   return (
     <CardsGrid>
@@ -888,49 +955,29 @@ function MarketplaceTableSection({ rows }: { rows: DataTableRow[] }) {
 
 export function MarketplaceDealsSection({
   viewMode,
-  setViewMode,
   isLoading,
   error,
   opportunities,
+  totalOpportunityCount,
   deals,
   tableRows,
+  highlightedDealId,
 }: {
   viewMode: MarketplaceViewMode;
-  setViewMode: (mode: MarketplaceViewMode) => void;
   isLoading: boolean;
   error: string | null;
   opportunities: MarketplaceOpportunity[];
+  /** Unfiltered count, to distinguish "nothing matches" from "nothing exists". */
+  totalOpportunityCount: number;
   deals: AggregatedDeal[];
   tableRows: DataTableRow[];
+  highlightedDealId: string | null;
 }) {
   const hasNoData = opportunities.length === 0;
+  const isFilteredOut = hasNoData && totalOpportunityCount > 0;
 
   return (
     <DealGrid>
-      <SectionHead>
-        <SectionTitle>
-          {viewMode === 'aggregated'
-            ? 'Master Deal Inventory'
-            : 'Active Opportunities'}
-        </SectionTitle>
-        <SortControls>
-          <Button variant="ghost" size="sm">
-            Recent
-          </Button>
-          <Button variant="ghost" size="sm">
-            Yield High-Low
-          </Button>
-        </SortControls>
-        <ViewModeControls>
-          <SegmentedSwitch
-            aria-label="View mode"
-            options={VIEW_MODE_OPTIONS}
-            value={viewMode}
-            onChange={(value: string) => setViewMode(value as MarketplaceViewMode)}
-          />
-        </ViewModeControls>
-      </SectionHead>
-
       {isLoading ? (
         <MarketplaceStateCard
           title="Loading opportunities..."
@@ -942,29 +989,27 @@ export function MarketplaceDealsSection({
           subtitle={error}
           isError
         />
+      ) : isFilteredOut ? (
+        <MarketplaceStateCard
+          title="No deals match the current filters"
+          subtitle="Loosen the line-of-business, duration or yield filters to see more opportunities."
+        />
       ) : hasNoData ? (
         <MarketplaceStateCard
           title="No pending opportunities"
           subtitle="All active opportunities are currently fully funded."
         />
-      ) : viewMode === 'aggregated' ? (
-        <MarketplaceAggregatedDeals deals={deals} />
       ) : viewMode === 'table' ? (
         <MarketplaceTableSection rows={tableRows} />
       ) : (
-        <MarketplaceIndividualCards opportunities={opportunities} />
+        <MarketplaceAggregatedDeals
+          deals={deals}
+          highlightedDealId={highlightedDealId}
+        />
       )}
     </DealGrid>
   );
 }
-
-// Live catastrophe events for the footer ticker. Properties mirror the active-events map layer.
-type TickerEvent = {
-  title?: string;
-  place?: string;
-  peril?: string;
-  severityLevel?: 'low' | 'moderate' | 'high' | 'severe' | string;
-};
 
 // Severity ramp shared with the map's active-events layer.
 const TICKER_SEVERITY_COLOR: Record<string, string> = {
@@ -974,47 +1019,21 @@ const TICKER_SEVERITY_COLOR: Record<string, string> = {
   low: colors.dataViz.green,
 };
 
-function formatTickerEvent(e: TickerEvent): string {
+function formatTickerEvent(e: LiveRiskEvent): string {
   const peril = e.peril ? `${e.peril.toUpperCase()}: ` : '';
   const place = e.place ? ` — ${e.place}` : '';
   return `${peril}${e.title ?? 'Event'}${place}`;
 }
 
-// Streams the live active-events feed into the footer ticker, refreshing every 5 minutes to match
-// the map layer's cadence. Falls back to a static line while loading or if the feed is unavailable.
-function useLiveRiskEvents(): TickerEvent[] {
-  const [events, setEvents] = useState<TickerEvent[]>([]);
-
-  useEffect(() => {
-    let cancelled = false;
-    const load = () => {
-      getActiveEvents<{ features?: Array<{ properties?: TickerEvent }> }>()
-        .then((data) => {
-          if (cancelled) return;
-          const items = (data?.features ?? [])
-            .map((f) => f.properties)
-            .filter((p): p is TickerEvent => Boolean(p && p.title));
-          setEvents(items);
-        })
-        .catch(() => {
-          /* keep the static fallback on error */
-        });
-    };
-
-    load();
-    const handle = window.setInterval(load, 5 * 60_000);
-    return () => {
-      cancelled = true;
-      window.clearInterval(handle);
-    };
-  }, []);
-
-  return events;
-}
-
-export function MarketplaceFooterSection() {
-  const events = useLiveRiskEvents();
-
+export function MarketplaceFooterSection({
+  events,
+  totalOpenCapacity,
+  activeTranches,
+}: {
+  events: LiveRiskEvent[];
+  totalOpenCapacity: number;
+  activeTranches: number;
+}) {
   return (
     <Footer>
       <FooterStatus>
@@ -1036,10 +1055,10 @@ export function MarketplaceFooterSection() {
           </TickerViewport>
         )}
         <FooterStat>
-          Global TVL: <FooterStrong>$4.2B</FooterStrong>
+          Open Capacity: <FooterStrong>{formatShortCurrency(totalOpenCapacity)}</FooterStrong>
         </FooterStat>
         <FooterStat>
-          Active Tranches: <FooterStrong>142</FooterStrong>
+          Active Tranches: <FooterStrong>{activeTranches}</FooterStrong>
         </FooterStat>
       </FooterStatus>
       <FooterLinks>

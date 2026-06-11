@@ -33,68 +33,59 @@ export function formatPct(value: number): string {
   return `${Number.isFinite(value) ? value.toFixed(1) : '0.0'}%`;
 }
 
+/**
+ * Honest presentation of the API's riskLevel value. No invented letter grades:
+ * the platform's risk engine doesn't score tranches yet, so we surface the
+ * underwriter-supplied level verbatim (and say so when it's missing).
+ */
 export function riskPresentation(
   riskLevel: string
 ): { label: string; score: string; highRisk: boolean } {
   const normalized = String(riskLevel || '').toLowerCase();
   if (normalized === 'high') {
-    return { label: 'High Risk', score: 'D+', highRisk: true };
+    return { label: 'High Risk', score: 'HIGH', highRisk: true };
   }
   if (normalized === 'medium') {
-    return { label: 'Balanced', score: 'B', highRisk: false };
+    return { label: 'Medium Risk', score: 'MED', highRisk: false };
   }
-  return { label: 'Cat Layer', score: 'A-', highRisk: false };
+  if (normalized === 'low') {
+    return { label: 'Low Risk', score: 'LOW', highRisk: false };
+  }
+  return { label: 'Unrated', score: '—', highRisk: false };
 }
 
-export function fundingStateLabel(
-  state: MarketplaceOpportunity['fundingState']
-): string {
-  if (state === 'new') {
-    return 'New Opportunity - 0% Funded';
-  }
-  return 'Partially Funded';
+/**
+ * Display name for a deal: seeded fixtures carry a machine suffix
+ * ("Gulf Wind Layer seed1781012529378") that should never reach the UI.
+ */
+export function cleanDealName(dealName: string): string {
+  return String(dealName || '').replace(/\s*seed\d+\S*\s*$/i, '').trim() || dealName;
 }
 
+/** Accent tone derived from the deal's tranche risk levels (not its name). */
 export function dealTone(
-  dealName: string,
   tranches: MarketplaceOpportunity[]
 ): 'primary' | 'secondary' | 'tertiary' {
-  const normalized = dealName.toLowerCase();
-  if (normalized.includes('earthquake') || normalized.includes('seismic')) {
-    return 'secondary';
-  }
-
-  const hasHighRisk = tranches.some(
-    (tranche) => riskPresentation(tranche.riskLevel).highRisk
-  );
-  if (hasHighRisk) {
+  const levels = tranches.map((t) => String(t.riskLevel || '').toLowerCase());
+  if (levels.some((level) => level === 'high')) {
     return 'tertiary';
   }
-
+  if (levels.length > 0 && levels.every((level) => level === 'low')) {
+    return 'secondary';
+  }
   return 'primary';
 }
 
-export function dealBadgeLabel(dealName: string): string {
-  const normalized = dealName.toLowerCase();
-  if (normalized.includes('hurricane') || normalized.includes('cat')) {
-    return 'Hurricane Cat';
-  }
-  if (normalized.includes('earthquake') || normalized.includes('seismic')) {
-    return 'Seismic Event';
-  }
-  if (normalized.includes('wildfire')) {
-    return 'Wildfire Layer';
-  }
-  if (normalized.includes('flood')) {
-    return 'Flood Risk';
-  }
-  return 'Structured Risk';
+/** Badge label from the deal's line of business (set by the risk-class registry). */
+export function dealBadgeLabel(tranches: MarketplaceOpportunity[]): string {
+  const lineOfBusiness = tranches.find((t) => t.lineOfBusiness)?.lineOfBusiness;
+  return lineOfBusiness ?? 'Risk Layer';
 }
 
 export function formatDealReference(deal: AggregatedDeal): string {
   const year = (deal.startDate || deal.endDate || '').slice(0, 4) || '2026';
   const initials =
-    deal.dealName
+    cleanDealName(deal.dealName)
       .split(/\s+/)
       .filter(Boolean)
       .slice(0, 3)
@@ -104,31 +95,19 @@ export function formatDealReference(deal: AggregatedDeal): string {
   return `#${initials}-${year}-${String(deal.dealId).padStart(2, '0')}`;
 }
 
-export function trancheCaption(trancheName: string, index: number): string {
-  const normalized = trancheName.toLowerCase();
-  if (normalized.includes('senior')) {
-    return '1st Loss Protection Layer';
-  }
-  if (normalized.includes('mezz')) {
-    return 'Excess of Loss Layer';
-  }
-  if (normalized.includes('equity') || normalized.includes('residual')) {
-    return 'High Yield Junior Layer';
-  }
-  if (normalized.includes('parametric')) {
-    return 'Immediate Liquidity Trigger';
-  }
-  return `Structured Tranche ${index + 1}`;
+/** Caption under a tranche name: its line-of-business subtype, when the data has one. */
+export function trancheCaption(opportunity: MarketplaceOpportunity): string {
+  return opportunity.lineOfBusinessSubType ?? '';
 }
 
 export function trancheTone(
   riskLevel: string
 ): 'primary' | 'secondary' | 'tertiary' {
-  const risk = riskPresentation(riskLevel);
-  if (risk.highRisk) {
+  const normalized = String(riskLevel || '').toLowerCase();
+  if (normalized === 'high') {
     return 'tertiary';
   }
-  if (risk.score.startsWith('A')) {
+  if (normalized === 'low') {
     return 'secondary';
   }
   return 'primary';
@@ -142,7 +121,7 @@ export function toMarketplaceTableRows(
 
     return {
       id: `#${opportunity.dealId}-${opportunity.trancheId}`,
-      tranche: `${opportunity.trancheName} (${formatPct(opportunity.expectedReturnPct)})`,
+      tranche: `${cleanDealName(opportunity.dealName)} ${opportunity.trancheName} (${formatPct(opportunity.expectedReturnPct)})`,
       value: formatShortCurrency(opportunity.pendingAmount).replace('$', ''),
       status: risk.highRisk ? 'HIGH RISK' : 'ACTIVE',
       statusVariant: risk.highRisk ? 'error' : 'secondary',

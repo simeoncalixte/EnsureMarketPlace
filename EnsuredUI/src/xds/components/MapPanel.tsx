@@ -3,43 +3,102 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { colors, withAlpha } from '../colors'
 import { radii } from '../tokens'
+import Checkbox from './Checkbox'
 import { MAP_LAYERS, type MapLayerDef } from './mapLayers'
 
-export const MapPanel: React.FC<{
+// Dark basemap to match the application theme.
+const MAP_STYLE = 'mapbox://styles/mapbox/dark-v11'
+const MAP_STYLE_PREFLIGHT = 'https://api.mapbox.com/styles/v1/mapbox/dark-v11'
+
+export type MapPoint = {
+  latitude: number
+  longitude: number
+  label?: string
+  /** Opaque id handed back through `onPointClick` (e.g. a deal id). */
+  id?: string
+}
+
+export type MapPanelProps = {
+  /** Optional info column; the column renders only when a title or stats are given. */
   title?: string
+  description?: string
   stats?: Array<{ label: string; value: string }>
-  points?: Array<{ latitude: number; longitude: number; label?: string }>
-}> = ({ title, stats = [], points = [] }) => {
+  points?: MapPoint[]
+  /** Invoked with the point's `id` when its marker is clicked. */
+  onPointClick?: (id: string) => void
+  /** Render the built-in layer toolbar (default). Hosts that own the layer
+   * controls (e.g. a page-level filter rail) set this false and drive the
+   * layers through the controlled props below. */
+  showLayerBar?: boolean
+  /** Controlled layer visibility keyed by layer id; omit for internal state. */
+  layersEnabled?: Record<string, boolean>
+  onToggleLayer?: (layerId: string) => void
+  /** Controlled facet selections keyed by layer id; omit for internal state. */
+  layerFacets?: Record<string, string[]>
+  onToggleLayerFacet?: (layerId: string, value: string) => void
+  /** Controlled 3D-buildings mode; omit for the internal toggle button. */
+  is3D?: boolean
+  /** Feature counts per layer, reported as they load (drives control labels). */
+  onLayerCounts?: (counts: Record<string, number | null>) => void
+}
+
+export const MapPanel: React.FC<MapPanelProps> = ({
+  title,
+  description,
+  stats = [],
+  points = [],
+  onPointClick,
+  showLayerBar = true,
+  layersEnabled,
+  onToggleLayer,
+  layerFacets,
+  onToggleLayerFacet,
+  is3D: is3DProp,
+  onLayerCounts,
+}) => {
   const mapContainer = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
-  const [is3D, setIs3D] = useState(false)
+  const [internal3D, setInternal3D] = useState(false)
+  const is3D = is3DProp ?? internal3D
 
   // Registry-driven layer control. Each MAP_LAYERS entry owns its own data + mapbox layers; this
-  // component is the generic engine that installs, toggles, refreshes and counts them. `enabled`
-  // mirrors the control-panel checkboxes; `counts` is each layer's loaded feature count (null while
-  // loading) shown as the status note.
-  const [enabled, setEnabled] = useState<Record<string, boolean>>(() =>
+  // component is the generic engine that installs, toggles, refreshes and counts them. Visibility
+  // and facet selections are controlled via props when provided, internal state otherwise.
+  const [internalEnabled, setInternalEnabled] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(MAP_LAYERS.map((l) => [l.id, l.defaultEnabled])),
   )
   const [counts, setCounts] = useState<Record<string, number | null>>(() =>
     Object.fromEntries(MAP_LAYERS.map((l) => [l.id, null])),
   )
-  // Selected facet values per filterable layer (e.g. active-events peril types). Starts all-selected.
-  const [filters, setFilters] = useState<Record<string, string[]>>(() =>
+  const [internalFacets, setInternalFacets] = useState<Record<string, string[]>>(() =>
     Object.fromEntries(
       MAP_LAYERS.filter((l) => l.filter).map((l) => [l.id, l.filter!.options.map((o) => o.value)]),
     ),
   )
-  // Refs so the async install path reads current visibility without re-running on every toggle.
+  const enabled = layersEnabled ?? internalEnabled
+  const facets = layerFacets ?? internalFacets
+
+  // Refs so async install paths read current state without re-running on every toggle.
   const enabledRef = useRef(enabled)
   enabledRef.current = enabled
-  const filtersRef = useRef(filters)
-  filtersRef.current = filters
+  const facetsRef = useRef(facets)
+  facetsRef.current = facets
+  const pointsRef = useRef<MapPoint[]>(points)
+  pointsRef.current = points
+  const onPointClickRef = useRef(onPointClick)
+  onPointClickRef.current = onPointClick
+  const onLayerCountsRef = useRef(onLayerCounts)
+  onLayerCountsRef.current = onLayerCounts
   const layerIdsRef = useRef<Record<string, string[]>>({})
   const intervalsRef = useRef<number[]>([])
+  const markersRef = useRef<mapboxgl.Marker[]>([])
   // Tracks which layers have been installed so heavy layers (e.g. fault lines) are fetched lazily
   // on first enable rather than eagerly on map load.
   const installedRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    onLayerCountsRef.current?.(counts)
+  }, [counts])
 
   const apply3D = (map: mapboxgl.Map, enable: boolean) => {
     try {
@@ -93,7 +152,7 @@ export const MapPanel: React.FC<{
 
       // Re-assert the current facet selection (layers are recreated on first install; setData on
       // refresh keeps the filter, but applying again is idempotent and covers both paths).
-      if (def.filter) def.filter.apply(map, filtersRef.current[def.id] ?? def.filter.options.map((o) => o.value))
+      if (def.filter) def.filter.apply(map, facetsRef.current[def.id] ?? def.filter.options.map((o) => o.value))
 
       const count = Array.isArray(data?.features) ? data.features.length : 0
       setCounts((c) => ({ ...c, [def.id]: count }))
@@ -115,9 +174,8 @@ export const MapPanel: React.FC<{
     }
   }
 
-  // Hide the base style's country-name labels (e.g. Streets v11 `country-label`), keeping the
-  // rest of the map. Matches any symbol layer whose id looks like a country label, so it is
-  // resilient to style/version differences.
+  // Hide the base style's country-name labels, keeping the rest of the map. Matches any symbol
+  // layer whose id looks like a country label, so it is resilient to style/version differences.
   const hideCountryLabels = (map: mapboxgl.Map) => {
     try {
       const layers = map.getStyle()?.layers ?? []
@@ -129,15 +187,36 @@ export const MapPanel: React.FC<{
     }
   }
 
+  // Replace the rendered markers with the current point set. Runs at init and whenever the points
+  // change (e.g. the host filtered its deal list) without tearing the map down.
+  const syncMarkers = (map: mapboxgl.Map) => {
+    markersRef.current.forEach((marker) => marker.remove())
+    markersRef.current = pointsRef.current.map((p) => {
+      const marker = new mapboxgl.Marker({ color: colors.primary }).setLngLat([p.longitude, p.latitude])
+      // focusAfterOpen would yank the viewport back to the map, fighting hosts
+      // that scroll to the clicked point's detail card.
+      if (p.label) marker.setPopup(new mapboxgl.Popup({ offset: 12, focusAfterOpen: false }).setText(p.label))
+      if (p.id !== undefined) {
+        marker.getElement().style.cursor = 'pointer'
+        marker.getElement().addEventListener('click', () => {
+          onPointClickRef.current?.(p.id as string)
+        })
+      }
+      marker.addTo(map)
+      return marker
+    })
+  }
+
   // Shared map setup so the primary-token and fallback-token paths behave identically.
   const setupMap = (accessToken: string) => {
     if (!mapContainer.current) return
     mapboxgl.accessToken = accessToken
+    const initialPoints = pointsRef.current
     const map = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: points.length ? [points[0].longitude, points[0].latitude] : [0, 20],
-      zoom: points.length ? 4 : 2,
+      style: MAP_STYLE,
+      center: initialPoints.length ? [initialPoints[0].longitude, initialPoints[0].latitude] : [0, 20],
+      zoom: initialPoints.length ? 4 : 2,
     })
 
     mapRef.current = map
@@ -145,11 +224,7 @@ export const MapPanel: React.FC<{
     map.addControl(new mapboxgl.ScaleControl({ unit: 'metric' }))
     map.on('error', (e: any) => console.error('Map load error:', e))
 
-    points.forEach((p) => {
-      const marker = new mapboxgl.Marker().setLngLat([p.longitude, p.latitude])
-      if (p.label) marker.setPopup(new mapboxgl.Popup({ offset: 12 }).setText(p.label))
-      marker.addTo(map)
-    })
+    syncMarkers(map)
 
     map.on('load', () => {
       hideCountryLabels(map)
@@ -167,10 +242,9 @@ export const MapPanel: React.FC<{
   const FALLBACK_MAPBOX_TOKEN = (import.meta.env.VITE_MAPBOX_FALLBACK_TOKEN as string) || ''
   const hasToken = Boolean(MAPBOX_TOKEN)
   mapboxgl.accessToken = MAPBOX_TOKEN
-  // Key the init effect on the *content* of `points`, not its array identity. `points` defaults to a
-  // fresh `[]` on every render, so depending on the array directly tore the map down and rebuilt it
-  // on every render — and since map load → setCounts → re-render, that became an endless rebuild loop.
-  const pointsKey = JSON.stringify(points)
+
+  // One-time init. Point changes are handled by the marker-sync effect below, so the map is never
+  // torn down and rebuilt after the first render.
   useEffect(() => {
     if (!mapContainer.current) return
     if (mapRef.current) return // already initialized
@@ -182,7 +256,7 @@ export const MapPanel: React.FC<{
     }
 
     // Preflight the Mapbox style to detect 401s; fall back to a public style if unauthorized
-    const styleUrl = `https://api.mapbox.com/styles/v1/mapbox/streets-v11?access_token=${MAPBOX_TOKEN}`
+    const styleUrl = `${MAP_STYLE_PREFLIGHT}?access_token=${MAPBOX_TOKEN}`
     let aborted = false
 
     fetch(styleUrl)
@@ -223,15 +297,26 @@ export const MapPanel: React.FC<{
       intervalsRef.current = []
       installedRef.current.clear()
       layerIdsRef.current = {}
+      markersRef.current = []
       if (mapRef.current) {
         mapRef.current.remove()
         mapRef.current = null
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Keep markers in sync with the host's (possibly filtered) point set.
+  const pointsKey = JSON.stringify(points)
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    syncMarkers(map)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointsKey])
 
   // Apply each layer's visibility whenever a toggle changes.
+  const enabledKey = JSON.stringify(enabled)
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
@@ -247,70 +332,98 @@ export const MapPanel: React.FC<{
         if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', visibility)
       })
     })
-  }, [enabled])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabledKey])
 
-  // Re-apply facet filters whenever a checkbox changes (only for already-installed layers).
+  // Re-apply facet filters whenever a selection changes (only for already-installed layers).
+  const facetsKey = JSON.stringify(facets)
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
     MAP_LAYERS.forEach((def) => {
       if (!def.filter || !installedRef.current.has(def.id)) return
-      def.filter.apply(map, filters[def.id] ?? def.filter.options.map((o) => o.value))
+      def.filter.apply(map, facets[def.id] ?? def.filter.options.map((o) => o.value))
     })
-  }, [filters])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [facetsKey])
 
-  const toggleLayer = (id: string) => setEnabled((e) => ({ ...e, [id]: !e[id] }))
+  // Apply 3D mode whenever it changes (covers the controlled prop).
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    apply3D(map, is3D)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [is3D])
 
-  const toggleFilter = (layerId: string, value: string) =>
-    setFilters((prev) => {
-      const current = prev[layerId] ?? []
-      const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value]
-      return { ...prev, [layerId]: next }
-    })
+  const toggleLayer = (id: string) => {
+    if (onToggleLayer) {
+      onToggleLayer(id)
+    } else {
+      setInternalEnabled((e) => ({ ...e, [id]: !e[id] }))
+    }
+  }
+
+  const toggleFacet = (layerId: string, value: string) => {
+    if (onToggleLayerFacet) {
+      onToggleLayerFacet(layerId, value)
+    } else {
+      setInternalFacets((prev) => {
+        const current = prev[layerId] ?? []
+        const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value]
+        return { ...prev, [layerId]: next }
+      })
+    }
+  }
+
+  const showInfoColumn = Boolean(title || description || stats.length > 0)
 
   return (
     <div style={{ borderRadius: radii.lg, overflow: 'hidden', border: `1px solid ${colors.outlineVariant}`, background: colors.surfaceContainerLow }}>
-      {/* Layer + facet filters as a horizontal toolbar at the top of the section, alongside any
-          other section filters — no longer floating over the map. */}
-      <LayerControlBar
-        layers={MAP_LAYERS}
-        enabled={enabled}
-        counts={counts}
-        filters={filters}
-        onToggle={toggleLayer}
-        onToggleFilter={toggleFilter}
-      />
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr' }}>
-        <div style={{ padding: 32, borderRight: `1px solid ${colors.outlineVariant}`, overflowY: 'auto' }}>
-          {title && <h3 style={{ margin: 0, color: colors.text.primary }}>{title}</h3>}
-          <p style={{ color: colors.onSurfaceVariant, marginTop: 12 }}>Oracles verify real-world events across the globe. Our ledger settles payouts within blocks of confirmed data arrival.</p>
-          <div style={{ marginTop: 12 }}>
-            <button
-              onClick={() => setIs3D((s) => !s)}
-              style={{
-                padding: '6px 10px',
-                borderRadius: 6,
-                border: `1px solid ${withAlpha(colors.black, 0.12)}`,
-                background: is3D ? colors.dataViz.cyanDeep : colors.white,
-                color: is3D ? colors.white : colors.black,
-                cursor: 'pointer',
-              }}
-            >
-              {is3D ? '3D Map (on)' : 'Flat Map (off)'}
-            </button>
-          </div>
-          <div style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {stats.map((s, i) => (
-              <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                <div style={{ fontSize: 20, color: colors.secondary }}>●</div>
-                <div>
-                  <div style={{ fontSize: 11, color: colors.onSurfaceVariant, fontFamily: 'ui-monospace, Menlo, monospace' }}>{s.label}</div>
-                  <div style={{ fontWeight: 700, color: colors.text.primary }}>{s.value}</div>
-                </div>
+      {showLayerBar && (
+        <LayerControlBar
+          layers={MAP_LAYERS}
+          enabled={enabled}
+          counts={counts}
+          facets={facets}
+          onToggle={toggleLayer}
+          onToggleFacet={toggleFacet}
+        />
+      )}
+      <div style={{ display: 'grid', gridTemplateColumns: showInfoColumn ? '1fr 2fr' : '1fr' }}>
+        {showInfoColumn && (
+          <div style={{ padding: 32, borderRight: `1px solid ${colors.outlineVariant}`, overflowY: 'auto' }}>
+            {title && <h3 style={{ margin: 0, color: colors.text.primary }}>{title}</h3>}
+            {description && <p style={{ color: colors.onSurfaceVariant, marginTop: 12 }}>{description}</p>}
+            {is3DProp === undefined && (
+              <div style={{ marginTop: 12 }}>
+                <button
+                  onClick={() => setInternal3D((s) => !s)}
+                  style={{
+                    padding: '6px 10px',
+                    borderRadius: 6,
+                    border: `1px solid ${withAlpha(colors.black, 0.12)}`,
+                    background: is3D ? colors.dataViz.cyanDeep : colors.white,
+                    color: is3D ? colors.white : colors.black,
+                    cursor: 'pointer',
+                  }}
+                >
+                  {is3D ? '3D Map (on)' : 'Flat Map (off)'}
+                </button>
               </div>
-            ))}
+            )}
+            <div style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {stats.map((s, i) => (
+                <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                  <div style={{ fontSize: 20, color: colors.secondary }}>●</div>
+                  <div>
+                    <div style={{ fontSize: 11, color: colors.onSurfaceVariant, fontFamily: 'ui-monospace, Menlo, monospace' }}>{s.label}</div>
+                    <div style={{ fontWeight: 700, color: colors.text.primary }}>{s.value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Map fills the available height, growing with the viewport up to 700px (or until it
             meets the bottom ticker, whichever comes first). */}
@@ -322,16 +435,16 @@ export const MapPanel: React.FC<{
   )
 }
 
-// Horizontal layer + filter toolbar shown at the top of the map section (in place of the old
-// floating overlay), so the controls sit with the rest of the section's filters.
+// Horizontal layer + facet toolbar shown at the top of the map (the default control surface for
+// hosts that don't supply their own).
 const LayerControlBar: React.FC<{
   layers: MapLayerDef[]
   enabled: Record<string, boolean>
   counts: Record<string, number | null>
-  filters: Record<string, string[]>
+  facets: Record<string, string[]>
   onToggle: (id: string) => void
-  onToggleFilter: (layerId: string, value: string) => void
-}> = ({ layers, enabled, counts, filters, onToggle, onToggleFilter }) => {
+  onToggleFacet: (layerId: string, value: string) => void
+}> = ({ layers, enabled, counts, facets, onToggle, onToggleFacet }) => {
   return (
     <div
       style={{
@@ -350,11 +463,14 @@ const LayerControlBar: React.FC<{
       </span>
       {layers.map((layer) => (
         <div key={layer.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', color: colors.text.primary }}>
-            <input type="checkbox" checked={Boolean(enabled[layer.id])} onChange={() => onToggle(layer.id)} />
-            <span style={{ fontWeight: 600 }}>{layer.label}</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <Checkbox
+              label={layer.label}
+              checked={Boolean(enabled[layer.id])}
+              onChange={() => onToggle(layer.id)}
+            />
             <span style={{ color: colors.onSurfaceVariant, fontSize: 11 }}>· {layer.note(counts[layer.id] ?? null)}</span>
-          </label>
+          </span>
           {/* Faceted filter checkboxes — shown inline only while the parent layer is enabled. */}
           {layer.filter && enabled[layer.id] && (
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, paddingLeft: 8, borderLeft: `1px solid ${colors.outlineVariant}` }}>
@@ -364,14 +480,12 @@ const LayerControlBar: React.FC<{
                 </span>
               )}
               {layer.filter.options.map((opt) => (
-                <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: 4, cursor: 'pointer', color: colors.text.secondary, fontSize: 11 }}>
-                  <input
-                    type="checkbox"
-                    checked={(filters[layer.id] ?? []).includes(opt.value)}
-                    onChange={() => onToggleFilter(layer.id, opt.value)}
-                  />
-                  {opt.label}
-                </label>
+                <Checkbox
+                  key={opt.value}
+                  label={opt.label}
+                  checked={(facets[layer.id] ?? []).includes(opt.value)}
+                  onChange={() => onToggleFacet(layer.id, opt.value)}
+                />
               ))}
             </span>
           )}
