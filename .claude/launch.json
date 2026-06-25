@@ -1,0 +1,57 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "call-graph",
+      "cwd": "EnsuredAPI/docs/call-graph",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4173"],
+      "port": 4173,
+      "autoPort": false
+    },
+    {
+      "name": "api",
+      "cwd": "EnsuredAPI",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=/Users/calixtesimeon/.nvm/versions/node/v24.4.1/bin:$PATH; exec npx tsx watch src/server.ts"
+      ],
+      "port": 3001,
+      "autoPort": false
+    },
+    {
+      "name": "ui",
+      "cwd": "EnsuredUI",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=/Users/calixtesimeon/.nvm/versions/node/v18.18.0/bin:$PATH; exec npm run dev"
+      ],
+      "port": 3000,
+      "autoPort": false
+    },
+    {
+      "name": "storybook",
+      "cwd": "EnsuredUI",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=/Users/calixtesimeon/.nvm/versions/node/v18.18.0/bin:$PATH; exec npm run storybook"
+      ],
+      "port": 6006,
+      "autoPort": false
+    },
+    {
+      "name": "storybook-alt",
+      "cwd": "EnsuredUI",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=/Users/calixtesimeon/.nvm/versions/node/v18.18.0/bin:$PATH; exec npm run storybook -- -p 6016 --no-open"
+      ],
+      "port": 6016,
+      "autoPort": false
+    }
+  ]
+}

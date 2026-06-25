@@ -1,6 +1,6 @@
 {
   "process": "ocr",
-  "generatedAt": "2026-06-08T15:23:04.431Z",
+  "generatedAt": "2026-06-12T00:22:03.329Z",
   "transformationCount": 1,
   "transformations": [
     {
@@ -16,7 +16,7 @@
         "service": "ocr",
         "error": "missing submission"
       },
-      "recordedAt": "2026-06-08T15:23:04.309Z"
+      "recordedAt": "2026-06-12T00:22:03.322Z"
     }
   ]
 }

@@ -1,5 +1,6 @@
 :root {
-  /* Dark theme tokens to match designs */
+  /* Dark theme tokens to match designs (the default). The richer `--xds-*`
+     token set + light overrides are injected from xds/colors.ts. */
   --bg: #071129;
   --surface: #0b1220;
   --surface-variant: #131b2e;
@@ -14,6 +15,26 @@
   --outline-variant: rgba(148,163,184,0.12);
   --secondary: #7ee787;
   --shadow-glow: 0 8px 40px rgba(11,18,32,0.45);
+  --nav-item-bg: #131b2e;
+}
+
+:root[data-theme="light"] {
+  /* Light theme overrides for the utility-class custom properties above. */
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --surface-variant: #eef2f7;
+  --surface-container-low: #f1f5f9;
+  --surface-container: #ffffff;
+  --surface-container-high: #f8fafc;
+  --primary: #2563eb;
+  --primary-container: #dbeafe;
+  --on-primary: #ffffff;
+  --text: #0f172a;
+  --text-variant: #475569;
+  --outline-variant: rgba(100,116,139,0.18);
+  --secondary: #15803d;
+  --shadow-glow: 0 8px 40px rgba(15,23,42,0.12);
+  --nav-item-bg: #ffffff;
 }
 
 body {

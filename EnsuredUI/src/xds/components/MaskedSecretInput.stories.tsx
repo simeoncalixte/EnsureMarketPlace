@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import { MaskedSecretInput } from './MaskedSecretInput'
 
 const meta: Meta<typeof MaskedSecretInput> = {
-  title: 'XDS/MaskedSecretInput',
+  title: 'XDS/Form/Input/MaskedSecretInput',
   component: MaskedSecretInput
 }
 

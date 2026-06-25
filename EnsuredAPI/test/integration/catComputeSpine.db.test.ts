@@ -76,11 +76,11 @@ describe('Catastrophe compute path — real DB integration (Slice 5.2)', () => {
   });
 
   it('MODELED: AAL expectedLoss + populated var99 + EP curve + accumulation', async () => {
-    const submission = await Submission.create({ tenantId: orgId, status: 'analysis' } as any);
+    const submission = await Submission.create({ organizationId: orgId, status: 'analysis' } as any);
     // Exposures + a CITED event set ride freeform on canonical data.
     await CanonicalSubmission.create({
       submissionId: submission.id,
-      tenantId: orgId,
+      organizationId: orgId,
       data: {
         lineOfBusiness: LOB,
         catEventSet: SAMPLE_FLORIDA_WIND_EVENT_SET,
@@ -121,10 +121,10 @@ describe('Catastrophe compute path — real DB integration (Slice 5.2)', () => {
   });
 
   it('DEFER: no event set ⇒ falls back to benchmark prior, var99 NULL', async () => {
-    const submission = await Submission.create({ tenantId: orgId, status: 'analysis' } as any);
+    const submission = await Submission.create({ organizationId: orgId, status: 'analysis' } as any);
     await CanonicalSubmission.create({
       submissionId: submission.id,
-      tenantId: orgId,
+      organizationId: orgId,
       data: {
         lineOfBusiness: LOB,
         'financials.tiv': 10_000_000,

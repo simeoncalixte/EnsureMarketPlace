@@ -14,7 +14,7 @@
  * suite was authored but may need to be run by the maintainer.
  */
 import { getSequelize } from '../../src/config/database';
-import { ExtractedField, SubmissionDocument, Submission } from '../../src/db/models';
+import { ExtractedField, SubmissionOutput, Submission } from '../../src/db/models';
 import { initTestDb } from '../helpers/db';
 import { ExtractionService } from '../../src/pipeline/extraction/service';
 import { scoreFieldConfidence } from '../../src/pipeline/extraction/confidence';
@@ -61,7 +61,7 @@ describe('Issue #3 — extraction versioning + derived confidence (real DB)', ()
     expect(run2.extractionVersion).toBe(2);
     expect(run2.structuredData.extractionVersion).toBe(2);
 
-    const doc = await SubmissionDocument.findOne({ where: { submissionId: SUBMISSION_ID } });
+    const doc = await SubmissionOutput.findOne({ where: { submissionId: SUBMISSION_ID } });
     expect(doc).toBeTruthy();
 
     // Both generations persisted — history preserved (no clobber).

@@ -57,7 +57,7 @@ function normalizeString(value: string | null | undefined): string {
  */
 export function selectPrior(
   rows: BenchmarkPriorRow[],
-  tenantId: number | null,
+  organizationId: number | null,
   lineOfBusinessCode: string | null,
   lineOfBusinessSubTypeCode?: string | null,
 ): BenchmarkPriorResolution {
@@ -68,7 +68,7 @@ export function selectPrior(
     (row) => row && (row.status == null || row.status === 'active'),
   );
 
-  const isOrg = (row: BenchmarkPriorRow): boolean => tenantId != null && row.organizationId === tenantId;
+  const isOrg = (row: BenchmarkPriorRow): boolean => organizationId != null && row.organizationId === organizationId;
   const isPlatform = (row: BenchmarkPriorRow): boolean => row.organizationId == null;
   const matchesPrimary = (row: BenchmarkPriorRow): boolean => normalizeString(row.lineOfBusinessCode) === primary;
   const matchesSubType = (row: BenchmarkPriorRow): boolean =>
@@ -141,11 +141,11 @@ function toRow(instance: BenchmarkPrior): BenchmarkPriorRow {
  * this primary code. Thin and DB-only — the pure selector picks the winner.
  */
 async function loadCandidateRows(
-  tenantId: number | null,
+  organizationId: number | null,
   lineOfBusinessCode: string,
 ): Promise<BenchmarkPriorRow[]> {
   const organizationIdClause =
-    tenantId != null ? { [Op.or]: [{ [Op.eq]: tenantId }, { [Op.is]: null }] } : { [Op.is]: null };
+    organizationId != null ? { [Op.or]: [{ [Op.eq]: organizationId }, { [Op.is]: null }] } : { [Op.is]: null };
 
   const rows = await BenchmarkPrior.findAll({
     where: {
@@ -164,7 +164,7 @@ async function loadCandidateRows(
  * missing prior must never break the compute path.
  */
 export async function resolveBenchmarkPrior(
-  tenantId: number | null,
+  organizationId: number | null,
   lineOfBusinessCode: string | null,
   lineOfBusinessSubTypeCode?: string | null,
 ): Promise<BenchmarkPriorResolution> {
@@ -176,8 +176,8 @@ export async function resolveBenchmarkPrior(
   }
 
   try {
-    const rows = await loadCandidateRows(tenantId, primary);
-    return selectPrior(rows, tenantId, primary, subType);
+    const rows = await loadCandidateRows(organizationId, primary);
+    return selectPrior(rows, organizationId, primary, subType);
   } catch {
     return { prior: null, resolvedFrom: 'none' };
   }

@@ -57,6 +57,7 @@ const Root = styled.div`
 const Segment = styled.button<{ $active: boolean }>`
   flex: 1;
   padding: 6px ${spacing.sm}px;
+  white-space: nowrap;
   font-family: ${typography.fontFamily};
   font-size: ${typography.sizes.xs}px;
   font-weight: ${typography.weights.bold};

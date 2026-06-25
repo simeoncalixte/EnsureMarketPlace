@@ -29,7 +29,7 @@ export type TaxonomyLine = { code: string; label: string };
 /**
  * PURE coverage computation. Given the taxonomy primary lines and the set of
  * PLATFORM benchmark prior rows (organizationId === null), return one coverage
- * entry per line. Reuses the existing `selectPrior` ladder with tenantId = null so
+ * entry per line. Reuses the existing `selectPrior` ladder with organizationId = null so
  * the coverage definition is exactly the platform-resolution definition.
  */
 export function computeCoverage(

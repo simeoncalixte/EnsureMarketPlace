@@ -17,7 +17,6 @@ import HeatmapChart, { HeatCell } from '../../xds/components/HeatmapChart'
 import SectionHeader from '../../xds/components/SectionHeader'
 import StatCard from '../../xds/components/StatCard'
 import Badge from '../../xds/components/Badge'
-import InsurerOnboarding from './InsurerOnboarding'
 import { colors } from '../../xds/colors'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -53,7 +52,7 @@ function shortMonth(iso: string): string {
 // ─── Layout ───────────────────────────────────────────────────────────────────
 const PageRoot = styled.div`
   padding: 2rem 2.5rem;
-  max-width: 1200px;
+  
 `;
 
 const HeaderRow = styled.div`
@@ -197,11 +196,6 @@ export default function AnalyticsDashboard() {
         <SectionHeader title="Analytics Dashboard" />
         <NewDealLink to="/insurer/coverage/create">+ New Deal</NewDealLink>
       </HeaderRow>
-
-      {/* ── Onboarding panel (additive; self-gates on role/dismissed/complete) ── */}
-      {/* Renders nothing for non-insurers / dismissed / fully-onboarded users, so the
-          dashboard layout is byte-for-byte unchanged in those cases. */}
-      <InsurerOnboarding />
 
       {/* ── KPI Row ── */}
       <KpiRow>

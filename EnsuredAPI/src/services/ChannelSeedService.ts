@@ -4,7 +4,7 @@ import {
   Organization,
   RiskPortfolio,
   Submission,
-  SubmissionDocument,
+  SubmissionOutput,
   SubmissionFile,
 } from '../db/models';
 import { getSequelize } from '../config/database';
@@ -19,7 +19,7 @@ import { seedPipelineRunForSubmission, syntheticStageOutputs } from '../pipeline
  * channels get historical submissions, so "what did this channel produce" is
  * answerable for every channel.
  *
- * Channels are assigned to the insurer organization (via the legacy tenantId
+ * Channels are assigned to the insurer organization (via the legacy organizationId
  * column) — that assignment is fixed and submissions inherit it.
  */
 
@@ -58,7 +58,7 @@ export interface ChannelSeedSummary {
   submissions: number;
   /** Total SubmissionFile rows (attachment packages) created. */
   files: number;
-  /** SubmissionDocument rows created for submissions past intake. */
+  /** SubmissionOutput rows created for submissions past intake. */
   documents: number;
   /** Completed historical pipeline runs emitted for replay/playback. */
   runs: number;
@@ -99,7 +99,7 @@ export class ChannelSeedService {
       for (const blueprint of CHANNEL_BLUEPRINTS) {
         const channel = await IngestionChannel.create(
           {
-            tenantId: insurerOrg.id,
+            organizationId: insurerOrg.id,
             type: blueprint.type,
             label: blueprint.label,
             enabled: blueprint.enabled,
@@ -123,7 +123,7 @@ export class ChannelSeedService {
               portfolioId: portfolio?.id ?? null,
               submittedByUserId: null,
               status,
-              tenantId: insurerOrg.id,
+              organizationId: insurerOrg.id,
               source: blueprint.type,
               transport: blueprint.transport,
               // Spread receivedAt across recent hours for a realistic history.
@@ -145,7 +145,7 @@ export class ChannelSeedService {
             await SubmissionFile.bulkCreate(
               pkg.files.map((f) => ({
                 submissionId: submission.id,
-                tenantId: insurerOrg.id,
+                organizationId: insurerOrg.id,
                 fileName: f.fileName,
                 fileType: f.fileType,
                 fileSize: f.fileSize,
@@ -159,7 +159,7 @@ export class ChannelSeedService {
           }
 
           // Submissions that have advanced past intake carry a classified,
-          // extracted document summary. SubmissionDocument is upserted by the
+          // extracted document summary. SubmissionOutput is upserted by the
           // OCR/classification/extraction stages (keyed by submissionId), so this
           // pre-seed never collides with a later pipeline run.
           if (status !== 'submitted') {
@@ -176,10 +176,10 @@ export class ChannelSeedService {
               fileCount: pkg.manifest.fileCount,
               categories: pkg.manifest.categories,
             };
-            await SubmissionDocument.create(
+            await SubmissionOutput.create(
               {
                 submissionId: submission.id,
-                tenantId: insurerOrg.id,
+                organizationId: insurerOrg.id,
                 documentType: pkg.manifest.lineOfBusinessCode,
                 classificationConfidence: 0.9 + (complexity % 10) / 100,
                 structuredData,
@@ -204,7 +204,7 @@ export class ChannelSeedService {
             const run = await seedPipelineRunForSubmission(
               {
                 submissionId: submission.id,
-                tenantId: insurerOrg.id,
+                organizationId: insurerOrg.id,
                 stages,
                 baseTime: new Date(Date.now() - counter * 3 * 60 * 60 * 1000),
               },

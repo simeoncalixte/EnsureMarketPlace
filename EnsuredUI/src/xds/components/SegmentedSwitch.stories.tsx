@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import SegmentedSwitch, { SegmentedSwitchOption } from './SegmentedSwitch'
 
 const meta: Meta<typeof SegmentedSwitch> = {
-  title: 'XDS/SegmentedSwitch',
+  title: 'XDS/Form/SegmentedSwitch',
   component: SegmentedSwitch
 }
 

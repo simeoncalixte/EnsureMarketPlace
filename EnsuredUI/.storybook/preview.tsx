@@ -35,5 +35,10 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/
     }
+  },
+  options: {
+    storySort: {
+      order: ['App', ['Full Application', 'Landing', 'Authentication']]
+    }
   }
 }

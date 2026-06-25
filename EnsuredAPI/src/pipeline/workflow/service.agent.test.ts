@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 const SIGNALS = {
-  submission: { id: 1, tenantId: 1 },
+  submission: { id: 1, organizationId: 1 },
   validation: { flaggedForMoreInfo: true, reasons: ['needs SOV'] },
   preRating: { grade: 'C', numericScore: 55 },
   oracleAttestation: { smartContractReady: true },

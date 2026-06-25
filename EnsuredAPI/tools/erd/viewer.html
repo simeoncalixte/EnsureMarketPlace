@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ERD</title>
+<style>
+  :root {
+    --bg: #f6f8fa; --panel: #ffffff; --border: #e3e8ef; --text: #0f172a;
+    --muted: #64748b; --accent: #2563eb; --hover: #f1f5f9; --active: #e0eaff;
+    --c-table: #b45309;  --b-table: #fef3c7;
+    --c-domain: #475569; --b-domain: #e8edf3;
+    --c-pk: #b45309;     --b-pk: #fef3c7;
+    --c-fk: #2563eb;     --b-fk: #dbeafe;
+    --c-uniq: #7c3aed;   --b-uniq: #ede9fe;
+    --wire-ref: #d97706; --wire-opt: #cbd5e1;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex; flex-direction: column;
+  }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; }
+
+  .topbar {
+    display: flex; align-items: center; gap: 16px; padding: 10px 16px;
+    background: var(--panel); border-bottom: 1px solid var(--border); flex: none;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand .logo { width: 26px; height: 26px; color: var(--accent); flex: none; }
+  .brand h1 { font-size: 14px; margin: 0; white-space: nowrap; }
+  .brand .meta { color: var(--muted); font-size: 11.5px; white-space: nowrap; }
+  #search {
+    margin-left: auto; width: 340px; max-width: 45vw; padding: 7px 12px;
+    border: 1px solid var(--border); border-radius: 8px; font: inherit;
+    background: var(--bg); outline: none;
+  }
+  #search:focus { border-color: var(--accent); background: var(--panel); }
+
+  .layout { flex: 1; display: flex; min-height: 0; }
+  .sidebar {
+    width: 300px; flex: none; background: var(--panel); border-right: 1px solid var(--border);
+    overflow-y: auto; padding: 8px;
+  }
+  main { flex: 1; min-width: 0; position: relative; overflow: hidden; }
+
+  /* ---- sidebar tree ---- */
+  details.tnode { margin: 0; }
+  details.tnode > summary {
+    display: flex; align-items: center; gap: 6px; padding: 4px 6px; border-radius: 6px;
+    cursor: pointer; list-style: none; user-select: none; color: var(--text);
+  }
+  details.tnode > summary::-webkit-details-marker { display: none; }
+  details.tnode > summary::before {
+    content: ''; width: 0; height: 0; flex: none;
+    border-left: 4px solid var(--muted); border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;
+    transition: transform .12s ease;
+  }
+  details.tnode[open] > summary::before { transform: rotate(90deg); }
+  details.tnode > summary:hover { background: var(--hover); }
+  details.tnode > .tkids { padding-left: 14px; }
+  .tcount { margin-left: auto; color: var(--muted); font-size: 10.5px; }
+  .leaf {
+    display: flex; align-items: center; gap: 6px; width: 100%; padding: 4px 6px 4px 16px;
+    border: 0; border-radius: 6px; background: none; font: inherit; color: var(--text);
+    cursor: pointer; text-align: left;
+  }
+  .leaf:hover { background: var(--hover); }
+  .leaf.active { background: var(--active); color: var(--accent); }
+  .leaf .lname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tlabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+
+  /* ---- icons ---- */
+  .ic { width: 17px; height: 17px; flex: none; display: inline-flex; }
+  .ic svg { width: 100%; height: 100%; }
+  .ic.big { width: 30px; height: 30px; }
+  .ic.table { color: var(--c-table); }
+  .ic.domain { color: var(--c-domain); }
+
+  /* ---- search results ---- */
+  .shead { padding: 8px 6px 4px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* ---- overview ---- */
+  .overview { height: 100%; overflow-y: auto; padding: 24px; }
+  .ovgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px; display: flex; align-items: center; gap: 12px;
+  }
+  .stat .num { font-size: 20px; font-weight: 700; }
+  .stat .lbl { color: var(--muted); font-size: 11.5px; }
+  .cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .panel h3 { margin: 0 0 10px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .domchips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .domchip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg); cursor: pointer; font: inherit; color: var(--text);
+  }
+  .domchip:hover { border-color: var(--accent); }
+  .domchip .n { color: var(--muted); font-size: 11px; }
+
+  /* ---- table cards (shared by lists + detail columns) ---- */
+  .ncard {
+    display: flex; align-items: center; gap: 9px; width: 100%; padding: 8px 10px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 9px;
+    font: inherit; color: var(--text); cursor: pointer; text-align: left;
+  }
+  .ncard:hover { border-color: var(--accent); box-shadow: 0 1px 4px rgba(37,99,235,.12); }
+  .ntext { min-width: 0; flex: 1; }
+  .nname { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+  .nsub { color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+  .chips { display: flex; gap: 4px; flex: none; max-width: 50%; flex-wrap: wrap; justify-content: flex-end; }
+  .chip {
+    padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; white-space: nowrap;
+    background: var(--b-fk); color: var(--c-fk);
+  }
+  .chip.card { background: var(--b-domain); color: var(--c-domain); font-family: ui-monospace, Menlo, monospace; }
+
+  /* ---- detail / focus view ---- */
+  .detail { display: grid; grid-template-columns: 1fr 360px 1fr; gap: 36px; height: 100%; padding: 20px; position: relative; }
+  svg.wires { position: absolute; inset: 0; pointer-events: none; z-index: 0; width: 100%; height: 100%; }
+  .col { overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 8px; z-index: 1; padding: 2px; }
+  .colhead { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; padding: 2px 2px 4px; position: sticky; top: 0; background: var(--bg); z-index: 2; }
+  .empty { color: var(--muted); font-style: italic; padding: 8px 2px; }
+  .focus-wrap { display: flex; flex-direction: column; justify-content: center; z-index: 1; min-width: 0; }
+  .focus-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15,23,42,.08); overflow: hidden; max-height: 100%;
+    display: flex; flex-direction: column;
+  }
+  .fhead { display: flex; align-items: center; gap: 12px; padding: 16px 18px 12px; border-bottom: 1px solid var(--border); }
+  .fname { font-size: 16px; font-weight: 700; word-break: break-word; }
+  .fmeta { color: var(--muted); margin-top: 2px; }
+  .kindchip { display: inline-block; margin-top: 4px; padding: 1px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 700; background: var(--b-domain); color: var(--c-domain); }
+  .fdesc { padding: 12px 18px; color: var(--text); background: var(--bg); border-bottom: 1px solid var(--border); font-size: 12.5px; line-height: 1.5; }
+  .cols-list { overflow-y: auto; }
+  .crow { display: flex; align-items: center; gap: 8px; padding: 6px 14px; border-bottom: 1px solid var(--hover); }
+  .crow:last-child { border-bottom: 0; }
+  .crow.fk { cursor: pointer; }
+  .crow.fk:hover { background: var(--hover); }
+  .ckey { width: 15px; flex: none; text-align: center; }
+  .cname { font-weight: 600; font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+  .ctype { color: var(--muted); margin-left: auto; font-family: ui-monospace, Menlo, monospace; font-size: 11px; white-space: nowrap; }
+  .cbadge { padding: 0 6px; border-radius: 999px; font-size: 9.5px; font-weight: 700; flex: none; }
+  .cbadge.pk { background: var(--b-pk); color: var(--c-pk); }
+  .cbadge.fk { background: var(--b-fk); color: var(--c-fk); }
+  .cbadge.uq { background: var(--b-uniq); color: var(--c-uniq); }
+  .cbadge.nl { background: var(--hover); color: var(--muted); }
+  .fcounts { display: flex; gap: 16px; color: var(--muted); font-size: 12px; padding: 10px 18px; border-top: 1px solid var(--border); }
+  .fcounts b { color: var(--text); }
+  .reltag { font-size: 10px; color: var(--muted); font-family: ui-monospace, Menlo, monospace; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="15" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 9v3.5a1.5 1.5 0 0 0 1.5 1.5h6a1.5 1.5 0 0 1 1.5 1.5V15" stroke="currentColor" stroke-width="1.6"/></svg>
+    <div>
+      <h1 id="title">ERD</h1>
+      <div class="meta" id="meta"></div>
+    </div>
+  </div>
+  <input id="search" type="search" placeholder="Search tables, columns, domains…  ( / )" autocomplete="off"/>
+</header>
+<div class="layout">
+  <aside class="sidebar"><div id="tree"></div></aside>
+  <main id="main"></main>
+</div>
+<script>
+const SCHEMA = /*__DATA__*/ null;
+(function () {
+  if (!SCHEMA) { document.body.textContent = 'No schema data embedded — regenerate with npm run graph:erd.'; return; }
+
+  // ---------- indexes ----------
+  const tablesByName = new Map(SCHEMA.tables.map((t) => [t.name, t]));
+  const refsOut = new Map(); // table -> relationships where it is the child (it references a parent)
+  const refsIn = new Map();  // table -> relationships where it is the parent (referenced by a child)
+  const push = (map, key, value) => { const list = map.get(key); if (list) list.push(value); else map.set(key, [value]); };
+  for (const rel of SCHEMA.relationships) {
+    push(refsOut, rel.child, rel);
+    push(refsIn, rel.parent, rel);
+  }
+  const degree = (name) => (refsOut.get(name)?.length ?? 0) + (refsIn.get(name)?.length ?? 0);
+
+  const ICONS = {
+    table: '<svg viewBox="0 0 16 16"><rect x="1.5" y="2" width="13" height="12" rx="2" fill="currentColor" opacity=".16"/><rect x="1.5" y="2" width="13" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M1.5 6h13M6 6v8" stroke="currentColor" stroke-width="1"/></svg>',
+    domain: '<svg viewBox="0 0 16 16"><path fill="currentColor" opacity=".3" d="M1.5 4A1.5 1.5 0 0 1 3 2.5h3.1c.4 0 .78.16 1.06.44l.79.81c.1.1.22.15.35.15H13A1.5 1.5 0 0 1 14.5 5.4v7.1A1.5 1.5 0 0 1 13 14H3a1.5 1.5 0 0 1-1.5-1.5z"/></svg>',
+    key: '<svg viewBox="0 0 16 16"><path fill="currentColor" d="M9.5 1a4.5 4.5 0 0 0-4.3 5.8L1 11v3.5h3.5v-2h2v-2h2l1-1A4.5 4.5 0 1 0 9.5 1zm1.5 3.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>',
+    link: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6.5 9.5l3-3M7 4.5l.8-.8a2.5 2.5 0 0 1 3.5 3.5l-.8.8M9 11.5l-.8.8a2.5 2.5 0 0 1-3.5-3.5l.8-.8"/></svg>',
+  };
+  const icon = (kind, big) => `<span class="ic ${kind}${big ? ' big' : ''}">${ICONS[kind]}</span>`;
+  const fmt = (n) => n.toLocaleString('en-US');
+
+  function el(tag, cls, text) {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  function tableCard(table, opts) {
+    const card = el('button', 'ncard');
+    card.dataset.name = table.name;
+    const ic = el('span'); ic.innerHTML = icon('table'); card.appendChild(ic.firstChild);
+    const text = el('span', 'ntext');
+    text.appendChild(el('span', 'nname', table.name));
+    text.appendChild(el('span', 'nsub', (opts && opts.sub) || table.description || (table.domain + ' · ' + table.columns.length + ' cols')));
+    card.appendChild(text);
+    if (opts && opts.chips && opts.chips.length) {
+      const chips = el('span', 'chips');
+      for (const c of opts.chips) {
+        const chip = el('span', 'chip' + (c.card ? ' card' : ''), c.text);
+        chips.appendChild(chip);
+      }
+      card.appendChild(chips);
+    }
+    card.title = table.tableName;
+    card.addEventListener('click', () => selectTable(table.name));
+    return card;
+  }
+
+  function selectTable(name) { location.hash = encodeURIComponent(name); }
+  const currentName = () => decodeURIComponent(location.hash.slice(1));
+
+  // ---------- header ----------
+  const s = SCHEMA.stats;
+  document.getElementById('title').textContent = SCHEMA.project + ' · Entity-Relationship Diagram';
+  document.title = SCHEMA.project + ' · ERD';
+  document.getElementById('meta').textContent =
+    fmt(s.tables) + ' tables · ' + fmt(s.relationships) + ' relationships · ' +
+    fmt(s.domains) + ' domains · generated ' + new Date(SCHEMA.generatedAt).toLocaleString();
+
+  // ---------- sidebar (grouped by domain) ----------
+  const treeContainer = document.getElementById('tree');
+  function renderTree() {
+    treeContainer.replaceChildren();
+    for (const domain of SCHEMA.domains) {
+      const details = el('details', 'tnode');
+      details.open = SCHEMA.domains.length <= 6;
+      const summary = el('summary');
+      summary.innerHTML = icon('domain');
+      summary.appendChild(el('span', 'tlabel', domain.name));
+      summary.appendChild(el('span', 'tcount', fmt(domain.tables.length)));
+      details.appendChild(summary);
+      const kids = el('div', 'tkids');
+      for (const name of domain.tables) {
+        const button = el('button', 'leaf');
+        button.dataset.name = name;
+        button.innerHTML = icon('table');
+        button.appendChild(el('span', 'lname', name));
+        const t = tablesByName.get(name);
+        if (t) button.title = (t.description ? t.description + '\n\n' : '') + t.tableName + ' · ' + t.columns.length + ' columns';
+        button.addEventListener('click', () => selectTable(name));
+        kids.appendChild(button);
+      }
+      details.appendChild(kids);
+      treeContainer.appendChild(details);
+    }
+    markActive();
+  }
+
+  function markActive() {
+    const name = currentName();
+    for (const button of treeContainer.querySelectorAll('.leaf')) {
+      const active = button.dataset.name === name;
+      button.classList.toggle('active', active);
+      if (active) button.closest('details.tnode') && (button.closest('details.tnode').open = true);
+    }
+  }
+
+  // ---------- search ----------
+  const searchInput = document.getElementById('search');
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) { renderTree(); return; }
+    const starts = [], contains = [];
+    for (const table of SCHEMA.tables) {
+      const name = table.name.toLowerCase();
+      const hay = name + ' ' + table.tableName.toLowerCase() + ' ' + table.domain.toLowerCase() + ' ' + (table.description || '').toLowerCase();
+      const colHit = table.columns.some((c) => c.name.toLowerCase().includes(q));
+      if (name.startsWith(q)) starts.push(table);
+      else if (hay.includes(q) || colHit) contains.push(table);
+    }
+    const results = starts.concat(contains);
+    treeContainer.replaceChildren();
+    treeContainer.appendChild(el('div', 'shead', fmt(results.length) + ' tables'));
+    for (const table of results.slice(0, 200)) treeContainer.appendChild(tableCard(table));
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === '/' && document.activeElement !== searchInput) { event.preventDefault(); searchInput.focus(); }
+    if (event.key === 'Escape' && document.activeElement === searchInput) { searchInput.value = ''; renderTree(); searchInput.blur(); }
+  });
+
+  // ---------- overview ----------
+  const main = document.getElementById('main');
+
+  function statCard(num, label) {
+    const card = el('div', 'stat');
+    const text = el('div');
+    text.appendChild(el('div', 'num', fmt(num)));
+    text.appendChild(el('div', 'lbl', label));
+    card.appendChild(text);
+    return card;
+  }
+
+  function renderOverview() {
+    main.replaceChildren();
+    const view = el('div', 'overview');
+
+    const grid = el('div', 'ovgrid');
+    grid.appendChild(statCard(s.tables, 'Tables'));
+    grid.appendChild(statCard(s.domains, 'Domains'));
+    grid.appendChild(statCard(s.columns, 'Columns'));
+    grid.appendChild(statCard(s.foreignKeys, 'Foreign keys'));
+    grid.appendChild(statCard(s.relationships, 'Relationships'));
+    view.appendChild(grid);
+
+    const cols = el('div', 'cols2');
+
+    const domPanel = el('section', 'panel');
+    domPanel.appendChild(el('h3', null, 'Domains'));
+    const domChips = el('div', 'domchips');
+    for (const domain of SCHEMA.domains) {
+      const chip = el('button', 'domchip');
+      chip.innerHTML = icon('domain');
+      chip.appendChild(el('span', null, domain.name));
+      chip.appendChild(el('span', 'n', fmt(domain.tables.length)));
+      chip.addEventListener('click', () => { if (domain.tables[0]) selectTable(domain.tables[0]); });
+      domChips.appendChild(chip);
+    }
+    domPanel.appendChild(domChips);
+    cols.appendChild(domPanel);
+
+    const hubPanel = el('section', 'panel');
+    hubPanel.appendChild(el('h3', null, 'Most connected tables'));
+    const hubs = SCHEMA.tables
+      .map((t) => ({ t, d: degree(t.name) }))
+      .filter((x) => x.d > 0)
+      .sort((a, b) => b.d - a.d)
+      .slice(0, 12);
+    const hubList = el('div'); hubList.style.display = 'flex'; hubList.style.flexDirection = 'column'; hubList.style.gap = '6px';
+    for (const { t, d } of hubs) {
+      hubList.appendChild(tableCard(t, { chips: [{ text: d + ' refs' }] }));
+    }
+    hubPanel.appendChild(hubList);
+    cols.appendChild(hubPanel);
+
+    view.appendChild(cols);
+    main.appendChild(view);
+  }
+
+  // ---------- detail / focus ----------
+  let wireFrame = 0;
+  function scheduleWires(container) {
+    cancelAnimationFrame(wireFrame);
+    wireFrame = requestAnimationFrame(() => drawWires(container));
+  }
+  function drawWires(container) {
+    const svg = container.querySelector('svg.wires');
+    const focusCard = container.querySelector('.focus-card');
+    if (!svg || !focusCard) return;
+    const box = container.getBoundingClientRect();
+    const focus = focusCard.getBoundingClientRect();
+    let paths = '';
+    const wire = (x1, y1, x2, y2, optional) => {
+      const bend = Math.max(36, (x2 - x1) / 2.2);
+      const color = optional ? 'var(--wire-opt)' : 'var(--wire-ref)';
+      const dash = optional ? ' stroke-dasharray="4 3"' : '';
+      paths += `<path d="M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}" fill="none" stroke="${color}" stroke-width="1.5" opacity=".7"${dash}/>`;
+    };
+    const fy = focus.top + focus.height / 2 - box.top;
+    for (const card of container.querySelectorAll('.col.parents .ncard')) {
+      const r = card.getBoundingClientRect();
+      wire(r.right - box.left, r.top + r.height / 2 - box.top, focus.left - box.left, fy, card.dataset.optional === '1');
+    }
+    for (const card of container.querySelectorAll('.col.children .ncard')) {
+      const r = card.getBoundingClientRect();
+      wire(focus.right - box.left, fy, r.left - box.left, r.top + r.height / 2 - box.top, card.dataset.optional === '1');
+    }
+    svg.innerHTML = paths;
+  }
+
+  function relColumn(cls, heading, rels, otherKey) {
+    const col = el('div', 'col ' + cls);
+    col.appendChild(el('div', 'colhead', heading + ' (' + fmt(rels.length) + ')'));
+    if (!rels.length) col.appendChild(el('div', 'empty', 'none'));
+    // Group duplicate edges to the same table.
+    for (const rel of rels) {
+      const other = tablesByName.get(rel[otherKey]);
+      if (!other) continue;
+      const label = cls === 'parents'
+        ? rel.foreignKey + ' → ' + rel.parent
+        : rel.child + '.' + rel.foreignKey;
+      const card = tableCard(other, {
+        sub: label,
+        chips: [{ text: rel.cardinality, card: true }],
+      });
+      card.dataset.optional = rel.optional ? '1' : '0';
+      col.appendChild(card);
+    }
+    return col;
+  }
+
+  function focusCard(table) {
+    const wrap = el('div', 'focus-wrap');
+    const card = el('div', 'focus-card');
+
+    const head = el('div', 'fhead');
+    const ic = el('span'); ic.innerHTML = icon('table', true); head.appendChild(ic.firstChild);
+    const headText = el('div'); headText.style.minWidth = '0';
+    headText.appendChild(el('div', 'fname', table.name));
+    headText.appendChild(el('div', 'fmeta mono', table.tableName));
+    headText.appendChild(el('span', 'kindchip', table.domain));
+    head.appendChild(headText);
+    card.appendChild(head);
+
+    if (table.description) card.appendChild(el('div', 'fdesc', table.description));
+
+    const list = el('div', 'cols-list');
+    for (const c of table.columns) {
+      const isFk = !!c.references;
+      const row = el('div', 'crow' + (isFk ? ' fk' : ''));
+      const key = el('span', 'ckey');
+      if (c.primaryKey) { key.innerHTML = icon('key'); key.querySelector('.ic').style.color = 'var(--c-pk)'; }
+      else if (isFk) { key.innerHTML = icon('link'); key.querySelector('.ic').style.color = 'var(--c-fk)'; }
+      row.appendChild(key);
+      row.appendChild(el('span', 'cname', c.name));
+      if (c.primaryKey) row.appendChild(el('span', 'cbadge pk', 'PK'));
+      if (isFk) row.appendChild(el('span', 'cbadge fk', 'FK'));
+      if (c.unique && !c.primaryKey) row.appendChild(el('span', 'cbadge uq', 'UQ'));
+      if (c.allowNull) row.appendChild(el('span', 'cbadge nl', 'NULL'));
+      row.appendChild(el('span', 'ctype', c.type));
+      if (isFk) {
+        row.title = '→ ' + c.references.table + '.' + c.references.column;
+        row.addEventListener('click', () => selectTable(c.references.table));
+      }
+      list.appendChild(row);
+    }
+    card.appendChild(list);
+
+    const parents = refsOut.get(table.name) ?? [];
+    const children = refsIn.get(table.name) ?? [];
+    const counts = el('div', 'fcounts');
+    const left = el('span'); left.innerHTML = '← <b>' + fmt(parents.length) + '</b> references';
+    const right = el('span'); right.innerHTML = '<b>' + fmt(children.length) + '</b> referenced by →';
+    const mid = el('span'); mid.innerHTML = '<b>' + fmt(table.columns.length) + '</b> columns';
+    counts.appendChild(left); counts.appendChild(mid); counts.appendChild(right);
+    card.appendChild(counts);
+
+    wrap.appendChild(card);
+    return wrap;
+  }
+
+  function renderDetail(table) {
+    main.replaceChildren();
+    const view = el('div', 'detail');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'wires');
+    view.appendChild(svg);
+
+    const sortRels = (list, otherKey) => list.slice().sort((a, b) => a[otherKey].localeCompare(b[otherKey]));
+    const parents = sortRels(refsOut.get(table.name) ?? [], 'parent');
+    const children = sortRels(refsIn.get(table.name) ?? [], 'child');
+
+    view.appendChild(relColumn('parents', 'References', parents, 'parent'));
+    view.appendChild(focusCard(table));
+    view.appendChild(relColumn('children', 'Referenced by', children, 'child'));
+    main.appendChild(view);
+
+    for (const col of view.querySelectorAll('.col')) col.addEventListener('scroll', () => scheduleWires(view), { passive: true });
+    const cardsList = view.querySelector('.cols-list');
+    if (cardsList) cardsList.addEventListener('scroll', () => scheduleWires(view), { passive: true });
+    scheduleWires(view);
+  }
+
+  window.addEventListener('resize', () => {
+    const view = main.querySelector('.detail');
+    if (view) scheduleWires(view);
+  });
+
+  // ---------- routing ----------
+  function render() {
+    const table = tablesByName.get(currentName());
+    if (table) renderDetail(table);
+    else renderOverview();
+    markActive();
+  }
+  window.addEventListener('hashchange', render);
+
+  renderTree();
+  render();
+})();
+</script>
+</body>
+</html>

@@ -8,7 +8,7 @@ const config: Config = {
       diagnostics: false,
     },
   },
-  roots: ['<rootDir>/test', '<rootDir>/src/pipeline'],
+  roots: ['<rootDir>/test', '<rootDir>/src/pipeline', '<rootDir>/src/underwriting', '<rootDir>/src/signature'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   clearMocks: true,
   watchman: false,

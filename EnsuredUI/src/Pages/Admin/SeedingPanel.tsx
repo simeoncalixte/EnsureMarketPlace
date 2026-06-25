@@ -24,6 +24,7 @@ import InfoCard from '../../xds/components/InfoCard';
 import { colors, withAlpha } from '../../xds/colors';
 import { getCrestaCatalog, startCrestaImport, stopCrestaImport } from '../../api/crestaZones';
 import { seedRoute, seedPipelineSubmissions, purgeSubmissions } from '../../api/seed';
+import { startWorldcitiesImport, getWorldcitiesStatus, stopWorldcitiesImport } from '../../api/seed';
 
 /* ──────────────────────────────────────────────────────────────────────────
  * Page-local types — typing the seed records and status map removes the
@@ -41,6 +42,25 @@ interface SeedSource {
 }
 
 type StatusKey = number | string;
+
+/**
+ * Primary transaction (submission) types the seeder can pin, mirroring the API's
+ * `submissionTypeTaxonomy`. 'auto' leaves the type to the pipeline's
+ * submissionType stage (the prior behaviour).
+ */
+const SUBMISSION_TYPE_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [
+  { value: 'auto', label: 'Auto (pipeline decides)' },
+  { value: 'new_business', label: 'New Business' },
+  { value: 'renewal', label: 'Renewal' },
+  { value: 'quote_request', label: 'Quote Request' },
+  { value: 'endorsement', label: 'Endorsement' },
+  { value: 'cancellation', label: 'Cancellation' },
+  { value: 'claim', label: 'Claim / Loss Notice' },
+  { value: 'audit', label: 'Premium Audit' },
+  { value: 'treaty_reinsurance', label: 'Treaty Reinsurance' },
+  { value: 'facultative_reinsurance', label: 'Facultative Reinsurance' },
+  { value: 'inquiry', label: 'Inquiry / Other' },
+];
 
 /* ──────────────────────────────────────────────────────────────────────────
  * Page-local styled composites (built over xds primitives / tokens).
@@ -197,6 +217,12 @@ const SubmissionStatus = styled.span`
   margin-left: 8px;
 `;
 
+const SubmissionType = styled.span`
+  color: ${colors.dataViz.cyan};
+  margin-left: 8px;
+  font-family: 'JetBrains Mono', monospace;
+`;
+
 const SubmissionSource = styled.span`
   color: ${colors.neutral[500]};
   margin-left: 8px;
@@ -295,6 +321,31 @@ export default function SeedingPanel() {
   const [userSeeds, setUserSeeds] = useState<SeedSource[]>([
     { id: 201, title: 'User Seeding', route: '/api/seed/users', sub: 'Creates sample users', count: 25 },
   ]);
+  const [orgStructureSeeds, setOrgStructureSeeds] = useState<SeedSource[]>([
+    {
+      id: 301,
+      title: 'Org Structure Seeding',
+      route: '/api/seed/org-structure',
+      sub: 'Departments + teams, role-assigned members; backfills existing users with org/role/dept/team',
+      count: 3,
+    },
+  ]);
+
+  const [orgStructureForm, setOrgStructureForm] = useState({
+    organizationId: '',
+    route: '/api/seed/org-structure',
+    sub: '',
+    count: 3,
+  });
+  const [capacitySeeds, setCapacitySeeds] = useState<SeedSource[]>([
+    {
+      id: 401,
+      title: 'Capacity Definition Seeding',
+      route: '/api/seed/capacity-definitions',
+      sub: 'Applies one active capacity definition per org (1:1 with the editor + enforcement appetite) to test pipeline adherence',
+    },
+  ]);
+  const [capacityForm, setCapacityForm] = useState({ organizationId: '', archetype: '' });
 
   const [orgForm, setOrgForm] = useState({ title: '', route: '/api/seed/organizations', sub: '', count: 10 });
   const [userForm, setUserForm] = useState({ title: '', route: '/api/seed/users', sub: '', count: 25 });
@@ -311,11 +362,16 @@ export default function SeedingPanel() {
   const [exposureForm, setExposureForm] = useState<{ points: number; dealId?: string; includeAllActive?: boolean }>({ points: 12, dealId: '', includeAllActive: false });
   const [pipelineResult, setPipelineResult] = useState<any | null>(null);
   const [incomingCount, setIncomingCount] = useState<number>(3);
+  const [incomingType, setIncomingType] = useState<string>('auto');
   const [purgeResult, setPurgeResult] = useState<any | null>(null);
 
   // CRESTA zone import (cresta.org API) — long-running, throttled, resumable background job.
   const [crestaForm, setCrestaForm] = useState<{ only: string; level: string }>({ only: '', level: '' });
   const [crestaProgress, setCrestaProgress] = useState<any | null>(null);
+
+  // Worldcities CSV import — streaming, two-pass background job (states + cities).
+  const [worldcitiesFile, setWorldcitiesFile] = useState('');
+  const [worldcitiesStatus, setWorldcitiesStatus] = useState<any | null>(null);
 
   async function refreshCrestaProgress() {
     try {
@@ -373,6 +429,61 @@ export default function SeedingPanel() {
     }
   }
 
+  async function refreshWorldcitiesStatus() {
+    try {
+      const res = await getWorldcitiesStatus();
+      if (res.ok) setWorldcitiesStatus(await res.json());
+    } catch (_) {
+      /* ignore poll errors */
+    }
+  }
+
+  // Poll status so the panel reflects the background import (it streams ~1.94M rows server-side).
+  useEffect(() => {
+    refreshWorldcitiesStatus();
+    const t = setInterval(refreshWorldcitiesStatus, 5000);
+    return () => clearInterval(t);
+  }, []);
+
+  async function triggerWorldcitiesImport() {
+    setStatuses((st) => ({ ...st, worldcities: 'pending' }));
+    try {
+      const body: { file?: string } = {};
+      if (worldcitiesFile.trim()) body.file = worldcitiesFile.trim();
+      const res = await startWorldcitiesImport(body);
+      let json: any = null;
+      try {
+        json = await res.clone().json();
+      } catch (_) {
+        /* non-json */
+      }
+      setStatuses((st) => ({
+        ...st,
+        worldcities: res.ok ? `ok: ${json?.message ?? res.status}` : `error ${res.status}: ${json?.message ?? ''}`,
+      }));
+      refreshWorldcitiesStatus();
+    } catch (err: any) {
+      setStatuses((st) => ({ ...st, worldcities: `failed (${err.message || 'network'})` }));
+    }
+    setTimeout(() => setStatuses((st) => ({ ...st, worldcities: '' })), 9000);
+  }
+
+  async function stopWorldcitiesImportRun() {
+    try {
+      const res = await stopWorldcitiesImport();
+      let json: any = null;
+      try {
+        json = await res.clone().json();
+      } catch (_) {
+        /* non-json */
+      }
+      setStatuses((st) => ({ ...st, worldcities: json?.message ?? `stop ${res.status}` }));
+      refreshWorldcitiesStatus();
+    } catch (err: any) {
+      setStatuses((st) => ({ ...st, worldcities: `failed (${err.message || 'network'})` }));
+    }
+  }
+
   function addSource() {
     if (!form.title || !form.route) return;
     const id = Date.now();
@@ -388,7 +499,12 @@ export default function SeedingPanel() {
   }
 
   async function triggerSource(id: number) {
-    const src = sources.find((s) => s.id === id) || orgSeeds.find((s) => s.id === id) || userSeeds.find((s) => s.id === id);
+    const src =
+      sources.find((s) => s.id === id) ||
+      orgSeeds.find((s) => s.id === id) ||
+      userSeeds.find((s) => s.id === id) ||
+      orgStructureSeeds.find((s) => s.id === id) ||
+      capacitySeeds.find((s) => s.id === id);
     if (!src || !src.route) return;
     setStatuses((st) => ({ ...st, [id]: 'pending' }));
 
@@ -405,6 +521,23 @@ export default function SeedingPanel() {
       } else if (src.route?.includes('/seed/users')) {
         const extraInvestors = Number(src.count ?? 2);
         res = await seedRoute(url, { extraInvestors });
+      } else if (src.route?.includes('/seed/org-structure')) {
+        const body: { extraMembers: number; organizationId?: number } = {
+          extraMembers: Number(src.count ?? 3),
+        };
+        const orgId = Number(orgStructureForm.organizationId);
+        if (orgStructureForm.organizationId.trim() !== '' && Number.isFinite(orgId)) {
+          body.organizationId = orgId;
+        }
+        res = await seedRoute(url, body);
+      } else if (src.route?.includes('/seed/capacity-definitions')) {
+        const body: { organizationId?: number; archetype?: string } = {};
+        const orgId = Number(capacityForm.organizationId);
+        if (capacityForm.organizationId.trim() !== '' && Number.isFinite(orgId)) {
+          body.organizationId = orgId;
+        }
+        if (capacityForm.archetype.trim() !== '') body.archetype = capacityForm.archetype.trim();
+        res = await seedRoute(url, body);
       } else {
         res = await seedRoute(url, { id: src.id, title: src.title, metadata: src.sub });
         if (res.status === 405) {
@@ -451,6 +584,26 @@ export default function SeedingPanel() {
 
   function removeUser(id: number) {
     setUserSeeds((s) => s.filter((x) => x.id !== id));
+  }
+
+  function addOrgStructure() {
+    if (!orgStructureForm.route) return;
+    const id = Date.now();
+    setOrgStructureSeeds((s) => [
+      ...s,
+      {
+        id,
+        title: 'Org Structure',
+        route: orgStructureForm.route,
+        sub: orgStructureForm.sub || 'Departments, teams, role-assigned members + existing-user backfill',
+        count: orgStructureForm.count ?? 3,
+      },
+    ]);
+    setOrgStructureForm({ organizationId: '', route: '/api/seed/org-structure', sub: '', count: 3 });
+  }
+
+  function removeOrgStructure(id: number) {
+    setOrgStructureSeeds((s) => s.filter((x) => x.id !== id));
   }
 
   async function triggerPortfolio(type: 'insurer' | 'investor') {
@@ -508,7 +661,7 @@ export default function SeedingPanel() {
   async function triggerSeedIncoming() {
     setStatuses((st) => ({ ...st, pipeline: 'pending' }));
     try {
-      const res = await seedPipelineSubmissions(Number(incomingCount) || 3);
+      const res = await seedPipelineSubmissions(Number(incomingCount) || 3, { submissionType: incomingType });
       let message = '';
       let jsonBody: any = null;
       try {
@@ -595,9 +748,20 @@ export default function SeedingPanel() {
           <Grow>
             <CalloutTitle>Seed incoming submissions into my pipeline</CalloutTitle>
             <CalloutMeta>
-              POST /api/seed/pipeline-submissions — creates submissions for your signed-in organization so you can advance them on Pipeline Processes.
+              POST /api/seed/pipeline-submissions — creates submissions for your signed-in organization so you can advance them on Pipeline Processes. Pin a transaction type to force the batch to a specific kind (new business, renewal, endorsement, …), or leave it on Auto.
             </CalloutMeta>
           </Grow>
+          <FieldLabel>Type</FieldLabel>
+          <Select
+            value={incomingType}
+            onChange={(e) => setIncomingType((e.target as HTMLSelectElement).value)}
+          >
+            {SUBMISSION_TYPE_OPTIONS.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
+            ))}
+          </Select>
           <FieldLabel>Count</FieldLabel>
           <MonoNumberInput
             placeholder="Count"
@@ -685,6 +849,70 @@ export default function SeedingPanel() {
         ) : null}
       </InfoCard>
 
+      <InfoCard tone="success">
+        <Row>
+          <SeedItemIcon color={colors.accent} className="material-symbols-outlined">location_city</SeedItemIcon>
+          <Grow>
+            <CalloutTitle>Worldcities CSV (states + cities)</CalloutTitle>
+            <CalloutMeta>
+              POST /api/seed/worldcities — streams SimpleMaps worldcities.csv (~1.94M rows) into stateProvinces + cities, linked to countries by iso3. Two-pass, idempotent, resumable.
+            </CalloutMeta>
+          </Grow>
+          <CrestaStateRight>
+            {worldcitiesStatus?.import?.running ? (
+              <CrestaRunning>running… {worldcitiesStatus.import.phase ?? ''}</CrestaRunning>
+            ) : (
+              <CrestaIdle>idle</CrestaIdle>
+            )}
+          </CrestaStateRight>
+        </Row>
+
+        <RowWrap>
+          <FieldLabel>CSV path (optional)</FieldLabel>
+          <MonoInput
+            placeholder="blank = WORLDCITIES_CSV / ./worldcities.csv"
+            value={worldcitiesFile}
+            onChange={(e) => setWorldcitiesFile((e.target as HTMLInputElement).value)}
+            $minWidth={300}
+          />
+          <Button
+            tone="success"
+            onClick={triggerWorldcitiesImport}
+            disabled={Boolean(worldcitiesStatus?.import?.running)}
+          >
+            Start Import
+          </Button>
+          <Button
+            tone="danger"
+            onClick={stopWorldcitiesImportRun}
+            disabled={!worldcitiesStatus?.import?.running}
+          >
+            Stop
+          </Button>
+          <StatusSlot $minWidth={160}>
+            <StatusBadge status={statuses['worldcities']} />
+          </StatusSlot>
+        </RowWrap>
+
+        {worldcitiesStatus ? (
+          <CrestaStatRow>
+            <CrestaStat>
+              phase: <strong>{worldcitiesStatus.import?.phase ?? 'idle'}</strong>
+            </CrestaStat>
+            <CrestaStat>
+              scanned: <strong>{Number(worldcitiesStatus.import?.scanned ?? 0).toLocaleString()}</strong>
+            </CrestaStat>
+            <CrestaZonesStat>
+              states: <strong>{Number(worldcitiesStatus.totals?.states ?? 0).toLocaleString()}</strong>
+              {' · '}cities: <strong>{Number(worldcitiesStatus.totals?.cities ?? 0).toLocaleString()}</strong>
+            </CrestaZonesStat>
+            {worldcitiesStatus.import?.lastError ? (
+              <CrestaError>err: {worldcitiesStatus.import.lastError}</CrestaError>
+            ) : null}
+          </CrestaStatRow>
+        ) : null}
+      </InfoCard>
+
       <SeedList>
         {sources.map((s) => (
           <SeedItem key={s.id} dim={Boolean(s.dim)}>
@@ -746,6 +974,7 @@ export default function SeedingPanel() {
                     <SubmissionDot />
                     <SubmissionId>{s.submissionNumber ?? s.id}</SubmissionId>
                     <SubmissionStatus>{s.status}</SubmissionStatus>
+                    {s.submissionTypeLabel ? <SubmissionType>{s.submissionTypeLabel}</SubmissionType> : null}
                     <SubmissionSource>{s.source}{s.transport ? ` · ${s.transport}` : ''}</SubmissionSource>
                     {s.lineOfBusiness ? <SubmissionLob>{s.lineOfBusiness}</SubmissionLob> : null}
                     {typeof s.complexity === 'number' ? <SubmissionCx>cx {s.complexity}/10</SubmissionCx> : null}
@@ -831,6 +1060,87 @@ export default function SeedingPanel() {
                   </SeedIconBtn>
                   <StatusSlot $minWidth={120} $ml={8}>
                     <StatusBadge status={statuses[u.id]} />
+                  </StatusSlot>
+                </SeedItemActions>
+              </SeedItemInner>
+            </SeedItem>
+          ))}
+        </SeedList>
+      </SectionBlock>
+
+      <SectionBlock>
+        <SubHeading>Organization Structure Seeding</SubHeading>
+        <CalloutMeta>
+          POST /api/seed/org-structure — builds departments + teams for an organization, creates role-assigned
+          members, and backfills every existing user with an organization, role, department, and team.
+          Leave Org ID blank to target the first organization.
+        </CalloutMeta>
+        <Row $mt={12} $mb={12}>
+          <MonoInput placeholder="Org ID (blank = first org)" value={orgStructureForm.organizationId} onChange={(e) => setOrgStructureForm({ ...orgStructureForm, organizationId: (e.target as HTMLInputElement).value })} />
+          <MonoInput placeholder="Route (e.g. /api/seed/org-structure)" value={orgStructureForm.route} onChange={(e) => setOrgStructureForm({ ...orgStructureForm, route: (e.target as HTMLInputElement).value })} $minWidth={260} />
+          <MonoNumberInput placeholder="Extra members" value={String(orgStructureForm.count)} onChange={(e) => setOrgStructureForm({ ...orgStructureForm, count: Number((e.target as HTMLInputElement).value) })} />
+          <MonoInput placeholder="Metadata" value={orgStructureForm.sub} onChange={(e) => setOrgStructureForm({ ...orgStructureForm, sub: (e.target as HTMLInputElement).value })} />
+          <Button onClick={addOrgStructure}>Add Structure</Button>
+        </Row>
+        <SeedList>
+          {orgStructureSeeds.map((o) => (
+            <SeedItem key={o.id} dim={Boolean(o.dim)}>
+              <SeedItemInner>
+                <SeedItemLeft>
+                  <SeedItemIcon color={colors.accentStrong} className="material-symbols-outlined">account_tree</SeedItemIcon>
+                  <div>
+                    <SeedItemTitle>{o.title}</SeedItemTitle>
+                    <SeedItemSub>{o.sub}</SeedItemSub>
+                    <SeedRoute>{o.route}</SeedRoute>
+                  </div>
+                </SeedItemLeft>
+                <SeedItemActions>
+                  <SeedIconBtn color={colors.primarySoft} title="Trigger" onClick={() => triggerSource(o.id)}>
+                    <span className="material-symbols-outlined">bolt</span>
+                  </SeedIconBtn>
+                  <SeedIconBtn color={colors.error} onClick={() => removeOrgStructure(o.id)} title="Remove">
+                    <span className="material-symbols-outlined">delete</span>
+                  </SeedIconBtn>
+                  <StatusSlot $minWidth={120} $ml={8}>
+                    <StatusBadge status={statuses[o.id]} />
+                  </StatusSlot>
+                </SeedItemActions>
+              </SeedItemInner>
+            </SeedItem>
+          ))}
+        </SeedList>
+      </SectionBlock>
+
+      <SectionBlock>
+        <SubHeading>Capacity Definition Seeding</SubHeading>
+        <CalloutMeta>
+          POST /api/seed/capacity-definitions — applies one active capacity definition per organization,
+          populated 1:1 with the capacity editor (perils, exposure, geography, pricing, scoring, workflow) plus
+          the authoritative appetite block the validation pipeline enforces. Archetypes are assigned round-robin
+          so the org set spans distinct rule sets. Leave fields blank to seed every org with round-robin archetypes.
+        </CalloutMeta>
+        <Row $mt={12} $mb={12}>
+          <MonoInput placeholder="Org ID (blank = all orgs)" value={capacityForm.organizationId} onChange={(e) => setCapacityForm({ ...capacityForm, organizationId: (e.target as HTMLInputElement).value })} />
+          <MonoInput placeholder="Archetype (blank = round-robin)" value={capacityForm.archetype} onChange={(e) => setCapacityForm({ ...capacityForm, archetype: (e.target as HTMLInputElement).value })} $minWidth={260} />
+        </Row>
+        <SeedList>
+          {capacitySeeds.map((c) => (
+            <SeedItem key={c.id} dim={Boolean(c.dim)}>
+              <SeedItemInner>
+                <SeedItemLeft>
+                  <SeedItemIcon color={colors.accentStrong} className="material-symbols-outlined">shield</SeedItemIcon>
+                  <div>
+                    <SeedItemTitle>{c.title}</SeedItemTitle>
+                    <SeedItemSub>{c.sub}</SeedItemSub>
+                    <SeedRoute>{c.route}</SeedRoute>
+                  </div>
+                </SeedItemLeft>
+                <SeedItemActions>
+                  <SeedIconBtn color={colors.primarySoft} title="Trigger" onClick={() => triggerSource(c.id)}>
+                    <span className="material-symbols-outlined">bolt</span>
+                  </SeedIconBtn>
+                  <StatusSlot $minWidth={120} $ml={8}>
+                    <StatusBadge status={statuses[c.id]} />
                   </StatusSlot>
                 </SeedItemActions>
               </SeedItemInner>

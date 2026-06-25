@@ -15,11 +15,18 @@
  * the Postgres connection on 5432, so this suite was authored but NOT executed here.
  */
 import { getSequelize } from '../../src/config/database';
-import { Organization, OrganizationAppetiteProfile } from '../../src/db/models';
+import { Organization, CapacityDefinition } from '../../src/db/models';
 import { RiskClassRegistry } from '../../src/db/models/riskClassRegistry.models';
 import { initTestDb } from '../helpers/db';
 import { evaluateAppetite } from '../../src/pipeline/validation/appetiteEngine';
+import { definitionToAppetiteProfile } from '../../src/pipeline/validation/definitionToAppetiteProfile';
 import { resolveTaxonomyAppetiteInput } from '../../src/pipeline/validation/taxonomyResolve';
+
+/** Load the org's active capacity definition projected into an appetite profile. */
+async function loadProfile(organizationId: number) {
+  const def = await CapacityDefinition.findOne({ where: { organizationId, isActive: true } });
+  return def ? definitionToAppetiteProfile(def) : null;
+}
 
 describe('Slice 4 — taxonomy-aware appetite (real DB integration)', () => {
   (global as any).jest?.setTimeout?.(60000);
@@ -31,13 +38,13 @@ describe('Slice 4 — taxonomy-aware appetite (real DB integration)', () => {
     const org = await Organization.create({ name: 'Slice4 Insurer', type: 'insurer' } as any);
     orgId = org.id;
 
-    // Profile whose free-text allow-list would PASS "property".
-    await OrganizationAppetiteProfile.create({
+    // Active capacity definition whose appetite allow-list would PASS "property".
+    await CapacityDefinition.create({
       organizationId: orgId,
-      name: 'Default Appetite',
+      name: 'Migrated Appetite',
       status: 'active',
-      isDefault: true,
-      allowedLinesOfBusiness: ['property'],
+      isActive: true,
+      appetite: { allowedLinesOfBusiness: ['property'] },
     } as any);
 
     // Registry row declaring a taxonomy-aware EXCLUSION of residential_property.
@@ -57,11 +64,11 @@ describe('Slice 4 — taxonomy-aware appetite (real DB integration)', () => {
   });
 
   it('taxonomy-declared exclusion overrides a free-text-allowed LOB', async () => {
-    const profile = await OrganizationAppetiteProfile.findOne({ where: { organizationId: orgId } });
+    const profile = await loadProfile(orgId);
     expect(profile).toBeTruthy();
 
     const taxonomy = await resolveTaxonomyAppetiteInput({
-      tenantId: orgId,
+      organizationId: orgId,
       // Free text resolves to residential_property / single_family.
       lineOfBusiness: 'residential property single family',
       allowedLinesOfBusiness: profile!.allowedLinesOfBusiness ?? null,
@@ -81,13 +88,13 @@ describe('Slice 4 — taxonomy-aware appetite (real DB integration)', () => {
   });
 
   it('non-degradation: no taxonomy data ⇒ free-text LOB match unchanged', async () => {
-    const profile = await OrganizationAppetiteProfile.findOne({ where: { organizationId: orgId } });
+    const profile = await loadProfile(orgId);
 
     // "marine" resolves to no taxonomy code AND there is no registry row for it,
     // so the resolver returns null ⇒ the engine uses the free-text matcher, which
     // flags "marine" because it is not in allowedLinesOfBusiness (['property']).
     const taxonomy = await resolveTaxonomyAppetiteInput({
-      tenantId: orgId,
+      organizationId: orgId,
       lineOfBusiness: 'some bespoke marine program',
       allowedLinesOfBusiness: profile!.allowedLinesOfBusiness ?? null,
     });

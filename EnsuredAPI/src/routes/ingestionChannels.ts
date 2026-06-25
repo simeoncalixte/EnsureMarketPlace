@@ -84,8 +84,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       }
 
       if (resolvedOrg !== undefined && resolvedOrg !== null) {
-        // store organization id in the tenantId DB column (legacy column)
-        where['tenantId'] = resolvedOrg;
+        where['organizationId'] = resolvedOrg;
       }
 
       const channels = await IngestionChannel.findAll({ where, order: [['id', 'ASC']] });
@@ -106,11 +105,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
 
       return channels.map((c) => {
         const json = c.toJSON() as Record<string, unknown>;
-        // expose organizationId while preserving legacy tenantId in DB
-        // prefer existing organizationId property if set, otherwise map tenantId
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        json.organizationId = json.organizationId ?? json.tenantId ?? null;
+        json.organizationId = json.organizationId ?? null;
         json.submissionCount = submissionCounts.get(c.id) ?? 0;
         return json;
       });
@@ -174,13 +169,12 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
           const fromToken = await resolveOrganizationIdFromRequest(request);
           if (fromToken != null) orgToPersist = fromToken;
         } catch (err) {
-          // ignore and allow null tenantId (admin callers may provide explicit org)
+          // ignore and allow null organizationId (admin callers may provide explicit org)
         }
       }
 
       const channel = await IngestionChannel.create({
-        // persist organization id into the existing tenantId column for compatibility
-        tenantId: orgToPersist,
+        organizationId: orgToPersist,
         type: body.type,
         label: body.label,
         enabled: body.enabled ?? false,
@@ -190,10 +184,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       });
       reply.code(201);
       const created = channel.toJSON() as Record<string, unknown>;
-      // expose organizationId alias
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      created.organizationId = created.organizationId ?? created.tenantId ?? null;
+      created.organizationId = created.organizationId ?? null;
       return created;
     }
   );
@@ -238,7 +229,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       const json = channel.toJSON() as Record<string, unknown>;
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      json.organizationId = json.organizationId ?? json.tenantId ?? null;
+      json.organizationId = json.organizationId ?? null;
       return json;
     }
   );
@@ -325,7 +316,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
             type: 'object',
             properties: {
               id: { type: 'integer' },
-              tenantId: { type: ['integer', 'null'] },
+              organizationId: { type: ['integer', 'null'] },
               type: { type: 'string' },
               label: { type: 'string' },
               enabled: { type: 'boolean' },
@@ -355,20 +346,9 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
         return { error: 'Channel not found' };
       }
       const updatePayload: Record<string, unknown> = { ...(body as any) };
-      if (Object.prototype.hasOwnProperty.call(body, 'organizationId')) {
-        // map organizationId to tenantId column for compatibility
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        updatePayload.tenantId = body.organizationId ?? null;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        delete updatePayload.organizationId;
-      }
       await channel.update(updatePayload);
       const updated = channel.toJSON() as Record<string, unknown>;
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      updated.organizationId = updated.organizationId ?? updated.tenantId ?? null;
+      updated.organizationId = updated.organizationId ?? null;
       return updated;
     }
   );
@@ -734,7 +714,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
           const updated = channel.toJSON() as Record<string, unknown>;
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          updated.organizationId = updated.organizationId ?? updated.tenantId ?? null;
+          updated.organizationId = updated.organizationId ?? null;
           return updated;
         } catch (err: any) {
           reply.code(500);
@@ -845,7 +825,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       const updated = channel.toJSON() as Record<string, unknown>;
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      updated.organizationId = updated.organizationId ?? updated.tenantId ?? null;
+      updated.organizationId = updated.organizationId ?? null;
       return updated;
     }
   );
@@ -878,7 +858,7 @@ export const ingestionChannelsRoute: FastifyPluginAsync = async (app) => {
       const updated = channel.toJSON() as Record<string, unknown>;
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      updated.organizationId = updated.organizationId ?? updated.tenantId ?? null;
+      updated.organizationId = updated.organizationId ?? null;
       return updated;
     }
   );

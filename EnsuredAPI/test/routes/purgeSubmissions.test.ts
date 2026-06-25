@@ -15,7 +15,7 @@ import {
   RiskPortfolio,
   StageExecution,
   Submission,
-  SubmissionDocument,
+  SubmissionOutput,
   SubmissionFile,
   Token,
   Tranche,
@@ -105,7 +105,7 @@ describe('POST /api/seed/purge-submissions', () => {
     const businessModels: Array<{ count(): Promise<number> }> = [
       Submission,
       SubmissionFile,
-      SubmissionDocument,
+      SubmissionOutput,
       IngestionEvent,
       PipelineRun,
       StageExecution,

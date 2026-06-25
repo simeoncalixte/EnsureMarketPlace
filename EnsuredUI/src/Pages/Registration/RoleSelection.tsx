@@ -140,21 +140,8 @@ const roleCards: RoleCard[] = [
       'Pipeline and distribution tracking',
     ],
   },
-  {
-    id: 'admin',
-    title: 'Platform Admin',
-    subtitle: 'Operations Control',
-    icon: '🧭',
-    accentColor: colors.secondary,
-    footerLabel: 'Govern access and workflows',
-    ctaText: 'Open Admin',
-    intro: 'Manage user access, oversee platform configuration, and keep audit, policy, and routing controls in sync.',
-    features: [
-      'User and organization administration',
-      'Policy and audit oversight',
-      'System configuration and support',
-    ],
-  },
+  // 'admin' is intentionally NOT a self-registerable role — admin accounts are
+  // provisioned internally. The registration API also rejects it server-side. (#35)
 ]
 
 const summaryCards: StatCard[] = [

@@ -37,13 +37,13 @@ describe('RiskComputeService — real DB integration (Slice 5.0)', () => {
     const org = await Organization.create({ name: 'Compute Test Insurer', type: 'insurer' } as any);
     orgId = org.id;
 
-    const submission = await Submission.create({ tenantId: org.id, status: 'analysis' } as any);
+    const submission = await Submission.create({ organizationId: org.id, status: 'analysis' } as any);
     submissionId = submission.id;
 
     // Canonical data carries the taxonomy code + a TIV exposure base.
     await CanonicalSubmission.create({
       submissionId,
-      tenantId: org.id,
+      organizationId: org.id,
       data: { lineOfBusiness: LOB, 'financials.tiv': 1_000_000 },
       version: 1,
       lineOfBusinessCode: LOB,

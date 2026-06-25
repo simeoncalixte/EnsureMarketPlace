@@ -22,7 +22,7 @@ type StageSeed = { key: string; label: string; accent: string };
 const STAGE_SEEDS: StageSeed[] = [
   { key: 'ingestion', label: 'Ingestion', accent: '#4edea3' },
   { key: 'ocr', label: 'OCR', accent: '#4b8eff' },
-  { key: 'classification', label: 'Classification', accent: '#adc6ff' },
+  { key: 'classification', label: 'Line of Business', accent: '#adc6ff' },
   { key: 'extraction', label: 'Extraction', accent: '#7dd3fc' },
   { key: 'normalization', label: 'Normalization', accent: '#a7f3d0' },
   { key: 'validation', label: 'Validation', accent: '#fbbf24' },
@@ -201,6 +201,155 @@ export const SubscribedSubset: Story = {
         <PipelineProcesses boardOverride={{ ...full, config: { ...full.config, stages }, items }} />
       </Frame>
     );
+  },
+};
+
+// --- Per-submission-type route boards ---------------------------------------
+// The same board component, scoped to ONE submission-type route via the
+// `routeKey` prop (in production PipelineRouteBoard reads it from the URL and the
+// backend returns `?type=<routeKey>`). Lanes are the route's subset and cards are
+// that type's submissions; the global channel/subscription controls are hidden.
+
+function makeStages(seeds: StageSeed[]) {
+  return seeds.map((seed) => ({
+    key: seed.key,
+    label: seed.label,
+    accent: seed.accent,
+    background: `${seed.accent}1f`,
+    border: `${seed.accent}47`,
+    description: `${seed.label} stage of the document pipeline.`,
+    emptyState: `No submissions in ${seed.label.toLowerCase()}.`,
+  }));
+}
+
+const CLAIM_STAGES = makeStages([
+  { key: 'ingestion', label: 'Ingestion', accent: '#4edea3' },
+  { key: 'ocr', label: 'OCR', accent: '#4b8eff' },
+  { key: 'submissionType', label: 'Submission Type', accent: '#93c5fd' },
+  { key: 'extraction', label: 'Extraction', accent: '#7dd3fc' },
+  { key: 'locationDiscovery', label: 'Location Discovery', accent: '#5eead4' },
+  { key: 'normalization', label: 'Normalization', accent: '#a7f3d0' },
+]);
+
+const CANCELLATION_STAGES = makeStages([
+  { key: 'ingestion', label: 'Ingestion', accent: '#4edea3' },
+  { key: 'ocr', label: 'OCR', accent: '#4b8eff' },
+  { key: 'submissionType', label: 'Submission Type', accent: '#93c5fd' },
+  { key: 'extraction', label: 'Extraction', accent: '#7dd3fc' },
+  { key: 'normalization', label: 'Normalization', accent: '#a7f3d0' },
+  { key: 'preBindCompliance', label: 'Pre-bind Compliance', accent: '#f87171' },
+]);
+
+type RouteItemSeed = { id: number; stageKey: string; cedent: string; status: string; eventStatus: 'ok' | 'processing' | 'failed' };
+
+function buildRouteBoard(
+  routeKey: string,
+  routeLabel: string,
+  stages: ReturnType<typeof makeStages>,
+  seeds: RouteItemSeed[],
+): PipelineBoardResponse {
+  const byKey = new Map(stages.map((stage) => [stage.key, stage]));
+  const items = seeds.map((seed) => {
+    const stage = byKey.get(seed.stageKey)!;
+    return {
+      id: seed.id,
+      stageKey: stage.key,
+      stageLabel: stage.label,
+      stageAccent: stage.accent,
+      stageBackground: stage.background,
+      stageBorder: stage.border,
+      status: seed.status,
+      eventStatus: seed.eventStatus,
+      hasError: seed.eventStatus === 'failed',
+      priority: 'normal' as const,
+      values: {
+        submissionNumber: `SUB-${String(seed.id).padStart(4, '0')}`,
+        submissionId: seed.id,
+        submissionType: routeKey,
+        cedent: seed.cedent,
+        lineOfBusiness: '—',
+        region: '—',
+        source: 'Email SSO',
+        owner: 'Maya Chen',
+        fileCount: 2,
+        status: seed.status,
+        stageLabel: stage.label,
+        eventStatus: seed.eventStatus,
+        lastEventLabel: '5 min ago',
+        receivedLabel: '12 min ago',
+        errorMessage: seed.eventStatus === 'failed' ? 'Normalization failed: missing date of loss.' : null,
+        premium: 0,
+        exposure: 0,
+      },
+    };
+  });
+  return {
+    config: {
+      eyebrow: 'Pipeline route',
+      title: `${routeLabel} Pipeline`,
+      description: `Submissions on the ${routeLabel.toLowerCase()} route, across each of its stages.`,
+      stages,
+    },
+    availableStages: stages,
+    summary: [
+      { label: 'Active submissions', value: items.length, meta: 'Submissions on this route.', format: 'number' },
+      { label: 'In processing', value: items.length, meta: 'Not yet at the final stage.', format: 'number' },
+      { label: 'Needs attention', value: items.filter((i) => i.eventStatus === 'failed').length, meta: 'Latest event failed.', format: 'number' },
+      { label: 'Pipeline premium', value: 0, meta: 'Total premium on this route.', format: 'currency' },
+    ],
+    channels: { active: 0, total: 0 },
+    items,
+    refreshedAt: '2026-06-23T12:00:00.000Z',
+  };
+}
+
+// Claim route: structures the loss data and stops before underwriting — no
+// validation/pricing lanes, and a route-only "Location Discovery" lane.
+export const ClaimRouteBoard: Story = {
+  render: () => (
+    <Frame>
+      <PipelineProcesses
+        routeKey="claim"
+        boardOverride={buildRouteBoard('claim', 'Claims', CLAIM_STAGES, [
+          { id: 101, stageKey: 'ocr', cedent: 'Cobalt Marine', status: 'submitted', eventStatus: 'processing' },
+          { id: 102, stageKey: 'extraction', cedent: 'Sable Energy', status: 'submitted', eventStatus: 'ok' },
+          { id: 103, stageKey: 'normalization', cedent: 'Aster Logistics', status: 'submitted', eventStatus: 'failed' },
+        ])}
+      />
+    </Frame>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Title reflects the route.
+    await expect(canvas.getByText('Claims Pipeline')).toBeInTheDocument();
+    // A claim-route lane is shown; the new-business underwriting lanes are not.
+    await expect(canvas.getByText('Location Discovery')).toBeInTheDocument();
+    await expect(canvas.queryByText('Validation')).not.toBeInTheDocument();
+    await expect(canvas.queryByText('Pricing')).not.toBeInTheDocument();
+    // Global channel control is hidden on a per-type board.
+    await expect(canvas.queryByText(/active channel/i)).not.toBeInTheDocument();
+  },
+};
+
+// Cancellation route: identify the policy + effective date, then compliance.
+export const CancellationRouteBoard: Story = {
+  render: () => (
+    <Frame>
+      <PipelineProcesses
+        routeKey="cancellation"
+        boardOverride={buildRouteBoard('cancellation', 'Cancellation', CANCELLATION_STAGES, [
+          { id: 201, stageKey: 'extraction', cedent: 'Harbor Infrastructure', status: 'submitted', eventStatus: 'ok' },
+          { id: 202, stageKey: 'preBindCompliance', cedent: 'Aurora Health', status: 'compliance', eventStatus: 'ok' },
+        ])}
+      />
+    </Frame>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Cancellation Pipeline')).toBeInTheDocument();
+    await expect(canvas.getByText('Pre-bind Compliance')).toBeInTheDocument();
+    // Cancellation skips classification entirely.
+    await expect(canvas.queryByText('Classification')).not.toBeInTheDocument();
   },
 };
 

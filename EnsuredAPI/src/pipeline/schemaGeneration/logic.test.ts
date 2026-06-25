@@ -3,6 +3,7 @@ import {
   adoptOrgTemplateAsBase,
   buildBaselineSchema,
   coerceFormSchema,
+  extractOptionSets,
   gatherContext,
   mergeTemplateDefinitions,
   prefillSchema,
@@ -11,7 +12,7 @@ import {
 import { SuggestedFormDefinition } from './types';
 
 const PAYLOAD = {
-  submission: { id: 7, tenantId: 3 },
+  submission: { id: 7, organizationId: 3 },
   classification: {
     ok: true,
     service: 'classification',
@@ -51,7 +52,7 @@ describe('gatherContext', () => {
   it('distills classification + extraction + validation outputs into a flat context', () => {
     const ctx = gatherContext(PAYLOAD);
     expect(ctx.submissionId).toBe(7);
-    expect(ctx.tenantId).toBe(3);
+    expect(ctx.organizationId).toBe(3);
     expect(ctx.lineOfBusinessCode).toBe('property');
     expect(ctx.lineOfBusinessLabel).toBe('Property');
     expect(ctx.riskType).toBe('hurricane');
@@ -79,13 +80,14 @@ describe('gatherContext', () => {
 });
 
 describe('buildBaselineSchema', () => {
-  it('is the full create-coverage page structure (all 7 sections, base-tagged)', () => {
+  it('is the full create-coverage page structure (all 8 sections, base-tagged)', () => {
     const schema = buildBaselineSchema(gatherContext(PAYLOAD));
     const keys = schema.sections.map((s) => s.key);
     expect(keys).toEqual([
-      'deal-parameters',
+      'general-information',
       'financials',
       'insured-subjects',
+      'documents',
       'tranche-structure',
       'validation',
       'submission',
@@ -106,9 +108,10 @@ describe('buildBaselineSchema', () => {
     const schema = buildBaselineSchema(gatherContext(PAYLOAD));
     const components = Object.fromEntries(schema.sections.map((s) => [s.key, s.component]));
     expect(components['insured-subjects']).toBe('subjects');
+    expect(components['documents']).toBe('documents');
     expect(components['tranche-structure']).toBe('tranches');
     expect(components['validation']).toBe('validation');
-    expect(components['deal-parameters']).toBeUndefined(); // dynamic data section
+    expect(components['general-information']).toBeUndefined(); // dynamic data section
   });
 
   it('titles the form by the line of business', () => {
@@ -161,8 +164,8 @@ describe('coerceFormSchema (extend base, never override)', () => {
       baseline,
     );
     const keys = out.sections.map((s) => s.key);
-    // All 7 base keys still present, plus the new AI section last.
-    expect(keys.slice(0, 7)).toEqual(baseline.sections.map((s) => s.key));
+    // All 8 base keys still present, plus the new AI section last.
+    expect(keys.slice(0, 8)).toEqual(baseline.sections.map((s) => s.key));
     expect(keys).toContain('parametric-trigger');
     expect(out.sections.find((s) => s.key === 'parametric-trigger')!.origin).toBe('ai');
   });
@@ -219,7 +222,7 @@ describe('prefillSchema', () => {
     const filled = prefillSchema(buildBaselineSchema(ctx), ctx);
     const financials = filled.sections.find((s) => s.key === 'financials')!;
     expect(financials.fields.find((f) => f.canonicalKey === 'limit')!.value).toBe(9_000_000);
-    const deal = filled.sections.find((s) => s.key === 'deal-parameters')!;
+    const deal = filled.sections.find((s) => s.key === 'general-information')!;
     expect(deal.fields.find((f) => f.canonicalKey === 'effectiveDate')!.value).toBe('2026-01-01');
     // A field with no matching extracted value stays unset.
     expect(deal.fields.find((f) => f.key === 'dealName')!.value).toBeUndefined();
@@ -242,8 +245,12 @@ describe('adoptOrgTemplateAsBase', () => {
     const keys = base.sections.map((s) => s.key);
     expect(base.title).toBe('Acme Property Coverage');
     expect(keys).toContain('acme-extras');
+    // The legacy 'deal-parameters' key is normalized to its successor.
+    expect(keys).toContain('general-information');
+    expect(keys).not.toContain('deal-parameters');
     // Workflow component sections from the hardcoded base are appended.
     expect(keys).toContain('tranche-structure');
+    expect(keys).toContain('documents');
     expect(keys).toContain('signing');
     // Org sections are tagged base.
     expect(base.sections.find((s) => s.key === 'acme-extras')!.origin).toBe('base');
@@ -314,8 +321,9 @@ describe('mergeTemplateDefinitions', () => {
     const byKey = Object.fromEntries(merged.sections.map((s) => [s.key, s]));
 
     // Overlapping section keeps existing metadata, gains only the new field.
-    expect(byKey['deal-parameters'].label).toBe('Deal');
-    expect(byKey['deal-parameters'].fields.map((f) => f.key)).toEqual(['dealName', 'voyageRoute']);
+    // Both sides used the legacy 'deal-parameters' key — merged under its successor.
+    expect(byKey['general-information'].label).toBe('Deal');
+    expect(byKey['general-information'].fields.map((f) => f.key)).toEqual(['dealName', 'voyageRoute']);
     // Pre-existing section untouched.
     expect(byKey['acme-extras'].fields.map((f) => f.key)).toEqual(['broker']);
     // New section appended.
@@ -324,7 +332,65 @@ describe('mergeTemplateDefinitions', () => {
 
   it('is a no-op when the incoming form adds nothing new', () => {
     const merged = mergeTemplateDefinitions(existing, existing);
-    expect(merged.sections.map((s) => s.key)).toEqual(['deal-parameters', 'acme-extras']);
+    expect(merged.sections.map((s) => s.key)).toEqual(['general-information', 'acme-extras']);
     expect(merged.sections[0].fields.map((f) => f.key)).toEqual(['dealName']);
+  });
+});
+
+describe('extractOptionSets', () => {
+  const ctx = gatherContext(PAYLOAD); // lineOfBusinessCode: 'property'
+
+  const schemaWith = (fields: any[]): SuggestedFormDefinition => ({
+    schemaVersion: 1,
+    pageKey: 'create-coverage',
+    title: 'x',
+    sections: [{ key: 'coverage-terms', label: 'Coverage Terms', order: 1, fields }],
+  });
+
+  it('lifts select/radio options into sets and replaces them with an optionSetKey', () => {
+    const { schema, optionSets } = extractOptionSets(
+      schemaWith([
+        { key: 'basis', label: 'Basis', type: 'select', order: 1, options: [{ value: 'occ', label: 'Occurrence' }] },
+        { key: 'mode', label: 'Mode', type: 'radio', order: 2, options: [{ value: 'a', label: 'A' }] },
+      ]),
+      ctx,
+    );
+
+    expect(optionSets).toEqual([
+      {
+        optionSetKey: 'property.coverage-terms.basis',
+        label: 'Basis',
+        fieldKey: 'basis',
+        sectionKey: 'coverage-terms',
+        items: [{ value: 'occ', label: 'Occurrence' }],
+      },
+      {
+        optionSetKey: 'property.coverage-terms.mode',
+        label: 'Mode',
+        fieldKey: 'mode',
+        sectionKey: 'coverage-terms',
+        items: [{ value: 'a', label: 'A' }],
+      },
+    ]);
+
+    const [basis, mode] = schema.sections[0].fields;
+    expect(basis.optionSetKey).toBe('property.coverage-terms.basis');
+    expect('options' in basis).toBe(false);
+    // Option VALUES are preserved as an enum constraint for the publish path.
+    expect(basis.constraints?.enumValues).toEqual(['occ']);
+    expect(mode.optionSetKey).toBe('property.coverage-terms.mode');
+  });
+
+  it('leaves non-choice fields and optionless choice fields untouched', () => {
+    const { schema, optionSets } = extractOptionSets(
+      schemaWith([
+        { key: 'note', label: 'Note', type: 'text', order: 1 },
+        { key: 'empty', label: 'Empty', type: 'select', order: 2 },
+      ]),
+      ctx,
+    );
+
+    expect(optionSets).toEqual([]);
+    expect(schema.sections[0].fields.every((f) => !('optionSetKey' in f))).toBe(true);
   });
 });

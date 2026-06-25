@@ -1,17 +1,19 @@
-import { PageTemplate, SubmissionDocument } from '../../db/models';
+import { PageTemplate, SchemaOptionSet, SchemaOptionSetItem, SubmissionOutput } from '../../db/models';
 import type { PageTemplateDefinition } from '../../db/models/pageTemplates.models';
 import { runStage } from '../stageResult';
 import {
+  ExtractedOptionSet,
   PAGE_KEY,
   SCHEMA_VERSION,
   adoptOrgTemplateAsBase,
   buildBaselineSchema,
+  extractOptionSets,
   gatherContext,
   mergeTemplateDefinitions,
   prefillSchema,
   toStorableTemplate,
 } from './logic';
-import { GeminiSchemaAgent, SchemaAgent } from './GeminiSchemaProvider';
+import { GeminiSchemaAgent, SCHEMA_PROMPT_VERSION, SchemaAgent } from './GeminiSchemaProvider';
 import { SchemaGenerationResult, SchemaGenerationSource, SubmissionFormContext, SuggestedFormDefinition } from './types';
 
 /** The persisted, frontend-facing view of a generated form. */
@@ -20,6 +22,38 @@ export type PersistedSuggestedForm = {
   source: SchemaGenerationSource;
   generatedAt: string;
 };
+
+/** The lazy-loaded view of one field's option set (its {value,label} items). */
+export type PersistedOptionSet = {
+  optionSetKey: string;
+  label: string | null;
+  items: Array<{ value: string; label: string }>;
+};
+
+/**
+ * Lazy-load the selection options for a form field, by the `optionSetKey` the
+ * field carries. The create-coverage page fetches this the first time it renders
+ * a `select`/`radio` field that references a set. Org-scoped: a set written for an
+ * organization is matched on (organizationId, optionSetKey); `organizationId` may
+ * be null for unscoped lookups. Returns null when no set exists.
+ */
+export async function loadOptionSet(
+  optionSetKey: string,
+  organizationId: number | null,
+): Promise<PersistedOptionSet | null> {
+  if (!optionSetKey) return null;
+  const header = await SchemaOptionSet.findOne({
+    where: { optionSetKey, ...(organizationId !== null ? { organizationId } : {}) },
+    include: [{ model: SchemaOptionSetItem, as: 'items' }],
+    order: [[{ model: SchemaOptionSetItem, as: 'items' }, 'order', 'ASC']],
+  });
+  if (!header) return null;
+  const items = ((header.get('items') as SchemaOptionSetItem[] | undefined) ?? []).map((item) => ({
+    value: item.value,
+    label: item.label,
+  }));
+  return { optionSetKey: header.optionSetKey, label: header.label, items };
+}
 
 /**
  * Build the deterministic baseline form — the SAME default the schema agent
@@ -47,7 +81,7 @@ export function buildBaselineForm(
  */
 export async function loadSuggestedForm(submissionId: number): Promise<PersistedSuggestedForm | null> {
   if (!Number.isFinite(submissionId)) return null;
-  const doc = await SubmissionDocument.findOne({ where: { submissionId } });
+  const doc = await SubmissionOutput.findOne({ where: { submissionId } });
   const record = (doc?.structuredData as Record<string, unknown> | undefined)?.schemaGeneration;
   if (!record || typeof record !== 'object') return null;
   const r = record as Partial<PersistedSuggestedForm>;
@@ -87,8 +121,13 @@ export class SchemaGenerationService {
     const { base, fromOrgTemplate } = await this.resolveBaseSchema(context);
 
     const generated = await this.generateWithPolicy(context, base);
+    const warnings: string[] = generated.warning ? [generated.warning] : [];
     // Prefill every field from the submission's extracted data.
-    const schema = prefillSchema(generated.schema, context);
+    const prefilled = prefillSchema(generated.schema, context);
+    // Lift every choice field's options into the option-set table and leave the
+    // field referencing them by `optionSetKey`, so the UI lazy-loads them.
+    const { schema, optionSets } = extractOptionSets(prefilled, context);
+    const optionSetsPersisted = await this.persistOptionSetsSafely(context, optionSets);
     const source: SchemaGenerationSource = generated.source === 'gemini_schema'
       ? 'gemini_schema'
       : fromOrgTemplate
@@ -119,12 +158,17 @@ export class SchemaGenerationService {
       service: 'schemaGeneration',
       schema,
       source,
+      // Attribute LLM-generated forms to the prompt revision that produced them.
+      ...(source === 'gemini_schema' ? { promptVersion: SCHEMA_PROMPT_VERSION } : {}),
       sectionCount: schema.sections.length,
       fieldCount: schema.sections.reduce((acc, s) => acc + s.fields.length, 0),
       subjectCount: context.subjectCount,
       persisted,
       templatePersisted,
+      optionSetCount: optionSets.length,
+      optionSetsPersisted,
       generatedAt: result.generatedAt,
+      warnings,
     };
   }
 
@@ -151,8 +195,8 @@ export class SchemaGenerationService {
 
   /** Load the org's published create-coverage template for the LOB (LOB-specific first, then default). */
   private async loadOrgTemplate(context: SubmissionFormContext): Promise<PageTemplateDefinition | null> {
-    if (context.tenantId === null) return null;
-    const base = { organizationId: context.tenantId, pageKey: PAGE_KEY, status: 'published' as const };
+    if (context.organizationId === null) return null;
+    const base = { organizationId: context.organizationId, pageKey: PAGE_KEY, status: 'published' as const };
     const lobSpecific = await PageTemplate.findOne({
       where: { ...base, lineOfBusinessCode: context.lineOfBusinessCode ?? '' },
       order: [['isDefault', 'DESC'], ['version', 'DESC']],
@@ -169,17 +213,23 @@ export class SchemaGenerationService {
   private async generateWithPolicy(
     context: SubmissionFormContext,
     baseline: SuggestedFormDefinition,
-  ): Promise<{ schema: SuggestedFormDefinition; source: 'gemini_schema' | 'heuristic_schema' }> {
+  ): Promise<{ schema: SuggestedFormDefinition; source: 'gemini_schema' | 'heuristic_schema'; warning: string | null }> {
     if (this.agent.isAvailable()) {
       try {
         const schema = await this.agent.generate({ context, baseline });
-        return { schema, source: 'gemini_schema' };
+        return { schema, source: 'gemini_schema', warning: null };
       } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
         // eslint-disable-next-line no-console
-        console.warn('schemaGeneration: agent failed, falling back to baseline form:', err instanceof Error ? err.message : err);
+        console.warn('schemaGeneration: agent failed, falling back to baseline form:', message);
+        return {
+          schema: baseline,
+          source: 'heuristic_schema',
+          warning: `schema agent failed; baseline form used: ${message}`,
+        };
       }
     }
-    return { schema: baseline, source: 'heuristic_schema' };
+    return { schema: baseline, source: 'heuristic_schema', warning: null };
   }
 
   /**
@@ -196,11 +246,11 @@ export class SchemaGenerationService {
         source: result.source,
         generatedAt: result.generatedAt,
       };
-      const doc = await SubmissionDocument.findOne({ where: { submissionId: context.submissionId } });
+      const doc = await SubmissionOutput.findOne({ where: { submissionId: context.submissionId } });
       if (!doc) {
-        await SubmissionDocument.create({
+        await SubmissionOutput.create({
           submissionId: context.submissionId,
-          tenantId: context.tenantId,
+          organizationId: context.organizationId,
           structuredData: { schemaGeneration: record },
         });
       } else {
@@ -229,14 +279,14 @@ export class SchemaGenerationService {
    * best-effort: a failure here is logged and reported, never fatal to the stage.
    */
   private async persistTemplateSafely(context: SubmissionFormContext, schema: SuggestedFormDefinition): Promise<boolean> {
-    if (context.tenantId === null) return false;
+    if (context.organizationId === null) return false;
     try {
       const storable = toStorableTemplate(schema);
       const lineOfBusinessCode = context.lineOfBusinessCode ?? '';
       const lineOfBusinessSubTypeCode = context.lineOfBusinessSubTypeCode ?? '';
       const where = {
-        organizationId: context.tenantId,
-        scopeKey: `organization:${context.tenantId}`,
+        organizationId: context.organizationId,
+        scopeKey: `organization:${context.organizationId}`,
         pageKey: PAGE_KEY,
         lineOfBusinessCode,
         lineOfBusinessSubTypeCode,
@@ -279,5 +329,67 @@ export class SchemaGenerationService {
       console.warn('schemaGeneration: failed to persist reusable template:', err instanceof Error ? err.message : err);
       return false;
     }
+  }
+
+  /**
+   * Persist the extracted choice-field options into the `schema_option_sets`
+   * table, keyed by (organization, optionSetKey), so the UI lazy-loads them when
+   * it renders the field. Upsert: an existing set for the key has its items
+   * REPLACED with the latest generation (the agent's current choices), so a set
+   * stays in sync with the field rather than accumulating stale options.
+   *
+   * Org-scoped (no tenant → skip) and best-effort: a failure here is logged and
+   * reported, never fatal to the stage — the schema still carries each field's
+   * `optionSetKey`, only the backing rows are missing. Returns how many sets were
+   * written. Pure persistence; the extraction itself is the pure `extractOptionSets`.
+   */
+  private async persistOptionSetsSafely(
+    context: SubmissionFormContext,
+    optionSets: ExtractedOptionSet[],
+  ): Promise<number> {
+    if (context.organizationId === null || optionSets.length === 0) return 0;
+    let written = 0;
+    for (const set of optionSets) {
+      try {
+        const [header] = await SchemaOptionSet.findOrCreate({
+          where: { organizationId: context.organizationId, optionSetKey: set.optionSetKey },
+          defaults: {
+            organizationId: context.organizationId,
+            optionSetKey: set.optionSetKey,
+            label: set.label,
+            lineOfBusinessCode: context.lineOfBusinessCode ?? '',
+            lineOfBusinessSubTypeCode: context.lineOfBusinessSubTypeCode ?? '',
+            fieldKey: set.fieldKey,
+            source: 'ai',
+          },
+        });
+
+        // Keep header metadata in step with the latest generation.
+        header.label = set.label;
+        header.lineOfBusinessCode = context.lineOfBusinessCode ?? '';
+        header.lineOfBusinessSubTypeCode = context.lineOfBusinessSubTypeCode ?? '';
+        header.fieldKey = set.fieldKey;
+        await header.save();
+
+        // Replace the items wholesale with the current {value,label} pairs.
+        await SchemaOptionSetItem.destroy({ where: { optionSetId: header.id } });
+        await SchemaOptionSetItem.bulkCreate(
+          set.items.map((item, index) => ({
+            optionSetId: header.id,
+            value: item.value,
+            label: item.label,
+            order: index + 1,
+          })),
+        );
+        written += 1;
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `schemaGeneration: failed to persist option set ${set.optionSetKey}:`,
+          err instanceof Error ? err.message : err,
+        );
+      }
+    }
+    return written;
   }
 }

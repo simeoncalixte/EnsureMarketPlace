@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { getProcessBoard, advanceSubmission, rerunSubmission } from '../../api/pipeline';
+import { getProcessBoard, advanceSubmission, rerunSubmission, loadAgentActivity, type AgentActivity } from '../../api/pipeline';
 import * as S from './InsurerDashboard.styles';
 import PipelineIngestion from './PipelineIngestion';
 import PipelineProcessSubscriptions from './PipelineProcessSubscriptions';
 import { CREATE_COVERAGE_PATH, createDealSubmissionSeed } from './createCoverageNavigation';
-import { Badge, Button, MetricCard, type XdsBadgeVariant } from '../../xds';
+import { AgentTranscript, Badge, Button, MetricCard, Modal, type AgentTranscriptCall, type XdsBadgeVariant } from '../../xds';
 import { colors, withAlpha } from '../../xds/colors';
 
 /**
@@ -90,6 +90,13 @@ type PipelineProcessesProps = {
   loadingOverride?: boolean;
   /** Initial view (Storybook): board | channels | subscriptions. */
   initialView?: PipelineView;
+  /**
+   * Scope the board to a single submission-type route (e.g. 'claim'). When set,
+   * the board fetches `?type=<routeKey>` — showing only that route's lanes and
+   * only that type's submissions — and the global channel/subscription controls
+   * are hidden (they belong to the combined board).
+   */
+  routeKey?: string;
 };
 
 const PRIORITY_TONES: Record<SubmissionPriority, { label: string; variant: XdsBadgeVariant }> = {
@@ -328,6 +335,11 @@ const RerunButton = styled(AdvanceButton)`
   color: ${colors.errorSoft};
 `;
 
+const ActivityButton = styled(AdvanceButton)`
+  border-color: ${withAlpha(colors.primarySoft, 0.25)};
+  color: ${colors.onSurfaceVariant};
+`;
+
 const FinalStageNote = styled.div`
   margin-top: 0.75rem;
   text-align: center;
@@ -415,6 +427,41 @@ const PanelTitle = styled.div`
   font-size: 1rem;
 `;
 
+/** Reviewer-friendly names for the pipeline's agent keys (see agents/trace.ts). */
+const AGENT_LABELS: Record<string, string> = {
+  lob_classification: 'Line-of-business classifier',
+  extraction: 'Entity extractor',
+  insured_subjects: 'Insured-subject extractor',
+  schema_generation: 'Form schema generator',
+  workflow_decision: 'Workflow triage agent',
+  semantic_validation: 'Appetite semantic judge',
+  ocr_vision: 'Vision OCR',
+};
+
+function formatCallTime(iso: string | null): string | undefined {
+  if (!iso) return undefined;
+  const date = new Date(iso);
+  return Number.isNaN(date.getTime()) ? undefined : date.toLocaleTimeString();
+}
+
+/** Project the agent-activity API rows onto the AgentTranscript's call shape. */
+function toTranscriptCalls(activity: AgentActivity | null, stageLabels: Map<string, string>): AgentTranscriptCall[] {
+  if (!activity) return [];
+  return activity.calls.map((call, index) => ({
+    id: call.id != null ? `trace-${call.id}` : `live-${index}`,
+    stageLabel: (call.stageKey && stageLabels.get(call.stageKey)) || call.stageKey || 'Pipeline stage',
+    agentLabel: AGENT_LABELS[call.agent] ?? call.agent,
+    model: call.model,
+    promptVersion: call.promptVersion,
+    status: call.status === 'running' || call.status === 'failed' ? call.status : 'completed',
+    durationMs: call.durationMs,
+    timestamp: formatCallTime(call.startedAt),
+    prompt: call.prompt ?? '',
+    response: call.responseText,
+    errorMessage: call.errorMessage,
+  }));
+}
+
 function priorityChip(item: BoardItem): React.JSX.Element | null {
   if (item.priority === 'urgent' || item.priority === 'high') {
     const tone = PRIORITY_TONES[item.priority];
@@ -433,7 +480,7 @@ function statusChip(item: BoardItem): React.JSX.Element | null {
   return priorityChip(item);
 }
 
-export default function PipelineProcesses({ boardOverride, errorOverride, loadingOverride, initialView }: PipelineProcessesProps = {}): React.JSX.Element {
+export default function PipelineProcesses({ boardOverride, errorOverride, loadingOverride, initialView, routeKey }: PipelineProcessesProps = {}): React.JSX.Element {
   const [view, setView] = useState<PipelineView>(initialView ?? 'board');
   const isStory = boardOverride !== undefined || errorOverride !== undefined || loadingOverride === true;
   const [fetchedBoard, setFetchedBoard] = useState<PipelineBoardResponse | null>(null);
@@ -444,7 +491,37 @@ export default function PipelineProcesses({ boardOverride, errorOverride, loadin
   const [advancingId, setAdvancingId] = useState<number | null>(null);
   const [advanceError, setAdvanceError] = useState<string | null>(null);
   const [rerunningId, setRerunningId] = useState<number | null>(null);
+  const [activityItem, setActivityItem] = useState<BoardItem | null>(null);
+  const [activity, setActivity] = useState<AgentActivity | null>(null);
+  const [activityLoading, setActivityLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Poll the agent transcript while the activity panel is open, so an in-flight
+  // stage streams in: running calls show a typing indicator, and the response
+  // appears on the next tick after the model answers.
+  useEffect(() => {
+    if (!activityItem || isStory) {
+      return;
+    }
+    let cancelled = false;
+    let timer: number | undefined;
+
+    async function poll(submissionId: number) {
+      const result = await loadAgentActivity(submissionId);
+      if (cancelled) return;
+      setActivity(result);
+      setActivityLoading(false);
+      timer = window.setTimeout(() => void poll(submissionId), 3000);
+    }
+
+    setActivityLoading(true);
+    void poll(activityItem.id);
+
+    return () => {
+      cancelled = true;
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [activityItem, isStory]);
 
   useEffect(() => {
     if (isStory) {
@@ -458,7 +535,7 @@ export default function PipelineProcesses({ boardOverride, errorOverride, loadin
       setFetchError(null);
 
       try {
-        const response = await getProcessBoard();
+        const response = await getProcessBoard(routeKey);
         if (!response.ok) {
           throw new Error(response.statusText || `Request failed with ${response.status}`);
         }
@@ -484,7 +561,7 @@ export default function PipelineProcesses({ boardOverride, errorOverride, loadin
     return () => {
       cancelled = true;
     };
-  }, [isStory, reloadNonce]);
+  }, [isStory, reloadNonce, routeKey]);
 
   // After the user changes subscriptions and returns to the board, refetch so
   // newly subscribed/unsubscribed lanes are reflected.
@@ -521,6 +598,21 @@ export default function PipelineProcesses({ boardOverride, errorOverride, loadin
 
   // Full pipeline order (unfiltered) — used to find each card's literal next stage.
   const orderedStageKeys = useMemo(() => (board?.availableStages ?? []).map((stage) => stage.key), [board]);
+
+  const stageLabels = useMemo(
+    () => new Map((board?.availableStages ?? []).map((stage) => [stage.key, stage.label])),
+    [board],
+  );
+
+  function openActivity(item: BoardItem) {
+    setActivity(null);
+    setActivityItem(item);
+  }
+
+  function closeActivity() {
+    setActivityItem(null);
+    setActivity(null);
+  }
 
   function nextStageFor(item: BoardItem): BoardStage | null {
     const index = orderedStageKeys.indexOf(item.stageKey);
@@ -582,34 +674,40 @@ export default function PipelineProcesses({ boardOverride, errorOverride, loadin
           <Badge variant="success" dot>
             {loading ? 'loading' : error ? 'unavailable' : `${items.length} submissions`}
           </Badge>
-          <BadgeTitleWrap title={`${activeChannels} of ${totalChannels} ingestion channels active`}>
-            <Badge variant={activeChannels > 0 ? 'success' : 'neutral'} dot>
-              {loading ? 'loading' : error ? 'unavailable' : `${activeChannels} active channel${activeChannels === 1 ? '' : 's'}`}
-            </Badge>
-          </BadgeTitleWrap>
-          <GearButton
-            type="button"
-            $active={view === 'channels'}
-            onClick={() => setView((current) => (current === 'channels' ? 'board' : 'channels'))}
-            title="Configure ingestion channels"
-            aria-label="Configure ingestion channels"
-            aria-pressed={view === 'channels'}
-          >
-            <span className="material-symbols-outlined" aria-hidden>settings</span>
-          </GearButton>
+          {!routeKey && (
+            <>
+              <BadgeTitleWrap title={`${activeChannels} of ${totalChannels} ingestion channels active`}>
+                <Badge variant={activeChannels > 0 ? 'success' : 'neutral'} dot>
+                  {loading ? 'loading' : error ? 'unavailable' : `${activeChannels} active channel${activeChannels === 1 ? '' : 's'}`}
+                </Badge>
+              </BadgeTitleWrap>
+              <GearButton
+                type="button"
+                $active={view === 'channels'}
+                onClick={() => setView((current) => (current === 'channels' ? 'board' : 'channels'))}
+                title="Configure ingestion channels"
+                aria-label="Configure ingestion channels"
+                aria-pressed={view === 'channels'}
+              >
+                <span className="material-symbols-outlined" aria-hidden>settings</span>
+              </GearButton>
+            </>
+          )}
           <Badge variant="info">
             {config ? `${config.stages.length} stages` : 'pipeline stages'}
           </Badge>
-          <GearButton
-            type="button"
-            $active={view === 'subscriptions'}
-            onClick={() => setView((current) => (current === 'subscriptions' ? 'board' : 'subscriptions'))}
-            title="Subscribe to pipeline processes"
-            aria-label="Subscribe to pipeline processes"
-            aria-pressed={view === 'subscriptions'}
-          >
-            <span className="material-symbols-outlined" aria-hidden>settings</span>
-          </GearButton>
+          {!routeKey && (
+            <GearButton
+              type="button"
+              $active={view === 'subscriptions'}
+              onClick={() => setView((current) => (current === 'subscriptions' ? 'board' : 'subscriptions'))}
+              title="Subscribe to pipeline processes"
+              aria-label="Subscribe to pipeline processes"
+              aria-pressed={view === 'subscriptions'}
+            >
+              <span className="material-symbols-outlined" aria-hidden>settings</span>
+            </GearButton>
+          )}
           <Button type="button" variant="outline" size="sm" onClick={refresh} disabled={isStory}>
             Refresh
           </Button>
@@ -754,6 +852,19 @@ export default function PipelineProcesses({ boardOverride, errorOverride, loadin
                               <ErrorLine>{formatValue(item.values.errorMessage)}</ErrorLine>
                             ) : null}
 
+                            <ActivityButton
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                openActivity(item);
+                              }}
+                              title={`View the AI agent activity for ${formatValue(item.values.submissionNumber)}`}
+                            >
+                              ✦ AI activity
+                            </ActivityButton>
+
                             {item.hasError ? (
                               <RerunButton
                                 type="button"
@@ -800,6 +911,27 @@ export default function PipelineProcesses({ boardOverride, errorOverride, loadin
           </ColumnStack>
         )}
       </S.ContentArea>
+
+      <Modal
+        open={activityItem !== null}
+        title={`AI agent activity — ${formatValue(activityItem?.values.submissionNumber)}`}
+        width="min(860px, 96%)"
+        onClose={closeActivity}
+        footer={
+          <Button type="button" variant="outline" size="sm" onClick={closeActivity}>
+            Close
+          </Button>
+        }
+      >
+        {activityLoading && !activity ? (
+          <Notice>Loading the agent transcript…</Notice>
+        ) : (
+          <AgentTranscript
+            calls={toTranscriptCalls(activity, stageLabels)}
+            emptyMessage="No AI agent activity recorded for this submission yet. Run a pipeline stage and its agent calls — the prompt sent and the model's response — will appear here."
+          />
+        )}
+      </Modal>
     </>
   );
 }

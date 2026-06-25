@@ -68,7 +68,7 @@ export function extractProfileTaxonomyCodes(allowedLinesOfBusiness: readonly unk
  * Total + fail-safe: any error degrades to `null`.
  */
 export async function resolveTaxonomyAppetiteInput(input: {
-  tenantId: number | null;
+  organizationId: number | null;
   lineOfBusiness?: unknown;
   lineOfBusinessCode?: unknown;
   lineOfBusinessSubTypeCode?: unknown;
@@ -94,7 +94,7 @@ export async function resolveTaxonomyAppetiteInput(input: {
 
     // Source 1: registry-declared appetite dimensions (best-effort, total).
     const resolver = input.resolver ?? resolveRiskClass;
-    const resolution = await resolver(input.tenantId, derived.primaryCode, derived.subTypeCode);
+    const resolution = await resolver(input.organizationId, derived.primaryCode, derived.subTypeCode);
 
     // Source 2: profile allowedLinesOfBusiness entries that are taxonomy codes.
     const profileCodes = extractProfileTaxonomyCodes(input.allowedLinesOfBusiness);

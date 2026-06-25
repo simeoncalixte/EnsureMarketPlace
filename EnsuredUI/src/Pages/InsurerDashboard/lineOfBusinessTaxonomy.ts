@@ -14,12 +14,15 @@ export type {
   LineOfBusinessPageTemplate,
   LineOfBusinessPageDataResponse,
   LoadInsuredSubjectPageTemplateResult,
+  RiskClassResolution,
+  RiskClassRegistryResponse,
 } from '../../api/marketplace';
 
 export {
   loadLineOfBusinessTaxonomy,
   loadLineOfBusinessPageData,
   loadInsuredSubjectPageTemplate,
+  loadRiskClassRegistry,
   saveLineOfBusinessPageTemplate,
   addLineOfBusinessTemplateField,
   removeLineOfBusinessTemplateField,

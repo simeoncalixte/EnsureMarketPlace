@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Model, ModelStatic, Sequelize } from 'sequelize';
 import {
   APIKey,
   BankAccount,
@@ -12,8 +12,15 @@ import {
 } from './identity.models';
 import { initPageTemplateModels, PageTemplate } from './pageTemplates.models';
 import { initRiskClassSchemaModels, RiskClassSchemaVersion } from './riskClassSchema.models';
+import { initSchemaOptionSetModels, SchemaOptionSet, SchemaOptionSetItem } from './schemaOptionSets.models';
 import { initRiskClassRegistryModels, RiskClassRegistry } from './riskClassRegistry.models';
 import { initBenchmarkPriorModels, BenchmarkPrior } from './benchmarkPrior.models';
+import {
+  ComplianceClearance,
+  initComplianceModels,
+  JurisdictionLicenseAuthority,
+  SanctionsScreen,
+} from './compliance.models';
 import {
   CapitalCommitment,
   CollateralAccount,
@@ -55,8 +62,11 @@ import {
   initUnderwritingModels,
   ModelRun,
   Policy,
+  PolicyVersion,
   Pricing,
   PricingVersion,
+  Quote,
+  QuoteVersion,
   RiskMetric,
   RiskPortfolio,
   Submission,
@@ -67,10 +77,15 @@ import {
   LineOfBusinessSubType,
 } from './lineOfBusiness.models';
 import {
+  initPerilModels,
+  PerilCategory,
+  Peril,
+} from './peril.models';
+import {
   SubmissionFile,
   IngestionEvent,
   IngestionChannel,
-  SubmissionDocument,
+  SubmissionOutput,
   ExtractedField,
   CanonicalSubmission,
   EnrichmentData,
@@ -86,18 +101,43 @@ import {
   PipelineOperationCatalog,
 } from './pipelineConfig.models';
 import {
-  initAppetiteModels,
-  OrganizationAppetiteProfile,
-  OrganizationValidationRule,
-} from './appetite.models';
+  initCapacityGovernanceModels,
+  CapacityDefinition,
+  CapacityAuthorityLevel,
+  CapacityReferralRule,
+  CapacityRuleSet,
+  CapacitySimulation,
+  CapacityAuditEntry,
+  CapacityUtilizationEntry,
+} from './capacityGovernance.models';
 import {
+  initCapacityAppetiteModels,
+  CapacityLocationLimit,
+  CapacityValidationRule,
+} from './capacityAppetite.models';
+import {
+  AgentTrace,
   initPipelineModels,
   PipelineArtifact,
   PipelineRun,
   StageExecution,
 } from './pipeline.models';
 import { CrestaImportProgress, CrestaZone, initCrestaModels } from './cresta.models';
+import {
+  Connection,
+  Conversation,
+  ConversationParticipant,
+  initSocialModels,
+  Post,
+  PostComment,
+  PostLike,
+  SocialMessage,
+  SubmissionShare,
+  UserMessagingIntegration,
+  UserProfile,
+} from './social.models';
 import { initBillingModels, Subscription } from './billing.models';
+import { initSignatureModels, Signature, SignatureRequest } from './signature.models';
 import {
   Address,
   City,
@@ -106,6 +146,8 @@ import {
   StateProvince,
   initGeographyModels,
 } from './geography.models';
+import { GeoShape, initGeoShapeModels } from './geoShape.models';
+import { Department, Team, initDepartmentModels } from './department.models';
 
 let initialized = false;
 
@@ -120,16 +162,24 @@ export function initModels(sequelize: Sequelize): void {
   initRiskClassRegistryModels(sequelize);
   initBenchmarkPriorModels(sequelize);
   initLineOfBusinessModels(sequelize);
+  initPerilModels(sequelize);
   initUnderwritingModels(sequelize);
   initIngestionModels(sequelize);
   initPipelineConfigModels(sequelize);
-  initAppetiteModels(sequelize);
+  initCapacityGovernanceModels(sequelize);
+  initCapacityAppetiteModels(sequelize);
   initPipelineModels(sequelize);
   initCapitalModels(sequelize);
   initGovernanceModels(sequelize);
+  initComplianceModels(sequelize);
   initCrestaModels(sequelize);
   initGeographyModels(sequelize);
+  initGeoShapeModels(sequelize);
   initBillingModels(sequelize);
+  initSocialModels(sequelize);
+  initSignatureModels(sequelize);
+  initSchemaOptionSetModels(sequelize);
+  initDepartmentModels(sequelize);
 
   // Geographic hierarchy: Continent -> Country -> StateProvince -> City, plus Address.
   Continent.hasMany(Country, { foreignKey: 'continentId', as: 'countries' });
@@ -166,12 +216,34 @@ export function initModels(sequelize: Sequelize): void {
   LineOfBusinessPrimaryType.hasMany(LineOfBusinessSubType, { foreignKey: 'primaryCode', as: 'subTypes' });
   LineOfBusinessSubType.belongsTo(LineOfBusinessPrimaryType, { foreignKey: 'primaryCode', as: 'primaryType' });
 
+  PerilCategory.hasMany(Peril, { foreignKey: 'categoryCode', as: 'perils' });
+  Peril.belongsTo(PerilCategory, { foreignKey: 'categoryCode', as: 'category' });
+
   Organization.hasMany(User, { foreignKey: 'organizationId', as: 'users' });
   User.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
-  // Tenant-level linkage: submissions may belong to a tenant (organization)
-  Organization.hasMany(Submission, { foreignKey: 'tenantId', as: 'tenantSubmissions' });
-  Submission.belongsTo(Organization, { foreignKey: 'tenantId', as: 'tenant' });
+  // Organizational structure: Organization → Department → Team, with users
+  // assigned to at most one Department and one Team (nullable FKs on `users`).
+  // Teams carry the owning `organizationId` (denormalised from their Department)
+  // so org-scoped queries don't need a join.
+  Organization.hasMany(Department, { foreignKey: 'organizationId', as: 'departments' });
+  Department.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  Department.hasMany(Team, { foreignKey: 'departmentId', as: 'teams' });
+  Team.belongsTo(Department, { foreignKey: 'departmentId', as: 'department' });
+
+  Organization.hasMany(Team, { foreignKey: 'organizationId', as: 'teams' });
+  Team.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  Department.hasMany(User, { foreignKey: 'departmentId', as: 'members' });
+  User.belongsTo(Department, { foreignKey: 'departmentId', as: 'department' });
+
+  Team.hasMany(User, { foreignKey: 'teamId', as: 'members' });
+  User.belongsTo(Team, { foreignKey: 'teamId', as: 'team' });
+
+  // Org-level linkage: submissions may belong to an owning organization.
+  Organization.hasMany(Submission, { foreignKey: 'organizationId', as: 'organizationSubmissions' });
+  Submission.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
   Organization.hasOne(InsurerProfile, { foreignKey: 'organizationId', as: 'insurerProfile' });
   InsurerProfile.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
@@ -285,11 +357,11 @@ export function initModels(sequelize: Sequelize): void {
   IngestionChannel.hasMany(Submission, { foreignKey: 'ingestionChannelId', as: 'submissions' });
   Submission.belongsTo(IngestionChannel, { foreignKey: 'ingestionChannelId', as: 'ingestionChannel' });
 
-  Submission.hasMany(SubmissionDocument, { foreignKey: 'submissionId', as: 'submissionDocuments' });
-  SubmissionDocument.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  Submission.hasMany(SubmissionOutput, { foreignKey: 'submissionId', as: 'submissionDocuments' });
+  SubmissionOutput.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
 
-  SubmissionDocument.hasMany(ExtractedField, { foreignKey: 'documentId', as: 'extractedFields' });
-  ExtractedField.belongsTo(SubmissionDocument, { foreignKey: 'documentId', as: 'document' });
+  SubmissionOutput.hasMany(ExtractedField, { foreignKey: 'documentId', as: 'extractedFields' });
+  ExtractedField.belongsTo(SubmissionOutput, { foreignKey: 'documentId', as: 'document' });
 
   Submission.hasOne(CanonicalSubmission, { foreignKey: 'submissionId', as: 'canonicalSubmission' });
   CanonicalSubmission.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
@@ -305,6 +377,22 @@ export function initModels(sequelize: Sequelize): void {
 
   User.hasMany(WorkflowState, { foreignKey: 'assignedTo', as: 'assignedWorkflows' });
   WorkflowState.belongsTo(User, { foreignKey: 'assignedTo', as: 'assignedToUser' });
+
+  // Pre-bind compliance gate: a submission's clearance rollup + its immutable
+  // per-party sanctions screens. ComplianceClearance is append-only — the latest
+  // row is the current clearance the bind/quote gate reads.
+  Submission.hasMany(ComplianceClearance, { foreignKey: 'submissionId', as: 'complianceClearances' });
+  ComplianceClearance.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  User.hasMany(ComplianceClearance, { foreignKey: 'reviewedByUserId', as: 'reviewedClearances' });
+  ComplianceClearance.belongsTo(User, { foreignKey: 'reviewedByUserId', as: 'reviewedBy' });
+
+  Submission.hasMany(SanctionsScreen, { foreignKey: 'submissionId', as: 'sanctionsScreens' });
+  SanctionsScreen.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  ComplianceClearance.hasMany(SanctionsScreen, { foreignKey: 'clearanceId', as: 'screens' });
+  SanctionsScreen.belongsTo(ComplianceClearance, { foreignKey: 'clearanceId', as: 'clearance' });
+
+  Organization.hasMany(JurisdictionLicenseAuthority, { foreignKey: 'carrierOrganizationId', as: 'licenseAuthorities' });
+  JurisdictionLicenseAuthority.belongsTo(Organization, { foreignKey: 'carrierOrganizationId', as: 'carrierOrganization' });
 
   // Pipeline run / execution / artifact lineage (replayable history)
   Submission.hasMany(PipelineRun, { foreignKey: 'submissionId', as: 'pipelineRuns' });
@@ -323,6 +411,14 @@ export function initModels(sequelize: Sequelize): void {
 
   StageExecution.belongsTo(PipelineArtifact, { foreignKey: 'inputArtifactId', as: 'inputArtifact' });
   StageExecution.belongsTo(PipelineArtifact, { foreignKey: 'outputArtifactId', as: 'outputArtifact' });
+
+  // Agent traces — the LLM transcript recorded alongside a stage execution.
+  Submission.hasMany(AgentTrace, { foreignKey: 'submissionId', as: 'agentTraces' });
+  AgentTrace.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  PipelineRun.hasMany(AgentTrace, { foreignKey: 'runId', as: 'agentTraces' });
+  AgentTrace.belongsTo(PipelineRun, { foreignKey: 'runId', as: 'run' });
+  StageExecution.hasMany(AgentTrace, { foreignKey: 'executionId', as: 'agentTraces' });
+  AgentTrace.belongsTo(StageExecution, { foreignKey: 'executionId', as: 'execution' });
 
   // Organization-level pipeline configuration associations
   Organization.hasMany(OrganizationPipelineConfig, {
@@ -361,33 +457,47 @@ export function initModels(sequelize: Sequelize): void {
   });
   PipelineLifecycleSubscription.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
-  // Organization-level underwriting & investment appetite associations
-  Organization.hasMany(OrganizationAppetiteProfile, {
-    foreignKey: 'organizationId',
-    as: 'appetiteProfiles',
-  });
-  OrganizationAppetiteProfile.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+  // ── Capacity Governance (Capacity Configuration Form) ──
+  // The capacity definition is the spine; authority levels, referral rules,
+  // rule sets, simulations and audit entries hang off it as ordered children.
+  Organization.hasMany(CapacityDefinition, { foreignKey: 'organizationId', as: 'capacityDefinitions' });
+  CapacityDefinition.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
-  User.hasMany(OrganizationAppetiteProfile, {
-    foreignKey: 'createdByUserId',
-    as: 'createdAppetiteProfiles',
-  });
-  OrganizationAppetiteProfile.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdByUser' });
+  CapacityDefinition.hasMany(CapacityAuthorityLevel, { foreignKey: 'capacityDefinitionId', as: 'authorityLevels' });
+  CapacityAuthorityLevel.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
 
-  OrganizationAppetiteProfile.hasMany(OrganizationValidationRule, {
-    foreignKey: 'appetiteProfileId',
-    as: 'rules',
-  });
-  OrganizationValidationRule.belongsTo(OrganizationAppetiteProfile, {
-    foreignKey: 'appetiteProfileId',
-    as: 'appetiteProfile',
-  });
+  CapacityDefinition.hasMany(CapacityReferralRule, { foreignKey: 'capacityDefinitionId', as: 'referralRules' });
+  CapacityReferralRule.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
 
-  Organization.hasMany(OrganizationValidationRule, {
-    foreignKey: 'organizationId',
-    as: 'validationRules',
-  });
-  OrganizationValidationRule.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+  CapacityDefinition.hasMany(CapacityRuleSet, { foreignKey: 'capacityDefinitionId', as: 'ruleSets' });
+  CapacityRuleSet.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
+
+  CapacityDefinition.hasMany(CapacitySimulation, { foreignKey: 'capacityDefinitionId', as: 'simulations' });
+  CapacitySimulation.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
+
+  CapacityDefinition.hasMany(CapacityAuditEntry, { foreignKey: 'capacityDefinitionId', as: 'auditEntries' });
+  CapacityAuditEntry.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
+
+  // Version lineage: a clone points back at the definition it was copied from.
+  CapacityDefinition.hasMany(CapacityDefinition, { foreignKey: 'clonedFromId', as: 'clones' });
+  CapacityDefinition.belongsTo(CapacityDefinition, { foreignKey: 'clonedFromId', as: 'clonedFrom' });
+
+  // Stored utilization ledger: committed exposure recorded against a definition.
+  CapacityDefinition.hasMany(CapacityUtilizationEntry, { foreignKey: 'capacityDefinitionId', as: 'utilizationEntries' });
+  CapacityUtilizationEntry.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
+  Organization.hasMany(CapacityUtilizationEntry, { foreignKey: 'organizationId', as: 'capacityUtilizationEntries' });
+  CapacityUtilizationEntry.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  // Capacity-appetite extension tables (per-location limits + flat validation rules).
+  CapacityDefinition.hasMany(CapacityLocationLimit, { foreignKey: 'capacityDefinitionId', as: 'locationLimits' });
+  CapacityLocationLimit.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
+  Organization.hasMany(CapacityLocationLimit, { foreignKey: 'organizationId', as: 'capacityLocationLimits' });
+  CapacityLocationLimit.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  CapacityDefinition.hasMany(CapacityValidationRule, { foreignKey: 'capacityDefinitionId', as: 'validationRules' });
+  CapacityValidationRule.belongsTo(CapacityDefinition, { foreignKey: 'capacityDefinitionId', as: 'capacityDefinition' });
+  Organization.hasMany(CapacityValidationRule, { foreignKey: 'organizationId', as: 'capacityValidationRules' });
+  CapacityValidationRule.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
   Submission.hasMany(ModelRun, { foreignKey: 'submissionId', as: 'modelRuns' });
   ModelRun.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
@@ -403,6 +513,28 @@ export function initModels(sequelize: Sequelize): void {
 
   User.hasMany(PricingVersion, { foreignKey: 'createdByUserId', as: 'createdPricingVersions' });
   PricingVersion.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdBy' });
+
+  // Quote (header) + QuoteVersion (immutable revisions), mirroring Pricing.
+  Submission.hasOne(Quote, { foreignKey: 'submissionId', as: 'quote' });
+  Quote.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+
+  Quote.hasMany(QuoteVersion, { foreignKey: 'quoteId', as: 'versions' });
+  QuoteVersion.belongsTo(Quote, { foreignKey: 'quoteId', as: 'quote' });
+
+  // The lineage link: each offer is built on a specific PricingVersion.
+  PricingVersion.hasMany(QuoteVersion, { foreignKey: 'pricingVersionId', as: 'quoteVersions' });
+  QuoteVersion.belongsTo(PricingVersion, { foreignKey: 'pricingVersionId', as: 'pricingVersion' });
+
+  // The bind link: a bound quote points to the issued Policy and vice-versa.
+  Quote.belongsTo(Policy, { foreignKey: 'boundPolicyId', as: 'boundPolicy' });
+  Policy.belongsTo(Quote, { foreignKey: 'sourceQuoteId', as: 'sourceQuote' });
+
+  // Policy (header) + PolicyVersion (issuance + endorsement revisions).
+  Policy.hasMany(PolicyVersion, { foreignKey: 'policyId', as: 'versions' });
+  PolicyVersion.belongsTo(Policy, { foreignKey: 'policyId', as: 'policy' });
+
+  QuoteVersion.hasMany(PolicyVersion, { foreignKey: 'sourceQuoteVersionId', as: 'policyVersions' });
+  PolicyVersion.belongsTo(QuoteVersion, { foreignKey: 'sourceQuoteVersionId', as: 'sourceQuoteVersion' });
 
   SPVEntity.hasOne(SPV, { foreignKey: 'spvEntityId', as: 'spv' });
   SPV.belongsTo(SPVEntity, { foreignKey: 'spvEntityId', as: 'legalEntity' });
@@ -561,6 +693,99 @@ export function initModels(sequelize: Sequelize): void {
   ModelRun.hasMany(RiskMetric, { foreignKey: 'sourceModelRunId', as: 'riskMetrics' });
   RiskMetric.belongsTo(ModelRun, { foreignKey: 'sourceModelRunId', as: 'sourceModelRun' });
 
+  // Signature collection point — request envelope + its signers. Intentionally NO
+  // association to any subject domain (quote/policy/etc.): the subject is an opaque
+  // (subjectType, subjectId) pair so this domain stays standalone.
+  SignatureRequest.hasMany(Signature, { foreignKey: 'signatureRequestId', as: 'signatures' });
+  Signature.belongsTo(SignatureRequest, { foreignKey: 'signatureRequestId', as: 'request' });
+  User.hasMany(SignatureRequest, { foreignKey: 'createdByUserId', as: 'createdSignatureRequests' });
+  SignatureRequest.belongsTo(User, { foreignKey: 'createdByUserId', as: 'createdBy' });
+  User.hasMany(Signature, { foreignKey: 'signedByUserId', as: 'signatures' });
+  Signature.belongsTo(User, { foreignKey: 'signedByUserId', as: 'signedBy' });
+
+  // Lazy-loaded selection-option storage for generated forms: a set header and
+  // its {value,label} item rows. Org-scoped; a form field references a set by
+  // `optionSetKey` and the UI fetches the items on demand.
+  SchemaOptionSet.hasMany(SchemaOptionSetItem, { foreignKey: 'optionSetId', as: 'items', onDelete: 'CASCADE' });
+  SchemaOptionSetItem.belongsTo(SchemaOptionSet, { foreignKey: 'optionSetId', as: 'optionSet' });
+  Organization.hasMany(SchemaOptionSet, { foreignKey: 'organizationId', as: 'schemaOptionSets' });
+  SchemaOptionSet.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  // Social network: profiles, connection graph, feed, direct messaging, and
+  // explicit cross-tenant submission shares. Additive — no existing model changes.
+  User.hasOne(UserProfile, { foreignKey: 'userId', as: 'socialProfile' });
+  UserProfile.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+  User.hasMany(Connection, { foreignKey: 'requesterId', as: 'sentConnections' });
+  Connection.belongsTo(User, { foreignKey: 'requesterId', as: 'requester' });
+  User.hasMany(Connection, { foreignKey: 'addresseeId', as: 'receivedConnections' });
+  Connection.belongsTo(User, { foreignKey: 'addresseeId', as: 'addressee' });
+
+  User.hasMany(Post, { foreignKey: 'authorId', as: 'posts' });
+  Post.belongsTo(User, { foreignKey: 'authorId', as: 'author' });
+
+  Post.hasMany(PostLike, { foreignKey: 'postId', as: 'likes' });
+  PostLike.belongsTo(Post, { foreignKey: 'postId', as: 'post' });
+  User.hasMany(PostLike, { foreignKey: 'userId', as: 'postLikes' });
+  PostLike.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+  Post.hasMany(PostComment, { foreignKey: 'postId', as: 'comments' });
+  PostComment.belongsTo(Post, { foreignKey: 'postId', as: 'post' });
+  User.hasMany(PostComment, { foreignKey: 'authorId', as: 'postComments' });
+  PostComment.belongsTo(User, { foreignKey: 'authorId', as: 'author' });
+
+  Conversation.hasMany(ConversationParticipant, { foreignKey: 'conversationId', as: 'participants' });
+  ConversationParticipant.belongsTo(Conversation, { foreignKey: 'conversationId', as: 'conversation' });
+  User.hasMany(ConversationParticipant, { foreignKey: 'userId', as: 'conversationMemberships' });
+  ConversationParticipant.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+  Conversation.hasMany(SocialMessage, { foreignKey: 'conversationId', as: 'messages' });
+  SocialMessage.belongsTo(Conversation, { foreignKey: 'conversationId', as: 'conversation' });
+  User.hasMany(SocialMessage, { foreignKey: 'senderId', as: 'sentSocialMessages' });
+  SocialMessage.belongsTo(User, { foreignKey: 'senderId', as: 'sender' });
+  SocialMessage.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  SocialMessage.belongsTo(SubmissionFile, { foreignKey: 'submissionFileId', as: 'submissionFile', constraints: false });
+
+  User.hasMany(UserMessagingIntegration, { foreignKey: 'userId', as: 'messagingIntegrations' });
+  UserMessagingIntegration.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+  Submission.hasMany(SubmissionShare, { foreignKey: 'submissionId', as: 'shares' });
+  SubmissionShare.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  User.hasMany(SubmissionShare, { foreignKey: 'grantedToUserId', as: 'receivedSubmissionShares' });
+  SubmissionShare.belongsTo(User, { foreignKey: 'grantedToUserId', as: 'grantedTo' });
+  SubmissionShare.belongsTo(User, { foreignKey: 'grantedByUserId', as: 'grantedBy' });
+  SubmissionShare.belongsTo(SocialMessage, { foreignKey: 'messageId', as: 'message' });
+
+  // Org linkage: ingestion/pipeline/underwriting records carry the owning org in
+  // the nullable `organizationId` column (formerly `tenantId`). Submission already
+  // declares its org association above; these add the same `belongsTo(Organization)`
+  // to the remaining org-scoped tables so the relationship is real (referential
+  // integrity is enforced by migration 20260618000000). organizationId stays
+  // nullable — records can be ingested before the owning org is resolved.
+  const orgScoped: Array<[ModelStatic<Model>, string]> = [
+    [ComplianceClearance, 'organizationComplianceClearances'],
+    [SanctionsScreen, 'organizationSanctionsScreens'],
+    [SignatureRequest, 'organizationSignatureRequests'],
+    [Quote, 'organizationQuotes'],
+    [PipelineRun, 'organizationPipelineRuns'],
+    [StageExecution, 'organizationStageExecutions'],
+    [PipelineArtifact, 'organizationPipelineArtifacts'],
+    [AgentTrace, 'organizationAgentTraces'],
+    [SubmissionFile, 'organizationSubmissionFiles'],
+    [IngestionEvent, 'organizationIngestionEvents'],
+    [SubmissionOutput, 'organizationSubmissionOutputs'],
+    [ExtractedField, 'organizationExtractedFields'],
+    [CanonicalSubmission, 'organizationCanonicalSubmissions'],
+    [EnrichmentData, 'organizationEnrichmentRecords'],
+    [TriageResult, 'organizationTriageResults'],
+    [WorkflowState, 'organizationWorkflowStates'],
+    [IngestionChannel, 'organizationIngestionChannels'],
+  ];
+  for (const [model, alias] of orgScoped) {
+    Organization.hasMany(model, { foreignKey: 'organizationId', as: alias });
+    model.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+  }
+
   initialized = true;
 }
 
@@ -573,12 +798,18 @@ export {
   Country,
   CrestaImportProgress,
   CrestaZone,
+  Department,
+  Team,
+  GeoShape,
   StateProvince,
   AuditEvent,
   BankAccount,
   CapitalCommitment,
   Claim,
   ClaimCalculation,
+  ComplianceClearance,
+  SanctionsScreen,
+  JurisdictionLicenseAuthority,
   CollateralAccount,
   CollateralMovement,
   Deal,
@@ -600,8 +831,13 @@ export {
   Payout,
   ParametricDefinition,
   Policy,
+  PolicyVersion,
+  Quote,
+  QuoteVersion,
   RiskClassSchemaVersion,
   RiskClassRegistry,
+  SchemaOptionSet,
+  SchemaOptionSetItem,
   BenchmarkPrior,
   PlatformEvent,
   Pricing,
@@ -612,14 +848,23 @@ export {
   RiskPortfolio,
   OrganizationPipelineConfig,
   OrganizationPipelineConfigOperation,
-  OrganizationAppetiteProfile,
-  OrganizationValidationRule,
+  CapacityDefinition,
+  CapacityAuthorityLevel,
+  CapacityReferralRule,
+  CapacityRuleSet,
+  CapacitySimulation,
+  CapacityAuditEntry,
+  CapacityUtilizationEntry,
+  CapacityLocationLimit,
+  CapacityValidationRule,
   SubmissionFile,
   IngestionChannel,
   IngestionEvent,
   LineOfBusinessPrimaryType,
   LineOfBusinessSubType,
-  SubmissionDocument,
+  PerilCategory,
+  Peril,
+  SubmissionOutput,
   ExtractedField,
   CanonicalSubmission,
   EnrichmentData,
@@ -628,9 +873,12 @@ export {
   PipelineRun,
   StageExecution,
   PipelineArtifact,
+  AgentTrace,
   SPV,
   SPVEntity,
   SPVOwnership,
+  Signature,
+  SignatureRequest,
   Submission,
   Subscription,
   Token,
@@ -643,4 +891,14 @@ export {
   Trigger,
   User,
   Wallet,
+  Connection,
+  Conversation,
+  ConversationParticipant,
+  Post,
+  PostComment,
+  PostLike,
+  SocialMessage,
+  SubmissionShare,
+  UserMessagingIntegration,
+  UserProfile,
 };

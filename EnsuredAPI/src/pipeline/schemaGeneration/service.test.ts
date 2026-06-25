@@ -1,22 +1,27 @@
 // Mock DB models so persistence runs without a database.
 jest.mock('../../db/models', () => ({
-  SubmissionDocument: { findOne: jest.fn(), create: jest.fn(), save: jest.fn() },
+  SubmissionOutput: { findOne: jest.fn(), create: jest.fn(), save: jest.fn() },
   PageTemplate: { findOne: jest.fn(), create: jest.fn() },
+  SchemaOptionSet: { findOrCreate: jest.fn(), findOne: jest.fn() },
+  SchemaOptionSetItem: { destroy: jest.fn(), bulkCreate: jest.fn() },
 }));
 
-import { PageTemplate, SubmissionDocument } from '../../db/models';
+import { PageTemplate, SchemaOptionSet, SchemaOptionSetItem, SubmissionOutput } from '../../db/models';
 import { SchemaGenerationService, buildBaselineForm, loadSuggestedForm } from './service';
 import { SchemaAgent } from './GeminiSchemaProvider';
 import { buildBaselineSchema, gatherContext } from './logic';
 import { SuggestedFormDefinition } from './types';
 
-const findOne = SubmissionDocument.findOne as unknown as jest.Mock;
-const create = SubmissionDocument.create as unknown as jest.Mock;
+const findOne = SubmissionOutput.findOne as unknown as jest.Mock;
+const create = SubmissionOutput.create as unknown as jest.Mock;
 const templateFindOne = PageTemplate.findOne as unknown as jest.Mock;
 const templateCreate = PageTemplate.create as unknown as jest.Mock;
+const optionSetFindOrCreate = SchemaOptionSet.findOrCreate as unknown as jest.Mock;
+const optionItemDestroy = SchemaOptionSetItem.destroy as unknown as jest.Mock;
+const optionItemBulkCreate = SchemaOptionSetItem.bulkCreate as unknown as jest.Mock;
 
 const PAYLOAD = {
-  submission: { id: 42, tenantId: 9 },
+  submission: { id: 42, organizationId: 9 },
   classification: { lineOfBusinessCode: 'marine', lineOfBusinessLabel: 'Marine Cargo' },
   extraction: { structuredData: { riskType: 'cargo', subjectCount: 4, subjects: [{ label: 'Container A' }, { label: 'Container B' }] } },
   validation: { decision: 'PASS', schemaValidation: { missingRequired: [] } },
@@ -27,6 +32,9 @@ beforeEach(() => {
   create.mockReset().mockResolvedValue({ id: 1 });
   templateFindOne.mockReset().mockResolvedValue(null); // no org template by default
   templateCreate.mockReset().mockResolvedValue({ id: 1 });
+  optionSetFindOrCreate.mockReset().mockResolvedValue([{ id: 7, save: jest.fn() }, true]);
+  optionItemDestroy.mockReset().mockResolvedValue(0);
+  optionItemBulkCreate.mockReset().mockResolvedValue([]);
 });
 
 describe('SchemaGenerationService', () => {
@@ -87,7 +95,7 @@ describe('buildBaselineForm', () => {
     expect(out.source).toBe('heuristic_schema');
     expect(out.schema.title).toBe('Create Coverage — Property');
     expect(out.schema.sections.map((s) => s.key)).toEqual([
-      'deal-parameters', 'financials', 'insured-subjects', 'tranche-structure', 'validation', 'submission', 'signing',
+      'general-information', 'financials', 'insured-subjects', 'documents', 'tranche-structure', 'validation', 'submission', 'signing',
     ]);
     expect(out.schema.sections.find((s) => s.key === 'insured-subjects')?.component).toBe('subjects');
   });
@@ -95,7 +103,7 @@ describe('buildBaselineForm', () => {
   it('works with no params (generic default)', () => {
     const out = buildBaselineForm();
     expect(out.schema.title).toBe('Create Coverage');
-    expect(out.schema.sections.length).toBe(7);
+    expect(out.schema.sections.length).toBe(8);
   });
 });
 
@@ -195,13 +203,65 @@ describe('SchemaGenerationService template write-back', () => {
     const byKey = Object.fromEntries(sections.map((s: any) => [s.key, s]));
     // Nothing removed: the pre-existing section and field survive.
     expect(byKey['acme-extras'].fields.map((f: any) => f.key)).toEqual(['broker']);
-    // New field appended onto the overlapping section.
-    expect(byKey['deal-parameters'].fields.map((f: any) => f.key)).toEqual(['dealName', 'voyageRoute']);
+    // New field appended onto the overlapping section (legacy key normalized).
+    expect(byKey['general-information'].fields.map((f: any) => f.key)).toEqual(['dealName', 'voyageRoute']);
     // Wholly-new AI section appended.
     expect(byKey['parametric-trigger']).toBeDefined();
     // Per-submission values stripped before storage.
-    const voyageRoute = byKey['deal-parameters'].fields.find((f: any) => f.key === 'voyageRoute');
+    const voyageRoute = byKey['general-information'].fields.find((f: any) => f.key === 'voyageRoute');
     expect('value' in voyageRoute).toBe(false);
+  });
+
+  it('lifts choice-field options into option sets and leaves the field referencing them', async () => {
+    const tailored: SuggestedFormDefinition = {
+      schemaVersion: 1,
+      pageKey: 'create-coverage',
+      title: 'tailored',
+      sections: [
+        {
+          key: 'parametric-trigger',
+          label: 'Parametric Trigger',
+          order: 2,
+          origin: 'ai',
+          fields: [
+            {
+              key: 'triggerType',
+              label: 'Trigger Type',
+              type: 'select',
+              order: 1,
+              origin: 'ai',
+              options: [
+                { value: 'index', label: 'Index' },
+                { value: 'parametric', label: 'Parametric' },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const agent: SchemaAgent = { isAvailable: () => true, generate: jest.fn(async () => tailored) };
+
+    const res: any = await new SchemaGenerationService({ schemaAgent: agent }).process(PAYLOAD);
+
+    // One set extracted and persisted.
+    expect(res.optionSetCount).toBe(1);
+    expect(res.optionSetsPersisted).toBe(1);
+    expect(optionSetFindOrCreate).toHaveBeenCalledTimes(1);
+    expect(optionSetFindOrCreate.mock.calls[0][0].where).toEqual({
+      organizationId: 9,
+      optionSetKey: 'marine.parametric-trigger.triggerType',
+    });
+    expect(optionItemBulkCreate).toHaveBeenCalledWith([
+      { optionSetId: 7, value: 'index', label: 'Index', order: 1 },
+      { optionSetId: 7, value: 'parametric', label: 'Parametric', order: 2 },
+    ]);
+
+    // The emitted/persisted field references the set and no longer inlines options.
+    const trigger = res.schema.sections
+      .find((s: any) => s.key === 'parametric-trigger')
+      .fields.find((f: any) => f.key === 'triggerType');
+    expect(trigger.optionSetKey).toBe('marine.parametric-trigger.triggerType');
+    expect('options' in trigger).toBe(false);
   });
 
   it('does not write back a template for a pure heuristic baseline', async () => {

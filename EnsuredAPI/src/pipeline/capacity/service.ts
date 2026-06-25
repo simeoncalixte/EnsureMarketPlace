@@ -17,11 +17,11 @@ function parseMoney(value: unknown): number {
  * the stage stays unit-testable without a database.
  */
 export type CapacityByPerilLoader = (
-  tenantId: number | null | undefined,
+  organizationId: number | null | undefined,
 ) => Promise<Record<string, number>>;
 
-const defaultCapacityByPerilLoader: CapacityByPerilLoader = async (tenantId) => {
-  const appetite = await loadAppetiteForTenant(tenantId);
+const defaultCapacityByPerilLoader: CapacityByPerilLoader = async (organizationId) => {
+  const appetite = await loadAppetiteForTenant(organizationId);
   const raw = (appetite?.profile?.capacityByPeril ?? {}) as Record<string, unknown>;
   const normalized: Record<string, number> = {};
   for (const [key, value] of Object.entries(raw)) {
@@ -61,7 +61,7 @@ export class CapacityMatchService {
     // Per-peril capacity comes from the org's configured appetite profile
     // (capacityByPeril) — NOT a hardcoded table.
     const loadCapacityByPeril = this.deps.loadCapacityByPeril ?? defaultCapacityByPerilLoader;
-    const capacityByPeril = await loadCapacityByPeril(payload?.submission?.tenantId ?? null);
+    const capacityByPeril = await loadCapacityByPeril(payload?.submission?.organizationId ?? null);
 
     const hasConfiguredCap = Object.prototype.hasOwnProperty.call(capacityByPeril, riskType);
     const riskCapacity = hasConfiguredCap ? Number(capacityByPeril[riskType]) : null;

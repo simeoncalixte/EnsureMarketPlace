@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet, useNavigate } from 'react-router'
 import SideBarNav from '../../xds/components/SideBarNav'
 import TopBarNav from '../../xds/components/TopBarNav'
+import InsurerOnboarding from './InsurerOnboarding'
 import { insurerSidebar } from './sidebarConfig'
 import { saveAuthToken } from '../../lib/auth'
 import * as S from './InsurerDashboard.styles'
@@ -16,7 +17,13 @@ export default function InsurerLayout() {
 
   return (
     <S.PageWrapper>
-      <SideBarNav items={insurerSidebar} title="Insurer" subtitle="Insurer Dashboard" onLogout={handleLogout} />
+      <SideBarNav
+        items={insurerSidebar}
+        title="Insurer"
+        subtitle="Insurer Dashboard"
+        onLogout={handleLogout}
+        footerSlot={<InsurerOnboarding />}
+      />
 
       <S.Main>
         <TopBarNav />

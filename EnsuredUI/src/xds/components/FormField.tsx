@@ -15,6 +15,12 @@ const FieldWrapper = styled.div`
   gap: 6px;
 `
 
+const LabelRow = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+`
+
 const FieldLabel = styled.label`
   display: block;
   font-size: ${typography.sizes.xs}px;
@@ -45,16 +51,23 @@ const FieldInput = styled.input<{ $hasError?: boolean }>`
 export type FormFieldProps = {
   label?: string
   error?: string
+  /** Optional trailing slot beside the label — e.g. an <InfoHint /> icon. */
+  hint?: React.ReactNode
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-export const FormField: React.FC<FormFieldProps> = ({ label, error, id, ...rest }) => {
+export const FormField: React.FC<FormFieldProps> = ({ label, error, hint, id, ...rest }) => {
   const fallbackId = React.useId()
   const fieldId = id || fallbackId
   const errorId = `${fieldId}-error`
-  
+
   return (
     <FieldWrapper>
-      {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
+      {(label || hint) && (
+        <LabelRow>
+          {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
+          {hint}
+        </LabelRow>
+      )}
       <FieldInput
         id={fieldId}
         $hasError={!!error}

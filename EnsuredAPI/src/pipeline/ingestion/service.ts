@@ -61,7 +61,7 @@ function createFallbackAmqpChannel() {
   return {
     get: (key: string) => {
       if (key === 'config') return {};
-      if (key === 'tenantId' || key === 'organizationId') return null;
+      if (key === 'organizationId' || key === 'organizationId') return null;
       if (key === 'type') return 'amqp';
       return null;
     },
@@ -240,12 +240,12 @@ export class IngestionService {
   ) {
     const config = (channel && typeof channel.get === 'function') ? (channel.get('config') as Record<string, any>) ?? {} : {};
     // Resolve organization id with the following precedence:
-    // 1. payload.organizationId | payload.orgId | payload.tenantId
+    // 1. payload.organizationId | payload.orgId | payload.organizationId
     // 2. channel.config.organizationId
-    // 3. channel.organizationId (legacy) or channel.tenantId (legacy stored value)
-    const chanOrg = (channel && typeof channel.get === 'function') ? ((channel.get('organizationId') as number) ?? (channel.get('tenantId') as number) ?? null) : ((channel as any)?.tenantId ?? null);
+    // 3. channel.organizationId (legacy) or channel.organizationId (legacy stored value)
+    const chanOrg = (channel && typeof channel.get === 'function') ? ((channel.get('organizationId') as number) ?? (channel.get('organizationId') as number) ?? null) : ((channel as any)?.organizationId ?? null);
     const payloadSubmission = (payload && typeof payload.submission === 'object') ? payload.submission : {};
-    const rawOrg = payloadSubmission.tenantId ?? payload?.tenantId ?? null;
+    const rawOrg = payloadSubmission.organizationId ?? payload?.organizationId ?? null;
     let organizationId: number | null = null;
     if (rawOrg !== undefined && rawOrg !== null) {
       const n = Number(rawOrg);
@@ -271,7 +271,7 @@ export class IngestionService {
       portfolioId,
       submittedByUserId: Number(payloadSubmission.submittedByUserId ?? payload?.submittedByUserId ?? 0) || null,
       status: 'submitted',
-      tenantId: organizationId,
+      organizationId: organizationId,
       source,
       transport,
       ingestionChannelId: channelId,
@@ -313,7 +313,7 @@ export class IngestionService {
 
           const sf = await SubmissionFile.create({
             submissionId: submission.id,
-            tenantId: organizationId,
+            organizationId: organizationId,
             fileName: fileName ?? null,
             fileType: fileType ?? null,
             fileSize: fileSize ?? null,
@@ -331,7 +331,7 @@ export class IngestionService {
     try {
       const metadata: Record<string, unknown> = { payloadSummary: { fileCount: createdFiles.length, transport } };
       if (payload?.email && typeof payload.email === 'object') metadata.email = payload.email;
-      await IngestionEvent.create({ submissionId: submission.id, tenantId: submission.tenantId ?? null, stage: 'received', status: 'submitted', metadata });
+      await IngestionEvent.create({ submissionId: submission.id, organizationId: submission.organizationId ?? null, stage: 'received', status: 'submitted', metadata });
     } catch (_) {}
 
     return submission;

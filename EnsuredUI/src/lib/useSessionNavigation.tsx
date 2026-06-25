@@ -8,7 +8,7 @@ import type { NavItem } from '../xds/components/Navigation';
  * least-privileged "browse the marketplace" view — never anything role-gated —
  * so a failed fetch can't expose links a role shouldn't reach.
  */
-const FALLBACK_NAV: NavItem[] = [{ id: '/marketplace', label: 'Marketplace', icon: 'MKT' }];
+const FALLBACK_NAV: NavItem[] = [{ id: '/marketplace', label: 'Marketplace', icon: 'storefront' }];
 
 type SessionNavigationState = {
   items: NavItem[];

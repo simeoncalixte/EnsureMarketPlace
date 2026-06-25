@@ -2,7 +2,7 @@
  * Slice 3 NON-DEGRADATION proof for the normalization stage.
  *
  * With a real submission id but NO published schema for its risk class, the stage
- * must behave byte-for-byte as before: the SubmissionDocument write happens, the
+ * must behave byte-for-byte as before: the SubmissionOutput write happens, the
  * Slice-3 canonicalization writes a NULL-pinned row, NO validation runs, and the
  * returned envelope is the unchanged `{ ok: true, ... }`.
  *
@@ -18,7 +18,7 @@ const schemaFindByPk = jest.fn();
 const resolveMock = jest.fn();
 
 jest.mock('../../db/models', () => ({
-  SubmissionDocument: { findOne: docFindOne, create: docCreate },
+  SubmissionOutput: { findOne: docFindOne, create: docCreate },
   CanonicalSubmission: { findOne: canonicalFindOne, create: canonicalCreate },
 }));
 jest.mock('../../db/models/riskClassSchema.models', () => ({
@@ -40,7 +40,7 @@ beforeEach(() => {
 describe('NormalizationService Slice-3 non-degradation', () => {
   it('no-schema submission ⇒ identical {ok:true} envelope, no validation, NULL pin', async () => {
     const payload = {
-      submission: { id: 99, tenantId: 7 },
+      submission: { id: 99, organizationId: 7 },
       extraction: { structuredData: { riskType: 'Hurricane', limit: 3_000_000, lineOfBusiness: 'Property' } },
     };
 
@@ -76,7 +76,7 @@ describe('NormalizationService Slice-3 non-degradation', () => {
     resolveMock.mockResolvedValue({ schemaVersionId: 5, lineOfBusinessCode: 'property', lineOfBusinessSubTypeCode: '' });
 
     const res: any = await new NormalizationService().process({
-      submission: { id: 100, tenantId: 7 },
+      submission: { id: 100, organizationId: 7 },
       extraction: { structuredData: { lineOfBusiness: 'Property', limit: -1 } },
     });
 

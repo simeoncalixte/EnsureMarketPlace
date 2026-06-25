@@ -311,7 +311,7 @@ import{y as e}from"./styled-components.browser.esm-BtVlB3rV.js";const l=e.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 `,E=e.div`
-  max-width: 1200px;
+  
   width: 100%;
 `;e.div`
   width: 18rem;

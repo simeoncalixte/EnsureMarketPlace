@@ -88,7 +88,9 @@ export default function UsersSubpage() {
     },
     { key: 'email', header: 'Email', render: (u) => u.email ?? '—' },
     { key: 'role', header: 'Role', render: (u) => u.role ?? '—' },
-    { key: 'organizationId', header: 'Organization', render: (u) => u.organizationId ?? '—' },
+    { key: 'organization', header: 'Organization', render: (u) => u.organization?.name ?? '—' },
+    { key: 'department', header: 'Department', render: (u) => u.department?.name ?? '—' },
+    { key: 'team', header: 'Team', render: (u) => u.team?.name ?? '—' },
   ];
 
   return (

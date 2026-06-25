@@ -33,8 +33,11 @@ const OPERATIONS: ReadonlyArray<OperationSeed> = [
   { operationKey: 'ingestion', stageName: 'ingestion', displayName: 'Ingestion', description: 'Receive an inbound submission and open the pipeline run.', category: 'intake', canDisable: false },
   { operationKey: 'ingestion-amqp', stageName: 'ingestion-amqp', displayName: 'Ingestion (AMQP)', description: 'Consume submissions from the AMQP/RabbitMQ transport.', category: 'intake' },
   { operationKey: 'ocr', stageName: 'ocr', displayName: 'OCR', description: 'Extract text from uploaded documents.', category: 'extraction' },
-  { operationKey: 'classification', stageName: 'classification', displayName: 'Classification', description: 'Classify document types.', category: 'extraction' },
+  { operationKey: 'submissionType', stageName: 'submissionType', displayName: 'Submission Type', description: 'Determine the submission/transaction type (new business, renewal, endorsement, claim, cancellation, treaty/facultative reinsurance).', category: 'extraction' },
+  { operationKey: 'classification', stageName: 'classification', displayName: 'Line of Business', description: 'Determine the submission’s line of business.', category: 'extraction' },
+  { operationKey: 'assignment', stageName: 'assignment', displayName: 'Assignment', description: 'Assign the submission to a department, team, and person based on the staff role that owns its transaction type.', category: 'workflow' },
   { operationKey: 'extraction', stageName: 'extraction', displayName: 'Extraction', description: 'Extract structured fields from documents.', category: 'extraction' },
+  { operationKey: 'insuredSubject', stageName: 'insuredSubject', displayName: 'Insured Subjects', description: 'Enumerate the insured subject(s) and extract every key-value pair relative to each (SOV, address, TIV, construction).', category: 'extraction' },
   { operationKey: 'locationDiscovery', stageName: 'locationDiscovery', displayName: 'Location Discovery', description: 'Geocode and normalize a location for each insured subject (open-source Nominatim, premium Google).', category: 'extraction' },
   { operationKey: 'normalization', stageName: 'normalization', displayName: 'Normalization', description: 'Canonicalize extracted fields into the submission schema.', category: 'extraction', canDisable: false },
   { operationKey: 'validation', stageName: 'validation', displayName: 'Validation & Appetite', description: 'Run scrub, schema validation, and underwriting appetite.', category: 'underwriting', canDisable: false },
@@ -44,6 +47,7 @@ const OPERATIONS: ReadonlyArray<OperationSeed> = [
   { operationKey: 'oracleAttestation', stageName: 'oracleAttestation', displayName: 'Oracle Attestation', description: 'Check smart-contract / oracle readiness.', category: 'governance' },
   { operationKey: 'workflow', stageName: 'workflow', displayName: 'Rating & Workflow', description: 'Triage decision and workflow routing.', category: 'workflow', canDisable: false },
   { operationKey: 'riskCompute', stageName: 'riskCompute', displayName: 'Risk Compute (Pricing)', description: 'Resolve risk class, model loss, and compute price with provenance + confidence.', category: 'pricing' },
+  { operationKey: 'preBindCompliance', stageName: 'preBindCompliance', displayName: 'Pre-bind Compliance', description: 'Sanctions/OFAC screening and carrier admitted-status before quote/bind; persists a ComplianceClearance the bind gate reads.', category: 'governance', canDisable: false },
   { operationKey: 'storageSearch', stageName: 'storageSearch', displayName: 'Storage Search', description: 'Search archived pipeline artifacts.', category: 'archive' },
 ];
 

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Call Graph</title>
+<style>
+  :root {
+    --bg: #f6f8fa; --panel: #ffffff; --border: #e3e8ef; --text: #0f172a;
+    --muted: #64748b; --accent: #2563eb; --hover: #f1f5f9; --active: #e0eaff;
+    --c-function: #2563eb; --b-function: #dbeafe;
+    --c-method: #7c3aed;   --b-method: #ede9fe;
+    --c-entity: #b45309;   --b-entity: #fef3c7;
+    --c-route: #047857;    --b-route: #d1fae5;
+    --c-class: #c2410c;    --b-class: #ffedd5;
+    --c-module: #475569;   --b-module: #e8edf3;
+    --wire-calls: #94a3b8; --wire-uses: #d97706;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex; flex-direction: column;
+  }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; }
+
+  .topbar {
+    display: flex; align-items: center; gap: 16px; padding: 10px 16px;
+    background: var(--panel); border-bottom: 1px solid var(--border); flex: none;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand .logo { width: 26px; height: 26px; color: var(--accent); flex: none; }
+  .brand h1 { font-size: 14px; margin: 0; white-space: nowrap; }
+  .brand .meta { color: var(--muted); font-size: 11.5px; white-space: nowrap; }
+  #search {
+    margin-left: auto; width: 340px; max-width: 45vw; padding: 7px 12px;
+    border: 1px solid var(--border); border-radius: 8px; font: inherit;
+    background: var(--bg); outline: none;
+  }
+  #search:focus { border-color: var(--accent); background: var(--panel); }
+
+  .layout { flex: 1; display: flex; min-height: 0; }
+  .sidebar {
+    width: 320px; flex: none; background: var(--panel); border-right: 1px solid var(--border);
+    overflow-y: auto; padding: 8px;
+  }
+  main { flex: 1; min-width: 0; position: relative; overflow: hidden; }
+
+  /* ---- sidebar tree ---- */
+  details.tnode { margin: 0; }
+  details.tnode > summary {
+    display: flex; align-items: center; gap: 6px; padding: 3px 6px; border-radius: 6px;
+    cursor: pointer; list-style: none; user-select: none; color: var(--text);
+  }
+  details.tnode > summary::-webkit-details-marker { display: none; }
+  details.tnode > summary::before {
+    content: ''; width: 0; height: 0; flex: none;
+    border-left: 4px solid var(--muted); border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;
+    transition: transform .12s ease;
+  }
+  details.tnode[open] > summary::before { transform: rotate(90deg); }
+  details.tnode > summary:hover { background: var(--hover); }
+  details.tnode > .tkids { padding-left: 14px; }
+  .tcount { margin-left: auto; color: var(--muted); font-size: 10.5px; }
+  .leaf {
+    display: flex; align-items: center; gap: 6px; width: 100%; padding: 3px 6px 3px 16px;
+    border: 0; border-radius: 6px; background: none; font: inherit; color: var(--text);
+    cursor: pointer; text-align: left;
+  }
+  .leaf:hover { background: var(--hover); }
+  .leaf.active { background: var(--active); color: var(--accent); }
+  .leaf .lname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tlabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ---- icons ---- */
+  .ic { width: 17px; height: 17px; flex: none; display: inline-flex; }
+  .ic svg { width: 100%; height: 100%; }
+  .ic.big { width: 30px; height: 30px; }
+  .ic.function { color: var(--c-function); } .ic.method { color: var(--c-method); }
+  .ic.entity { color: var(--c-entity); }     .ic.route { color: var(--c-route); }
+  .ic.class { color: var(--c-class); }       .ic.module { color: var(--c-module); }
+  .ic.folder { color: #94a3b8; }
+
+  /* ---- search results ---- */
+  .shead { padding: 8px 6px 4px; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* ---- overview ---- */
+  .overview { height: 100%; overflow-y: auto; padding: 24px; }
+  .ovgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px; display: flex; align-items: center; gap: 12px;
+  }
+  .stat .num { font-size: 20px; font-weight: 700; }
+  .stat .lbl { color: var(--muted); font-size: 11.5px; }
+  .cols3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .panel h3 { margin: 0 0 10px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; align-items: center; }
+  .legend .item { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+  .legend .wire { width: 26px; height: 2px; border-radius: 2px; }
+
+  /* ---- node cards (shared by lists + detail columns) ---- */
+  .ncard {
+    display: flex; align-items: center; gap: 9px; width: 100%; padding: 8px 10px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 9px;
+    font: inherit; color: var(--text); cursor: pointer; text-align: left;
+  }
+  .ncard:hover { border-color: var(--accent); box-shadow: 0 1px 4px rgba(37,99,235,.12); }
+  .ntext { min-width: 0; flex: 1; }
+  .nname { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+  .nsub { color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+  .chips { display: flex; gap: 4px; flex: none; max-width: 45%; flex-wrap: wrap; justify-content: flex-end; }
+  .chip {
+    padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600;
+    background: var(--b-entity); color: var(--c-entity); white-space: nowrap;
+  }
+
+  /* ---- detail / focus view ---- */
+  .detail { display: grid; grid-template-columns: 1fr 330px 1fr; gap: 36px; height: 100%; padding: 20px; position: relative; }
+  svg.wires { position: absolute; inset: 0; pointer-events: none; z-index: 0; width: 100%; height: 100%; }
+  .col { overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 8px; z-index: 1; padding: 2px; }
+  .colhead { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; padding: 2px 2px 4px; position: sticky; top: 0; background: var(--bg); z-index: 2; }
+  .empty { color: var(--muted); font-style: italic; padding: 8px 2px; }
+  .focus-wrap { display: flex; flex-direction: column; justify-content: center; gap: 12px; z-index: 1; min-width: 0; }
+  .focus-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px; box-shadow: 0 4px 18px rgba(15,23,42,.08);
+  }
+  .fhead { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .fname { font-size: 16px; font-weight: 700; word-break: break-word; }
+  .kindchip { display: inline-block; margin-top: 2px; padding: 1px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 700; }
+  .fmeta { color: var(--muted); margin-bottom: 10px; word-break: break-all; }
+  .fcounts { display: flex; gap: 16px; color: var(--muted); font-size: 12px; }
+  .fcounts b { color: var(--text); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="2.6" fill="currentColor"/><circle cx="18.5" cy="5.5" r="2.4" fill="currentColor" opacity=".55"/><circle cx="18.5" cy="18.5" r="2.4" fill="currentColor" opacity=".55"/><path d="M7.3 11 16 6.3M7.3 13 16 17.7" stroke="currentColor" stroke-width="1.6"/></svg>
+    <div>
+      <h1 id="title">Call Graph</h1>
+      <div class="meta" id="meta"></div>
+    </div>
+  </div>
+  <input id="search" type="search" placeholder="Search functions, models, routes, files…  ( / )" autocomplete="off"/>
+</header>
+<div class="layout">
+  <aside class="sidebar"><div id="tree"></div></aside>
+  <main id="main"></main>
+</div>
+<script>
+const GRAPH = /*__DATA__*/ null;
+(function () {
+  if (!GRAPH) { document.body.textContent = 'No graph data embedded — regenerate with npm run graph:calls.'; return; }
+
+  // ---------- indexes ----------
+  const nodesById = new Map(GRAPH.nodes.map((n) => [n.id, n]));
+  const outEdges = new Map();
+  const inEdges = new Map();
+  const push = (map, key, value) => { const list = map.get(key); if (list) list.push(value); else map.set(key, [value]); };
+  for (const e of GRAPH.edges) {
+    if (!nodesById.has(e.from) || !nodesById.has(e.to)) continue;
+    push(outEdges, e.from, e);
+    push(inEdges, e.to, e);
+  }
+
+  const KIND = {
+    function: { label: 'Function', color: 'var(--c-function)', bg: 'var(--b-function)' },
+    method:   { label: 'Method',   color: 'var(--c-method)',   bg: 'var(--b-method)' },
+    entity:   { label: 'Model',    color: 'var(--c-entity)',   bg: 'var(--b-entity)' },
+    route:    { label: 'Route',    color: 'var(--c-route)',    bg: 'var(--b-route)' },
+    class:    { label: 'Class',    color: 'var(--c-class)',    bg: 'var(--b-class)' },
+    module:   { label: 'Module',   color: 'var(--c-module)',   bg: 'var(--b-module)' },
+  };
+  const ICONS = {
+    folder: '<svg viewBox="0 0 16 16"><path fill="currentColor" d="M1.5 4A1.5 1.5 0 0 1 3 2.5h3.1c.4 0 .78.16 1.06.44l.79.81c.1.1.22.15.35.15H13A1.5 1.5 0 0 1 14.5 5.4v7.1A1.5 1.5 0 0 1 13 14H3a1.5 1.5 0 0 1-1.5-1.5z"/></svg>',
+    module: '<svg viewBox="0 0 16 16"><path fill="currentColor" opacity=".3" d="M3.5 1h6.04c.4 0 .78.16 1.06.44l2.46 2.46c.28.28.44.66.44 1.06V14a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/><path fill="currentColor" d="M9.5 1.2V4a1 1 0 0 0 1 1h2.8zM5 8h6v1.2H5zm0 2.6h6v1.2H5z"/></svg>',
+    class: '<svg viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" rx="4" fill="currentColor" opacity=".16"/><text x="8" y="11.6" text-anchor="middle" font-size="9.5" font-weight="700" fill="currentColor" font-family="inherit">C</text></svg>',
+    function: '<svg viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" rx="4" fill="currentColor" opacity=".16"/><text x="8" y="12" text-anchor="middle" font-size="11" font-style="italic" font-weight="700" fill="currentColor" font-family="Georgia,serif">ƒ</text></svg>',
+    method: '<svg viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" rx="4" fill="currentColor" opacity=".16"/><text x="7.3" y="12" text-anchor="middle" font-size="11" font-style="italic" font-weight="700" fill="currentColor" font-family="Georgia,serif">ƒ</text><circle cx="12.8" cy="3.6" r="1.7" fill="currentColor"/></svg>',
+    entity: '<svg viewBox="0 0 16 16"><ellipse cx="8" cy="3.6" rx="6" ry="2.5" fill="currentColor"/><path fill="currentColor" opacity=".45" d="M2 3.6v8.8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V3.6c0 1.4-2.7 2.5-6 2.5S2 5 2 3.6z"/></svg>',
+    route: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="6" stroke-width="1.5"/><path d="M2 8h12M8 2c2.3 1.9 2.3 10.1 0 12M8 2c-2.3 1.9-2.3 10.1 0 12" stroke-width="1.1"/></svg>',
+  };
+  const icon = (kind, big) => `<span class="ic ${kind}${big ? ' big' : ''}">${ICONS[kind]}</span>`;
+  const fmt = (n) => n.toLocaleString('en-US');
+
+  // ---------- helpers ----------
+  function el(tag, cls, text) {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+  const baseName = (file) => file.split('/').pop();
+  const nodeSub = (n) => (n.className ? n.className + ' · ' : '') + n.file + ':' + n.line;
+
+  function nodeCard(node, labels) {
+    const card = el('button', 'ncard');
+    card.dataset.id = node.id;
+    const ic = el('span'); ic.innerHTML = icon(node.kind); card.appendChild(ic.firstChild);
+    const text = el('span', 'ntext');
+    text.appendChild(el('span', 'nname', node.name));
+    text.appendChild(el('span', 'nsub', nodeSub(node)));
+    card.appendChild(text);
+    if (labels && labels.length) {
+      const chips = el('span', 'chips');
+      for (const label of labels.slice(0, 4)) chips.appendChild(el('span', 'chip', label));
+      if (labels.length > 4) chips.appendChild(el('span', 'chip', '+' + (labels.length - 4)));
+      card.appendChild(chips);
+    }
+    card.title = node.id;
+    card.addEventListener('click', () => selectNode(node.id));
+    return card;
+  }
+
+  function selectNode(id) { location.hash = encodeURIComponent(id); }
+  const currentId = () => decodeURIComponent(location.hash.slice(1));
+
+  // ---------- header ----------
+  const s = GRAPH.stats;
+  document.getElementById('title').textContent = GRAPH.project + ' · Function Call Graph';
+  document.title = GRAPH.project + ' · Call Graph';
+  document.getElementById('meta').textContent =
+    fmt(GRAPH.nodes.length) + ' symbols · ' + fmt(s.callEdges + s.usesEdges) + ' edges · ' +
+    GRAPH.sourceRoot + '/ · generated ' + new Date(GRAPH.generatedAt).toLocaleString();
+
+  // ---------- sidebar tree ----------
+  function buildTree() {
+    const root = { dirs: new Map(), files: new Map() };
+    for (const node of GRAPH.nodes) {
+      const parts = node.file.split('/');
+      let cursor = root;
+      for (const part of parts.slice(0, -1)) {
+        if (!cursor.dirs.has(part)) cursor.dirs.set(part, { dirs: new Map(), files: new Map() });
+        cursor = cursor.dirs.get(part);
+      }
+      const fileName = parts[parts.length - 1];
+      if (!cursor.files.has(fileName)) cursor.files.set(fileName, []);
+      cursor.files.get(fileName).push(node);
+    }
+    return root;
+  }
+
+  function countLeaves(dir) {
+    let total = 0;
+    for (const sub of dir.dirs.values()) total += countLeaves(sub);
+    for (const list of dir.files.values()) total += list.length;
+    return total;
+  }
+
+  function renderDir(dir, name, depth) {
+    const details = el('details', 'tnode');
+    if (depth < 2) details.open = true;
+    const summary = el('summary');
+    summary.innerHTML = icon('folder');
+    summary.appendChild(el('span', 'tlabel', name));
+    summary.appendChild(el('span', 'tcount', fmt(countLeaves(dir))));
+    details.appendChild(summary);
+    const kids = el('div', 'tkids');
+    for (const [sub, subDir] of [...dir.dirs.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+      kids.appendChild(renderDir(subDir, sub, depth + 1));
+    }
+    for (const [file, list] of [...dir.files.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+      kids.appendChild(renderFile(file, list));
+    }
+    details.appendChild(kids);
+    return details;
+  }
+
+  function renderFile(name, list) {
+    const details = el('details', 'tnode');
+    const summary = el('summary');
+    summary.innerHTML = icon('module');
+    summary.appendChild(el('span', 'tlabel', name));
+    summary.appendChild(el('span', 'tcount', fmt(list.length)));
+    details.appendChild(summary);
+    const kids = el('div', 'tkids');
+
+    const byClass = new Map();
+    const top = [];
+    for (const node of list) (node.className ? (byClass.get(node.className) ?? byClass.set(node.className, []).get(node.className)) : top).push(node);
+
+    for (const [className, members] of [...byClass.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+      const cls = el('details', 'tnode');
+      const cs = el('summary');
+      cs.innerHTML = icon('class');
+      cs.appendChild(el('span', 'tlabel', className));
+      cs.appendChild(el('span', 'tcount', fmt(members.length)));
+      cls.appendChild(cs);
+      const ckids = el('div', 'tkids');
+      for (const member of members.sort((a, b) => a.name.localeCompare(b.name))) ckids.appendChild(leaf(member, member.name.split('.').pop()));
+      cls.appendChild(ckids);
+      kids.appendChild(cls);
+    }
+    const order = { entity: 0, route: 1, function: 2, method: 3 };
+    for (const node of top.sort((a, b) => order[a.kind] - order[b.kind] || a.name.localeCompare(b.name))) kids.appendChild(leaf(node));
+    details.appendChild(kids);
+    return details;
+  }
+
+  function leaf(node, label) {
+    const button = el('button', 'leaf');
+    button.dataset.id = node.id;
+    button.innerHTML = icon(node.kind);
+    button.appendChild(el('span', 'lname', label ?? node.name));
+    button.title = node.id + ':' + node.line;
+    button.addEventListener('click', () => selectNode(node.id));
+    return button;
+  }
+
+  const treeRoot = buildTree();
+  const treeContainer = document.getElementById('tree');
+  function renderTree() {
+    treeContainer.replaceChildren();
+    // unwrap the common top-level dir (e.g. "src")
+    const entries = [...treeRoot.dirs.entries()];
+    if (entries.length === 1 && treeRoot.files.size === 0) {
+      const [, only] = entries[0];
+      for (const [sub, dir] of [...only.dirs.entries()].sort((a, b) => a[0].localeCompare(b[0]))) treeContainer.appendChild(renderDir(dir, sub, 1));
+      for (const [file, list] of [...only.files.entries()].sort((a, b) => a[0].localeCompare(b[0]))) treeContainer.appendChild(renderFile(file, list));
+    } else {
+      for (const [sub, dir] of entries.sort((a, b) => a[0].localeCompare(b[0]))) treeContainer.appendChild(renderDir(dir, sub, 0));
+      for (const [file, list] of [...treeRoot.files.entries()].sort((a, b) => a[0].localeCompare(b[0]))) treeContainer.appendChild(renderFile(file, list));
+    }
+    markActive();
+  }
+
+  function markActive() {
+    const id = currentId();
+    for (const button of treeContainer.querySelectorAll('.leaf')) {
+      button.classList.toggle('active', button.dataset.id === id);
+    }
+  }
+
+  // ---------- search ----------
+  const searchInput = document.getElementById('search');
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) { renderTree(); return; }
+    const starts = [];
+    const contains = [];
+    for (const node of GRAPH.nodes) {
+      const name = node.name.toLowerCase();
+      if (name.startsWith(q)) starts.push(node);
+      else if (name.includes(q) || node.file.toLowerCase().includes(q)) contains.push(node);
+    }
+    const results = starts.concat(contains);
+    treeContainer.replaceChildren();
+    treeContainer.appendChild(el('div', 'shead', fmt(results.length) + ' results'));
+    for (const node of results.slice(0, 250)) treeContainer.appendChild(nodeCard(node));
+    if (results.length > 250) treeContainer.appendChild(el('div', 'shead', '… ' + fmt(results.length - 250) + ' more (refine search)'));
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === '/' && document.activeElement !== searchInput) { event.preventDefault(); searchInput.focus(); }
+    if (event.key === 'Escape' && document.activeElement === searchInput) { searchInput.value = ''; renderTree(); searchInput.blur(); }
+  });
+
+  // ---------- main: overview ----------
+  const main = document.getElementById('main');
+
+  function statCard(kind, count) {
+    const card = el('div', 'stat');
+    const ic = el('span'); ic.innerHTML = icon(kind, true); card.appendChild(ic.firstChild);
+    const text = el('div');
+    text.appendChild(el('div', 'num', fmt(count)));
+    text.appendChild(el('div', 'lbl', KIND[kind].label + 's'));
+    card.appendChild(text);
+    return card;
+  }
+
+  function topList(title, items) {
+    const panel = el('section', 'panel');
+    panel.appendChild(el('h3', null, title));
+    const list = el('div');
+    list.style.display = 'flex'; list.style.flexDirection = 'column'; list.style.gap = '6px';
+    for (const { node, count, suffix } of items) {
+      const card = nodeCard(node);
+      const badge = el('span', 'tcount', fmt(count) + ' ' + suffix);
+      badge.style.flex = 'none';
+      card.appendChild(badge);
+      list.appendChild(card);
+    }
+    panel.appendChild(list);
+    return panel;
+  }
+
+  function renderOverview() {
+    main.replaceChildren();
+    const view = el('div', 'overview');
+
+    const grid = el('div', 'ovgrid');
+    grid.appendChild(statCard('module', s.modules));
+    grid.appendChild(statCard('function', s.functions));
+    grid.appendChild(statCard('method', s.methods));
+    grid.appendChild(statCard('entity', s.entities));
+    grid.appendChild(statCard('route', s.routes));
+    view.appendChild(grid);
+
+    const legend = el('div', 'legend');
+    for (const kind of ['module', 'class', 'function', 'method', 'entity', 'route']) {
+      const item = el('span', 'item');
+      item.innerHTML = icon(kind) + '<span>' + KIND[kind].label + '</span>';
+      legend.appendChild(item);
+    }
+    const callsWire = el('span', 'item');
+    callsWire.innerHTML = '<span class="wire" style="background:var(--wire-calls)"></span><span>calls (' + fmt(s.callEdges) + ')</span>';
+    const usesWire = el('span', 'item');
+    usesWire.innerHTML = '<span class="wire" style="background:var(--wire-uses)"></span><span>model usage (' + fmt(s.usesEdges) + ')</span>';
+    legend.appendChild(callsWire);
+    legend.appendChild(usesWire);
+    view.appendChild(legend);
+
+    const inDegree = (id, kind) => (inEdges.get(id) ?? []).filter((e) => !kind || e.kind === kind).length;
+    const outDegree = (id) => (outEdges.get(id) ?? []).length;
+    const rank = (filter, score, suffix) =>
+      GRAPH.nodes.filter(filter)
+        .map((node) => ({ node, count: score(node.id), suffix }))
+        .filter((x) => x.count > 0)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+
+    const cols = el('div', 'cols3');
+    cols.appendChild(topList('Most called', rank((n) => n.kind !== 'entity', (id) => inDegree(id, 'calls'), 'callers')));
+    cols.appendChild(topList('Top fan-out', rank(() => true, outDegree, 'callees')));
+    cols.appendChild(topList('Most used models', rank((n) => n.kind === 'entity', (id) => inDegree(id), 'usages')));
+    view.appendChild(cols);
+
+    main.appendChild(view);
+  }
+
+  // ---------- main: focus / detail ----------
+  let wireFrame = 0;
+  function scheduleWires(container) {
+    cancelAnimationFrame(wireFrame);
+    wireFrame = requestAnimationFrame(() => drawWires(container));
+  }
+
+  function drawWires(container) {
+    const svg = container.querySelector('svg.wires');
+    const focusCard = container.querySelector('.focus-card');
+    if (!svg || !focusCard) return;
+    const box = container.getBoundingClientRect();
+    const focus = focusCard.getBoundingClientRect();
+    let paths = '';
+    const wire = (x1, y1, x2, y2, kind) => {
+      const bend = Math.max(36, (x2 - x1) / 2.2);
+      const color = kind === 'uses' ? 'var(--wire-uses)' : 'var(--wire-calls)';
+      paths += `<path d="M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}" fill="none" stroke="${color}" stroke-width="1.5" opacity=".65"/>`;
+    };
+    for (const card of container.querySelectorAll('.col.callers .ncard')) {
+      const rect = card.getBoundingClientRect();
+      wire(rect.right - box.left, rect.top + rect.height / 2 - box.top, focus.left - box.left, focus.top + focus.height / 2 - box.top, card.dataset.edgeKind);
+    }
+    for (const card of container.querySelectorAll('.col.callees .ncard')) {
+      const rect = card.getBoundingClientRect();
+      wire(focus.right - box.left, focus.top + focus.height / 2 - box.top, rect.left - box.left, rect.top + rect.height / 2 - box.top, card.dataset.edgeKind);
+    }
+    svg.innerHTML = paths;
+  }
+
+  function neighborColumn(cls, heading, entries) {
+    const col = el('div', 'col ' + cls);
+    col.appendChild(el('div', 'colhead', heading + ' (' + fmt(entries.length) + ')'));
+    if (!entries.length) col.appendChild(el('div', 'empty', 'none'));
+    for (const { node, edge } of entries) {
+      const card = nodeCard(node, edge.kind === 'uses' ? edge.labels : null);
+      card.dataset.edgeKind = edge.kind;
+      col.appendChild(card);
+    }
+    return col;
+  }
+
+  function renderDetail(node) {
+    main.replaceChildren();
+    const view = el('div', 'detail');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'wires');
+    view.appendChild(svg);
+
+    const sortEntries = (list) => list.sort((a, b) => a.node.file.localeCompare(b.node.file) || a.node.name.localeCompare(b.node.name));
+    const callers = sortEntries((inEdges.get(node.id) ?? []).map((edge) => ({ edge, node: nodesById.get(edge.from) })));
+    const callees = sortEntries((outEdges.get(node.id) ?? []).map((edge) => ({ edge, node: nodesById.get(edge.to) })));
+    const isEntity = node.kind === 'entity';
+
+    view.appendChild(neighborColumn('callers', isEntity ? 'Used by' : 'Callers', callers));
+
+    const focusWrap = el('div', 'focus-wrap');
+    const card = el('div', 'focus-card');
+    const head = el('div', 'fhead');
+    const ic = el('span'); ic.innerHTML = icon(node.kind, true); head.appendChild(ic.firstChild);
+    const headText = el('div');
+    headText.appendChild(el('div', 'fname', node.name));
+    const chip = el('span', 'kindchip', KIND[node.kind].label);
+    chip.style.background = KIND[node.kind].bg;
+    chip.style.color = KIND[node.kind].color;
+    headText.appendChild(chip);
+    head.appendChild(headText);
+    card.appendChild(head);
+    card.appendChild(el('div', 'fmeta mono', node.file + ':' + node.line));
+    const counts = el('div', 'fcounts');
+    const left = el('span'); left.innerHTML = '← <b>' + fmt(callers.length) + '</b> ' + (isEntity ? 'used by' : 'callers');
+    const right = el('span'); right.innerHTML = '<b>' + fmt(callees.length) + '</b> callees →';
+    counts.appendChild(left); counts.appendChild(right);
+    card.appendChild(counts);
+    focusWrap.appendChild(card);
+    view.appendChild(focusWrap);
+
+    view.appendChild(neighborColumn('callees', 'Callees', callees));
+    main.appendChild(view);
+
+    for (const col of view.querySelectorAll('.col')) col.addEventListener('scroll', () => scheduleWires(view), { passive: true });
+    scheduleWires(view);
+  }
+
+  window.addEventListener('resize', () => {
+    const view = main.querySelector('.detail');
+    if (view) scheduleWires(view);
+  });
+
+  // ---------- routing ----------
+  function render() {
+    const node = nodesById.get(currentId());
+    if (node) renderDetail(node);
+    else renderOverview();
+    markActive();
+  }
+  window.addEventListener('hashchange', render);
+
+  renderTree();
+  render();
+})();
+</script>
+</body>
+</html>

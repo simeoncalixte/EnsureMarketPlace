@@ -61,6 +61,12 @@ export type LineOfBusinessPageTemplateField = {
   dependsOn?: string;
   defaultValue?: string | number | boolean | null;
   options?: LineOfBusinessPageTemplateOption[];
+  /**
+   * Reference to a lazy-loaded option set (see `loadSchemaOptionSet`) instead of
+   * inlined `options`. Generated `select`/`radio` fields carry this; the UI
+   * fetches the {value,label} items on demand the first time the field renders.
+   */
+  optionSetKey?: string;
   visibleWhen?: LineOfBusinessPageTemplateVisibility;
   layout?: LineOfBusinessPageTemplateFieldLayout;
 };
@@ -116,6 +122,51 @@ export async function loadLineOfBusinessTaxonomy(): Promise<LineOfBusinessTaxono
     return Array.isArray(data?.primaryTypes) ? data.primaryTypes : [];
   } catch {
     return [];
+  }
+}
+
+/**
+ * The risk + pricing models connected to a line of business via the Risk Class
+ * Registry. `resolvedFrom` says where the connection came from; `generic_default`
+ * means NO real model is connected (it is only the fallback).
+ */
+export type RiskClassResolution = {
+  lineOfBusinessCode: string;
+  lineOfBusinessSubTypeCode: string;
+  schemaVersionId: number | null;
+  riskModelingMethod: string | null;
+  ratingMethod: string | null;
+  resolvedFrom: 'org_subtype' | 'org_primary' | 'platform_subtype' | 'platform_primary' | 'generic_default';
+};
+
+export type RiskClassRegistryResponse = {
+  lineOfBusinessCode: string;
+  lineOfBusinessSubTypeCode: string;
+  hasOrgDeclaration: boolean;
+  declaration: Record<string, unknown> | null;
+  resolution: RiskClassResolution;
+};
+
+/**
+ * GET the registry resolution (connected risk + pricing models) for a line of
+ * business. Best-effort: returns null on any failure so callers can simply render
+ * nothing when the connection data isn't available.
+ */
+export async function loadRiskClassRegistry(params: {
+  lineOfBusinessCode: string;
+  lineOfBusinessSubTypeCode?: string | null;
+  organizationId?: number | null;
+}): Promise<RiskClassRegistryResponse | null> {
+  const lob = params.lineOfBusinessSubTypeCode
+    ? `${encodeURIComponent(params.lineOfBusinessCode)}/${encodeURIComponent(params.lineOfBusinessSubTypeCode)}`
+    : encodeURIComponent(params.lineOfBusinessCode);
+  const qs = params.organizationId != null ? `?organizationId=${params.organizationId}` : '';
+  try {
+    const response = await apiRequest(`/api/marketplace/risk-classes/${lob}/registry${qs}`, { method: 'GET' });
+    if (!response.ok) return null;
+    return (await response.json()) as RiskClassRegistryResponse;
+  } catch {
+    return null;
   }
 }
 

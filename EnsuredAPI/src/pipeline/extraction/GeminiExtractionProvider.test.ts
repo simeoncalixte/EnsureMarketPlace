@@ -1,5 +1,5 @@
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { GeminiExtractionAgent, coerceEntities, coerceSubjects } from './GeminiExtractionProvider';
+import { GeminiExtractionAgent, coerceEntities, coerceSubjects, deriveInsuredSubject } from './GeminiExtractionProvider';
 
 // Mock the LangChain model so NO live request is ever sent.
 jest.mock('@langchain/google-genai');
@@ -45,6 +45,9 @@ describe('GeminiExtractionAgent.extract (mocked model, no live request)', () => 
     expect(e.expectedYield).toBeCloseTo(0.09);
     expect(e.riskType).toBe('Hurricane');
     expect(e.companyDomain).toBe('acme.example');
+    // No insured named in this JSON, but the subject is always derived.
+    expect(e.namedInsured).toBeNull();
+    expect(e.insuredSubject).toBe('Hurricane risk at Miami, FL');
     expect(MockChat).toHaveBeenCalledWith(expect.objectContaining({ apiKey: 'secret', model: 'test-model', json: true }));
     expect(invoke).toHaveBeenCalledTimes(1);
   });
@@ -100,6 +103,79 @@ describe('coerceEntities', () => {
     const e = coerceEntities({ subjects: [{ label: 'Vessel Aurora', insuredValue: 2_500_000 }] });
     expect(e.subjects).toHaveLength(1);
     expect(e.subjectCount).toBe(1); // falls back to the enumerated count
+    expect(e.inputTruncated).toBe(false);
+  });
+
+  it('does NOT backfill subjectCount from the enumerated list on truncated input', () => {
+    // The model only saw a slice of the schedule: a missing stated total must
+    // stay null, not become a confident undercount from the visible items.
+    const e = coerceEntities(
+      { subjects: [{ label: 'Site 1', insuredValue: 100 }, { label: 'Site 2', insuredValue: 200 }] },
+      { inputTruncated: true },
+    );
+    expect(e.subjects).toHaveLength(2);
+    expect(e.subjectCount).toBeNull();
+    expect(e.inputTruncated).toBe(true);
+  });
+
+  it('still honors a stated subjectCount on truncated input', () => {
+    const e = coerceEntities(
+      { subjectCount: 140, subjects: [{ label: 'Site 1', insuredValue: 100 }] },
+      { inputTruncated: true },
+    );
+    expect(e.subjectCount).toBe(140);
+  });
+
+  it('reads yields in (1, 100] as percents and drops implausible values above 100', () => {
+    expect(coerceEntities({ riskType: 'x', expectedYield: 9 }).expectedYield).toBeCloseTo(0.09);
+    expect(coerceEntities({ riskType: 'x', expectedYield: 1 }).expectedYield).toBe(1); // exactly 100%
+    expect(coerceEntities({ riskType: 'x', expectedYield: 250 }).expectedYield).toBeNull();
+  });
+});
+
+describe('the insured + subject of insurance (present for every submission)', () => {
+  it('captures an explicit named insured and insured-subject from the model', () => {
+    const e = coerceEntities({
+      namedInsured: 'ACME Manufacturing Inc.',
+      insuredSubject: 'commercial warehouse and stored contents',
+      limit: 5_000_000,
+    });
+    expect(e.namedInsured).toBe('ACME Manufacturing Inc.');
+    expect(e.insuredSubject).toBe('commercial warehouse and stored contents');
+  });
+
+  it('derives an insured-subject from a single risk when the model omits it', () => {
+    const e = coerceEntities({ riskType: 'flood', propertyLocation: '500 Bay St, Tampa, FL' });
+    expect(e.insuredSubject).toBe('flood risk at 500 Bay St, Tampa, FL');
+  });
+
+  it('summarizes a portfolio into the insured-subject', () => {
+    const e = coerceEntities({
+      riskType: 'hurricane',
+      subjectCount: 3,
+      subjects: [
+        { label: 'Site A', assetType: 'building', insuredValue: 1_000_000 },
+        { label: 'Site B', assetType: 'building', insuredValue: 1_000_000 },
+        { label: 'Site C', assetType: 'building', insuredValue: 1_000_000 },
+      ],
+    });
+    expect(e.insuredSubject).toBe('Portfolio of 3 building items (hurricane)');
+  });
+});
+
+describe('deriveInsuredSubject', () => {
+  it('prefers an explicit value verbatim', () => {
+    expect(deriveInsuredSubject({ insuredSubject: 'offshore wind farm' })).toBe('offshore wind farm');
+  });
+
+  it('describes a single itemized subject from its own fields', () => {
+    expect(
+      deriveInsuredSubject({ subjects: [{ label: 'Vessel Aurora', assetType: 'vehicle', location: 'Port of Miami', constructionType: null, occupancyType: null, riskType: null, insuredValue: null, limit: null }] }),
+    ).toBe('Vessel Aurora — vehicle — Port of Miami');
+  });
+
+  it('returns null when there is no signal at all', () => {
+    expect(deriveInsuredSubject({})).toBeNull();
   });
 });
 

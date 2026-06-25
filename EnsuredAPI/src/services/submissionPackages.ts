@@ -54,7 +54,19 @@ export interface PackageManifest {
   archetype: string;
   lineOfBusiness: string;
   lineOfBusinessCode: string;
+  /**
+   * Every line of business bundled into this submission. For a conventional
+   * single-LOB submission these are one-element arrays mirroring the singular
+   * `lineOfBusiness`/`lineOfBusinessCode`/`archetype` fields; a Multi-LOB,
+   * Broker-Package or Portfolio submission carries 2+ entries (the singular
+   * fields then describe the primary/lead line).
+   */
+  lineOfBusinesses: string[];
+  lineOfBusinessCodes: string[];
+  archetypes: string[];
   reinsuranceType: 'treaty' | 'facultative';
+  /** Distinct cedents on the package — >1 only when multiple insureds are bundled. */
+  cedents: string[];
   cedent: string;
   broker: string;
   perils: string[];
@@ -381,6 +393,27 @@ const ARCHETYPES: Archetype[] = [
   },
 ];
 
+/** Lightweight, public view of an archetype — lets callers (e.g. the scenario
+ *  layer) restrict/select lines of business without re-declaring the catalog. */
+export interface ArchetypeInfo {
+  code: string;
+  name: string;
+  lineOfBusiness: string;
+  reinsuranceType: 'treaty' | 'facultative';
+}
+
+export const ARCHETYPE_INFO: ReadonlyArray<ArchetypeInfo> = ARCHETYPES.map((a) => ({
+  code: a.code,
+  name: a.name,
+  lineOfBusiness: a.lineOfBusiness,
+  reinsuranceType: a.reinsuranceType,
+}));
+
+/** Every archetype code, in catalog order. */
+export const ARCHETYPE_CODES: ReadonlyArray<string> = ARCHETYPES.map((a) => a.code);
+
+const ARCHETYPE_BY_CODE = new Map<string, Archetype>(ARCHETYPES.map((a) => [a.code, a]));
+
 // ---------------------------------------------------------------------------
 // Cedents / brokers / vault hosts
 // ---------------------------------------------------------------------------
@@ -487,7 +520,16 @@ function attachmentBudget(rng: Rng, complexity: number): number {
 function buildFileSpec(
   rng: Rng,
   blueprint: DocBlueprint,
-  ctx: { cedentSlug: string; brokerSlug: string; org: number; submissionId: number; year: number; copy?: number },
+  ctx: {
+    cedentSlug: string;
+    brokerSlug: string;
+    org: number;
+    submissionId: number;
+    year: number;
+    copy?: number;
+    /** Archetype code injected into the file name to keep multi-LOB bundles distinct. */
+    lobTag?: string;
+  },
   complexity: number,
 ): SubmissionFileSpec {
   const meta = KIND_META[blueprint.kind];
@@ -503,7 +545,10 @@ function buildFileSpec(
 
   const copySuffix = blueprint.multiple ? `_${String(ctx.copy ?? 1).padStart(3, '0')}` : '';
   const labelSlug = slug(blueprint.label.replace(/\s*\(.*\)\s*/g, ''));
-  const fileName = `${ctx.cedentSlug}_${labelSlug}${copySuffix}_${ctx.year}.${ext}`;
+  // A `lobTag` is only present for multi-LOB bundles; single-LOB file names are
+  // unchanged, so the default generator output stays byte-identical.
+  const lobPart = ctx.lobTag ? `${slug(ctx.lobTag)}_` : '';
+  const fileName = `${ctx.cedentSlug}_${lobPart}${labelSlug}${copySuffix}_${ctx.year}.${ext}`;
 
   const checksum = `sha256:${hexDigest(rng)}`;
 
@@ -531,38 +576,57 @@ function buildFileSpec(
   };
 }
 
-/**
- * Build a deterministic submission package for `(seed, complexity)`.
- *
- * The archetype is chosen from `seed` (so sequential ids fan out across every
- * line of business), and `complexity` governs the attachment budget plus which
- * optional artefacts are unlocked. Invariants: at least one PDF is always
- * present, and risks of complexity >= 4 carry at least one image.
- */
-export function buildSubmissionPackage(
-  seed: number,
-  complexity: number,
-  opts: { organizationId?: number; submissionId?: number } = {},
-): SubmissionPackage {
-  const cx = clamp(Math.round(complexity), 1, 10);
-  const rng = mulberry32(Math.imul(seed >>> 0, 2654435761) ^ (cx * 0x9e3779b1));
+/** Optional knobs a scenario layer uses to shape a package. */
+export interface BuildPackageOptions {
+  organizationId?: number;
+  submissionId?: number;
+  /**
+   * Explicit archetype codes to bundle. One code = a conventional single-LOB
+   * submission; 2+ codes = a true multi-LOB / broker-package / portfolio
+   * submission that carries every bundled line's documents under one proposal.
+   * When omitted the archetype is chosen from `seed` exactly as before.
+   */
+  archetypeCodes?: string[];
+  /**
+   * Restrict the seed-chosen archetype to treaty or facultative. Ignored when
+   * `archetypeCodes` is supplied (those carry their own reinsurance type).
+   */
+  reinsuranceType?: 'treaty' | 'facultative';
+  /**
+   * Keep only perils in this set when sampling the primary line's perils (e.g. a
+   * catastrophe-exposed submission → hurricane/earthquake/flood/wildfire). Falls
+   * back to the archetype's full peril list when the filter excludes everything.
+   */
+  perilFilter?: string[];
+  /**
+   * Document categories to strip after assembly (e.g. an Incomplete submission →
+   * drop `loss_run`/`statement_of_values`/`cedent_financials`). The ">= 1 PDF"
+   * and imagery invariants still run afterwards, so a stripped package stays
+   * advanceable.
+   */
+  dropCategories?: string[];
+  /** Give each bundled archetype its own cedent (broker package / portfolio). */
+  multipleInsureds?: boolean;
+}
 
-  const archetype = ARCHETYPES[((seed % ARCHETYPES.length) + ARCHETYPES.length) % ARCHETYPES.length];
-  const cedent = pick(rng, CEDENTS);
-  const broker = pick(rng, BROKERS);
-  const currency = pick(rng, archetype.currencies);
-  const year = 2024 + intBetween(rng, 0, 2);
-  const org = opts.organizationId ?? 0;
-  const submissionId = opts.submissionId ?? seed;
+/** Resolve the archetype(s) a package should carry from its options/seed. */
+function selectArchetypes(seed: number, opts: BuildPackageOptions): Archetype[] {
+  if (opts.archetypeCodes && opts.archetypeCodes.length > 0) {
+    const list = opts.archetypeCodes
+      .map((code) => ARCHETYPE_BY_CODE.get(code))
+      .filter((a): a is Archetype => Boolean(a));
+    if (list.length > 0) return list;
+  }
+  let pool: readonly Archetype[] = ARCHETYPES;
+  if (opts.reinsuranceType) {
+    const filtered = ARCHETYPES.filter((a) => a.reinsuranceType === opts.reinsuranceType);
+    if (filtered.length > 0) pool = filtered;
+  }
+  return [pool[((seed % pool.length) + pool.length) % pool.length]];
+}
 
-  // Perils / regions sampled per submission (1..3 of each), preserving order.
-  const perils = sampleSubset(rng, archetype.perils, 1, Math.min(3, archetype.perils.length));
-  const regions = sampleSubset(rng, archetype.regions, 1, Math.min(2, archetype.regions.length));
-
-  const budget = attachmentBudget(rng, cx);
-
-  // Assemble the chosen blueprint list: core first (capped by budget), then
-  // optionals in ascending-threshold order until the budget is met.
+/** Pick an archetype's doc blueprints within a budget (core then optionals). */
+function chooseBlueprints(archetype: Archetype, cx: number, budget: number): DocBlueprint[] {
   const chosen: DocBlueprint[] = [];
   for (const key of archetype.core) {
     if (chosen.length >= budget) break;
@@ -576,8 +640,28 @@ export function buildSubmissionPackage(
     if (chosen.length >= budget) break;
     chosen.push(blueprint);
   }
+  return chosen;
+}
 
-  const ctx = { cedentSlug: slug(cedent), brokerSlug: slug(broker), org, submissionId, year };
+type FileCtx = {
+  cedentSlug: string;
+  brokerSlug: string;
+  org: number;
+  submissionId: number;
+  year: number;
+  copy?: number;
+  lobTag?: string;
+};
+
+/** Materialise one archetype's chosen blueprints into file specs. */
+function assembleArchetypeFiles(
+  rng: Rng,
+  archetype: Archetype,
+  cx: number,
+  budget: number,
+  ctx: FileCtx,
+): SubmissionFileSpec[] {
+  const chosen = chooseBlueprints(archetype, cx, budget);
   const files: SubmissionFileSpec[] = [];
   for (const blueprint of chosen) {
     if (blueprint.multiple) {
@@ -590,14 +674,91 @@ export function buildSubmissionPackage(
       files.push(buildFileSpec(rng, blueprint, ctx, cx));
     }
   }
+  return files;
+}
+
+/**
+ * Build a deterministic submission package for `(seed, complexity)`.
+ *
+ * With no options the archetype is chosen from `seed` (so sequential ids fan out
+ * across every line of business) and `complexity` governs the attachment budget
+ * plus which optional artefacts are unlocked — behaviour is byte-identical to the
+ * original single-archetype generator. Options let the scenario layer bundle
+ * multiple lines of business, pin treaty/facultative, filter perils, drop
+ * documents (Incomplete submissions) and spread the bundle across multiple
+ * insureds. Invariants: at least one PDF is always present, and risks of
+ * complexity >= 4 carry at least one image.
+ */
+export function buildSubmissionPackage(
+  seed: number,
+  complexity: number,
+  opts: BuildPackageOptions = {},
+): SubmissionPackage {
+  const cx = clamp(Math.round(complexity), 1, 10);
+  const rng = mulberry32(Math.imul(seed >>> 0, 2654435761) ^ (cx * 0x9e3779b1));
+
+  const archetypes = selectArchetypes(seed, opts);
+  const primary = archetypes[0];
+  const multi = archetypes.length > 1;
+  const org = opts.organizationId ?? 0;
+  const submissionId = opts.submissionId ?? seed;
+
+  // NB: the rng draws below (cedent → broker → currency → year → perils →
+  // regions → budget → primary files → invariants) preserve the original call
+  // order, so a single-archetype package with no options is unchanged.
+  const cedent = pick(rng, CEDENTS);
+  const broker = pick(rng, BROKERS);
+  const currency = pick(rng, primary.currencies);
+  const year = 2024 + intBetween(rng, 0, 2);
+
+  // Perils / regions sampled per submission (1..3 of each), preserving order.
+  // A peril filter (cat-exposed scenarios) narrows the source list first.
+  const perilSource =
+    opts.perilFilter && opts.perilFilter.length > 0
+      ? primary.perils.filter((p) => opts.perilFilter!.includes(p))
+      : primary.perils;
+  const perilPool = perilSource.length > 0 ? perilSource : primary.perils;
+  const perils = sampleSubset(rng, perilPool, 1, Math.min(3, perilPool.length));
+  const regions = sampleSubset(rng, primary.regions, 1, Math.min(2, primary.regions.length));
+
+  const budget = attachmentBudget(rng, cx);
+  // Split the budget across bundled lines so a multi-LOB package stays sane;
+  // single-LOB keeps the full budget (and thus identical output).
+  const perArchBudget = multi ? clamp(Math.round(budget / archetypes.length) + 1, 3, 12) : budget;
+
+  const baseCtx: FileCtx = { cedentSlug: slug(cedent), brokerSlug: slug(broker), org, submissionId, year };
+  let files: SubmissionFileSpec[] = assembleArchetypeFiles(
+    rng,
+    primary,
+    cx,
+    perArchBudget,
+    multi ? { ...baseCtx, lobTag: primary.code } : baseCtx,
+  );
+
+  // Additional bundled lines (Multi-LOB / Broker Package / Portfolio). Each gets
+  // its own cedent when `multipleInsureds` is set, otherwise shares the primary's.
+  const cedents = [cedent];
+  for (const arch of archetypes.slice(1)) {
+    const lineCedent = opts.multipleInsureds ? pick(rng, CEDENTS) : cedent;
+    if (!cedents.includes(lineCedent)) cedents.push(lineCedent);
+    const lineCtx: FileCtx = { ...baseCtx, cedentSlug: slug(lineCedent), lobTag: arch.code };
+    files.push(...assembleArchetypeFiles(rng, arch, cx, perArchBudget, lineCtx));
+  }
+
+  // Drop requested document categories (Incomplete / Declined-incomplete). Runs
+  // before the invariants so the package still satisfies them.
+  if (opts.dropCategories && opts.dropCategories.length > 0) {
+    const dropped = new Set(opts.dropCategories);
+    files = files.filter((f) => !dropped.has(f.category));
+  }
 
   // Invariant: always at least one PDF (the slip is one, but guard anyway).
   if (!files.some((f) => f.kind === 'pdf')) {
-    files.push(buildFileSpec(rng, DOC_LIBRARY.placing_slip, ctx, cx));
+    files.push(buildFileSpec(rng, DOC_LIBRARY.placing_slip, baseCtx, cx));
   }
   // Invariant: meaningful risks (>=4) carry imagery.
   if (cx >= 4 && !files.some((f) => f.kind === 'image')) {
-    files.push(buildFileSpec(rng, DOC_LIBRARY.property_photos, { ...ctx, copy: 1 }, cx));
+    files.push(buildFileSpec(rng, DOC_LIBRARY.property_photos, { ...baseCtx, copy: 1 }, cx));
   }
 
   const kinds: Record<string, number> = {};
@@ -608,11 +769,18 @@ export function buildSubmissionPackage(
   }
   const categories = Array.from(new Set(files.map((f) => f.category)));
 
+  const lineOfBusinesses = archetypes.map((a) => a.lineOfBusiness);
+  const lineOfBusinessCodes = archetypes.map((a) => a.code);
+
   const manifest: PackageManifest = {
-    archetype: archetype.name,
-    lineOfBusiness: archetype.lineOfBusiness,
-    lineOfBusinessCode: archetype.code,
-    reinsuranceType: archetype.reinsuranceType,
+    archetype: primary.name,
+    lineOfBusiness: primary.lineOfBusiness,
+    lineOfBusinessCode: primary.code,
+    lineOfBusinesses,
+    lineOfBusinessCodes,
+    archetypes: archetypes.map((a) => a.name),
+    reinsuranceType: primary.reinsuranceType,
+    cedents,
     cedent,
     broker,
     perils,
@@ -626,9 +794,10 @@ export function buildSubmissionPackage(
     hasImagery: Boolean(kinds.image),
   };
 
+  const lobLabel = multi ? lineOfBusinesses.join(' + ') : primary.lineOfBusiness;
   const summaryText =
-    `${archetype.reinsuranceType === 'treaty' ? 'Treaty' : 'Facultative'} submission — ${archetype.lineOfBusiness}. ` +
-    `Cedent: ${cedent}; broker: ${broker}. Perils: ${perils.join(', ')}. ` +
+    `${primary.reinsuranceType === 'treaty' ? 'Treaty' : 'Facultative'} submission — ${lobLabel}. ` +
+    `Cedent: ${cedents.join(', ')}; broker: ${broker}. Perils: ${perils.join(', ')}. ` +
     `Regions: ${regions.join(', ')}. Currency: ${currency}. ` +
     `${files.length} attachment(s) across ${categories.length} document type(s); complexity ${cx}/10.`;
 

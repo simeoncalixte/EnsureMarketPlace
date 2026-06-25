@@ -2,6 +2,8 @@ import Fastify, { FastifyInstance } from 'fastify';
 import { healthRoute } from './routes/health';
 import { organizationSeedRoute } from './routes/organizationSeed';
 import { userSeedRoute } from './routes/userSeed';
+import { orgStructureSeedRoute } from './routes/orgStructureSeed';
+import { capacityDefinitionSeedRoute } from './routes/capacityDefinitionSeed';
 import { reinsuranceSeedRoute } from './routes/reinsuranceSeed';
 import { ingestionChannelSeedRoute } from './routes/ingestionChannelSeed';
 import { pipelineSubmissionSeedRoute } from './routes/pipelineSubmissionSeed';
@@ -11,15 +13,22 @@ import { myPortfolioSeedRoute } from './routes/myPortfolioSeed';
 import { analyticsRoute } from './routes/analytics';
 import { impersonationRoute } from './routes/impersonation';
 import { authRoute } from './routes/auth';
+import { oauthRoute } from './routes/oauth';
 import { navigationRoute } from './routes/navigation';
 import { registrationRoute } from './routes/registration';
 import { subscriptionsRoute } from './routes/subscriptions';
 import { organizationsRoute } from './routes/organizations';
-import { organizationAppetiteRoute } from './routes/organizationAppetite';
+import { governanceRoute } from './routes/governance';
 import { usersRoute } from './routes/users';
+import { departmentsRoute } from './routes/departments';
+import { fieldOptionsRoute } from './routes/fieldOptions';
+import { partnersRoute } from './routes/partners';
 import { underwritingSubmissionsRoute } from './routes/underwritingSubmissions';
+import { signaturesRoute } from './routes/signatures';
 import { marketplaceRoute } from './routes/marketplace';
 import { crestaZonesRoute } from './routes/crestaZones';
+import { worldcitiesSeedRoute } from './routes/worldcitiesSeed';
+import { geolocationRoute } from './routes/geolocation';
 import { riskLayersRoute } from './routes/riskLayers';
 import { investorsRoute } from './routes/investors';
 import { ingestionChannelsRoute } from './routes/ingestionChannels';
@@ -29,13 +38,24 @@ import registerSwagger from './swagger';
 import { ingestionRoute } from './pipeline/ingestion/route';
 import { classificationRoute } from './pipeline/classification/route';
 import { ocrRoute } from './pipeline/ocr/route';
+import { submissionTypeRoute } from './pipeline/submissionType/route';
+import { assignmentRoute } from './pipeline/assignment/route';
 import { extractionRoute } from './pipeline/extraction/route';
+import { insuredSubjectRoute } from './pipeline/insuredSubject/route';
 import { locationDiscoveryRoute } from './pipeline/locationDiscovery/route';
 import { normalizationRoute } from './pipeline/normalization/route';
 import { validationRoute } from './pipeline/validation/route';
 import { schemaGenerationRoute } from './pipeline/schemaGeneration/route';
 import { workflowRoute } from './pipeline/workflow/route';
 import { storageSearchRoute } from './pipeline/storageSearch/route';
+import websocketPlugin from '@fastify/websocket';
+import { socialProfilesRoutes } from './routes/socialProfiles';
+import { socialConnectionsRoutes } from './routes/socialConnections';
+import { socialFeedRoutes } from './routes/socialFeed';
+import { socialMessagesRoutes } from './routes/socialMessages';
+import { socialIntegrationsRoutes } from './routes/socialIntegrations';
+import { socialWebhooksRoutes } from './routes/socialWebhooks';
+import { socialSocketRoute } from './routes/socialSocket';
 
 /**
  * Register the consistent error envelope used across the API. Any uncaught throw,
@@ -80,7 +100,21 @@ export function registerErrorHandlers(app: FastifyInstance): void {
 
 export function buildApp(): FastifyInstance {
   const app = Fastify({
-    logger: true,
+    logger: {
+      serializers: {
+        // The websocket upgrade carries the JWT as a query param (browsers
+        // cannot set headers on WS handshakes) — keep it out of the logs.
+        req(request) {
+          return {
+            method: request.method,
+            url: request.url.replace(/([?&]token=)[^&]+/g, '$1[redacted]'),
+            hostname: request.hostname,
+            remoteAddress: request.ip,
+            remotePort: request.socket?.remotePort,
+          };
+        },
+      },
+    },
     ajv: {
       customOptions: {
         // Allow union types in JSON Schema (e.g. type: ['string','integer'])
@@ -123,6 +157,8 @@ export function buildApp(): FastifyInstance {
   app.register(healthRoute);
   app.register(organizationSeedRoute, { prefix: '/api' });
   app.register(userSeedRoute, { prefix: '/api' });
+  app.register(orgStructureSeedRoute, { prefix: '/api' });
+  app.register(capacityDefinitionSeedRoute, { prefix: '/api' });
   app.register(reinsuranceSeedRoute, { prefix: '/api' });
   app.register(ingestionChannelSeedRoute, { prefix: '/api' });
   app.register(pipelineSubmissionSeedRoute, { prefix: '/api' });
@@ -131,30 +167,48 @@ export function buildApp(): FastifyInstance {
   app.register(myPortfolioSeedRoute, { prefix: '/api' });
   app.register(marketplaceRoute, { prefix: '/api' });
   app.register(crestaZonesRoute, { prefix: '/api' });
+  app.register(worldcitiesSeedRoute, { prefix: '/api' });
+  app.register(geolocationRoute, { prefix: '/api' });
   app.register(riskLayersRoute, { prefix: '/api' });
   app.register(analyticsRoute, { prefix: '/api' });
   app.register(investorsRoute, { prefix: '/api' });
   app.register(organizationsRoute, { prefix: '/api' });
-  app.register(organizationAppetiteRoute, { prefix: '/api' });
+  app.register(governanceRoute, { prefix: '/api' });
   app.register(usersRoute, { prefix: '/api' });
+  app.register(departmentsRoute, { prefix: '/api' });
+  app.register(fieldOptionsRoute, { prefix: '/api' });
+  app.register(partnersRoute, { prefix: '/api' });
   app.register(impersonationRoute, { prefix: '/api' });
   app.register(authRoute, { prefix: '/api' });
+  app.register(oauthRoute, { prefix: '/api' });
   app.register(navigationRoute, { prefix: '/api' });
   app.register(registrationRoute, { prefix: '/api' });
   app.register(subscriptionsRoute, { prefix: '/api' });
   app.register(ingestionChannelsRoute, { prefix: '/api' });
   app.register(pipelineProcessesRoute, { prefix: '/api' });
   app.register(underwritingSubmissionsRoute, { prefix: '/api' });
+  app.register(signaturesRoute, { prefix: '/api' });
   app.register(ingestionRoute, { prefix: '/api' });
   app.register(classificationRoute, { prefix: '/api' });
   app.register(ocrRoute, { prefix: '/api' });
+  app.register(submissionTypeRoute, { prefix: '/api' });
+  app.register(assignmentRoute, { prefix: '/api' });
   app.register(extractionRoute, { prefix: '/api' });
+  app.register(insuredSubjectRoute, { prefix: '/api' });
   app.register(locationDiscoveryRoute, { prefix: '/api' });
   app.register(normalizationRoute, { prefix: '/api' });
   app.register(validationRoute, { prefix: '/api' });
   app.register(schemaGenerationRoute, { prefix: '/api' });
   app.register(workflowRoute, { prefix: '/api' });
   app.register(storageSearchRoute, { prefix: '/api' });
+  app.register(websocketPlugin);
+  app.register(socialProfilesRoutes, { prefix: '/api' });
+  app.register(socialConnectionsRoutes, { prefix: '/api' });
+  app.register(socialFeedRoutes, { prefix: '/api' });
+  app.register(socialMessagesRoutes, { prefix: '/api' });
+  app.register(socialIntegrationsRoutes, { prefix: '/api' });
+  app.register(socialWebhooksRoutes, { prefix: '/api' });
+  app.register(socialSocketRoute, { prefix: '/api' });
   // The pipeline is now driven manually, one stage at a time, from the Pipeline
   // Processes board (see pipeline/board/service.advanceSubmissionToNextStage).
   // There is no background auto-processor to start here.

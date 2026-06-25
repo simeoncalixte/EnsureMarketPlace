@@ -1,13 +1,13 @@
 jest.mock('../../db/models', () => ({
-  SubmissionDocument: { findOne: jest.fn(), create: jest.fn() },
+  SubmissionOutput: { findOne: jest.fn(), create: jest.fn() },
 }));
 
-import { SubmissionDocument } from '../../db/models';
+import { SubmissionOutput } from '../../db/models';
 import { sequelizeSubmissionDocumentRepository } from './repository';
 import { ValidationResult } from './types';
 
-const findOne = SubmissionDocument.findOne as unknown as jest.Mock;
-const create = SubmissionDocument.create as unknown as jest.Mock;
+const findOne = SubmissionOutput.findOne as unknown as jest.Mock;
+const create = SubmissionOutput.create as unknown as jest.Mock;
 
 const validation = { decision: 'PASS' } as unknown as ValidationResult;
 
@@ -20,7 +20,7 @@ describe('sequelizeSubmissionDocumentRepository.upsertValidation', () => {
   test('creates a document when none exists', async () => {
     findOne.mockResolvedValue(null);
     await sequelizeSubmissionDocumentRepository.upsertValidation(5, 9, validation);
-    expect(create).toHaveBeenCalledWith({ submissionId: 5, tenantId: 9, structuredData: { validation } });
+    expect(create).toHaveBeenCalledWith({ submissionId: 5, organizationId: 9, structuredData: { validation } });
   });
 
   test('merges into the existing document and saves', async () => {

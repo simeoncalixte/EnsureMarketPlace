@@ -1,6 +1,7 @@
 import os from 'os';
 import path from 'path';
 import fs from 'fs/promises';
+import { Op } from 'sequelize';
 import {
   IngestionChannel,
   IngestionEvent,
@@ -9,15 +10,25 @@ import {
   RiskPortfolio,
   Submission,
   SubmissionFile,
+  SubmissionOutput,
 } from '../db/models';
 import { getSequelize } from '../config/database';
 import { PIPELINE_STAGE_CATALOG } from '../pipeline/board/service';
+import { routeForType } from '../pipeline/routing/routes';
+import { SUBMISSION_TYPE_CODES, submissionTypeTaxonomy } from '../db/seed-data/submissionTypeTaxonomy';
 import {
   assignComplexities,
   buildSubmissionPackage,
   summarizeComplexity,
   type PackageManifest,
 } from './submissionPackages';
+import {
+  assignScenarios,
+  resolveScenario,
+  SCENARIO_KEYS,
+  type ScenarioMetadata,
+  type SubmissionScenarioKey,
+} from './submissionScenarios';
 
 /**
  * Seeds "incoming" submissions directly into a single organization's ingestion
@@ -64,6 +75,25 @@ export interface PipelineSubmissionSeedOptions {
    * seeded submission is appreciably complex, per the brief.
    */
   complexityTarget?: number;
+  /**
+   * Which business scenario(s) to seed. `'weighted'` (default) draws from the
+   * standard mix (Renewal 30% / New Business 25% / Multi-LOB 15% / Facultative
+   * 10% / Treaty 10% / Referred 5% / Declined 3% / SLA Breach 2%). A specific
+   * scenario key seeds the whole batch as that scenario — handy for targeting one
+   * workflow path (e.g. `'declined'`, `'sla_breach'`, `'multi_lob'`).
+   */
+  scenario?: SubmissionScenarioKey | 'weighted';
+  /**
+   * Pin every seeded submission to a specific transaction type so it is
+   * unambiguously a new-business / renewal / quote-request / endorsement / claim /
+   * … submission as it travels the pipeline. `'auto'` (default) leaves the type to
+   * the pipeline's `submissionType` stage, as before. A specific primary code (any
+   * of {@link SUBMISSION_TYPE_CODES}, e.g. `'renewal'`, `'endorsement'`) both
+   * pre-stamps `structured_data.submissionTypeCode/Label` (so per-type boards and
+   * routing reflect it immediately) AND injects a strong type signal into the OCR
+   * extract so the live `submissionType` stage confirms the same type when run.
+   */
+  submissionType?: string | 'auto';
 }
 
 export interface SeededSubmissionSummary {
@@ -77,10 +107,29 @@ export interface SeededSubmissionSummary {
   fileName: string | null;
   /** 1..10 complexity score driving this submission's package. */
   complexity: number;
+  /** Primary line of business (lead line for a multi-LOB submission). */
   lineOfBusiness: string;
+  /** Every line of business bundled into the submission. */
+  lineOfBusinesses: string[];
   cedent: string;
   /** Total attachments on the submission (package files + text extract). */
   fileCount: number;
+  // --- Transaction (submission) type ---
+  /** Pinned transaction-type code when one was requested, else null (auto). */
+  submissionTypeCode: string | null;
+  /** Human label for {@link submissionTypeCode}, else null. */
+  submissionTypeLabel: string | null;
+  /** Whether the type was pinned at seed time (vs. left to the pipeline). */
+  submissionTypePinned: boolean;
+  // --- Business scenario classification (per the seeding brief) ---
+  scenario: SubmissionScenarioKey;
+  scenarioLabel: string;
+  scenarioVariant: string;
+  priority: ScenarioMetadata['priority'];
+  expectedWorkflowPath: string[];
+  expectedOutcome: ScenarioMetadata['expectedOutcome'];
+  underwriterType: ScenarioMetadata['underwriterType'];
+  slaClassification: ScenarioMetadata['slaClassification'];
 }
 
 export interface PipelineSubmissionSeedSummary {
@@ -97,6 +146,11 @@ export interface PipelineSubmissionSeedSummary {
   /** Mean complexity across the batch — 7 by default, per the brief. */
   averageComplexity: number;
   complexityRange: { min: number; max: number };
+  /** How many submissions landed in each business scenario across the batch. */
+  scenarioBreakdown: Partial<Record<SubmissionScenarioKey, number>>;
+  /** The pinned transaction type for the batch, or null when left to the pipeline. */
+  submissionTypeCode: string | null;
+  submissionTypeLabel: string | null;
   submissions: SeededSubmissionSummary[];
   subscribedStages: string[];
 }
@@ -155,18 +209,47 @@ function hostSlug(value: string): string {
  * stages have a cedent, broker, line of business, dates, currency and contacts to
  * work with. Mirrors what a broker's slip/ACORD data extract looks like.
  */
-function buildSubmissionExtractText(manifest: PackageManifest, num: string): string {
+function buildSubmissionExtractText(
+  manifest: PackageManifest,
+  num: string,
+  scenario: ScenarioMetadata,
+  pinnedType: PinnedSubmissionType | null = null,
+): string {
   const tivMillions = 40 + manifest.complexity * 18 + manifest.fileCount * 3;
   const premiumMillions = (2 + manifest.complexity * 0.9).toFixed(1);
   const phone = String(((manifest.complexity * 137) % 900) + 100).padStart(4, '0');
   const layer = manifest.reinsuranceType === 'treaty' ? 'Excess of Loss / Quota Share' : 'Facultative certificate';
-  return [
-    'Reinsurance Submission Extract (ACORD-style)',
+  const lobLine = manifest.lineOfBusinesses.length > 1
+    ? manifest.lineOfBusinesses.join(' + ')
+    : manifest.lineOfBusiness;
+  // When a transaction type is pinned, frame the extract around it so the live
+  // `submissionType` stage lands on the requested type rather than inferring one
+  // from the (reinsurance-shaped) package. Reinsurance pins keep the reinsurance
+  // framing; non-reinsurance pins drop the treaty/fac-specific lines that would
+  // otherwise pull the keyword classifier toward a reinsurance type.
+  const reinsuranceFramed = !pinnedType || pinnedType.isReinsurance;
+  const lines: string[] = [
+    reinsuranceFramed ? 'Reinsurance Submission Extract (ACORD-style)' : 'Insurance Submission Extract (ACORD-style)',
     `Submission: ${num}`,
-    `Cedent (Reinsured): ${manifest.cedent}`,
+  ];
+  if (pinnedType) {
+    // Lead with an unambiguous transaction-type declaration plus the type's
+    // defining keywords so both the keyword heuristic and the Gemini agent agree.
+    lines.push(`Transaction Type: ${pinnedType.label}`, pinnedType.signal);
+  }
+  lines.push(
+    // Scenario signal so the downstream classification/extraction stages have
+    // something matching the seeded business scenario to work with.
+    `Submission Scenario: ${scenario.scenarioLabel} (${scenario.variantLabel})`,
+    `Priority: ${scenario.priority} | SLA: ${scenario.slaClassification} | Assigned UW: ${scenario.underwriterType}`,
+    `Cedent (Reinsured): ${manifest.cedents.join(', ')}`,
     `Broker / Intermediary: ${manifest.broker}`,
-    `Line of Business: ${manifest.lineOfBusiness}`,
-    `Placement: ${manifest.reinsuranceType === 'treaty' ? 'Treaty' : 'Facultative'} — ${layer}`,
+    `Line(s) of Business: ${lobLine}`,
+  );
+  if (reinsuranceFramed) {
+    lines.push(`Placement: ${manifest.reinsuranceType === 'treaty' ? 'Treaty' : 'Facultative'} — ${layer}`);
+  }
+  lines.push(
     `Perils: ${manifest.perils.join(', ')}`,
     `Territory / Region: ${manifest.regions.join(', ')}`,
     `Currency: ${manifest.currency}`,
@@ -178,7 +261,92 @@ function buildSubmissionExtractText(manifest: PackageManifest, num: string): str
     `Phone: +1 (305) 555-${phone}`,
     `Attachments: ${manifest.fileCount} document(s) — ${manifest.categories.join(', ')}.`,
     `Complexity: ${manifest.complexity}/10.`,
-  ].join('\n');
+  );
+  return lines.join('\n');
+}
+
+/** submission-type code → human label (for persisted structured_data). */
+const SUBMISSION_TYPE_LABEL = new Map(submissionTypeTaxonomy.map((type) => [type.code, type.label]));
+
+/** A caller-pinned transaction type resolved for one submission. */
+interface PinnedSubmissionType {
+  code: string;
+  label: string;
+  /** Strong, keyword-rich sentence that makes the type unambiguous in the OCR text. */
+  signal: string;
+  /** Treaty/facultative reinsurance types keep the reinsurance extract framing. */
+  isReinsurance: boolean;
+}
+
+/**
+ * Strong, OCR-readable declarations keyed to each primary submission-type code.
+ * Each packs several of the type's defining keyword phrases (mirroring the
+ * `submissionType` stage's keyword dictionary) so that, even on a reinsurance
+ * package, the classifier scores the pinned type highest. (pure)
+ */
+const SUBMISSION_TYPE_SIGNAL: Record<string, string> = {
+  new_business:
+    'This is a New Business submission — a new account / application for insurance requesting a quote to bind new coverage effective on the effective date below.',
+  renewal:
+    'This is a Renewal — renewal of the expiring policy at its anniversary date; renewal terms are requested for continuation of coverage.',
+  quote_request:
+    'This is a Quote Request — please quote / provide a quotation and pricing request for the coverage described below.',
+  endorsement:
+    'This is an Endorsement — a mid-term policy change / amendment to amend the policy, effective the date of change below.',
+  cancellation:
+    'This is a Cancellation — notice of cancellation to cancel the policy and terminate coverage on the date below.',
+  claim:
+    'This is a Claim / Loss Notice — a notice of loss reporting a claim; date of loss and claimant details follow for the adjuster.',
+  audit:
+    'This is a Premium Audit — a final premium audit covering the audit period and the audited exposures below.',
+  treaty_reinsurance:
+    'This is a Treaty Reinsurance placement — a reinsurance treaty cession of the ceding company\'s underlying portfolio (whole book).',
+  facultative_reinsurance:
+    'This is a Facultative Reinsurance placement — a facultative certificate to cede this single risk (fac placement).',
+  inquiry:
+    'This is a general Inquiry — please advise on the question regarding the account below; this is an information request.',
+};
+
+const REINSURANCE_TYPE_CODES = new Set(['treaty_reinsurance', 'facultative_reinsurance']);
+
+/**
+ * Resolve a caller-supplied submission-type option into a pinned descriptor, or
+ * null for `'auto'`/unset/unrecognized (leave the type to the pipeline). (pure)
+ */
+function resolvePinnedSubmissionType(option: string | undefined): PinnedSubmissionType | null {
+  if (!option || option === 'auto' || !SUBMISSION_TYPE_CODES.includes(option)) return null;
+  return {
+    code: option,
+    label: SUBMISSION_TYPE_LABEL.get(option) ?? option,
+    signal: SUBMISSION_TYPE_SIGNAL[option] ?? `This is a ${SUBMISSION_TYPE_LABEL.get(option) ?? option} submission.`,
+    isReinsurance: REINSURANCE_TYPE_CODES.has(option),
+  };
+}
+
+/** Weighted bag so simulated submissions fan out across routes (new business is
+ * the most common, but every type is represented so the Sankey fork is rich). */
+const WEIGHTED_SUBMISSION_TYPES = [
+  'new_business', 'new_business', 'new_business', 'renewal', 'renewal', 'quote_request',
+  'endorsement', 'endorsement', 'claim', 'claim', 'cancellation',
+  'treaty_reinsurance', 'facultative_reinsurance', 'audit', 'inquiry',
+];
+
+/** Map the seeding scenario (on the 'received' event) to a submission type, or
+ * draw a weighted-random one when the scenario doesn't pin a type. */
+function pickSubmissionType(meta: Record<string, unknown>): string {
+  const reinsurance = String(meta.reinsuranceType ?? '');
+  if (reinsurance === 'treaty') return 'treaty_reinsurance';
+  if (reinsurance === 'facultative') return 'facultative_reinsurance';
+  const direct: Record<string, string> = {
+    new_business: 'new_business',
+    renewal: 'renewal',
+    endorsement: 'endorsement',
+    facultative: 'facultative_reinsurance',
+    treaty: 'treaty_reinsurance',
+  };
+  const mapped = direct[String(meta.scenario ?? '')];
+  if (mapped) return mapped;
+  return WEIGHTED_SUBMISSION_TYPES[Math.floor(Math.random() * WEIGHTED_SUBMISSION_TYPES.length)];
 }
 
 export class PipelineSubmissionSeedService {
@@ -198,6 +366,17 @@ export class PipelineSubmissionSeedService {
 
     // Per-submission complexity scores whose mean is exactly `complexityTarget`.
     const complexities = assignComplexities(count, complexityTarget);
+
+    // Per-submission business scenario. 'weighted' (default) draws the standard
+    // mix; a specific key seeds the whole batch as that one scenario.
+    const requestedScenario = options.scenario ?? 'weighted';
+    const scenarioKeys: SubmissionScenarioKey[] =
+      requestedScenario !== 'weighted' && SCENARIO_KEYS.includes(requestedScenario)
+        ? Array.from({ length: count }, () => requestedScenario)
+        : assignScenarios(count);
+
+    // Optional caller-pinned transaction type for the whole batch (null = auto).
+    const pinnedType = resolvePinnedSubmissionType(options.submissionType);
 
     const sequelize = getSequelize();
     // Real text extracts are written to disk only after the transaction commits
@@ -237,7 +416,7 @@ export class PipelineSubmissionSeedService {
       // 3. Reuse an ingestion channel for the org (prefer an enabled one) so the
       //    submissions carry channel lineage; create a lightweight one otherwise.
       let channel = await IngestionChannel.findOne({
-        where: { tenantId: organizationId },
+        where: { organizationId: organizationId },
         order: [
           ['enabled', 'DESC'],
           ['id', 'DESC'],
@@ -247,7 +426,7 @@ export class PipelineSubmissionSeedService {
       if (!channel) {
         channel = await IngestionChannel.create(
           {
-            tenantId: organizationId,
+            organizationId: organizationId,
             type: 'webhooks',
             label: 'Manual Seed',
             enabled: true,
@@ -275,7 +454,7 @@ export class PipelineSubmissionSeedService {
             portfolioId: portfolio.id,
             submittedByUserId,
             status: 'submitted',
-            tenantId: organizationId,
+            organizationId: organizationId,
             source,
             transport,
             // Stagger receivedAt so the newest sorts first on the board.
@@ -286,10 +465,33 @@ export class PipelineSubmissionSeedService {
         );
 
         const num = submissionNumber(submission.id);
-        // Deterministic, archetype-diverse package keyed by the submission id.
-        const pkg = buildSubmissionPackage(submission.id, complexity, {
+
+        // Resolve this submission's business scenario (deterministic in its id):
+        // its tag metadata and the directives that shape the document package.
+        const { metadata: scenarioMeta, directives } = resolveScenario(scenarioKeys[i], submission.id);
+        // Some scenarios (cat-exposed, large-capacity, portfolio) demand a richer,
+        // more complex package than the base draw.
+        const effectiveComplexity = directives.complexityFloor
+          ? Math.max(complexity, directives.complexityFloor)
+          : complexity;
+        // SLA-breach submissions are received well in the past so the card lands
+        // overdue against any SLA window the board enforces.
+        if (directives.receivedAtAgeDays && directives.receivedAtAgeDays > 0) {
+          const breachedAt = new Date(now - directives.receivedAtAgeDays * 24 * 60 * 60 * 1000);
+          await submission.update({ receivedAt: breachedAt }, { transaction });
+        }
+
+        // Deterministic package keyed by the submission id and shaped by the
+        // scenario directives (which lines of business, treaty/fac, missing docs,
+        // cat perils, multiple insureds).
+        const pkg = buildSubmissionPackage(submission.id, effectiveComplexity, {
           organizationId,
           submissionId: submission.id,
+          archetypeCodes: directives.archetypeCodes,
+          reinsuranceType: directives.reinsuranceType,
+          perilFilter: directives.perilFilter,
+          dropCategories: directives.dropCategories,
+          multipleInsureds: directives.multipleInsureds,
         });
 
         let fileName: string | null = null;
@@ -298,7 +500,7 @@ export class PipelineSubmissionSeedService {
           // 4a. A real, OCR-readable text extract, created FIRST so it sorts to the
           //     front of the OCR stage's (id-ordered, capped) file scan.
           fileName = `${hostSlug(pkg.manifest.cedent)}_SubmissionExtract_${submission.id}.txt`;
-          const content = buildSubmissionExtractText(pkg.manifest, num);
+          const content = buildSubmissionExtractText(pkg.manifest, num, scenarioMeta, pinnedType);
           const storagePath = path.join(
             os.tmpdir(),
             'ensured-pipeline-seed',
@@ -308,7 +510,7 @@ export class PipelineSubmissionSeedService {
           await SubmissionFile.create(
             {
               submissionId: submission.id,
-              tenantId: organizationId,
+              organizationId: organizationId,
               fileName,
               fileType: 'text/plain',
               fileSize: Buffer.byteLength(content, 'utf8'),
@@ -333,7 +535,7 @@ export class PipelineSubmissionSeedService {
                 const real = await resolveCorpusFile(f.corpusFile);
                 return {
                   submissionId: submission.id,
-                  tenantId: organizationId,
+                  organizationId: organizationId,
                   fileName: f.fileName,
                   fileType: f.fileType,
                   fileSize: real?.fileSize ?? f.fileSize,
@@ -349,10 +551,31 @@ export class PipelineSubmissionSeedService {
         }
         filesCreated += fileCount;
 
+        // When a transaction type is pinned, pre-stamp it onto the submission's
+        // output so per-type boards and routing reflect it immediately — before the
+        // pipeline reaches the `submissionType` stage. The OCR stage merges its
+        // block in (it never replaces structured_data), and the `submissionType`
+        // stage later confirms the same type from the seeded extract's strong
+        // type signal.
+        if (pinnedType) {
+          await SubmissionOutput.create(
+            {
+              submissionId: submission.id,
+              organizationId,
+              structuredData: {
+                submissionTypeCode: pinnedType.code,
+                submissionTypeLabel: pinnedType.label,
+                seededSubmissionType: true,
+              },
+            } as never,
+            { transaction },
+          );
+        }
+
         await IngestionEvent.create(
           {
             submissionId: submission.id,
-            tenantId: organizationId,
+            organizationId: organizationId,
             stage: 'received',
             status: 'submitted',
             metadata: {
@@ -360,17 +583,38 @@ export class PipelineSubmissionSeedService {
               archetype: pkg.manifest.archetype,
               lineOfBusiness: pkg.manifest.lineOfBusiness,
               lineOfBusinessCode: pkg.manifest.lineOfBusinessCode,
+              lineOfBusinesses: pkg.manifest.lineOfBusinesses,
+              lineOfBusinessCodes: pkg.manifest.lineOfBusinessCodes,
               reinsuranceType: pkg.manifest.reinsuranceType,
               cedent: pkg.manifest.cedent,
+              cedents: pkg.manifest.cedents,
               broker: pkg.manifest.broker,
               perils: pkg.manifest.perils,
               regions: pkg.manifest.regions,
               currency: pkg.manifest.currency,
-              complexity,
+              complexity: effectiveComplexity,
               fileCount,
               totalBytes: pkg.manifest.totalBytes,
               categories: pkg.manifest.categories,
               attachmentKinds: pkg.manifest.kinds,
+              // --- Pinned transaction type (null/absent = decided by the pipeline) ---
+              ...(pinnedType
+                ? {
+                    submissionTypeCode: pinnedType.code,
+                    submissionTypeLabel: pinnedType.label,
+                    submissionTypePinned: true,
+                  }
+                : {}),
+              // --- Business scenario classification (the seeding brief) ---
+              scenario: scenarioMeta.scenario,
+              scenarioLabel: scenarioMeta.scenarioLabel,
+              scenarioVariant: scenarioMeta.variant,
+              scenarioVariantLabel: scenarioMeta.variantLabel,
+              priority: scenarioMeta.priority,
+              expectedWorkflowPath: scenarioMeta.expectedWorkflowPath,
+              expectedOutcome: scenarioMeta.expectedOutcome,
+              underwriterType: scenarioMeta.underwriterType,
+              slaClassification: scenarioMeta.slaClassification,
             },
           } as never,
           { transaction },
@@ -384,10 +628,22 @@ export class PipelineSubmissionSeedService {
           transport: submission.transport ?? null,
           receivedAt: submission.receivedAt ? new Date(submission.receivedAt).toISOString() : null,
           fileName,
-          complexity,
+          complexity: effectiveComplexity,
           lineOfBusiness: pkg.manifest.lineOfBusiness,
+          lineOfBusinesses: pkg.manifest.lineOfBusinesses,
           cedent: pkg.manifest.cedent,
           fileCount,
+          submissionTypeCode: pinnedType?.code ?? null,
+          submissionTypeLabel: pinnedType?.label ?? null,
+          submissionTypePinned: pinnedType !== null,
+          scenario: scenarioMeta.scenario,
+          scenarioLabel: scenarioMeta.scenarioLabel,
+          scenarioVariant: scenarioMeta.variant,
+          priority: scenarioMeta.priority,
+          expectedWorkflowPath: scenarioMeta.expectedWorkflowPath,
+          expectedOutcome: scenarioMeta.expectedOutcome,
+          underwriterType: scenarioMeta.underwriterType,
+          slaClassification: scenarioMeta.slaClassification,
         });
       }
 
@@ -416,6 +672,10 @@ export class PipelineSubmissionSeedService {
       }
 
       const stats = summarizeComplexity(submissions.map((s) => s.complexity));
+      const scenarioBreakdown: Partial<Record<SubmissionScenarioKey, number>> = {};
+      for (const s of submissions) {
+        scenarioBreakdown[s.scenario] = (scenarioBreakdown[s.scenario] ?? 0) + 1;
+      }
       return {
         organizationId,
         insurerProfileId: insurerProfile.id,
@@ -427,6 +687,9 @@ export class PipelineSubmissionSeedService {
         filesCreated,
         averageComplexity: stats.average,
         complexityRange: { min: stats.min, max: stats.max },
+        scenarioBreakdown,
+        submissionTypeCode: pinnedType?.code ?? null,
+        submissionTypeLabel: pinnedType?.label ?? null,
         submissions,
         subscribedStages,
       };
@@ -451,5 +714,115 @@ export class PipelineSubmissionSeedService {
     );
 
     return result;
+  }
+
+  /**
+   * Simulate a realistic multi-stage pipeline history for the org's existing
+   * submissions WITHOUT running any stage service (no OCR/LLM, no cost). For each
+   * submission it picks a submission type, walks that type's route, and writes one
+   * IngestionEvent per stage up to a random point — so the board fans the cards
+   * across lanes and the Pipeline Flow (Sankey) has real stage→stage transitions
+   * to draw. Idempotent: by default it first clears prior non-'received' events so
+   * repeated calls reset rather than pile up.
+   */
+  async simulateFlowForOrganization(
+    organizationId: number,
+    options: { reset?: boolean } = {},
+  ): Promise<{
+    organizationId: number;
+    submissionsAffected: number;
+    eventsCreated: number;
+    byCurrentStage: Record<string, number>;
+    byType: Record<string, number>;
+  }> {
+    const reset = options.reset !== false;
+    const sequelize = getSequelize();
+
+    // The 'received' event (earliest per submission) anchors the history and
+    // carries the seeding scenario we map to a submission type.
+    const received = await IngestionEvent.findAll({
+      where: { organizationId, stage: 'received' },
+      order: [['submissionId', 'ASC'], ['createdAt', 'ASC'], ['id', 'ASC']],
+    });
+    const anchors = new Map<number, IngestionEvent>();
+    for (const event of received) {
+      const sid = event.submissionId;
+      if (sid != null && !anchors.has(sid)) anchors.set(sid, event);
+    }
+    const submissionIds = [...anchors.keys()];
+
+    const byCurrentStage: Record<string, number> = {};
+    const byType: Record<string, number> = {};
+    let eventsCreated = 0;
+
+    if (submissionIds.length === 0) {
+      return { organizationId, submissionsAffected: 0, eventsCreated: 0, byCurrentStage, byType };
+    }
+
+    await sequelize.transaction(async (transaction) => {
+      if (reset) {
+        await IngestionEvent.destroy({
+          where: { submissionId: { [Op.in]: submissionIds }, stage: { [Op.ne]: 'received' } },
+          transaction,
+        });
+      }
+
+      for (const submissionId of submissionIds) {
+        const anchor = anchors.get(submissionId)!;
+        const meta = (anchor.metadata ?? {}) as Record<string, unknown>;
+        const type = pickSubmissionType(meta);
+        const label = SUBMISSION_TYPE_LABEL.get(type) ?? type;
+        const route = routeForType(type).keys; // [ingestion, ocr, submissionType, ...]
+
+        // How far this submission has progressed: at least to OCR (index 1), up to
+        // the end of its route. route[2] === 'submissionType' (the fork point).
+        const stop = 1 + Math.floor(Math.random() * (route.length - 1));
+        const reachedType = stop >= 2;
+        const anchorMs = new Date(anchor.createdAt).getTime();
+        const stepMs = 3 * 60 * 1000;
+        const failedAtEnd = Math.random() < 0.12;
+
+        for (let i = 1; i <= stop; i++) {
+          const isLast = i === stop;
+          await IngestionEvent.create(
+            {
+              submissionId,
+              organizationId,
+              stage: route[i],
+              status: isLast && failedAtEnd ? 'failed' : 'completed',
+              errorMessage: isLast && failedAtEnd ? `Simulated failure at ${route[i]}.` : null,
+              metadata: { trigger: 'flow-simulation', route: type, simulated: true },
+              createdAt: new Date(anchorMs + i * stepMs),
+            } as never,
+            { transaction },
+          );
+          eventsCreated += 1;
+        }
+
+        // Persist the chosen type so the per-type boards (which read
+        // structured_data.submissionTypeCode) and the fork stay consistent.
+        if (reachedType) {
+          let output = await SubmissionOutput.findOne({ where: { submissionId }, order: [['id', 'ASC']], transaction });
+          if (!output) {
+            output = await SubmissionOutput.create(
+              { submissionId, organizationId, structuredData: {} } as never,
+              { transaction },
+            );
+          }
+          output.structuredData = {
+            ...((output.structuredData as Record<string, unknown> | null) ?? {}),
+            submissionTypeCode: type,
+            submissionTypeLabel: label,
+          };
+          await output.save({ transaction });
+          byType[type] = (byType[type] ?? 0) + 1;
+        }
+
+        const currentStage = route[stop];
+        byCurrentStage[currentStage] = (byCurrentStage[currentStage] ?? 0) + 1;
+      }
+    });
+
+    return { organizationId, submissionsAffected: submissionIds.length, eventsCreated, byCurrentStage, byType };
   }
 }

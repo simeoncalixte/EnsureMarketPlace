@@ -38,7 +38,7 @@ describe('OcrService orchestration over corpus files', () => {
     ]);
 
     const onSuccess = jest.fn();
-    const res: any = await new OcrService().process({ submission: { id: 7, tenantId: 3 } }, { onSuccess });
+    const res: any = await new OcrService().process({ submission: { id: 7, organizationId: 3 } }, { onSuccess });
 
     expect(res.ok).toBe(true);
     expect(res.documents).toHaveLength(2);
@@ -47,7 +47,7 @@ describe('OcrService orchestration over corpus files', () => {
 
     const success = onSuccess.mock.calls[0][0];
     expect(success.submissionId).toBe(7);
-    expect(success.tenantId).toBe(3);
+    expect(success.organizationId).toBe(3);
     expect(success.text).toContain('SUB-2026-1000'); // from the multi-page PDF
     expect(success.text).toContain('UNDERWRITING NOTES'); // from the TXT
   });

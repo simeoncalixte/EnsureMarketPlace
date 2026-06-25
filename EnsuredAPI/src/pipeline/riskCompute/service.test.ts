@@ -58,7 +58,7 @@ describe('RiskComputeService (Slice 5.4 stage wrapper)', () => {
 
   test('payload with submission.id ⇒ {ok:true} surfacing confidence/premium/expectedLoss', async () => {
     mockedCompute.mockResolvedValue(makeComputeResult());
-    const result = await new RiskComputeService().process({ submission: { id: 42, tenantId: 1 } });
+    const result = await new RiskComputeService().process({ submission: { id: 42, organizationId: 1 } });
 
     expect(mockedCompute).toHaveBeenCalledWith(42);
     expect(result.ok).toBe(true);

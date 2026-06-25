@@ -6,6 +6,7 @@ import {
   addLineOfBusinessTemplateField,
   loadLineOfBusinessPageData,
   loadInsuredSubjectPageTemplate,
+  loadRiskClassRegistry,
   removeLineOfBusinessTemplateField,
   saveLineOfBusinessPageTemplate,
   type LineOfBusinessPageTemplate,
@@ -15,6 +16,7 @@ import {
   type LineOfBusinessPageTemplateSection,
   type LineOfBusinessTaxonomySubType,
   type LineOfBusinessTaxonomyPrimary,
+  type RiskClassResolution,
 } from './lineOfBusinessTaxonomy';
 import LineOfBusinessSectionGrid from './LineOfBusinessSectionGrid';
 import { useAuthMe } from '../../lib/useAuthMe';
@@ -606,6 +608,34 @@ function resizeGridRowHeights(rowHeights: number[], boundaryIndex: number, delta
   return next;
 }
 
+// Human labels for the registry's method keys (the connected risk/pricing models).
+const RISK_MODEL_LABELS: Record<string, string> = {
+  generic_burning_cost: 'Burning Cost (generic default)',
+  parametric_trigger: 'Parametric Trigger',
+  cat_exposure: 'Catastrophe Exposure (EP curve)',
+};
+const PRICING_MODEL_LABELS: Record<string, string> = {
+  generic_loss_ratio: 'Loss Ratio (generic default)',
+  parametric_premium: 'Parametric Premium',
+  casualty_ilf: 'Casualty ILF (increased limit factors)',
+};
+const MODEL_SOURCE_LABELS: Record<RiskClassResolution['resolvedFrom'], string> = {
+  org_subtype: 'Your organization · subtype-specific',
+  org_primary: 'Your organization · line-level',
+  platform_subtype: 'Platform default · subtype',
+  platform_primary: 'Platform default · line',
+  generic_default: 'Generic fallback',
+};
+function humanizeMethodKey(key: string): string {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
+function riskModelLabel(key: string | null): string {
+  return key ? RISK_MODEL_LABELS[key] ?? humanizeMethodKey(key) : 'Not connected';
+}
+function pricingModelLabel(key: string | null): string {
+  return key ? PRICING_MODEL_LABELS[key] ?? humanizeMethodKey(key) : 'Not connected';
+}
+
 export default function LineOfBusinessPage() {
   const navigate = useNavigate();
   const [primaryTypes, setPrimaryTypes] = useState<LineOfBusinessTaxonomyPrimary[]>([]);
@@ -621,6 +651,10 @@ export default function LineOfBusinessPage() {
   const [saving, setSaving] = useState(false);
   const [layoutSaving, setLayoutSaving] = useState(false);
   const [fieldMutationLoading, setFieldMutationLoading] = useState(false);
+  // The risk + pricing models connected to the selected line via the Risk Class
+  // Registry. Null when nothing real is connected (generic fallback / no data) —
+  // in which case the panel renders nothing.
+  const [connectedModels, setConnectedModels] = useState<RiskClassResolution | null>(null);
 
   useEffect(() => {
     if (authLoading) {
@@ -686,6 +720,37 @@ export default function LineOfBusinessPage() {
 
     setActiveSubtypeCode(null);
   }, [selectedPrimary?.code]);
+
+  // Load the connected risk + pricing models for the selected line/subtype. Only a
+  // REAL connection is shown: a `generic_default` resolution (or a failed/empty
+  // fetch) means no model is connected, so we render nothing.
+  useEffect(() => {
+    if (authLoading) {
+      return;
+    }
+
+    if (!selectedPrimary) {
+      setConnectedModels(null);
+      return;
+    }
+
+    let active = true;
+    void loadRiskClassRegistry({
+      lineOfBusinessCode: selectedPrimary.code,
+      lineOfBusinessSubTypeCode: selectedSubtype?.code ?? null,
+      organizationId: user?.organizationId ?? null,
+    }).then((result) => {
+      if (!active) {
+        return;
+      }
+      const resolution = result?.resolution ?? null;
+      setConnectedModels(resolution && resolution.resolvedFrom !== 'generic_default' ? resolution : null);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [authLoading, selectedPrimary?.code, selectedSubtype?.code, user?.organizationId]);
 
   useEffect(() => {
     if (authLoading) {
@@ -995,6 +1060,31 @@ export default function LineOfBusinessPage() {
           }
         />
       </StatGrid>
+
+      {connectedModels ? (
+        <S.Section>
+          <S.SectionHeader>
+            <S.SectionTitle>Connected Models</S.SectionTitle>
+            <S.SectionRule />
+          </S.SectionHeader>
+          <IntroText>
+            Models currently connected to {selectedPrimary?.label}
+            {selectedSubtype ? ` · ${selectedSubtype.label}` : ''} for determining risk and pricing.
+          </IntroText>
+          <StatGrid>
+            <StatCard
+              label="Risk Model"
+              value={riskModelLabel(connectedModels.riskModelingMethod)}
+              note={`Determines expected loss · ${MODEL_SOURCE_LABELS[connectedModels.resolvedFrom]}`}
+            />
+            <StatCard
+              label="Pricing Model"
+              value={pricingModelLabel(connectedModels.ratingMethod)}
+              note={`Determines technical premium · ${MODEL_SOURCE_LABELS[connectedModels.resolvedFrom]}`}
+            />
+          </StatGrid>
+        </S.Section>
+      ) : null}
 
       <ContentStack>
         <WideColumn>

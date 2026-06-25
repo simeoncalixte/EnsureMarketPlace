@@ -63,9 +63,9 @@ describe('Risk Class spine — real DB integration (Slices 1-3)', () => {
     const org = await Organization.create({ name: 'Spine Test Insurer', type: 'insurer' } as any);
     orgId = org.id;
     const [sv, si, sn] = await Promise.all([
-      Submission.create({ tenantId: org.id, status: 'draft' } as any),
-      Submission.create({ tenantId: org.id, status: 'draft' } as any),
-      Submission.create({ tenantId: org.id, status: 'draft' } as any),
+      Submission.create({ organizationId: org.id, status: 'draft' } as any),
+      Submission.create({ organizationId: org.id, status: 'draft' } as any),
+      Submission.create({ organizationId: org.id, status: 'draft' } as any),
     ]);
     subValidId = sv.id;
     subInvalidId = si.id;
@@ -174,7 +174,7 @@ describe('Risk Class spine — real DB integration (Slices 1-3)', () => {
     // Valid data → pinned + enforced ok.
     const valid = await canonicalizeAndPin({
       submissionId: subValidId,
-      tenantId: orgId,
+      organizationId: orgId,
       data: { lineOfBusiness: LOB, 'financials.limit': 1_000_000 },
     });
     expect(valid.status).toBe('pinned');
@@ -187,7 +187,7 @@ describe('Risk Class spine — real DB integration (Slices 1-3)', () => {
     // Replay (re-canonicalize) reuses the original pin — never re-pins.
     const replay = await canonicalizeAndPin({
       submissionId: subValidId,
-      tenantId: orgId,
+      organizationId: orgId,
       data: { lineOfBusiness: LOB, 'financials.limit': 2_000_000 },
     });
     expect(replay.status).toBe('pinned');
@@ -197,7 +197,7 @@ describe('Risk Class spine — real DB integration (Slices 1-3)', () => {
     // Invalid data on a pinned schema → enforcement_failed (the intended opt-in {ok:false}).
     const invalid = await canonicalizeAndPin({
       submissionId: subInvalidId,
-      tenantId: orgId,
+      organizationId: orgId,
       data: { lineOfBusiness: LOB, 'financials.limit': 'not-a-number' },
     });
     expect(invalid.status).toBe('enforcement_failed');
@@ -209,7 +209,7 @@ describe('Risk Class spine — real DB integration (Slices 1-3)', () => {
   it('Slice 3 non-degradation: unmappable LOB is a strict no-op (no pin, no enforcement)', async () => {
     const outcome = await canonicalizeAndPin({
       submissionId: subNoopId,
-      tenantId: orgId,
+      organizationId: orgId,
       data: { lineOfBusiness: 'totally-unknown-line', 'financials.limit': 5 },
     });
     expect(outcome.status).toBe('skipped');

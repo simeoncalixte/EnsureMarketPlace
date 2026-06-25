@@ -4,7 +4,15 @@ import { getApiBase } from './api';
 
 export type ApiFetchOptions = RequestInit & { useAuth?: boolean };
 
-const rawFetch: typeof fetch = (typeof window !== 'undefined' && (window as any).fetch) ? (window as any).fetch.bind(window) : (globalThis as any).fetch;
+// Resolve the global `fetch` at call time (not import time) so it always uses
+// the current `window.fetch`. This keeps it overridable — Storybook stories and
+// tests can swap `window.fetch` to mock API responses and have it take effect.
+const rawFetch: typeof fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
+  if (typeof window !== 'undefined' && (window as any).fetch) {
+    return (window as any).fetch(input, init);
+  }
+  return (globalThis as any).fetch(input, init);
+}) as typeof fetch;
 
 function resolveApiRequestInput(input: RequestInfo): RequestInfo {
   if (typeof window === 'undefined') {

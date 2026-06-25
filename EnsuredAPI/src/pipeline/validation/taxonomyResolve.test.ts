@@ -45,7 +45,7 @@ describe('extractProfileTaxonomyCodes', () => {
 describe('resolveTaxonomyAppetiteInput', () => {
   test('returns null when no taxonomy code resolves (free-text fallback)', async () => {
     const out = await resolveTaxonomyAppetiteInput({
-      tenantId: 1,
+      organizationId: 1,
       lineOfBusiness: 'totally-unknown-line',
       allowedLinesOfBusiness: ['property'],
       resolver: stubResolver({}),
@@ -55,7 +55,7 @@ describe('resolveTaxonomyAppetiteInput', () => {
 
   test('returns null when no taxonomy-aware data exists (free-text fallback)', async () => {
     const out = await resolveTaxonomyAppetiteInput({
-      tenantId: 1,
+      organizationId: 1,
       lineOfBusiness: 'property', // resolves to a code...
       allowedLinesOfBusiness: ['some bespoke program'], // ...but no taxonomy codes anywhere
       resolver: stubResolver({}),
@@ -65,7 +65,7 @@ describe('resolveTaxonomyAppetiteInput', () => {
 
   test('builds an input from registry dimensions', async () => {
     const out = await resolveTaxonomyAppetiteInput({
-      tenantId: 1,
+      organizationId: 1,
       lineOfBusiness: 'residential property',
       allowedLinesOfBusiness: [],
       resolver: stubResolver({ excludedLineOfBusinessCodes: ['residential_property'] }),
@@ -77,7 +77,7 @@ describe('resolveTaxonomyAppetiteInput', () => {
 
   test('builds an input from profile taxonomy codes (no registry data)', async () => {
     const out = await resolveTaxonomyAppetiteInput({
-      tenantId: 1,
+      organizationId: 1,
       lineOfBusiness: 'property',
       allowedLinesOfBusiness: ['Commercial Property'],
       resolver: stubResolver({}),
@@ -91,7 +91,7 @@ describe('resolveTaxonomyAppetiteInput', () => {
       throw new Error('db down');
     };
     const out = await resolveTaxonomyAppetiteInput({
-      tenantId: 1,
+      organizationId: 1,
       lineOfBusiness: 'property',
       allowedLinesOfBusiness: ['property'],
       resolver: throwing,

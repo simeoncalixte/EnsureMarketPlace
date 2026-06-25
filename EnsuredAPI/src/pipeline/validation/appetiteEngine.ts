@@ -1,5 +1,6 @@
-import { OrganizationAppetiteProfile, OrganizationValidationRule } from '../../db/models';
+import { CapacityDefinition, CapacityValidationRule } from '../../db/models';
 import { asNumber, toList } from './coerce';
+import { definitionToAppetiteProfile } from './definitionToAppetiteProfile';
 import { validateRuleConfig } from './ruleSchema';
 import {
   evaluateTaxonomyLineOfBusinessAppetite,
@@ -446,22 +447,24 @@ export function evaluateAppetite(
 }
 
 /**
- * Load the active default appetite profile (and its enabled rules) for the
- * organization that received the submission. Returns null when there is no
- * tenant or no profile, so the validation stage stays backward compatible.
+ * Load the active capacity definition (projected to an appetite profile) and its
+ * enabled validation rules for the organization that received the submission.
+ * Returns null when there is no tenant or no active definition, so the validation
+ * stage stays permissive (no constraints ⇒ IN_APPETITE) — the same contract the
+ * legacy appetite profile honoured.
  */
 export async function loadAppetiteForTenant(
-  tenantId: number | null | undefined,
-): Promise<{ profile: OrganizationAppetiteProfile; rules: OrganizationValidationRule[] } | null> {
-  if (!tenantId) return null;
-  const profile = await OrganizationAppetiteProfile.findOne({
-    where: { organizationId: Number(tenantId), status: 'active' },
-    order: [['isDefault', 'DESC'], ['id', 'ASC']],
+  organizationId: number | null | undefined,
+): Promise<{ profile: AppetiteProfileLike; rules: AppetiteRuleLike[] } | null> {
+  if (!organizationId) return null;
+  const definition = await CapacityDefinition.findOne({
+    where: { organizationId: Number(organizationId), isActive: true },
+    order: [['id', 'ASC']],
   });
-  if (!profile) return null;
-  const rules = await OrganizationValidationRule.findAll({
-    where: { appetiteProfileId: profile.id, enabled: true },
+  if (!definition) return null;
+  const rules = await CapacityValidationRule.findAll({
+    where: { capacityDefinitionId: definition.id, enabled: true },
     order: [['sortOrder', 'ASC'], ['id', 'ASC']],
   });
-  return { profile, rules };
+  return { profile: definitionToAppetiteProfile(definition), rules };
 }

@@ -31,7 +31,7 @@ import {
   OrganizationPipelineConfigOperation,
   PipelineOperationCatalog,
   Submission,
-  SubmissionDocument,
+  SubmissionOutput,
   SubmissionFile,
   TriageResult,
   User,
@@ -244,14 +244,14 @@ describe('pipeline base lifecycle', () => {
 
     await Promise.all([
       Submission.create({
-        tenantId: org.id,
+        organizationId: org.id,
         submittedByUserId: initialUser.id,
         status: 'submitted',
         source: 'email',
         transport: 'upload',
       }),
       Submission.create({
-        tenantId: org.id,
+        organizationId: org.id,
         submittedByUserId: initialUser.id,
         status: 'submitted',
         source: 'sftp',
@@ -273,7 +273,7 @@ describe('pipeline base lifecycle', () => {
       return catalog.operationKey;
     });
 
-    const orgSubmissions = await Submission.findAll({ where: { tenantId: org.id }, order: [['id', 'ASC']] });
+    const orgSubmissions = await Submission.findAll({ where: { organizationId: org.id }, order: [['id', 'ASC']] });
 
     expect(pipelineConfig.createdByUserId).toBe(initialUser.id);
     expect(operationKeys).toEqual(['classification', 'validation', 'workflow']);
@@ -289,7 +289,7 @@ describe('pipeline base lifecycle', () => {
 
     await Promise.all([
       IngestionChannel.create({
-        tenantId: org.id,
+        organizationId: org.id,
         type: 'email',
         label: 'Inbound Email',
         enabled: true,
@@ -297,7 +297,7 @@ describe('pipeline base lifecycle', () => {
         config: { inbox: 'pipeline@ensured.local' },
       }),
       IngestionChannel.create({
-        tenantId: org.id,
+        organizationId: org.id,
         type: 'sftp',
         label: 'Partner SFTP',
         enabled: true,
@@ -305,7 +305,7 @@ describe('pipeline base lifecycle', () => {
         config: { host: 'sftp.ensured.local' },
       }),
       IngestionChannel.create({
-        tenantId: otherOrg.id,
+        organizationId: otherOrg.id,
         type: 'email',
         label: 'Other Org Email',
         enabled: true,
@@ -362,7 +362,7 @@ describe('pipeline base lifecycle', () => {
     ].join('\n');
 
     const channel = await IngestionChannel.create({
-      tenantId: org.id,
+      organizationId: org.id,
       type: 'rabbitmq',
       label: 'Rabbit Ingestion',
       enabled: true,
@@ -382,7 +382,7 @@ describe('pipeline base lifecycle', () => {
 
     const queueMessage = {
       submission: {
-        tenantId: org.id,
+        organizationId: org.id,
         submittedByUserId: initialUser.id,
       },
       files: [{
@@ -395,7 +395,7 @@ describe('pipeline base lifecycle', () => {
     await handler(JSON.stringify(queueMessage), {});
 
     queuedSubmission = await Submission.findOne({
-      where: { tenantId: org.id, transport: 'amqp' },
+      where: { organizationId: org.id, transport: 'amqp' },
       order: [['id', 'DESC']],
     }) as Submission;
     if (!queuedSubmission) {
@@ -448,13 +448,13 @@ describe('pipeline base lifecycle', () => {
   it('runs the OCR component and persists extracted text', async () => {
     const before = snapshot(pipelinePayload);
     const result = await new OcrService().process(pipelinePayload, { onSuccess: persistOcrResult });
-    const document = await SubmissionDocument.findOne({ where: { submissionId: queuedSubmission.id } });
+    const document = await SubmissionOutput.findOne({ where: { submissionId: queuedSubmission.id } });
 
     pipelinePayload.ocr = result;
 
     recordTransformation(
       'ocr',
-      'OCR converts the ingested source document into text and persists extracted text on SubmissionDocument.',
+      'OCR converts the ingested source document into text and persists extracted text on SubmissionOutput.',
       before,
       {
         payload: pipelinePayload,
@@ -470,11 +470,11 @@ describe('pipeline base lifecycle', () => {
 
   it('runs the classification component against pending extracted submissions', async () => {
     const before = snapshot({
-      pendingClassificationQuery: { tenantId: org.id, limit: 10 },
+      pendingClassificationQuery: { organizationId: org.id, limit: 10 },
       payload: pipelinePayload,
     });
-    const result = await new ClassificationService().process({ tenantId: org.id, limit: 10 });
-    const document = await SubmissionDocument.findOne({ where: { submissionId: queuedSubmission.id } });
+    const result = await new ClassificationService().process({ organizationId: org.id, limit: 10 });
+    const document = await SubmissionOutput.findOne({ where: { submissionId: queuedSubmission.id } });
     const classification = (result.classifications as Array<Record<string, any>>)
       .find((item) => item.submissionId === queuedSubmission.id);
 
@@ -509,7 +509,7 @@ describe('pipeline base lifecycle', () => {
     const before = snapshot(pipelinePayload);
     const result = await new ExtractionService().process(pipelinePayload);
     const extractedFields = await ExtractedField.findAll({
-      include: [{ model: SubmissionDocument, as: 'document', where: { submissionId: queuedSubmission.id } }],
+      include: [{ model: SubmissionOutput, as: 'document', where: { submissionId: queuedSubmission.id } }],
     });
 
     pipelinePayload.extraction = result;

@@ -17,3 +17,5 @@ export * as crestaZonesApi from './crestaZones';
 export * as pipelineApi from './pipeline';
 export * as seedApi from './seed';
 export * as registrationApi from './registration';
+export * as socialApi from './social';
+export * as socialMessagesApi from './socialMessages';

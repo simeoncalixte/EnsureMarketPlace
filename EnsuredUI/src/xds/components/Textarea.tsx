@@ -2,17 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from '../colors'
 import { spacing, radii, typography } from '../tokens'
+import { baseFieldStyles } from './Input'
 
 export type XdsTextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
+// A real <textarea> that inherits the shared width + base chrome via baseFieldStyles,
+// then adds the multi-line typography, resize, and state styling.
 const StyledTextarea = styled.textarea`
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid ${colors.outlineVariant};
+  ${baseFieldStyles}
   padding: ${spacing.sm}px 0;
-  color: ${colors.text.primary};
-  outline: none;
   font-family: ${typography.fontFamily};
   font-size: ${typography.sizes.md}px;
   line-height: 1.5;

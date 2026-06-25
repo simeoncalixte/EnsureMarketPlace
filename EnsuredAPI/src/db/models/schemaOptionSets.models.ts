@@ -1,0 +1,123 @@
+import {
+  CreationOptional,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  Sequelize,
+} from 'sequelize';
+
+/**
+ * Selection-option storage for generated forms — the lazy-loaded backing for
+ * `select`/`radio` fields the schema-generation stage produces.
+ *
+ * Why a table instead of inlining the options on the field: an AI-generated form
+ * (and the reusable PageTemplate it is promoted into) can carry many choice
+ * fields, some with long option lists. Embedding every list in the form
+ * definition bloats every render of the page. Instead the stage extracts each
+ * field's options into a SchemaOptionSet (header) + SchemaOptionSetItem rows (the
+ * label/value pairs) and leaves only an `optionSetKey` reference on the field; the
+ * UI fetches the items on demand the first time it renders that field.
+ *
+ * A set is keyed by (organizationId, optionSetKey) so repeated submissions of the
+ * same line of business reuse — and refresh — the same set rather than spawning
+ * duplicates. Items are snake_case columns (underscored model), mirroring the
+ * other recent domains.
+ */
+
+/** The minimum an item carries: a value and a human label. */
+export type SchemaOptionItem = {
+  value: string;
+  label: string;
+};
+
+export const schemaOptionSetSources = ['ai', 'human'] as const;
+
+export class SchemaOptionSet extends Model<
+  InferAttributes<SchemaOptionSet>,
+  InferCreationAttributes<SchemaOptionSet>
+> {
+  declare id: CreationOptional<number>;
+  declare organizationId: number | null;
+  /** Stable identifier a form field references via `optionSetKey`. */
+  declare optionSetKey: string;
+  /** Human label for the set (usually the originating field's label). */
+  declare label: string | null;
+  /** The line of business / sub-type the set was generated for (for reuse keying). */
+  declare lineOfBusinessCode: CreationOptional<string>;
+  declare lineOfBusinessSubTypeCode: CreationOptional<string>;
+  /** The form field key the set was derived from (provenance only). */
+  declare fieldKey: string | null;
+  declare source: CreationOptional<(typeof schemaOptionSetSources)[number]>;
+  /**
+   * Overlay model (multi-tenant): on a TENANT set (organizationId != null), the
+   * `value`s of GLOBAL (organizationId = null) items this tenant has hidden. Lets a
+   * tenant suppress a default option without copying the whole set, so new global
+   * defaults still flow through. Empty/ignored on the global set itself.
+   */
+  declare hiddenValues: CreationOptional<string[]>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+}
+
+export class SchemaOptionSetItem extends Model<
+  InferAttributes<SchemaOptionSetItem>,
+  InferCreationAttributes<SchemaOptionSetItem>
+> {
+  declare id: CreationOptional<number>;
+  declare optionSetId: number;
+  declare value: string;
+  declare label: string;
+  declare order: CreationOptional<number>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+}
+
+export function initSchemaOptionSetModels(sequelize: Sequelize): void {
+  SchemaOptionSet.init(
+    {
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
+      optionSetKey: { type: DataTypes.STRING, allowNull: false, field: 'option_set_key' },
+      label: { type: DataTypes.STRING, allowNull: true },
+      lineOfBusinessCode: { type: DataTypes.STRING, allowNull: false, defaultValue: '', field: 'line_of_business_code' },
+      lineOfBusinessSubTypeCode: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: '',
+        field: 'line_of_business_sub_type_code',
+      },
+      fieldKey: { type: DataTypes.STRING, allowNull: true, field: 'field_key' },
+      source: { type: DataTypes.STRING, allowNull: false, defaultValue: 'ai', validate: { isIn: [schemaOptionSetSources] } },
+      hiddenValues: { type: DataTypes.JSONB, allowNull: false, defaultValue: [], field: 'hidden_values' },
+      createdAt: { type: DataTypes.DATE, allowNull: true, field: 'created_at' },
+      updatedAt: { type: DataTypes.DATE, allowNull: true, field: 'updated_at' },
+    },
+    {
+      sequelize,
+      modelName: 'SchemaOptionSet',
+      tableName: 'schema_option_sets',
+      underscored: true,
+      indexes: [{ unique: true, fields: ['organization_id', 'option_set_key'] }],
+    },
+  );
+
+  SchemaOptionSetItem.init(
+    {
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      optionSetId: { type: DataTypes.INTEGER, allowNull: false, field: 'option_set_id' },
+      value: { type: DataTypes.STRING, allowNull: false },
+      label: { type: DataTypes.STRING, allowNull: false },
+      order: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+      createdAt: { type: DataTypes.DATE, allowNull: true, field: 'created_at' },
+      updatedAt: { type: DataTypes.DATE, allowNull: true, field: 'updated_at' },
+    },
+    {
+      sequelize,
+      modelName: 'SchemaOptionSetItem',
+      tableName: 'schema_option_set_items',
+      underscored: true,
+      indexes: [{ fields: ['option_set_id'] }],
+    },
+  );
+}

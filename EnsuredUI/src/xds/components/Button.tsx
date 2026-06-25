@@ -94,6 +94,11 @@ const sizeStyles = (size: XdsButtonSize) => {
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
   border-radius: ${radii.md}px;
   cursor: pointer;
   font-weight: ${typography.weights.semibold};

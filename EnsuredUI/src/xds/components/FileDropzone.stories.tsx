@@ -4,7 +4,7 @@ import { within, userEvent, expect, fn } from '@storybook/test'
 import FileDropzone from './FileDropzone'
 
 const meta: Meta<typeof FileDropzone> = {
-  title: 'XDS/FileDropzone',
+  title: 'XDS/Form/FileDropzone',
   component: FileDropzone
 }
 

@@ -5,7 +5,7 @@ import SelectionCard from './SelectionCard'
 import { colors } from '../colors'
 
 const meta: Meta<typeof SelectionCard> = {
-  title: 'XDS/SelectionCard',
+  title: 'XDS/Form/SelectionCard',
   component: SelectionCard,
   args: {
     title: 'Institutional',

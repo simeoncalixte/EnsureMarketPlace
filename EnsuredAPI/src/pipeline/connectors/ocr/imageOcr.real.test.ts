@@ -26,7 +26,7 @@ const IMAGES = [
   { file: 'scan-loss-run.png', tokens: ['BETA MANUFACTURING', 'CLM-7788'] },
 ];
 
-realDescribe('real image OCR (RUN_REAL_OCR=1)', () => {
+realDescribe('real image OCR (RUN_REAL_LLM=1)', () => {
   jest.setTimeout(180_000);
 
   describe('Tesseract (local engine, high-precision OFF)', () => {

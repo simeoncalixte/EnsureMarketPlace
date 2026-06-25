@@ -74,6 +74,13 @@ describe('buildSemanticInput', () => {
     expect(input.rules).toContain('Excluded perils: flood');
     expect(input.rules).toContain('cap: limit lte 10');
   });
+
+  test('threads the computed data quality score through (so the agent can assess it)', () => {
+    const scored: ValidationFields = { ...fields, appetite: { ...fields.appetite, dataQualityScore: 72 } };
+    const input = buildSemanticInput(scored, null);
+    expect(input.dataQualityScore).toBe(72);
+    expect(buildJudgeMessages(input).user).toMatch(/"dataQualityScore": 72/);
+  });
 });
 
 describe('buildJudgeMessages', () => {

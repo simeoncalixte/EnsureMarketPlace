@@ -1,6 +1,24 @@
 import { asNumber, asText, firstNonEmpty, toRecord } from './coerce';
 import { toDomain } from './scrub';
 import { AppetiteFields, AppetiteResult, AppetiteDecisions } from './appetiteEngine';
+import { lineOfBusinessTaxonomy } from '../../db/seed-data/lineOfBusinessTaxonomy';
+
+/** Canonical line-of-business codes, for the riskType→LOB fallback below. */
+const LOB_CODE_SET = new Set(lineOfBusinessTaxonomy.map((primary) => primary.code));
+
+/**
+ * `riskType` is overloaded (it often holds a peril like 'wind'/'flood'), but when
+ * it equals a canonical LOB code — e.g. 'property' — it is a valid line-of-business
+ * fallback for when classification produced none. Non-LOB perils are NOT promoted
+ * to a line of business (that would invent an "allowed LOB" the org never set).
+ */
+function riskTypeAsLineOfBusiness(...candidates: unknown[]): string | null {
+  for (const candidate of candidates) {
+    const text = asText(candidate);
+    if (text && LOB_CODE_SET.has(text.toLowerCase().replace(/\s+/g, '_'))) return text;
+  }
+  return null;
+}
 import {
   DATA_QUALITY_WEIGHTS,
   ScrubFinding,
@@ -31,7 +49,18 @@ export function extractValidationFields(payload: unknown): ValidationFields {
     limit: asNumber(firstNonEmpty(normalized.limit, extracted.limit, extracted.dealSize, extracted.notional)),
     expectedYield: asNumber(firstNonEmpty(normalized.expectedYield, extracted.expectedYield, extracted.expectedReturn)),
     jurisdiction: asText(firstNonEmpty(normalized.jurisdiction, extracted.jurisdiction, normalized.country, extracted.country, address)),
-    lineOfBusiness: asText(firstNonEmpty(normalized.lineOfBusiness, extracted.lineOfBusiness)),
+    lineOfBusiness: asText(
+      firstNonEmpty(
+        normalized.lineOfBusiness,
+        extracted.lineOfBusiness,
+        // Fall back to the classification CODE, then to riskType when it is itself
+        // a valid LOB code — so a 'property' riskType is no longer reported as a
+        // null line of business.
+        normalized.lineOfBusinessCode,
+        extracted.lineOfBusinessCode,
+        riskTypeAsLineOfBusiness(normalized.riskType, extracted.riskType, extracted.perilType),
+      ),
+    ),
     dataQualityScore: null,
   };
 
@@ -43,6 +72,22 @@ export function findMissingRequired(fields: ValidationFields, requiredFields: re
   return requiredFields.filter(
     (field) => asText(firstNonEmpty(fields.normalized[field], fields.extracted[field])) === null,
   );
+}
+
+/**
+ * Wire the locationDiscovery stage into the hygiene signals: a location the
+ * geocoder actually resolved is authoritative over the crude `looksLikeAddress`
+ * heuristic, which rejects legitimate city-only locations like "Miami".
+ * Strictly an upgrade — geocode results never invalidate an address the
+ * heuristic already accepted. (pure)
+ */
+export function applyGeocodeSignal(signals: ScrubSignals, locationDiscovery: unknown): ScrubSignals {
+  if (signals.addressValid) return signals;
+  const ld = toRecord(locationDiscovery);
+  if (ld.ok !== true) return signals;
+  const resolved = asNumber(ld.resolved);
+  if (resolved === null || resolved <= 0) return signals;
+  return { ...signals, addressValid: true, provider: `${signals.provider}+geocode` };
 }
 
 /** Scrub findings derived from the hygiene signals — the single source of truth. (pure) */

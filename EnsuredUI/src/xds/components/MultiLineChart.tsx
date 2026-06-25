@@ -11,7 +11,9 @@ import {
   YAxis,
 } from 'recharts';
 import type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
-import { colors } from '../colors';
+// recharts applies colors as SVG presentation attributes, which can't resolve
+// `var()`; use the concrete-resolving palette (still re-reads on theme change).
+import { rawColors as colors } from '../colors';
 
 export interface LineSeries {
   key: string;

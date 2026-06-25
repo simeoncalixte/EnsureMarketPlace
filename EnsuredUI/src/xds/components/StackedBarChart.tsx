@@ -10,7 +10,9 @@ import {
   YAxis,
 } from 'recharts';
 import type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
-import { colors } from '../colors';
+// recharts applies colors as SVG presentation attributes, which can't resolve
+// `var()`; use the concrete-resolving palette (still re-reads on theme change).
+import { rawColors as colors } from '../colors';
 
 export interface BarSeries {
   key: string;
@@ -28,13 +30,6 @@ interface Props {
   height?: number;
 }
 
-const TOOLTIP_STYLE = {
-  background: colors.surfacePanel,
-  border: `1px solid ${colors.surfaceHigh}`,
-  borderRadius: 4,
-  fontSize: 11,
-};
-
 export default function StackedBarChart({
   data,
   xKey,
@@ -51,6 +46,14 @@ export default function StackedBarChart({
       </div>
     );
   }
+
+  // Resolved per render so it follows the active theme.
+  const tooltipStyle = {
+    background: colors.surfacePanel,
+    border: `1px solid ${colors.surfaceHigh}`,
+    borderRadius: 4,
+    fontSize: 11,
+  };
 
   const yFmt = yFormatter ?? ((v: number) => {
     const abs = Math.abs(v);
@@ -78,7 +81,7 @@ export default function StackedBarChart({
             tickLine={false}
           />
           <Tooltip
-            contentStyle={TOOLTIP_STYLE}
+            contentStyle={tooltipStyle}
             labelStyle={{ color: colors.neutral[400] }}
             formatter={(value: ValueType | undefined, name: NameType | undefined) => {
               const key = String(name ?? '');

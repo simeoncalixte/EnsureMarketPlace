@@ -12,7 +12,7 @@ import {
  *
  * The original schema FK'd `extracted_fields.document_id` to the legacy
  * `documents` table, but the extraction stage writes the id of a
- * SubmissionDocument row (physical table `submission_outputs`). This test
+ * SubmissionOutput row (physical table `submission_outputs`). This test
  * recreates that exact production schema, proves the insert fails, runs the
  * repointing migration, and proves the insert then succeeds against
  * `submission_outputs`.

@@ -37,7 +37,7 @@ export type CanonicalizePinOutcome =
 
 export type CanonicalizeAndPinParams = {
   submissionId: number;
-  tenantId: number | null;
+  organizationId: number | null;
   /** The canonical data to persist (the normalized/extracted record). */
   data: Record<string, unknown>;
   /** Optional free-text / structured LOB hints pulled from the data. */
@@ -112,14 +112,14 @@ export async function canonicalizeAndPin(
   // Resolve the pin. ALL of this is guarded; on any error we degrade to no pin.
   let pinId: number | null = existingPinId;
   if (existingPinId == null) {
-    pinId = await resolveFirstTimePin(params.tenantId, derived.primaryCode, derived.subTypeCode, pageKey);
+    pinId = await resolveFirstTimePin(params.organizationId, derived.primaryCode, derived.subTypeCode, pageKey);
   }
 
   // Persist the canonical row (data + taxonomy codes + pin). This is the canonical
   // write. Codes are stamped additively; they are null when underived.
   const persisted = await upsertCanonical(existing, {
     submissionId: params.submissionId,
-    tenantId: params.tenantId,
+    organizationId: params.organizationId,
     data: params.data,
     lineOfBusinessCode: derived.primaryCode,
     lineOfBusinessSubTypeCode: derived.subTypeCode,
@@ -150,7 +150,7 @@ export async function canonicalizeAndPin(
  * the latest published version. Fully guarded: any error ⇒ null (no pin).
  */
 async function resolveFirstTimePin(
-  tenantId: number | null,
+  organizationId: number | null,
   primaryCode: string | null,
   subTypeCode: string | null,
   pageKey: string,
@@ -164,14 +164,14 @@ async function resolveFirstTimePin(
 
     // Slice-2 registry resolution gives us the declared active_schema_version_id
     // (or null). It is total and never throws.
-    const resolution = await resolveRiskClass(tenantId, primaryCode, subType || null);
+    const resolution = await resolveRiskClass(organizationId, primaryCode, subType || null);
 
     // Candidate published versions for the exact scope. Try the subtype scope
     // first; if the submission has no subtype (or none published), fall back to the
     // primary-only scope (subtype === '').
-    let candidates = await loadPublishedVersions(tenantId, primaryCode, subType, pageKey);
+    let candidates = await loadPublishedVersions(organizationId, primaryCode, subType, pageKey);
     if (candidates.length === 0 && subType) {
-      candidates = await loadPublishedVersions(tenantId, primaryCode, '', pageKey);
+      candidates = await loadPublishedVersions(organizationId, primaryCode, '', pageKey);
     }
 
     const decision = derivePin({
@@ -220,7 +220,7 @@ async function upsertCanonical(
   existing: CanonicalSubmission | null,
   values: {
     submissionId: number;
-    tenantId: number | null;
+    organizationId: number | null;
     data: Record<string, unknown>;
     lineOfBusinessCode: string | null;
     lineOfBusinessSubTypeCode: string | null;
@@ -230,7 +230,7 @@ async function upsertCanonical(
   if (!existing) {
     return CanonicalSubmission.create({
       submissionId: values.submissionId,
-      tenantId: values.tenantId,
+      organizationId: values.organizationId,
       data: values.data,
       version: 1,
       schemaVersionId: values.schemaVersionId,
@@ -240,7 +240,7 @@ async function upsertCanonical(
   }
 
   existing.data = values.data;
-  existing.tenantId = values.tenantId ?? existing.tenantId;
+  existing.organizationId = values.organizationId ?? existing.organizationId;
   // Replay preserves the original pin: only stamp when not already pinned.
   if (existing.schemaVersionId == null) {
     existing.schemaVersionId = values.schemaVersionId;

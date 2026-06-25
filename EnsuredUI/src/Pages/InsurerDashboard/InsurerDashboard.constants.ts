@@ -19,9 +19,10 @@ export const subjectLocationFieldHints = [
 ];
 
 export const createDealSectionTabs: Array<{ id: CreateDealSectionId; label: string }> = [
-  { id: 'deal', label: 'Deal Parameters' },
+  { id: 'deal', label: 'General Information' },
   { id: 'financials', label: 'Financials' },
   { id: 'subjects', label: 'Subjects' },
+  { id: 'documents', label: 'Documents' },
   { id: 'tranches', label: 'Tranche Structure' },
   { id: 'validation', label: 'Validation' },
   { id: 'submission', label: 'Submission' },

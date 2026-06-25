@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "storybook": {
+      "command": "/bin/sh",
+      "args": [
+        "-c",
+        "set -a; . ./EnsuredUI/.env; set +a; exec /Users/calixtesimeon/.nvm/versions/node/v24.4.1/bin/npx -y storybook-mcp@latest"
+      ]
+    }
+  }
+}

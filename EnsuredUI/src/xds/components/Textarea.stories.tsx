@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import Textarea from './Textarea'
 
 const meta: Meta<typeof Textarea> = {
-  title: 'XDS/Textarea',
+  title: 'XDS/Form/Input/Textarea',
   component: Textarea
 }
 

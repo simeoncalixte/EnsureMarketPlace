@@ -8,30 +8,22 @@ import Input from '../../xds/components/Input';
 import Checkbox from '../../xds/components/Checkbox';
 import ProgressBar from '../../xds/components/ProgressBar';
 import SegmentedSwitch from '../../xds/components/SegmentedSwitch';
-import CollapsibleSection from '../../xds/components/CollapsibleSection';
+import MultiSelect from '../../xds/components/MultiSelect';
 import Range from '../../xds/components/Range';
-import { MAP_LAYERS } from '../../xds/components/mapLayers';
 import {
   Footer,
   FooterLink,
   DealGrid,
-  DealColumn,
   StatsSection,
   StatCardSurface,
   StatNoteRow,
-  FiltersAside,
-  FilterHeading,
-  FilterStack,
-  FilterFieldStack,
+  MarketplaceBody,
+  FilterBar,
+  FilterField,
+  FilterFieldNarrow,
+  FilterFieldLabel,
+  FilterBarTrailing,
   FilterTwoColGrid,
-  FilterIndent,
-  LayerNote,
-  CheckboxFilterScroll,
-  CheckboxFilterItems,
-  CheckboxFilterMessage,
-  CheckboxFilterFooter,
-  CheckboxFilterCount,
-  CheckboxFilterActions,
   RangeLabels,
   SignalCard,
   SignalTitle,
@@ -59,7 +51,6 @@ import {
   TickerItem,
   TickerDot,
   FooterStat,
-  FlexRow,
   AggregatedCardsStack,
   AggregatedDealCard,
   AggregatedAccentBar,
@@ -255,7 +246,11 @@ export type MapLayerControlProps = {
   onToggle3D: () => void;
 };
 
-/** Supporting geographic context for the deal list. Controls live in the filter rail. */
+/**
+ * Supporting geographic context for the deal list. The layer + facet controls
+ * ride on the map's own toolbar; the page drives them as controlled props so
+ * markers and toolbar stay in sync. (The 3D toggle lives in the filter bar.)
+ */
 export function MarketplaceMapSection({
   mapPoints,
   onPointClick,
@@ -272,7 +267,7 @@ export function MarketplaceMapSection({
       <MapPanel
         points={mapPoints}
         onPointClick={onPointClick}
-        showLayerBar={false}
+        showLayerBar
         layersEnabled={layers.layersEnabled}
         onToggleLayer={layers.onToggleLayer}
         layerFacets={layers.layerFacets}
@@ -284,6 +279,7 @@ export function MarketplaceMapSection({
   );
 }
 
+/** Vertical page body: the horizontal filter bar above the market data. */
 export function MarketplaceBodyLayout({
   filters,
   deals,
@@ -292,98 +288,10 @@ export function MarketplaceBodyLayout({
   deals: React.ReactNode;
 }) {
   return (
-    <FlexRow>
+    <MarketplaceBody>
       {filters}
-      <DealColumn>{deals}</DealColumn>
-    </FlexRow>
-  );
-}
-
-function useDebouncedValue(value: string, delayMs: number): string {
-  const [debounced, setDebounced] = useState(value);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDebounced(value);
-    }, delayMs);
-
-    return () => clearTimeout(timeout);
-  }, [value, delayMs]);
-
-  return debounced;
-}
-
-/**
- * Page-local composite: a searchable, scrollable list of checkboxes with a
- * sticky select-all / clear footer. Built from xds Checkbox + Button primitives.
- */
-function CheckboxFilterList({
-  isLoading,
-  error,
-  hasMetadata,
-  items,
-  selectedKeys,
-  selectedCount,
-  onToggle,
-  onSelectAll,
-  onClear,
-  loadingText,
-  errorFallback,
-  emptyMetadataText,
-  emptyFilteredText,
-}: {
-  isLoading: boolean;
-  error: string | null;
-  hasMetadata: boolean;
-  items: Array<{ key: string; label: string }>;
-  selectedKeys: Set<string>;
-  selectedCount: number;
-  onToggle: (key: string) => void;
-  onSelectAll: () => void;
-  onClear: () => void;
-  loadingText: string;
-  errorFallback: string;
-  emptyMetadataText: string;
-  emptyFilteredText: string;
-}) {
-  const showFooter = !isLoading && !error && items.length > 0;
-
-  return (
-    <CheckboxFilterScroll>
-      <CheckboxFilterItems>
-        {isLoading ? (
-          <CheckboxFilterMessage>{loadingText}</CheckboxFilterMessage>
-        ) : error ? (
-          <CheckboxFilterMessage>{error || errorFallback}</CheckboxFilterMessage>
-        ) : !hasMetadata ? (
-          <CheckboxFilterMessage>{emptyMetadataText}</CheckboxFilterMessage>
-        ) : items.length === 0 ? (
-          <CheckboxFilterMessage>{emptyFilteredText}</CheckboxFilterMessage>
-        ) : (
-          items.map((item) => (
-            <Checkbox
-              key={item.key}
-              label={item.label}
-              checked={selectedKeys.has(item.key)}
-              onChange={() => onToggle(item.key)}
-            />
-          ))
-        )}
-      </CheckboxFilterItems>
-      {showFooter ? (
-        <CheckboxFilterFooter>
-          <CheckboxFilterCount>{selectedCount} selected</CheckboxFilterCount>
-          <CheckboxFilterActions>
-            <Button variant="text" size="sm" onClick={onClear}>
-              Clear
-            </Button>
-            <Button variant="text" size="sm" onClick={onSelectAll}>
-              Select All
-            </Button>
-          </CheckboxFilterActions>
-        </CheckboxFilterFooter>
-      ) : null}
-    </CheckboxFilterScroll>
+      {deals}
+    </MarketplaceBody>
   );
 }
 
@@ -430,149 +338,59 @@ export function MarketplaceFiltersSection({
   mapLayers: MapLayerControlProps;
   events: LiveRiskEvent[];
 }) {
-  const [lineOfBusinessQuery, setLineOfBusinessQuery] = useState('');
-  const [subTypeQuery, setSubTypeQuery] = useState('');
-  const [collapsedSections, setCollapsedSections] = useState({
-    lineOfBusiness: true,
-    subTypes: true,
-    duration: true,
-    expectedYield: true,
-    mapLayers: false,
-  });
+  const lineOfBusinessOptions = useMemo(
+    () =>
+      primaryTypes.map((primaryType) => ({
+        value: primaryTypeKey(primaryType),
+        label: primaryType.label,
+      })),
+    [primaryTypes]
+  );
 
-  const debouncedLineOfBusinessQuery = useDebouncedValue(lineOfBusinessQuery, 250);
-  const debouncedSubTypeQuery = useDebouncedValue(subTypeQuery, 250);
-
-  const normalizedLineOfBusinessQuery = debouncedLineOfBusinessQuery
-    .trim()
-    .toLowerCase();
-  const normalizedSubTypeQuery = debouncedSubTypeQuery.trim().toLowerCase();
-
-  const filteredPrimaryTypes = useMemo(() => {
-    if (!normalizedLineOfBusinessQuery) {
-      return primaryTypes;
-    }
-
-    return primaryTypes.filter((primaryType) =>
-      primaryType.label.toLowerCase().includes(normalizedLineOfBusinessQuery)
-    );
-  }, [primaryTypes, normalizedLineOfBusinessQuery]);
-
-  const allSubTypes = useMemo(
+  const subTypeOptions = useMemo(
     () =>
       primaryTypes.flatMap((primaryType) =>
         primaryType.subTypes.map((subType) => ({
-          key: subTypeKey(primaryType, subType),
+          value: subTypeKey(primaryType, subType),
           label: `${primaryType.label} - ${subType.label}`,
         }))
       ),
     [primaryTypes]
   );
 
-  const filteredSubTypes = useMemo(() => {
-    if (!normalizedSubTypeQuery) {
-      return allSubTypes;
-    }
-
-    return allSubTypes.filter((subType) =>
-      subType.label.toLowerCase().includes(normalizedSubTypeQuery)
-    );
-  }, [allSubTypes, normalizedSubTypeQuery]);
-
-  const lineOfBusinessItems = useMemo(
-    () =>
-      filteredPrimaryTypes.map((primaryType) => ({
-        key: primaryTypeKey(primaryType),
-        label: primaryType.label,
-      })),
-    [filteredPrimaryTypes]
-  );
-
-  const allPrimaryKeys = useMemo(
-    () => lineOfBusinessItems.map((item) => item.key),
-    [lineOfBusinessItems]
-  );
-  const allFilteredSubtypeKeys = useMemo(
-    () => filteredSubTypes.map((subType) => subType.key),
-    [filteredSubTypes]
-  );
-
-  const selectedLineOfBusinessCount = allPrimaryKeys.filter((key) =>
-    selectedLineOfBusiness.has(key)
-  ).length;
-  const selectedSubTypeCount = allFilteredSubtypeKeys.filter((key) =>
-    selectedSubTypes.has(key)
-  ).length;
-
-  const toggleLineOfBusinessSelection = (key: string) => {
-    onSelectedLineOfBusinessChange((prev) => {
+  const toggleSelection = (
+    onChange: React.Dispatch<React.SetStateAction<Set<string>>>,
+    value: string
+  ) => {
+    onChange((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
+      if (next.has(value)) {
+        next.delete(value);
       } else {
-        next.add(key);
+        next.add(value);
       }
       return next;
     });
   };
 
-  const toggleSubTypeSelection = (key: string) => {
-    onSelectedSubTypesChange((prev) => {
+  const addValues = (
+    onChange: React.Dispatch<React.SetStateAction<Set<string>>>,
+    values: string[]
+  ) => {
+    onChange((prev) => new Set([...prev, ...values]));
+  };
+
+  const removeValues = (
+    onChange: React.Dispatch<React.SetStateAction<Set<string>>>,
+    values: string[]
+  ) => {
+    onChange((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
+      for (const value of values) {
+        next.delete(value);
       }
       return next;
     });
-  };
-
-  const selectAllLineOfBusiness = () => {
-    onSelectedLineOfBusinessChange((prev) => {
-      const next = new Set(prev);
-      for (const key of allPrimaryKeys) {
-        next.add(key);
-      }
-      return next;
-    });
-  };
-
-  const clearLineOfBusiness = () => {
-    onSelectedLineOfBusinessChange((prev) => {
-      const next = new Set(prev);
-      for (const key of allPrimaryKeys) {
-        next.delete(key);
-      }
-      return next;
-    });
-  };
-
-  const selectAllSubTypes = () => {
-    onSelectedSubTypesChange((prev) => {
-      const next = new Set(prev);
-      for (const key of allFilteredSubtypeKeys) {
-        next.add(key);
-      }
-      return next;
-    });
-  };
-
-  const clearSubTypes = () => {
-    onSelectedSubTypesChange((prev) => {
-      const next = new Set(prev);
-      for (const key of allFilteredSubtypeKeys) {
-        next.delete(key);
-      }
-      return next;
-    });
-  };
-
-  const toggleSection = (section: keyof typeof collapsedSections) => {
-    setCollapsedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
   };
 
   const topEvent = useMemo(() => {
@@ -587,176 +405,108 @@ export function MarketplaceFiltersSection({
   }, [events]);
 
   return (
-    <FiltersAside>
-      <div>
-        <FilterHeading>
-          <span className="material-symbols-outlined">filter_list</span>
-          Contract Properties
-        </FilterHeading>
-        <FilterStack>
-          <CollapsibleSection
-            title="Line of Business"
-            collapsed={collapsedSections.lineOfBusiness}
-            onToggle={() => toggleSection('lineOfBusiness')}
-          >
-            <FilterFieldStack>
-              <Input
-                placeholder="Search line of business..."
-                value={lineOfBusinessQuery}
-                onChange={(event) => setLineOfBusinessQuery(event.target.value)}
-              />
-              <CheckboxFilterList
-                isLoading={isLoadingTaxonomy}
-                error={taxonomyError}
-                hasMetadata={primaryTypes.length > 0}
-                items={lineOfBusinessItems}
-                selectedKeys={selectedLineOfBusiness}
-                selectedCount={selectedLineOfBusinessCount}
-                onToggle={toggleLineOfBusinessSelection}
-                onSelectAll={selectAllLineOfBusiness}
-                onClear={clearLineOfBusiness}
-                loadingText="Loading line of business values..."
-                errorFallback="Unable to load line of business values."
-                emptyMetadataText="No line of business metadata available."
-                emptyFilteredText="No line of business matches your search."
-              />
-            </FilterFieldStack>
-          </CollapsibleSection>
+    <FilterBar>
+      <FilterField>
+        <FilterFieldLabel>Line of Business</FilterFieldLabel>
+        <MultiSelect
+          label="Line of Business"
+          placeholder="Any line of business"
+          searchPlaceholder="Search line of business…"
+          options={lineOfBusinessOptions}
+          selected={selectedLineOfBusiness}
+          onToggle={(value) =>
+            toggleSelection(onSelectedLineOfBusinessChange, value)
+          }
+          onSelectAll={(values) =>
+            addValues(onSelectedLineOfBusinessChange, values)
+          }
+          onClear={(values) =>
+            removeValues(onSelectedLineOfBusinessChange, values)
+          }
+          isLoading={isLoadingTaxonomy}
+          error={taxonomyError}
+          loadingText="Loading line of business values…"
+          emptyText="No line of business metadata available."
+          noMatchText="No line of business matches your search."
+        />
+      </FilterField>
 
-          <CollapsibleSection
-            title="Sub Types"
-            collapsed={collapsedSections.subTypes}
-            onToggle={() => toggleSection('subTypes')}
-          >
-            <FilterFieldStack>
-              <Input
-                placeholder="Search sub types..."
-                value={subTypeQuery}
-                onChange={(event) => setSubTypeQuery(event.target.value)}
-              />
-              <CheckboxFilterList
-                isLoading={isLoadingTaxonomy}
-                error={taxonomyError}
-                hasMetadata={allSubTypes.length > 0}
-                items={filteredSubTypes}
-                selectedKeys={selectedSubTypes}
-                selectedCount={selectedSubTypeCount}
-                onToggle={toggleSubTypeSelection}
-                onSelectAll={selectAllSubTypes}
-                onClear={clearSubTypes}
-                loadingText="Loading subtype values..."
-                errorFallback="Unable to load subtype values."
-                emptyMetadataText="No subtype metadata available."
-                emptyFilteredText="No subtype matches your search."
-              />
-            </FilterFieldStack>
-          </CollapsibleSection>
+      <FilterField>
+        <FilterFieldLabel>Sub Types</FilterFieldLabel>
+        <MultiSelect
+          label="Sub Types"
+          placeholder="Any sub type"
+          searchPlaceholder="Search sub types…"
+          options={subTypeOptions}
+          selected={selectedSubTypes}
+          onToggle={(value) => toggleSelection(onSelectedSubTypesChange, value)}
+          onSelectAll={(values) => addValues(onSelectedSubTypesChange, values)}
+          onClear={(values) => removeValues(onSelectedSubTypesChange, values)}
+          isLoading={isLoadingTaxonomy}
+          error={taxonomyError}
+          loadingText="Loading subtype values…"
+          emptyText="No subtype metadata available."
+          noMatchText="No subtype matches your search."
+        />
+      </FilterField>
 
-          <CollapsibleSection
-            title="Duration (Months)"
-            collapsed={collapsedSections.duration}
-            onToggle={() => toggleSection('duration')}
-          >
-            <Range
-              min={DURATION_MONTHS_MIN}
-              max={DURATION_MONTHS_MAX}
-              step={1}
-              value={maxDurationMonths}
-              onChange={(event) =>
-                onMaxDurationChange(Number(event.target.value))
-              }
-              aria-label="Maximum duration in months"
-            />
-            <RangeLabels>
-              <span>3M</span>
-              <span>12M</span>
-              <span>24M</span>
-              <span>36M</span>
-            </RangeLabels>
-            <LayerNote>
-              {maxDurationMonths >= DURATION_MONTHS_MAX
-                ? 'Any duration'
-                : `Up to ${maxDurationMonths} months`}
-            </LayerNote>
-          </CollapsibleSection>
+      <FilterFieldNarrow>
+        <FilterFieldLabel>
+          Max Duration ·{' '}
+          {maxDurationMonths >= DURATION_MONTHS_MAX
+            ? 'Any'
+            : `${maxDurationMonths}M`}
+        </FilterFieldLabel>
+        <Range
+          min={DURATION_MONTHS_MIN}
+          max={DURATION_MONTHS_MAX}
+          step={1}
+          value={maxDurationMonths}
+          onChange={(event) => onMaxDurationChange(Number(event.target.value))}
+          aria-label="Maximum duration in months"
+        />
+        <RangeLabels>
+          <span>3M</span>
+          <span>12M</span>
+          <span>24M</span>
+          <span>36M</span>
+        </RangeLabels>
+      </FilterFieldNarrow>
 
-          <CollapsibleSection
-            title="Expected Yield (%)"
-            collapsed={collapsedSections.expectedYield}
-            onToggle={() => toggleSection('expectedYield')}
-          >
-            <FilterTwoColGrid>
-              <Input
-                placeholder="Min"
-                type="number"
-                inputMode="decimal"
-                value={yieldMin}
-                onChange={(event) => onYieldMinChange(event.target.value)}
-                aria-label="Minimum expected yield"
-              />
-              <Input
-                placeholder="Max"
-                type="number"
-                inputMode="decimal"
-                value={yieldMax}
-                onChange={(event) => onYieldMaxChange(event.target.value)}
-                aria-label="Maximum expected yield"
-              />
-            </FilterTwoColGrid>
-          </CollapsibleSection>
+      <FilterFieldNarrow>
+        <FilterFieldLabel>Expected Yield (%)</FilterFieldLabel>
+        <FilterTwoColGrid>
+          <Input
+            placeholder="Min"
+            type="number"
+            inputMode="decimal"
+            value={yieldMin}
+            onChange={(event) => onYieldMinChange(event.target.value)}
+            aria-label="Minimum expected yield"
+          />
+          <Input
+            placeholder="Max"
+            type="number"
+            inputMode="decimal"
+            value={yieldMax}
+            onChange={(event) => onYieldMaxChange(event.target.value)}
+            aria-label="Maximum expected yield"
+          />
+        </FilterTwoColGrid>
+      </FilterFieldNarrow>
 
+      {showMap || topEvent ? (
+        <FilterBarTrailing>
           {showMap ? (
-            <CollapsibleSection
-              title="Map Layers"
-              collapsed={collapsedSections.mapLayers}
-              onToggle={() => toggleSection('mapLayers')}
-            >
-              <FilterFieldStack>
-                {MAP_LAYERS.map((layer) => (
-                  <div key={layer.id}>
-                    <Checkbox
-                      label={layer.label}
-                      checked={Boolean(mapLayers.layersEnabled[layer.id])}
-                      onChange={() => mapLayers.onToggleLayer(layer.id)}
-                    />
-                    <FilterIndent>
-                      <LayerNote>
-                        {layer.note(mapLayers.layerCounts[layer.id] ?? null)}
-                      </LayerNote>
-                      {layer.filter && mapLayers.layersEnabled[layer.id]
-                        ? layer.filter.options.map((option) => (
-                            <Checkbox
-                              key={option.value}
-                              label={option.label}
-                              checked={(mapLayers.layerFacets[layer.id] ?? []).includes(
-                                option.value
-                              )}
-                              onChange={() =>
-                                mapLayers.onToggleLayerFacet(layer.id, option.value)
-                              }
-                            />
-                          ))
-                        : null}
-                    </FilterIndent>
-                  </div>
-                ))}
-                <Checkbox
-                  label="3D Buildings"
-                  checked={mapLayers.is3D}
-                  onChange={mapLayers.onToggle3D}
-                />
-              </FilterFieldStack>
-            </CollapsibleSection>
+            <Checkbox
+              label="3D Buildings"
+              checked={mapLayers.is3D}
+              onChange={mapLayers.onToggle3D}
+            />
           ) : null}
-        </FilterStack>
-      </div>
-      {topEvent ? (
-        <SignalCard>
-          <SignalTitle>Live Risk Signal</SignalTitle>
-          <SignalText>{formatTickerEvent(topEvent)}</SignalText>
-        </SignalCard>
+        </FilterBarTrailing>
       ) : null}
-    </FiltersAside>
+    </FilterBar>
   );
 }
 

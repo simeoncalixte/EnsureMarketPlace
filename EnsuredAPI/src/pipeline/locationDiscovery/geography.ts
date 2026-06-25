@@ -34,7 +34,7 @@ const EMPTY: ResolvedGeography = { addressId: null, countryId: null, stateProvin
  */
 export async function resolveAndPersistGeography(
   location: NormalizedLocation,
-  tenantId: number | null,
+  organizationId: number | null,
 ): Promise<ResolvedGeography> {
   try {
     const countryId = await resolveCountryId(location.countryCode);
@@ -48,7 +48,7 @@ export async function resolveAndPersistGeography(
   }
 }
 
-async function resolveCountryId(countryCode: string | null): Promise<number | null> {
+export async function resolveCountryId(countryCode: string | null): Promise<number | null> {
   if (!countryCode) return null;
   const country = await Country.findOne({
     where: { iso2: countryCode.toUpperCase() },
@@ -57,7 +57,7 @@ async function resolveCountryId(countryCode: string | null): Promise<number | nu
   return country?.id ?? null;
 }
 
-async function resolveStateProvinceId(countryId: number | null, state: string | null): Promise<number | null> {
+export async function resolveStateProvinceId(countryId: number | null, state: string | null): Promise<number | null> {
   if (!countryId || !state) return null;
   const trimmed = state.trim();
   const sp = await StateProvince.findOne({
@@ -74,7 +74,7 @@ async function resolveStateProvinceId(countryId: number | null, state: string | 
   return sp?.id ?? null;
 }
 
-async function resolveCityId(
+export async function resolveCityId(
   countryId: number | null,
   stateProvinceId: number | null,
   city: string | null,
@@ -100,7 +100,7 @@ async function resolveCityId(
  * provider supplies one, else the `formattedAddress` text. Existing rows are
  * enriched (never blanked) so a later, higher-confidence geocode can fill gaps.
  */
-async function upsertAddress(
+export async function upsertAddress(
   location: NormalizedLocation,
   ids: { countryId: number | null; stateProvinceId: number | null; cityId: number | null },
 ): Promise<number | null> {

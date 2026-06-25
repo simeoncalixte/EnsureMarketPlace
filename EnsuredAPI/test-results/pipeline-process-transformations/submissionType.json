@@ -1,0 +1,53 @@
+{
+  "process": "submissionType",
+  "generatedAt": "2026-06-23T05:15:52.959Z",
+  "transformationCount": 1,
+  "transformations": [
+    {
+      "process": "submissionType",
+      "stage": "submissionType",
+      "testName": "maps a first-notice-of-loss document to a claim",
+      "description": "OCR text is triaged into a submission/transaction type and subtype.",
+      "before": {
+        "text": "FIRST NOTICE OF LOSS\nDate of Loss: 2026-05-12\nClaimant: Acme Logistics LLC\nAdjuster assigned to review the reported loss."
+      },
+      "after": {
+        "modelVersion": "subtype-keyword-taxonomy-v1",
+        "submissionTypeCode": "claim",
+        "submissionTypeLabel": "Claim / Loss Notice",
+        "submissionSubTypeCode": "claim_first_notice_of_loss",
+        "submissionSubTypeLabel": "First Notice of Loss",
+        "confidence": 0.98,
+        "needsReview": false,
+        "evidence": [
+          "claim",
+          "claim",
+          "notice of loss",
+          "date of loss",
+          "claimant",
+          "adjuster",
+          "reported loss",
+          "First Notice of Loss"
+        ],
+        "alternatives": [
+          {
+            "submissionTypeCode": "cancellation",
+            "submissionTypeLabel": "Cancellation",
+            "score": 0
+          },
+          {
+            "submissionTypeCode": "endorsement",
+            "submissionTypeLabel": "Endorsement",
+            "score": 0
+          },
+          {
+            "submissionTypeCode": "facultative_reinsurance",
+            "submissionTypeLabel": "Facultative Reinsurance",
+            "score": 0
+          }
+        ]
+      },
+      "recordedAt": "2026-06-23T05:15:52.949Z"
+    }
+  ]
+}

@@ -31,6 +31,12 @@ export type OnboardingChecklistProps = {
   steps: OnboardingStep[]
   /** Optional dismiss affordance; the header X only renders when provided. */
   onDismiss?: () => void
+  /**
+   * Compact layout for narrow surfaces (e.g. a ≤400px popover anchored to the
+   * sidebar): tightens padding and stacks each step's action below its body so
+   * nothing overflows. Defaults to the original comfortable layout.
+   */
+  compact?: boolean
   className?: string
 }
 
@@ -109,12 +115,14 @@ const StepRow = styled.li`
   gap: ${spacing.md}px;
 `
 
-const StepCard = styled(Card)<{ $current: boolean }>`
+const StepCard = styled(Card)<{ $current: boolean; $compact: boolean }>`
   flex: 1 1 auto;
+  min-width: 0;
   display: flex;
-  align-items: center;
-  gap: ${spacing.md}px;
-  padding: ${spacing.md}px;
+  align-items: ${({ $compact }) => ($compact ? 'flex-start' : 'center')};
+  flex-direction: ${({ $compact }) => ($compact ? 'column' : 'row')};
+  gap: ${({ $compact }) => ($compact ? spacing.sm : spacing.md)}px;
+  padding: ${({ $compact }) => ($compact ? spacing.sm : spacing.md)}px;
   ${({ $current }) =>
     $current
       ? `box-shadow: 0 0 0 1px ${withAlpha(colors.primary, 0.45)};`
@@ -148,8 +156,9 @@ const StepDescription = styled.span`
   color: ${colors.onSurfaceVariant};
 `
 
-const ActionSlot = styled.div`
+const ActionSlot = styled.div<{ $compact: boolean }>`
   flex: 0 0 auto;
+  ${({ $compact }) => ($compact ? 'align-self: stretch;\n  & > button { width: 100%; }' : '')}
 `
 
 const statusBadge: Record<OnboardingStepStatus, { variant: 'success' | 'info' | 'neutral'; label: string }> = {
@@ -171,6 +180,7 @@ export const OnboardingChecklist: React.FC<OnboardingChecklistProps> = ({
   subtitle,
   steps,
   onDismiss,
+  compact = false,
   className,
 }) => {
   const total = steps.length
@@ -209,7 +219,7 @@ export const OnboardingChecklist: React.FC<OnboardingChecklistProps> = ({
                 readOnly
                 aria-label={`${step.title} ${isComplete ? 'complete' : 'incomplete'}`}
               />
-              <StepCard variant="low" $current={isCurrent}>
+              <StepCard variant="low" $current={isCurrent} $compact={compact}>
                 <StepBody>
                   <StepTitleRow>
                     <StepTitle>{step.title}</StepTitle>
@@ -220,7 +230,7 @@ export const OnboardingChecklist: React.FC<OnboardingChecklistProps> = ({
                   {step.description != null && <StepDescription>{step.description}</StepDescription>}
                 </StepBody>
                 {step.actionLabel && step.onAction && !isComplete && (
-                  <ActionSlot>
+                  <ActionSlot $compact={compact}>
                     <Button
                       type="button"
                       size="sm"

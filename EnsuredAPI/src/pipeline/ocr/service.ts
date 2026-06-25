@@ -10,7 +10,7 @@ export type OcrDocument = {
 
 export type OcrSuccess = {
   submissionId: number;
-  tenantId: number | null;
+  organizationId: number | null;
   text: string;
   documents: OcrDocument[];
   warnings: string[];
@@ -69,7 +69,7 @@ export class OcrService {
     }
 
     const submissionId = Number(submission.id);
-    const tenantId = submission.tenantId ?? null;
+    const organizationId = submission.organizationId ?? null;
 
     try {
       const files = await SubmissionFile.findAll({ where: { submissionId }, order: [['id', 'ASC']], limit: 5 });
@@ -98,8 +98,20 @@ export class OcrService {
         }
       }
 
-      const text = sliceText(documents.map((d) => d.text).filter(Boolean).join('\n\n'));
-      const success: OcrSuccess = { submissionId, tenantId, text, documents, warnings };
+      // Multi-document packages are concatenated with explicit boundary markers so
+      // downstream stages (classification especially) can distinguish the primary
+      // submission document from attachments instead of seeing one anonymous blob.
+      const withText = documents.filter((d) => d.text);
+      const text = sliceText(
+        withText
+          .map((d, idx) =>
+            withText.length > 1
+              ? `===== DOCUMENT ${idx + 1} of ${withText.length}: ${d.fileName} =====\n${d.text}`
+              : d.text,
+          )
+          .join('\n\n'),
+      );
+      const success: OcrSuccess = { submissionId, organizationId, text, documents, warnings };
       await callbacks.onSuccess?.(success);
 
       return {

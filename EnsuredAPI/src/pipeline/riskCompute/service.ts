@@ -43,7 +43,7 @@ export class RiskComputeService {
     const rawId = submission.id;
     const submissionId = Number(rawId);
 
-    // Guard: the board builds `inputPayload.submission = { id, tenantId }`; if no
+    // Guard: the board builds `inputPayload.submission = { id, organizationId }`; if no
     // usable id arrives we report a structured failure rather than calling compute
     // with NaN (which would surface as submission_not_found anyway).
     if (rawId == null || !Number.isFinite(submissionId)) {

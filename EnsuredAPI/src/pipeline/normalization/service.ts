@@ -1,4 +1,4 @@
-import { SubmissionDocument } from '../../db/models';
+import { SubmissionOutput } from '../../db/models';
 import { runStage } from '../stageResult';
 import { canonicalizeAndPin } from '../canonicalize/service';
 
@@ -15,20 +15,36 @@ export class NormalizationService {
   private async runNormalization(payload: any): Promise<Record<string, unknown>> {
     const extraction = toRecord(payload?.extraction?.structuredData ?? payload?.extraction ?? {});
 
-    const normalized = {
+    const normalized: Record<string, any> = {
       ...extraction,
       source: 'normalization',
       normalizedAt: new Date().toISOString(),
     };
 
+    // Carry the classification stage's line-of-business into the canonical data.
+    // Extraction-provided values win; classification only fills the gaps, and an
+    // explicit "unclassified" abstention is never stamped.
+    const classification = toRecord(payload?.classification);
+    const lobFromClassification: Record<string, unknown> = {
+      lineOfBusiness: classification.lineOfBusinessLabel,
+      lineOfBusinessCode: classification.lineOfBusinessCode,
+      lineOfBusinessSubTypeCode: classification.lineOfBusinessSubTypeCode,
+    };
+    for (const [key, value] of Object.entries(lobFromClassification)) {
+      if (normalized[key] != null) continue;
+      if (typeof value !== 'string' || value.length === 0) continue;
+      if (value.toLowerCase() === 'unclassified') continue;
+      normalized[key] = value;
+    }
+
     const submission = payload?.submission;
     if (submission?.id) {
       const submissionId = Number(submission.id);
-      let doc = await SubmissionDocument.findOne({ where: { submissionId } });
+      let doc = await SubmissionOutput.findOne({ where: { submissionId } });
       if (!doc) {
-        doc = await SubmissionDocument.create({
+        doc = await SubmissionOutput.create({
           submissionId,
-          tenantId: submission.tenantId ?? null,
+          organizationId: submission.organizationId ?? null,
           structuredData: { normalization: normalized },
         });
       } else {
@@ -47,7 +63,7 @@ export class NormalizationService {
       // NULL pin and runs no validation, leaving this stage's output identical to
       // before. The ONLY behavior change is the intended opt-in enforcement: a
       // genuinely pinned submission whose data fails its schema → {ok:false}.
-      const enforcementFailure = await this.pinAndEnforce(submissionId, submission?.tenantId ?? null, normalized);
+      const enforcementFailure = await this.pinAndEnforce(submissionId, submission?.organizationId ?? null, normalized);
       if (enforcementFailure) {
         return enforcementFailure;
       }
@@ -78,14 +94,14 @@ export class NormalizationService {
    */
   private async pinAndEnforce(
     submissionId: number,
-    tenantId: number | null,
+    organizationId: number | null,
     normalized: Record<string, any>,
   ): Promise<Record<string, unknown> | null> {
     let outcome;
     try {
       outcome = await canonicalizeAndPin({
         submissionId,
-        tenantId,
+        organizationId,
         data: normalized,
       });
     } catch (err) {

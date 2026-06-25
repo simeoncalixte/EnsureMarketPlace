@@ -1,6 +1,6 @@
 // Mock DB models so the stage's persistence + geography resolution run without a database.
 jest.mock('../../db/models', () => ({
-  SubmissionDocument: { findOne: jest.fn(), create: jest.fn() },
+  SubmissionOutput: { findOne: jest.fn(), create: jest.fn() },
   EnrichmentData: { create: jest.fn() },
   Address: { findOne: jest.fn(), create: jest.fn() },
   Country: { findOne: jest.fn() },
@@ -8,12 +8,12 @@ jest.mock('../../db/models', () => ({
   City: { findOne: jest.fn() },
 }));
 
-import { Address, Country, EnrichmentData, StateProvince, City, SubmissionDocument } from '../../db/models';
+import { Address, Country, EnrichmentData, StateProvince, City, SubmissionOutput } from '../../db/models';
 import { LocationDiscoveryService } from './service';
 import type { GeocodeProvider, NormalizedLocation } from '../connectors/geocoding/GeocodeProvider';
 
-const docFindOne = SubmissionDocument.findOne as unknown as jest.Mock;
-const docCreate = SubmissionDocument.create as unknown as jest.Mock;
+const docFindOne = SubmissionOutput.findOne as unknown as jest.Mock;
+const docCreate = SubmissionOutput.create as unknown as jest.Mock;
 const enrichmentCreate = EnrichmentData.create as unknown as jest.Mock;
 const addressFindOne = Address.findOne as unknown as jest.Mock;
 const addressCreate = Address.create as unknown as jest.Mock;
@@ -122,13 +122,13 @@ describe('LocationDiscoveryService', () => {
     expect(res.subjects[0].normalizedLocation.city).toBe('Tampa');
   });
 
-  it('persists results (SubmissionDocument + EnrichmentData + Address) when a submission id is present', async () => {
+  it('persists results (SubmissionOutput + EnrichmentData + Address) when a submission id is present', async () => {
     const provider = fakeProvider(async () => loc());
     const save = jest.fn();
     docFindOne.mockResolvedValue({ id: 9, structuredData: { extraction: { subjects: [] } }, save });
 
     const res: any = await new LocationDiscoveryService({ provider }).process({
-      submission: { id: 100, tenantId: 3 },
+      submission: { id: 100, organizationId: 3 },
       extraction: { structuredData: { subjects: [{ label: 'Warehouse', location: '100 Bay St' }] } },
     });
 

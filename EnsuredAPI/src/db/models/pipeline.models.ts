@@ -27,7 +27,7 @@ import {
 export class PipelineRun extends Model<InferAttributes<PipelineRun>, InferCreationAttributes<PipelineRun>> {
   declare id: CreationOptional<number>;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   /** How the run was triggered: 'manual' | 'amqp' | 'sftp' | 'replay' | 'seed'. */
   declare trigger: string | null;
   declare triggeredByUserId: number | null;
@@ -49,7 +49,7 @@ export class StageExecution extends Model<InferAttributes<StageExecution>, Infer
   declare id: CreationOptional<number>;
   declare runId: number | null;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare stageKey: string;
   declare attempt: number;
   /** 'completed' | 'failed' | 'skipped' | 'running'. */
@@ -70,7 +70,7 @@ export class PipelineArtifact extends Model<InferAttributes<PipelineArtifact>, I
   declare id: CreationOptional<number>;
   declare runId: number | null;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare stageKey: string;
   /** 'input' | 'output'. */
   declare role: string;
@@ -82,12 +82,43 @@ export class PipelineArtifact extends Model<InferAttributes<PipelineArtifact>, I
   declare createdAt: CreationOptional<Date>;
 }
 
+/**
+ * One LLM agent call made during a stage execution: the exact prompt sent and
+ * the raw model text received. This is the transcript the pipeline UI renders
+ * so a reviewer can verify what the agent was asked and what it answered —
+ * the parsed/validated result lives in the stage's output artifact; this row
+ * preserves the conversation that produced it. Append-only, like executions.
+ */
+export class AgentTrace extends Model<InferAttributes<AgentTrace>, InferCreationAttributes<AgentTrace>> {
+  declare id: CreationOptional<number>;
+  declare runId: number | null;
+  declare executionId: number | null;
+  declare submissionId: number | null;
+  declare organizationId: number | null;
+  declare stageKey: string;
+  /** 1-based order of the call within its stage execution. */
+  declare seq: number;
+  /** Which agent made the call, e.g. 'lob_classification', 'extraction'. */
+  declare agent: string;
+  declare model: string | null;
+  declare promptVersion: string | null;
+  declare prompt: string | null;
+  declare responseText: string | null;
+  /** 'completed' | 'failed'. */
+  declare status: string;
+  declare errorMessage: string | null;
+  declare durationMs: number | null;
+  declare startedAt: Date | null;
+  declare finishedAt: Date | null;
+  declare createdAt: CreationOptional<Date>;
+}
+
 export function initPipelineModels(sequelize: Sequelize): void {
   PipelineRun.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       trigger: { type: DataTypes.STRING, allowNull: true },
       triggeredByUserId: { type: DataTypes.INTEGER, allowNull: true },
       parentRunId: { type: DataTypes.INTEGER, allowNull: true },
@@ -107,8 +138,8 @@ export function initPipelineModels(sequelize: Sequelize): void {
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       runId: { type: DataTypes.INTEGER, allowNull: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       stageKey: { type: DataTypes.STRING, allowNull: false },
       attempt: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
       status: { type: DataTypes.STRING, allowNull: false, defaultValue: 'completed' },
@@ -136,8 +167,8 @@ export function initPipelineModels(sequelize: Sequelize): void {
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       runId: { type: DataTypes.INTEGER, allowNull: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       stageKey: { type: DataTypes.STRING, allowNull: false },
       role: { type: DataTypes.STRING, allowNull: false },
       contentHash: { type: DataTypes.STRING, allowNull: true },
@@ -150,6 +181,36 @@ export function initPipelineModels(sequelize: Sequelize): void {
       sequelize,
       modelName: 'PipelineArtifact',
       tableName: 'pipeline_artifacts',
+      underscored: true,
+      updatedAt: false,
+    },
+  );
+
+  AgentTrace.init(
+    {
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      runId: { type: DataTypes.INTEGER, allowNull: true },
+      executionId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: true },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
+      stageKey: { type: DataTypes.STRING, allowNull: false },
+      seq: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
+      agent: { type: DataTypes.STRING, allowNull: false },
+      model: { type: DataTypes.STRING, allowNull: true },
+      promptVersion: { type: DataTypes.STRING, allowNull: true },
+      prompt: { type: DataTypes.TEXT, allowNull: true },
+      responseText: { type: DataTypes.TEXT, allowNull: true },
+      status: { type: DataTypes.STRING, allowNull: false, defaultValue: 'completed' },
+      errorMessage: { type: DataTypes.TEXT, allowNull: true },
+      durationMs: { type: DataTypes.INTEGER, allowNull: true },
+      startedAt: { type: DataTypes.DATE, allowNull: true },
+      finishedAt: { type: DataTypes.DATE, allowNull: true },
+      createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
+    } as any,
+    {
+      sequelize,
+      modelName: 'AgentTrace',
+      tableName: 'agent_traces',
       underscored: true,
       updatedAt: false,
     },

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Navigation from './Navigation'
+import NavigationSkeleton from './NavigationSkeleton'
 import type { NavItem } from './Navigation'
 import { colors, withAlpha } from '../colors'
 
@@ -150,9 +151,13 @@ type SideNavBarProps = {
   layoutMode?: 'overlay' | 'grid';
   onRequestClose?: () => void;
   onLogout?: () => void;
+  /** When true, render the animated loading placeholder instead of the menu. */
+  loading?: boolean;
+  /** Optional content rendered in the footer, above the Save/Log out actions. */
+  footerSlot?: React.ReactNode;
 }
 
-export const SideNavBar: React.FC<SideNavBarProps> = ({ items, title, subtitle, isOpen = false, layoutMode = 'overlay', onRequestClose, onLogout }) => {
+export const SideNavBar: React.FC<SideNavBarProps> = ({ items, title, subtitle, isOpen = false, layoutMode = 'overlay', onRequestClose, onLogout, loading = false, footerSlot }) => {
   const hasCustom = Array.isArray(items) && items.length > 0
 
   return (
@@ -166,7 +171,11 @@ export const SideNavBar: React.FC<SideNavBarProps> = ({ items, title, subtitle, 
         </Subtitle>
       </HeaderBlock>
 
-      {hasCustom ? (
+      {loading ? (
+        <div style={{ padding: '0 1.5rem', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+          <NavigationSkeleton />
+        </div>
+      ) : hasCustom ? (
         <div style={{ padding: '0 1.5rem', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
           <Navigation items={items!} onItemClick={onRequestClose} />
         </div>
@@ -196,6 +205,7 @@ export const SideNavBar: React.FC<SideNavBarProps> = ({ items, title, subtitle, 
       )}
 
       <FooterActions>
+        {footerSlot}
         <SaveButton contentEditable={false} spellCheck={false} data-stitch-editable-idx="13" data-stitch-added-classes="cursor-text">
           <SaveIcon className="material-symbols-outlined" aria-hidden data-icon="save">save</SaveIcon>
           Save Progress

@@ -1,6 +1,8 @@
 import React from 'react';
 import { PolarAngleAxis, RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts';
-import { colors } from '../colors';
+// recharts applies colors as SVG presentation attributes, which can't resolve
+// `var()`; use the concrete-resolving palette (still re-reads on theme change).
+import { rawColors as colors } from '../colors';
 
 interface Threshold {
   /** Upper bound for this color band (inclusive) */

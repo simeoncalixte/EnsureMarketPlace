@@ -33,7 +33,7 @@ const CASES = [
   },
 ];
 
-realDescribe('real Gemini line-of-business classification (RUN_REAL_CLASSIFICATION=1)', () => {
+realDescribe('real Gemini line-of-business classification (RUN_REAL_LLM=1)', () => {
   jest.setTimeout(60_000);
   const agent = new GeminiClassificationAgent(process.env);
 

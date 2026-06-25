@@ -117,7 +117,7 @@ describe('GET /api/pipeline/processes/board', () => {
 
     await IngestionEvent.create({
       submissionId: submission!.id,
-      tenantId: submission!.tenantId ?? null,
+      organizationId: submission!.organizationId ?? null,
       stage: 'extraction',
       status: 'completed',
     } as never);
@@ -139,7 +139,7 @@ describe('GET /api/pipeline/processes/board', () => {
 
     await IngestionEvent.create({
       submissionId: submission!.id,
-      tenantId: submission!.tenantId ?? null,
+      organizationId: submission!.organizationId ?? null,
       stage: 'validation',
       status: 'failed',
       errorMessage: 'Schema validation failed',
@@ -160,10 +160,10 @@ describe('GET /api/pipeline/processes/board', () => {
   it('counts active ingestion channels (enabled and status active) for the organization', async () => {
     const { token, organizationId } = await seedAndSignToken();
 
-    await IngestionChannel.create({ tenantId: organizationId, type: 'rabbitmq', label: 'Active queue', enabled: true, status: 'active', config: {} } as never);
-    await IngestionChannel.create({ tenantId: organizationId, type: 'sftp', label: 'Disabled SFTP', enabled: false, status: 'idle', config: {} } as never);
+    await IngestionChannel.create({ organizationId: organizationId, type: 'rabbitmq', label: 'Active queue', enabled: true, status: 'active', config: {} } as never);
+    await IngestionChannel.create({ organizationId: organizationId, type: 'sftp', label: 'Disabled SFTP', enabled: false, status: 'idle', config: {} } as never);
     // Enabled but not yet 'active' (e.g. syncing) should NOT count as active.
-    await IngestionChannel.create({ tenantId: organizationId, type: 'webhooks', label: 'Syncing webhook', enabled: true, status: 'syncing', config: {} } as never);
+    await IngestionChannel.create({ organizationId: organizationId, type: 'webhooks', label: 'Syncing webhook', enabled: true, status: 'syncing', config: {} } as never);
 
     const response = await getBoard(token);
     expect(response.statusCode).toBe(200);
@@ -223,7 +223,7 @@ describe('GET /api/pipeline/processes/board', () => {
     // Submission's latest event is a failed validation.
     await IngestionEvent.create({
       submissionId: submission!.id,
-      tenantId: submission!.tenantId ?? null,
+      organizationId: submission!.organizationId ?? null,
       stage: 'validation',
       status: 'failed',
       errorMessage: 'transient validation error',
@@ -256,7 +256,7 @@ describe('GET /api/pipeline/processes/board', () => {
     const submission = await Submission.findOne({ order: [['id', 'ASC']] });
     await IngestionEvent.create({
       submissionId: submission!.id,
-      tenantId: submission!.tenantId ?? null,
+      organizationId: submission!.organizationId ?? null,
       stage: 'validation',
       status: 'failed',
     } as never);

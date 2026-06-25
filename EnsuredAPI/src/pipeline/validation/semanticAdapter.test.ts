@@ -1,6 +1,6 @@
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { geminiSemanticJudge } from './semanticAdapter';
-import { SemanticInput } from './semantic';
+import { SemanticInput, SEMANTIC_PROMPT_VERSION } from './semantic';
 
 jest.mock('@langchain/google-genai');
 
@@ -12,6 +12,7 @@ const input: SemanticInput = {
   expectedYield: 0.09,
   jurisdiction: 'US',
   lineOfBusiness: 'property',
+  dataQualityScore: 90,
   guidelines: null,
   rules: [],
 };
@@ -41,13 +42,30 @@ describe('geminiSemanticJudge', () => {
     expect(MockChatGoogle).not.toHaveBeenCalled();
   });
 
-  test('ok response -> parsed verdict, modelVersion defaulted', async () => {
+  test('ok response -> parsed verdict, modelVersion stamped with model + prompt revision', async () => {
     process.env.GEMINI_API_KEY = 'k';
     process.env.GEMINI_MODEL = 'gemini-test';
     stubInvoke(async () => ({ content: '{"decision":"FLAGGED","confidence":0.8,"findings":[]}' }));
     const v = await geminiSemanticJudge(input);
     expect(v?.decision).toBe('FLAGGED');
-    expect(v?.modelVersion).toBe('gemini-test');
+    expect(v?.modelVersion).toBe(`gemini-test:${SEMANTIC_PROMPT_VERSION}`);
+  });
+
+  test('empty snapshot (all fields null) -> null without a paid call', async () => {
+    process.env.GEMINI_API_KEY = 'k';
+    stubInvoke(async () => ({ content: '{"decision":"FLAGGED","confidence":0.9,"findings":[]}' }));
+    const empty: SemanticInput = {
+      riskType: null,
+      limit: null,
+      expectedYield: null,
+      jurisdiction: null,
+      lineOfBusiness: null,
+      dataQualityScore: null,
+      guidelines: 'some guidelines',
+      rules: ['Maximum line size: 1000000'],
+    };
+    expect(await geminiSemanticJudge(empty)).toBeNull();
+    expect(MockChatGoogle).not.toHaveBeenCalled();
   });
 
   test('routes model, api key and json mode through ChatGoogleGenerativeAI', async () => {

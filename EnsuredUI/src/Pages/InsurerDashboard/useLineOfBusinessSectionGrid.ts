@@ -216,12 +216,23 @@ export function useLineOfBusinessSectionGrid({
   }, [section.fields]);
 
   const renderedFields = useMemo(() => {
-    const visibleFields = activeViewMode === 'rendered'
-      ? section.fields.filter((field) => placedFieldKeys.has(field.key))
-      : section.fields;
+    let visibleFields: LineOfBusinessPageTemplateField[];
+    if (activeViewMode !== 'rendered') {
+      visibleFields = section.fields;
+    } else {
+      const placedOnly = section.fields.filter((field) => placedFieldKeys.has(field.key));
+      // In rendered mode the builder-placed fields drive the layout. But when NONE
+      // are placed — a pipeline/LLM-generated or seeded template that never went
+      // through the grid builder — a pure consumer view (`displayMode='rendered'`,
+      // e.g. the insured-subject form) has no way to place them, so fall back to
+      // every field in order. They auto-flow into the section grid instead of the
+      // form being a dead end. The builder's toggle preview keeps the original
+      // "place fields" affordance (shows only placed fields).
+      visibleFields = placedOnly.length > 0 || displayMode !== 'rendered' ? placedOnly : section.fields;
+    }
 
     return [...visibleFields].sort((left, right) => left.order - right.order);
-  }, [activeViewMode, placedFieldKeys, section.fields]);
+  }, [activeViewMode, displayMode, placedFieldKeys, section.fields]);
 
   const resolvedSectionLayout = useMemo(() => {
     return resolveSectionGridLayout(section);

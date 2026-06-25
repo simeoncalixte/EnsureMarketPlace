@@ -43,9 +43,30 @@ const VALID_UI_ROUTES = [
   '/insurer/reports',
   '/insurer/pipeline-ingestion',
   '/insurer/pipeline-processes',
+  '/insurer/pipeline-flow',
+  // Per-submission-type pipeline boards (the parameterized /insurer/pipeline/:routeKey
+  // route). One nav entry per submission-type taxonomy code.
+  '/insurer/pipeline/new_business',
+  '/insurer/pipeline/renewal',
+  '/insurer/pipeline/quote_request',
+  '/insurer/pipeline/endorsement',
+  '/insurer/pipeline/cancellation',
+  '/insurer/pipeline/claim',
+  '/insurer/pipeline/audit',
+  '/insurer/pipeline/treaty_reinsurance',
+  '/insurer/pipeline/facultative_reinsurance',
+  '/insurer/pipeline/inquiry',
   '/insurer/settings',
-  '/insurer/appetite',
   '/insurer/claims',
+  '/governance/capacity',
+  '/governance/authority',
+  '/governance/referrals',
+  '/governance/rules-engine',
+  '/governance/simulation',
+  '/governance/audit',
+  '/network',
+  '/feed',
+  '/messages',
 ];
 
 describe('navigation catalog', () => {

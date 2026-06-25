@@ -13,8 +13,8 @@ const cleanSignals: ScrubSignals = {
 function makeDeps(overrides: Partial<ValidationDeps> = {}) {
   const saved: any[] = [];
   const repository: SubmissionDocumentRepository = {
-    async upsertValidation(submissionId, tenantId, validation) {
-      saved.push({ submissionId, tenantId, validation });
+    async upsertValidation(submissionId, organizationId, validation) {
+      saved.push({ submissionId, organizationId, validation });
     },
   };
   const deps: Partial<ValidationDeps> = {
@@ -33,14 +33,14 @@ describe('ValidationService (injected, no DB/network)', () => {
     const { deps, saved } = makeDeps();
     const svc = new ValidationService(deps);
     const out = await svc.process({
-      submission: { id: 1, tenantId: 9 },
+      submission: { id: 1, organizationId: 9 },
       normalization: { normalized: { riskType: 'wind', limit: 1_000_000, effectiveDate: '2026-07-01' } },
     });
     expect(out.decision).toBe(ValidationDecision.PASS);
     expect(out.flaggedForMoreInfo).toBe(false);
     expect(out.validatedAt).toBe('2026-06-03T00:00:00.000Z');
     expect(saved).toHaveLength(1);
-    expect(saved[0].tenantId).toBe(9);
+    expect(saved[0].organizationId).toBe(9);
   });
 
   test('appetite reject routes to OUT_OF_APPETITE', async () => {
@@ -52,7 +52,7 @@ describe('ValidationService (injected, no DB/network)', () => {
     });
     const svc = new ValidationService(deps);
     const out = await svc.process({
-      submission: { id: 2, tenantId: 9 },
+      submission: { id: 2, organizationId: 9 },
       normalization: { normalized: { riskType: 'cyber', limit: 1, effectiveDate: '2026-07-01' } },
     });
     expect(out.decision).toBe(ValidationDecision.OUT_OF_APPETITE);
@@ -64,7 +64,7 @@ describe('ValidationService (injected, no DB/network)', () => {
     });
     const svc = new ValidationService(deps);
     const out = await svc.process({
-      submission: { id: 3, tenantId: 9 },
+      submission: { id: 3, organizationId: 9 },
       normalization: { normalized: { riskType: 'wind', limit: 1, effectiveDate: '2026-07-01' } },
     });
     expect(out.ok).toBe(true);
@@ -88,7 +88,7 @@ describe('ValidationService (injected, no DB/network)', () => {
       }),
     });
     const out: any = await new ValidationService(deps).process({
-      submission: { id: 10, tenantId: 9 },
+      submission: { id: 10, organizationId: 9 },
       normalization: { normalized: { riskType: 'wind', limit: 1, effectiveDate: '2026-07-01' } },
     });
     expect(out.decision).toBe(ValidationDecision.MORE_INFO);
@@ -106,7 +106,7 @@ describe('ValidationService (injected, no DB/network)', () => {
       }),
     });
     const out: any = await new ValidationService(deps).process({
-      submission: { id: 11, tenantId: 9 },
+      submission: { id: 11, organizationId: 9 },
       normalization: { normalized: { riskType: 'wind', limit: 1, effectiveDate: '2026-07-01' } },
     });
     expect(out.decision).toBe(ValidationDecision.MORE_INFO); // capped to flag, not OUT_OF_APPETITE
@@ -123,7 +123,7 @@ describe('ValidationService (injected, no DB/network)', () => {
       }),
     });
     const out: any = await new ValidationService(deps).process({
-      submission: { id: 12, tenantId: 9 },
+      submission: { id: 12, organizationId: 9 },
       normalization: { normalized: { riskType: 'wind', limit: 1, effectiveDate: '2026-07-01' } },
     });
     expect(out.decision).toBe(ValidationDecision.PASS);
@@ -133,7 +133,7 @@ describe('ValidationService (injected, no DB/network)', () => {
   test('a throwing judge degrades gracefully', async () => {
     const { deps } = makeDeps({ semanticJudge: async () => { throw new Error('api down'); } });
     const out: any = await new ValidationService(deps).process({
-      submission: { id: 13, tenantId: 9 },
+      submission: { id: 13, organizationId: 9 },
       normalization: { normalized: { riskType: 'wind', limit: 1, effectiveDate: '2026-07-01' } },
     });
     expect(out.ok).toBe(true);

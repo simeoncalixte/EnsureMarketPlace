@@ -75,6 +75,19 @@ function valuationBasisOptions(): PageTemplateOption[] {
   ];
 }
 
+function transactionTypeOptions(): PageTemplateOption[] {
+  return [
+    option('New Business', 'new_business'),
+    option('Renewal', 'renewal'),
+    option('Quote Request', 'quote_request'),
+    option('Endorsement', 'endorsement'),
+    option('Cancellation', 'cancellation'),
+    option('Claim / Loss Notice', 'claim'),
+    option('Treaty', 'treaty'),
+    option('Facultative', 'facultative'),
+  ];
+}
+
 function exposureBasisOptions(): PageTemplateOption[] {
   return [
     option('Total Insured Value', 'total_insured_value'),
@@ -134,6 +147,106 @@ function applySectionLayouts(sections: PageTemplateDefinition['sections']): Page
     layout: cloneSectionLayout(section.layout) ?? defaultSectionLayout(section.fields.length),
     fields: section.fields.map((field) => cloneField(field)),
   }));
+}
+
+function submissionHeaderSection(): PageTemplateDefinition['sections'][number] {
+  return {
+    key: 'submission-header',
+    label: 'Submission & Policy',
+    order: 5,
+    description:
+      'Deal-level header shared by every submission: the policy period, transaction type, settlement currency, distribution, and portfolio framing. These attributes describe the deal itself rather than any single insured subject.',
+    fields: [
+      field({
+        key: 'policyInceptionDate',
+        label: 'Effective Date',
+        type: 'date',
+        order: 10,
+        required: true,
+        canonicalKey: 'policyInceptionDate',
+        helperText: 'Inception date of the policy period being quoted or bound.',
+      }),
+      field({
+        key: 'policyExpiryDate',
+        label: 'Expiry Date',
+        type: 'date',
+        order: 20,
+        required: true,
+        canonicalKey: 'policyExpiryDate',
+        helperText: 'Expiry date of the policy period. Together with the effective date this defines the term.',
+      }),
+      field({
+        key: 'transactionType',
+        label: 'Deal Type',
+        type: 'select',
+        order: 30,
+        required: true,
+        canonicalKey: 'transactionType',
+        options: transactionTypeOptions(),
+        helperText: 'Transaction type — new business, renewal, endorsement, claim, treaty, facultative …',
+      }),
+      field({
+        key: 'submissionCurrency',
+        label: 'Currency',
+        type: 'text',
+        order: 40,
+        canonicalKey: 'currency',
+        defaultValue: 'USD',
+        placeholder: 'USD',
+        helperText: 'ISO 4217 settlement currency for the deal (e.g. USD, EUR, GBP).',
+        constraints: { pattern: '^[A-Za-z]{3}$', minLength: 3, maxLength: 3 },
+      }),
+      field({
+        key: 'policyTermMonths',
+        label: 'Policy Term (Months)',
+        type: 'integer',
+        order: 50,
+        canonicalKey: 'policyTermMonths',
+        placeholder: '12',
+        helperText: 'Length of the policy period in months. Optional — derivable from the effective and expiry dates.',
+        constraints: { min: 0, max: 600 },
+      }),
+      field({
+        key: 'brokerName',
+        label: 'Broker / Intermediary',
+        type: 'text',
+        order: 60,
+        canonicalKey: 'brokerName',
+        placeholder: 'Marsh, Aon, Lockton …',
+        helperText: 'Producing broker or intermediary, if the submission was placed through one.',
+        constraints: { maxLength: 200 },
+      }),
+      field({
+        key: 'underwritingContact',
+        label: 'Underwriting Contact',
+        type: 'text',
+        order: 70,
+        canonicalKey: 'underwritingContact',
+        placeholder: 'Jane Doe',
+        helperText: 'Primary contact responsible for this submission.',
+        constraints: { maxLength: 200 },
+      }),
+      field({
+        key: 'isPortfolio',
+        label: 'Is Portfolio?',
+        type: 'boolean',
+        order: 80,
+        canonicalKey: 'isPortfolio',
+        defaultValue: false,
+        helperText: 'Check when this submission represents a portfolio of subjects rather than a single risk.',
+      }),
+      field({
+        key: 'insuredSubjectCount',
+        label: 'Number of Insured Subjects',
+        type: 'integer',
+        order: 90,
+        canonicalKey: 'insuredSubjectCount',
+        placeholder: '1',
+        helperText: 'Total count of individual subjects covered under this policy.',
+        constraints: { min: 0 },
+      }),
+    ],
+  };
 }
 
 function baseIdentitySection(): PageTemplateDefinition['sections'][number] {
@@ -1263,7 +1376,11 @@ function buildInsuredSubjectsPageVariation(params: {
     description: hasSubType
       ? `Template variation for ${params.lineOfBusinessLabel} / ${subTypeLabel} insured subject capture.`
       : `Template variation for ${params.lineOfBusinessLabel} insured subject capture.`,
-    sections: applySectionLayouts([baseIdentitySection(), ...buildVariationSections(params.lineOfBusinessCode, params.lineOfBusinessLabel, subTypeLabel)]),
+    sections: applySectionLayouts([
+      submissionHeaderSection(),
+      baseIdentitySection(),
+      ...buildVariationSections(params.lineOfBusinessCode, params.lineOfBusinessLabel, subTypeLabel),
+    ]),
   };
 }
 
@@ -1275,6 +1392,7 @@ export function buildDefaultInsuredSubjectsPageDefinition(): PageTemplateDefinit
     description:
       'Line-agnostic default capturing what every submission requires: the insured and subject, its location and jurisdiction, the exposure and valuation, coverage-layer terms, a statement of values, and prior loss history. Line-of-business variations refine these sections without removing them.',
     sections: applySectionLayouts([
+      submissionHeaderSection(),
       baseIdentitySection(),
       defaultLocationSection(),
       defaultExposureSection(),

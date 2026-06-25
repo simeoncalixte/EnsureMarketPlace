@@ -1,15 +1,15 @@
 // Mock the DB models so classification persistence runs without a database.
 jest.mock('../../db/models', () => ({
   Submission: { findByPk: jest.fn() },
-  SubmissionDocument: { findOne: jest.fn(), create: jest.fn() },
+  SubmissionOutput: { findOne: jest.fn(), create: jest.fn() },
 }));
 
-import { SubmissionDocument } from '../../db/models';
+import { SubmissionOutput } from '../../db/models';
 import { ClassificationService } from './service';
 import { ClassificationAgent } from './GeminiClassificationProvider';
 
-const findOne = SubmissionDocument.findOne as unknown as jest.Mock;
-const create = SubmissionDocument.create as unknown as jest.Mock;
+const findOne = SubmissionOutput.findOne as unknown as jest.Mock;
+const create = SubmissionOutput.create as unknown as jest.Mock;
 
 function fakeDoc() {
   return { id: 10, documentType: null, classificationConfidence: null, structuredData: null, save: jest.fn() };
@@ -39,7 +39,7 @@ describe('ClassificationService high-precision policy (no live request)', () => 
 
     // Text looks like Property, but the (mocked) agent decides Cyber — proving the agent won.
     const res: any = await new ClassificationService({ classificationAgent: agent }).process({
-      submission: { id: 1, tenantId: 1 },
+      submission: { id: 1, organizationId: 1 },
       ocr: { text: 'property building statement of values' },
     });
 

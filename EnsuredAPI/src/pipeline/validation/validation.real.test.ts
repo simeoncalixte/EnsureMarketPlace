@@ -24,6 +24,7 @@ realDescribe('real Gemini semantic validation judge (RUN_REAL_LLM=1)', () => {
       expectedYield: 0.09,
       jurisdiction: 'Florida',
       lineOfBusiness: 'Commercial Property',
+      dataQualityScore: 88,
       guidelines: 'Target US wind/hurricane property risks. Decline risks with limit over $50M or outside the US.',
       rules: ['Excluded jurisdictions: cuba, iran', 'Maximum coverage limit: 50000000'],
     };

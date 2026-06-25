@@ -4,7 +4,6 @@ import * as S from '../InsurerDashboard.styles';
 import { colors, withAlpha } from '../../../xds/colors';
 import Input from '../../../xds/components/Input';
 import Select from '../../../xds/components/Select';
-import SegmentedSwitch from '../../../xds/components/SegmentedSwitch';
 
 const FieldLabel = styled.label`
   font-size: 10px;
@@ -24,29 +23,17 @@ const DateSeparator = styled.div`
   color: ${withAlpha(colors.neutral[400], 0.6)};
 `;
 
-const PerilRow = styled.div`
-  padding-top: 8px;
-`;
-
-const PERIL_OPTIONS = [
-  { label: 'US WIND', value: 'US WIND' },
-  { label: 'FLOOD', value: 'FLOOD' },
-  { label: 'EQ', value: 'EQ' },
-];
-
 type Props = {
   isActive: boolean;
   name: string;
   cedingEntity: string;
   startDate: string;
   endDate: string;
-  peril: string;
   sourceCedent?: string;
   onSetName: (value: string) => void;
   onSetCedingEntity: (value: string) => void;
   onSetStartDate: (value: string) => void;
   onSetEndDate: (value: string) => void;
-  onSetPeril: (value: string) => void;
 };
 
 export default function DealParametersSection({
@@ -55,18 +42,16 @@ export default function DealParametersSection({
   cedingEntity,
   startDate,
   endDate,
-  peril,
   sourceCedent,
   onSetName,
   onSetCedingEntity,
   onSetStartDate,
   onSetEndDate,
-  onSetPeril,
 }: Props) {
   return (
     <S.Section $active={isActive}>
       <S.SectionHeader>
-        <S.SectionTitle>01 Deal Parameters</S.SectionTitle>
+        <S.SectionTitle>01 General Information</S.SectionTitle>
         <S.SectionRule />
       </S.SectionHeader>
       <S.GridTwo>
@@ -90,12 +75,6 @@ export default function DealParametersSection({
             <DateSeparator>to</DateSeparator>
             <Input type="date" value={endDate} onChange={(event) => onSetEndDate(event.target.value)} />
           </DateRange>
-        </div>
-        <div>
-          <FieldLabel>Peril Type</FieldLabel>
-          <PerilRow>
-            <SegmentedSwitch options={PERIL_OPTIONS} value={peril} onChange={onSetPeril} aria-label="Peril Type" />
-          </PerilRow>
         </div>
       </S.GridTwo>
     </S.Section>

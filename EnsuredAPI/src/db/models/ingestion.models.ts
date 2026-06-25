@@ -10,7 +10,7 @@ import {
 export class SubmissionFile extends Model<InferAttributes<SubmissionFile>, InferCreationAttributes<SubmissionFile>> {
   declare id: CreationOptional<number>;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare fileName: string | null;
   declare fileType: string | null;
   declare fileSize: number | null;
@@ -23,7 +23,7 @@ export class SubmissionFile extends Model<InferAttributes<SubmissionFile>, Infer
 
 export class IngestionEvent extends Model<InferAttributes<IngestionEvent>, InferCreationAttributes<IngestionEvent>> {
   declare id: CreationOptional<number>;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare submissionId: number | null;
   declare stage: string;
   declare status: string;
@@ -35,10 +35,10 @@ export class IngestionEvent extends Model<InferAttributes<IngestionEvent>, Infer
   declare updatedAt: CreationOptional<Date>;
 }
 
-export class SubmissionDocument extends Model<InferAttributes<SubmissionDocument>, InferCreationAttributes<SubmissionDocument>> {
+export class SubmissionOutput extends Model<InferAttributes<SubmissionOutput>, InferCreationAttributes<SubmissionOutput>> {
   declare id: CreationOptional<number>;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare documentType: string | null;
   declare classificationConfidence: number | null;
   declare structuredData: Record<string, unknown> | null;
@@ -49,7 +49,7 @@ export class SubmissionDocument extends Model<InferAttributes<SubmissionDocument
 export class ExtractedField extends Model<InferAttributes<ExtractedField>, InferCreationAttributes<ExtractedField>> {
   declare id: CreationOptional<number>;
   declare documentId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare fieldName: string | null;
   declare fieldValue: string | null;
   declare confidence: number | null;
@@ -65,7 +65,7 @@ export class ExtractedField extends Model<InferAttributes<ExtractedField>, Infer
 export class CanonicalSubmission extends Model<InferAttributes<CanonicalSubmission>, InferCreationAttributes<CanonicalSubmission>> {
   declare id: CreationOptional<number>;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare data: Record<string, unknown> | null;
   declare version: number | null;
   // Additive Slice-1 pin columns (all nullable). When `schemaVersionId` is null the
@@ -80,7 +80,7 @@ export class CanonicalSubmission extends Model<InferAttributes<CanonicalSubmissi
 export class EnrichmentData extends Model<InferAttributes<EnrichmentData>, InferCreationAttributes<EnrichmentData>> {
   declare id: CreationOptional<number>;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare enrichmentType: string | null;
   declare data: Record<string, unknown> | null;
   declare createdAt: CreationOptional<Date>;
@@ -90,7 +90,7 @@ export class EnrichmentData extends Model<InferAttributes<EnrichmentData>, Infer
 export class TriageResult extends Model<InferAttributes<TriageResult>, InferCreationAttributes<TriageResult>> {
   declare id: CreationOptional<number>;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare decision: string | null;
   declare score: number | null;
   declare reasons: Record<string, unknown> | null;
@@ -101,7 +101,7 @@ export class TriageResult extends Model<InferAttributes<TriageResult>, InferCrea
 
 export class IngestionChannel extends Model<InferAttributes<IngestionChannel>, InferCreationAttributes<IngestionChannel>> {
   declare id: CreationOptional<number>;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare type: string;
   declare label: string;
   declare enabled: boolean;
@@ -115,7 +115,7 @@ export class IngestionChannel extends Model<InferAttributes<IngestionChannel>, I
 export class WorkflowState extends Model<InferAttributes<WorkflowState>, InferCreationAttributes<WorkflowState>> {
   declare id: CreationOptional<number>;
   declare submissionId: number | null;
-  declare tenantId: number | null;
+  declare organizationId: number | null;
   declare status: string | null;
   declare assignedTo: number | null;
   declare tasks: Record<string, unknown> | null;
@@ -127,8 +127,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
   SubmissionFile.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       fileName: { type: DataTypes.STRING, allowNull: true },
       fileType: { type: DataTypes.STRING, allowNull: true },
       fileSize: { type: DataTypes.INTEGER, allowNull: true },
@@ -143,8 +143,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
   IngestionEvent.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
       stage: { type: DataTypes.STRING, allowNull: false },
       status: { type: DataTypes.STRING, allowNull: false },
       inputRef: { type: DataTypes.STRING, allowNull: true },
@@ -163,23 +163,23 @@ export function initIngestionModels(sequelize: Sequelize): void {
     },
   );
 
-  SubmissionDocument.init(
+  SubmissionOutput.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       documentType: { type: DataTypes.STRING, allowNull: true },
       classificationConfidence: { type: DataTypes.FLOAT, allowNull: true },
       structuredData: { type: DataTypes.JSONB, allowNull: true },
     } as any,
-    { sequelize, modelName: 'SubmissionDocument', tableName: 'submission_outputs', underscored: true },
+    { sequelize, modelName: 'SubmissionOutput', tableName: 'submission_outputs', underscored: true },
   );
 
   ExtractedField.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      documentId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      documentId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       fieldName: { type: DataTypes.STRING, allowNull: true },
       fieldValue: { type: DataTypes.TEXT, allowNull: true },
       confidence: { type: DataTypes.FLOAT, allowNull: true },
@@ -194,7 +194,7 @@ export function initIngestionModels(sequelize: Sequelize): void {
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       submissionId: { type: DataTypes.INTEGER, allowNull: false, unique: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       data: { type: DataTypes.JSONB, allowNull: false, defaultValue: {} },
       version: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
       schemaVersionId: { type: DataTypes.INTEGER, allowNull: true },
@@ -209,8 +209,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
   EnrichmentData.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       enrichmentType: { type: DataTypes.STRING, allowNull: true },
       data: { type: DataTypes.JSONB, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
@@ -221,8 +221,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
   TriageResult.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true, field: 'submission_id' },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true, field: 'tenant_id' },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false, field: 'submission_id' },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       decision: { type: DataTypes.STRING, allowNull: true },
       score: { type: DataTypes.FLOAT, allowNull: true },
       reasons: { type: DataTypes.JSONB, allowNull: true },
@@ -234,8 +234,8 @@ export function initIngestionModels(sequelize: Sequelize): void {
   WorkflowState.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: true },
-      tenantId: { type: DataTypes.INTEGER, allowNull: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       status: { type: DataTypes.STRING, allowNull: true },
       assignedTo: { type: DataTypes.INTEGER, allowNull: true },
       tasks: { type: DataTypes.JSONB, allowNull: true },
@@ -247,7 +247,7 @@ export function initIngestionModels(sequelize: Sequelize): void {
   IngestionChannel.init(
     {
       id:        { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      tenantId:  { type: DataTypes.INTEGER, allowNull: true },
+      organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       type:      { type: DataTypes.STRING,  allowNull: false },
       label:     { type: DataTypes.STRING,  allowNull: false },
       enabled:   { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },

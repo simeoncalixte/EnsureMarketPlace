@@ -106,15 +106,15 @@ function resolutionFromRow(
  *   4. platform + primary     → 'platform_primary'
  *   5. (no match)             → generic default → 'generic_default'
  *
- * `tenantId` distinguishes org rows (`organizationId === tenantId`) from platform
- * rows (`organizationId === null`). When `tenantId` is null, the org rungs are
+ * `organizationId` distinguishes org rows (`organizationId === organizationId`) from platform
+ * rows (`organizationId === null`). When `organizationId` is null, the org rungs are
  * simply never matched and resolution starts at the platform rungs.
  *
  * Only `status === 'active'` rows (or rows with no status) are considered.
  */
 export function selectResolution(
   rows: RegistryRow[],
-  tenantId: number | null,
+  organizationId: number | null,
   lineOfBusinessCode: string | null,
   lineOfBusinessSubTypeCode?: string | null,
 ): RiskClassResolution {
@@ -125,7 +125,7 @@ export function selectResolution(
     (row) => row && (row.status == null || row.status === 'active'),
   );
 
-  const isOrg = (row: RegistryRow): boolean => tenantId != null && row.organizationId === tenantId;
+  const isOrg = (row: RegistryRow): boolean => organizationId != null && row.organizationId === organizationId;
   const isPlatform = (row: RegistryRow): boolean => row.organizationId == null;
   const matchesPrimary = (row: RegistryRow): boolean => normalizeString(row.lineOfBusinessCode) === primary;
   const matchesSubType = (row: RegistryRow): boolean =>
@@ -174,13 +174,13 @@ export function selectResolution(
  * code) so the pure selector can pick the winner. Kept thin and DB-only.
  */
 async function loadCandidateRows(
-  tenantId: number | null,
+  organizationId: number | null,
   lineOfBusinessCode: string,
 ): Promise<RegistryRow[]> {
   // Match this org's rows OR platform rows (organizationId IS NULL). `Op.or` keeps
   // the nullable membership well-typed (a plain `[id, null]` array is not).
   const organizationIdClause =
-    tenantId != null ? { [Op.or]: [{ [Op.eq]: tenantId }, { [Op.is]: null }] } : { [Op.is]: null };
+    organizationId != null ? { [Op.or]: [{ [Op.eq]: organizationId }, { [Op.is]: null }] } : { [Op.is]: null };
 
   const rows = await RiskClassRegistry.findAll({
     where: {
@@ -210,7 +210,7 @@ async function loadCandidateRows(
  * throwing, so a resolver failure can never break a caller.
  */
 export async function resolveRiskClass(
-  tenantId: number | null,
+  organizationId: number | null,
   lineOfBusinessCode: string | null,
   lineOfBusinessSubTypeCode?: string | null,
 ): Promise<RiskClassResolution> {
@@ -223,8 +223,8 @@ export async function resolveRiskClass(
   }
 
   try {
-    const rows = await loadCandidateRows(tenantId, primary);
-    return selectResolution(rows, tenantId, primary, subType);
+    const rows = await loadCandidateRows(organizationId, primary);
+    return selectResolution(rows, organizationId, primary, subType);
   } catch {
     // Degrade like loadAppetiteForTenant tolerates failure — never throw.
     return genericDefaultResolution(primary, subType);

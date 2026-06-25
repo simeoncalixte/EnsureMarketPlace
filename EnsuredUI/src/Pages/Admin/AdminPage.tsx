@@ -76,6 +76,7 @@ import {
   DataTable,
   DataTableColumn,
   Card,
+  SubNavigation,
   colors,
 } from '../../xds';
 import Checkbox from '../../xds/components/Checkbox';
@@ -83,6 +84,7 @@ import Checkbox from '../../xds/components/Checkbox';
 import OrganizationsSubpage from './OrganizationsSubpage';
 import UsersSubpage from './UsersSubpage';
 import OrgUsersSubpage from './OrgUsersSubpage';
+import DepartmentsSubpage from './DepartmentsSubpage';
 import SeedingPanel from './SeedingPanel';
 import InsurerDashboard from '../InsurerDashboard/InsurerDashboard';
 import LineOfBusinessPage from '../InsurerDashboard/LineOfBusinessPage';
@@ -194,7 +196,7 @@ const APPROVALS = [
 ];
 
 export default function AdminPage() {
-  const [view, setView] = useState<'dashboard' | 'orgs' | 'users' | 'orgUsers' | 'seed' | 'insurer' | 'line-of-business'>('line-of-business');
+  const [view, setView] = useState<'dashboard' | 'orgs' | 'users' | 'orgUsers' | 'departments' | 'seed' | 'insurer' | 'line-of-business'>('line-of-business');
   const [selectedOrg, setSelectedOrg] = useState<{ id: number; name: string } | null>(null);
   const [simRunning, setSimRunning] = useState(false);
   const [applyApi, setApplyApi] = useState(false);
@@ -209,6 +211,22 @@ export default function AdminPage() {
     setSelectedOrg(org);
     setView('orgUsers');
   };
+
+  const showOrgDepartments = (org: { id: number; name: string }) => {
+    setSelectedOrg(org);
+    setView('departments');
+  };
+
+  // Top-level console sections reachable from the sub-navigation. Org-scoped
+  // drill-downs (a single org's users / departments) are reached from within
+  // the Organizations view and map back onto the 'orgs' tab.
+  const CONSOLE_TABS = [
+    { id: 'line-of-business', label: 'Line of Business' },
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'orgs', label: 'Organizations' },
+    { id: 'users', label: 'Users' },
+  ] as const;
+  const activeTab = view === 'orgUsers' || view === 'departments' ? 'orgs' : view;
 
   const trancheColumns: DataTableColumn<Tranche>[] = [
     {
@@ -247,6 +265,17 @@ export default function AdminPage() {
   return (
     <Page>
       <Main>
+        <div style={{ marginBottom: 16 }}>
+          <SubNavigation
+            label={null}
+            tabs={CONSOLE_TABS as unknown as { id: string; label: string }[]}
+            activeId={activeTab}
+            onChange={(id) => {
+              setSelectedOrg(null);
+              setView(id as typeof view);
+            }}
+          />
+        </div>
         {view === 'dashboard' ? (
           <>
         {/* Macro Stats */}
@@ -501,9 +530,14 @@ export default function AdminPage() {
         ) : view === 'seed' ? (
           <SeedingPanel />
         ) : view === 'orgs' ? (
-          <OrganizationsSubpage onViewUsers={(o) => showOrgUsers({ id: o.id, name: o.name })} />
+          <OrganizationsSubpage
+            onViewUsers={(o) => showOrgUsers({ id: o.id, name: o.name })}
+            onManageDepartments={(o) => showOrgDepartments({ id: o.id, name: o.name })}
+          />
         ) : view === 'users' ? (
           <UsersSubpage />
+        ) : view === 'departments' && selectedOrg ? (
+          <DepartmentsSubpage org={selectedOrg} onBack={() => setView('orgs')} />
         ) : selectedOrg ? (
           <OrgUsersSubpage org={selectedOrg} onBack={() => setView('orgs')} />
         ) : null}

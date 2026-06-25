@@ -47,6 +47,21 @@ const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
   useEffect(() => {
     let active = true;
 
+    // Prefer the inline, pipeline-generated template for THIS submission (the
+    // LLM's per-subject form). It is used directly — no fetch, and independent of
+    // the LOB selection — so the underwriter sees the bespoke form even before a
+    // line of business is reconciled against the taxonomy.
+    const inlineTemplate = subject.template ?? null;
+    if (inlineTemplate) {
+      setTemplate(inlineTemplate);
+      setTemplateError(null);
+      setLoadingTemplate(false);
+      onTemplateResolved(subjectIndex, getRenderableTemplateFields(inlineTemplate, selection));
+      return () => {
+        active = false;
+      };
+    }
+
     if (!selection.primaryCode) {
       setTemplate(null);
       setTemplateError(null);
@@ -92,7 +107,7 @@ const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
     return () => {
       active = false;
     };
-  }, [onTemplateResolved, selection.primaryCode, selection.subTypeCode, subjectIndex]);
+  }, [onTemplateResolved, selection.primaryCode, selection.subTypeCode, subjectIndex, subject.template]);
 
   const renderableSections = useMemo(
     () => getRenderableTemplateSections(template, selection),
@@ -154,7 +169,7 @@ const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
     });
   }, []);
 
-  if (!selection.primaryCode) {
+  if (!template && !selection.primaryCode) {
     return (
       <S.InfoBoxDashed>
         Select a line of business and subtype to load the insured subject template fields.

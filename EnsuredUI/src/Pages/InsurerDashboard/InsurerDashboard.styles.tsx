@@ -452,7 +452,7 @@ export const Grid3 = styled.div`
 `;
 
 export const PageShell = styled.div`
-  max-width: 1200px;
+  
   width: 100%;
 `;
 

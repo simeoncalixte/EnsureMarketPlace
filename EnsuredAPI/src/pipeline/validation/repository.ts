@@ -1,4 +1,4 @@
-import { SubmissionDocument } from '../../db/models';
+import { SubmissionOutput } from '../../db/models';
 import { ValidationResult } from './types';
 
 /**
@@ -6,19 +6,19 @@ import { ValidationResult } from './types';
  * the service stay free of Sequelize specifics and be unit-tested with a fake.
  */
 export interface SubmissionDocumentRepository {
-  upsertValidation(submissionId: number, tenantId: number | null, validation: ValidationResult): Promise<void>;
+  upsertValidation(submissionId: number, organizationId: number | null, validation: ValidationResult): Promise<void>;
 }
 
 /**
- * Default repository backed by the SubmissionDocument model. Merges the
+ * Default repository backed by the SubmissionOutput model. Merges the
  * validation block into the earliest document for the submission, creating one
  * when none exists.
  */
 export const sequelizeSubmissionDocumentRepository: SubmissionDocumentRepository = {
-  async upsertValidation(submissionId, tenantId, validation) {
-    const doc = await SubmissionDocument.findOne({ where: { submissionId }, order: [['id', 'ASC']] });
+  async upsertValidation(submissionId, organizationId, validation) {
+    const doc = await SubmissionOutput.findOne({ where: { submissionId }, order: [['id', 'ASC']] });
     if (!doc) {
-      await SubmissionDocument.create({ submissionId, tenantId, structuredData: { validation } });
+      await SubmissionOutput.create({ submissionId, organizationId, structuredData: { validation } });
       return;
     }
     doc.structuredData = { ...(doc.structuredData ?? {}), validation };

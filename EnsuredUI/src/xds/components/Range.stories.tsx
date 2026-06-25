@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import Range from './Range'
 
 const meta: Meta<typeof Range> = {
-  title: 'XDS/Range',
+  title: 'XDS/Form/Range',
   component: Range,
   argTypes: {
     min: { control: 'number' },

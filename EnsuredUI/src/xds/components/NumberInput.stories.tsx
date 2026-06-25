@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import NumberInput, { type NumberInputProps } from './NumberInput'
 
 const meta: Meta<typeof NumberInput> = {
-  title: 'XDS/NumberInput',
+  title: 'XDS/Form/Input/NumberInput',
   component: NumberInput
 }
 

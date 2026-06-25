@@ -1,15 +1,15 @@
 // Mock DB models so extraction persistence runs without a database.
 jest.mock('../../db/models', () => ({
   ExtractedField: { create: jest.fn() },
-  SubmissionDocument: { findOne: jest.fn(), create: jest.fn() },
+  SubmissionOutput: { findOne: jest.fn(), create: jest.fn() },
 }));
 
-import { ExtractedField, SubmissionDocument } from '../../db/models';
+import { ExtractedField, SubmissionOutput } from '../../db/models';
 import { ExtractionService } from './service';
 import { ExtractionAgent, ExtractedEntities } from './GeminiExtractionProvider';
 
-const findOne = SubmissionDocument.findOne as unknown as jest.Mock;
-const create = SubmissionDocument.create as unknown as jest.Mock;
+const findOne = SubmissionOutput.findOne as unknown as jest.Mock;
+const create = SubmissionOutput.create as unknown as jest.Mock;
 const fieldCreate = ExtractedField.create as unknown as jest.Mock;
 
 function fakeDoc() {
@@ -17,6 +17,8 @@ function fakeDoc() {
 }
 
 const AGENT_ENTITIES: ExtractedEntities = {
+  namedInsured: 'Beta Manufacturing LLC',
+  insuredSubject: 'enterprise network and data assets',
   limit: 9_000_000,
   deductible: 100_000,
   effectiveDate: '2026-03-01',
@@ -28,6 +30,7 @@ const AGENT_ENTITIES: ExtractedEntities = {
   oracleDataSource: null,
   subjectCount: null,
   subjects: [],
+  inputTruncated: false,
 };
 
 beforeEach(() => {
@@ -42,7 +45,7 @@ describe('ExtractionService agent policy (no live request)', () => {
     const agent: ExtractionAgent = { isAvailable: () => true, extract };
 
     const res: any = await new ExtractionService({ extractionAgent: agent }).process({
-      submission: { id: 1, tenantId: 1 },
+      submission: { id: 1, organizationId: 1 },
       ocr: { text: 'unstructured submission narrative' },
     });
 
@@ -79,5 +82,20 @@ describe('ExtractionService agent policy (no live request)', () => {
 
     expect(res.structuredData.source).toBe('ocr_ner');
     expect(extract).not.toHaveBeenCalled();
+  });
+
+  it('regex NER captures the named insured and always yields an insured-subject', async () => {
+    const agent: ExtractionAgent = { isAvailable: () => false, extract: jest.fn() };
+
+    const res: any = await new ExtractionService({ extractionAgent: agent }).process({
+      submission: { id: 4 },
+      ocr: {
+        text: 'Named Insured: Globex Corporation\nProperty Location: 12 Harbor Rd, Boston, MA\nPerils: windstorm',
+      },
+    });
+
+    expect(res.structuredData.namedInsured).toBe('Globex Corporation');
+    expect(res.structuredData.insuredSubject).toBe('windstorm risk at 12 Harbor Rd, Boston, MA');
+    expect(res.persistedFields).toEqual(expect.arrayContaining(['namedInsured', 'insuredSubject']));
   });
 });

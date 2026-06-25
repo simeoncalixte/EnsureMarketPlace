@@ -11,7 +11,13 @@ type Org = {
   status?: string;
 };
 
-export default function OrganizationsSubpage({ onViewUsers }: { onViewUsers: (org: Org) => void }) {
+export default function OrganizationsSubpage({
+  onViewUsers,
+  onManageDepartments,
+}: {
+  onViewUsers: (org: Org) => void;
+  onManageDepartments?: (org: Org) => void;
+}) {
   const [orgs, setOrgs] = useState<Org[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,6 +70,11 @@ export default function OrganizationsSubpage({ onViewUsers }: { onViewUsers: (or
             <Button variant="text" size="sm" onClick={() => onViewUsers(o)}>
               View Users
             </Button>
+            {onManageDepartments && (
+              <Button variant="text" size="sm" onClick={() => onManageDepartments(o)}>
+                Departments
+              </Button>
+            )}
           </RowActions>
         )}
       />

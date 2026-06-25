@@ -1,4 +1,4 @@
-import { EnrichmentData, SubmissionDocument } from '../../db/models';
+import { EnrichmentData, SubmissionOutput } from '../../db/models';
 import { runStage } from '../stageResult';
 import type { GeocodeProvider, NormalizedLocation } from '../connectors/geocoding/GeocodeProvider';
 import { selectGeocodeProvider } from '../connectors/geocoding/selectGeocodeProvider';
@@ -30,7 +30,7 @@ type LocatableUnit = {
  * **Nominatim** engine. Both return the identical `NormalizedLocation` shape, so
  * this stage is agnostic to which engine answered.
  *
- * ENHANCE, NEVER DEGRADE: persistence (SubmissionDocument augmentation, the
+ * ENHANCE, NEVER DEGRADE: persistence (SubmissionOutput augmentation, the
  * geography Address book, the EnrichmentData audit row) only runs when a real
  * submission id is present and is best-effort per subject — a provider error or a
  * single unresolvable address is recorded as a warning, never a stage failure.
@@ -91,7 +91,7 @@ export class LocationDiscoveryService {
         if (!location) continue;
         const key = placeKey(location);
         if (geoByPlace.has(key)) continue;
-        geoByPlace.set(key, await resolveAndPersistGeography(location, submission.tenantId ?? null));
+        geoByPlace.set(key, await resolveAndPersistGeography(location, submission.organizationId ?? null));
       }
     }
 
@@ -119,7 +119,7 @@ export class LocationDiscoveryService {
     }
 
     if (submission?.id) {
-      await this.persist(Number(submission.id), submission.tenantId ?? null, subjects, {
+      await this.persist(Number(submission.id), submission.organizationId ?? null, subjects, {
         provider: this.provider.name,
         locations,
         resolved,
@@ -144,14 +144,14 @@ export class LocationDiscoveryService {
 
   /**
    * Resolve the extraction record to read subjects from: prefer this run's upstream
-   * output, else the persisted SubmissionDocument (so the stage can run standalone).
+   * output, else the persisted SubmissionOutput (so the stage can run standalone).
    */
   private async loadExtraction(payload: any, submissionId: unknown): Promise<Record<string, any>> {
     const fromPayload = payload?.extraction?.structuredData ?? payload?.extraction;
     if (fromPayload && typeof fromPayload === 'object') return fromPayload as Record<string, any>;
 
     if (submissionId != null) {
-      const doc = await SubmissionDocument.findOne({ where: { submissionId: Number(submissionId) } });
+      const doc = await SubmissionOutput.findOne({ where: { submissionId: Number(submissionId) } });
       const structured = (doc?.structuredData ?? {}) as Record<string, any>;
       if (structured.extraction && typeof structured.extraction === 'object') return structured.extraction;
     }
@@ -159,24 +159,24 @@ export class LocationDiscoveryService {
   }
 
   /**
-   * Persist results: augment the SubmissionDocument (a dedicated `locationDiscovery`
+   * Persist results: augment the SubmissionOutput (a dedicated `locationDiscovery`
    * block plus the geocoded `extraction.subjects` written back in place) and record
    * an EnrichmentData audit row. Best-effort — a persistence error degrades to a
    * warning rather than failing the stage.
    */
   private async persist(
     submissionId: number,
-    tenantId: number | null,
+    organizationId: number | null,
     subjects: AnySubject[],
     summary: Record<string, unknown>,
   ): Promise<void> {
     const block = { ...summary, subjects, discoveredAt: new Date().toISOString() };
     try {
-      let doc = await SubmissionDocument.findOne({ where: { submissionId } });
+      let doc = await SubmissionOutput.findOne({ where: { submissionId } });
       if (!doc) {
-        doc = await SubmissionDocument.create({
+        doc = await SubmissionOutput.create({
           submissionId,
-          tenantId,
+          organizationId,
           structuredData: { locationDiscovery: block },
         });
       } else {
@@ -194,7 +194,7 @@ export class LocationDiscoveryService {
 
       await EnrichmentData.create({
         submissionId,
-        tenantId,
+        organizationId,
         enrichmentType: 'location',
         data: block,
       });

@@ -2,11 +2,13 @@ import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 import { readdir, readFile } from 'fs/promises';
 import jwt from 'jsonwebtoken';
 import path from 'path';
+import { PipelineArtifact, SubmissionFile } from '../db/models';
 import { User } from '../db/models/identity.models';
 import { PipelineLifecycleSubscription } from '../db/models/pipelineConfig.models';
-import { advanceSubmissionToNextStage, rerunSubmissionStage, buildPipelineBoard } from '../pipeline/board/service';
-import { getArtifact, getSubmissionPlayback } from '../pipeline/playback/service';
+import { advanceSubmissionToNextStage, rerunSubmissionStage, buildPipelineBoard, buildPipelineFlow } from '../pipeline/board/service';
+import { getArtifact, getSubmissionAgentActivity, getSubmissionPlayback } from '../pipeline/playback/service';
 import { PIPELINE_OPERATION_KEYS } from '../pipeline/operations/catalog';
+import { getS3Object } from '../pipeline/connectors/s3';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_jwt_secret_for_impersonation';
 
@@ -159,6 +161,80 @@ function serializeSubscription(subscription: PipelineLifecycleSubscription): Pip
   };
 }
 
+/** Browser-renderable MIME type per file extension; octet-stream otherwise. */
+const MIME_BY_EXTENSION: Record<string, string> = {
+  pdf: 'application/pdf',
+  png: 'image/png',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  gif: 'image/gif',
+  webp: 'image/webp',
+  svg: 'image/svg+xml',
+  // Text-ish formats are served as plain text so inline previews are safe
+  // (no HTML/script execution) and render in a plain frame.
+  txt: 'text/plain; charset=utf-8',
+  md: 'text/plain; charset=utf-8',
+  csv: 'text/plain; charset=utf-8',
+  json: 'text/plain; charset=utf-8',
+  eml: 'text/plain; charset=utf-8',
+  html: 'text/plain; charset=utf-8',
+  xml: 'text/plain; charset=utf-8',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  doc: 'application/msword',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  xls: 'application/vnd.ms-excel',
+};
+
+function mimeForFileName(fileName: string): string {
+  const ext = path.extname(fileName).replace('.', '').toLowerCase();
+  return MIME_BY_EXTENSION[ext] ?? 'application/octet-stream';
+}
+
+/** Read a stored submission file from local disk or s3://bucket/key. */
+async function readSubmissionFileContent(storagePath: string): Promise<Buffer | null> {
+  if (!storagePath) return null;
+  if (storagePath.startsWith('s3://')) {
+    const s = storagePath.replace('s3://', '');
+    const idx = s.indexOf('/');
+    if (idx <= 0) return null;
+    return getS3Object(s.slice(0, idx), s.slice(idx + 1));
+  }
+  try {
+    return await readFile(storagePath);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Per-file extracted-text previews from the submission's latest OCR output
+ * artifact, keyed by file name. This is what lets the UI present a preview for
+ * EVERY file type: formats a browser cannot render inline (docx, xlsx, …)
+ * fall back to the text the OCR stage already extracted.
+ */
+async function loadOcrTextPreviews(submissionId: number): Promise<Map<string, { textPreview: string; textLength: number }>> {
+  const previews = new Map<string, { textPreview: string; textLength: number }>();
+  try {
+    const artifact = await PipelineArtifact.findOne({
+      where: { submissionId, stageKey: 'ocr', role: 'output' },
+      order: [['id', 'DESC']],
+    });
+    const payload = (artifact?.payload ?? {}) as Record<string, unknown>;
+    const documents = Array.isArray(payload.documents) ? payload.documents : [];
+    for (const doc of documents) {
+      const d = (doc ?? {}) as Record<string, unknown>;
+      const fileName = typeof d.fileName === 'string' ? d.fileName : null;
+      const textPreview = typeof d.textPreview === 'string' ? d.textPreview : '';
+      if (fileName && textPreview) {
+        previews.set(fileName, { textPreview, textLength: Number(d.textLength) || textPreview.length });
+      }
+    }
+  } catch {
+    // Previews are an enhancement — a missing artifact never breaks the listing.
+  }
+  return previews;
+}
+
 function readStringField(body: Record<string, unknown>, fieldName: string): string | null {
   const value = body[fieldName];
   return typeof value === 'string' && value.trim().length > 0 ? value.trim() : null;
@@ -209,7 +285,11 @@ export const pipelineProcessesRoute: FastifyPluginAsync<PipelineProcessesRouteOp
     '/pipeline/processes/board',
     {
       schema: {
-        description: 'Active submissions grouped into pipeline processing stages (Kanban board).',
+        description: 'Active submissions grouped into pipeline processing stages (Kanban board). Pass ?type=<submissionTypeCode> to scope the board to one submission-type route.',
+        querystring: {
+          type: 'object',
+          properties: { type: { type: 'string' } },
+        },
         response: {
           200: {
             type: 'object',
@@ -218,7 +298,21 @@ export const pipelineProcessesRoute: FastifyPluginAsync<PipelineProcessesRouteOp
         },
       },
     },
-    async (request, reply) => reply.code(200).send(await buildPipelineBoard(request)),
+    async (request, reply) => {
+      const type = (request.query as { type?: string } | undefined)?.type ?? null;
+      return reply.code(200).send(await buildPipelineBoard(request, { type }));
+    },
+  );
+
+  app.get(
+    '/pipeline/processes/flow',
+    {
+      schema: {
+        description: 'Complete-pipeline flow (Sankey): forward stage-transition counts across the org\'s submissions, derived from their IngestionEvent history.',
+        response: { 200: { type: 'object', additionalProperties: true } },
+      },
+    },
+    async (request, reply) => reply.code(200).send(await buildPipelineFlow(request)),
   );
 
   app.post(
@@ -302,6 +396,26 @@ export const pipelineProcessesRoute: FastifyPluginAsync<PipelineProcessesRouteOp
   );
 
   app.get(
+    '/pipeline/processes/submissions/:id/agent-activity',
+    {
+      schema: {
+        description:
+          'The AI-agent transcript for a submission: every LLM call made while processing it (the exact prompt sent and the raw model response), including calls of any stage currently in flight. Poll while `active` is true to watch a running stage.',
+        params: {
+          type: 'object',
+          required: ['id'],
+          properties: { id: { type: 'integer' } },
+        },
+        response: { 200: { type: 'object', additionalProperties: true } },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      return reply.code(200).send(await getSubmissionAgentActivity(Number(id)));
+    },
+  );
+
+  app.get(
     '/pipeline/processes/artifacts/:artifactId',
     {
       schema: {
@@ -336,6 +450,79 @@ export const pipelineProcessesRoute: FastifyPluginAsync<PipelineProcessesRouteOp
         payload: artifact.payload,
         createdAt: artifact.createdAt,
       });
+    },
+  );
+
+  app.get(
+    '/pipeline/processes/submissions/:id/files',
+    {
+      schema: {
+        description:
+          'List the files attached to a submission, each with a content URL for inline preview and (when OCR has run) an extracted-text preview usable for any file type.',
+        params: {
+          type: 'object',
+          required: ['id'],
+          properties: { id: { type: 'integer' } },
+        },
+        response: { 200: { type: 'object', additionalProperties: true } },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const submissionId = Number(id);
+      const [files, previews] = await Promise.all([
+        SubmissionFile.findAll({ where: { submissionId }, order: [['id', 'ASC']] }),
+        loadOcrTextPreviews(submissionId),
+      ]);
+      return reply.code(200).send({
+        submissionId,
+        files: files.map((file) => {
+          const fileName = String(file.get('fileName') ?? 'document');
+          const preview = previews.get(fileName) ?? null;
+          return {
+            id: file.id,
+            fileName,
+            fileType: file.get('fileType') ?? null,
+            mimeType: mimeForFileName(fileName),
+            fileSize: file.get('fileSize') ?? null,
+            uploadedAt: file.get('uploadedAt') ?? null,
+            contentUrl: `/api/pipeline/processes/files/${file.id}/content`,
+            textPreview: preview?.textPreview ?? null,
+            textLength: preview?.textLength ?? null,
+          };
+        }),
+      });
+    },
+  );
+
+  app.get(
+    '/pipeline/processes/files/:fileId/content',
+    {
+      schema: {
+        description: 'Stream a submission file inline (correct MIME type) so the UI can preview it.',
+        params: {
+          type: 'object',
+          required: ['fileId'],
+          properties: { fileId: { type: 'integer' } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { fileId } = request.params as { fileId: number };
+      const file = await SubmissionFile.findByPk(Number(fileId));
+      if (!file) {
+        return reply.code(404).send({ error: 'file_not_found' });
+      }
+      const content = await readSubmissionFileContent(String(file.get('storagePath') ?? ''));
+      if (!content) {
+        return reply.code(404).send({ error: 'file_content_unavailable' });
+      }
+      const fileName = String(file.get('fileName') ?? 'document');
+      return reply
+        .code(200)
+        .header('Content-Type', mimeForFileName(fileName))
+        .header('Content-Disposition', `inline; filename="${fileName.replace(/"/g, '')}"`)
+        .send(content);
     },
   );
 

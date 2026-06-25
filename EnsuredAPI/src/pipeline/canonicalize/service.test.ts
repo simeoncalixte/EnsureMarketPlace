@@ -78,7 +78,7 @@ describe('canonicalizeAndPin (Slice 3, DB + registry mocked)', () => {
   it('(no-op) unmappable LOB ⇒ no pin, no enforcement, no schema lookup', async () => {
     const out = await canonicalizeAndPin({
       submissionId: 1,
-      tenantId: 7,
+      organizationId: 7,
       data: { lineOfBusiness: 'utterly unknown line', limit: -999 },
     });
 
@@ -100,7 +100,7 @@ describe('canonicalizeAndPin (Slice 3, DB + registry mocked)', () => {
 
     const out = await canonicalizeAndPin({
       submissionId: 2,
-      tenantId: 7,
+      organizationId: 7,
       data: { lineOfBusiness: 'Property', limit: -1 }, // invalid value, but never validated
     });
 
@@ -115,7 +115,7 @@ describe('canonicalizeAndPin (Slice 3, DB + registry mocked)', () => {
 
     const out = await canonicalizeAndPin({
       submissionId: 3,
-      tenantId: 7,
+      organizationId: 7,
       data: { lineOfBusiness: 'Property', limit: 5000 },
     });
 
@@ -129,7 +129,7 @@ describe('canonicalizeAndPin (Slice 3, DB + registry mocked)', () => {
 
     const out = await canonicalizeAndPin({
       submissionId: 4,
-      tenantId: 7,
+      organizationId: 7,
       data: { lineOfBusiness: 'Property', limit: -42 }, // violates min:0
     });
 
@@ -153,7 +153,7 @@ describe('canonicalizeAndPin (Slice 3, DB + registry mocked)', () => {
 
     const out = await canonicalizeAndPin({
       submissionId: 5,
-      tenantId: 7,
+      organizationId: 7,
       data: { lineOfBusiness: 'Property', limit: 100 },
     });
 
@@ -171,7 +171,7 @@ describe('canonicalizeAndPin (Slice 3, DB + registry mocked)', () => {
 
     const out = await canonicalizeAndPin({
       submissionId: 6,
-      tenantId: 7,
+      organizationId: 7,
       data: { lineOfBusiness: 'Property', limit: 10 },
     });
 

@@ -1,6 +1,6 @@
 {
   "process": "classification",
-  "generatedAt": "2026-06-08T15:23:04.677Z",
+  "generatedAt": "2026-06-24T02:50:42.944Z",
   "transformationCount": 1,
   "transformations": [
     {
@@ -43,9 +43,16 @@
             "lineOfBusinessLabel": "Parametric Weather",
             "score": 6
           }
+        ],
+        "multiLineOfBusiness": false,
+        "lineOfBusinesses": [
+          {
+            "lineOfBusinessCode": "catastrophe_property",
+            "lineOfBusinessLabel": "Catastrophe Property"
+          }
         ]
       },
-      "recordedAt": "2026-06-08T15:23:04.644Z"
+      "recordedAt": "2026-06-24T02:50:42.923Z"
     }
   ]
 }

@@ -1,8 +1,36 @@
 import { FastifyPluginAsync } from 'fastify';
-import { CanonicalSubmission, InsurerProfile, ModelRun, Organization, Pricing, PricingVersion, RiskPortfolio, Submission, TriageResult, User, WorkflowState } from '../db/models';
+import { CanonicalSubmission, ComplianceClearance, ExposureUnit, InsurerProfile, ModelRun, Organization, Policy, PolicyVersion, Pricing, PricingVersion, Quote, QuoteVersion, RiskPortfolio, Submission, TriageResult, User, WorkflowState } from '../db/models';
 import { resolveOrganizationIdFromRequest } from '../lib/org';
 import { computePriority, formatCurrency, formatRelativeTime, humanize, type SubmissionPriority } from '../lib/boardFormat';
 import { computeForSubmission } from '../pipeline/compute/service';
+import { screenSubmissionForCompliance } from '../pipeline/preBindCompliance/service';
+import { ComplianceGateError, issueQuoteForSubmission, transitionQuote, type QuoteAction } from '../underwriting/quote/service';
+import { bindQuoteForSubmission, endorsePolicy } from '../underwriting/policy/service';
+
+/**
+ * Statuses that represent a quote/bind-ready outcome. A submission cannot be moved
+ * into one of these until its latest pre-bind ComplianceClearance is `passed`
+ * (close-the-loop Issue 1: "quote issuance blocked without it"). The gate is
+ * enforced server-side in the PATCH handler.
+ */
+const COMPLIANCE_GATED_STATUSES = new Set(['approved']);
+
+/** Human-readable reason for a blocked clearance, surfaced to the underwriter. */
+function complianceBlockReason(clearance: ComplianceClearance | null): string {
+  if (!clearance) {
+    return 'Pre-bind compliance has not been run for this submission yet.';
+  }
+  if (clearance.status === 'failed') {
+    const blocking = clearance.checksJson
+      .filter((check) => check.status === 'hit' || check.status === 'not_authorized')
+      .map((check) => check.detail);
+    return blocking.length > 0 ? blocking.join(' ') : 'Pre-bind compliance failed.';
+  }
+  if (clearance.status === 'review') {
+    return 'Pre-bind compliance needs manual review before bind.';
+  }
+  return 'Pre-bind compliance is pending.';
+}
 
 type SubmissionStageKey = 'intake' | 'analysis' | 'pricing' | 'closed';
 
@@ -96,6 +124,7 @@ const DEFAULT_BOARD_CONFIG: BoardConfig = {
     { key: 'exposure', label: 'Exposure', valueKey: 'exposure', format: 'currency' },
     { key: 'premium', label: 'Premium', valueKey: 'premium', format: 'currency' },
     { key: 'priority', label: 'Priority', valueKey: 'priority', format: 'badge', badgeSource: 'priority' },
+    { key: 'compliance', label: 'Compliance', valueKey: 'complianceStatus', format: 'badge' },
     { key: 'receivedLabel', label: 'Received', valueKey: 'receivedLabel' },
     { key: 'owner', label: 'Owner', valueKey: 'owner' },
     { key: 'stageLabel', label: 'Stage', valueKey: 'stageLabel', format: 'badge', badgeSource: 'stage' },
@@ -106,6 +135,7 @@ const DEFAULT_BOARD_CONFIG: BoardConfig = {
     { key: 'region', label: 'Region', valueKey: 'region', section: 'facts' },
     { key: 'exposure', label: 'Exposure', valueKey: 'exposure', format: 'currency', section: 'facts' },
     { key: 'premium', label: 'Premium', valueKey: 'premium', format: 'currency', section: 'facts' },
+    { key: 'compliance', label: 'Compliance', valueKey: 'complianceStatus', format: 'badge', section: 'facts' },
     { key: 'owner', label: 'Owner', valueKey: 'owner', section: 'facts' },
     { key: 'receivedLabel', label: 'Received', valueKey: 'receivedLabel', section: 'facts' },
     { key: 'source', label: 'Source', valueKey: 'source', section: 'body' },
@@ -141,6 +171,16 @@ const DEFAULT_BOARD_CONFIG: BoardConfig = {
       border: 'rgba(34, 197, 94, 0.28)',
       description: 'Pricing and terms are being finalized.',
       emptyState: 'No submissions in pricing yet.',
+    },
+    {
+      key: 'compliance',
+      label: 'Pre-bind Compliance',
+      statuses: ['compliance'],
+      accent: '#f87171',
+      background: 'rgba(248, 113, 113, 0.12)',
+      border: 'rgba(248, 113, 113, 0.28)',
+      description: 'Sanctions and carrier-licensing checks before a quote can be bound.',
+      emptyState: 'No submissions awaiting compliance yet.',
     },
     {
       key: 'closed',
@@ -207,16 +247,29 @@ function primaryStatusForStage(stage: BoardStageDefinition | null | undefined): 
 }
 
 async function loadLiveItem(submission: Submission, config: BoardConfig): Promise<DashboardItem> {
-  const [modelRun, triageResult, pricing, canonicalSubmission] = await Promise.all([
+  const [modelRun, triageResult, pricing, canonicalSubmission, complianceClearance] = await Promise.all([
     ModelRun.findOne({ where: { submissionId: submission.id }, order: [['createdAt', 'DESC']] }),
     TriageResult.findOne({ where: { submissionId: submission.id }, order: [['decidedAt', 'DESC'], ['id', 'DESC']] }),
     Pricing.findOne({ where: { submissionId: submission.id } }),
     CanonicalSubmission.findOne({ where: { submissionId: submission.id } }),
+    // Latest pre-bind compliance clearance (append-only — newest row is current).
+    ComplianceClearance.findOne({ where: { submissionId: submission.id }, order: [['createdAt', 'DESC'], ['id', 'DESC']] }),
   ]);
 
   const pricingVersion = pricing
     ? await PricingVersion.findOne({ where: { pricingId: pricing.id }, order: [['versionNumber', 'DESC']] })
     : null;
+
+  // Close-the-loop Issue 2 — quote + bound-policy state, projected onto the board
+  // row by submissionId (the same denormalization the pricing/compliance fields
+  // use). Null-safe: submissions with no quote/policy render exactly as before.
+  const quote = await Quote.findOne({ where: { submissionId: submission.id } });
+  const quoteVersion = quote
+    ? await QuoteVersion.findOne({ where: { quoteId: quote.id }, order: [['versionNumber', 'DESC']] })
+    : null;
+  const policy = quote?.boundPolicyId
+    ? await Policy.findByPk(quote.boundPolicyId)
+    : await Policy.findOne({ where: { submissionId: submission.id }, order: [['createdAt', 'DESC']] });
 
   const portfolio = submission.portfolio as RiskPortfolio | null | undefined;
   const insurerProfile = submission.insurerProfile as InsurerProfile | null | undefined;
@@ -306,6 +359,26 @@ async function loadLiveItem(submission: Submission, config: BoardConfig): Promis
     priorSource,
     receivedAt: submission.receivedAt ? new Date(submission.receivedAt).toISOString() : null,
     canonicalSummary: canonicalSubmission?.data ? 'Available' : null,
+    // Close-the-loop Issue 1 — pre-bind compliance gate state (null-safe: legacy
+    // rows with no clearance render as an em-dash, exactly as before).
+    complianceStatus: complianceClearance?.status ?? null,
+    complianceSanctions: complianceClearance?.sanctionsStatus ?? null,
+    complianceLicensing: complianceClearance?.licensingStatus ?? null,
+    complianceDetail: complianceClearance
+      ? complianceClearance.status === 'passed'
+        ? 'Cleared for bind.'
+        : complianceBlockReason(complianceClearance)
+      : null,
+    complianceScreenedAt: complianceClearance?.screenedAt ? new Date(complianceClearance.screenedAt).toISOString() : null,
+    // Close-the-loop Issue 2 — quote + policy state (null-safe for legacy rows).
+    quoteNumber: quote?.quoteNumber ?? null,
+    quoteStatus: quote?.status ?? null,
+    quoteVersion: quoteVersion?.versionNumber ?? null,
+    quotedPremium: quoteVersion?.premium != null ? Number(quoteVersion.premium) : null,
+    quoteValidUntil: quoteVersion?.validUntil ? new Date(quoteVersion.validUntil).toISOString() : null,
+    policyNumber: policy?.externalPolicyId ?? null,
+    policyStatus: policy?.status ?? null,
+    policyVersion: policy?.currentVersionNumber ?? null,
     priority: null,
   };
 
@@ -358,6 +431,16 @@ async function buildDashboard(request: Parameters<typeof resolveOrganizationIdFr
     { model: WorkflowState, as: 'workflowState', include: [{ model: User, as: 'assignedToUser' }] },
   ] as const;
 
+  // Live inbox across the WHOLE pipeline: the board surfaces every submission,
+  // including ones still in-flight through the early/mid pipeline
+  // (submissionType → classification → extraction → …) that have not been
+  // canonicalized yet. Previously the board gated on a CanonicalSubmission row,
+  // which is only written during the `normalization` stage — so a submission
+  // dropped off the queue between intake and normalization and the board "lost
+  // track" of it. Canonical fields are still surfaced per-item (null-safe) by
+  // loadLiveItem, so canonicalized rows render exactly as before. Declined rows
+  // still belong in the board's "Closed" lane, so we do NOT filter by status.
+  // Tenant isolation is enforced by the InsurerProfile org join below.
   const submissions = await Submission.findAll({
     include: include as unknown as Parameters<typeof Submission.findAll>[0]['include'],
     order: [['receivedAt', 'DESC'], ['createdAt', 'DESC'], ['id', 'DESC']],
@@ -412,7 +495,7 @@ export const underwritingSubmissionsRoute: FastifyPluginAsync = async (app) => {
     '/underwriting/submissions',
     {
       schema: {
-        description: 'Return the live underwriting submissions dashboard for the current organization.',
+        description: 'Return the live underwriting submissions dashboard for the current organization (all submissions, including ones still in-flight through the pipeline).',
       },
     },
     async (request, reply) => reply.code(200).send(await buildDashboard(request)),
@@ -498,20 +581,38 @@ export const underwritingSubmissionsRoute: FastifyPluginAsync = async (app) => {
         return reply.code(404).send({ error: 'submission_not_found' });
       }
 
+      // Pre-bind compliance gate (Issue 1): block the move into a quote/bind-ready
+      // status unless the submission's latest ComplianceClearance has passed. This
+      // is the single server-side enforcement point — the UI gate is advisory only.
+      if (COMPLIANCE_GATED_STATUSES.has(status)) {
+        const clearance = await ComplianceClearance.findOne({
+          where: { submissionId: submission.id },
+          order: [['createdAt', 'DESC'], ['id', 'DESC']],
+        });
+        if (!clearance || clearance.status !== 'passed') {
+          return reply.code(409).send({
+            error: 'compliance_gate_blocked',
+            reason: complianceBlockReason(clearance),
+            complianceStatus: clearance?.status ?? null,
+            requiredStatus: 'passed',
+          });
+        }
+      }
+
       await submission.update({ status });
 
       const [workflowState] = await WorkflowState.findOrCreate({
         where: { submissionId: submission.id },
         defaults: {
           submissionId: submission.id,
-          tenantId: submission.tenantId ?? null,
+          organizationId: submission.organizationId ?? null,
           status,
           assignedTo: submission.submittedByUserId ?? null,
           tasks: null,
         },
       });
 
-      await workflowState.update({ status, tenantId: submission.tenantId ?? null });
+      await workflowState.update({ status, organizationId: submission.organizationId ?? null });
 
       const dashboard = await buildDashboard(request);
       const item = dashboard.items.find((entry) => entry.id === submission.id);
@@ -549,7 +650,7 @@ export const underwritingSubmissionsRoute: FastifyPluginAsync = async (app) => {
       if (!submission) {
         return reply.code(404).send({ error: 'submission_not_found' });
       }
-      if (organizationId && submission.tenantId != null && submission.tenantId !== organizationId) {
+      if (organizationId && submission.organizationId != null && submission.organizationId !== organizationId) {
         return reply.code(404).send({ error: 'submission_not_found' });
       }
 
@@ -563,6 +664,353 @@ export const underwritingSubmissionsRoute: FastifyPluginAsync = async (app) => {
       }
     },
   );
+
+  // Close-the-loop Issue 1 — run the pre-bind compliance screen (sanctions + carrier
+  // licensing) and persist a ComplianceClearance. This is what unblocks the
+  // bind/quote gate on the status route. Re-running creates a new clearance row
+  // (append-only audit trail), mirroring the recompute → new PricingVersion pattern.
+  app.post(
+    '/underwriting/submissions/:id/compliance',
+    {
+      schema: {
+        description:
+          'Run pre-bind compliance screening (sanctions/OFAC + carrier admitted-status) for a submission and persist a ComplianceClearance. The bind/quote gate reads the latest clearance.',
+        params: {
+          type: 'object',
+          required: ['id'],
+          properties: { id: { type: 'integer' } },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      const submission = await Submission.findByPk(id);
+      if (!submission) {
+        return reply.code(404).send({ error: 'submission_not_found' });
+      }
+      if (organizationId && submission.organizationId != null && submission.organizationId !== organizationId) {
+        return reply.code(404).send({ error: 'submission_not_found' });
+      }
+
+      try {
+        const result = await screenSubmissionForCompliance(id);
+        return reply.code(200).send(result);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'compliance_failed';
+        const statusCode = message === 'submission_not_found' ? 404 : 400;
+        return reply.code(statusCode).send({ error: message });
+      }
+    },
+  );
+
+  // Close-the-loop Issue 2 — issue (or re-issue) a quote for a submission. Builds
+  // the offer on the latest PricingVersion and enforces the SAME compliance gate
+  // as `approved`: the latest clearance must have passed. Re-issuing appends a new
+  // QuoteVersion (audit trail preserved), mirroring recompute → new PricingVersion.
+  app.post(
+    '/underwriting/submissions/:id/quote',
+    {
+      schema: {
+        description:
+          'Issue (or re-issue) a quote for a submission from its latest priced version. Gated on a passed pre-bind compliance clearance. Re-issue creates a new QuoteVersion.',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+        body: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            validityDays: { type: 'integer', minimum: 1 },
+            overrides: { type: 'object', additionalProperties: true },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const body = (request.body ?? {}) as { validityDays?: number; overrides?: Record<string, unknown> };
+
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      const submission = await Submission.findByPk(id);
+      if (!submission) return reply.code(404).send({ error: 'submission_not_found' });
+      if (organizationId && submission.organizationId != null && submission.organizationId !== organizationId) {
+        return reply.code(404).send({ error: 'submission_not_found' });
+      }
+
+      try {
+        const result = await issueQuoteForSubmission(id, {
+          validityDays: body.validityDays,
+          overrides: body.overrides,
+        });
+        return reply.code(200).send(result);
+      } catch (error) {
+        if (error instanceof ComplianceGateError) {
+          return reply.code(409).send({
+            error: 'compliance_gate_blocked',
+            reason: 'Pre-bind compliance must clear before a quote can be issued.',
+            complianceStatus: error.complianceStatus,
+            requiredStatus: 'passed',
+          });
+        }
+        const message = error instanceof Error ? error.message : 'quote_failed';
+        const statusCode = message === 'submission_not_found' ? 404 : 400;
+        return reply.code(statusCode).send({ error: message });
+      }
+    },
+  );
+
+  // Advance a quote's lifecycle: accept / decline / withdraw (expire is a system
+  // action). Updates the latest QuoteVersion + the Quote header.
+  app.patch(
+    '/underwriting/submissions/:id/quote',
+    {
+      schema: {
+        description: 'Transition a submission\'s quote (accept | decline | withdraw).',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+        body: {
+          type: 'object',
+          required: ['action'],
+          additionalProperties: false,
+          properties: {
+            action: { type: 'string', enum: ['accept', 'decline', 'withdraw'] },
+            reason: { type: 'string' },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const { action, reason } = request.body as { action: QuoteAction; reason?: string };
+
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      const submission = await Submission.findByPk(id);
+      if (!submission) return reply.code(404).send({ error: 'submission_not_found' });
+      if (organizationId && submission.organizationId != null && submission.organizationId !== organizationId) {
+        return reply.code(404).send({ error: 'submission_not_found' });
+      }
+
+      try {
+        const result = await transitionQuote(id, action, { reason: reason ?? null });
+        return reply.code(200).send(result);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'quote_transition_failed';
+        const statusCode = message === 'quote_not_found' ? 404 : 400;
+        return reply.code(statusCode).send({ error: message });
+      }
+    },
+  );
+
+  // Bind an ACCEPTED quote → create an in-force Policy + its issuance PolicyVersion.
+  // This is the single point where a quote graduates into a managed policy.
+  app.post(
+    '/underwriting/submissions/:id/bind',
+    {
+      schema: {
+        description: 'Bind a submission\'s accepted quote into an in-force Policy (+ issuance PolicyVersion).',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+        body: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            policyType: { type: 'string', enum: ['homeowners', 'commercial', 'auto', 'marine', 'life'] },
+            effectiveDate: { type: 'string' },
+            expirationDate: { type: 'string' },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const body = (request.body ?? {}) as {
+        policyType?: 'homeowners' | 'commercial' | 'auto' | 'marine' | 'life';
+        effectiveDate?: string;
+        expirationDate?: string;
+      };
+
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      const submission = await Submission.findByPk(id);
+      if (!submission) return reply.code(404).send({ error: 'submission_not_found' });
+      if (organizationId && submission.organizationId != null && submission.organizationId !== organizationId) {
+        return reply.code(404).send({ error: 'submission_not_found' });
+      }
+
+      try {
+        const result = await bindQuoteForSubmission(id, {
+          policyType: body.policyType,
+          effectiveDate: body.effectiveDate ?? null,
+          expirationDate: body.expirationDate ?? null,
+        });
+        return reply.code(200).send(result);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'bind_failed';
+        const statusCode = message === 'submission_not_found' || message === 'quote_not_found' ? 404 : 409;
+        return reply.code(statusCode).send({ error: message });
+      }
+    },
+  );
+
+  // Endorse / cancel / renew an in-force policy — appends a new immutable
+  // PolicyVersion and updates the Policy header's current snapshot.
+  app.post(
+    '/underwriting/policies/:id/endorse',
+    {
+      schema: {
+        description: 'Append a PolicyVersion (endorsement | cancellation | renewal) to an in-force policy.',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+        body: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            changeType: { type: 'string', enum: ['endorsement', 'cancellation', 'renewal'] },
+            status: { type: 'string', enum: ['in_force', 'cancelled', 'expired', 'lapsed'] },
+            premium: { type: ['number', 'string'] },
+            coverageLimit: { type: ['number', 'string'] },
+            deductible: { type: ['number', 'string'] },
+            expirationDate: { type: 'string' },
+            effectiveFrom: { type: 'string' },
+            reason: { type: 'string' },
+            terms: { type: 'object', additionalProperties: true },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const changes = (request.body ?? {}) as Record<string, unknown>;
+
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      const policy = await Policy.findByPk(id);
+      if (!policy) return reply.code(404).send({ error: 'policy_not_found' });
+      if (organizationId) {
+        const profile = await InsurerProfile.findByPk(policy.insurerProfileId);
+        if (profile && profile.organizationId !== organizationId) {
+          return reply.code(404).send({ error: 'policy_not_found' });
+        }
+      }
+
+      try {
+        const result = await endorsePolicy(id, changes as never);
+        return reply.code(200).send(result);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'endorse_failed';
+        const statusCode = message === 'policy_not_found' ? 404 : 409;
+        return reply.code(statusCode).send({ error: message });
+      }
+    },
+  );
+
+  // List the organization's policies (the in-force book). Org-scoped via the
+  // insurer profile, mirroring the submissions board; returns a summary per policy.
+  app.get(
+    '/underwriting/policies',
+    { schema: { description: 'List the current organization\'s policies (the in-force book) with a summary per policy.' } },
+    async (request, reply) => {
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      const where: Record<string, unknown> = {};
+      if (organizationId) {
+        const profiles = await InsurerProfile.findAll({ where: { organizationId }, attributes: ['id'] });
+        const profileIds = profiles.map((p) => p.id);
+        if (profileIds.length === 0) return reply.code(200).send({ items: [], counts: { total: 0, in_force: 0 } });
+        where.insurerProfileId = profileIds;
+      }
+
+      const policies = await Policy.findAll({ where, order: [['createdAt', 'DESC']] });
+      const items = policies.map(policySummary);
+      const counts = {
+        total: items.length,
+        in_force: items.filter((p) => p.status === 'in_force').length,
+      };
+      return reply.code(200).send({ items, counts });
+    },
+  );
+
+  // A single policy with its full PolicyVersion history and ExposureUnit schedule.
+  app.get(
+    '/underwriting/policies/:id',
+    {
+      schema: {
+        description: 'A policy with its version history (issuance + endorsements) and scheduled exposures.',
+        params: { type: 'object', required: ['id'], properties: { id: { type: 'integer' } } },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params as { id: number };
+      const policy = await Policy.findByPk(id);
+      if (!policy) return reply.code(404).send({ error: 'policy_not_found' });
+
+      const organizationId = await resolveOrganizationIdFromRequest(request);
+      if (organizationId) {
+        const profile = await InsurerProfile.findByPk(policy.insurerProfileId);
+        if (profile && profile.organizationId !== organizationId) {
+          return reply.code(404).send({ error: 'policy_not_found' });
+        }
+      }
+
+      const [versions, exposures] = await Promise.all([
+        PolicyVersion.findAll({ where: { policyId: id }, order: [['versionNumber', 'ASC']] }),
+        ExposureUnit.findAll({ where: { policyId: id }, order: [['subjectIndex', 'ASC']] }),
+      ]);
+
+      return reply.code(200).send({
+        policy: policySummary(policy),
+        versions: versions.map((v) => ({
+          versionNumber: v.versionNumber,
+          changeType: v.changeType,
+          status: v.status,
+          premium: Number(v.premium),
+          coverageLimit: v.coverageLimit != null ? Number(v.coverageLimit) : null,
+          deductible: v.deductible != null ? Number(v.deductible) : null,
+          effectiveDate: v.effectiveDate ? String(v.effectiveDate) : null,
+          expirationDate: v.expirationDate ? String(v.expirationDate) : null,
+          effectiveFrom: v.effectiveFrom ? String(v.effectiveFrom) : null,
+          reason: v.reason ?? null,
+          sourceQuoteVersionId: v.sourceQuoteVersionId ?? null,
+        })),
+        exposures: exposures.map((e) => ({
+          exposureRef: e.exposureRef,
+          subjectLabel: e.subjectLabel ?? null,
+          subjectIndex: e.subjectIndex ?? null,
+          assetType: e.assetType,
+          constructionType: e.constructionType ?? null,
+          occupancyType: e.occupancyType ?? null,
+          replacementCost: e.replacementCost != null ? Number(e.replacementCost) : null,
+        })),
+      });
+    },
+  );
 };
+
+/** Project a Policy row into the board/coverage summary DTO. */
+function policySummary(policy: Policy): {
+  id: number;
+  policyNumber: string;
+  status: string | null;
+  policyType: string;
+  premium: number;
+  coverageLimit: number | null;
+  deductible: number | null;
+  insuredValue: number | null;
+  effectiveDate: string | null;
+  expirationDate: string | null;
+  currentVersionNumber: number | null;
+  submissionId: number | null;
+  sourceQuoteId: number | null;
+} {
+  return {
+    id: policy.id,
+    policyNumber: policy.externalPolicyId,
+    status: policy.status ?? null,
+    policyType: policy.policyType,
+    premium: Number(policy.premium),
+    coverageLimit: policy.coverageLimit != null ? Number(policy.coverageLimit) : null,
+    deductible: policy.deductible != null ? Number(policy.deductible) : null,
+    insuredValue: policy.insuredValue != null ? Number(policy.insuredValue) : null,
+    effectiveDate: policy.effectiveDate ? String(policy.effectiveDate) : null,
+    expirationDate: policy.expirationDate ? String(policy.expirationDate) : null,
+    currentVersionNumber: policy.currentVersionNumber ?? null,
+    submissionId: policy.submissionId ?? null,
+    sourceQuoteId: policy.sourceQuoteId ?? null,
+  };
+}
 
 export default underwritingSubmissionsRoute;

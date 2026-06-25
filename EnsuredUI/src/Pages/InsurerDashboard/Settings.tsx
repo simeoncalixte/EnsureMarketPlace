@@ -6,6 +6,7 @@ import FormField from '../../xds/components/FormField'
 import Select from '../../xds/components/Select'
 import Button from '../../xds/components/Button'
 import { colors } from '../../xds/colors'
+import MessagingIntegrationsSection from '../Social/MessagingIntegrationsSection'
 
 const SettingsForm = styled.div`
   display: grid;
@@ -64,6 +65,14 @@ export default function Settings() {
               <Button variant="primary">Save Settings</Button>
             </SaveRow>
           </SettingsForm>
+        </S.Section>
+
+        <S.Section>
+          <S.SectionHeader>
+            <S.SectionTitle>Messaging</S.SectionTitle>
+            <S.SectionRule />
+          </S.SectionHeader>
+          <MessagingIntegrationsSection />
         </S.Section>
       </S.LeftColumn>
 

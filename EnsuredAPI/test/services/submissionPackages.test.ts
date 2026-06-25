@@ -1,4 +1,6 @@
 import {
+  ARCHETYPE_CODES,
+  ARCHETYPE_INFO,
   assignComplexities,
   buildSubmissionPackage,
   summarizeComplexity,
@@ -143,5 +145,91 @@ describe('buildSubmissionPackage', () => {
       expect(p.manifest.complexity).toBeGreaterThanOrEqual(1);
       expect(p.manifest.complexity).toBeLessThanOrEqual(10);
     }
+  });
+
+  it('mirrors the singular line-of-business fields into the plural ones by default', () => {
+    for (let seed = 0; seed < 12; seed += 1) {
+      const m = buildSubmissionPackage(seed, 7).manifest;
+      expect(m.lineOfBusinesses).toEqual([m.lineOfBusiness]);
+      expect(m.lineOfBusinessCodes).toEqual([m.lineOfBusinessCode]);
+      expect(m.archetypes).toEqual([m.archetype]);
+      expect(m.cedents).toEqual([m.cedent]);
+    }
+  });
+});
+
+describe('buildSubmissionPackage — scenario directives', () => {
+  it('bundles multiple archetypes into one multi-LOB package', () => {
+    const codes = ['property_cat', 'casualty_qs'];
+    const pkg = buildSubmissionPackage(5, 7, { archetypeCodes: codes });
+    expect(pkg.manifest.lineOfBusinessCodes).toEqual(codes);
+    expect(pkg.manifest.lineOfBusinesses).toHaveLength(2);
+    expect(pkg.manifest.archetypes).toHaveLength(2);
+    // Singular fields describe the primary/lead line.
+    expect(pkg.manifest.lineOfBusinessCode).toBe('property_cat');
+    expect(pkg.manifest.lineOfBusiness).toBe(pkg.manifest.lineOfBusinesses[0]);
+    // The bundle carries documents tagged for each line (file names disambiguated).
+    expect(pkg.files.some((f) => f.fileName.includes('propertycat'))).toBe(true);
+    expect(pkg.files.some((f) => f.fileName.includes('casualtyqs'))).toBe(true);
+    expect(pkg.summaryText).toContain(' + ');
+  });
+
+  it('ignores unknown archetype codes but still produces a package', () => {
+    const pkg = buildSubmissionPackage(5, 7, { archetypeCodes: ['property_cat', 'nope'] });
+    expect(pkg.manifest.lineOfBusinessCodes).toEqual(['property_cat']);
+    expect(pkg.files.length).toBeGreaterThan(0);
+  });
+
+  it('falls back to a seed-chosen archetype when all codes are unknown', () => {
+    const pkg = buildSubmissionPackage(5, 7, { archetypeCodes: ['nope', 'nada'] });
+    expect(ARCHETYPE_CODES).toContain(pkg.manifest.lineOfBusinessCode);
+  });
+
+  it('pins the reinsurance type when no explicit codes are given', () => {
+    for (const type of ['treaty', 'facultative'] as const) {
+      for (let seed = 0; seed < 8; seed += 1) {
+        const pkg = buildSubmissionPackage(seed, 7, { reinsuranceType: type });
+        expect(pkg.manifest.reinsuranceType).toBe(type);
+      }
+    }
+    // Sanity: the catalog actually offers both types.
+    expect(ARCHETYPE_INFO.some((a) => a.reinsuranceType === 'treaty')).toBe(true);
+    expect(ARCHETYPE_INFO.some((a) => a.reinsuranceType === 'facultative')).toBe(true);
+  });
+
+  it('drops requested document categories while preserving the >=1 PDF invariant', () => {
+    const drop = ['statement_of_values', 'loss_run', 'schedule_of_locations'];
+    for (let seed = 0; seed < 10; seed += 1) {
+      const pkg = buildSubmissionPackage(seed, 8, {
+        archetypeCodes: ['property_cat'],
+        dropCategories: drop,
+      });
+      for (const f of pkg.files) expect(drop).not.toContain(f.category);
+      expect(pkg.files.some((f) => f.kind === 'pdf')).toBe(true);
+    }
+  });
+
+  it('keeps a single insured unless multiple insureds are requested', () => {
+    const single = buildSubmissionPackage(5, 7, { archetypeCodes: ['property_cat', 'casualty_qs'] });
+    expect(single.manifest.cedents).toHaveLength(1);
+
+    // With multipleInsureds, at least some seeds spread across distinct cedents.
+    let sawMany = false;
+    for (let seed = 0; seed < 16; seed += 1) {
+      const pkg = buildSubmissionPackage(seed, 7, {
+        archetypeCodes: ['property_cat', 'casualty_qs', 'marine_fac'],
+        multipleInsureds: true,
+      });
+      if (pkg.manifest.cedents.length >= 2) sawMany = true;
+    }
+    expect(sawMany).toBe(true);
+  });
+
+  it('restricts perils to the filter when one is supplied', () => {
+    const pkg = buildSubmissionPackage(3, 9, {
+      archetypeCodes: ['property_cat'],
+      perilFilter: ['earthquake'],
+    });
+    expect(pkg.manifest.perils).toEqual(['earthquake']);
   });
 });

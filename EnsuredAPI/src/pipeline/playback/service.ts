@@ -1,6 +1,7 @@
 import { createHash } from 'crypto';
 import type { Transaction } from 'sequelize';
-import { PipelineArtifact, PipelineRun, StageExecution } from '../../db/models';
+import { AgentTrace, PipelineArtifact, PipelineRun, StageExecution } from '../../db/models';
+import { liveAgentCalls, type AgentCallTrace } from '../agents/trace';
 
 /**
  * Playback service — records and reads the pipeline's replayable history.
@@ -33,7 +34,7 @@ async function createArtifact(
   attrs: {
     runId: number;
     submissionId: number | null;
-    tenantId: number | null;
+    organizationId: number | null;
     stageKey: string;
     role: 'input' | 'output';
     payload: Record<string, unknown> | unknown;
@@ -45,7 +46,7 @@ async function createArtifact(
     {
       runId: attrs.runId,
       submissionId: attrs.submissionId,
-      tenantId: attrs.tenantId,
+      organizationId: attrs.organizationId,
       stageKey: attrs.stageKey,
       role: attrs.role,
       contentHash,
@@ -57,10 +58,15 @@ async function createArtifact(
   );
 }
 
-/** Load this run's stage outputs, keyed by stage key (latest write wins). */
-async function loadPriorStageOutputs(runId: number): Promise<Record<string, unknown>> {
+/**
+ * Load the submission's latest recorded output per stage across ALL of its runs
+ * (artifact order, so newer runs win). Without this, a stage rerun after the
+ * original run closed would execute against an empty history — the bare
+ * submission instead of the priors it saw the first time.
+ */
+async function loadLatestStageOutputs(submissionId: number): Promise<Record<string, unknown>> {
   const outputs = await PipelineArtifact.findAll({
-    where: { runId, role: 'output' },
+    where: { submissionId, role: 'output' },
     order: [['id', 'ASC']],
   });
   const byStage: Record<string, unknown> = {};
@@ -79,7 +85,7 @@ async function loadPriorStageOutputs(runId: number): Promise<Record<string, unkn
  */
 export async function prepareStageRun(args: {
   submissionId: number;
-  tenantId: number | null;
+  organizationId: number | null;
   fromStageKey: string;
   toStageKey: string;
   trigger?: string;
@@ -90,18 +96,25 @@ export async function prepareStageRun(args: {
     order: [['id', 'DESC']],
   });
   if (!run) {
+    // A new run after a previous one closed (e.g. a rerun) is chained to that
+    // run so it inherits the recorded stage outputs instead of starting empty.
+    const latest = await PipelineRun.findOne({
+      where: { submissionId: args.submissionId },
+      order: [['id', 'DESC']],
+    });
     run = await PipelineRun.create({
       submissionId: args.submissionId,
-      tenantId: args.tenantId,
+      organizationId: args.organizationId,
       trigger: args.trigger ?? 'manual',
       triggeredByUserId: args.triggeredByUserId ?? null,
+      parentRunId: latest?.id ?? null,
       fromStage: args.fromStageKey,
       toStage: args.toStageKey,
       status: 'running',
       startedAt: new Date(),
     });
   }
-  const priorOutputs = await loadPriorStageOutputs(run.id);
+  const priorOutputs = await loadLatestStageOutputs(args.submissionId);
   return { run, priorOutputs };
 }
 
@@ -112,7 +125,7 @@ export async function prepareStageRun(args: {
 export async function recordStageRun(args: {
   run: PipelineRun;
   submissionId: number;
-  tenantId: number | null;
+  organizationId: number | null;
   stageKey: string;
   isFinalStage: boolean;
   status: 'completed' | 'failed';
@@ -129,7 +142,7 @@ export async function recordStageRun(args: {
   const inputArtifact = await createArtifact({
     runId: run.id,
     submissionId: args.submissionId,
-    tenantId: args.tenantId,
+    organizationId: args.organizationId,
     stageKey: args.stageKey,
     role: 'input',
     payload: args.inputPayload,
@@ -137,7 +150,7 @@ export async function recordStageRun(args: {
   const outputArtifact = await createArtifact({
     runId: run.id,
     submissionId: args.submissionId,
-    tenantId: args.tenantId,
+    organizationId: args.organizationId,
     stageKey: args.stageKey,
     role: 'output',
     payload: args.outputPayload,
@@ -147,7 +160,7 @@ export async function recordStageRun(args: {
   const execution = await StageExecution.create({
     runId: run.id,
     submissionId: args.submissionId,
-    tenantId: args.tenantId,
+    organizationId: args.organizationId,
     stageKey: args.stageKey,
     attempt,
     status: args.status,
@@ -179,9 +192,135 @@ export async function recordStageRun(args: {
   };
 }
 
+/**
+ * Persist the LLM agent calls captured during a stage run (see
+ * `agents/trace.ts`) as `agent_traces` rows linked to the execution. Like the
+ * artifact capture, this is best-effort at the call site — a missing table must
+ * never block the pipeline.
+ */
+export async function recordAgentTraces(args: {
+  runId: number | null;
+  executionId: number | null;
+  submissionId: number;
+  organizationId: number | null;
+  stageKey: string;
+  traces: AgentCallTrace[];
+}): Promise<void> {
+  if (args.traces.length === 0) return;
+  await AgentTrace.bulkCreate(
+    args.traces.map((trace) => ({
+      runId: args.runId,
+      executionId: args.executionId,
+      submissionId: args.submissionId,
+      organizationId: args.organizationId,
+      stageKey: args.stageKey,
+      seq: trace.seq,
+      agent: trace.agent,
+      model: trace.model,
+      promptVersion: trace.promptVersion,
+      prompt: trace.prompt,
+      responseText: trace.responseText,
+      // A capture interrupted mid-call (process crash aside, a thrown stage)
+      // can leave 'running' entries; persist them as failed for honesty.
+      status: trace.status === 'completed' ? 'completed' : 'failed',
+      errorMessage: trace.errorMessage,
+      durationMs: trace.durationMs,
+      startedAt: trace.startedAt,
+      finishedAt: trace.finishedAt,
+    })) as never[],
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Read APIs (playback endpoints)
 // ---------------------------------------------------------------------------
+
+/** The wire shape of one agent call in the activity endpoint. */
+type AgentActivityCall = {
+  id: number | null;
+  runId: number | null;
+  executionId: number | null;
+  stageKey: string | null;
+  seq: number;
+  agent: string;
+  model: string | null;
+  promptVersion: string | null;
+  prompt: string | null;
+  responseText: string | null;
+  status: string;
+  errorMessage: string | null;
+  durationMs: number | null;
+  startedAt: Date | null;
+  finishedAt: Date | null;
+  /** True for calls still mirrored from an in-flight stage (not yet persisted). */
+  live: boolean;
+};
+
+/**
+ * The full agent transcript for a submission: every persisted LLM call across
+ * its runs, plus the calls of any stage currently in flight (mirrored from the
+ * live capture registry, so the UI can show "the agent is thinking" while a
+ * stage runs). Ordered oldest → newest.
+ */
+export async function getSubmissionAgentActivity(submissionId: number): Promise<{
+  submissionId: number;
+  calls: AgentActivityCall[];
+  /** True while at least one call is still running. */
+  active: boolean;
+}> {
+  let persisted: AgentTrace[] = [];
+  try {
+    persisted = await AgentTrace.findAll({ where: { submissionId }, order: [['id', 'ASC']] });
+  } catch {
+    // Table missing (migration not run) — degrade to live-only activity.
+  }
+
+  const calls: AgentActivityCall[] = persisted.map((trace) => ({
+    id: trace.id,
+    runId: trace.runId,
+    executionId: trace.executionId,
+    stageKey: trace.stageKey,
+    seq: trace.seq,
+    agent: trace.agent,
+    model: trace.model,
+    promptVersion: trace.promptVersion,
+    prompt: trace.prompt,
+    responseText: trace.responseText,
+    status: trace.status,
+    errorMessage: trace.errorMessage,
+    durationMs: trace.durationMs,
+    startedAt: trace.startedAt,
+    finishedAt: trace.finishedAt,
+    live: false,
+  }));
+
+  for (const call of liveAgentCalls(submissionId)) {
+    calls.push({
+      id: null,
+      runId: null,
+      executionId: null,
+      stageKey: call.stageKey,
+      seq: call.seq,
+      agent: call.agent,
+      model: call.model,
+      promptVersion: call.promptVersion,
+      prompt: call.prompt,
+      responseText: call.responseText,
+      status: call.status,
+      errorMessage: call.errorMessage,
+      durationMs: call.durationMs,
+      startedAt: call.startedAt,
+      finishedAt: call.finishedAt,
+      live: true,
+    });
+  }
+
+  return {
+    submissionId,
+    calls,
+    active: calls.some((call) => call.status === 'running'),
+  };
+}
 
 export async function getSubmissionPlayback(submissionId: number): Promise<{
   submissionId: number;
@@ -313,7 +452,7 @@ function outputForStage(
 export async function seedPipelineRunForSubmission(
   args: {
     submissionId: number;
-    tenantId: number | null;
+    organizationId: number | null;
     stages: SeedStageSpec[];
     baseTime: Date;
     trigger?: string;
@@ -329,7 +468,7 @@ export async function seedPipelineRunForSubmission(
   const run = await PipelineRun.create(
     {
       submissionId: args.submissionId,
-      tenantId: args.tenantId,
+      organizationId: args.organizationId,
       trigger: args.trigger ?? 'seed',
       fromStage: args.stages[0].stageKey,
       toStage: args.stages[args.stages.length - 1].stageKey,
@@ -345,21 +484,21 @@ export async function seedPipelineRunForSubmission(
     const spec = args.stages[i];
     const stageStarted = new Date(startedAt.getTime() + i * stepMs);
     const stageFinished = new Date(stageStarted.getTime() + Math.floor(stepMs / 2));
-    const inputPayload = { submission: { id: args.submissionId, tenantId: args.tenantId }, ...priorOutputs };
+    const inputPayload = { submission: { id: args.submissionId, organizationId: args.organizationId }, ...priorOutputs };
 
     const inputArtifact = await createArtifact(
-      { runId: run.id, submissionId: args.submissionId, tenantId: args.tenantId, stageKey: spec.stageKey, role: 'input', payload: inputPayload },
+      { runId: run.id, submissionId: args.submissionId, organizationId: args.organizationId, stageKey: spec.stageKey, role: 'input', payload: inputPayload },
       transaction,
     );
     const outputArtifact = await createArtifact(
-      { runId: run.id, submissionId: args.submissionId, tenantId: args.tenantId, stageKey: spec.stageKey, role: 'output', payload: spec.output },
+      { runId: run.id, submissionId: args.submissionId, organizationId: args.organizationId, stageKey: spec.stageKey, role: 'output', payload: spec.output },
       transaction,
     );
     await StageExecution.create(
       {
         runId: run.id,
         submissionId: args.submissionId,
-        tenantId: args.tenantId,
+        organizationId: args.organizationId,
         stageKey: spec.stageKey,
         attempt: 1,
         status: 'completed',

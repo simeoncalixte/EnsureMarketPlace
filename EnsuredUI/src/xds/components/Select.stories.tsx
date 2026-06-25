@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import Select from './Select'
 
 const meta: Meta<typeof Select> = {
-  title: 'XDS/Select',
+  title: 'XDS/Form/Select/Select',
   component: Select
 }
 
@@ -48,13 +48,16 @@ export const SelectsAnOption: Story = {
   render: () => <ControlledSelect />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const select = canvas.getByRole('combobox', { name: 'Tranche level' }) as HTMLSelectElement
+    const trigger = canvas.getByRole('button', { name: 'Tranche level' })
 
-    await expect(select.value).toBe('')
+    // Opens the custom dropdown panel (no native browser option list).
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    await userEvent.click(trigger)
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true')
 
-    await userEvent.selectOptions(select, 'Mezzanine Debt')
-
-    await expect(select.value).toBe('mezz')
-    await expect((canvas.getByRole('option', { name: 'Mezzanine Debt' }) as HTMLOptionElement).selected).toBe(true)
+    // Choosing an option fills the trigger and marks it selected.
+    await userEvent.click(canvas.getByRole('option', { name: 'Mezzanine Debt' }))
+    await expect(trigger).toHaveTextContent('Mezzanine Debt')
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
   }
 }

@@ -7,9 +7,24 @@ export type NavItem = {
   id: string
   label: string
   active?: boolean
-  icon?: string // name or glyph to render in the leading slot
+  icon?: string // Material Symbols name (e.g. 'storefront') or a raw glyph/emoji
   shortcut?: string // small right-aligned shortcut label
   subItems?: NavItem[]
+}
+
+// Material Symbols ligature names are lowercase snake_case (e.g. 'upload_file').
+// Anything else (emoji, abbreviations) is rendered as-is in the leading slot.
+const isSymbolName = (icon: string) => /^[a-z][a-z0-9_]*$/.test(icon)
+
+const NavIcon: React.FC<{ icon?: string; size?: number; color?: string }> = ({ icon, size = 20, color }) => {
+  if (icon && isSymbolName(icon)) {
+    return (
+      <span className="material-symbols-outlined" style={{ fontSize: size, color }} aria-hidden>
+        {icon}
+      </span>
+    )
+  }
+  return <>{icon ?? '🏛️'}</>
 }
 
 export const Navigation: React.FC<{ items: NavItem[]; showSubroutes?: boolean; onItemClick?: () => void }> = ({ items, showSubroutes = true, onItemClick }) => {
@@ -24,15 +39,6 @@ export const Navigation: React.FC<{ items: NavItem[]; showSubroutes?: boolean; o
     borderRadius: radii.md
   }
 
-  const hexToRgba = (hex: string, alpha = 1) => {
-    const h = hex.replace('#', '')
-    const bigint = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16)
-    const r = (bigint >> 16) & 255
-    const g = (bigint >> 8) & 255
-    const b = bigint & 255
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`
-  }
-
   return (
     <nav style={containerStyle}>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
@@ -43,9 +49,9 @@ export const Navigation: React.FC<{ items: NavItem[]; showSubroutes?: boolean; o
           // Use the exact accent hex requested, with a 10% left gradient
           const accentHex = colors.primary
           const leftColor = accentHex
-          const transparentRight = hexToRgba(leftColor, 0)
+          const transparentRight = withAlpha(leftColor, 0)
           const bg = isActive || isHover
-            ? `linear-gradient(90deg, ${hexToRgba(leftColor, 0.1)} 0%, ${transparentRight} 70%)`
+            ? `linear-gradient(90deg, ${withAlpha(leftColor, 0.1)} 0%, ${transparentRight} 70%)`
             : 'transparent'
 
           // active text uses the accent hex color
@@ -91,7 +97,7 @@ export const Navigation: React.FC<{ items: NavItem[]; showSubroutes?: boolean; o
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <span style={{ color: color, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 20 }} aria-hidden>
-                      {it.icon ?? '🏛️'}
+                      <NavIcon icon={it.icon} color={color} />
                     </span>
                     <span style={{ color: color, outline: 'none' }} contentEditable={false} suppressContentEditableWarning>
                       {it.label}
@@ -122,7 +128,9 @@ export const Navigation: React.FC<{ items: NavItem[]; showSubroutes?: boolean; o
                       <li key={sub.id} style={{ marginBottom: spacing.xs }}>
                         <Link to={sub.id} style={subStyle} onClick={() => onItemClick?.()}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <span style={{ width: 16 }}>{sub.icon ?? '•'}</span>
+                            <span style={{ width: 16, display: 'inline-flex', alignItems: 'center' }} aria-hidden>
+                              {sub.icon ? <NavIcon icon={sub.icon} size={16} /> : '•'}
+                            </span>
                             <span>{sub.label}</span>
                           </div>
                         </Link>

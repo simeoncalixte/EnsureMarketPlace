@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import DealParametersSection from './DealParametersSection';
 
 const meta: Meta<typeof DealParametersSection> = {
-  title: 'Pages/Insurer Dashboard/Sections/Deal Parameters',
+  title: 'Pages/Insurer Dashboard/Sections/General Information',
   component: DealParametersSection,
 };
 
@@ -18,12 +18,10 @@ export const Default: Story = {
     cedingEntity: 'Munich Re Institutional',
     startDate: '2024-01-01',
     endDate: '2024-12-31',
-    peril: 'US WIND',
     sourceCedent: 'Munich Re Institutional',
     onSetName: () => {},
     onSetCedingEntity: () => {},
     onSetStartDate: () => {},
     onSetEndDate: () => {},
-    onSetPeril: () => {},
   },
 };

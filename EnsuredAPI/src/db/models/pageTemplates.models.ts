@@ -60,6 +60,14 @@ export type PageTemplateFieldDefinition = {
   required?: boolean;
   defaultValue?: string | number | boolean | null;
   options?: PageTemplateOption[];
+  /**
+   * Reference to a lazy-loaded SchemaOptionSet (by `optionSetKey`) instead of
+   * inlining `options`. Set by the schema-generation stage when it extracts a
+   * choice field's options into the `schema_option_sets` table; the UI fetches the
+   * {value,label} items on demand. Mutually exclusive with `options` in practice —
+   * a generated field carries one or the other.
+   */
+  optionSetKey?: string;
   canonicalKey?: string;
   placeholder?: string;
   helperText?: string;

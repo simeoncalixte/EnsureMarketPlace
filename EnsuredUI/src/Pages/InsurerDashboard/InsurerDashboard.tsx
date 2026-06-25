@@ -18,6 +18,7 @@ import type {
 import SubjectInsuranceSection from './sections/SubjectInsuranceSection';
 import DynamicFormSection from './sections/DynamicFormSection';
 import DealParametersSection from './sections/DealParametersSection';
+import DocumentsSection from './sections/DocumentsSection';
 import FinancialsSection from './sections/FinancialsSection';
 import TrancheStructureSection from './sections/TrancheStructureSection';
 import ValidationSection from './sections/ValidationSection';
@@ -30,14 +31,19 @@ import {
   type LineOfBusinessTaxonomyPrimary,
 } from './lineOfBusinessTaxonomy';
 import { createDealSectionTabs } from './InsurerDashboard.constants';
-import { loadSubmissionSuggestedForm, type SuggestedForm, type SuggestedFormField } from '../../api/pipeline';
+import {
+  loadSubmissionSuggestedForm,
+  loadSubmissionInsuredSubjects,
+  type SuggestedForm,
+  type SuggestedFormField,
+} from '../../api/pipeline';
 import {
   formatNumberInput,
   createStableId,
-  inferPeril,
   resolveLineOfBusinessSelection,
   createSubjectDraft,
   buildDefaultSubjects,
+  subjectsFromInsuredSubjects,
   normalizeSubject,
   groupSubjectsByLocation,
   mergeTemplateFieldValues,
@@ -57,7 +63,6 @@ export default function InsurerDashboard() {
   const [cedingEntity, setCedingEntity] = useState(() => sourceSubmission?.cedent ?? 'Munich Re Institutional');
   const [startDate, setStartDate] = useState('2024-01-01');
   const [endDate, setEndDate] = useState('2024-12-31');
-  const [peril, setPeril] = useState(() => (sourceSubmission ? inferPeril(sourceSubmission.lineOfBusiness) : 'US WIND'));
   const [coverageLimit, setCoverageLimit] = useState(() => formatNumberInput(sourceSubmission?.exposure ?? 950000000));
   const [attachmentPoint, setAttachmentPoint] = useState(() => formatNumberInput((sourceSubmission?.exposure ?? 500000000) * 0.55));
   const [exhaustionPoint, setExhaustionPoint] = useState(() => formatNumberInput((sourceSubmission?.exposure ?? 1200000000) * 1.25));
@@ -66,7 +71,7 @@ export default function InsurerDashboard() {
   const [subjects, setSubjects] = useState<SubjectInput[]>(() => buildDefaultSubjects(sourceSubmission));
   const [subjectGroupingMode, setSubjectGroupingMode] = useState<SubjectGroupingMode>('location');
   // String (not CreateDealSectionId) because the AI may contribute extra tabs.
-  // Lands on Deal Parameters, prefilled from the submission.
+  // Lands on General Information, prefilled from the submission.
   const [activeSection, setActiveSection] = useState<string>('deal');
 
   // The pipeline-generated schema for this submission: AI fields injected into the
@@ -84,8 +89,38 @@ export default function InsurerDashboard() {
     };
   }, [sourceSubmission?.submissionId]);
 
+  // Hydrate the subject cards from the pipeline's extracted insured subjects:
+  // each subject's own line of business, its attributes as editable values, and
+  // its inline per-subject template. Waits for the taxonomy so the LLM's LOB code
+  // resolves to a selection. No-ops (keeps the blank default) when the stage has
+  // not run or found no subjects.
+  useEffect(() => {
+    const submissionId = sourceSubmission?.submissionId;
+    if (submissionId == null || lineOfBusinessTaxonomy.length === 0) return;
+    let cancelled = false;
+    loadSubmissionInsuredSubjects(submissionId).then((result) => {
+      if (cancelled || !result || result.subjects.length === 0) return;
+      setSubjects(subjectsFromInsuredSubjects(result, lineOfBusinessTaxonomy));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [sourceSubmission?.submissionId, lineOfBusinessTaxonomy]);
+
   const BASE_SECTION_KEYS = useMemo(
-    () => new Set(['deal-parameters', 'financials', 'insured-subjects', 'tranche-structure', 'validation', 'submission', 'signing']),
+    () =>
+      new Set([
+        'general-information',
+        // Legacy key for forms generated before the rename.
+        'deal-parameters',
+        'financials',
+        'insured-subjects',
+        'documents',
+        'tranche-structure',
+        'validation',
+        'submission',
+        'signing',
+      ]),
     [],
   );
   const aiFieldsFor = useCallback(
@@ -95,9 +130,18 @@ export default function InsurerDashboard() {
     },
     [suggestedForm],
   );
-  const dealExtensions = useMemo(() => aiFieldsFor('deal-parameters'), [aiFieldsFor]);
+  // General Information renders the classic five fields via its hardcoded
+  // component; everything else in the section (AI extensions AND the newer base
+  // defaults like broker/jurisdiction/currency/notes) renders dynamically below it.
+  const generalExtras = useMemo(() => {
+    const hardcodedKeys = new Set(['dealName', 'cedingEntity', 'effectiveDate', 'expirationDate', 'perilType']);
+    const section = suggestedForm?.schema.sections.find(
+      (s) => s.key === 'general-information' || s.key === 'deal-parameters',
+    );
+    return section ? section.fields.filter((f) => f.origin === 'ai' || !hardcodedKeys.has(f.key)) : [];
+  }, [suggestedForm]);
   const financialsExtensions = useMemo(() => aiFieldsFor('financials'), [aiFieldsFor]);
-  // Wholly-new AI sections (not one of the seven base sections) -> their own tabs.
+  // Wholly-new AI sections (not one of the base sections) -> their own tabs.
   const aiSections = useMemo(
     () => (suggestedForm?.schema.sections ?? []).filter((s) => s.origin === 'ai' && !BASE_SECTION_KEYS.has(s.key) && s.fields.length > 0),
     [suggestedForm, BASE_SECTION_KEYS],
@@ -324,7 +368,6 @@ export default function InsurerDashboard() {
 
     setName(sourceSubmission.submissionNumber);
     setCedingEntity(sourceSubmission.cedent);
-    setPeril(inferPeril(sourceSubmission.lineOfBusiness));
     setCoverageLimit(formatNumberInput(sourceSubmission.exposure));
     setAttachmentPoint(formatNumberInput(sourceSubmission.exposure * 0.55));
     setExhaustionPoint(formatNumberInput(sourceSubmission.exposure * 1.25));
@@ -491,20 +534,18 @@ export default function InsurerDashboard() {
                 cedingEntity={cedingEntity}
                 startDate={startDate}
                 endDate={endDate}
-                peril={peril}
                 sourceCedent={sourceSubmission?.cedent}
                 onSetName={setName}
                 onSetCedingEntity={setCedingEntity}
                 onSetStartDate={setStartDate}
                 onSetEndDate={setEndDate}
-                onSetPeril={setPeril}
               />
-              {dealExtensions.length > 0 ? (
+              {generalExtras.length > 0 ? (
                 <DynamicFormSection
                   isActive={activeSection === 'deal'}
-                  label="AI-suggested fields"
-                  fields={dealExtensions}
-                  badge="ai"
+                  label="Additional fields"
+                  fields={generalExtras}
+                  badge={generalExtras.some((f) => f.origin === 'ai') ? 'ai' : null}
                   inline
                 />
               ) : null}
@@ -546,6 +587,11 @@ export default function InsurerDashboard() {
                 onUpdateSubjectLineOfBusinessSubType={updateSubjectLineOfBusinessSubType}
                 onFieldValueChange={handleSubjectTemplateFieldValueChange}
                 onTemplateResolved={handleSubjectTemplateResolved}
+              />
+
+              <DocumentsSection
+                isActive={activeSection === 'documents'}
+                submissionId={sourceSubmission?.submissionId ?? null}
               />
 
               <TrancheStructureSection

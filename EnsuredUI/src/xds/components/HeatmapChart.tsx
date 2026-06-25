@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
-import { colors } from '../colors';
+// Colors are applied as SVG presentation attributes and interpolated via
+// lerpColor; both need concrete hex, so use the concrete-resolving palette.
+import { rawColors as colors } from '../colors';
 
 export interface HeatCell {
   /** Column axis value (e.g. perilType) */

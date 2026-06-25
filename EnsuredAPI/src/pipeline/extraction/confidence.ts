@@ -147,6 +147,18 @@ function scoreLocation(value: unknown): Adjustment {
   return ADJ.ok;
 }
 
+/**
+ * A named insured / subject-of-insurance descriptor should carry real substance:
+ * a one-character fragment is noise, a normal name or phrase is strong, and an
+ * unusually long blob is accepted but unremarkable (the model may have over-quoted).
+ */
+function scoreEntityText(value: unknown): Adjustment {
+  const raw = String(value ?? '').trim();
+  if (raw.length < 3) return ADJ.weak;
+  if (raw.length <= 160) return ADJ.strong;
+  return ADJ.ok;
+}
+
 /** subjectCount is a positive integer count of insured items. */
 function scoreCount(value: unknown): Adjustment {
   const n = Number(value);
@@ -159,6 +171,8 @@ function scoreCount(value: unknown): Adjustment {
  * confidence collapses to the source prior — no magic per-field constants.
  */
 const VALIDATORS: Record<string, (value: unknown) => Adjustment> = {
+  namedInsured: scoreEntityText,
+  insuredSubject: scoreEntityText,
   limit: scoreMoney,
   deductible: scoreMoney,
   insuredValue: scoreMoney,

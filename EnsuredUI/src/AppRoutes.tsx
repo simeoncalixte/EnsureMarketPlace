@@ -8,13 +8,21 @@ import AdminPage from './Pages/Admin/AdminPage';
 import IncomingSubmissionsPage from './Pages/Underwriting/IncomingSubmissionsPage';
 import InsurerDashboard from './Pages/InsurerDashboard/InsurerDashboard';
 import AnalyticsDashboard from './Pages/InsurerDashboard/AnalyticsDashboard';
+import InsurerOnboarding from './Pages/InsurerDashboard/InsurerOnboarding';
 import ActiveCoverage from './Pages/InsurerDashboard/ActiveCoverage';
 import LineOfBusinessPage, { LineOfBusinessActiveTemplatePage } from './Pages/InsurerDashboard/LineOfBusinessPage';
 import Reports from './Pages/InsurerDashboard/Reports';
 import Settings from './Pages/InsurerDashboard/Settings';
-import AppetiteSettings from './Pages/InsurerDashboard/AppetiteSettings';
+import CapacityDefinitions from './Pages/Governance/CapacityDefinitions';
+import AuthorityLevels from './Pages/Governance/AuthorityLevels';
+import ReferralRules from './Pages/Governance/ReferralRules';
+import RulesEngine from './Pages/Governance/RulesEngine';
+import GovernanceSimulation from './Pages/Governance/Simulation';
+import AuditLog from './Pages/Governance/AuditLog';
 import PipelineIngestion from './Pages/InsurerDashboard/PipelineIngestion';
 import PipelineProcesses from './Pages/InsurerDashboard/PipelineProcesses';
+import PipelineRouteBoard from './Pages/InsurerDashboard/PipelineRouteBoard';
+import PipelineFlow from './Pages/InsurerDashboard/PipelineFlow';
 import RabbitMQConfig from './Pages/InsurerDashboard/RabbitMQConfig';
 import QueueConfig from './Pages/InsurerDashboard/QueueConfig';
 import EmailIngestConfig from './Pages/InsurerDashboard/EmailIngestConfig';
@@ -29,10 +37,19 @@ import AccountAccess from './Pages/Registration/AccountAccess';
 import CapitalProfile from './Pages/Registration/CapitalProfile';
 import SubscriptionPlan from './Pages/Registration/SubscriptionPlan';
 import RoleSelection from './Pages/Registration/RoleSelection';
+import Onboarding from './Pages/Registration/Onboarding';
+import SocialCallback from './Pages/Registration/SocialCallback';
+import NetworkPage from './Pages/Social/NetworkPage';
+import ProfilePage from './Pages/Social/ProfilePage';
+import FeedPage from './Pages/Social/FeedPage';
+import MessagesPage from './Pages/Social/MessagesPage';
+import SocialSocketProvider from './app-sections/SocialSocket';
 import SideBarNav from './xds/components/SideBarNav';
 import TopBarNav from './xds/components/TopBarNav';
 import type { NavItem } from './xds/components/Navigation';
 import { saveAuthToken } from './lib/auth';
+import { login } from './api/auth';
+import { ApiError } from './api/client';
 import { useAuthMe, type AuthUser } from './lib/useAuthMe';
 import { useSessionNavigation } from './lib/useSessionNavigation';
 import { colors, withAlpha } from './xds/colors';
@@ -55,36 +72,32 @@ const ShellChrome = styled.div<{ $sidebarOpen: boolean }>`
 const ShellMain = styled.main`
   min-height: calc(100vh - 4rem);
   position: relative;
-  padding: 1.25rem 1rem 2rem;
-
-  @media (min-width: 640px) {
-    padding: 1.5rem 1.5rem 2.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    padding: 1.5rem 2rem 2.5rem;
-  }
 `;
 
-const AuthShellGrid = styled.main`
+const AuthShellGrid = styled.main<{ $sidebarOpen: boolean }>`
   min-height: calc(100vh - 4rem);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 
   @media (min-width: 1024px) {
-    grid-template-columns: 18rem minmax(0, 1fr);
+    /* The sidebar lives in the first column; collapsing it to 0 (with the slot clipping its
+       contents) is what the top-bar menu button toggles on desktop. */
+    grid-template-columns: ${({ $sidebarOpen }) => ($sidebarOpen ? '18rem' : '0')} minmax(0, 1fr);
+    transition: grid-template-columns 220ms ease;
   }
 `;
 
-const DesktopSidebarSlot = styled.div`
+const DesktopSidebarSlot = styled.div<{ $sidebarOpen: boolean }>`
   display: none;
 
   @media (min-width: 1024px) {
     /* Panel background fills the full column height so the sidebar visually stretches all the way
        down to the bottom ticker, even when the page content is shorter than the viewport. */
     display: block;
+    min-width: 0;
+    overflow: hidden;
     background: ${colors.surfacePanel};
-    border-right: 1px solid ${withAlpha(colors.primarySoft, 0.1)};
+    border-right: ${({ $sidebarOpen }) => ($sidebarOpen ? `1px solid ${withAlpha(colors.primarySoft, 0.1)}` : '0')};
   }
 `;
 
@@ -98,15 +111,6 @@ const AuthShellContent = styled.section`
   min-width: 0;
   min-height: calc(100vh - 4rem);
   position: relative;
-  padding: 1.25rem 1rem 2rem;
-
-  @media (min-width: 640px) {
-    padding: 1.5rem 1.5rem 2.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    padding: 1.5rem 2rem 2.5rem;
-  }
 `;
 
 const SidebarBackdrop = styled.button<{ $isVisible: boolean }>`
@@ -464,6 +468,26 @@ const SubmitIcon = styled.span`
   }
 `;
 
+const SignInError = styled.p`
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid ${withAlpha(colors.error, 0.4)};
+  border-left: 3px solid ${colors.error};
+  border-radius: 0.4rem;
+  background: ${colors.errorContainer};
+  color: ${colors.errorSoft};
+  padding: 0.75rem 0.9rem;
+  font-family: monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+`;
+
+const SignInErrorIcon = styled.span`
+  font-weight: 800;
+`;
+
 const SignInCardFooter = styled.div`
   display: flex;
   align-items: center;
@@ -702,8 +726,39 @@ function SignInRoute() {
 }
 
 function AuthPromptPage() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
+    setError(null);
+
+    if (!email.trim() || !password) {
+      setError('Enter your account identity and access key.');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const { authToken } = await login(email.trim(), password);
+      saveAuthToken(authToken);
+      navigate('/marketplace', { replace: true });
+    } catch (err) {
+      const status = err instanceof ApiError ? err.status : 0;
+      if (status === 401) {
+        setError('Invalid credentials. Check your account identity and access key.');
+      } else if (status === 403) {
+        setError('This account is inactive. Contact your administrator.');
+      } else {
+        setError('Unable to sign in right now. Please try again.');
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -726,11 +781,18 @@ function AuthPromptPage() {
               <SignInCardDescription>Enter institutional credentials to manage tranches.</SignInCardDescription>
             </SignInCardHeader>
 
-            <SignInForm onSubmit={handleSubmit}>
+            <SignInForm onSubmit={handleSubmit} noValidate>
+              {error ? (
+                <SignInError role="alert">
+                  <SignInErrorIcon aria-hidden="true">!</SignInErrorIcon>
+                  {error}
+                </SignInError>
+              ) : null}
+
               <FieldGroup>
                 <FieldLabel htmlFor="account-identity">Account Identity</FieldLabel>
                 <FieldShell>
-                  <FieldInput id="account-identity" name="accountIdentity" type="email" placeholder="institutional@email.com" />
+                  <FieldInput id="account-identity" name="accountIdentity" type="email" placeholder="institutional@email.com" value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={error ? true : undefined} />
                   <FieldIcon aria-hidden="true">@</FieldIcon>
                 </FieldShell>
               </FieldGroup>
@@ -741,7 +803,7 @@ function AuthPromptPage() {
                   <ForgotKeyLink to="/auth/register">FORGOT KEY?</ForgotKeyLink>
                 </FieldHeader>
                 <FieldShell>
-                  <FieldInput id="access-key" name="accessKey" type="password" placeholder="••••••••••••" />
+                  <FieldInput id="access-key" name="accessKey" type="password" placeholder="••••••••••••" value={password} onChange={(e) => setPassword(e.target.value)} aria-invalid={error ? true : undefined} />
                   <FieldIcon aria-hidden="true">*</FieldIcon>
                 </FieldShell>
               </FieldGroup>
@@ -761,8 +823,8 @@ function AuthPromptPage() {
                 </ToggleLabel>
               </TwoFactorRow>
 
-              <SubmitButton type="submit">
-                Initialize Session
+              <SubmitButton type="submit" disabled={submitting}>
+                {submitting ? 'Initializing…' : 'Initialize Session'}
                 <SubmitIcon aria-hidden="true">→</SubmitIcon>
               </SubmitButton>
             </SignInForm>
@@ -819,7 +881,11 @@ function RequireBackendAuth() {
 
   return (
     <AppChromeContext.Provider value={{ isAuthenticated: true, user }}>
-      <Outlet />
+      {/* One realtime social socket per authenticated session (messages,
+          notifications, connection events). */}
+      <SocialSocketProvider>
+        <Outlet />
+      </SocialSocketProvider>
     </AppChromeContext.Provider>
   );
 }
@@ -831,7 +897,7 @@ function AuthenticatedAppShell({ children }: AuthenticatedAppShellProps = {}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true));
 
   const path = location.pathname;
-  const { items: sessionNavItems } = useSessionNavigation(user?.role ?? null);
+  const { items: sessionNavItems, loading: navLoading } = useSessionNavigation(user?.role ?? null);
   const navigationItems = useMemo(() => markActiveNavItems(sessionNavItems, path), [sessionNavItems, path]);
   const userLabel = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || user.email || 'Authenticated session' : 'Authenticated session';
   const subtitle = user?.role ? `${user.role} | ${userLabel}` : userLabel;
@@ -872,20 +938,24 @@ function AuthenticatedAppShell({ children }: AuthenticatedAppShellProps = {}) {
             subtitle={subtitle}
             isOpen={isSidebarOpen}
             layoutMode="overlay"
+            loading={navLoading}
             onRequestClose={() => setIsSidebarOpen(false)}
             onLogout={handleLogout}
+            footerSlot={<InsurerOnboarding />}
           />
         </MobileSidebarSlot>
 
-        <AuthShellGrid>
-          <DesktopSidebarSlot>
+        <AuthShellGrid $sidebarOpen={isSidebarOpen}>
+          <DesktopSidebarSlot $sidebarOpen={isSidebarOpen}>
             <SideBarNav
               items={navigationItems}
               title="Ensured Marketplace"
               subtitle={subtitle}
               isOpen={true}
               layoutMode="grid"
+              loading={navLoading}
               onLogout={handleLogout}
+              footerSlot={<InsurerOnboarding />}
             />
           </DesktopSidebarSlot>
 
@@ -903,7 +973,15 @@ export function AppRoutes() {
     <Routes>
       <Route path="/" element={<HomeRoute />}/>
       <Route path="/auth/login" element={<SignInRoute />} />
-      <Route path="/auth/register" element={<PublicRoute><RoleSelection /></PublicRoute>} />
+      {/* Lean signup (role + account + optional org → trial workspace). */}
+      <Route path="/auth/register" element={<PublicRoute><Onboarding /></PublicRoute>} />
+      {/* OAuth (Google/Microsoft) return leg — commits the token from the URL
+          fragment, then enters the workspace. Deliberately not a PublicRoute:
+          it must render even as the auth state flips mid-effect. */}
+      <Route path="/auth/social/callback" element={<SocialCallback />} />
+      {/* Legacy multi-step pages — retained for the deferred KYB/verification and
+          billing flows that the transaction gate links into, no longer the signup path. */}
+      <Route path="/auth/register/role" element={<PublicRoute><RoleSelection /></PublicRoute>} />
       <Route path="/auth/register/kyc" element={<PublicRoute><KYCVerification /></PublicRoute>} />
       <Route path="/auth/register/organization-structure" element={<PublicRoute><OrganizationStructure /></PublicRoute>} />
       <Route path="/auth/register/account-access" element={<PublicRoute><AccountAccess /></PublicRoute>} />
@@ -915,8 +993,22 @@ export function AppRoutes() {
           <Route path="/investors/*" element={<InvestorsPage />} />
           <Route path="/underwriting/submissions" element={<IncomingSubmissionsPage />} />
           <Route path="/marketplace" element={<MarketplacePage />} />
+          <Route path="/network" element={<NetworkPage />} />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/messages/:conversationId" element={<MessagesPage />} />
+          <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="/line-of-business" element={<LineOfBusinessPage />}>
             <Route path="active-template" element={<LineOfBusinessActiveTemplatePage />} />
+          </Route>
+          <Route path="/governance" element={<Outlet />}>
+            <Route index element={<Navigate to="/governance/capacity" replace />} />
+            <Route path="capacity" element={<CapacityDefinitions />} />
+            <Route path="authority" element={<AuthorityLevels />} />
+            <Route path="referrals" element={<ReferralRules />} />
+            <Route path="rules-engine" element={<RulesEngine />} />
+            <Route path="simulation" element={<GovernanceSimulation />} />
+            <Route path="audit" element={<AuditLog />} />
           </Route>
           <Route path="/admin/deals/create" element={<InsurerDashboard />} />
           <Route path="/admin" element={<AdminPage />} />
@@ -944,6 +1036,11 @@ export function AppRoutes() {
             <Route path="reports" element={<Reports />} />
             <Route path="pipeline-ingestion" element={<PipelineIngestion />} />
             <Route path="pipeline-processes" element={<PipelineProcesses />} />
+            {/* Sankey of the complete pipeline (stage→stage flow, forked by type). */}
+            <Route path="pipeline-flow" element={<PipelineFlow />} />
+            {/* Per-submission-type board (new business, claim, endorsement, …). One
+                nav entry per type points here; the routeKey scopes the board. */}
+            <Route path="pipeline/:routeKey" element={<PipelineRouteBoard />} />
             <Route path="pipeline-ingestion/rabbitmq" element={<RabbitMQConfig />} />
             <Route path="pipeline-ingestion/rabbitmq/:channelId" element={<RabbitMQConfig />} />
             <Route path="pipeline-ingestion/rabbitmq/:channelId/queue/:queueName" element={<QueueConfig />} />
@@ -956,7 +1053,6 @@ export function AppRoutes() {
             <Route path="pipeline-ingestion/webhooks" element={<WebhookConfig />} />
             <Route path="pipeline-ingestion/webhooks/:channelId" element={<WebhookConfig />} />
             <Route path="settings" element={<Settings />} />
-            <Route path="appetite" element={<AppetiteSettings />} />
             <Route path="claims" element={<ClaimsDashboard />} />
             <Route path="*" element={<Navigate to="/insurer" replace />} />
           </Route>

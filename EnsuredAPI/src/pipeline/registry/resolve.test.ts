@@ -113,7 +113,7 @@ describe('selectResolution — specificity ladder', () => {
     expect(res.schemaVersionId).toBeNull();
   });
 
-  it('org rungs never match when tenantId is null (platform/generic only)', () => {
+  it('org rungs never match when organizationId is null (platform/generic only)', () => {
     const res = selectResolution([orgSubtype, orgPrimary], null, 'property', 'property_catastrophe');
     expect(res.resolvedFrom).toBe('generic_default');
   });

@@ -1,6 +1,8 @@
 import React from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { colors } from '../colors';
+// recharts applies colors as SVG presentation attributes, which can't resolve
+// `var()`; use the concrete-resolving palette (still re-reads on theme change).
+import { rawColors as colors } from '../colors';
 
 type Point = { calculatedAt: string; value: number };
 

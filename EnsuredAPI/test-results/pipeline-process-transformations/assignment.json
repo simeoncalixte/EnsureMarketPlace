@@ -1,0 +1,40 @@
+{
+  "process": "assignment",
+  "generatedAt": "2026-06-25T03:36:21.667Z",
+  "transformationCount": 1,
+  "transformations": [
+    {
+      "process": "assignment",
+      "stage": "assignment",
+      "testName": "heuristic assigns least-loaded analyst",
+      "description": "A submission is given a department, team and person based on the role that owns its type.",
+      "before": {
+        "organizationId": 1,
+        "submissionTypeCode": "new_business"
+      },
+      "after": {
+        "ok": true,
+        "service": "assignment",
+        "submissionId": null,
+        "documentId": null,
+        "warning": null,
+        "modelVersion": "assignment-role-routing-v1",
+        "targetRole": "analyst",
+        "assignedUserId": 2,
+        "assignedUserName": "Test User2",
+        "assignedUserRole": "analyst",
+        "assignedDepartmentId": 10,
+        "assignedDepartmentName": "Underwriting",
+        "assignedTeamId": 20,
+        "assignedTeamName": "Casualty",
+        "method": "heuristic",
+        "confidence": 0.7,
+        "reason": "Load-balanced pick among 2 \"analyst\" candidate(s).",
+        "candidatesConsidered": 2,
+        "needsReview": false,
+        "warnings": []
+      },
+      "recordedAt": "2026-06-25T03:36:21.623Z"
+    }
+  ]
+}

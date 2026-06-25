@@ -93,11 +93,13 @@ export function gatherContext(payload: unknown): SubmissionFormContext {
 
   return {
     submissionId: asNumber(submission.id),
-    tenantId: asNumber(submission.tenantId),
+    organizationId: asNumber(submission.organizationId),
     lineOfBusinessCode: asString(classification.lineOfBusinessCode),
     lineOfBusinessLabel: asString(classification.lineOfBusinessLabel),
     lineOfBusinessSubTypeCode: asString(classification.lineOfBusinessSubTypeCode),
     lineOfBusinessSubTypeLabel: asString(classification.lineOfBusinessSubTypeLabel),
+    namedInsured: asString(entities.namedInsured),
+    insuredSubject: asString(entities.insuredSubject),
     riskType: asString(entities.riskType),
     triggerType: asString(entities.triggerType),
     limit: asNumber(entities.limit),
@@ -127,11 +129,12 @@ function stripEnvelope(stage: Record<string, unknown>): Record<string, unknown> 
 
 // --- 2. baseline (base template) form ---------------------------------------
 
-/** The seven canonical create-coverage sections, in page order. */
+/** The canonical create-coverage sections, in page order. */
 export const BASE_SECTION_KEYS = [
-  'deal-parameters',
+  'general-information',
   'financials',
   'insured-subjects',
+  'documents',
   'tranche-structure',
   'validation',
   'submission',
@@ -139,12 +142,36 @@ export const BASE_SECTION_KEYS = [
 ] as const;
 
 /**
+ * Legacy section keys mapped to their current base key, so templates stored (or
+ * model output produced) before a rename keep landing in the right section
+ * instead of spawning a duplicate.
+ */
+export const LEGACY_SECTION_KEY_ALIASES: Readonly<Record<string, string>> = {
+  'deal-parameters': 'general-information',
+};
+
+/** Resolve a section key through the legacy aliases. */
+function canonicalSectionKey(key: string): string {
+  return LEGACY_SECTION_KEY_ALIASES[key] ?? key;
+}
+
+/**
+ * Former platform-default labels per base section. A stored template still
+ * carrying one of these gets the current label — the old name was the platform
+ * default, not an org customization.
+ */
+const LEGACY_SECTION_LABELS: Readonly<Record<string, readonly string[]>> = {
+  'general-information': ['Deal Parameters', 'Deal Information'],
+};
+
+/**
  * The standardized base template — the ENTIRE create-coverage page structure,
- * always present and never overridden. Data-entry sections (Deal Parameters,
+ * always present and never overridden. Data-entry sections (General Information,
  * Financials) carry dynamic fields the AI may extend; the rich workflow sections
- * (Subjects, Tranche Structure, Validation, Submission, Signing) are rendered by
- * their existing components (marked via `component`). The AI extends this base —
- * adding line-of-business-specific fields and, when needed, new sections.
+ * (Subjects, Documents, Tranche Structure, Validation, Submission, Signing) are
+ * rendered by their existing components (marked via `component`). The AI extends
+ * this base — adding line-of-business-specific fields and, only when a cohesive
+ * theme fits nowhere else, new sections.
  *
  * When an organization already has a published create-coverage template for the
  * line of business, the service substitutes that as the base (see service.ts);
@@ -152,13 +179,14 @@ export const BASE_SECTION_KEYS = [
  */
 export function buildBaselineSchema(context: SubmissionFormContext): SuggestedFormDefinition {
   const sections: SuggestedFormSection[] = [
-    dealParametersSection(),
+    generalInformationSection(),
     financialsSection(),
     componentSection('insured-subjects', 'Insured Subjects', 3, 'subjects', subjectsDescription(context)),
-    componentSection('tranche-structure', 'Tranche Structure', 4, 'tranches', 'Layered capacity structure for the coverage.'),
-    componentSection('validation', 'Validation', 5, 'validation', 'Automated checks and live exposure for the submission.'),
-    componentSection('submission', 'Submission', 6, 'submission', 'Review and submit the structured deal.'),
-    componentSection('signing', 'Signing', 7, 'signing', 'Signing and execution checklist.'),
+    componentSection('documents', 'Documents', 4, 'documents', 'Files attached to the submission, with previews.'),
+    componentSection('tranche-structure', 'Tranche Structure', 5, 'tranches', 'Layered capacity structure for the coverage.'),
+    componentSection('validation', 'Validation', 6, 'validation', 'Automated checks and live exposure for the submission.'),
+    componentSection('submission', 'Submission', 7, 'submission', 'Review and submit the structured deal.'),
+    componentSection('signing', 'Signing', 8, 'signing', 'Signing and execution checklist.'),
   ];
 
   const lobLabel = context.lineOfBusinessLabel ?? context.lineOfBusinessCode;
@@ -183,20 +211,48 @@ export function adoptOrgTemplateAsBase(
   context: SubmissionFormContext,
 ): SuggestedFormDefinition {
   const hardcoded = buildBaselineSchema(context);
-  const orgSections: SuggestedFormSection[] = (orgDefinition.sections ?? []).map((section) => ({
-    ...section,
-    origin: 'base' as const,
-    fields: (section.fields ?? []).map((field) => ({ ...field, origin: 'base' as const })),
-  }));
-  const present = new Set(orgSections.map((section) => section.key));
-  const missingComponents = hardcoded.sections.filter((section) => section.component && !present.has(section.key));
+  const hardcodedByKey = new Map(hardcoded.sections.map((section) => [section.key, section]));
+  const orgSections: SuggestedFormSection[] = (orgDefinition.sections ?? []).map((section) => {
+    const key = canonicalSectionKey(section.key);
+    // A section stored under a legacy key OR still carrying a former default
+    // label takes the successor's label/description — those were platform
+    // defaults, not org customizations.
+    const legacyNamed = key !== section.key || (LEGACY_SECTION_LABELS[key] ?? []).includes(section.label);
+    const renamed = legacyNamed ? hardcodedByKey.get(key) : undefined;
+    return {
+      ...section,
+      key,
+      label: renamed?.label ?? section.label,
+      description: renamed?.description ?? section.description,
+      origin: 'base' as const,
+      fields: (section.fields ?? []).map((field) => ({ ...field, origin: 'base' as const })),
+    };
+  });
+
+  // Append-only graft of the platform defaults: an org data section that
+  // overlaps a hardcoded base section gains any base fields it is missing (so
+  // templates stored before a defaults change still carry the expected
+  // defaults), while every org customization is preserved exactly.
+  const grafted = orgSections.map((section) => {
+    const counterpart = hardcodedByKey.get(section.key);
+    if (!counterpart || counterpart.component || section.component) return section;
+    const have = new Set(section.fields.map((field) => field.key));
+    const additions = counterpart.fields.filter((field) => !have.has(field.key));
+    return additions.length ? { ...section, fields: [...section.fields, ...additions] } : section;
+  });
+
+  // Every hardcoded base section missing from the org template is appended —
+  // component (workflow) sections AND data sections — so the full standardized
+  // page structure (including Documents) is always present.
+  const present = new Set(grafted.map((section) => section.key));
+  const missingSections = hardcoded.sections.filter((section) => !present.has(section.key));
 
   return {
     schemaVersion: SCHEMA_VERSION,
     pageKey: PAGE_KEY,
     title: orgDefinition.title ?? hardcoded.title,
     description: orgDefinition.description ?? hardcoded.description,
-    sections: [...orgSections, ...missingComponents].map(reindexSection),
+    sections: [...grafted, ...missingSections].map(reindexSection),
   };
 }
 
@@ -227,36 +283,63 @@ function subjectsDescription(context: SubmissionFormContext): string {
     : 'The object(s) of insurance covered by this submission.';
 }
 
-function dealParametersSection(): SuggestedFormSection {
+/**
+ * The first section holds HIGH-LEVEL details ABOUT THE SUBMISSION ITSELF —
+ * submission-level metadata that is the same regardless of the specific risk or
+ * insured object: identifiers, parties (insurer/cedent/broker), broker notes,
+ * coverage period, territory, currency. Line-of-business-specific and
+ * subject-specific detail is deliberately kept OUT — the schema agent delegates
+ * those to specialist sections and repeatable subject schedules (see the prompt
+ * in GeminiSchemaProvider, rules 4/4a/4b). This section still carries the common
+ * submission fields so the agent extends it instead of spawning near-duplicate
+ * "deal info" / "general details" sections.
+ *
+ * `namedInsured` carries `canonicalKey: 'namedInsured'`, the insured party the
+ * extraction stage already resolves — so the most fundamental field of any
+ * submission is in the default schema and prefilled (see `canonicalValues`).
+ */
+function generalInformationSection(): SuggestedFormSection {
   return asBase({
-    key: 'deal-parameters',
-    label: 'Deal Parameters',
+    key: 'general-information',
+    label: 'General Information',
     order: 1,
-    description: 'Core identifiers and coverage period for the submission.',
+    description: 'Identifiers, parties, coverage period, and general context for the submission.',
     fields: [
       { key: 'dealName', label: 'Deal Name / ID', type: 'text', order: 1, required: true },
-      { key: 'cedingEntity', label: 'Ceding Entity', type: 'text', order: 2, canonicalKey: 'cedent' },
-      { key: 'effectiveDate', label: 'Effective Date', type: 'date', order: 3, required: true, canonicalKey: 'effectiveDate' },
-      { key: 'expirationDate', label: 'Expiration Date', type: 'date', order: 4 },
-      { key: 'perilType', label: 'Peril / Risk Type', type: 'text', order: 5, canonicalKey: 'riskType' },
-      { key: 'jurisdiction', label: 'Jurisdiction', type: 'text', order: 6, canonicalKey: 'jurisdiction' },
+      { key: 'namedInsured', label: 'Named Insured / Policyholder', type: 'text', order: 2, required: true, canonicalKey: 'namedInsured' },
+      { key: 'cedingEntity', label: 'Ceding Entity', type: 'text', order: 3, canonicalKey: 'cedent' },
+      { key: 'broker', label: 'Broker / Intermediary', type: 'text', order: 4, canonicalKey: 'broker' },
+      { key: 'effectiveDate', label: 'Effective Date', type: 'date', order: 5, required: true, canonicalKey: 'effectiveDate' },
+      { key: 'expirationDate', label: 'Expiration Date', type: 'date', order: 6 },
+      { key: 'currency', label: 'Currency', type: 'text', order: 9, canonicalKey: 'currency' },
+      { key: 'description', label: 'Description / Notes', type: 'textarea', order: 10 },
     ],
   });
 }
 
+/**
+ * Limit structure plus the placement economics common to every line of business:
+ * not just the loss-side terms (limit/attachment/exhaustion/deductible) but the
+ * pricing and share terms (premium, rate-on-line, signed participation,
+ * brokerage, expected yield) an underwriter needs to evaluate any deal — so the
+ * agent extends a complete economic baseline rather than re-deriving it per LOB.
+ */
 function financialsSection(): SuggestedFormSection {
   return asBase({
     key: 'financials',
     label: 'Financials',
     order: 2,
-    description: 'Limit structure and economics for the coverage.',
+    description: 'Limit structure and placement economics for the coverage.',
     fields: [
       { key: 'coverageLimit', label: 'Coverage Limit', type: 'currency', order: 1, required: true, canonicalKey: 'limit' },
       { key: 'attachmentPoint', label: 'Attachment Point', type: 'currency', order: 2 },
       { key: 'exhaustionPoint', label: 'Exhaustion Point', type: 'currency', order: 3 },
       { key: 'deductible', label: 'Deductible', type: 'currency', order: 4, canonicalKey: 'deductible' },
       { key: 'premium', label: 'Premium', type: 'currency', order: 5 },
-      { key: 'expectedYield', label: 'Expected Yield', type: 'percentage', order: 6, canonicalKey: 'expectedYield' },
+      { key: 'rateOnLine', label: 'Rate on Line', type: 'percentage', order: 6 },
+      { key: 'participationPct', label: 'Participation / Signed Share', type: 'percentage', order: 7 },
+      { key: 'brokeragePct', label: 'Brokerage / Commission', type: 'percentage', order: 8 },
+      { key: 'expectedYield', label: 'Expected Yield', type: 'percentage', order: 9, canonicalKey: 'expectedYield' },
     ],
   });
 }
@@ -266,6 +349,8 @@ function financialsSection(): SuggestedFormSection {
 /** Map a field's canonical key to the matching value from the submission context. */
 function canonicalValues(context: SubmissionFormContext): Record<string, string | number | null> {
   return {
+    namedInsured: context.namedInsured,
+    insuredSubject: context.insuredSubject,
     effectiveDate: context.effectiveDate,
     riskType: context.riskType,
     triggerType: context.triggerType,
@@ -295,6 +380,67 @@ export function prefillSchema(schema: SuggestedFormDefinition, context: Submissi
       }),
     })),
   };
+}
+
+// --- 2b2. option-set extraction (lazy-loaded selection options) --------------
+
+/**
+ * One choice field's options, lifted out of the form so they can be stored in the
+ * `schema_option_sets` table and lazy-loaded by the UI. `items` is, at minimum,
+ * the {value,label} pairs the field offered.
+ */
+export type ExtractedOptionSet = {
+  optionSetKey: string;
+  label: string;
+  fieldKey: string;
+  sectionKey: string;
+  items: PageTemplateOption[];
+};
+
+/**
+ * Lift the inline `options` off every `select`/`radio` field into standalone
+ * option sets, leaving the field with only an `optionSetKey` reference. Returns
+ * the rewritten schema plus the extracted sets (which the service persists to the
+ * option-set table). The key is deterministic — `<lob>.<section>.<field>` — so
+ * the same field across repeated submissions of one line of business maps to (and
+ * refreshes) the same set rather than spawning duplicates. Pure.
+ */
+export function extractOptionSets(
+  schema: SuggestedFormDefinition,
+  context: SubmissionFormContext,
+): { schema: SuggestedFormDefinition; optionSets: ExtractedOptionSet[] } {
+  const lob = slugify(context.lineOfBusinessCode ?? 'default', 'default');
+  const optionSets: ExtractedOptionSet[] = [];
+
+  const sections = schema.sections.map((section) => ({
+    ...section,
+    fields: section.fields.map((field) => {
+      const opts = field.options;
+      const isChoice = field.type === 'select' || field.type === 'radio';
+      if (!isChoice || !Array.isArray(opts) || opts.length === 0) return field;
+
+      const optionSetKey = `${lob}.${section.key}.${field.key}`;
+      optionSets.push({
+        optionSetKey,
+        label: field.label,
+        fieldKey: field.key,
+        sectionKey: section.key,
+        items: opts,
+      });
+
+      // Preserve the option VALUES as an enum constraint so the publish path
+      // (compileToJsonSchema) keeps validating the field even though the human-
+      // facing labels now live only in the lazy-loaded set. Existing enumValues win.
+      const { options, ...rest } = field;
+      void options;
+      const constraints = rest.constraints?.enumValues?.length
+        ? rest.constraints
+        : { ...(rest.constraints ?? {}), enumValues: opts.map((o) => o.value) };
+      return { ...rest, optionSetKey, constraints };
+    }),
+  }));
+
+  return { schema: { ...schema, sections }, optionSets };
 }
 
 // --- 2c. reusable-template write-back ----------------------------------------
@@ -335,8 +481,15 @@ export function mergeTemplateDefinitions(
   existing: SuggestedFormDefinition,
   incoming: SuggestedFormDefinition,
 ): SuggestedFormDefinition {
-  const existingSections = existing.sections ?? [];
-  const incomingByKey = new Map((incoming.sections ?? []).map((section) => [section.key, section]));
+  // Keys are alias-normalized on both sides so a template stored under a legacy
+  // section key merges with (not alongside) its renamed successor.
+  const existingSections = (existing.sections ?? []).map((section) => ({
+    ...section,
+    key: canonicalSectionKey(section.key),
+  }));
+  const incomingByKey = new Map(
+    (incoming.sections ?? []).map((section) => [canonicalSectionKey(section.key), { ...section, key: canonicalSectionKey(section.key) }]),
+  );
   const existingKeys = new Set(existingSections.map((section) => section.key));
 
   const mergedExisting = existingSections.map((section) => {
@@ -347,7 +500,7 @@ export function mergeTemplateDefinitions(
     return additions.length ? { ...section, fields: [...section.fields, ...additions] } : section;
   });
 
-  const newSections = (incoming.sections ?? []).filter((section) => !existingKeys.has(section.key));
+  const newSections = [...incomingByKey.values()].filter((section) => !existingKeys.has(section.key));
 
   return {
     schemaVersion: existing.schemaVersion ?? incoming.schemaVersion ?? SCHEMA_VERSION,
@@ -380,7 +533,7 @@ export function coerceFormSchema(raw: unknown, baseline: SuggestedFormDefinition
     const s = toRecord(rawSections[i]);
     const label = asString(s.label) ?? asString(s.key);
     if (!label) continue;
-    const slug = slugify(s.key ?? label, `section-${i + 1}`);
+    const slug = canonicalSectionKey(slugify(s.key ?? label, `section-${i + 1}`));
 
     const aiFields = coerceFields(s.fields).map((field) => ({ ...field, origin: 'ai' as const }));
 
@@ -401,12 +554,20 @@ export function coerceFormSchema(raw: unknown, baseline: SuggestedFormDefinition
     let key = slug;
     while (seenNewKeys.has(key)) key = `${key}-${i + 1}`;
     seenNewKeys.add(key);
+    // Subject-specific schedules are delegated as repeatable sections (one card per
+    // insured item). When the model marks a section repeatable, carry its schedule
+    // metadata through and synthesize a collectionKey from the key if it omitted one.
+    const repeatable = s.repeatable === true;
     newSections.push({
       key,
       label,
       order: 0,
       description: asString(s.description) ?? undefined,
-      repeatable: s.repeatable === true ? true : undefined,
+      repeatable: repeatable ? true : undefined,
+      collectionKey: repeatable ? slugifyCamel(s.collectionKey ?? key, key) : undefined,
+      itemLabel: repeatable ? (asString(s.itemLabel) ?? undefined) : undefined,
+      minItems: repeatable ? (asNumber(s.minItems) ?? undefined) : undefined,
+      maxItems: repeatable ? (asNumber(s.maxItems) ?? undefined) : undefined,
       origin: 'ai',
       fields: aiFields,
     });

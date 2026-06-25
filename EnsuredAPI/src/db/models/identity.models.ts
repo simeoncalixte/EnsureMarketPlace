@@ -18,6 +18,11 @@ export class Organization extends Model<InferAttributes<Organization>, InferCrea
   declare name: string;
   declare type: (typeof organizationTypes)[number];
   declare submissionBoardConfig: Record<string, unknown> | null;
+  // Partner-stub fields: a `type='partner'` org created by another org as a
+  // distribution partner placeholder, claimable by the real partner on joining.
+  declare claimToken: CreationOptional<string | null>;
+  declare claimedAt: CreationOptional<Date | null>;
+  declare createdByOrganizationId: CreationOptional<number | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -25,12 +30,19 @@ export class Organization extends Model<InferAttributes<Organization>, InferCrea
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
   declare organizationId: number | null;
+  declare departmentId: CreationOptional<number | null>;
+  declare teamId: CreationOptional<number | null>;
   declare email: string;
   declare passwordHash: string;
   declare role: (typeof userRoles)[number];
   declare firstName: string;
   declare lastName: string;
   declare isActive: CreationOptional<boolean>;
+  // Partner-stub fields: a `role='partner'` user created by an org as a
+  // distribution-partner placeholder, claimable by the real person on joining.
+  declare claimToken: CreationOptional<string | null>;
+  declare claimedAt: CreationOptional<Date | null>;
+  declare createdByOrganizationId: CreationOptional<number | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -108,6 +120,9 @@ export function initIdentityModels(sequelize: Sequelize): void {
         validate: { isIn: [organizationTypes] },
       },
       submissionBoardConfig: { type: DataTypes.JSONB, allowNull: true },
+      claimToken: { type: DataTypes.STRING, allowNull: true },
+      claimedAt: { type: DataTypes.DATE, allowNull: true },
+      createdByOrganizationId: { type: DataTypes.INTEGER, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: true },
       updatedAt: { type: DataTypes.DATE, allowNull: true },
     },
@@ -118,6 +133,8 @@ export function initIdentityModels(sequelize: Sequelize): void {
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       organizationId: { type: DataTypes.INTEGER, allowNull: true },
+      departmentId: { type: DataTypes.INTEGER, allowNull: true },
+      teamId: { type: DataTypes.INTEGER, allowNull: true },
       email: { type: DataTypes.STRING, allowNull: false, unique: true },
       passwordHash: { type: DataTypes.STRING, allowNull: false },
       role: {
@@ -128,6 +145,9 @@ export function initIdentityModels(sequelize: Sequelize): void {
       firstName: { type: DataTypes.STRING, allowNull: false },
       lastName: { type: DataTypes.STRING, allowNull: false },
       isActive: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true },
+      claimToken: { type: DataTypes.STRING, allowNull: true },
+      claimedAt: { type: DataTypes.DATE, allowNull: true },
+      createdByOrganizationId: { type: DataTypes.INTEGER, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: true },
       updatedAt: { type: DataTypes.DATE, allowNull: true },
     },

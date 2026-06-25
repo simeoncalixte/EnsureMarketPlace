@@ -1,9 +1,9 @@
-import { SubmissionDocument } from '../../db/models';
+import { SubmissionOutput } from '../../db/models';
 import type { OcrSuccess } from './service';
 
 /**
  * Default `OcrService` onSuccess callback: persist the OCR output onto the
- * submission's `SubmissionDocument`, namespaced under `structured_data.ocr`
+ * submission's `SubmissionOutput`, namespaced under `structured_data.ocr`
  * (alongside the other stages' `extraction` / `normalization` / `classification`
  * blocks) so the document shape stays clear about which stage produced what.
  *
@@ -20,11 +20,11 @@ export async function persistOcrResult(result: OcrSuccess): Promise<void> {
       ocrAt: new Date().toISOString(),
     };
 
-    const doc = await SubmissionDocument.findOne({ where: { submissionId: result.submissionId } });
+    const doc = await SubmissionOutput.findOne({ where: { submissionId: result.submissionId } });
     if (!doc) {
-      await SubmissionDocument.create({
+      await SubmissionOutput.create({
         submissionId: result.submissionId,
-        tenantId: result.tenantId,
+        organizationId: result.organizationId,
         structuredData: { ocr },
       });
     } else {

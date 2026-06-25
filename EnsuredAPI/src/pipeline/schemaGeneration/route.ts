@@ -1,8 +1,32 @@
 import { FastifyPluginAsync } from 'fastify';
-import { SchemaGenerationService, buildBaselineForm, loadSuggestedForm } from './service';
+import { SchemaGenerationService, buildBaselineForm, loadOptionSet, loadSuggestedForm } from './service';
 
 export const schemaGenerationRoute: FastifyPluginAsync = async (app) => {
   app.get('/pipeline/schemaGeneration/health', async () => ({ status: 'ok', service: 'schemaGeneration' }));
+
+  // Lazy-load the selection options for a generated form field, by the
+  // `optionSetKey` it references. The create-coverage page fetches this on demand
+  // the first time it renders the field. (Static segment — resolves ahead of the
+  // `/:submissionId` param route below.)
+  app.get<{ Params: { optionSetKey: string }; Querystring: { organizationId?: string } }>(
+    '/pipeline/schemaGeneration/option-sets/:optionSetKey',
+    {
+      schema: {
+        params: { type: 'object', properties: { optionSetKey: { type: 'string' } }, required: ['optionSetKey'] },
+        querystring: { type: 'object', additionalProperties: true },
+      },
+    },
+    async (request, reply) => {
+      const orgRaw = request.query.organizationId;
+      const organizationId = orgRaw !== undefined && orgRaw !== '' ? Number(orgRaw) : null;
+      const set = await loadOptionSet(
+        request.params.optionSetKey,
+        Number.isFinite(organizationId as number) ? (organizationId as number) : null,
+      );
+      if (!set) return reply.code(404).send({ error: 'No option set for this key' });
+      return set;
+    },
+  );
 
   // The deterministic baseline form, optionally tailored by line of business /
   // portfolio size. Rendered by the create-coverage page until the agent has

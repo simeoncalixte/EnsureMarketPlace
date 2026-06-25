@@ -67,14 +67,14 @@ describe('RiskCompute pipeline wiring — real DB integration (Slice 5.4)', () =
 
     // ---- Benchmark (non-parametric) submission ----
     const benchmark = await Submission.create({
-      tenantId: orgId,
+      organizationId: orgId,
       status: 'priced',
       insurerProfileId: insurer.id,
     } as any);
     benchmarkSubmissionId = benchmark.id;
     await CanonicalSubmission.create({
       submissionId: benchmarkSubmissionId,
-      tenantId: orgId,
+      organizationId: orgId,
       data: { lineOfBusiness: BENCHMARK_LOB, 'financials.tiv': 1_000_000 },
       version: 1,
       lineOfBusinessCode: BENCHMARK_LOB,
@@ -106,14 +106,14 @@ describe('RiskCompute pipeline wiring — real DB integration (Slice 5.4)', () =
 
     // ---- Parametric submission ----
     const parametric = await Submission.create({
-      tenantId: orgId,
+      organizationId: orgId,
       status: 'priced',
       insurerProfileId: insurer.id,
     } as any);
     parametricSubmissionId = parametric.id;
     await CanonicalSubmission.create({
       submissionId: parametricSubmissionId,
-      tenantId: orgId,
+      organizationId: orgId,
       data: {
         lineOfBusiness: PARAMETRIC_LOB,
         'financials.limit': PARAMETRIC_LIMIT,
@@ -166,7 +166,7 @@ describe('RiskCompute pipeline wiring — real DB integration (Slice 5.4)', () =
     const stage = new RiskComputeService();
 
     const benchmarkResult = await stage.process({
-      submission: { id: benchmarkSubmissionId, tenantId: orgId },
+      submission: { id: benchmarkSubmissionId, organizationId: orgId },
     });
     expect(benchmarkResult.ok).toBe(true);
     expect(benchmarkResult.service).toBe('riskCompute');
@@ -181,7 +181,7 @@ describe('RiskCompute pipeline wiring — real DB integration (Slice 5.4)', () =
     expect((pv!.assumptionsJson as any)?.confidenceLabel).toBe('benchmark_low');
 
     const parametricResult = await stage.process({
-      submission: { id: parametricSubmissionId, tenantId: orgId },
+      submission: { id: parametricSubmissionId, organizationId: orgId },
     });
     expect(parametricResult.ok).toBe(true);
     expect(typeof parametricResult.rateOnLine).toBe('number'); // ROL surfaced
@@ -199,8 +199,8 @@ describe('RiskCompute pipeline wiring — real DB integration (Slice 5.4)', () =
 
   it('board GET additively surfaces confidenceLabel + premium (benchmark) and rateOnLine (parametric)', async () => {
     // Ensure both submissions are computed/persisted before reading the board.
-    await new RiskComputeService().process({ submission: { id: benchmarkSubmissionId, tenantId: orgId } });
-    await new RiskComputeService().process({ submission: { id: parametricSubmissionId, tenantId: orgId } });
+    await new RiskComputeService().process({ submission: { id: benchmarkSubmissionId, organizationId: orgId } });
+    await new RiskComputeService().process({ submission: { id: parametricSubmissionId, organizationId: orgId } });
 
     const res = await app.inject({
       method: 'GET',

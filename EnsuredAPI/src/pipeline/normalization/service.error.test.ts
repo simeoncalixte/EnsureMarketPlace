@@ -1,10 +1,10 @@
 // Mock the DB model so we can force a persistence failure without a database.
-jest.mock('../../db/models', () => ({ SubmissionDocument: { findOne: jest.fn() } }));
+jest.mock('../../db/models', () => ({ SubmissionOutput: { findOne: jest.fn() } }));
 
-import { SubmissionDocument } from '../../db/models';
+import { SubmissionOutput } from '../../db/models';
 import { NormalizationService } from './service';
 
-const findOne = SubmissionDocument.findOne as unknown as jest.Mock;
+const findOne = SubmissionOutput.findOne as unknown as jest.Mock;
 
 describe('NormalizationService failure handling', () => {
   afterEach(() => findOne.mockReset());

@@ -56,6 +56,27 @@ describe('extractValidationFields', () => {
     const payload = { normalization: { normalized: { riskType: 'wind' } } };
     expect(extractValidationFields(payload)).toEqual(extractValidationFields(payload));
   });
+
+  test('resolves lineOfBusiness from the classification code when no label is present', () => {
+    const fields = extractValidationFields({
+      normalization: { normalized: { lineOfBusinessCode: 'cyber' } },
+    });
+    expect(fields.appetite.lineOfBusiness).toBe('cyber');
+  });
+
+  test('falls back to riskType as lineOfBusiness ONLY when it is a valid LOB code', () => {
+    // 'property' is a canonical LOB → used; classification produced nothing.
+    const propertyFields = extractValidationFields({
+      extraction: { structuredData: { riskType: 'property' } },
+    });
+    expect(propertyFields.appetite.lineOfBusiness).toBe('property');
+
+    // 'wind' is a peril, NOT a line of business → lineOfBusiness stays null.
+    const windFields = extractValidationFields({
+      extraction: { structuredData: { riskType: 'wind' } },
+    });
+    expect(windFields.appetite.lineOfBusiness).toBeNull();
+  });
 });
 
 describe('findMissingRequired', () => {

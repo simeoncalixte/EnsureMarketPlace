@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import { ToggleSwitch } from './ToggleSwitch'
 
 const meta: Meta<typeof ToggleSwitch> = {
-  title: 'XDS/ToggleSwitch',
+  title: 'XDS/Form/ToggleSwitch',
   component: ToggleSwitch
 }
 

@@ -5,7 +5,7 @@ import Button from '../../../xds/components/Button';
 import { colors } from '../../../xds/colors';
 import { renderTemplateField } from '../InsurerDashboard.renderers';
 import type { LineOfBusinessPageTemplateField } from '../lineOfBusinessTaxonomy';
-import type { SuggestedFormField } from '../../../api/pipeline';
+import { loadSchemaOptionSet, type SchemaOptionItem, type SuggestedFormField } from '../../../api/pipeline';
 
 const FieldGrid = styled.div`
   display: grid;
@@ -66,6 +66,50 @@ function toRendererField(field: SuggestedFormField): LineOfBusinessPageTemplateF
   return field as unknown as LineOfBusinessPageTemplateField;
 }
 
+/**
+ * Lazy-load the options for any `select`/`radio` field that references an
+ * `optionSetKey` instead of inlining its choices, the first time this section is
+ * active. Returns the fields with their `options` hydrated from the option-set
+ * table; fields that already carry inline `options` (or have no `optionSetKey`)
+ * pass through unchanged. Best-effort — a failed fetch just leaves the field
+ * empty.
+ */
+function useLazyFieldOptions(fields: SuggestedFormField[], enabled: boolean): SuggestedFormField[] {
+  const [optionsByKey, setOptionsByKey] = useState<Record<string, SchemaOptionItem[]>>({});
+
+  const pendingKeys = fields
+    .filter((field) => field.optionSetKey && !field.options && !(field.optionSetKey in optionsByKey))
+    .map((field) => field.optionSetKey as string);
+  const pendingSignature = pendingKeys.join('|');
+
+  useEffect(() => {
+    if (!enabled || pendingKeys.length === 0) return;
+    let cancelled = false;
+    Promise.all(pendingKeys.map((key) => loadSchemaOptionSet(key).then((set) => [key, set?.items ?? []] as const))).then(
+      (entries) => {
+        if (cancelled) return;
+        setOptionsByKey((current) => {
+          const next = { ...current };
+          for (const [key, items] of entries) next[key] = items;
+          return next;
+        });
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+    // pendingSignature captures which keys still need loading.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled, pendingSignature]);
+
+  if (Object.keys(optionsByKey).length === 0) return fields;
+  return fields.map((field) =>
+    field.optionSetKey && !field.options && optionsByKey[field.optionSetKey]
+      ? { ...field, options: optionsByKey[field.optionSetKey] }
+      : field,
+  );
+}
+
 /** Seed values from the prefilled `value`, then any template default. */
 function initialValues(fields: SuggestedFormField[]): Record<string, string> {
   const out: Record<string, string> = {};
@@ -95,6 +139,10 @@ const DynamicFormSection = React.memo(function DynamicFormSection({
   badge,
   inline,
 }: DynamicFormSectionProps) {
+  // Hydrate any field whose options are stored in the lazy-loaded option-set
+  // table (referenced by `optionSetKey`) once this section is on screen.
+  const renderFields = useLazyFieldOptions(fields, isActive);
+
   const [values, setValues] = useState<Record<string, string>>(() => initialValues(fields));
   const [items, setItems] = useState<Array<Record<string, string>>>(() => [initialValues(fields)]);
 
@@ -137,7 +185,7 @@ const DynamicFormSection = React.memo(function DynamicFormSection({
             <Button type="button" variant="ghost" onClick={() => removeItem(index)}>Remove</Button>
           </CardHeader>
           <FieldGrid>
-            {fields.map((field) =>
+            {renderFields.map((field) =>
               renderTemplateField(toRendererField(field), itemValues[field.key] ?? '', (next) => setItemFieldValue(index, field.key, next)),
             )}
           </FieldGrid>
@@ -149,7 +197,7 @@ const DynamicFormSection = React.memo(function DynamicFormSection({
     </CardList>
   ) : (
     <FieldGrid>
-      {fields.map((field) =>
+      {renderFields.map((field) =>
         renderTemplateField(toRendererField(field), values[field.key] ?? '', (next) => setFieldValue(field.key, next)),
       )}
     </FieldGrid>

@@ -5,6 +5,8 @@ import {
   PageTemplate,
   LineOfBusinessPrimaryType,
   LineOfBusinessSubType,
+  PerilCategory,
+  Peril,
   Policy,
   RiskPortfolio,
   RiskMetric,
@@ -32,6 +34,7 @@ import {
   buildDefaultInsuredSubjectsPageDefinition,
 } from '../db/seed-data/pageTemplates';
 import { lineOfBusinessTaxonomy as seedLineOfBusinessTaxonomy } from '../db/seed-data/lineOfBusinessTaxonomy';
+import { perilTaxonomy as seedPerilTaxonomy } from '../db/seed-data/perilTaxonomy';
 import { RiskClassSchemaVersion } from '../db/models/riskClassSchema.models';
 import { RiskClassRegistry } from '../db/models/riskClassRegistry.models';
 import { publishSchemaVersion } from '../pipeline/schema/publish';
@@ -134,6 +137,18 @@ type LineOfBusinessTaxonomyNode = {
   subTypes: Array<{
     code: string;
     label: string;
+  }>;
+};
+
+type PerilTaxonomyNode = {
+  code: string;
+  label: string;
+  description: string | null;
+  perils: Array<{
+    code: string;
+    label: string;
+    description: string | null;
+    isCatastrophe: boolean;
   }>;
 };
 
@@ -1077,6 +1092,54 @@ async function loadLineOfBusinessTaxonomy(): Promise<LineOfBusinessTaxonomyNode[
   }
 }
 
+function serializeFallbackPerilTaxonomy(): PerilTaxonomyNode[] {
+  return seedPerilTaxonomy.map((category) => ({
+    code: category.code,
+    label: category.label,
+    description: category.description,
+    perils: category.perils.map((peril) => ({
+      code: peril.code,
+      label: peril.label,
+      description: peril.description,
+      isCatastrophe: peril.isCatastrophe ?? false,
+    })),
+  }));
+}
+
+async function loadPerilTaxonomy(): Promise<PerilTaxonomyNode[]> {
+  try {
+    const [categories, perils] = await Promise.all([
+      PerilCategory.findAll({ order: [['sortOrder', 'ASC'], ['label', 'ASC']] }),
+      Peril.findAll({ order: [['categoryCode', 'ASC'], ['sortOrder', 'ASC'], ['label', 'ASC']] }),
+    ]);
+
+    if (categories.length === 0) {
+      return serializeFallbackPerilTaxonomy();
+    }
+
+    const groupedPerils = new Map<string, PerilTaxonomyNode['perils']>();
+    for (const peril of perils) {
+      const entries = groupedPerils.get(peril.categoryCode) ?? [];
+      entries.push({
+        code: peril.code,
+        label: peril.label,
+        description: peril.description ?? null,
+        isCatastrophe: peril.isCatastrophe,
+      });
+      groupedPerils.set(peril.categoryCode, entries);
+    }
+
+    return categories.map((category) => ({
+      code: category.code,
+      label: category.label,
+      description: category.description ?? null,
+      perils: groupedPerils.get(category.code) ?? [],
+    }));
+  } catch (error) {
+    return serializeFallbackPerilTaxonomy();
+  }
+}
+
 async function loadInsuredSubjectsPageTemplate(): Promise<PageTemplateDefinition> {
   try {
     const pageTemplate = await PageTemplate.findOne({
@@ -1167,6 +1230,53 @@ export const marketplaceRoute: FastifyPluginAsync = async (app) => {
         query.lineOfBusinessSubTypeCode,
       );
       return reply.code(200).send({ primaryTypes, pageTemplate, isOrgTemplate });
+    },
+  );
+
+  app.get(
+    '/marketplace/peril-taxonomy',
+    {
+      schema: {
+        tags: ['Marketplace'],
+        summary: 'List canonical peril (cause-of-loss) taxonomy grouped by category',
+        response: {
+          200: {
+            type: 'object',
+            properties: {
+              categories: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    code: { type: 'string' },
+                    label: { type: 'string' },
+                    description: { type: ['string', 'null'] },
+                    perils: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          code: { type: 'string' },
+                          label: { type: 'string' },
+                          description: { type: ['string', 'null'] },
+                          isCatastrophe: { type: 'boolean' },
+                        },
+                        required: ['code', 'label', 'isCatastrophe'],
+                      },
+                    },
+                  },
+                  required: ['code', 'label', 'perils'],
+                },
+              },
+            },
+            required: ['categories'],
+          },
+        },
+      },
+    },
+    async (_request, reply) => {
+      const categories = await loadPerilTaxonomy();
+      return reply.code(200).send({ categories });
     },
   );
 

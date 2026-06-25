@@ -12,6 +12,7 @@ export { default as SegmentedSwitch } from './SegmentedSwitch'
 
 // Form Components
 export { default as FormField } from './FormField'
+export { default as InfoHint } from './InfoHint'
 export { default as ValidationMessage } from './ValidationMessage'
 
 // Layout Components

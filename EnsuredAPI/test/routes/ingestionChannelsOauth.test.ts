@@ -27,7 +27,7 @@ describe('email channel OAuth + inbound submission linkage', () => {
 
   async function createEmailChannel() {
     return IngestionChannel.create({
-      tenantId: null,
+      organizationId: null,
       type: 'gmail',
       label: 'Submissions Inbox',
       enabled: true,

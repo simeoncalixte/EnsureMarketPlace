@@ -14,6 +14,7 @@ import {
 import { geminiSemanticJudge } from './semanticAdapter';
 import {
   aggregateDecision,
+  applyGeocodeSignal,
   buildScrubFindings,
   buildValidationResult,
   extractValidationFields,
@@ -66,11 +67,16 @@ export class ValidationService {
     const fields = extractValidationFields(payload);
     const submission = toRecord(toRecord(payload).submission);
     const submissionId = asNumber(submission.id);
-    const tenantId = asNumber(submission.tenantId);
+    const organizationId = asNumber(submission.organizationId);
 
-    // Impure seams, gathered up front.
-    const signals = await this.deps.scrubProvider(fields.address, fields.domain);
-    const appetite = await this.loadAppetiteSafely(tenantId);
+    // Impure seams, gathered up front. The geocode upgrade makes validation the
+    // first consumer of the locationDiscovery stage's output: a resolved geocode
+    // validates the property location even when the text heuristic rejects it.
+    const signals = applyGeocodeSignal(
+      await this.deps.scrubProvider(fields.address, fields.domain),
+      toRecord(payload).locationDiscovery,
+    );
+    const appetite = await this.loadAppetiteSafely(organizationId);
 
     // Pure pipeline: data in, decision out.
     const requiredFields = appetite?.profile.requiredFields?.length
@@ -79,6 +85,10 @@ export class ValidationService {
     const missingRequired = findMissingRequired(fields, requiredFields);
     const scrubFindings = buildScrubFindings(signals);
     const dataQualityScore = scoreDataQuality(missingRequired.length, signals);
+    // The score is computed here, so seed it onto the fields BEFORE building the
+    // semantic input — otherwise the agent sees dataQualityScore=null and reports
+    // it as missing even though a min-data-quality rule asks it to assess it.
+    fields.appetite.dataQualityScore = dataQualityScore;
 
     // Slice 4: resolve the OPTIONAL taxonomy-aware LOB appetite input. This is the
     // only place DB resolution happens; the result is threaded into the pure engine
@@ -87,7 +97,7 @@ export class ValidationService {
     // LOB matcher — identical to today's behavior.
     const taxonomyAppetite = appetite?.profile
       ? await this.resolveTaxonomyAppetiteSafely({
-          tenantId,
+          organizationId,
           fields,
           allowedLinesOfBusiness: appetite.profile.allowedLinesOfBusiness ?? null,
         })
@@ -100,8 +110,8 @@ export class ValidationService {
       taxonomyAppetite,
     );
 
-    // Server-side LLM agent (Alibaba/DashScope): advisory by default, gated by
-    // policy, fail-safe. The raw verdict is interpreted by a pure function.
+    // Server-side LLM agent (Gemini, via semanticAdapter): advisory by default,
+    // gated by policy, fail-safe. The raw verdict is interpreted by a pure function.
     const verdict = await this.judgeSafely(
       buildSemanticInput(fields, appetite?.profile ?? null, appetite?.rules ?? []),
     );
@@ -124,7 +134,7 @@ export class ValidationService {
     // — losing the validation record should surface as a failed stage, unlike the
     // advisory appetite/judge seams which degrade silently.
     if (submissionId !== null) {
-      await this.deps.repository.upsertValidation(submissionId, tenantId, validation);
+      await this.deps.repository.upsertValidation(submissionId, organizationId, validation);
     }
 
     return { ok: true, service: 'validation', ...validation };
@@ -138,14 +148,14 @@ export class ValidationService {
    * code is honored if normalization/extraction supplied one.
    */
   private async resolveTaxonomyAppetiteSafely(args: {
-    tenantId: number | null;
+    organizationId: number | null;
     fields: ReturnType<typeof extractValidationFields>;
     allowedLinesOfBusiness: string[] | null;
   }): Promise<Awaited<ReturnType<TaxonomyAppetiteResolver>>> {
     try {
       const { fields } = args;
       return await this.deps.taxonomyAppetiteResolver({
-        tenantId: args.tenantId,
+        organizationId: args.organizationId,
         lineOfBusiness: fields.appetite.lineOfBusiness,
         lineOfBusinessCode:
           fields.normalized.lineOfBusinessCode ?? fields.extracted.lineOfBusinessCode,
@@ -167,9 +177,9 @@ export class ValidationService {
    * Appetite load is best-effort: a transient DB error must not fail the whole
    * stage. Falling back to null preserves the "no profile ⇒ unchanged" contract.
    */
-  private async loadAppetiteSafely(tenantId: unknown): Promise<Awaited<ReturnType<AppetiteLoader>>> {
+  private async loadAppetiteSafely(organizationId: unknown): Promise<Awaited<ReturnType<AppetiteLoader>>> {
     try {
-      return await this.deps.appetiteLoader(tenantId as number | null | undefined);
+      return await this.deps.appetiteLoader(organizationId as number | null | undefined);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.warn('validation: appetite load failed; proceeding without it:', err instanceof Error ? err.message : err);

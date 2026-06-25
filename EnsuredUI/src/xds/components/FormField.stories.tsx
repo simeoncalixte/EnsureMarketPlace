@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import { FormField } from './FormField'
 
 const meta: Meta<typeof FormField> = {
-  title: 'XDS/FormField',
+  title: 'XDS/Form/FormField',
   component: FormField,
   argTypes: {
     label: { control: 'text' },

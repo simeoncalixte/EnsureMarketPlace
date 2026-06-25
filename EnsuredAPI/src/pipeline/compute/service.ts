@@ -248,7 +248,7 @@ export async function computeForSubmission(
   if (!submission) {
     throw new Error('submission_not_found');
   }
-  const tenantId = submission.tenantId ?? null;
+  const organizationId = submission.organizationId ?? null;
 
   const canonical = await CanonicalSubmission.findOne({ where: { submissionId } });
   const data = (canonical?.data ?? {}) as Record<string, unknown>;
@@ -256,13 +256,13 @@ export async function computeForSubmission(
   const subTypeCode = canonical?.lineOfBusinessSubTypeCode ?? null;
 
   // 1. Resolve the risk class (total; generic default on miss/error).
-  const resolution = await resolveRiskClass(tenantId, primaryCode, subTypeCode);
+  const resolution = await resolveRiskClass(organizationId, primaryCode, subTypeCode);
 
   // 2. Resolve the benchmark prior; fall back to the generic catch-all prior when
   //    no scoped prior resolves (so we still have a defended number).
-  let priorResolution = await resolveBenchmarkPrior(tenantId, primaryCode, subTypeCode);
+  let priorResolution = await resolveBenchmarkPrior(organizationId, primaryCode, subTypeCode);
   if (!priorResolution.prior) {
-    const generic = await resolveBenchmarkPrior(tenantId, GENERIC_BENCHMARK_PRIOR_LOB, null);
+    const generic = await resolveBenchmarkPrior(organizationId, GENERIC_BENCHMARK_PRIOR_LOB, null);
     if (generic.prior) {
       priorResolution = generic;
     }

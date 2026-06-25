@@ -36,18 +36,8 @@ type VariantTheme = {
   border: string
 }
 
-/**
- * Hex -> rgba helper kept local so tones can derive translucent fills/borders
- * from the solid semantic colors in colors.ts.
- */
-const hexToRgba = (hex: string, alpha: number): string => {
-  const normalized = hex.replace('#', '')
-  const r = parseInt(normalized.slice(0, 2), 16)
-  const g = parseInt(normalized.slice(2, 4), 16)
-  const b = parseInt(normalized.slice(4, 6), 16)
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`
-}
-
+// Translucent fills/borders derive from the solid semantic tokens via
+// `withAlpha` (color-mix), so badge tones stay theme-reactive.
 const variantThemes: Record<XdsBadgeVariant, VariantTheme> = {
   // --- Original variants: preserve exact computed styles ---
   primary: {
@@ -73,24 +63,24 @@ const variantThemes: Record<XdsBadgeVariant, VariantTheme> = {
 
   // --- New semantic tones mapped to colors.ts ---
   success: {
-    background: hexToRgba(colors.success, 0.12),
+    background: withAlpha(colors.success, 0.12),
     color: colors.success,
-    border: `1px solid ${hexToRgba(colors.success, 0.2)}`
+    border: `1px solid ${withAlpha(colors.success, 0.2)}`
   },
   warning: {
-    background: hexToRgba(colors.warning, 0.12),
+    background: withAlpha(colors.warning, 0.12),
     color: colors.warning,
-    border: `1px solid ${hexToRgba(colors.warning, 0.2)}`
+    border: `1px solid ${withAlpha(colors.warning, 0.2)}`
   },
   danger: {
-    background: hexToRgba(colors.danger, 0.12),
+    background: withAlpha(colors.danger, 0.12),
     color: colors.danger,
-    border: `1px solid ${hexToRgba(colors.danger, 0.2)}`
+    border: `1px solid ${withAlpha(colors.danger, 0.2)}`
   },
   info: {
-    background: hexToRgba(colors.info, 0.12),
+    background: withAlpha(colors.info, 0.12),
     color: colors.info,
-    border: `1px solid ${hexToRgba(colors.info, 0.2)}`
+    border: `1px solid ${withAlpha(colors.info, 0.2)}`
   },
   neutral: {
     background: colors.surfaceContainerHigh,

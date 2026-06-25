@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { colors, withAlpha } from '../../xds/colors';
 
 export const Page = styled.div`
+  padding: 0.45rem 2rem;
   background: var(--surface, ${colors.background});
   color: var(--on-surface, ${colors.onSurface});
   font-family: var(--font-body, Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial);
@@ -46,7 +47,6 @@ export const Main = styled.main`
   width: 100%;
   /* Fill the shell content area and reserve room for the fixed bottom ticker (2rem). */
   min-height: calc(100vh - 8rem);
-  padding: 0 0 2.5rem;
   background: var(--surface, ${colors.background});
 `;
 
@@ -122,26 +122,15 @@ export const StatNoteRow = styled.span`
   gap: 0.5rem;
 `;
 
-export const FiltersAside = styled.aside`
-  width: 100%;
-  max-width: 18rem;
-  flex-shrink: 0;
+/** Vertical page body: horizontal filter bar stacked above the market data. */
+export const MarketplaceBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 `;
 
 export const DealGrid = styled.div`
   flex: 1;
-`;
-
-/** Main content column to the right of the filter rail: map panel above deals. */
-export const DealColumn = styled.div`
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 `;
 
 /** Generic page-local surface wrapper for opportunity / state cards. */
@@ -165,35 +154,49 @@ export const FooterLink = styled.a`
   &:hover { color: ${colors.onSurface}; }
 `;
 
-export const FlexRow = styled.div`
+/** Horizontal filter group sitting above the market data. */
+export const FilterBar = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  @media (min-width: 1024px) { flex-direction: row; }
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--outline-variant, ${colors.outlineVariant});
+  border-radius: 0.75rem;
+  background: var(--surface-container-low, ${colors.surfaceContainerLow});
 `;
 
-export const FilterHeading = styled.h4`
-  color: var(--on-surface, ${colors.onSurface});
-  font-family: var(--font-headline, inherit);
-  font-weight: 700;
-  margin-bottom: 1rem;
+/**
+ * A labelled filter field (label above a control). Every field is the same fixed
+ * width (no grow), so the bar wraps into uniform, consistent columns.
+ */
+export const FilterField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 0 1 15rem;
+  min-width: 15rem;
+`;
+
+/** Alias kept for the duration / yield fields — identical sizing to FilterField. */
+export const FilterFieldNarrow = FilterField;
+
+/** Trailing item (e.g. live signal, 3D toggle) pushed to the end of the bar. */
+export const FilterBarTrailing = styled.div`
+  margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-`;
-
-/** Vertical stack for the filter accordions. */
-export const FilterStack = styled.div`
-  display: flex;
-  flex-direction: column;
   gap: 1rem;
+  align-self: center;
 `;
 
-/** Inner column inside an expanded filter accordion. */
-export const FilterFieldStack = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/** Small caps-style label sitting above a compact filter control. */
+export const FilterFieldLabel = styled.label`
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant, ${colors.neutral[400]});
 `;
 
 /** Two-column grid for the min/max yield inputs. */
@@ -309,15 +312,6 @@ export const HeadControls = styled.div`
   margin-left: auto;
   flex-wrap: wrap;
   justify-content: flex-end;
-`;
-
-/** Indented block under a map-layer checkbox: its status note + facet options. */
-export const FilterIndent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  padding-left: 1.75rem;
-  margin-top: 0.25rem;
 `;
 
 /** Muted helper line in the filter rail (layer status, slider value). */

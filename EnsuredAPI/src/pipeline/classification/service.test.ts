@@ -46,4 +46,38 @@ describe('Classification pipeline routes', () => {
     expect(result.confidence).toBeGreaterThanOrEqual(0.7);
     expect(result.needsReview).toBe(false);
   });
+
+  test('flags a multi-line-of-business package and lists the distinct lines', () => {
+    const result = classifySubmissionLineOfBusiness({
+      text: [
+        'Document 1: Marine Cargo shipment, bill of lading, freight, cold chain cargo.',
+        'Document 2: Directors and Officers d&o public company side a side b coverage.',
+        'Document 3: Cyber ransomware data breach network security privacy.',
+      ].join('\n'),
+    });
+
+    expect(result.multiLineOfBusiness).toBe(true);
+    expect(result.needsReview).toBe(true); // multi-LOB always warrants review
+    const codes = result.lineOfBusinesses.map((l) => l.lineOfBusinessCode);
+    expect(codes.length).toBeGreaterThanOrEqual(2);
+    expect(codes).toContain(result.lineOfBusinessCode); // headline is always in the set
+  });
+
+  test('a single-line submission is NOT flagged as multi-line', () => {
+    const result = classifySubmissionLineOfBusiness({
+      text: 'Cyber liability: ransomware, network security, data breach, privacy, business interruption.',
+    });
+    expect(result.multiLineOfBusiness).toBe(false);
+    expect(result.lineOfBusinesses).toHaveLength(1);
+  });
+
+  test('pure classifier returns an explicit unclassified result when no keyword matches', () => {
+    // Garbled OCR / non-insurance text must NOT silently become a default line.
+    const result = classifySubmissionLineOfBusiness({ text: 'zzqx 8812 vortma lpejq nnnn' });
+    expect(result.lineOfBusinessCode).toBe('unclassified');
+    expect(result.lineOfBusinessLabel).toBe('Unclassified');
+    expect(result.confidence).toBe(0);
+    expect(result.needsReview).toBe(true);
+    expect(result.alternatives).toEqual([]);
+  });
 });

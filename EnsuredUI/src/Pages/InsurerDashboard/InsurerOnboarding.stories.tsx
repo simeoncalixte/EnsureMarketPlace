@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { within, userEvent, expect, waitFor } from '@storybook/test'
 import { Route, Routes, useLocation, useNavigate } from 'react-router'
 import { reactRouterParameters } from 'storybook-addon-remix-react-router'
-import InsurerOnboarding, { dismissedKey } from './InsurerOnboarding'
+import InsurerOnboarding, { collapsedKey } from './InsurerOnboarding'
 import type { OnboardingStep } from '../../xds/components/OnboardingChecklist'
 
 // Partial state: appetite done, channels current, submissions todo.
@@ -103,15 +103,20 @@ export const Interactive: Story = {
   render: () => <Host />,
   loaders: [
     async () => {
-      // Start clean so the panel is visible.
-      window.localStorage.removeItem(dismissedKey(null))
+      // Start clean so the nudge is in its resting state.
+      window.localStorage.removeItem(collapsedKey(null))
       return {}
     },
   ],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    // Steps render.
+    // The sidebar nudge is shown first; opening it reveals the checklist.
+    await userEvent.click(
+      await canvas.findByRole('button', { name: /finish setting up your account/i }),
+    )
+
+    // Steps render inside the popover.
     await expect(await canvas.findByText('Define your appetite')).toBeInTheDocument()
     await expect(canvas.getByText('Connect an ingestion channel')).toBeInTheDocument()
 
@@ -123,31 +128,35 @@ export const Interactive: Story = {
   },
 }
 
-// Dedicated dismissal story — deterministic via stepsOverride, asserts the panel
-// disappears and localStorage records the dismissed key.
-const DismissHost: React.FC = () => (
+// Dedicated collapse story — deterministic via stepsOverride. Asserts the popover
+// opens from the nudge, then closing it collapses back to the nudge (which stays
+// visible) and persists the collapsed key.
+const CollapseHost: React.FC = () => (
   <StorySurface>
     <InsurerOnboarding stepsOverride={partialSteps} />
   </StorySurface>
 )
 
-export const Dismiss: Story = {
-  render: () => <DismissHost />,
+export const Collapse: Story = {
+  render: () => <CollapseHost />,
   loaders: [
     async () => {
-      window.localStorage.removeItem(dismissedKey(null))
+      window.localStorage.removeItem(collapsedKey(null))
       return {}
     },
   ],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    // Panel is visible.
+    // Open the popover from the nudge.
+    const nudge = await canvas.findByRole('button', { name: /finish setting up your account/i })
+    await userEvent.click(nudge)
     await expect(await canvas.findByText('Define your appetite')).toBeInTheDocument()
 
-    // Dismiss hides the panel AND persists the dismissed key.
+    // Closing the popover collapses back to the nudge AND persists the collapsed key.
     await userEvent.click(canvas.getByRole('button', { name: /dismiss onboarding checklist/i }))
     await waitFor(() => expect(canvas.queryByText('Define your appetite')).not.toBeInTheDocument())
-    expect(window.localStorage.getItem(dismissedKey(null))).toBe('true')
+    expect(await canvas.findByRole('button', { name: /finish setting up your account/i })).toBeInTheDocument()
+    expect(window.localStorage.getItem(collapsedKey(null))).toBe('true')
   },
 }

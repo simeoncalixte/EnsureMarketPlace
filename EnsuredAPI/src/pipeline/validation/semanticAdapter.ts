@@ -1,68 +1,63 @@
-import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { asText, toRecord } from './coerce';
-import { buildJudgeMessages, parseVerdict, SemanticJudge } from './semantic';
-
-/** Narrow a LangChain message content (string | content parts[]) down to text. */
-function extractContent(content: unknown): string | null {
-  if (typeof content === 'string') return content;
-  if (Array.isArray(content)) {
-    const text = content
-      .map((part) => (typeof part === 'string' ? part : asText(toRecord(part).text) ?? ''))
-      .join('');
-    return text || null;
-  }
-  return null;
-}
+import { createGeminiChat, geminiModel, geminiTimeoutMs, invokeAgentText, isGeminiConfigured } from '../agents/gemini';
+import {
+  buildJudgeMessages,
+  parseVerdict,
+  semanticInputIsEmpty,
+  SEMANTIC_PROMPT_VERSION,
+  SemanticJudge,
+} from './semantic';
 
 // The ONE impure piece of the semantic agent: a chat call to Google's Gemini
-// API (AI Studio), made through LangChain's ChatGoogleGenerativeAI client. It is
-// a thin shell — build the prompt (pure) -> invoke -> parse the response (pure).
+// API (AI Studio), made through the shared pipeline Gemini client (which sets
+// temperature 0, json mode, and one retry on transient failures). It is a thin
+// shell — build the prompt (pure) -> invoke -> parse the response (pure).
 // Everything that can be reasoned about lives in semantic.ts; this file only
 // does I/O.
 //
-// The model, API key, and related config are routed straight into the LangChain
-// client (all optional; absent key => the judge abstains, so the validation
-// stage behaves exactly as before):
-//   GEMINI_API_KEY    required to enable the judge -> ChatGoogleGenerativeAI apiKey
-//   GEMINI_MODEL      default: gemini-2.5-flash     -> model
-//   GEMINI_TIMEOUT_MS default: 8000                 -> per-call invoke timeout
+// Config (shared with the other pipeline agents via agents/gemini.ts):
+//   GEMINI_API_KEY    required to enable the judge (absent => abstain, no call)
+//   GEMINI_MODEL      default: gemini-2.5-flash
+//   GEMINI_TIMEOUT_MS default: 8000 — per-call invoke timeout
 //
-// `json: true` forces a JSON-only response (supported on gemini-1.5 and later),
-// which is what parseVerdict expects.
-
-const DEFAULT_MODEL = 'gemini-2.5-flash';
-const DEFAULT_TIMEOUT_MS = 8000;
+// `json: true` forces a JSON-only response, which is what parseVerdict expects.
 
 export const geminiSemanticJudge: SemanticJudge = async (input) => {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return null; // unconfigured -> abstain, no network call
+  if (!isGeminiConfigured()) return null; // unconfigured -> abstain, no network call
 
-  const model = process.env.GEMINI_MODEL ?? DEFAULT_MODEL;
-  const timeoutMs = Number(process.env.GEMINI_TIMEOUT_MS ?? DEFAULT_TIMEOUT_MS);
+  // An all-null snapshot has nothing to judge — skip the paid call entirely
+  // rather than asking the model to opine on five nulls.
+  if (semanticInputIsEmpty(input)) return null;
 
   const { system, user } = buildJudgeMessages(input);
 
   try {
-    const chat = new ChatGoogleGenerativeAI({
-      apiKey,
-      model,
-      temperature: 0,
-      maxRetries: 0,
-      json: true,
-    });
+    const chat = await createGeminiChat(process.env, { json: true });
 
-    const response = await chat.invoke(
+    const raw = await invokeAgentText(
+      chat,
       [
         { role: 'system', content: system },
         { role: 'user', content: user },
       ],
-      { timeout: timeoutMs },
+      {
+        agent: 'semantic_validation',
+        timeout: geminiTimeoutMs(),
+        promptVersion: SEMANTIC_PROMPT_VERSION,
+      },
     );
 
-    const verdict = parseVerdict(extractContent(response?.content) ?? '');
-    if (verdict && !verdict.modelVersion) verdict.modelVersion = model;
+    const verdict = parseVerdict(raw);
+    // Stamp provenance: which model + prompt revision produced this verdict.
+    if (verdict) verdict.modelVersion = `${geminiModel()}:${SEMANTIC_PROMPT_VERSION}`;
     return verdict;
-  } catch (_) {
-    return null; // network/timeout/parse error -> abstain (fail safe)
+  } catch (err) {
+    // Abstain (fail safe), but never silently: an expired key or a week of
+    // timeouts must be distinguishable from a genuine ABSTAIN in the logs.
+    // eslint-disable-next-line no-console
+    console.warn(
+      'validation: semantic judge call failed; abstaining:',
+      err instanceof Error ? `${err.name}: ${err.message}` : err,
+    );
+    return null;
   }
 };

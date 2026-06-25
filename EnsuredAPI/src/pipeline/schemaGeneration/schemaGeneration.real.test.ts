@@ -18,7 +18,7 @@ realDescribe('real Gemini schema generation (RUN_REAL_LLM=1)', () => {
 
   it('enriches the baseline form for a parametric property portfolio', async () => {
     const payload = {
-      submission: { id: 1, tenantId: 1 },
+      submission: { id: 1, organizationId: 1 },
       classification: { lineOfBusinessCode: 'property', lineOfBusinessLabel: 'Property', lineOfBusinessSubTypeLabel: 'Commercial Property' },
       extraction: {
         structuredData: {
@@ -44,8 +44,8 @@ realDescribe('real Gemini schema generation (RUN_REAL_LLM=1)', () => {
     console.log('[real schema]', JSON.stringify(schema, null, 2));
 
     const keys = schema.sections.map((s) => s.key);
-    // All 7 base sections are always preserved.
-    for (const baseKey of ['deal-parameters', 'financials', 'insured-subjects', 'tranche-structure', 'validation', 'submission', 'signing']) {
+    // All 8 base sections are always preserved.
+    for (const baseKey of ['general-information', 'financials', 'insured-subjects', 'documents', 'tranche-structure', 'validation', 'submission', 'signing']) {
       expect(keys).toContain(baseKey);
     }
     // The Subjects section is component-rendered.

@@ -23,7 +23,7 @@ describe('Storage & Search pipeline routes', () => {
 
   test('POST /api/pipeline/storage-search/process returns completed payload envelope', async () => {
     const payload = {
-      submission: { id: 42, tenantId: 7 },
+      submission: { id: 42, organizationId: 7 },
       workflow: { decision: 'PRIORITY_ROUTE', queue: 'priority_queue' },
       normalization: { normalized: { riskType: 'Hurricane', limit: 3_000_000 } },
     };

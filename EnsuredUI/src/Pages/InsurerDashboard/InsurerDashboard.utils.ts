@@ -18,6 +18,7 @@ import {
   subjectTemplateBaseFieldKeys,
   legacyLineOfBusinessAliases,
 } from './InsurerDashboard.constants';
+import type { PipelineInsuredSubjectsResult } from '../../api/pipeline';
 
 // ── Local helper types ──────────────────────────────────────────────────────
 
@@ -66,17 +67,6 @@ export function toOptionalText(value: string): string | null {
 
 export function normalizeLineOfBusinessKey(value: string): string {
   return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
-}
-
-export function inferPeril(lineOfBusiness: string): string {
-  const normalized = lineOfBusiness.toLowerCase();
-  if (normalized.includes('marine')) {
-    return 'FLOOD';
-  }
-  if (normalized.includes('cyber') || normalized.includes('trade credit') || normalized.includes('liability')) {
-    return 'EQ';
-  }
-  return 'US WIND';
 }
 
 export function resolveLineOfBusinessSelection(
@@ -192,6 +182,39 @@ export function buildDefaultSubjects(
   taxonomy: LineOfBusinessTaxonomyPrimary[] = [],
 ): SubjectInput[] {
   return [createSubjectDraft(0, sourceSubmission, taxonomy)];
+}
+
+/**
+ * Hydrate the form's subject cards from the pipeline's extracted insured
+ * subjects: each subject's OWN line of business (the LLM-assigned canonical
+ * code), its extracted attributes as editable field values, and its inline
+ * per-subject template. Returns [] when the result carries no subjects so the
+ * caller keeps the blank default.
+ */
+export function subjectsFromInsuredSubjects(
+  result: PipelineInsuredSubjectsResult,
+  taxonomy: LineOfBusinessTaxonomyPrimary[],
+): SubjectInput[] {
+  return result.subjects.map((subject, index) => {
+    const selection = resolveLineOfBusinessSelection(
+      subject.lineOfBusinessCode ?? subject.lineOfBusinessLabel ?? '',
+      '',
+      taxonomy,
+    );
+    const fieldValues: Record<string, string> = {};
+    for (const [key, value] of Object.entries(subject.attributes ?? {})) {
+      if (value === null || value === undefined) continue;
+      fieldValues[key] = typeof value === 'boolean' ? (value ? 'true' : 'false') : String(value);
+    }
+    return {
+      subjectId: createStableId('subject'),
+      subjectLabel: subject.name?.trim() || `Subject ${index + 1}`,
+      lineOfBusiness: selection.primary,
+      lineOfBusinessSubType: selection.subType,
+      fieldValues,
+      template: subject.template ?? null,
+    };
+  });
 }
 
 export function normalizeSubject(subject: SubjectInput, index: number) {

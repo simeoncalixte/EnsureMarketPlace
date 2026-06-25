@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { User } from '../db/models/identity.models';
+import { User, Organization } from '../db/models/identity.models';
+import { Department, Team } from '../db/models/department.models';
 import { userRoles } from '../db/models/constants';
 
 export type UserCreateInput = {
@@ -35,7 +36,17 @@ export class UserService {
   }
 
   async findAll(): Promise<User[]> {
-    return User.findAll();
+    // Eager-load the organization/department/team so callers (e.g. the admin
+    // Users table) can show them by name rather than raw foreign-key ids. Only
+    // id + name are selected to keep the payload small.
+    return User.findAll({
+      include: [
+        { model: Organization, as: 'organization', attributes: ['id', 'name'], required: false },
+        { model: Department, as: 'department', attributes: ['id', 'name'], required: false },
+        { model: Team, as: 'team', attributes: ['id', 'name'], required: false },
+      ],
+      order: [['id', 'ASC']],
+    });
   }
 
   async findByRole(role: (typeof userRoles)[number]): Promise<User[]> {

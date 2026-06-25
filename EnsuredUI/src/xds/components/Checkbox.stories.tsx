@@ -4,7 +4,7 @@ import { within, userEvent, expect } from '@storybook/test'
 import Checkbox from './Checkbox'
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'XDS/Checkbox',
+  title: 'XDS/Form/Checkbox',
   component: Checkbox,
   argTypes: {
     label: { control: 'text' },

@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl'
-import { colors } from '../colors'
+// Mapbox paint props can't resolve `var()`; use concrete values.
+import { rawColors as colors } from '../colors'
 import { getCrestaZones } from '../../api/crestaZones'
 import { getActiveEvents, getFaultLines } from '../../api/riskLayers'
 

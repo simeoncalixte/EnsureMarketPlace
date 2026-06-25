@@ -66,13 +66,13 @@ describe('Casualty ILF compute + coverage — real DB integration (Slice 5.3)', 
       methodParamsJson: { lossRate: 0.002 },
     });
 
-    const submission = await Submission.create({ tenantId: org.id, status: 'analysis' } as any);
+    const submission = await Submission.create({ organizationId: org.id, status: 'analysis' } as any);
     submissionId = submission.id;
 
     // Casualty canonical data: revenue exposure base + the coverage limit.
     await CanonicalSubmission.create({
       submissionId,
-      tenantId: org.id,
+      organizationId: org.id,
       data: { lineOfBusiness: LOB, 'financials.revenue': 5_000_000, 'financials.limit': LIMIT },
       version: 1,
       lineOfBusinessCode: LOB,

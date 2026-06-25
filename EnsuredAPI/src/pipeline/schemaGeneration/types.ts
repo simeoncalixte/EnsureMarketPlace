@@ -61,11 +61,15 @@ export type SuggestedFormDefinition = Omit<PageTemplateDefinition, 'sections'> &
  */
 export type SubmissionFormContext = {
   submissionId: number | null;
-  tenantId: number | null;
+  organizationId: number | null;
   lineOfBusinessCode: string | null;
   lineOfBusinessLabel: string | null;
   lineOfBusinessSubTypeCode: string | null;
   lineOfBusinessSubTypeLabel: string | null;
+  /** The insured party (named insured / policyholder), from extraction. */
+  namedInsured: string | null;
+  /** What is being insured — the subject-of-insurance descriptor, from extraction. */
+  insuredSubject: string | null;
   riskType: string | null;
   triggerType: string | null;
   limit: number | null;
