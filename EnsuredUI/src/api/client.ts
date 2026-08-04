@@ -12,6 +12,7 @@
 //   - `getJson` / `postJson` / ... -> parse JSON, tolerate 204, and throw
 //                      `ApiError` on a non-ok response.
 import { apiFetch, type ApiFetchOptions } from '../lib/auth';
+import { beginTrackedApiRequest, settleTrackedApiRequest } from './requestProgress';
 
 export type { ApiFetchOptions };
 
@@ -32,7 +33,20 @@ export class ApiError extends Error {
  * Always sends cookies; `apiFetch` adds the bearer token unless `useAuth:false`.
  */
 export async function apiRequest(path: string, init: ApiFetchOptions = {}): Promise<Response> {
-  return apiFetch(path, { credentials: 'include', ...init });
+  const method = String(init.method ?? 'GET').toUpperCase();
+  const trackedId = beginTrackedApiRequest(path, method);
+  try {
+    const response = await apiFetch(path, { credentials: 'include', ...init });
+    settleTrackedApiRequest(
+      trackedId,
+      response.ok,
+      response.ok ? undefined : `${response.status} ${response.statusText || 'Request failed'}`,
+    );
+    return response;
+  } catch (error) {
+    settleTrackedApiRequest(trackedId, false, error instanceof Error ? error.message : String(error));
+    throw error;
+  }
 }
 
 function jsonInit(method: string, body: unknown, init?: ApiFetchOptions): ApiFetchOptions {

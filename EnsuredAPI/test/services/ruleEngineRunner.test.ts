@@ -7,7 +7,7 @@ jest.mock('../../src/services/modelFieldCatalog', () => ({
 
 import { resolveOrgScopedModel } from '../../src/services/modelFieldCatalog';
 import { RuleEngineRunner } from '../../src/services/ruleEngineRunner';
-import type { RuleAction } from '../../src/pipeline/validation/ruleEngine';
+import type { RuleAction } from '../../src/services/pipeline/validation/ruleEngine';
 
 const resolveModel = resolveOrgScopedModel as unknown as jest.Mock;
 

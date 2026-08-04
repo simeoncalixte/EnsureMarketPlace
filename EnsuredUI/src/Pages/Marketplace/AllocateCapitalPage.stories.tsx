@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import AllocateCapitalPage from './AllocateCapitalPage';
+import { OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH } from '../../api/marketplace';
 
 // Preload available deal IDs at module load so stories can reuse them.
 const preloadedDealIdsPromise: Promise<Array<number | string>> = (async () => {
   try {
     const base = (import.meta as any)?.env?.VITE_API_BASE ?? '';
-    const url = (base ? String(base).replace(/\/$/, '') : '') + '/api/marketplace/opportunities/active-pending-funding';
+    const url = (base ? String(base).replace(/\/$/, '') : '') + OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH;
     const res = await fetch(url);
     if (!res.ok) return [];
     const body = await res.json();
@@ -89,3 +90,15 @@ Default.args = {
   initialTrancheId: 'mezzanine-b2',
   initialPoolId: 1,
 };
+
+export const NoDealSelected: StoryFn = () => (
+  <div style={{ padding: 12 }}>
+    <AllocateCapitalPage initialTrancheId={'senior-a1'} initialPoolId={undefined as any} />
+  </div>
+);
+
+export const ApiError: StoryFn = () => (
+  <div style={{ padding: 12 }}>
+    <AllocateCapitalPage apiBase={'http://localhost:1'} initialTrancheId={'equity'} initialPoolId={1} />
+  </div>
+);

@@ -166,7 +166,7 @@ export function initIngestionModels(sequelize: Sequelize): void {
   SubmissionOutput.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      submissionId: { type: DataTypes.INTEGER, allowNull: false },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false, unique: true },
       organizationId: { type: DataTypes.INTEGER, allowNull: true, field: 'organization_id' },
       documentType: { type: DataTypes.STRING, allowNull: true },
       classificationConfidence: { type: DataTypes.FLOAT, allowNull: true },

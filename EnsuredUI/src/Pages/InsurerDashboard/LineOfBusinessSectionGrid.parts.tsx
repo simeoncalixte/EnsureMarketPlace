@@ -4,7 +4,7 @@ import Badge from '../../xds/components/Badge';
 import Button from '../../xds/components/Button';
 import SegmentedSwitch from '../../xds/components/SegmentedSwitch';
 import { colors, withAlpha } from '../../xds/colors';
-import { renderTemplateField } from './InsurerDashboard.renderers';
+import DynamicField, { type DynamicFieldProps } from './sections/DynamicField';
 import type {
   LineOfBusinessPageTemplateField,
   LineOfBusinessPageTemplateFieldLayout,
@@ -48,6 +48,9 @@ type LineOfBusinessRenderedFieldProps = {
   value: string;
   placement?: LineOfBusinessPageTemplateFieldLayout;
   onChange: (nextValue: string) => void;
+  organizationId?: number | null;
+  sectionKey?: string;
+  onRemoveField?: (sectionKey: string, field: LineOfBusinessPageTemplateField) => void;
 };
 
 type LineOfBusinessSectionHeaderProps = {
@@ -452,10 +455,22 @@ export function LineOfBusinessRenderedField({
   value,
   placement,
   onChange,
+  organizationId,
+  sectionKey,
+  onRemoveField,
 }: LineOfBusinessRenderedFieldProps) {
+  // The grid owns placement; DynamicField owns managed-select + the remove ×, so
+  // subject cards share the exact rendering behavior as the create-coverage form.
   return (
     <RenderedFieldRoot $layout={placement}>
-      {renderTemplateField(field, value, onChange)}
+      <DynamicField
+        field={field}
+        value={value}
+        onChange={onChange}
+        organizationId={organizationId}
+        sectionKey={sectionKey}
+        onRemoveField={onRemoveField as DynamicFieldProps['onRemoveField']}
+      />
     </RenderedFieldRoot>
   );
 }

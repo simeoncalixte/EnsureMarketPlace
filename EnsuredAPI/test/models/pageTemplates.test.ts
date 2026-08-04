@@ -1,4 +1,4 @@
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import { PageTemplate } from '../../src/db/models';
 import { ensureDefaultPageTemplates } from '../../src/db/pageTemplateDefaults';
 import { initTestDb } from '../helpers/db';

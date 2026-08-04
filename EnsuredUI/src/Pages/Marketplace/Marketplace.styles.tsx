@@ -758,3 +758,359 @@ export const AggregatedFooterAction = styled.button`
     color: ${colors.primarySoft};
   }
 `;
+
+// ─── Redesigned explorer module (modular card · split canvas · filter dock) ──────
+
+/** The whole explorer as one self-contained module card. */
+export const ExplorerCard = styled.section`
+  background: var(--surface-container-low, ${colors.surfaceContainerLow});
+  border: 1px solid var(--outline-variant, ${colors.outlineVariant});
+  border-radius: 0.875rem;
+  padding: 1rem 1.25rem 1.25rem;
+`;
+
+/** Module header: title on the left, the control cluster on the right. */
+export const ExplorerToolbar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+`;
+
+export const ToolbarTitle = styled.h2`
+  font-size: 0.95rem;
+  font-family: var(--font-headline, inherit);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+`;
+
+export const ToolbarTitleCount = styled.span`
+  color: var(--on-surface-variant, ${colors.onSurfaceVariant});
+  font-weight: 800;
+`;
+
+export const ToolbarControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+`;
+
+/** Search box: leading icon + bare input, styled like a compact field. */
+export const ToolbarSearch = styled.label`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--outline-variant, ${colors.outlineVariant});
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.55rem;
+  color: var(--on-surface-variant, ${colors.onSurfaceVariant});
+  .material-symbols-outlined { font-size: 18px; }
+  &:focus-within { border-color: var(--primary, ${colors.primary}); }
+`;
+
+export const ToolbarSearchInput = styled.input`
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--on-surface, ${colors.onSurface});
+  font: inherit;
+  font-size: 0.8rem;
+  width: 8.5rem;
+  &::placeholder { color: var(--on-surface-variant, ${colors.onSurfaceVariant}); }
+`;
+
+/** The Filters toggle button (with a count pill); active state mirrors the dock. */
+export const FiltersToggle = styled.button<{ $active: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 1px solid
+    ${({ $active }) =>
+      $active
+        ? withAlpha(colors.primary, 0.4)
+        : `var(--outline-variant, ${colors.outlineVariant})`};
+  background: ${({ $active }) =>
+    $active ? withAlpha(colors.primary, 0.12) : 'transparent'};
+  color: ${({ $active }) =>
+    $active ? `var(--primary, ${colors.primary})` : `var(--on-surface, ${colors.onSurface})`};
+  .material-symbols-outlined { font-size: 18px; }
+`;
+
+/** Small round count pill (selected filters), matching the MultiSelect pill. */
+export const CountPill = styled.span`
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--primary, ${colors.primary});
+  color: var(--on-primary, ${colors.onPrimary});
+  font-size: 0.7rem;
+  font-weight: 600;
+`;
+
+/** Row of active-filter chips beneath the toolbar. */
+export const ActiveChipsRow = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+`;
+
+export const FilterChip = styled.button<{ $accent?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+  border: 1px solid
+    ${({ $accent }) =>
+      $accent
+        ? withAlpha(colors.primary, 0.2)
+        : `var(--outline-variant, ${colors.outlineVariant})`};
+  background: ${({ $accent }) =>
+    $accent ? withAlpha(colors.primary, 0.12) : `var(--surface-container-high, ${colors.surfaceContainerHigh})`};
+  color: ${({ $accent }) =>
+    $accent ? `var(--primary, ${colors.primary})` : `var(--on-surface-variant, ${colors.onSurfaceVariant})`};
+  .material-symbols-outlined { font-size: 14px; }
+`;
+
+export const ChipClearAll = styled.button`
+  border: none;
+  background: none;
+  padding: 0 0.25rem;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary, ${colors.primary});
+  cursor: pointer;
+`;
+
+/** Body row: canvas (map/list) + the docked filter panel. */
+export const ExplorerBody = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+`;
+
+export const ExplorerCanvas = styled.div`
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+/** Right-docked filter panel; slides out of flow when closed. */
+export const FilterDock = styled.aside`
+  flex: 0 0 16rem;
+  width: 16rem;
+  align-self: stretch;
+  background: var(--surface-panel, ${colors.surfacePanel});
+  border: 1px solid var(--border, ${colors.border});
+  border-radius: 0.625rem;
+  padding: 0.875rem;
+  @media (max-width: 900px) {
+    flex-basis: 100%;
+    width: 100%;
+  }
+`;
+
+export const DockHead = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+`;
+
+export const DockTitle = styled.span`
+  font-size: 0.85rem;
+  font-family: var(--font-headline, inherit);
+  font-weight: 800;
+`;
+
+export const DockClose = styled.button`
+  border: none;
+  background: none;
+  color: var(--on-surface-variant, ${colors.onSurfaceVariant});
+  cursor: pointer;
+  display: inline-flex;
+  .material-symbols-outlined { font-size: 18px; }
+`;
+
+export const DockField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.85rem;
+`;
+
+export const DockActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+`;
+
+/** Slim header above the deal list carrying the card/table density switch. */
+export const DealsPaneHead = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+// ─── Sectioned filter dock (collapsible accordion + disabled placeholders) ───────
+
+/** One collapsible filter section (Exposure, Financial, …). */
+export const FilterSectionHeader = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.15rem;
+  border: none;
+  border-top: 1px solid var(--outline-variant, ${colors.outlineVariant});
+  background: none;
+  color: var(--on-surface, ${colors.onSurface});
+  font: inherit;
+  cursor: pointer;
+`;
+
+export const FilterSectionHeaderLeft = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  .material-symbols-outlined { font-size: 18px; }
+`;
+
+export const FilterSectionIcon = styled.span<{ $color: string }>`
+  display: inline-flex;
+  color: ${({ $color }) => $color};
+  .material-symbols-outlined { font-size: 17px; }
+`;
+
+export const FilterSectionTitle = styled.span`
+  font-size: 0.8rem;
+  font-weight: 500;
+`;
+
+/** Right-side meta: "{fieldCount}" with an optional active-count chip. */
+export const FilterSectionMeta = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.68rem;
+  color: var(--on-surface-variant, ${colors.onSurfaceVariant});
+`;
+
+export const FilterSectionActive = styled.span`
+  min-width: 17px;
+  height: 17px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--primary, ${colors.primary});
+  color: var(--on-primary, ${colors.onPrimary});
+  font-size: 0.66rem;
+  font-weight: 600;
+`;
+
+export const FilterSectionBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.35rem 0.15rem 0.7rem;
+`;
+
+/** Wrapper that bottom-borders the last section in the dock. */
+export const FilterSectionsWrap = styled.div`
+  border-bottom: 1px solid var(--outline-variant, ${colors.outlineVariant});
+  margin-bottom: 0.85rem;
+`;
+
+/** A single labelled field (label row + control), used for backed + disabled alike. */
+export const FilterFieldBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+`;
+
+export const FilterFieldLabelRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+`;
+
+/** "Soon" tag on a not-yet-wired field. */
+export const SoonTag = styled.span`
+  font-size: 0.58rem;
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+  color: var(--on-surface-variant, ${colors.onSurfaceVariant});
+  background: ${withAlpha(colors.neutral[400], 0.12)};
+`;
+
+/** A disabled, full-width select-style placeholder. */
+export const DisabledSelect = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--outline-variant, ${colors.outlineVariant});
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.78rem;
+  color: var(--on-surface-variant, ${colors.onSurfaceVariant});
+  opacity: 0.55;
+  pointer-events: none;
+  .material-symbols-outlined { font-size: 16px; }
+`;
+
+/** A disabled min/max pair (a selection group). */
+export const DisabledPairGroup = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  opacity: 0.55;
+  pointer-events: none;
+`;
+
+export const DisabledBox = styled.div`
+  border: 1px solid var(--outline-variant, ${colors.outlineVariant});
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.78rem;
+  color: var(--on-surface-variant, ${colors.onSurfaceVariant});
+`;
+
+/** A disabled range track placeholder. */
+export const DisabledTrack = styled.div`
+  height: 6px;
+  border-radius: 6px;
+  background: ${withAlpha(colors.neutral[400], 0.2)};
+  opacity: 0.55;
+  pointer-events: none;
+`;

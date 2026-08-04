@@ -11,8 +11,8 @@
  * NO new table, NO schema change — writes only into the EXISTING
  * pipelineOperationCatalogs table.
  */
-import { getSequelize, closeSequelize } from '../config/database';
-import { syncPipelineOperationCatalog } from '../pipeline/operations/catalog';
+import { getSequelize, closeSequelize } from './config/database';
+import { syncPipelineOperationCatalog } from '../services/pipeline/operations/catalog';
 
 async function run(): Promise<void> {
   const sequelize = getSequelize();

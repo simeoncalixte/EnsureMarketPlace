@@ -1,6 +1,6 @@
 import { Connection } from '../../src/db/models/social.models';
-import { pairStatusFor } from '../../src/social/graph';
-import { buildNavigationForRole, collectNavPaths } from '../../src/navigation/catalog';
+import { pairStatusFor } from '../../src/services/social/graph';
+import { buildNavigationForRole, collectNavPaths } from '../../src/services/navigation/catalog';
 
 describe('pairStatusFor', () => {
   const conn = (requesterId: number, addresseeId: number, status: string) =>

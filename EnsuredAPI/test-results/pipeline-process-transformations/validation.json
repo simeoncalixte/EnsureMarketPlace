@@ -1,6 +1,6 @@
 {
   "process": "validation",
-  "generatedAt": "2026-06-12T00:22:00.269Z",
+  "generatedAt": "2026-06-29T02:02:54.146Z",
   "transformationCount": 1,
   "transformations": [
     {
@@ -72,9 +72,9 @@
           "Domain is insecure or unresolved",
           "Missing required fields: limit, effectiveDate"
         ],
-        "validatedAt": "2026-06-12T00:22:00.265Z"
+        "validatedAt": "2026-06-29T02:02:54.145Z"
       },
-      "recordedAt": "2026-06-12T00:22:00.267Z"
+      "recordedAt": "2026-06-29T02:02:54.145Z"
     }
   ]
 }

@@ -46,8 +46,10 @@ export const useMapPanel = ({
   onToggleLayer,
   layerFacets,
   onToggleLayerFacet,
+  layerColors,
   is3D: is3DProp,
   onLayerCounts,
+  fetchContext,
 }: MapPanelProps): UseMapPanel => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
@@ -62,6 +64,8 @@ export const useMapPanel = ({
   // Controlled when the host supplies the value, internal state otherwise.
   const enabled = layersEnabled ?? internalEnabled
   const facets = layerFacets ?? internalFacets
+  // Colors are purely controlled (no internal fallback) — default to no overrides.
+  const resolvedColors = layerColors ?? {}
   const is3D = is3DProp ?? internal3D
 
   // Refs so async install paths read current state without re-running on every toggle.
@@ -69,12 +73,16 @@ export const useMapPanel = ({
   enabledRef.current = enabled
   const facetsRef = useRef(facets)
   facetsRef.current = facets
+  const colorsRef = useRef(resolvedColors)
+  colorsRef.current = resolvedColors
   const pointsRef = useRef(points)
   pointsRef.current = points
   const onPointClickRef = useRef(onPointClick)
   onPointClickRef.current = onPointClick
   const onLayerCountsRef = useRef(onLayerCounts)
   onLayerCountsRef.current = onLayerCounts
+  const fetchContextRef = useRef(fetchContext ?? {})
+  fetchContextRef.current = fetchContext ?? {}
 
   const syncMarkers = (map: mapboxgl.Map) => {
     markersRef.current.forEach((marker) => marker.remove())
@@ -100,7 +108,12 @@ export const useMapPanel = ({
     mapRef.current = map
     layersRef.current = createLayerController(
       map,
-      { enabled: () => enabledRef.current, facets: () => facetsRef.current },
+      {
+        enabled: () => enabledRef.current,
+        facets: () => facetsRef.current,
+        colors: () => colorsRef.current,
+        fetchContext: () => fetchContextRef.current,
+      },
       (id, count) => setCounts((c) => ({ ...c, [id]: count })),
     )
     map.addControl(new mapboxgl.NavigationControl(), 'top-right')
@@ -194,6 +207,20 @@ export const useMapPanel = ({
     if (mapRef.current) layersRef.current?.syncFacets(facets)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facetsKey])
+
+  // Re-apply color overrides whenever they change (only for already-installed layers).
+  const colorsKey = JSON.stringify(resolvedColors)
+  useEffect(() => {
+    if (mapRef.current) layersRef.current?.syncColors(resolvedColors)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colorsKey])
+
+  // Re-fetch visible installed layers whenever the host's fetch context changes.
+  const fetchContextKey = JSON.stringify(fetchContext ?? {})
+  useEffect(() => {
+    if (mapRef.current) layersRef.current?.syncFetchContext()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchContextKey])
 
   // Apply 3D mode whenever it changes (covers the controlled prop).
   useEffect(() => {

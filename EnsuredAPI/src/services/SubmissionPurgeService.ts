@@ -1,5 +1,5 @@
 import { ModelStatic, Model } from 'sequelize';
-import { getSequelize } from '../config/database';
+import { getSequelize } from '../db/config/database';
 import {
   CanonicalSubmission,
   CapitalCommitment,

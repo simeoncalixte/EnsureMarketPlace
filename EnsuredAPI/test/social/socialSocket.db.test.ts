@@ -3,7 +3,7 @@ import { FastifyInstance } from 'fastify';
 import WebSocket from 'ws';
 import { buildApp } from '../../src/app';
 import { User } from '../../src/db/models';
-import { broadcastToUser, hasOpenSocket } from '../../src/social/realtime/socketRegistry';
+import { broadcastToUser, hasOpenSocket } from '../../src/services/social/realtime/socketRegistry';
 import { initTestDb, truncateTables } from '../helpers/db';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_jwt_secret_for_impersonation';

@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "TS_NODE_TRANSPILE_ONLY=true node --watch -r ts-node/register src/server.ts",
     "debug": "TS_NODE_TRANSPILE_ONLY=true node --watch --inspect-brk -r ts-node/register src/server.ts",
+    "prebuild": "npm run graph:all",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "test": "jest --runInBand --watchman=false",
@@ -20,6 +21,7 @@
     "corpus:generate": "ts-node --transpile-only test/helpers/generateOcrCorpus.ts",
     "graph:calls": "ts-node --transpile-only tools/call-graph/index.ts",
     "graph:erd": "ts-node --transpile-only tools/erd/index.ts",
+    "graph:all": "npm run graph:calls && npm run graph:erd",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down -v"
   },

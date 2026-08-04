@@ -37,6 +37,7 @@ export type SubjectInsuranceCardProps = {
   onUpdateSubjectLineOfBusinessSubType: (index: number, value: string) => void;
   onFieldValueChange: (subjectIndex: number, fieldKey: string, value: string) => void;
   onTemplateResolved: (subjectIndex: number, fields: LineOfBusinessPageTemplateField[]) => void;
+  onRemoveSubjectField?: (subjectIndex: number, sectionKey: string, field: LineOfBusinessPageTemplateField) => void;
 };
 
 const SubjectInsuranceCard = React.memo(function SubjectInsuranceCard({
@@ -53,6 +54,7 @@ const SubjectInsuranceCard = React.memo(function SubjectInsuranceCard({
   onUpdateSubjectLineOfBusinessSubType,
   onFieldValueChange,
   onTemplateResolved,
+  onRemoveSubjectField,
 }: SubjectInsuranceCardProps) {
   const availableSubTypes = taxonomyByPrimaryLabel.get(subject.lineOfBusiness)?.subTypes ?? [];
 
@@ -107,6 +109,7 @@ const SubjectInsuranceCard = React.memo(function SubjectInsuranceCard({
         taxonomy={lineOfBusinessTaxonomy}
         onFieldValueChange={onFieldValueChange}
         onTemplateResolved={onTemplateResolved}
+        onRemoveField={onRemoveSubjectField}
       />
         </>
       ) : null}

@@ -9,7 +9,7 @@
 import { mkdirSync, writeFileSync, rmSync, existsSync, readdirSync } from 'fs';
 import path from 'path';
 import { buildCorpus, CORPUS_PLAN } from './ocrCorpus';
-import { runOcr } from '../../src/pipeline/connectors/ocr';
+import { runOcr } from '../../src/services/pipeline/connectors/ocr';
 
 const OUT_DIR = path.join(__dirname, '..', 'fixtures', 'ocr-corpus');
 

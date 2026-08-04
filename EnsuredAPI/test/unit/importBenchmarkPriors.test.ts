@@ -1,6 +1,6 @@
 import path from 'path';
 import { parsePriorRows, decodeFile } from '../../src/db/import-benchmark-priors';
-import { decidePriorUpsert } from '../../src/pipeline/benchmarkPriors/upsert';
+import { decidePriorUpsert } from '../../src/services/pipeline/benchmarkPriors/upsert';
 
 /**
  * Slice 5.3 — benchmark-prior importer parse + idempotency + uncited-rejection.

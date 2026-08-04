@@ -69,6 +69,14 @@ export function normalizeLineOfBusinessKey(value: string): string {
   return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+function normalizeFieldValueLookupKey(value: string): string {
+  return value
+    .trim()
+    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+}
+
 export function resolveLineOfBusinessSelection(
   lineOfBusiness: string,
   lineOfBusinessSubType: string,
@@ -187,9 +195,8 @@ export function buildDefaultSubjects(
 /**
  * Hydrate the form's subject cards from the pipeline's extracted insured
  * subjects: each subject's OWN line of business (the LLM-assigned canonical
- * code), its extracted attributes as editable field values, and its inline
- * per-subject template. Returns [] when the result carries no subjects so the
- * caller keeps the blank default.
+ * code) and its extracted attributes as editable field values. Field definitions
+ * resolve from the reusable insured-subject page template.
  */
 export function subjectsFromInsuredSubjects(
   result: PipelineInsuredSubjectsResult,
@@ -202,6 +209,9 @@ export function subjectsFromInsuredSubjects(
       taxonomy,
     );
     const fieldValues: Record<string, string> = {};
+    if (subject.address?.trim()) {
+      fieldValues.locationText = subject.address.trim();
+    }
     for (const [key, value] of Object.entries(subject.attributes ?? {})) {
       if (value === null || value === undefined) continue;
       fieldValues[key] = typeof value === 'boolean' ? (value ? 'true' : 'false') : String(value);
@@ -212,7 +222,6 @@ export function subjectsFromInsuredSubjects(
       lineOfBusiness: selection.primary,
       lineOfBusinessSubType: selection.subType,
       fieldValues,
-      template: subject.template ?? null,
     };
   });
 }
@@ -527,8 +536,27 @@ export function mergeTemplateFieldValues(
   existingValues: Record<string, string>,
   fields: LineOfBusinessPageTemplateField[],
 ): Record<string, string> {
+  const normalizedExistingEntries = Object.entries(existingValues).map(([key, value]) => ({
+    key: normalizeFieldValueLookupKey(key),
+    value,
+  }));
+  const findExistingValue = (field: LineOfBusinessPageTemplateField): string | undefined => {
+    const direct = existingValues[field.key];
+    if (typeof direct === 'string') return direct;
+
+    if (field.canonicalKey) {
+      const canonical = existingValues[field.canonicalKey];
+      if (typeof canonical === 'string') return canonical;
+    }
+
+    const fieldKeys = [field.key, field.canonicalKey ?? '']
+      .map((value) => normalizeFieldValueLookupKey(value))
+      .filter(Boolean);
+    return normalizedExistingEntries.find((entry) => fieldKeys.includes(entry.key))?.value;
+  };
+
   return fields.reduce<Record<string, string>>((acc, field) => {
-    const currentValue = existingValues[field.key];
+    const currentValue = findExistingValue(field);
     if (typeof currentValue === 'string' && currentValue.trim().length > 0) {
       acc[field.key] = currentValue;
       return acc;

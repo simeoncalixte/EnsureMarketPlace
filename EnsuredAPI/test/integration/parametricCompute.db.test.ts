@@ -16,7 +16,7 @@
  * maintainer:
  *   nvm use 24 && npx jest test/integration/parametricCompute.db.test.ts
  */
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import {
   CanonicalSubmission,
   ModelRun,
@@ -27,8 +27,8 @@ import {
 } from '../../src/db/models';
 import { BenchmarkPrior } from '../../src/db/models/benchmarkPrior.models';
 import { initTestDb } from '../helpers/db';
-import { upsertRegistry } from '../../src/pipeline/registry/upsert';
-import { computeForSubmission } from '../../src/pipeline/compute/service';
+import { upsertRegistry } from '../../src/services/pipeline/registry/upsert';
+import { computeForSubmission } from '../../src/services/pipeline/compute/service';
 
 const LOB = 'parametric_weather';
 const LIMIT = 5_000_000;

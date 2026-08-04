@@ -12,9 +12,9 @@
  * NO new table, NO schema change — this only writes data into the EXISTING
  * benchmark_priors and risk_class_registry tables.
  */
-import { getSequelize, closeSequelize } from '../config/database';
-import { seedBenchmarkPriors } from '../pipeline/benchmarkPriors/seed';
-import { seedCasualtyRegistryRows, seedCatRegistryRows } from '../pipeline/registry/seed';
+import { getSequelize, closeSequelize } from './config/database';
+import { seedBenchmarkPriors } from '../services/pipeline/benchmarkPriors/seed';
+import { seedCasualtyRegistryRows, seedCatRegistryRows } from '../services/pipeline/registry/seed';
 
 async function run(): Promise<void> {
   const sequelize = getSequelize();

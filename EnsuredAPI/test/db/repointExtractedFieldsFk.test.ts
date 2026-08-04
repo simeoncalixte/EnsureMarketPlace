@@ -1,5 +1,5 @@
 import { QueryTypes } from 'sequelize';
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import {
   up as repointUp,
   down as repointDown,

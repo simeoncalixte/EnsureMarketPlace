@@ -6,7 +6,7 @@ import {
   ValueSource,
   evaluateCondition,
   resolveValueSource,
-} from '../pipeline/validation/ruleEngine';
+} from './pipeline/validation/ruleEngine';
 import type { CapacityRuleSet, RuleConditionNode } from '../db/models/capacityGovernance.models';
 
 /**

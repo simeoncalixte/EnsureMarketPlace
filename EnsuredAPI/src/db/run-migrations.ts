@@ -1,4 +1,4 @@
-import { getSequelize, closeSequelize } from '../config/database';
+import { getSequelize, closeSequelize } from './config/database';
 import { createMigrator } from './migrator';
 
 async function run(): Promise<void> {

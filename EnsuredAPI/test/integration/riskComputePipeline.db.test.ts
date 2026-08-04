@@ -16,7 +16,7 @@
  */
 import jwt from 'jsonwebtoken';
 import { buildApp } from '../../src/app';
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import {
   CanonicalSubmission,
   InsurerProfile,
@@ -28,8 +28,8 @@ import {
 import { User } from '../../src/db/models/identity.models';
 import { BenchmarkPrior } from '../../src/db/models/benchmarkPrior.models';
 import { initTestDb } from '../helpers/db';
-import { upsertRegistry } from '../../src/pipeline/registry/upsert';
-import { RiskComputeService } from '../../src/pipeline/riskCompute/service';
+import { upsertRegistry } from '../../src/services/pipeline/registry/upsert';
+import { RiskComputeService } from '../../src/services/pipeline/riskCompute/service';
 
 const BENCHMARK_LOB = 'property';
 const PARAMETRIC_LOB = 'parametric_weather';

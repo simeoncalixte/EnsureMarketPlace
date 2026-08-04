@@ -14,13 +14,13 @@
  * NOTE: the maintainer must run this separately — the agent's Bash sandbox blocks
  * the Postgres connection on 5432, so this suite was authored but NOT executed here.
  */
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import { Organization, CapacityDefinition } from '../../src/db/models';
 import { RiskClassRegistry } from '../../src/db/models/riskClassRegistry.models';
 import { initTestDb } from '../helpers/db';
-import { evaluateAppetite } from '../../src/pipeline/validation/appetiteEngine';
-import { definitionToAppetiteProfile } from '../../src/pipeline/validation/definitionToAppetiteProfile';
-import { resolveTaxonomyAppetiteInput } from '../../src/pipeline/validation/taxonomyResolve';
+import { evaluateAppetite } from '../../src/services/pipeline/validation/appetiteEngine';
+import { definitionToAppetiteProfile } from '../../src/services/pipeline/validation/definitionToAppetiteProfile';
+import { resolveTaxonomyAppetiteInput } from '../../src/services/pipeline/validation/taxonomyResolve';
 
 /** Load the org's active capacity definition projected into an appetite profile. */
 async function loadProfile(organizationId: number) {

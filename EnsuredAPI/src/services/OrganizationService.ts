@@ -45,7 +45,21 @@ export class OrganizationService {
       type: 'investor_fund' as const,
     }));
 
-    const all = [...fixed, ...additional];
-    return Organization.bulkCreate(all, { returning: true });
+    // Idempotent re-seed: the three fixed orgs have stable name+type identities,
+    // so re-running the admin "Organization Seeding" action would otherwise append
+    // duplicate "Alpha Capital Fund" / "Pinnacle Re Insurance" / etc. rows every
+    // time (organizations.name is not unique, so this fails silently rather than
+    // erroring). Skip fixed entries that already exist; the random `additional`
+    // funds stay additive by design.
+    const fixedNames = fixed.map((o) => o.name);
+    const existingFixed = await Organization.findAll({ where: { name: fixedNames } });
+    const existingNames = new Set(existingFixed.map((o) => `${o.name}::${o.type}`));
+    const fixedToCreate = fixed.filter((o) => !existingNames.has(`${o.name}::${o.type}`));
+
+    const created = await Organization.bulkCreate([...fixedToCreate, ...additional], {
+      returning: true,
+    });
+
+    return [...existingFixed, ...created];
   }
 }

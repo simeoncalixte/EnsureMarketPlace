@@ -12,9 +12,9 @@ import {
   SubmissionFile,
   SubmissionOutput,
 } from '../db/models';
-import { getSequelize } from '../config/database';
-import { PIPELINE_STAGE_CATALOG } from '../pipeline/board/service';
-import { routeForType } from '../pipeline/routing/routes';
+import { getSequelize } from '../db/config/database';
+import { PIPELINE_STAGE_CATALOG } from './pipeline/stages/registry';
+import { routeForType } from './pipeline/routing/routes';
 import { SUBMISSION_TYPE_CODES, submissionTypeTaxonomy } from '../db/seed-data/submissionTypeTaxonomy';
 import {
   assignComplexities,
@@ -29,12 +29,13 @@ import {
   type ScenarioMetadata,
   type SubmissionScenarioKey,
 } from './submissionScenarios';
+import { buildDocumentContent, deriveSubmissionFacts } from './submissionDocumentContent';
 
 /**
  * Seeds "incoming" submissions directly into a single organization's ingestion
  * pipeline so the document pipeline can be exercised manually from the Pipeline
  * Processes board (each card's "Run next stage" button drives one stage at a
- * time — see `pipeline/board/service.advanceSubmissionToNextStage`).
+ * time — see `pipeline/commands/service.PipelineCommandService`).
  *
  * A submission only surfaces on that board when (1) its insurer profile belongs
  * to the viewing organization and (2) the organization is subscribed to the lane
@@ -524,14 +525,38 @@ export class PipelineSubmissionSeedService {
           documentsCreated += 1;
           fileCount += 1;
 
-          // 4b. The rest of the package — slips, SOVs, loss runs, cat models, site
-          //     photos, etc. — each backed by a real OCR-readable fixture from the
-          //     document corpus so advancing the card extracts genuine text rather
-          //     than warning "Unable to read". Falls back to the logical (skipped-
-          //     gracefully) storage path if a fixture is missing.
+          // 4b. The rest of the package — cover note, SOVs, loss runs, slips, cat
+          //     models, etc. Each readable role is rendered with per-submission
+          //     content that MATCHES the extract (same cedent/broker/LOB/currency/
+          //     TIV/dates) and an honest MIME type, written to the same temp dir as
+          //     the extract. Image/archive roles can't be synthesised as text, so
+          //     they keep their real OCR-readable corpus fixture (or fall back to
+          //     the logical storage path when the fixture is absent).
           if (pkg.files.length > 0) {
+            const facts = deriveSubmissionFacts(pkg.manifest, num);
             const rows = await Promise.all(
               pkg.files.map(async (f) => {
+                const content = buildDocumentContent(f.category, f.kind, facts, f.fileName);
+                if (content) {
+                  const synthName = f.fileName.replace(/\.[^.]+$/, `.${content.ext}`);
+                  const synthPath = path.join(
+                    os.tmpdir(),
+                    'ensured-pipeline-seed',
+                    `submission-${submission.id}`,
+                    synthName,
+                  );
+                  pendingFiles.push({ storagePath: synthPath, content: content.text });
+                  return {
+                    submissionId: submission.id,
+                    organizationId: organizationId,
+                    fileName: synthName,
+                    fileType: content.mime,
+                    fileSize: Buffer.byteLength(content.text, 'utf8'),
+                    storagePath: synthPath,
+                    checksum: f.checksum,
+                    uploadedAt: new Date(),
+                  };
+                }
                 const real = await resolveCorpusFile(f.corpusFile);
                 return {
                   submissionId: submission.id,

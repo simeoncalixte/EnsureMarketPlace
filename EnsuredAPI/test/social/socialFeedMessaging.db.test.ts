@@ -3,7 +3,7 @@ import request from 'supertest';
 import { FastifyInstance } from 'fastify';
 import { buildApp } from '../../src/app';
 import { Organization, Submission, SubmissionFile, User } from '../../src/db/models';
-import { getSimulatedOutbox, clearSimulatedOutbox } from '../../src/social/messaging/providers/SimulatedProvider';
+import { getSimulatedOutbox, clearSimulatedOutbox } from '../../src/services/social/messaging/providers/SimulatedProvider';
 import { initTestDb, truncateTables } from '../helpers/db';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_jwt_secret_for_impersonation';

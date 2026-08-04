@@ -10,10 +10,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type {
   LineOfBusinessPrimaryType,
   MarketplaceOpportunity,
-} from './useMarketplaceData';
+} from './marketplaceTypes';
 
 export type MarketplaceSort = 'recent' | 'yield';
+/** Deal-list density inside the canvas (card stack vs. dense table). */
 export type MarketplaceViewMode = 'aggregated' | 'table';
+/** Spatial arrangement of the explorer canvas. */
+export type MarketplaceCanvasView = 'map' | 'list' | 'split';
 
 /** Slider ceiling — at this value the duration filter is "any". */
 export const DURATION_MONTHS_MAX = 36;
@@ -22,20 +25,29 @@ export const DURATION_MONTHS_MIN = 3;
 export type MarketplaceFiltersState = {
   selectedLineOfBusiness: Set<string>;
   selectedSubTypes: Set<string>;
+  selectedPerils: Set<string>;
+  selectedGeographies: Set<string>;
   maxDurationMonths: number;
   yieldMin: string;
   yieldMax: string;
+  query: string;
 };
 
 const QUERY_KEYS = {
   view: 'view',
   sort: 'sort',
-  map: 'map',
+  canvas: 'cv',
+  filtersOpen: 'fp',
+  query: 'q',
   maxDuration: 'dmax',
   yieldMin: 'ymin',
   yieldMax: 'ymax',
+  perils: 'per',
+  geo: 'geo',
   lineOfBusiness: 'lob',
   subTypes: 'sub',
+  // dynamic config-driven filters serialized as JSON
+  extraFilters: 'ef',
 } as const;
 
 export function primaryTypeKey(primaryType: LineOfBusinessPrimaryType): string {
@@ -74,7 +86,8 @@ function parseCsvParam(value: string | null): string[] | null {
 }
 
 export function useMarketplaceViewState(
-  primaryTypes: LineOfBusinessPrimaryType[]
+  primaryTypes: LineOfBusinessPrimaryType[],
+  availablePerilKeys?: string[]
 ) {
   // Snapshot the URL once on mount; later URL writes flow from state.
   const initialParamsRef = useRef<URLSearchParams | null>(null);
@@ -89,8 +102,15 @@ export function useMarketplaceViewState(
   const [sort, setSort] = useState<MarketplaceSort>(() =>
     initialParams.get(QUERY_KEYS.sort) === 'yield' ? 'yield' : 'recent'
   );
-  const [showMap, setShowMap] = useState<boolean>(
-    () => initialParams.get(QUERY_KEYS.map) !== '0'
+  const [canvasView, setCanvasView] = useState<MarketplaceCanvasView>(() => {
+    const value = initialParams.get(QUERY_KEYS.canvas);
+    return value === 'map' || value === 'list' ? value : 'split';
+  });
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(
+    () => initialParams.get(QUERY_KEYS.filtersOpen) !== '0'
+  );
+  const [query, setQuery] = useState<string>(
+    () => initialParams.get(QUERY_KEYS.query) ?? ''
   );
   const [maxDurationMonths, setMaxDurationMonths] = useState<number>(() => {
     const parsed = Number(initialParams.get(QUERY_KEYS.maxDuration));
@@ -110,9 +130,22 @@ export function useMarketplaceViewState(
   const [selectedSubTypes, setSelectedSubTypes] = useState<Set<string>>(
     new Set()
   );
+  const [selectedPerils, setSelectedPerils] = useState<Set<string>>(new Set());
+  const [selectedGeographies, setSelectedGeographies] = useState<Set<string>>(new Set());
+  // Dynamic, config-driven filter state (keyed by `field.id` from the manifest/config)
+  const [extraFilters, setExtraFilters] = useState<Record<string, unknown>>(() => {
+    try {
+      const raw = initialParams.get(QUERY_KEYS.extraFilters);
+      if (!raw) return {};
+      return JSON.parse(decodeURIComponent(raw));
+    } catch (e) {
+      return {};
+    }
+  });
   // Until the taxonomy arrives the selection sets are placeholders; don't
   // treat them as "user deselected everything" (or echo them into the URL).
   const [taxonomyApplied, setTaxonomyApplied] = useState(false);
+  const [perilsApplied, setPerilsApplied] = useState(false);
 
   // Seed the selection sets when the taxonomy loads: from the URL when the
   // shared link carried a selection, otherwise everything selected.
@@ -143,6 +176,25 @@ export function useMarketplaceViewState(
     setTaxonomyApplied(true);
   }, [primaryTypes, initialParams]);
 
+  // Seed the selected perils when the system peril list becomes available.
+  useEffect(() => {
+    if (!availablePerilKeys || availablePerilKeys.length === 0) return;
+
+    const urlPerils = parseCsvParam(initialParams.get(QUERY_KEYS.perils));
+    setSelectedPerils(
+      new Set(
+        urlPerils ? availablePerilKeys.filter((key) => urlPerils.includes(key)) : availablePerilKeys
+      )
+    );
+    setPerilsApplied(true);
+  }, [availablePerilKeys, initialParams]);
+
+  // Seed selected geographies from URL if present (comma-separated entries).
+  useEffect(() => {
+    const urlGeo = parseCsvParam(initialParams.get(QUERY_KEYS.geo));
+    setSelectedGeographies(new Set(urlGeo ? urlGeo : []));
+  }, [initialParams]);
+
   // Reflect the current state into the query string (replace, not push — the
   // browser back button should leave the page, not unwind filter toggles).
   useEffect(() => {
@@ -161,7 +213,9 @@ export function useMarketplaceViewState(
 
     setOrDelete(QUERY_KEYS.view, viewMode === 'table' ? 'table' : null);
     setOrDelete(QUERY_KEYS.sort, sort === 'yield' ? 'yield' : null);
-    setOrDelete(QUERY_KEYS.map, showMap ? null : '0');
+    setOrDelete(QUERY_KEYS.canvas, canvasView !== 'split' ? canvasView : null);
+    setOrDelete(QUERY_KEYS.filtersOpen, filtersOpen ? null : '0');
+    setOrDelete(QUERY_KEYS.query, query.trim() ? query.trim() : null);
     setOrDelete(
       QUERY_KEYS.maxDuration,
       maxDurationMonths < DURATION_MONTHS_MAX ? String(maxDurationMonths) : null
@@ -186,6 +240,26 @@ export function useMarketplaceViewState(
       );
     }
 
+    if (perilsApplied && availablePerilKeys && availablePerilKeys.length > 0) {
+      setOrDelete(
+        QUERY_KEYS.perils,
+        selectedPerils.size < availablePerilKeys.length ? [...selectedPerils].join(',') : null
+      );
+    }
+    // Geography selections (encoded entries such as 'US', 'US/Florida/Tampa')
+    setOrDelete(QUERY_KEYS.geo, selectedGeographies.size > 0 ? [...selectedGeographies].join(',') : null);
+
+    // Serialize dynamic config-driven filters into a single compact JSON query param
+    try {
+      setOrDelete(
+        QUERY_KEYS.extraFilters,
+        Object.keys(extraFilters).length > 0 ? encodeURIComponent(JSON.stringify(extraFilters)) : null
+      );
+    } catch (e) {
+      // ignore serialization errors — do not persist
+      setOrDelete(QUERY_KEYS.extraFilters, null);
+    }
+
     const search = params.toString();
     const next = `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`;
     if (next !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
@@ -194,7 +268,9 @@ export function useMarketplaceViewState(
   }, [
     viewMode,
     sort,
-    showMap,
+    canvasView,
+    filtersOpen,
+    query,
     maxDurationMonths,
     yieldMin,
     yieldMax,
@@ -202,14 +278,22 @@ export function useMarketplaceViewState(
     selectedSubTypes,
     taxonomyApplied,
     primaryTypes,
+    perilsApplied,
+    selectedPerils,
+    availablePerilKeys,
+    selectedGeographies,
+    extraFilters,
   ]);
 
   const filters: MarketplaceFiltersState = {
     selectedLineOfBusiness,
     selectedSubTypes,
+    selectedPerils,
+    selectedGeographies,
     maxDurationMonths,
     yieldMin,
     yieldMax,
+    query,
   };
 
   return {
@@ -217,15 +301,46 @@ export function useMarketplaceViewState(
     setViewMode,
     sort,
     setSort,
-    showMap,
-    setShowMap,
+    canvasView,
+    setCanvasView,
+    filtersOpen,
+    setFiltersOpen,
+    query,
+    setQuery,
     filters,
     taxonomyApplied,
+    perilsApplied,
     setSelectedLineOfBusiness,
     setSelectedSubTypes,
+    setSelectedPerils,
+    setSelectedGeographies,
     setMaxDurationMonths,
     setYieldMin,
     setYieldMax,
+    // Dynamic config-driven filters
+    extraFilters,
+    setExtraFilters,
+    setExtraFilter: (key: string, value: unknown) => {
+      setExtraFilters((prev) => {
+        const next = { ...prev } as Record<string, unknown>;
+        // remove empty-ish values
+        const isEmpty = (v: unknown) => {
+          if (v === null || v === undefined) return true;
+          if (typeof v === 'string') return v.trim() === '';
+          if (Array.isArray(v)) return v.length === 0;
+          if (v instanceof Set) return v.size === 0;
+          if (typeof v === 'object') return Object.keys(v as Record<string, unknown>).length === 0;
+          return false;
+        };
+        const normalize = (v: unknown) => (v instanceof Set ? Array.from(v) : v);
+        if (isEmpty(value)) {
+          delete next[key];
+        } else {
+          next[key] = normalize(value);
+        }
+        return next;
+      });
+    },
   };
 }
 
@@ -240,7 +355,8 @@ export function applyMarketplaceFilters(
   primaryTypes: LineOfBusinessPrimaryType[],
   filters: MarketplaceFiltersState,
   sort: MarketplaceSort,
-  taxonomyApplied: boolean
+  taxonomyApplied: boolean,
+  availablePerilKeys?: string[]
 ): MarketplaceOpportunity[] {
   const primaryKeys = allPrimaryKeys(primaryTypes);
   const subKeys = allSubTypeKeys(primaryTypes);
@@ -268,6 +384,11 @@ export function applyMarketplaceFilters(
   const yieldMin = Number.parseFloat(filters.yieldMin);
   const yieldMax = Number.parseFloat(filters.yieldMax);
   const durationCapped = filters.maxDurationMonths < DURATION_MONTHS_MAX;
+  const normalizedQuery = filters.query.trim().toLowerCase();
+
+  const perilsActive =
+    Boolean(availablePerilKeys && availablePerilKeys.length > 0) &&
+    filters.selectedPerils.size < (availablePerilKeys?.length ?? 0);
 
   const filtered = opportunities.filter((opportunity) => {
     const primaryKey = opportunity.lineOfBusiness
@@ -301,6 +422,22 @@ export function applyMarketplaceFilters(
     }
     if (Number.isFinite(yieldMax) && opportunity.expectedReturnPct > yieldMax) {
       return false;
+    }
+
+    if (normalizedQuery) {
+      const haystack = `${opportunity.dealName ?? ''} ${
+        opportunity.lineOfBusiness ?? ''
+      } ${opportunity.trancheName ?? ''}`.toLowerCase();
+      if (!haystack.includes(normalizedQuery)) {
+        return false;
+      }
+    }
+
+    if (perilsActive) {
+      // Opportunities lacking peril metadata are excluded when a peril filter is active.
+      if (!opportunity.peril || !filters.selectedPerils.has(opportunity.peril)) {
+        return false;
+      }
     }
 
     return true;

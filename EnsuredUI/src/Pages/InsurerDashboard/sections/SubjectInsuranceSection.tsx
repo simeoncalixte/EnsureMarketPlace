@@ -38,6 +38,7 @@ export type SubjectInsuranceSectionProps = {
   onUpdateSubjectLineOfBusinessSubType: (index: number, value: string) => void;
   onFieldValueChange: (subjectIndex: number, fieldKey: string, value: string) => void;
   onTemplateResolved: (subjectIndex: number, fields: LineOfBusinessPageTemplateField[]) => void;
+  onRemoveSubjectField?: (subjectIndex: number, sectionKey: string, field: LineOfBusinessPageTemplateField) => void;
 };
 
 const SubjectInsuranceSection = React.memo(function SubjectInsuranceSection({
@@ -56,6 +57,7 @@ const SubjectInsuranceSection = React.memo(function SubjectInsuranceSection({
   onUpdateSubjectLineOfBusinessSubType,
   onFieldValueChange,
   onTemplateResolved,
+  onRemoveSubjectField,
 }: SubjectInsuranceSectionProps) {
   const [collapsedGroupKeys, setCollapsedGroupKeys] = useState<Set<string>>(() => new Set());
   const [collapsedSubjectIds, setCollapsedSubjectIds] = useState<Set<string>>(() => new Set());
@@ -191,6 +193,7 @@ const SubjectInsuranceSection = React.memo(function SubjectInsuranceSection({
               onUpdateSubjectLineOfBusinessSubType={onUpdateSubjectLineOfBusinessSubType}
               onFieldValueChange={onFieldValueChange}
               onTemplateResolved={onTemplateResolved}
+              onRemoveSubjectField={onRemoveSubjectField}
             />
           ));
 

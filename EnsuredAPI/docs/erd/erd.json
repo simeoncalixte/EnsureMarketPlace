@@ -1,12 +1,12 @@
 {
   "project": "ensured-api",
-  "generatedAt": "2026-06-18T18:02:57.318Z",
+  "generatedAt": "2026-07-20T21:12:55.271Z",
   "stats": {
-    "domains": 18,
-    "tables": 99,
-    "columns": 1057,
-    "relationships": 189,
-    "foreignKeys": 189
+    "domains": 25,
+    "tables": 116,
+    "columns": 1300,
+    "relationships": 211,
+    "foreignKeys": 211
   },
   "domains": [
     {
@@ -90,6 +90,7 @@
       "tables": [
         "AgentTrace",
         "PipelineArtifact",
+        "PipelineJob",
         "PipelineRun",
         "StageExecution"
       ]
@@ -97,8 +98,8 @@
     {
       "name": "Appetite",
       "tables": [
-        "OrganizationAppetiteProfile",
-        "OrganizationValidationRule"
+        "CapacityLocationLimit",
+        "CapacityValidationRule"
       ]
     },
     {
@@ -196,6 +197,57 @@
       "tables": [
         "Signature",
         "SignatureRequest"
+      ]
+    },
+    {
+      "name": "Perils",
+      "tables": [
+        "Peril",
+        "PerilCategory"
+      ]
+    },
+    {
+      "name": "Cat Risk",
+      "tables": [
+        "CatAssessment",
+        "CatScore"
+      ]
+    },
+    {
+      "name": "Capacity Governance",
+      "tables": [
+        "CapacityAuditEntry",
+        "CapacityAuthorityLevel",
+        "CapacityDefinition",
+        "CapacityReferralRule",
+        "CapacityRuleSet",
+        "CapacitySimulation",
+        "CapacityUtilizationEntry"
+      ]
+    },
+    {
+      "name": "Geo Shapes",
+      "tables": [
+        "GeoShape"
+      ]
+    },
+    {
+      "name": "Departments",
+      "tables": [
+        "Department",
+        "Team"
+      ]
+    },
+    {
+      "name": "Dashboards",
+      "tables": [
+        "DashboardLayout"
+      ]
+    },
+    {
+      "name": "User Preferences",
+      "tables": [
+        "UserPreference"
       ]
     }
   ],
@@ -1027,6 +1079,1257 @@
       ]
     },
     {
+      "name": "CapacityAuditEntry",
+      "tableName": "capacityAuditEntries",
+      "domain": "Capacity Governance",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "action",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "versionNumber",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "changeReason",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "snapshot",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "changedByUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacityAuthorityLevel",
+      "tableName": "capacityAuthorityLevels",
+      "domain": "Capacity Governance",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "maxPremiumAuthority",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "maxExposureAuthority",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "maxPricingDeviation",
+          "type": "DECIMAL(9,4)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "maxDiscountAuthority",
+          "type": "DECIMAL(9,4)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "maxCreditAuthority",
+          "type": "DECIMAL(9,4)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "referralThreshold",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "100"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacityDefinition",
+      "tableName": "capacityDefinitions",
+      "domain": "Capacity Governance",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "draft"
+        },
+        {
+          "name": "effectiveDate",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "expirationDate",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "versionNumber",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "1.0.0"
+        },
+        {
+          "name": "grossCapacity",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "netRetention",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "USD"
+        },
+        {
+          "name": "capacityPeriodBasis",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "deploymentStatus",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "draft"
+        },
+        {
+          "name": "isActive",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "false"
+        },
+        {
+          "name": "clonedFromId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "lineOfBusiness",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "department",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "team",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "ownerUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "backupOwnerUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "riskManagerUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "approvalCommittee",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "geographicControls",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "riskEligibility",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "exposureConstraints",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "portfolioControls",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "accumulationControls",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "pricingControls",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "coverageControls",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "distributionControls",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "riskScoring",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "workflowConfig",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "appetite",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "createdByUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "lastModifiedByUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "approvedByUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "approvalDate",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "changeReason",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacityLocationLimit",
+      "tableName": "capacityLocationLimits",
+      "domain": "Appetite",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "lineOfBusinessCode",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "*"
+        },
+        {
+          "name": "entry",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "level",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "countryId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "stateProvinceId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "cityId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "maxLineSize",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "aggregateLimit",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "perOccurrenceLimit",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "appetiteStance",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "minimumPremium",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "minRateOnLine",
+          "type": "DECIMAL(9,4)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "referralThreshold",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "effectiveFrom",
+          "type": "DATE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "effectiveTo",
+          "type": "DATE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "USD"
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "createdByUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacityReferralRule",
+      "tableName": "capacityReferralRules",
+      "domain": "Capacity Governance",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "severity",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "medium"
+        },
+        {
+          "name": "triggerConditions",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "referralDestinationType",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "referralDestinationId",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "activeFlag",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "100"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacityRuleSet",
+      "tableName": "capacityRuleSets",
+      "domain": "Capacity Governance",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "rootCondition",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "subjectModel",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "actions",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "outcome",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "100"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacitySimulation",
+      "tableName": "capacitySimulations",
+      "domain": "Capacity Governance",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "simulationType",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "inputParams",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "results",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "pending"
+        },
+        {
+          "name": "ranByUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "ranAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacityUtilizationEntry",
+      "tableName": "capacityUtilizationEntries",
+      "domain": "Capacity Governance",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "lineOfBusinessCode",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "*"
+        },
+        {
+          "name": "entry",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "level",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "countryId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "stateProvinceId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "cityId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "subjectType",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "subjectId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "exposureAmount",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "premiumAmount",
+          "type": "DECIMAL(18,2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "USD"
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "bound"
+        },
+        {
+          "name": "effectiveFrom",
+          "type": "DATE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "effectiveTo",
+          "type": "DATE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "recordedByUserId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "releasedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CapacityValidationRule",
+      "tableName": "capacityValidationRules",
+      "domain": "Appetite",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "capacityDefinitionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "CapacityDefinition",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "field",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "operator",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "value",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "severity",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "flag"
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "100"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
       "name": "CapitalCommitment",
       "tableName": "capitalCommitments",
       "domain": "Trading",
@@ -1104,6 +2407,284 @@
           "primaryKey": false,
           "allowNull": true,
           "unique": false
+        }
+      ]
+    },
+    {
+      "name": "CatAssessment",
+      "tableName": "cat_assessments",
+      "domain": "Cat Risk",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "submissionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "submission_id",
+          "references": {
+            "table": "Submission",
+            "column": "id"
+          }
+        },
+        {
+          "name": "assessmentExternalId",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "assessment_external_id"
+        },
+        {
+          "name": "subjectType",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "subject_type",
+          "defaultValue": "submission"
+        },
+        {
+          "name": "subjectId",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "subject_id"
+        },
+        {
+          "name": "assessmentDate",
+          "type": "DATE",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "assessment_date"
+        },
+        {
+          "name": "currency",
+          "type": "VARCHAR(3)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "USD"
+        },
+        {
+          "name": "inputExposureSnapshotId",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "input_exposure_snapshot_id"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "created_at"
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "updated_at"
+        }
+      ]
+    },
+    {
+      "name": "CatScore",
+      "tableName": "cat_scores",
+      "domain": "Cat Risk",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "catAssessmentId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "cat_assessment_id",
+          "references": {
+            "table": "CatAssessment",
+            "column": "id"
+          }
+        },
+        {
+          "name": "peril",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "scoreValue",
+          "type": "DECIMAL(10,4)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "score_value"
+        },
+        {
+          "name": "scaleMin",
+          "type": "DECIMAL(10,4)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "scale_min",
+          "defaultValue": "0"
+        },
+        {
+          "name": "scaleMax",
+          "type": "DECIMAL(10,4)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "scale_max",
+          "defaultValue": "100"
+        },
+        {
+          "name": "direction",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "higher_is_riskier"
+        },
+        {
+          "name": "riskBand",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "risk_band"
+        },
+        {
+          "name": "percentile",
+          "type": "DECIMAL(6,3)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "scoreType",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "score_type"
+        },
+        {
+          "name": "primaryMetric",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "primary_metric"
+        },
+        {
+          "name": "financialPerspective",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "financial_perspective"
+        },
+        {
+          "name": "exposureBasis",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "exposure_basis"
+        },
+        {
+          "name": "modelVendor",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "model_vendor"
+        },
+        {
+          "name": "modelName",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "model_name"
+        },
+        {
+          "name": "modelVersion",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "model_version"
+        },
+        {
+          "name": "eventCatalogVersion",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "event_catalog_version"
+        },
+        {
+          "name": "runId",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "run_id"
+        },
+        {
+          "name": "recommendedAction",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "recommended_action"
+        },
+        {
+          "name": "confidence",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "created_at"
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "updated_at"
         }
       ]
     },
@@ -2341,6 +3922,83 @@
       ]
     },
     {
+      "name": "DashboardLayout",
+      "tableName": "dashboard_layouts",
+      "domain": "Dashboards",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "surfaceKey",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "surface_key"
+        },
+        {
+          "name": "scope",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "organization_id",
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "userId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "user_id",
+          "references": {
+            "table": "User",
+            "column": "id"
+          }
+        },
+        {
+          "name": "layout",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "created_at"
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "updated_at"
+        }
+      ]
+    },
+    {
       "name": "Deal",
       "tableName": "deals",
       "domain": "Trading",
@@ -2471,6 +4129,83 @@
           "primaryKey": false,
           "allowNull": true,
           "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "Department",
+      "tableName": "departments",
+      "domain": "Departments",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "isActive",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "100"
         },
         {
           "name": "createdAt",
@@ -2952,6 +4687,110 @@
           "primaryKey": false,
           "allowNull": true,
           "unique": false
+        }
+      ]
+    },
+    {
+      "name": "GeoShape",
+      "tableName": "geo_shapes",
+      "domain": "Geo Shapes",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "kind",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "ref",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "countryCode",
+          "type": "VARCHAR(2)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "country_code"
+        },
+        {
+          "name": "stateRef",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "state_ref"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "geometry",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "bbox",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "provider",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "fetchedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "fetched_at"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "created_at"
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "updated_at"
         }
       ]
     },
@@ -4112,185 +5951,25 @@
           "unique": false
         },
         {
-          "name": "createdAt",
+          "name": "claimToken",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "claimedAt",
           "type": "TIMESTAMP WITH TIME ZONE",
           "primaryKey": false,
           "allowNull": true,
           "unique": false
         },
         {
-          "name": "updatedAt",
-          "type": "TIMESTAMP WITH TIME ZONE",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        }
-      ]
-    },
-    {
-      "name": "OrganizationAppetiteProfile",
-      "tableName": "organizationAppetiteProfiles",
-      "domain": "Appetite",
-      "description": "Org underwriting/investment appetite limits — capital, yield, perils, jurisdictions, data quality",
-      "columns": [
-        {
-          "name": "id",
-          "type": "INTEGER",
-          "primaryKey": true,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "organizationId",
-          "type": "INTEGER",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "references": {
-            "table": "Organization",
-            "column": "id"
-          }
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(255)",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "defaultValue": "Default Appetite"
-        },
-        {
-          "name": "description",
-          "type": "TEXT",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "status",
-          "type": "VARCHAR(255)",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "defaultValue": "active"
-        },
-        {
-          "name": "isDefault",
-          "type": "BOOLEAN",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "defaultValue": "true"
-        },
-        {
-          "name": "currency",
-          "type": "VARCHAR(255)",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "defaultValue": "USD"
-        },
-        {
-          "name": "totalDeployableCapital",
-          "type": "DECIMAL(18,2)",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "minTargetYield",
-          "type": "DECIMAL(6,4)",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "maxLineSize",
-          "type": "DECIMAL(18,2)",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "minCoverageLimit",
-          "type": "DECIMAL(18,2)",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "maxCoverageLimit",
-          "type": "DECIMAL(18,2)",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "capacityByPeril",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "preferredPerils",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "excludedPerils",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "allowedLinesOfBusiness",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "preferredJurisdictions",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "excludedJurisdictions",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "minDataQualityScore",
+          "name": "createdByOrganizationId",
           "type": "INTEGER",
           "primaryKey": false,
           "allowNull": true,
           "unique": false
-        },
-        {
-          "name": "requiredFields",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "createdByUserId",
-          "type": "INTEGER",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false,
-          "references": {
-            "table": "User",
-            "column": "id"
-          }
         },
         {
           "name": "createdAt",
@@ -4462,116 +6141,6 @@
           "primaryKey": false,
           "allowNull": false,
           "unique": false
-        },
-        {
-          "name": "createdAt",
-          "type": "TIMESTAMP WITH TIME ZONE",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "updatedAt",
-          "type": "TIMESTAMP WITH TIME ZONE",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        }
-      ]
-    },
-    {
-      "name": "OrganizationValidationRule",
-      "tableName": "organizationValidationRules",
-      "domain": "Appetite",
-      "description": "Field-level validation rule on an appetite profile, with severity (reject/flag/warn)",
-      "columns": [
-        {
-          "name": "id",
-          "type": "INTEGER",
-          "primaryKey": true,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "appetiteProfileId",
-          "type": "INTEGER",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "references": {
-            "table": "OrganizationAppetiteProfile",
-            "column": "id"
-          }
-        },
-        {
-          "name": "organizationId",
-          "type": "INTEGER",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "references": {
-            "table": "Organization",
-            "column": "id"
-          }
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(255)",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "description",
-          "type": "TEXT",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "field",
-          "type": "VARCHAR(255)",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "operator",
-          "type": "VARCHAR(255)",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false
-        },
-        {
-          "name": "value",
-          "type": "JSONB",
-          "primaryKey": false,
-          "allowNull": true,
-          "unique": false
-        },
-        {
-          "name": "severity",
-          "type": "VARCHAR(255)",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "defaultValue": "flag"
-        },
-        {
-          "name": "enabled",
-          "type": "BOOLEAN",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "defaultValue": "true"
-        },
-        {
-          "name": "sortOrder",
-          "type": "INTEGER",
-          "primaryKey": false,
-          "allowNull": false,
-          "unique": false,
-          "defaultValue": "100"
         },
         {
           "name": "createdAt",
@@ -4863,6 +6432,143 @@
       ]
     },
     {
+      "name": "Peril",
+      "tableName": "perils",
+      "domain": "Perils",
+      "description": "",
+      "columns": [
+        {
+          "name": "code",
+          "type": "VARCHAR(255)",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "categoryCode",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "PerilCategory",
+            "column": "code"
+          }
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "isCatastrophe",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "false"
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "0"
+        },
+        {
+          "name": "isActive",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "PerilCategory",
+      "tableName": "perilCategories",
+      "domain": "Perils",
+      "description": "",
+      "columns": [
+        {
+          "name": "code",
+          "type": "VARCHAR(255)",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "0"
+        },
+        {
+          "name": "isActive",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
       "name": "PipelineArtifact",
       "tableName": "pipeline_artifacts",
       "domain": "Pipeline",
@@ -4951,6 +6657,14 @@
           "unique": false
         },
         {
+          "name": "privatePayload",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "private_payload"
+        },
+        {
           "name": "sizeBytes",
           "type": "INTEGER",
           "primaryKey": false,
@@ -4965,6 +6679,135 @@
           "allowNull": false,
           "unique": false,
           "field": "created_at"
+        }
+      ]
+    },
+    {
+      "name": "PipelineJob",
+      "tableName": "pipeline_jobs",
+      "domain": "Pipeline",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "submissionId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": true,
+          "field": "submission_id",
+          "references": {
+            "table": "Submission",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "organization_id",
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "queued"
+        },
+        {
+          "name": "stageKey",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "stage_key"
+        },
+        {
+          "name": "attemptCount",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "attempt_count",
+          "defaultValue": "0"
+        },
+        {
+          "name": "maxAttempts",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "max_attempts",
+          "defaultValue": "3"
+        },
+        {
+          "name": "nextRunAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "next_run_at"
+        },
+        {
+          "name": "lockedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "locked_at"
+        },
+        {
+          "name": "lockedBy",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "locked_by"
+        },
+        {
+          "name": "lastError",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "last_error"
+        },
+        {
+          "name": "completedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "completed_at"
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "created_at"
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "updated_at"
         }
       ]
     },
@@ -5477,6 +7320,13 @@
         {
           "name": "perilCoverage",
           "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "lineOfBusinessCode",
+          "type": "VARCHAR(255)",
           "primaryKey": false,
           "allowNull": true,
           "unique": false
@@ -6968,6 +8818,14 @@
           "defaultValue": "ai"
         },
         {
+          "name": "hiddenValues",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "hidden_values"
+        },
+        {
           "name": "createdAt",
           "type": "TIMESTAMP WITH TIME ZONE",
           "primaryKey": false,
@@ -7031,6 +8889,14 @@
           "allowNull": false,
           "unique": false,
           "defaultValue": "0"
+        },
+        {
+          "name": "source",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "ai"
         },
         {
           "name": "createdAt",
@@ -7981,6 +9847,14 @@
           }
         },
         {
+          "name": "ingestionKey",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": true,
+          "field": "ingestion_key"
+        },
+        {
           "name": "createdAt",
           "type": "TIMESTAMP WITH TIME ZONE",
           "primaryKey": false,
@@ -8110,7 +9984,7 @@
           "type": "INTEGER",
           "primaryKey": false,
           "allowNull": false,
-          "unique": false,
+          "unique": true,
           "field": "submission_id",
           "references": {
             "table": "Submission",
@@ -8349,6 +10223,94 @@
           "primaryKey": false,
           "allowNull": true,
           "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "Team",
+      "tableName": "teams",
+      "domain": "Departments",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "departmentId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "Department",
+            "column": "id"
+          }
+        },
+        {
+          "name": "organizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "references": {
+            "table": "Organization",
+            "column": "id"
+          }
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "code",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "isActive",
+          "type": "BOOLEAN",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "true"
+        },
+        {
+          "name": "sortOrder",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "defaultValue": "100"
         },
         {
           "name": "createdAt",
@@ -9078,6 +11040,28 @@
           }
         },
         {
+          "name": "departmentId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "references": {
+            "table": "Department",
+            "column": "id"
+          }
+        },
+        {
+          "name": "teamId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "references": {
+            "table": "Team",
+            "column": "id"
+          }
+        },
+        {
           "name": "email",
           "type": "VARCHAR(255)",
           "primaryKey": false,
@@ -9119,6 +11103,27 @@
           "allowNull": false,
           "unique": false,
           "defaultValue": "true"
+        },
+        {
+          "name": "claimToken",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "claimedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdByOrganizationId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
         },
         {
           "name": "createdAt",
@@ -9209,6 +11214,63 @@
           "primaryKey": false,
           "allowNull": true,
           "unique": false
+        }
+      ]
+    },
+    {
+      "name": "UserPreference",
+      "tableName": "user_preferences",
+      "domain": "User Preferences",
+      "description": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "userId",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false,
+          "field": "user_id",
+          "references": {
+            "table": "User",
+            "column": "id"
+          }
+        },
+        {
+          "name": "key",
+          "type": "VARCHAR(255)",
+          "primaryKey": false,
+          "allowNull": false,
+          "unique": false
+        },
+        {
+          "name": "value",
+          "type": "JSONB",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false
+        },
+        {
+          "name": "createdAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "created_at"
+        },
+        {
+          "name": "updatedAt",
+          "type": "TIMESTAMP WITH TIME ZONE",
+          "primaryKey": false,
+          "allowNull": true,
+          "unique": false,
+          "field": "updated_at"
         }
       ]
     },
@@ -9445,6 +11507,96 @@
       "optional": true
     },
     {
+      "child": "CapacityAuditEntry",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityAuthorityLevel",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityDefinition",
+      "parent": "CapacityDefinition",
+      "foreignKey": "clonedFromId",
+      "as": "clonedFrom",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": true
+    },
+    {
+      "child": "CapacityLocationLimit",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityReferralRule",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityRuleSet",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacitySimulation",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": true
+    },
+    {
+      "child": "CapacityUtilizationEntry",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityValidationRule",
+      "parent": "CapacityDefinition",
+      "foreignKey": "capacityDefinitionId",
+      "as": "capacityDefinition",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CatScore",
+      "parent": "CatAssessment",
+      "foreignKey": "catAssessmentId",
+      "as": "assessment",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
       "child": "Address",
       "parent": "City",
       "foreignKey": "cityId",
@@ -9652,6 +11804,24 @@
       "optional": true
     },
     {
+      "child": "Team",
+      "parent": "Department",
+      "foreignKey": "departmentId",
+      "as": "department",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "User",
+      "parent": "Department",
+      "foreignKey": "departmentId",
+      "as": "department",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": true
+    },
+    {
       "child": "Submission",
       "parent": "IngestionChannel",
       "foreignKey": "ingestionChannelId",
@@ -9850,6 +12020,42 @@
       "optional": true
     },
     {
+      "child": "CapacityDefinition",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityLocationLimit",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityUtilizationEntry",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "CapacityValidationRule",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
       "child": "ComplianceClearance",
       "parent": "Organization",
       "foreignKey": "organizationId",
@@ -9857,6 +12063,24 @@
       "kind": "belongsTo",
       "cardinality": "1:N",
       "optional": true
+    },
+    {
+      "child": "DashboardLayout",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": true
+    },
+    {
+      "child": "Department",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
     },
     {
       "child": "EnrichmentData",
@@ -9913,25 +12137,7 @@
       "optional": true
     },
     {
-      "child": "OrganizationAppetiteProfile",
-      "parent": "Organization",
-      "foreignKey": "organizationId",
-      "as": "organization",
-      "kind": "belongsTo",
-      "cardinality": "1:N",
-      "optional": false
-    },
-    {
       "child": "OrganizationPipelineConfig",
-      "parent": "Organization",
-      "foreignKey": "organizationId",
-      "as": "organization",
-      "kind": "belongsTo",
-      "cardinality": "1:N",
-      "optional": false
-    },
-    {
-      "child": "OrganizationValidationRule",
       "parent": "Organization",
       "foreignKey": "organizationId",
       "as": "organization",
@@ -9956,6 +12162,15 @@
       "kind": "belongsTo",
       "cardinality": "1:N",
       "optional": true
+    },
+    {
+      "child": "PipelineJob",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
     },
     {
       "child": "PipelineLifecycleSubscription",
@@ -10075,6 +12290,15 @@
       "optional": true
     },
     {
+      "child": "Team",
+      "parent": "Organization",
+      "foreignKey": "organizationId",
+      "as": "organization",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
       "child": "TriageResult",
       "parent": "Organization",
       "foreignKey": "organizationId",
@@ -10100,15 +12324,6 @@
       "kind": "belongsTo",
       "cardinality": "1:N",
       "optional": true
-    },
-    {
-      "child": "OrganizationValidationRule",
-      "parent": "OrganizationAppetiteProfile",
-      "foreignKey": "appetiteProfileId",
-      "as": "appetiteProfile",
-      "kind": "belongsTo",
-      "cardinality": "1:N",
-      "optional": false
     },
     {
       "child": "OrganizationPipelineConfigOperation",
@@ -10142,6 +12357,15 @@
       "parent": "Payout",
       "foreignKey": "payoutId",
       "as": "payout",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "Peril",
+      "parent": "PerilCategory",
+      "foreignKey": "categoryCode",
+      "as": "category",
       "kind": "belongsTo",
       "cardinality": "1:N",
       "optional": false
@@ -10525,6 +12749,15 @@
       "optional": false
     },
     {
+      "child": "CatAssessment",
+      "parent": "Submission",
+      "foreignKey": "submissionId",
+      "as": "submission",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
       "child": "ComplianceClearance",
       "parent": "Submission",
       "foreignKey": "submissionId",
@@ -10576,6 +12809,15 @@
       "as": "submission",
       "kind": "belongsTo",
       "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "PipelineJob",
+      "parent": "Submission",
+      "foreignKey": "submissionId",
+      "as": "submission",
+      "kind": "belongsTo",
+      "cardinality": "1:1",
       "optional": false
     },
     {
@@ -10703,6 +12945,15 @@
       "kind": "belongsTo",
       "cardinality": "1:N",
       "optional": false
+    },
+    {
+      "child": "User",
+      "parent": "Team",
+      "foreignKey": "teamId",
+      "as": "team",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": true
     },
     {
       "child": "Order",
@@ -10885,6 +13136,15 @@
       "optional": false
     },
     {
+      "child": "DashboardLayout",
+      "parent": "User",
+      "foreignKey": "userId",
+      "as": "user",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": true
+    },
+    {
       "child": "Deal",
       "parent": "User",
       "foreignKey": "approvedByUserId",
@@ -10946,15 +13206,6 @@
       "kind": "belongsTo",
       "cardinality": "1:N",
       "optional": false
-    },
-    {
-      "child": "OrganizationAppetiteProfile",
-      "parent": "User",
-      "foreignKey": "createdByUserId",
-      "as": "createdByUser",
-      "kind": "belongsTo",
-      "cardinality": "1:N",
-      "optional": true
     },
     {
       "child": "OrganizationPipelineConfig",
@@ -11093,6 +13344,15 @@
     },
     {
       "child": "UserMessagingIntegration",
+      "parent": "User",
+      "foreignKey": "userId",
+      "as": "user",
+      "kind": "belongsTo",
+      "cardinality": "1:N",
+      "optional": false
+    },
+    {
+      "child": "UserPreference",
       "parent": "User",
       "foreignKey": "userId",
       "as": "user",

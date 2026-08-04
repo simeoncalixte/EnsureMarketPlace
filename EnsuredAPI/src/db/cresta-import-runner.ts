@@ -12,7 +12,7 @@
  * report progress, and request a cooperative stop — only one run at a time.
  */
 import { QueryTypes } from 'sequelize';
-import { getSequelize } from '../config/database';
+import { getSequelize } from './config/database';
 import { CrestaImportProgress, CrestaLevel, CrestaZone } from './models/cresta.models';
 
 const CONCURRENCY = 3; // max countries processed in parallel

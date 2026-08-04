@@ -3,85 +3,26 @@ import {
   getActivePendingFunding,
   getLineOfBusinessTaxonomyResponse,
   OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH,
+  TAXONOMY_PATH,
 } from '../../api/marketplace';
 import { getActiveEvents } from '../../api/riskLayers';
 import { cleanDealName } from './Marketplace.utils';
-
-const TAXONOMY_PATH = '/api/marketplace/line-of-business-taxonomy';
+import { useActivePendingFundingLoader } from '../../hooks/useMarketplaceLoaders';
+import { asNumber, asString, asOptionalString } from '../../utils/helpers';
+import type {
+  MarketplaceOpportunity,
+  AggregatedDeal,
+  LineOfBusinessSubType,
+  LineOfBusinessPrimaryType,
+  MarketplaceSummary,
+  LiveRiskEvent,
+} from './marketplaceTypes';
 
 // Marketplace data refresh cadence — matches the map's active-events layer.
 const REFRESH_INTERVAL_MS = 5 * 60_000;
 
-export type MarketplaceOpportunity = {
-  id: string;
-  dealId: number;
-  trancheId: number;
-  fundingState: 'new' | 'partially_funded';
-  dealName: string;
-  dealStatus: string;
-  trancheName: string;
-  riskLevel: string;
-  expectedReturnPct: number;
-  maxLoss: number;
-  durationMonths: number;
-  capitalRequired: number;
-  committedCapital: number;
-  fundedAmount: number;
-  pendingAmount: number;
-  fundingProgressPct: number;
-  startDate: string;
-  endDate: string;
-  lineOfBusiness?: string;
-  lineOfBusinessSubType?: string;
-  latitude?: number;
-  longitude?: number;
-};
 
-export type AggregatedDeal = {
-  dealId: number;
-  dealName: string;
-  dealStatus: string;
-  startDate: string;
-  endDate: string;
-  tranches: MarketplaceOpportunity[];
-  totalDealSize: number;
-  durationMonths: number;
-};
 
-export type LineOfBusinessSubType = {
-  code: string;
-  label: string;
-};
-
-export type LineOfBusinessPrimaryType = {
-  code: string;
-  label: string;
-  subTypes: LineOfBusinessSubType[];
-};
-
-type MarketplaceSummary = {
-  totalOpenCapacity: number;
-  totalFunded: number;
-  activeDeals: number;
-};
-
-function asNumber(value: unknown, fallback = 0): number {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : fallback;
-}
-
-function asString(value: unknown, fallback = ''): string {
-  return typeof value === 'string' ? value : fallback;
-}
-
-function asOptionalString(value: unknown): string | undefined {
-  if (typeof value !== 'string') {
-    return undefined;
-  }
-
-  const normalized = value.trim();
-  return normalized ? normalized : undefined;
-}
 
 function normalizeOpportunitiesPayload(payload: unknown): MarketplaceOpportunity[] {
   const items = Array.isArray(payload) ? payload : [];
@@ -138,6 +79,9 @@ function normalizeOpportunitiesPayload(payload: unknown): MarketplaceOpportunity
         lineOfBusiness: asOptionalString(
           tranche.lineOfBusiness ?? deal.lineOfBusiness
         ),
+        peril: asOptionalString(
+          tranche.peril ?? ((deal as any).portfolio ? (deal as any).portfolio.perilType : undefined)
+        ),
         lineOfBusinessSubType: asOptionalString(
           tranche.lineOfBusinessSubType ?? deal.lineOfBusinessSubType
         ),
@@ -168,52 +112,38 @@ export function useMarketplaceOpportunities() {
   // data in place so the list doesn't flash every five minutes.
   const hasLoadedRef = useRef(false);
 
-  const load = useCallback(() => {
-    if (!hasLoadedRef.current) {
-      setIsLoadingOpportunities(true);
-    }
-
-    getActivePendingFunding()
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Status ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (!mountedRef.current) {
-          return;
-        }
-
-        setOpportunities(normalizeOpportunitiesPayload(data));
-        setOpportunitiesError(null);
-        setLastUpdated(new Date());
-      })
-      .catch((error) => {
-        if (!mountedRef.current) {
-          return;
-        }
-
-        console.warn(
-          `Marketplace opportunities fetch failed (endpoint: ${OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH}):`,
-          error
+  const { load } = useActivePendingFundingLoader({
+    onStart: () => {
+      if (!hasLoadedRef.current) {
+        setIsLoadingOpportunities(true);
+      }
+    },
+    onSuccess: (data: unknown) => {
+      if (!mountedRef.current) return;
+      setOpportunities(normalizeOpportunitiesPayload(data));
+      setOpportunitiesError(null);
+      setLastUpdated(new Date());
+    },
+    onError: (error: unknown) => {
+      if (!mountedRef.current) return;
+      console.warn(
+        `Marketplace opportunities fetch failed (endpoint: ${OPPORTUNITIES_ACTIVE_PENDING_FUNDING_PATH}):`,
+        error
+      );
+      if (!hasLoadedRef.current) {
+        setOpportunities([]);
+        setOpportunitiesError(
+          'The live opportunities feed is unreachable right now. It retries automatically.'
         );
-        // Keep any previously loaded data on a refresh failure; only surface
-        // the (non-technical) error when we have nothing to show.
-        if (!hasLoadedRef.current) {
-          setOpportunities([]);
-          setOpportunitiesError(
-            'The live opportunities feed is unreachable right now. It retries automatically.'
-          );
-        }
-      })
-      .finally(() => {
-        if (mountedRef.current) {
-          hasLoadedRef.current = true;
-          setIsLoadingOpportunities(false);
-        }
-      });
-  }, []);
+      }
+    },
+    onFinally: () => {
+      if (mountedRef.current) {
+        hasLoadedRef.current = true;
+        setIsLoadingOpportunities(false);
+      }
+    },
+  });
 
   useEffect(() => {
     mountedRef.current = true;
@@ -241,13 +171,6 @@ export function useMarketplaceOpportunities() {
 
 // Live catastrophe events shared by the footer ticker, the market-signal card
 // and (via its own layer) the map. Refreshes on the marketplace cadence.
-export type LiveRiskEvent = {
-  title?: string;
-  place?: string;
-  peril?: string;
-  severityLevel?: 'low' | 'moderate' | 'high' | 'severe' | string;
-};
-
 export function useLiveRiskEvents(): LiveRiskEvent[] {
   const [events, setEvents] = useState<LiveRiskEvent[]>([]);
 

@@ -22,7 +22,7 @@ import fs from 'fs';
 import path from 'path';
 import { parse } from 'csv-parse';
 import { QueryTypes } from 'sequelize';
-import { getSequelize } from '../config/database';
+import { getSequelize } from './config/database';
 
 const CITY_BATCH = 5000;
 const STATE_BATCH = 1000;

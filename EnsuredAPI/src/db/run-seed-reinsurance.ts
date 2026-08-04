@@ -1,4 +1,4 @@
-import { closeSequelize } from '../config/database';
+import { closeSequelize } from './config/database';
 import { ReinsuranceSeedService } from '../services/ReinsuranceSeedService';
 
 async function run(): Promise<void> {

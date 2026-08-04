@@ -1,6 +1,6 @@
 {
   "process": "extraction",
-  "generatedAt": "2026-06-13T06:06:07.426Z",
+  "generatedAt": "2026-06-29T02:02:50.865Z",
   "transformationCount": 1,
   "transformations": [
     {
@@ -32,13 +32,32 @@
           "subjects": [],
           "inputTruncated": false,
           "source": "ocr_ner",
-          "extractedAt": "2026-06-13T06:06:07.421Z"
+          "provenance": {
+            "insuredSubject": [
+              "(submission)"
+            ],
+            "deductible": [
+              "(submission)"
+            ],
+            "effectiveDate": [
+              "(submission)"
+            ],
+            "riskType": [
+              "(submission)"
+            ],
+            "oracleDataSource": [
+              "(submission)"
+            ]
+          },
+          "conflicts": [],
+          "needsReview": false,
+          "extractedAt": "2026-06-29T02:02:50.864Z"
         },
         "persistedFields": [],
         "extractionVersion": null,
         "warnings": []
       },
-      "recordedAt": "2026-06-13T06:06:07.423Z"
+      "recordedAt": "2026-06-29T02:02:50.864Z"
     }
   ]
 }

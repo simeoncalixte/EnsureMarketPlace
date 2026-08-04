@@ -3,6 +3,12 @@ import mapboxgl from 'mapbox-gl'
 import { rawColors as colors } from '../colors'
 import { getCrestaZones } from '../../api/crestaZones'
 import { getActiveEvents, getFaultLines } from '../../api/riskLayers'
+import { getSubmissionsMap, type SubmissionsMapFiltersQuery } from '../../api/submissionsMap'
+import {
+  SUBMISSION_TYPE_DOMAINS,
+  SUBMISSION_TYPE_FALLBACK_COLOR,
+  resolveSubmissionTypeColors,
+} from './submissionTypes'
 
 /**
  * Map layer registry.
@@ -45,13 +51,22 @@ export interface MapLayerDef {
   /** Optional auto-refresh interval (ms). Omit for static layers. */
   refreshMs?: number
   /** Fetch the layer's GeoJSON FeatureCollection. */
-  fetchData: () => Promise<any>
+  fetchData: (context?: MapLayerFetchContext) => Promise<any>
+  /** True when this layer's fetch output depends on dynamic host context. */
+  usesFetchContext?: boolean
   /** Add this layer's mapbox layers + interactivity. Called once; returns the created layer ids. */
   install: (map: mapboxgl.Map, sourceId: string, visibility: Visibility) => string[]
   /** Status note rendered under the label, given the loaded feature count (null while loading). */
   note: (count: number | null) => string
   /** Optional faceted filter (checkboxes) applied to this layer's features. */
   filter?: LayerFilterDef
+  /** Optional: re-apply data-driven colors (category → hex) to this layer's mapbox layers.
+   * Called on install and whenever the host's `layerColors` for this layer change. */
+  applyColors?: (map: mapboxgl.Map, colors: Record<string, string>) => void
+}
+
+export type MapLayerFetchContext = {
+  submissionsFilters?: SubmissionsMapFiltersQuery
 }
 
 // --- CRESTA zones -------------------------------------------------------------------------------
@@ -370,4 +385,138 @@ const faultLinesLayer: MapLayerDef = {
   },
 }
 
-export const MAP_LAYERS: MapLayerDef[] = [crestaLayer, activeEventsLayer, faultLinesLayer]
+// --- Submissions (pipeline inbox) ---------------------------------------------------------------
+
+const SUBS_ID = 'submissions'
+const SUBS_POINT = 'submissions-point'
+const SUBS_LABEL = 'submissions-label'
+
+// Submission (transaction) types, flattened from the shared taxonomy, drive both
+// the nested filter (host-rendered) and the per-type colouring below.
+const SUBMISSION_TYPE_OPTIONS = SUBMISSION_TYPE_DOMAINS.flatMap((domain) =>
+  domain.types.map((type) => ({ value: type.code, label: type.label })),
+)
+
+/**
+ * Build the data-driven `circle-color` expression: a `match` on `submissionTypeCode`
+ * using the resolved (default + user-override) colour map. Mapbox paint can't read
+ * CSS vars, so every value is a concrete hex.
+ */
+const submissionTypeColorExpr = (overrides: Record<string, string>): any => {
+  const resolved = resolveSubmissionTypeColors(overrides)
+  const stops: any[] = []
+  for (const [code, hex] of Object.entries(resolved)) {
+    stops.push(code, hex)
+  }
+  return ['match', ['get', 'submissionTypeCode'], ...stops, SUBMISSION_TYPE_FALLBACK_COLOR]
+}
+
+const submissionsLayer: MapLayerDef = {
+  id: SUBS_ID,
+  label: 'Submissions',
+  defaultEnabled: true,
+  refreshMs: 60_000,
+  usesFetchContext: true,
+  fetchData: (context) => getSubmissionsMap<any>(context?.submissionsFilters),
+  note: (count) =>
+    count === null
+      ? 'Loading…'
+      : count === 0
+        ? 'No submissions yet'
+        : `${count.toLocaleString()} submission${count === 1 ? '' : 's'} · colour = type`,
+  filter: {
+    label: 'Submission type',
+    options: SUBMISSION_TYPE_OPTIONS,
+    apply: (map, selected) => {
+      const expr = ['in', ['get', 'submissionTypeCode'], ['literal', selected]] as any
+      ;[SUBS_POINT, SUBS_LABEL].forEach((id) => {
+        if (map.getLayer(id)) map.setFilter(id, expr)
+      })
+    },
+  },
+  applyColors: (map, overrides) => {
+    if (map.getLayer(SUBS_POINT)) {
+      map.setPaintProperty(SUBS_POINT, 'circle-color', submissionTypeColorExpr(overrides))
+    }
+  },
+  install: (map, sourceId, visibility) => {
+    // Type-coloured circle. Located submissions render solid with a white ring;
+    // placeholder submissions (no geocoded location yet, parked at Point Nemo)
+    // render translucent with an amber ring so they read as "location pending".
+    map.addLayer({
+      id: SUBS_POINT,
+      type: 'circle',
+      source: sourceId,
+      layout: { visibility },
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 1, 4, 6, 9] as any,
+        'circle-color': submissionTypeColorExpr({}),
+        'circle-opacity': ['case', ['get', 'located'], 0.85, 0.45] as any,
+        'circle-stroke-width': ['case', ['get', 'located'], 1.5, 2] as any,
+        'circle-stroke-color': ['case', ['get', 'located'], colors.white, colors.dataViz.amber] as any,
+      },
+    })
+    // Submission number label, shown once the user zooms in.
+    map.addLayer({
+      id: SUBS_LABEL,
+      type: 'symbol',
+      source: sourceId,
+      minzoom: 4,
+      layout: {
+        visibility,
+        'text-field': ['get', 'submissionNumber'] as any,
+        'text-size': 11,
+        'text-anchor': 'top',
+        'text-offset': [0, 0.8] as any,
+        'text-allow-overlap': false,
+      },
+      paint: {
+        'text-color': colors.neutral[900],
+        'text-halo-color': colors.white,
+        'text-halo-width': 1.5,
+      },
+    })
+
+    const buildHtml = (p: any) => {
+      const status = typeof p.status === 'string' ? p.status : ''
+      const type = typeof p.submissionTypeLabel === 'string' && p.submissionTypeLabel ? p.submissionTypeLabel : ''
+      const lob = p.lineOfBusiness && p.lineOfBusiness !== '—' ? ` · ${p.lineOfBusiness}` : ''
+      // GeoJSON feature props arrive JSON-stringified; `located` may be a bool or "false".
+      const located = p.located === true || p.located === 'true'
+      const pending = located
+        ? ''
+        : `<br/><span style="color:${colors.dataViz.amber}">Location pending · parked at Point Nemo</span>`
+      return (
+        `<strong>${p.submissionNumber ?? 'Submission'}</strong>${type ? ` · ${type}` : ''}${lob}<br/>` +
+        `${status ? `${status} · ` : ''}${p.cedent ?? ''}${p.region && p.region !== 'Unspecified' ? ` · ${p.region}` : ''}<br/>` +
+        `<span style="color:${colors.neutral[500]}">${p.owner ?? 'Unassigned'}${
+          p.receivedLabel ? ` · ${p.receivedLabel}` : ''
+        }</span>` +
+        pending
+      )
+    }
+
+    map.on('click', SUBS_POINT, (e: any) => {
+      const f = e.features && e.features[0]
+      if (!f) return
+      new mapboxgl.Popup({ offset: 8 }).setLngLat(e.lngLat).setHTML(buildHtml(f.properties || {})).addTo(map)
+    })
+    const hoverPopup = new mapboxgl.Popup({ offset: 8, closeButton: false, closeOnClick: false })
+    map.on('mouseenter', SUBS_POINT, () => {
+      map.getCanvas().style.cursor = 'pointer'
+    })
+    map.on('mousemove', SUBS_POINT, (e: any) => {
+      const f = e.features && e.features[0]
+      if (!f) return
+      hoverPopup.setLngLat(e.lngLat).setHTML(buildHtml(f.properties || {})).addTo(map)
+    })
+    map.on('mouseleave', SUBS_POINT, () => {
+      map.getCanvas().style.cursor = ''
+      hoverPopup.remove()
+    })
+
+    return [SUBS_POINT, SUBS_LABEL]
+  },
+}
+
+export const MAP_LAYERS: MapLayerDef[] = [crestaLayer, activeEventsLayer, faultLinesLayer, submissionsLayer]

@@ -22,6 +22,8 @@ export type SubjectTemplateFieldsProps = {
   taxonomy: LineOfBusinessTaxonomyPrimary[];
   onFieldValueChange: (subjectIndex: number, fieldKey: string, value: string) => void;
   onTemplateResolved: (subjectIndex: number, fields: LineOfBusinessPageTemplateField[]) => void;
+  /** Remove an AI-generated subject field (going forward + optimistic on-screen). */
+  onRemoveField?: (subjectIndex: number, sectionKey: string, field: LineOfBusinessPageTemplateField) => void;
 };
 
 const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
@@ -31,6 +33,7 @@ const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
   taxonomy,
   onFieldValueChange,
   onTemplateResolved,
+  onRemoveField,
 }: SubjectTemplateFieldsProps) {
   const selection = useMemo(
     () => resolveLineOfBusinessSelection(subject.lineOfBusiness, subject.lineOfBusinessSubType, taxonomy),
@@ -46,21 +49,6 @@ const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
 
   useEffect(() => {
     let active = true;
-
-    // Prefer the inline, pipeline-generated template for THIS submission (the
-    // LLM's per-subject form). It is used directly — no fetch, and independent of
-    // the LOB selection — so the underwriter sees the bespoke form even before a
-    // line of business is reconciled against the taxonomy.
-    const inlineTemplate = subject.template ?? null;
-    if (inlineTemplate) {
-      setTemplate(inlineTemplate);
-      setTemplateError(null);
-      setLoadingTemplate(false);
-      onTemplateResolved(subjectIndex, getRenderableTemplateFields(inlineTemplate, selection));
-      return () => {
-        active = false;
-      };
-    }
 
     if (!selection.primaryCode) {
       setTemplate(null);
@@ -107,7 +95,7 @@ const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
     return () => {
       active = false;
     };
-  }, [onTemplateResolved, selection.primaryCode, selection.subTypeCode, subjectIndex, subject.template]);
+  }, [onTemplateResolved, organizationId, selection.primaryCode, selection.subTypeCode, subjectIndex]);
 
   const renderableSections = useMemo(
     () => getRenderableTemplateSections(template, selection),
@@ -232,6 +220,10 @@ const SubjectTemplateFields = React.memo(function SubjectTemplateFields({
               showModeDescription={false}
               renderedFieldValues={subject.fieldValues}
               onRenderedFieldValueChange={(fieldKey, nextValue) => onFieldValueChange(subjectIndex, fieldKey, nextValue)}
+              organizationId={organizationId}
+              onRemoveRenderedField={
+                onRemoveField ? (sectionKey, field) => onRemoveField(subjectIndex, sectionKey, field) : undefined
+              }
             />
           </CollapsibleSection>
         );

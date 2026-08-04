@@ -1,6 +1,6 @@
 {
   "process": "capacity",
-  "generatedAt": "2026-06-12T00:22:04.948Z",
+  "generatedAt": "2026-06-29T02:02:40.182Z",
   "transformationCount": 2,
   "transformations": [
     {
@@ -42,7 +42,7 @@
         "appetiteDecision": "IN_APPETITE",
         "flags": []
       },
-      "recordedAt": "2026-06-12T00:22:04.940Z"
+      "recordedAt": "2026-06-29T02:02:40.179Z"
     },
     {
       "process": "capacity",
@@ -82,7 +82,7 @@
         "appetiteDecision": "OUT_OF_APPETITE",
         "flags": []
       },
-      "recordedAt": "2026-06-12T00:22:04.942Z"
+      "recordedAt": "2026-06-29T02:02:40.180Z"
     }
   ]
 }

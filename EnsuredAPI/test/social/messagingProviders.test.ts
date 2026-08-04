@@ -1,10 +1,10 @@
-import { SimulatedProvider, clearSimulatedOutbox, getSimulatedOutbox } from '../../src/social/messaging/providers/SimulatedProvider';
-import { TelegramProvider } from '../../src/social/messaging/providers/TelegramProvider';
-import { WhatsAppProvider } from '../../src/social/messaging/providers/WhatsAppProvider';
+import { SimulatedProvider, clearSimulatedOutbox, getSimulatedOutbox } from '../../src/services/social/messaging/providers/SimulatedProvider';
+import { TelegramProvider } from '../../src/services/social/messaging/providers/TelegramProvider';
+import { WhatsAppProvider } from '../../src/services/social/messaging/providers/WhatsAppProvider';
 import {
   defaultMessagingProviders,
   selectMessagingProvider,
-} from '../../src/social/messaging/providers/selectMessagingProvider';
+} from '../../src/services/social/messaging/providers/selectMessagingProvider';
 
 describe('selectMessagingProvider', () => {
   it('falls back to the simulated provider when no credentials are configured', () => {

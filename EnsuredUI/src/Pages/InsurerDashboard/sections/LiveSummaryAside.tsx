@@ -210,31 +210,7 @@ export default function LiveSummaryAside({ exposureLoading, exposureDisplay, sub
     <S.RightAside>
       <S.SummaryCard>
         <S.SummaryInner>
-          <Block>
-            <SectionLabel>Live Capital Exposure</SectionLabel>
-            <CapacityRow>
-              <CapacityCaption>Total Capacity</CapacityCaption>
-              <TrendValue>+8.4% WoW</TrendValue>
-            </CapacityRow>
-            <ExposureValue>{exposureLoading ? 'Loading…' : exposureDisplay}</ExposureValue>
-            <SubjectsRow>
-              <SubjectsLabel>Subjects tracked</SubjectsLabel>
-              <SubjectsCount>{subjects.length}</SubjectsCount>
-            </SubjectsRow>
-            <SubjectPreview>
-              {subjects.slice(0, 2).map((subject) => subject.subjectLabel).join(' • ')}{subjects.length > 2 ? ` • +${subjects.length - 2} more` : ''}
-            </SubjectPreview>
-          </Block>
-          <MetricPair>
-            <MetricTile $accent={S.t.primary}>
-              <MetricLabel>Wtd. Avg Return</MetricLabel>
-              <MetricValue $color={S.t.primary}>12.45%</MetricValue>
-            </MetricTile>
-            <MetricTile $accent={S.t.danger}>
-              <MetricLabel>Expected Loss</MetricLabel>
-              <MetricValue $color={colors.errorSoft}>3.12%</MetricValue>
-            </MetricTile>
-          </MetricPair>
+ 
         </S.SummaryInner>
         <ChartArea>
           <BarChart>

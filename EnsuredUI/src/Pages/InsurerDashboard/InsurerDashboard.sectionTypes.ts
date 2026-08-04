@@ -1,5 +1,3 @@
-import type { LineOfBusinessPageTemplate } from './lineOfBusinessTaxonomy';
-
 export type TrancheSubjectSelectionMode = 'all' | 'selective';
 
 export type TrancheInput = {
@@ -20,13 +18,6 @@ export type SubjectInput = {
   lineOfBusiness: string;
   lineOfBusinessSubType: string;
   fieldValues: Record<string, string>;
-  /**
-   * The per-subject form template extracted by the pipeline for THIS submission.
-   * When present, SubjectTemplateFields renders it directly (the LLM-generated
-   * form) instead of fetching the static LOB-keyed template. Absent for blank
-   * drafts the underwriter adds by hand — those still resolve by line of business.
-   */
-  template?: LineOfBusinessPageTemplate | null;
 };
 
 export type SubjectGroupingMode = 'location' | 'separate';

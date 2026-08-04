@@ -73,6 +73,14 @@ export type PageTemplateFieldDefinition = {
   helperText?: string;
   dataSource?: string;
   dependsOn?: string;
+  /**
+   * Provenance of an individual field: `'base'` = canonical scaffold (protected —
+   * never user-removable), `'ai'` = generated/suggested for this submission (a user
+   * may prune it in the submission view). Omitted on legacy/builder-authored fields,
+   * which are treated as non-removable in the submission view. See the unified
+   * `removeTemplateField` guard and the `DynamicField` `×` control.
+   */
+  origin?: 'base' | 'ai';
   visibleWhen?: PageTemplateFieldVisibility;
   layout?: PageTemplateFieldLayoutDefinition;
   // --- Additive Slice-1 schema-governance keys (all optional) ---

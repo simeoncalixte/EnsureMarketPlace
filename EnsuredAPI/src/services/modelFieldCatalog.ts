@@ -1,4 +1,4 @@
-import { getSequelize } from '../config/database';
+import { getSequelize } from '../db/config/database';
 import type { ModelStatic, Model } from 'sequelize';
 
 /**

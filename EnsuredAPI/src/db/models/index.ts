@@ -71,6 +71,7 @@ import {
   RiskPortfolio,
   Submission,
 } from './underwriting.models';
+import { CatAssessment, CatScore, initCatRiskModels } from './catRisk.models';
 import {
   initLineOfBusinessModels,
   LineOfBusinessPrimaryType,
@@ -119,6 +120,7 @@ import {
   AgentTrace,
   initPipelineModels,
   PipelineArtifact,
+  PipelineJob,
   PipelineRun,
   StageExecution,
 } from './pipeline.models';
@@ -148,6 +150,8 @@ import {
 } from './geography.models';
 import { GeoShape, initGeoShapeModels } from './geoShape.models';
 import { Department, Team, initDepartmentModels } from './department.models';
+import { DashboardLayout, initDashboardLayoutModels } from './dashboardLayout.models';
+import { UserPreference, initUserPreferenceModels } from './userPreference.models';
 
 let initialized = false;
 
@@ -164,6 +168,7 @@ export function initModels(sequelize: Sequelize): void {
   initLineOfBusinessModels(sequelize);
   initPerilModels(sequelize);
   initUnderwritingModels(sequelize);
+  initCatRiskModels(sequelize);
   initIngestionModels(sequelize);
   initPipelineConfigModels(sequelize);
   initCapacityGovernanceModels(sequelize);
@@ -180,6 +185,8 @@ export function initModels(sequelize: Sequelize): void {
   initSignatureModels(sequelize);
   initSchemaOptionSetModels(sequelize);
   initDepartmentModels(sequelize);
+  initDashboardLayoutModels(sequelize);
+  initUserPreferenceModels(sequelize);
 
   // Geographic hierarchy: Continent -> Country -> StateProvince -> City, plus Address.
   Continent.hasMany(Country, { foreignKey: 'continentId', as: 'countries' });
@@ -221,6 +228,15 @@ export function initModels(sequelize: Sequelize): void {
 
   Organization.hasMany(User, { foreignKey: 'organizationId', as: 'users' });
   User.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+
+  // Configurable Home dashboards: org- and user-tier layout overrides. Additive
+  // and nullable; rows are absent until a tier customizes a surface.
+  Organization.hasMany(DashboardLayout, { foreignKey: 'organizationId', as: 'dashboardLayouts' });
+  DashboardLayout.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
+  User.hasMany(DashboardLayout, { foreignKey: 'userId', as: 'dashboardLayouts' });
+  DashboardLayout.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+  User.hasMany(UserPreference, { foreignKey: 'userId', as: 'preferences' });
+  UserPreference.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
   // Organizational structure: Organization → Department → Team, with users
   // assigned to at most one Department and one Team (nullable FKs on `users`).
@@ -336,6 +352,12 @@ export function initModels(sequelize: Sequelize): void {
   Submission.hasMany(Policy, { foreignKey: 'submissionId', as: 'policies' });
   Policy.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
 
+  // Per-submission catastrophe risk assessments and their peril-specific scores.
+  Submission.hasMany(CatAssessment, { foreignKey: 'submissionId', as: 'catAssessments' });
+  CatAssessment.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  CatAssessment.hasMany(CatScore, { foreignKey: 'catAssessmentId', as: 'scores' });
+  CatScore.belongsTo(CatAssessment, { foreignKey: 'catAssessmentId', as: 'assessment' });
+
   Policy.hasMany(ExposureUnit, { foreignKey: 'policyId', as: 'exposures' });
   ExposureUnit.belongsTo(Policy, { foreignKey: 'policyId', as: 'policy' });
 
@@ -408,6 +430,11 @@ export function initModels(sequelize: Sequelize): void {
   PipelineArtifact.belongsTo(PipelineRun, { foreignKey: 'runId', as: 'run' });
   Submission.hasMany(PipelineArtifact, { foreignKey: 'submissionId', as: 'pipelineArtifacts' });
   PipelineArtifact.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+
+  Submission.hasOne(PipelineJob, { foreignKey: 'submissionId', as: 'pipelineJob' });
+  PipelineJob.belongsTo(Submission, { foreignKey: 'submissionId', as: 'submission' });
+  Organization.hasMany(PipelineJob, { foreignKey: 'organizationId', as: 'pipelineJobs' });
+  PipelineJob.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
   StageExecution.belongsTo(PipelineArtifact, { foreignKey: 'inputArtifactId', as: 'inputArtifact' });
   StageExecution.belongsTo(PipelineArtifact, { foreignKey: 'outputArtifactId', as: 'outputArtifact' });
@@ -800,6 +827,8 @@ export {
   CrestaZone,
   Department,
   Team,
+  DashboardLayout,
+  UserPreference,
   GeoShape,
   StateProvince,
   AuditEvent,
@@ -807,6 +836,8 @@ export {
   CapitalCommitment,
   Claim,
   ClaimCalculation,
+  CatAssessment,
+  CatScore,
   ComplianceClearance,
   SanctionsScreen,
   JurisdictionLicenseAuthority,
@@ -873,6 +904,7 @@ export {
   PipelineRun,
   StageExecution,
   PipelineArtifact,
+  PipelineJob,
   AgentTrace,
   SPV,
   SPVEntity,

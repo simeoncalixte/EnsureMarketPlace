@@ -8,17 +8,17 @@
  *
  * Requires Postgres on 127.0.0.1:5432 (see test/helpers/db.ts + globalSetup).
  */
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import { Organization, CanonicalSubmission, Submission } from '../../src/db/models';
 import { RiskClassSchemaVersion } from '../../src/db/models/riskClassSchema.models';
 import { RiskClassRegistry } from '../../src/db/models/riskClassRegistry.models';
 import { PageTemplateDefinition } from '../../src/db/models/pageTemplates.models';
 import { initTestDb } from '../helpers/db';
-import { publishSchemaVersion } from '../../src/pipeline/schema/publish';
-import { upsertRegistry } from '../../src/pipeline/registry/upsert';
-import { resolveRiskClass } from '../../src/pipeline/registry/resolve';
-import { canonicalizeAndPin } from '../../src/pipeline/canonicalize/service';
-import { PAGE_KEY } from '../../src/pipeline/schemaGeneration/logic';
+import { publishSchemaVersion } from '../../src/services/pipeline/schema/publish';
+import { upsertRegistry } from '../../src/services/pipeline/registry/upsert';
+import { resolveRiskClass } from '../../src/services/pipeline/registry/resolve';
+import { canonicalizeAndPin } from '../../src/services/pipeline/canonicalize/service';
+import { PAGE_KEY } from '../../src/services/pipeline/schemaGeneration/logic';
 
 const LOB = 'general_liability';
 

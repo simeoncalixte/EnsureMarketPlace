@@ -1,6 +1,6 @@
 {
   "process": "oracleAttestation",
-  "generatedAt": "2026-06-12T00:22:05.242Z",
+  "generatedAt": "2026-06-29T02:02:51.892Z",
   "transformationCount": 2,
   "transformations": [
     {
@@ -34,7 +34,7 @@
         "smartContractReady": true,
         "reason": "Submission has an oracle-compatible trigger and certified data source."
       },
-      "recordedAt": "2026-06-12T00:22:05.236Z"
+      "recordedAt": "2026-06-29T02:02:51.809Z"
     },
     {
       "process": "oracleAttestation",
@@ -67,7 +67,7 @@
         "smartContractReady": false,
         "reason": "Trigger type is not oracle-settlement compatible."
       },
-      "recordedAt": "2026-06-12T00:22:05.239Z"
+      "recordedAt": "2026-06-29T02:02:51.814Z"
     }
   ]
 }

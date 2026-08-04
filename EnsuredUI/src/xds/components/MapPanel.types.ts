@@ -1,3 +1,5 @@
+import type { MapLayerFetchContext } from './mapLayers'
+
 export type MapPoint = {
   latitude: number
   longitude: number
@@ -24,8 +26,13 @@ export type MapPanelProps = {
   /** Controlled facet selections keyed by layer id; omit for internal state. */
   layerFacets?: Record<string, string[]>
   onToggleLayerFacet?: (layerId: string, value: string) => void
+  /** Controlled per-layer color overrides keyed by layer id → (category → hex).
+   * A layer reapplies these via its `applyColors` hook; omit to use defaults. */
+  layerColors?: Record<string, Record<string, string>>
   /** Controlled 3D-buildings mode; omit for the internal toggle button. */
   is3D?: boolean
   /** Feature counts per layer, reported as they load (drives control labels). */
   onLayerCounts?: (counts: Record<string, number | null>) => void
+  /** Optional dynamic context consumed by layer fetchers (for query-driven APIs). */
+  fetchContext?: MapLayerFetchContext
 }

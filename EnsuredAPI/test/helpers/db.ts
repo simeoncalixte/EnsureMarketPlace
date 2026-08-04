@@ -1,4 +1,4 @@
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 
 /**
  * Drops and recreates all tables in the test database by syncing all

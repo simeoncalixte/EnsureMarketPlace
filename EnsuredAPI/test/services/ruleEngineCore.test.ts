@@ -1,4 +1,4 @@
-import { evaluateExpression, evaluateCondition, getPath } from '../../src/pipeline/validation/ruleEngine';
+import { evaluateExpression, evaluateCondition, getPath } from '../../src/services/pipeline/validation/ruleEngine';
 
 const ctx = { submission: { status: 'New', limit: 2_000_000, dqs: 0.4, organization: { name: 'ACME' } } };
 

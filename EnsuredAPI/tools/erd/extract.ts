@@ -26,20 +26,27 @@ import { initRiskClassSchemaModels } from '../../src/db/models/riskClassSchema.m
 import { initRiskClassRegistryModels } from '../../src/db/models/riskClassRegistry.models';
 import { initBenchmarkPriorModels } from '../../src/db/models/benchmarkPrior.models';
 import { initLineOfBusinessModels } from '../../src/db/models/lineOfBusiness.models';
+import { initPerilModels } from '../../src/db/models/peril.models';
 import { initUnderwritingModels } from '../../src/db/models/underwriting.models';
+import { initCatRiskModels } from '../../src/db/models/catRisk.models';
 import { initIngestionModels } from '../../src/db/models/ingestion.models';
 import { initPipelineConfigModels } from '../../src/db/models/pipelineConfig.models';
-import { initAppetiteModels } from '../../src/db/models/appetite.models';
+import { initCapacityGovernanceModels } from '../../src/db/models/capacityGovernance.models';
+import { initCapacityAppetiteModels } from '../../src/db/models/capacityAppetite.models';
 import { initPipelineModels } from '../../src/db/models/pipeline.models';
 import { initCapitalModels } from '../../src/db/models/capital.models';
 import { initGovernanceModels } from '../../src/db/models/governance.models';
 import { initComplianceModels } from '../../src/db/models/compliance.models';
 import { initCrestaModels } from '../../src/db/models/cresta.models';
 import { initGeographyModels } from '../../src/db/models/geography.models';
+import { initGeoShapeModels } from '../../src/db/models/geoShape.models';
 import { initBillingModels } from '../../src/db/models/billing.models';
 import { initSocialModels } from '../../src/db/models/social.models';
 import { initSignatureModels } from '../../src/db/models/signature.models';
 import { initSchemaOptionSetModels } from '../../src/db/models/schemaOptionSets.models';
+import { initDepartmentModels } from '../../src/db/models/department.models';
+import { initDashboardLayoutModels } from '../../src/db/models/dashboardLayout.models';
+import { initUserPreferenceModels } from '../../src/db/models/userPreference.models';
 
 type InitFn = (sequelize: Sequelize) => void;
 
@@ -51,20 +58,27 @@ const DOMAIN_INITS: ReadonlyArray<readonly [string, InitFn]> = [
   ['Risk Class Registry', initRiskClassRegistryModels],
   ['Benchmark Priors', initBenchmarkPriorModels],
   ['Line of Business', initLineOfBusinessModels],
+  ['Perils', initPerilModels],
   ['Underwriting', initUnderwritingModels],
+  ['Cat Risk', initCatRiskModels],
   ['Ingestion', initIngestionModels],
   ['Pipeline Config', initPipelineConfigModels],
-  ['Appetite', initAppetiteModels],
+  ['Capacity Governance', initCapacityGovernanceModels],
+  ['Appetite', initCapacityAppetiteModels],
   ['Pipeline', initPipelineModels],
   ['Capital', initCapitalModels],
   ['Governance', initGovernanceModels],
   ['Compliance', initComplianceModels],
   ['CRESTA', initCrestaModels],
   ['Geography', initGeographyModels],
+  ['Geo Shapes', initGeoShapeModels],
   ['Billing', initBillingModels],
   ['Social', initSocialModels],
   ['Signature', initSignatureModels],
   ['Schema Option Sets', initSchemaOptionSetModels],
+  ['Departments', initDepartmentModels],
+  ['Dashboards', initDashboardLayoutModels],
+  ['User Preferences', initUserPreferenceModels],
 ];
 
 /**

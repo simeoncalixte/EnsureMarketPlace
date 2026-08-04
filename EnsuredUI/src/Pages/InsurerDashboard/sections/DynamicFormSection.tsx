@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import * as S from '../InsurerDashboard.styles';
 import Button from '../../../xds/components/Button';
 import { colors } from '../../../xds/colors';
-import { renderTemplateField } from '../InsurerDashboard.renderers';
-import type { LineOfBusinessPageTemplateField } from '../lineOfBusinessTaxonomy';
 import { loadSchemaOptionSet, type SchemaOptionItem, type SuggestedFormField } from '../../../api/pipeline';
+import DynamicField from './DynamicField';
 
 const FieldGrid = styled.div`
   display: grid;
@@ -59,12 +58,20 @@ export type DynamicFormSectionProps = {
   badge?: 'ai' | null;
   /** Renders without the big section title (used to inject extra fields into a base tab). */
   inline?: boolean;
+  /**
+   * Tenant context. When set, option-set-backed select fields render via
+   * DynamicSelect, which lets the user add/manage options inline (and reads the
+   * overlay-aware, user-edited option list).
+   */
+  organizationId?: number | null;
+  /** The template section key these fields belong to (enables per-field removal). */
+  sectionKey?: string;
+  /**
+   * Remove an AI/custom field from the org template (going forward). Only wired
+   * for non-repeatable sections; the control shows on AI, non-required fields.
+   */
+  onRemoveField?: (sectionKey: string, field: SuggestedFormField) => void;
 };
-
-/** Narrow the suggested-form field to the shape the shared renderer understands. */
-function toRendererField(field: SuggestedFormField): LineOfBusinessPageTemplateField {
-  return field as unknown as LineOfBusinessPageTemplateField;
-}
 
 /**
  * Lazy-load the options for any `select`/`radio` field that references an
@@ -74,10 +81,13 @@ function toRendererField(field: SuggestedFormField): LineOfBusinessPageTemplateF
  * pass through unchanged. Best-effort — a failed fetch just leaves the field
  * empty.
  */
-function useLazyFieldOptions(fields: SuggestedFormField[], enabled: boolean): SuggestedFormField[] {
+function useLazyFieldOptions(fields: SuggestedFormField[], enabled: boolean, managedEnabled: boolean): SuggestedFormField[] {
   const [optionsByKey, setOptionsByKey] = useState<Record<string, SchemaOptionItem[]>>({});
 
   const pendingKeys = fields
+    // Managed (DynamicSelect) choice fields load their own overlay-aware options;
+    // don't double-fetch them through the static option-set read.
+    .filter((field) => !(managedEnabled && field.optionSetKey && (field.type === 'select' || field.type === 'radio')))
     .filter((field) => field.optionSetKey && !field.options && !(field.optionSetKey in optionsByKey))
     .map((field) => field.optionSetKey as string);
   const pendingSignature = pendingKeys.join('|');
@@ -138,10 +148,18 @@ const DynamicFormSection = React.memo(function DynamicFormSection({
   repeatable,
   badge,
   inline,
+  organizationId,
+  sectionKey,
+  onRemoveField,
 }: DynamicFormSectionProps) {
+  // Managed choice fields (DynamicField → DynamicSelect) load their own
+  // overlay-aware options, so the batch loader skips them when a tenant context
+  // is present.
+  const managedEnabled = organizationId != null && !repeatable;
+
   // Hydrate any field whose options are stored in the lazy-loaded option-set
   // table (referenced by `optionSetKey`) once this section is on screen.
-  const renderFields = useLazyFieldOptions(fields, isActive);
+  const renderFields = useLazyFieldOptions(fields, isActive, managedEnabled);
 
   const [values, setValues] = useState<Record<string, string>>(() => initialValues(fields));
   const [items, setItems] = useState<Array<Record<string, string>>>(() => [initialValues(fields)]);
@@ -185,9 +203,15 @@ const DynamicFormSection = React.memo(function DynamicFormSection({
             <Button type="button" variant="ghost" onClick={() => removeItem(index)}>Remove</Button>
           </CardHeader>
           <FieldGrid>
-            {renderFields.map((field) =>
-              renderTemplateField(toRendererField(field), itemValues[field.key] ?? '', (next) => setItemFieldValue(index, field.key, next)),
-            )}
+            {renderFields.map((field) => (
+              <DynamicField
+                key={field.key}
+                field={field}
+                value={itemValues[field.key] ?? ''}
+                onChange={(next) => setItemFieldValue(index, field.key, next)}
+                repeatable
+              />
+            ))}
           </FieldGrid>
         </ItemCard>
       ))}
@@ -197,9 +221,17 @@ const DynamicFormSection = React.memo(function DynamicFormSection({
     </CardList>
   ) : (
     <FieldGrid>
-      {renderFields.map((field) =>
-        renderTemplateField(toRendererField(field), values[field.key] ?? '', (next) => setFieldValue(field.key, next)),
-      )}
+      {renderFields.map((field) => (
+        <DynamicField
+          key={field.key}
+          field={field}
+          value={values[field.key] ?? ''}
+          onChange={(next) => setFieldValue(field.key, next)}
+          organizationId={organizationId}
+          sectionKey={sectionKey}
+          onRemoveField={onRemoveField}
+        />
+      ))}
     </FieldGrid>
   );
 

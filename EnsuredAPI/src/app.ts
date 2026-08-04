@@ -19,6 +19,7 @@ import { registrationRoute } from './routes/registration';
 import { subscriptionsRoute } from './routes/subscriptions';
 import { organizationsRoute } from './routes/organizations';
 import { governanceRoute } from './routes/governance';
+import { dashboardsRoute } from './routes/dashboards';
 import { usersRoute } from './routes/users';
 import { departmentsRoute } from './routes/departments';
 import { fieldOptionsRoute } from './routes/fieldOptions';
@@ -30,24 +31,25 @@ import { crestaZonesRoute } from './routes/crestaZones';
 import { worldcitiesSeedRoute } from './routes/worldcitiesSeed';
 import { geolocationRoute } from './routes/geolocation';
 import { riskLayersRoute } from './routes/riskLayers';
+import { submissionsMapRoute } from './routes/submissionsMap';
+import { userPreferencesRoute } from './routes/userPreferences';
 import { investorsRoute } from './routes/investors';
 import { ingestionChannelsRoute } from './routes/ingestionChannels';
 import { pipelineProcessesRoute } from './routes/pipelineProcesses';
-import { getSequelize } from './config/database';
-import registerSwagger from './swagger';
-import { ingestionRoute } from './pipeline/ingestion/route';
-import { classificationRoute } from './pipeline/classification/route';
-import { ocrRoute } from './pipeline/ocr/route';
-import { submissionTypeRoute } from './pipeline/submissionType/route';
-import { assignmentRoute } from './pipeline/assignment/route';
-import { extractionRoute } from './pipeline/extraction/route';
-import { insuredSubjectRoute } from './pipeline/insuredSubject/route';
-import { locationDiscoveryRoute } from './pipeline/locationDiscovery/route';
-import { normalizationRoute } from './pipeline/normalization/route';
-import { validationRoute } from './pipeline/validation/route';
-import { schemaGenerationRoute } from './pipeline/schemaGeneration/route';
-import { workflowRoute } from './pipeline/workflow/route';
-import { storageSearchRoute } from './pipeline/storageSearch/route';
+import { reviewRoute } from './routes/review';
+import { ingestionRoute } from './routes/pipeline/ingestion';
+import { classificationRoute } from './routes/pipeline/classification';
+import { ocrRoute } from './routes/pipeline/ocr';
+import { submissionTypeRoute } from './routes/pipeline/submissionType';
+import { assignmentRoute } from './routes/pipeline/assignment';
+import { extractionRoute } from './routes/pipeline/extraction';
+import { insuredSubjectRoute } from './routes/pipeline/insuredSubject';
+import { locationDiscoveryRoute } from './routes/pipeline/locationDiscovery';
+import { normalizationRoute } from './routes/pipeline/normalization';
+import { validationRoute } from './routes/pipeline/validation';
+import { schemaGenerationRoute } from './routes/pipeline/schemaGeneration';
+import { workflowRoute } from './routes/pipeline/workflow';
+import { storageSearchRoute } from './routes/pipeline/storageSearch';
 import websocketPlugin from '@fastify/websocket';
 import { socialProfilesRoutes } from './routes/socialProfiles';
 import { socialConnectionsRoutes } from './routes/socialConnections';
@@ -56,6 +58,7 @@ import { socialMessagesRoutes } from './routes/socialMessages';
 import { socialIntegrationsRoutes } from './routes/socialIntegrations';
 import { socialWebhooksRoutes } from './routes/socialWebhooks';
 import { socialSocketRoute } from './routes/socialSocket';
+import { syncPipelineOperationCatalog } from './services/pipeline/operations/catalog';
 
 /**
  * Register the consistent error envelope used across the API. Any uncaught throw,
@@ -151,8 +154,6 @@ export function buildApp(): FastifyInstance {
     }
   });
   registerErrorHandlers(app);
-
-  const sequelize = getSequelize();
   // register swagger docs first so its onRoute hook captures all routes
   app.register(healthRoute);
   app.register(organizationSeedRoute, { prefix: '/api' });
@@ -170,10 +171,13 @@ export function buildApp(): FastifyInstance {
   app.register(worldcitiesSeedRoute, { prefix: '/api' });
   app.register(geolocationRoute, { prefix: '/api' });
   app.register(riskLayersRoute, { prefix: '/api' });
+  app.register(submissionsMapRoute, { prefix: '/api' });
+  app.register(userPreferencesRoute, { prefix: '/api' });
   app.register(analyticsRoute, { prefix: '/api' });
   app.register(investorsRoute, { prefix: '/api' });
   app.register(organizationsRoute, { prefix: '/api' });
   app.register(governanceRoute, { prefix: '/api' });
+  app.register(dashboardsRoute, { prefix: '/api' });
   app.register(usersRoute, { prefix: '/api' });
   app.register(departmentsRoute, { prefix: '/api' });
   app.register(fieldOptionsRoute, { prefix: '/api' });
@@ -186,6 +190,7 @@ export function buildApp(): FastifyInstance {
   app.register(subscriptionsRoute, { prefix: '/api' });
   app.register(ingestionChannelsRoute, { prefix: '/api' });
   app.register(pipelineProcessesRoute, { prefix: '/api' });
+  app.register(reviewRoute, { prefix: '/api' });
   app.register(underwritingSubmissionsRoute, { prefix: '/api' });
   app.register(signaturesRoute, { prefix: '/api' });
   app.register(ingestionRoute, { prefix: '/api' });
@@ -209,8 +214,15 @@ export function buildApp(): FastifyInstance {
   app.register(socialIntegrationsRoutes, { prefix: '/api' });
   app.register(socialWebhooksRoutes, { prefix: '/api' });
   app.register(socialSocketRoute, { prefix: '/api' });
-  // The pipeline is now driven manually, one stage at a time, from the Pipeline
-  // Processes board (see pipeline/board/service.advanceSubmissionToNextStage).
-  // There is no background auto-processor to start here.
+  // Reference data is synchronized before the server accepts traffic. Stage
+  // definitions are code-owned, while the operation catalog is backend-owned and
+  // drives organization configuration; boot-time sync keeps the two aligned.
+  app.addHook('onReady', async () => {
+    const result = await syncPipelineOperationCatalog();
+    app.log.info(
+      { added: result.added, pruned: result.pruned, keptReferenced: result.keptReferenced },
+      'pipeline operation catalog synchronized',
+    );
+  });
   return app;
 }

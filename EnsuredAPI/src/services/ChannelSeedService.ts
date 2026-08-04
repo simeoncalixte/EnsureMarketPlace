@@ -7,10 +7,10 @@ import {
   SubmissionOutput,
   SubmissionFile,
 } from '../db/models';
-import { getSequelize } from '../config/database';
+import { getSequelize } from '../db/config/database';
 import { assignComplexities, buildSubmissionPackage, summarizeComplexity } from './submissionPackages';
-import { PIPELINE_STAGE_CATALOG } from '../pipeline/board/service';
-import { seedPipelineRunForSubmission, syntheticStageOutputs } from '../pipeline/playback/service';
+import { PIPELINE_STAGE_CATALOG } from './pipeline/stages/registry';
+import { seedPipelineRunForSubmission, syntheticStageOutputs } from './pipeline/playback/service';
 
 /**
  * Seeds ingestion channels (one per current channel config) and the submissions

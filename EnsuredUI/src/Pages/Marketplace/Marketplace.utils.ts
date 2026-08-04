@@ -2,7 +2,7 @@ import type { Row as DataTableRow } from '../../xds/components/DataTable';
 import type {
   AggregatedDeal,
   MarketplaceOpportunity,
-} from './useMarketplaceData';
+} from './marketplaceTypes';
 
 export function toCompactParts(value?: number): { value: string; suffix: string } {
   if (!Number.isFinite(value as number)) {

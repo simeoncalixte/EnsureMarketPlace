@@ -6,7 +6,7 @@ import {
   Model,
   Sequelize,
 } from 'sequelize';
-import type { RuleAction } from '../../pipeline/validation/ruleEngine';
+import type { RuleAction } from '../../services/pipeline/validation/ruleEngine';
 
 /**
  * Capacity Governance models — the structured backing for the Governance module

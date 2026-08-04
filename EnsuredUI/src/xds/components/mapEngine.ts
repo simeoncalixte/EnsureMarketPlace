@@ -1,7 +1,7 @@
 import mapboxgl from 'mapbox-gl'
 // Mapbox paint/marker props can't resolve `var()`; use concrete values.
 import { rawColors as colors } from '../colors'
-import { MAP_LAYERS, type MapLayerDef } from './mapLayers'
+import { MAP_LAYERS, type MapLayerDef, type MapLayerFetchContext } from './mapLayers'
 import { ensurePopupStyles, POPUP_CLASS } from './mapPopup'
 import type { MapPoint } from './MapPanel.types'
 
@@ -90,6 +90,10 @@ export type LayerController = {
   syncVisibility: (enabled: Record<string, boolean>) => void
   /** Re-apply facet selections to already-installed layers. */
   syncFacets: (facets: Record<string, string[]>) => void
+  /** Re-apply per-category color overrides to already-installed layers. */
+  syncColors: (colors: Record<string, Record<string, string>>) => void
+  /** Re-fetch installed layers using the current fetch context. */
+  syncFetchContext: () => void
   /** Tear down intervals + installed-layer bookkeeping (map removal is the caller's job). */
   dispose: () => void
 }
@@ -102,7 +106,12 @@ export type LayerController = {
  */
 export const createLayerController = (
   map: mapboxgl.Map,
-  read: { enabled: () => Record<string, boolean>; facets: () => Record<string, string[]> },
+  read: {
+    enabled: () => Record<string, boolean>
+    facets: () => Record<string, string[]>
+    colors: () => Record<string, Record<string, string>>
+    fetchContext: () => MapLayerFetchContext
+  },
   onCount: (id: string, count: number) => void,
 ): LayerController => {
   const installed = new Set<string>()
@@ -113,7 +122,7 @@ export const createLayerController = (
   // layer's `id`; the def's `install()` adds the actual layers and returns their ids for toggling.
   const installLayer = async (def: MapLayerDef) => {
     try {
-      const data = await def.fetchData()
+      const data = await def.fetchData(read.fetchContext())
       const sourceId = def.id
 
       if (map.getSource(sourceId)) {
@@ -127,6 +136,9 @@ export const createLayerController = (
       // Re-assert the current facet selection (layers are recreated on first install; setData on
       // refresh keeps the filter, but applying again is idempotent and covers both paths).
       if (def.filter) def.filter.apply(map, read.facets()[def.id] ?? def.filter.options.map((o) => o.value))
+
+      // Re-assert any color overrides so a recolor survives layer (re)installation.
+      if (def.applyColors) def.applyColors(map, read.colors()[def.id] ?? {})
 
       onCount(def.id, Array.isArray(data?.features) ? data.features.length : 0)
     } catch (err) {
@@ -166,11 +178,27 @@ export const createLayerController = (
     })
   }
 
+  const syncColors = (colors: Record<string, Record<string, string>>) => {
+    MAP_LAYERS.forEach((def) => {
+      if (!def.applyColors || !installed.has(def.id)) return
+      def.applyColors(map, colors[def.id] ?? {})
+    })
+  }
+
+  const syncFetchContext = () => {
+    MAP_LAYERS.forEach((def) => {
+      if (!def.usesFetchContext) return
+      if (!installed.has(def.id)) return
+      if (!read.enabled()[def.id]) return
+      void installLayer(def)
+    })
+  }
+
   const dispose = () => {
     intervals.forEach((h) => window.clearInterval(h))
     intervals.length = 0
     installed.clear()
   }
 
-  return { ensure, syncVisibility, syncFacets, dispose }
+  return { ensure, syncVisibility, syncFacets, syncColors, syncFetchContext, dispose }
 }

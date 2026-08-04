@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
 import Select from '../../xds/components/Select'
 import MultiSelect from '../../xds/components/MultiSelect'
-import { colors } from '../../xds/colors'
+import { Wrap, Grow, ManageBtn, Note } from '../../xds/components/DynamicSelectStyles'
 import type { FieldSource } from './fieldSource'
 import { resolveOptionSet, listEntityOptions } from '../../api/fieldOptions'
 import PicklistManager from './PicklistManager'
@@ -22,41 +21,7 @@ export type DynamicSelectProps = {
   placeholder?: string
   disabled?: boolean
 }
-
-const Wrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`
-const Grow = styled.div`
-  flex: 1 1 auto;
-  min-width: 0;
-`
-const ManageBtn = styled.button`
-  flex: 0 0 auto;
-  border: 1px solid ${colors.outlineVariant};
-  background: transparent;
-  color: ${colors.onSurfaceVariant};
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 12px;
-  cursor: pointer;
-  white-space: nowrap;
-
-  &:hover:not(:disabled) {
-    background: ${colors.surfaceContainerHigh};
-    color: ${colors.onSurface};
-  }
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-`
-const Note = styled.div`
-  font-size: 12px;
-  color: ${colors.onSurfaceVariant};
-  margin-top: 4px;
-`
+// Styled wrappers have been moved to `src/xds/components/DynamicSelectStyles`
 
 const isEntity = (s: FieldSource): s is Extract<FieldSource, { kind: 'entity' }> => s.kind === 'entity'
 
@@ -83,7 +48,6 @@ export const DynamicSelect: React.FC<DynamicSelectProps> = ({
   const [error, setError] = useState<string | null>(null)
   const [managing, setManaging] = useState(false)
   const [reloadKey, setReloadKey] = useState(0)
-
   const entityKind = isEntity(source) ? source.entity : null
   // Most entity values are numeric ids, but some are string-keyed and must NOT be
   // coerced to Number: partner values are `org:<id>`/`user:<id>` strings, and
@@ -91,7 +55,6 @@ export const DynamicSelect: React.FC<DynamicSelectProps> = ({
   // NaN, which collapses a multi-select to a single broken entry.
   const STRING_ENTITIES = new Set(['partner', 'peril'])
   const numericEntity = entityKind != null && !STRING_ENTITIES.has(entityKind)
-  const needsOrg = source.kind !== 'enum'
   const dependsNum =
     dependsOnValue == null || dependsOnValue === '' ? null : Number(dependsOnValue)
 

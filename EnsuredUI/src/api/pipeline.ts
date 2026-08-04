@@ -37,6 +37,15 @@ export type SuggestedForm = {
   schema: SuggestedFormDefinition;
   source: 'gemini_schema' | 'heuristic_schema' | 'org_template';
   generatedAt: string;
+  /** Coordinates of the org template this form maps to (for field removal). */
+  lineOfBusinessCode?: string;
+  lineOfBusinessSubTypeCode?: string;
+};
+
+/** How many existing submissions have a populated value for a field. */
+export type SuggestedFormFieldImpact = {
+  dependentSubmissionCount: number;
+  sampleSubmissionIds: number[];
 };
 
 /**
@@ -56,17 +65,97 @@ export async function loadSubmissionSuggestedForm(submissionId: number): Promise
 }
 
 /**
- * GET the deterministic baseline form — the same default the schema agent starts
- * from. Rendered until the agent has tailored a form for a specific submission.
- * Best-effort: returns null on any failure.
+ * GET how many existing submissions have a populated value for a create-coverage
+ * field — surfaced in the "remove field" confirm dialog. Best-effort: returns a
+ * zero impact on any failure (the count is informational; removal preserves data).
+ */
+export async function loadSuggestedFormFieldImpact(params: {
+  organizationId: number;
+  sectionKey: string;
+  fieldKey: string;
+}): Promise<SuggestedFormFieldImpact> {
+  const zero: SuggestedFormFieldImpact = { dependentSubmissionCount: 0, sampleSubmissionIds: [] };
+  try {
+    const search = new URLSearchParams({
+      organizationId: String(params.organizationId),
+      sectionKey: params.sectionKey,
+      fieldKey: params.fieldKey,
+    });
+    const response = await apiRequest(`/api/pipeline/schemaGeneration/field-impact?${search.toString()}`, { method: 'GET' });
+    if (!response.ok) return zero;
+    return (await response.json()) as SuggestedFormFieldImpact;
+  } catch {
+    return zero;
+  }
+}
+
+/**
+ * DELETE an AI/custom, non-required field from the org's create-coverage template
+ * (going forward). Existing submissions keep their data. Resolves to true on
+ * success; false on any failure (incl. 403 for protected base/required fields).
+ */
+export async function removeSuggestedFormField(params: {
+  organizationId: number;
+  lineOfBusinessCode: string;
+  lineOfBusinessSubTypeCode: string;
+  sectionKey: string;
+  fieldKey: string;
+}): Promise<boolean> {
+  try {
+    const response = await apiRequest('/api/pipeline/schemaGeneration/template-field', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * DELETE an AI-generated field from the org's insured-subject template (going
+ * forward). Mirrors removeSuggestedFormField but targets the subject template.
+ */
+export async function removeSubjectFormField(params: {
+  organizationId: number;
+  lineOfBusinessCode: string;
+  lineOfBusinessSubTypeCode: string;
+  sectionKey: string;
+  fieldKey: string;
+}): Promise<boolean> {
+  try {
+    const response = await apiRequest('/api/pipeline/schemaGeneration/subject-template-field', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * GET the resolved baseline form: platform default first, then org/LOB template
+ * when available. Rendered until the agent has tailored a form for a specific
+ * submission. Best-effort: returns null on any failure.
  */
 export async function loadBaselineSuggestedForm(
-  params: { lineOfBusinessCode?: string | null; lineOfBusinessLabel?: string | null; subjectCount?: number | null } = {},
+  params: {
+    lineOfBusinessCode?: string | null;
+    lineOfBusinessLabel?: string | null;
+    lineOfBusinessSubTypeCode?: string | null;
+    subjectCount?: number | null;
+    organizationId?: number | null;
+  } = {},
 ): Promise<SuggestedForm | null> {
   const search = new URLSearchParams();
   if (params.lineOfBusinessCode) search.set('lineOfBusinessCode', params.lineOfBusinessCode);
   if (params.lineOfBusinessLabel) search.set('lineOfBusinessLabel', params.lineOfBusinessLabel);
+  if (params.lineOfBusinessSubTypeCode) search.set('lineOfBusinessSubTypeCode', params.lineOfBusinessSubTypeCode);
   if (params.subjectCount != null) search.set('subjectCount', String(params.subjectCount));
+  if (params.organizationId != null) search.set('organizationId', String(params.organizationId));
   const query = search.toString();
   const path = query ? `/api/pipeline/schemaGeneration/baseline?${query}` : '/api/pipeline/schemaGeneration/baseline';
   try {
@@ -79,12 +168,12 @@ export async function loadBaselineSuggestedForm(
   }
 }
 
-// ─── Insured subjects (pipeline-extracted, with inline per-subject templates) ────
+// ─── Insured subjects (pipeline-extracted values; templates resolve by LOB) ─────
 
 /**
  * One insured subject as the insuredSubject stage persisted it: identity + the
- * open-ended attribute bag + the per-subject form `template` the create-coverage
- * page resolves (the LLM-generated form, or the attribute-derived fallback).
+ * open-ended attribute bag. Field definitions live in the org/LOB
+ * `insured-subjects` PageTemplate, not on the subject payload.
  */
 export type PipelineInsuredSubject = {
   index: number;
@@ -94,7 +183,6 @@ export type PipelineInsuredSubject = {
   lineOfBusinessCode: string | null;
   lineOfBusinessLabel: string | null;
   attributes: Record<string, string | number | boolean | null>;
-  template?: LineOfBusinessPageTemplate | null;
 };
 
 export type PipelineInsuredSubjectsResult = {

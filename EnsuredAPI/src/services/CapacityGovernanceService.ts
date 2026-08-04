@@ -8,15 +8,15 @@ import {
   CapacityLocationLimit,
   CapacityValidationRule,
 } from '../db/models';
-import { validateRuleConfig, RuleValidationError } from '../pipeline/validation/ruleSchema';
+import { validateRuleConfig, RuleValidationError } from './pipeline/validation/ruleSchema';
 import { RuleEngineRunner, RuleRunResult } from './ruleEngineRunner';
 import {
   resolveCityId,
   resolveCountryId,
   resolveStateProvinceId,
-} from '../pipeline/locationDiscovery/geography';
+} from './pipeline/locationDiscovery/geography';
 
-export { RuleValidationError } from '../pipeline/validation/ruleSchema';
+export { RuleValidationError } from './pipeline/validation/ruleSchema';
 
 type ParsedEntry = {
   level: 'country' | 'state' | 'city';

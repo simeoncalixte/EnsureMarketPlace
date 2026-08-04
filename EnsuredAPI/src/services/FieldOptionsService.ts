@@ -13,7 +13,15 @@ import { SchemaOptionSet, SchemaOptionSetItem } from '../db/models/schemaOptionS
  */
 
 export type OptionItemScope = 'global' | 'tenant';
-export type ResolvedItem = { value: string; label: string; scope: OptionItemScope; hidden: boolean };
+export type OptionItemSource = 'ai' | 'human';
+export type ResolvedItem = {
+  value: string;
+  label: string;
+  scope: OptionItemScope;
+  hidden: boolean;
+  /** Provenance: 'ai' = generated baseline, 'human' = user-added. */
+  source: OptionItemSource;
+};
 export type ResolvedOptionSet = {
   optionSetKey: string;
   label: string | null;
@@ -61,14 +69,19 @@ export class FieldOptionsService {
     const tenantItems = this.itemsOf(tenantSet);
     const tenantValues = new Set(tenantItems.map((i) => i.value));
 
+    const sourceOf = (it: SchemaOptionSetItem): OptionItemSource =>
+      ((it.get('source') as OptionItemSource | undefined) ?? 'ai');
+
     const all: ResolvedItem[] = [];
     for (const it of this.itemsOf(globalSet)) {
       // A tenant item with the same value overrides the global label below.
       if (tenantValues.has(it.value)) continue;
-      all.push({ value: it.value, label: it.label, scope: 'global', hidden: hidden.has(it.value) });
+      all.push({ value: it.value, label: it.label, scope: 'global', hidden: hidden.has(it.value), source: sourceOf(it) });
     }
     for (const it of tenantItems) {
-      all.push({ value: it.value, label: it.label, scope: 'tenant', hidden: false });
+      // Honour hiddenValues for tenant items too, so an AI baseline option that
+      // coexists with user options on a single org-scoped set can be hidden.
+      all.push({ value: it.value, label: it.label, scope: 'tenant', hidden: hidden.has(it.value), source: sourceOf(it) });
     }
 
     const items = all.filter((i) => !i.hidden).map(({ value, label }) => ({ value, label }));
@@ -91,11 +104,11 @@ export class FieldOptionsService {
 
     const resolved = await this.resolve(organizationId, optionSetKey);
 
-    // Restore path: an explicit value matching a currently-hidden global default
-    // un-hides it instead of creating a duplicate code.
+    // Restore path: an explicit value matching a currently-hidden item (a global
+    // default OR a hidden AI baseline) un-hides it instead of creating a duplicate.
     if (value) {
       const match = resolved.allItems.find((i) => i.value === value);
-      if (match && match.scope === 'global' && match.hidden) {
+      if (match && match.hidden) {
         const set = await this.ensureTenantSet(organizationId, optionSetKey);
         await this.setHidden(set, value, false);
         return this.resolve(organizationId, optionSetKey);
@@ -117,6 +130,9 @@ export class FieldOptionsService {
       value: v,
       label: clean,
       order: (Number(maxOrder) || 0) + 1,
+      // User-added: survives schema regeneration (persistOptionSetsSafely only
+      // replaces 'ai' items).
+      source: 'human',
     });
 
     // Re-adding a value that was previously hidden should make it visible again.
@@ -125,14 +141,23 @@ export class FieldOptionsService {
   }
 
   /**
-   * Remove an item: a tenant-owned item is deleted outright; a global default item
-   * is *hidden* for this tenant (overlay), never touching the shared global row.
+   * Remove an item:
+   *   - a USER-added tenant item ('human') is deleted outright;
+   *   - an AI baseline item ('ai') is *hidden* (overlay) rather than destroyed, so
+   *     it does not simply reappear on the next schema regeneration;
+   *   - a global default item is *hidden* for this tenant, never touching the row.
    */
   async removeItem(organizationId: number, optionSetKey: string, value: string): Promise<ResolvedOptionSet> {
     const tenantSet = await this.loadSet(optionSetKey, organizationId);
     const tenantItem = this.itemsOf(tenantSet).find((i) => i.value === value);
     if (tenantItem) {
-      await tenantItem.destroy();
+      const source = (tenantItem.get('source') as OptionItemSource | undefined) ?? 'ai';
+      if (source === 'human') {
+        await tenantItem.destroy();
+        return this.resolve(organizationId, optionSetKey);
+      }
+      // AI baseline that lives on the org set — hide it so the suppression sticks.
+      await this.setHidden(tenantSet as SchemaOptionSet, value, true);
       return this.resolve(organizationId, optionSetKey);
     }
     const set = tenantSet ?? (await this.ensureTenantSet(organizationId, optionSetKey));

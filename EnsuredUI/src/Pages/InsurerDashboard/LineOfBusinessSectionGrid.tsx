@@ -29,6 +29,14 @@ export type LineOfBusinessSectionGridProps = {
   onRenderedFieldValueChange?: (fieldKey: string, value: string) => void;
   showHeader?: boolean;
   showModeDescription?: boolean;
+  /** Tenant context — enables managed option-set selects in rendered (data-entry) mode. */
+  organizationId?: number | null;
+  /**
+   * Submission-view removal of an AI field in rendered mode (distinct from the
+   * builder's `onRemoveField`, which clears a placement). When set, AI-origin
+   * fields show a × in rendered mode.
+   */
+  onRemoveRenderedField?: (sectionKey: string, field: LineOfBusinessPageTemplateField) => void;
 };
 
 type DragPayload = {
@@ -71,6 +79,8 @@ export default function LineOfBusinessSectionGrid({
   onRenderedFieldValueChange,
   showHeader = true,
   showModeDescription = true,
+  organizationId,
+  onRemoveRenderedField,
 }: LineOfBusinessSectionGridProps) {
   const {
     activeViewMode,
@@ -180,6 +190,9 @@ export default function LineOfBusinessSectionGrid({
                 value={resolvedRenderedFieldValues[field.key]}
                 placement={field.layout}
                 onChange={handleRenderedFieldValueChange(field.key)}
+                organizationId={organizationId}
+                sectionKey={section.key}
+                onRemoveField={onRemoveRenderedField}
               />
             ))
           )}

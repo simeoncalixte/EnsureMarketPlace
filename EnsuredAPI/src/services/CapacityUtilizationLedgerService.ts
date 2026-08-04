@@ -5,7 +5,7 @@ import {
   resolveCityId,
   resolveCountryId,
   resolveStateProvinceId,
-} from '../pipeline/locationDiscovery/geography';
+} from './pipeline/locationDiscovery/geography';
 
 /**
  * CapacityUtilizationLedgerService — the stored side of capacity consumption.

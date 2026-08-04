@@ -2,6 +2,8 @@
   "private": true,
   "scripts": {
     "start": "npm --prefix EnsuredUI run start",
+    "storybook": "npm --prefix EnsuredUI run storybook",
+    "debug:api": "npm --prefix EnsuredAPI run debug",
     "submission:dev": "npm --prefix SubmissionUI run dev",
     "submission:build": "npm --prefix SubmissionUI run build",
     "submission:preview": "npm --prefix SubmissionUI run preview",

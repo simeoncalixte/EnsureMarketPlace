@@ -28,6 +28,7 @@ import {
   ARCHETYPE_INFO,
   type ArchetypeInfo,
 } from './submissionPackages';
+import { PIPELINE_STAGE_CATALOG } from './pipeline/stages/registry';
 
 // ---------------------------------------------------------------------------
 // Public taxonomy
@@ -105,24 +106,10 @@ export interface ResolvedScenario {
 
 /**
  * The ordered pipeline stage keys, used to build each scenario's expected
- * workflow path. The source of truth is `PIPELINE_STAGES` in
- * `pipeline/board/service.ts`; it is duplicated here (rather than imported) to
- * keep this module dependency-free — that service pulls in the DB models. A unit
- * test asserts this list equals `PIPELINE_STAGE_CATALOG` so it cannot drift.
+ * workflow path. It derives directly from the pure stage registry so seed
+ * scenarios cannot drift from the backend's executable pipeline.
  */
-export const FULL_WORKFLOW_PATH = [
-  'ingestion',
-  'ocr',
-  'classification',
-  'extraction',
-  'locationDiscovery',
-  'normalization',
-  'validation',
-  'schemaGeneration',
-  'workflow',
-  'riskCompute',
-  'preBindCompliance',
-] as const;
+export const FULL_WORKFLOW_PATH = PIPELINE_STAGE_CATALOG.map((stage) => stage.key);
 
 /** Terminal tokens a workflow path can end on (beyond the pipeline stages). */
 export type WorkflowTerminal = ExpectedOutcome;

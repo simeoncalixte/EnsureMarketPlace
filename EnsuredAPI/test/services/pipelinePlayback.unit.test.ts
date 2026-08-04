@@ -1,4 +1,4 @@
-import { syntheticStageOutputs } from '../../src/pipeline/playback/service';
+import { syntheticStageOutputs } from '../../src/services/pipeline/playback/service';
 
 // Pure (no DB): pins the seeder's stage-output derivation used to emit believable
 // historical runs.

@@ -13,13 +13,13 @@
  * NOTE: the agent's Bash sandbox blocks the Postgres connection on 5432, so this
  * suite was authored but may need to be run by the maintainer.
  */
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import { ExtractedField, SubmissionOutput, Submission } from '../../src/db/models';
 import { initTestDb } from '../helpers/db';
-import { ExtractionService } from '../../src/pipeline/extraction/service';
-import { scoreFieldConfidence } from '../../src/pipeline/extraction/confidence';
-import { getLatestExtractedFields } from '../../src/pipeline/extraction/versioning';
-import type { ExtractionAgent } from '../../src/pipeline/extraction/GeminiExtractionProvider';
+import { ExtractionService } from '../../src/services/pipeline/extraction/service';
+import { scoreFieldConfidence } from '../../src/services/pipeline/extraction/confidence';
+import { getLatestExtractedFields } from '../../src/services/pipeline/extraction/versioning';
+import type { ExtractionAgent } from '../../src/services/pipeline/extraction/GeminiExtractionProvider';
 
 // Force the deterministic regex/NER fallback so the test needs no Gemini key.
 const offlineAgent: ExtractionAgent = {

@@ -6,7 +6,7 @@
  * Usage:  npm run import:worldcities -- --file=/abs/path/worldcities.csv
  *         WORLDCITIES_CSV=/abs/path/worldcities.csv npm run import:worldcities
  */
-import { closeSequelize } from '../config/database';
+import { closeSequelize } from './config/database';
 import { runWorldcitiesImport } from './worldcities-import-runner';
 
 const fileArg = process.argv.find((a) => a.startsWith('--file='));

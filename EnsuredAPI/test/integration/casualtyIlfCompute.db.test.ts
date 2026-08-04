@@ -12,7 +12,7 @@
  * Requires Postgres on 127.0.0.1:5432 (see test/helpers/db.ts + globalSetup).
  * Run: nvm use 24 && npx jest test/integration/casualtyIlfCompute.db.test.ts --runInBand
  */
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import {
   CanonicalSubmission,
   LineOfBusinessPrimaryType,
@@ -21,12 +21,12 @@ import {
 } from '../../src/db/models';
 import { BenchmarkPrior } from '../../src/db/models/benchmarkPrior.models';
 import { initTestDb } from '../helpers/db';
-import { computeForSubmission } from '../../src/pipeline/compute/service';
-import { seedBenchmarkPriors } from '../../src/pipeline/benchmarkPriors/seed';
-import { seedCasualtyRegistryRows } from '../../src/pipeline/registry/seed';
-import { upsertRegistry } from '../../src/pipeline/registry/upsert';
+import { computeForSubmission } from '../../src/services/pipeline/compute/service';
+import { seedBenchmarkPriors } from '../../src/services/pipeline/benchmarkPriors/seed';
+import { seedCasualtyRegistryRows } from '../../src/services/pipeline/registry/seed';
+import { upsertRegistry } from '../../src/services/pipeline/registry/upsert';
 import { lineOfBusinessTaxonomy } from '../../src/db/seed-data/lineOfBusinessTaxonomy';
-import { computeCoverage } from '../../src/pipeline/benchmarkPriors/coverage';
+import { computeCoverage } from '../../src/services/pipeline/benchmarkPriors/coverage';
 
 const LOB = 'professional_liability';
 const LIMIT = 2_000_000; // ILF(2M) / ILF(1M) = 1.5 / 1.0 = 1.5 on the seeded curve.

@@ -67,6 +67,12 @@ export type LineOfBusinessPageTemplateField = {
    * fetches the {value,label} items on demand the first time the field renders.
    */
   optionSetKey?: string;
+  /**
+   * Field provenance: `'base'` = canonical scaffold (protected from user removal),
+   * `'ai'` = generated/suggested (a user may prune it via the × in the submission
+   * view). Carried through from the backend template definition.
+   */
+  origin?: 'base' | 'ai';
   visibleWhen?: LineOfBusinessPageTemplateVisibility;
   layout?: LineOfBusinessPageTemplateFieldLayout;
 };
@@ -94,7 +100,7 @@ export type LineOfBusinessPageDataResponse = {
   isOrgTemplate?: boolean;
 };
 
-const TAXONOMY_PATH = '/api/marketplace/line-of-business-taxonomy';
+export const TAXONOMY_PATH = '/api/marketplace/line-of-business-taxonomy';
 const PAGE_TEMPLATE_PATH = '/api/marketplace/insured-subjects/page-template';
 
 function taxonomyPath(params: {

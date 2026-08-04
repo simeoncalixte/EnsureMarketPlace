@@ -11,7 +11,7 @@
  * One request per 30s; checkpoints after every page, so it can be killed and re-run to resume.
  */
 import { QueryTypes } from 'sequelize';
-import { getSequelize, closeSequelize } from '../config/database';
+import { getSequelize, closeSequelize } from './config/database';
 import { CrestaLevel } from './models/cresta.models';
 import { runCrestaImport, stopCrestaImport } from './cresta-import-runner';
 

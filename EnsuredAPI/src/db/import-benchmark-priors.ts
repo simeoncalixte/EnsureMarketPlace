@@ -25,8 +25,8 @@
 import fs from 'fs';
 import path from 'path';
 import { parse } from 'csv-parse/sync';
-import { getSequelize, closeSequelize } from '../config/database';
-import { upsertBenchmarkPrior } from '../pipeline/benchmarkPriors/upsert';
+import { getSequelize, closeSequelize } from './config/database';
+import { upsertBenchmarkPrior } from '../services/pipeline/benchmarkPriors/upsert';
 
 export type ParsedPriorRow = {
   organizationId: number | null;

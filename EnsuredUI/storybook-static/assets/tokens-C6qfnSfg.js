@@ -1,1 +1,0 @@
-const s={xs:4,sm:8,md:16,lg:24,xl:40},e={none:0,sm:4,md:8,lg:12,round:9999},o={fontFamily:"Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",sizes:{xs:12,sm:14,md:16,lg:20,xl:28,"2xl":36}},a={base:0,dropdown:100,modal:900,toast:1e3};export{e as r,s,o as t,a as z};

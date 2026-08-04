@@ -30,12 +30,16 @@ import {
   type LineOfBusinessPageTemplateField,
   type LineOfBusinessTaxonomyPrimary,
 } from './lineOfBusinessTaxonomy';
-import { createDealSectionTabs } from './InsurerDashboard.constants';
 import {
+  loadBaselineSuggestedForm,
   loadSubmissionSuggestedForm,
   loadSubmissionInsuredSubjects,
+  loadSuggestedFormFieldImpact,
+  removeSuggestedFormField,
+  removeSubjectFormField,
   type SuggestedForm,
   type SuggestedFormField,
+  type SuggestedFormSection,
 } from '../../api/pipeline';
 import {
   formatNumberInput,
@@ -70,30 +74,59 @@ export default function InsurerDashboard() {
   const [lineOfBusinessTaxonomy, setLineOfBusinessTaxonomy] = useState<LineOfBusinessTaxonomyPrimary[]>([]);
   const [subjects, setSubjects] = useState<SubjectInput[]>(() => buildDefaultSubjects(sourceSubmission));
   const [subjectGroupingMode, setSubjectGroupingMode] = useState<SubjectGroupingMode>('location');
-  // String (not CreateDealSectionId) because the AI may contribute extra tabs.
-  // Lands on General Information, prefilled from the submission.
-  const [activeSection, setActiveSection] = useState<string>('deal');
+  const sourceLineOfBusinessSelection = useMemo(
+    () =>
+      sourceSubmission
+        ? resolveLineOfBusinessSelection(sourceSubmission.lineOfBusiness, '', lineOfBusinessTaxonomy)
+        : { primary: '', primaryCode: '', subType: '', subTypeCode: '' },
+    [sourceSubmission, lineOfBusinessTaxonomy],
+  );
+  // Template section key. Lands on the platform default General Information section.
+  const [activeSection, setActiveSection] = useState<string>('general-information');
 
-  // The pipeline-generated schema for this submission: AI fields injected into the
-  // base tabs, plus any wholly-new AI sections that become their own tabs.
+  // The resolved create-coverage template for this view. The platform baseline
+  // loads first; a submission-specific generated schema replaces it when present.
   const [suggestedForm, setSuggestedForm] = useState<SuggestedForm | null>(null);
   useEffect(() => {
     const submissionId = sourceSubmission?.submissionId;
-    if (submissionId == null) return;
     let cancelled = false;
-    loadSubmissionSuggestedForm(submissionId).then((form) => {
-      if (!cancelled) setSuggestedForm(form);
-    });
+
+    async function loadResolvedTemplate() {
+      const baseline = await loadBaselineSuggestedForm({
+        lineOfBusinessCode: sourceLineOfBusinessSelection.primaryCode || null,
+        lineOfBusinessLabel: sourceSubmission?.lineOfBusiness ?? null,
+        lineOfBusinessSubTypeCode: sourceLineOfBusinessSelection.subTypeCode || null,
+        subjectCount: subjects.length,
+        organizationId: user?.organizationId ?? null,
+      });
+      if (!cancelled && baseline) {
+        setSuggestedForm(baseline);
+      }
+
+      if (submissionId == null) return;
+      const generated = await loadSubmissionSuggestedForm(submissionId);
+      if (!cancelled && generated) {
+        setSuggestedForm(generated);
+      }
+    }
+
+    void loadResolvedTemplate();
     return () => {
       cancelled = true;
     };
-  }, [sourceSubmission?.submissionId]);
+  }, [
+    sourceLineOfBusinessSelection.primaryCode,
+    sourceLineOfBusinessSelection.subTypeCode,
+    sourceSubmission?.lineOfBusiness,
+    sourceSubmission?.submissionId,
+    subjects.length,
+    user?.organizationId,
+  ]);
 
   // Hydrate the subject cards from the pipeline's extracted insured subjects:
-  // each subject's own line of business, its attributes as editable values, and
-  // its inline per-subject template. Waits for the taxonomy so the LLM's LOB code
-  // resolves to a selection. No-ops (keeps the blank default) when the stage has
-  // not run or found no subjects.
+  // each subject's own line of business and its attributes as editable values.
+  // Waits for the taxonomy so the LLM's LOB code resolves to a selection. No-ops
+  // (keeps the blank default) when the stage has not run or found no subjects.
   useEffect(() => {
     const submissionId = sourceSubmission?.submissionId;
     if (submissionId == null || lineOfBusinessTaxonomy.length === 0) return;
@@ -107,29 +140,25 @@ export default function InsurerDashboard() {
     };
   }, [sourceSubmission?.submissionId, lineOfBusinessTaxonomy]);
 
-  const BASE_SECTION_KEYS = useMemo(
-    () =>
-      new Set([
-        'general-information',
-        // Legacy key for forms generated before the rename.
-        'deal-parameters',
-        'financials',
-        'insured-subjects',
-        'documents',
-        'tranche-structure',
-        'validation',
-        'submission',
-        'signing',
-      ]),
-    [],
-  );
-  const aiFieldsFor = useCallback(
-    (sectionKey: string): SuggestedFormField[] => {
-      const section = suggestedForm?.schema.sections.find((s) => s.key === sectionKey);
-      return section ? section.fields.filter((f) => f.origin === 'ai') : [];
-    },
+  const templateSections = useMemo(
+    () => [...(suggestedForm?.schema.sections ?? [])].sort((left, right) => left.order - right.order),
     [suggestedForm],
   );
+  const templateSectionByKey = useMemo(
+    () => new Map(templateSections.map((section): [string, SuggestedFormSection] => [section.key, section])),
+    [templateSections],
+  );
+  const sectionTabs = useMemo(
+    () => templateSections.map((section) => ({ id: section.key, label: section.label })),
+    [templateSections],
+  );
+  useEffect(() => {
+    if (templateSections.length === 0) return;
+    if (!templateSectionByKey.has(activeSection)) {
+      setActiveSection(templateSections[0].key);
+    }
+  }, [activeSection, templateSectionByKey, templateSections]);
+  const generalSectionKey = templateSectionByKey.has('general-information') ? 'general-information' : 'deal-parameters';
   // General Information renders the classic five fields via its hardcoded
   // component; everything else in the section (AI extensions AND the newer base
   // defaults like broker/jurisdiction/currency/notes) renders dynamically below it.
@@ -140,15 +169,61 @@ export default function InsurerDashboard() {
     );
     return section ? section.fields.filter((f) => f.origin === 'ai' || !hardcodedKeys.has(f.key)) : [];
   }, [suggestedForm]);
-  const financialsExtensions = useMemo(() => aiFieldsFor('financials'), [aiFieldsFor]);
-  // Wholly-new AI sections (not one of the base sections) -> their own tabs.
-  const aiSections = useMemo(
-    () => (suggestedForm?.schema.sections ?? []).filter((s) => s.origin === 'ai' && !BASE_SECTION_KEYS.has(s.key) && s.fields.length > 0),
-    [suggestedForm, BASE_SECTION_KEYS],
-  );
-  const sectionTabs = useMemo(
-    () => [...createDealSectionTabs, ...aiSections.map((s) => ({ id: s.key, label: s.label }))],
-    [aiSections],
+  const financialsExtras = useMemo(() => {
+    const hardcodedKeys = new Set(['coverageLimit', 'attachmentPoint', 'exhaustionPoint', 'premium']);
+    const section = templateSectionByKey.get('financials');
+    return section ? section.fields.filter((field) => field.origin === 'ai' || !hardcodedKeys.has(field.key)) : [];
+  }, [templateSectionByKey]);
+
+  // Remove an AI/custom field from the org's create-coverage template, going
+  // forward. We first surface how many existing submissions use it (their data is
+  // preserved), confirm, then call the API and drop the field from the on-screen
+  // form. Org/LOB coordinates come from the loaded form.
+  const handleRemoveField = useCallback(
+    async (sectionKey: string, field: SuggestedFormField) => {
+      const organizationId = user?.organizationId ?? null;
+      if (organizationId == null) {
+        setMessage('Cannot remove field: no organization context.');
+        return;
+      }
+      const impact = await loadSuggestedFormFieldImpact({ organizationId, sectionKey, fieldKey: field.key });
+      const used =
+        impact.dependentSubmissionCount > 0
+          ? `${impact.dependentSubmissionCount} existing submission(s) use this field; their data is kept. `
+          : '';
+      const confirmed = window.confirm(
+        `Remove "${field.label}" from the create-coverage form for future submissions of this line of business?\n\n${used}This cannot be undone from here.`,
+      );
+      if (!confirmed) return;
+
+      const ok = await removeSuggestedFormField({
+        organizationId,
+        lineOfBusinessCode: suggestedForm?.lineOfBusinessCode ?? '',
+        lineOfBusinessSubTypeCode: suggestedForm?.lineOfBusinessSubTypeCode ?? '',
+        sectionKey,
+        fieldKey: field.key,
+      });
+      if (!ok) {
+        setMessage(`Could not remove "${field.label}". It may be a protected field.`);
+        return;
+      }
+      // Drop it from the on-screen form so it disappears immediately.
+      setSuggestedForm((prev) =>
+        prev
+          ? {
+              ...prev,
+              schema: {
+                ...prev.schema,
+                sections: prev.schema.sections.map((s) =>
+                  s.key === sectionKey ? { ...s, fields: s.fields.filter((f) => f.key !== field.key) } : s,
+                ),
+              },
+            }
+          : prev,
+      );
+      setMessage(`Removed "${field.label}" from the template for future submissions.`);
+    },
+    [user?.organizationId, suggestedForm?.lineOfBusinessCode, suggestedForm?.lineOfBusinessSubTypeCode],
   );
 
   const [tranches, setTranches] = useState<TrancheInput[]>(() => buildDefaultTranches(sourceSubmission?.exposure ?? 950000000));
@@ -319,6 +394,40 @@ export default function InsurerDashboard() {
       }),
     );
   }, []);
+
+  // Remove an AI-generated subject field from the org insured-subject template
+  // going forward. On screen, optimistically drop the value for this subject.
+  const handleRemoveSubjectField = useCallback(
+    (subjectIndex: number, sectionKey: string, field: LineOfBusinessPageTemplateField) => {
+      const confirmed = window.confirm(
+        `Remove "${field.label}" from the insured-subject form for future submissions of this line of business?`,
+      );
+      if (!confirmed) return;
+
+      const organizationId = user?.organizationId ?? null;
+      const subject = subjects[subjectIndex];
+      if (organizationId != null && subject) {
+        void removeSubjectFormField({
+          organizationId,
+          lineOfBusinessCode: subject.lineOfBusiness ?? '',
+          lineOfBusinessSubTypeCode: subject.lineOfBusinessSubType ?? '',
+          sectionKey,
+          fieldKey: field.key,
+        });
+      }
+
+      setSubjects((current) =>
+        current.map((s, i) => {
+          if (i !== subjectIndex) return s;
+          const nextValues = { ...s.fieldValues };
+          delete nextValues[field.key];
+          return { ...s, fieldValues: nextValues };
+        }),
+      );
+      setMessage(`Removed "${field.label}" from the subject form.`);
+    },
+    [user?.organizationId, subjects],
+  );
 
   useEffect(() => {
     let active = true;
@@ -499,6 +608,23 @@ export default function InsurerDashboard() {
     { label: 'Signing', value: 'Pending', color: colors.onSurfaceMuted },
   ];
 
+  // Component-backed defaults retain their purpose-built UI, while schema-agent
+  // fields render directly beneath it. This lets the agent extend every default
+  // template section without replacing any existing workflow component.
+  const renderComponentExtensions = (section: SuggestedFormSection) =>
+    section.fields.length > 0 ? (
+      <DynamicFormSection
+        isActive={activeSection === section.key}
+        label="Additional fields"
+        fields={section.fields}
+        badge={section.fields.some((field) => field.origin === 'ai') ? 'ai' : null}
+        inline
+        organizationId={user?.organizationId ?? null}
+        sectionKey={section.key}
+        onRemoveField={handleRemoveField}
+      />
+    ) : null;
+
   return (
     <>
       <S.ContentArea>
@@ -528,131 +654,178 @@ export default function InsurerDashboard() {
               />
             </S.SubNavWrap>
             <S.Form onSubmit={handleSubmit}>
-              <DealParametersSection
-                isActive={activeSection === 'deal'}
-                name={name}
-                cedingEntity={cedingEntity}
-                startDate={startDate}
-                endDate={endDate}
-                sourceCedent={sourceSubmission?.cedent}
-                onSetName={setName}
-                onSetCedingEntity={setCedingEntity}
-                onSetStartDate={setStartDate}
-                onSetEndDate={setEndDate}
-              />
-              {generalExtras.length > 0 ? (
-                <DynamicFormSection
-                  isActive={activeSection === 'deal'}
-                  label="Additional fields"
-                  fields={generalExtras}
-                  badge={generalExtras.some((f) => f.origin === 'ai') ? 'ai' : null}
-                  inline
-                />
-              ) : null}
-
-              <FinancialsSection
-                isActive={activeSection === 'financials'}
-                coverageLimit={coverageLimit}
-                attachmentPoint={attachmentPoint}
-                exhaustionPoint={exhaustionPoint}
-                premium={premium}
-                onSetCoverageLimit={setCoverageLimit}
-                onSetAttachmentPoint={setAttachmentPoint}
-                onSetExhaustionPoint={setExhaustionPoint}
-                onSetPremium={setPremium}
-              />
-              {financialsExtensions.length > 0 ? (
-                <DynamicFormSection
-                  isActive={activeSection === 'financials'}
-                  label="AI-suggested fields"
-                  fields={financialsExtensions}
-                  badge="ai"
-                  inline
-                />
-              ) : null}
-
-              <SubjectInsuranceSection
-                isActive={activeSection === 'subjects'}
-                subjectGroupingMode={subjectGroupingMode}
-                groupedSubjects={groupedSubjects}
-                organizationId={user?.organizationId ?? null}
-                taxonomyByPrimaryLabel={taxonomyByPrimaryLabel}
-                lineOfBusinessTaxonomy={lineOfBusinessTaxonomy}
-                onSetLocationGrouping={setLocationGroupingMode}
-                onSetSeparateGrouping={setSeparateGroupingMode}
-                onAddSubject={addSubject}
-                onRemoveSubject={removeSubject}
-                onUpdateSubject={updateSubject}
-                onUpdateSubjectPrimaryLineOfBusiness={updateSubjectPrimaryLineOfBusiness}
-                onUpdateSubjectLineOfBusinessSubType={updateSubjectLineOfBusinessSubType}
-                onFieldValueChange={handleSubjectTemplateFieldValueChange}
-                onTemplateResolved={handleSubjectTemplateResolved}
-              />
-
-              <DocumentsSection
-                isActive={activeSection === 'documents'}
-                submissionId={sourceSubmission?.submissionId ?? null}
-              />
-
-              <TrancheStructureSection
-                isActive={activeSection === 'tranches'}
-                tranches={tranches}
-                subjects={subjects}
-                groupedSubjects={groupedSubjects}
-                subjectGroupingMode={subjectGroupingMode}
-                onAddTranche={addTranche}
-                onUpdateTrancheSubjectSelectionMode={updateTrancheSubjectSelectionMode}
-                onUpdateTranche={updateTranche}
-                onUpdateTrancheSubjectSelection={updateTrancheSubjectSelection}
-              />
-
-              <ValidationSection
-                isActive={activeSection === 'validation'}
-                exposureLoading={exposureLoading}
-                liveExposureDisplay={fmtCurrency(liveExposureValue)}
-                sourceLabel={sourceSubmission ? `Seeded from ${sourceSubmission.submissionNumber}` : 'Manual draft'}
-                subjectCount={subjects.length}
-                trancheCount={tranches.length}
-                sourceTypeLabel={sourceSubmission ? sourceSubmission.lineOfBusiness : 'Draft'}
-                subjectPreview={subjectPreview || 'No subject labels have been configured yet.'}
-                checks={validationChecks}
-              />
-
-              <SubmissionSection
-                isActive={activeSection === 'submission'}
-                liveExposureDisplay={fmtCurrency(liveExposureValue)}
-                premiumDisplay={fmtCurrency(Number(premium) || 0)}
-                subjectCount={subjects.length}
-                trancheCount={tranches.length}
-                loading={loading}
-                message={message}
-                onSubmit={() => {
-                  void submitDeal();
-                }}
-              />
-
-              <SigningSection isActive={activeSection === 'signing'} checks={signingChecks} />
-
-              {aiSections.map((section) => (
-                <DynamicFormSection
-                  key={section.key}
-                  isActive={activeSection === section.key}
-                  label={section.label}
-                  description={section.description}
-                  fields={section.fields}
-                  repeatable={section.repeatable}
-                  badge="ai"
-                />
-              ))}
+              {templateSections.map((section) => {
+                switch (section.key) {
+                  case 'general-information':
+                  case 'deal-parameters':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <DealParametersSection
+                          isActive={activeSection === section.key}
+                          name={name}
+                          cedingEntity={cedingEntity}
+                          startDate={startDate}
+                          endDate={endDate}
+                          sourceCedent={sourceSubmission?.cedent}
+                          onSetName={setName}
+                          onSetCedingEntity={setCedingEntity}
+                          onSetStartDate={setStartDate}
+                          onSetEndDate={setEndDate}
+                        />
+                        {generalExtras.length > 0 ? (
+                          <DynamicFormSection
+                            isActive={activeSection === section.key}
+                            label="Additional fields"
+                            fields={generalExtras}
+                            badge={generalExtras.some((f) => f.origin === 'ai') ? 'ai' : null}
+                            inline
+                            organizationId={user?.organizationId ?? null}
+                            sectionKey={generalSectionKey}
+                            onRemoveField={handleRemoveField}
+                          />
+                        ) : null}
+                      </React.Fragment>
+                    );
+                  case 'financials':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <FinancialsSection
+                          isActive={activeSection === section.key}
+                          coverageLimit={coverageLimit}
+                          attachmentPoint={attachmentPoint}
+                          exhaustionPoint={exhaustionPoint}
+                          premium={premium}
+                          onSetCoverageLimit={setCoverageLimit}
+                          onSetAttachmentPoint={setAttachmentPoint}
+                          onSetExhaustionPoint={setExhaustionPoint}
+                          onSetPremium={setPremium}
+                        />
+                        {financialsExtras.length > 0 ? (
+                          <DynamicFormSection
+                            isActive={activeSection === section.key}
+                            label="Additional fields"
+                            fields={financialsExtras}
+                            badge={financialsExtras.some((f) => f.origin === 'ai') ? 'ai' : null}
+                            inline
+                            organizationId={user?.organizationId ?? null}
+                            sectionKey="financials"
+                            onRemoveField={handleRemoveField}
+                          />
+                        ) : null}
+                      </React.Fragment>
+                    );
+                  case 'insured-subjects':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <SubjectInsuranceSection
+                          isActive={activeSection === section.key}
+                          subjectGroupingMode={subjectGroupingMode}
+                          groupedSubjects={groupedSubjects}
+                          organizationId={user?.organizationId ?? null}
+                          taxonomyByPrimaryLabel={taxonomyByPrimaryLabel}
+                          lineOfBusinessTaxonomy={lineOfBusinessTaxonomy}
+                          onSetLocationGrouping={setLocationGroupingMode}
+                          onSetSeparateGrouping={setSeparateGroupingMode}
+                          onAddSubject={addSubject}
+                          onRemoveSubject={removeSubject}
+                          onUpdateSubject={updateSubject}
+                          onUpdateSubjectPrimaryLineOfBusiness={updateSubjectPrimaryLineOfBusiness}
+                          onUpdateSubjectLineOfBusinessSubType={updateSubjectLineOfBusinessSubType}
+                          onFieldValueChange={handleSubjectTemplateFieldValueChange}
+                          onTemplateResolved={handleSubjectTemplateResolved}
+                          onRemoveSubjectField={handleRemoveSubjectField}
+                        />
+                        {renderComponentExtensions(section)}
+                      </React.Fragment>
+                    );
+                  case 'documents':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <DocumentsSection
+                          isActive={activeSection === section.key}
+                          submissionId={sourceSubmission?.submissionId ?? null}
+                        />
+                        {renderComponentExtensions(section)}
+                      </React.Fragment>
+                    );
+                  case 'tranche-structure':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <TrancheStructureSection
+                          isActive={activeSection === section.key}
+                          tranches={tranches}
+                          subjects={subjects}
+                          groupedSubjects={groupedSubjects}
+                          subjectGroupingMode={subjectGroupingMode}
+                          onAddTranche={addTranche}
+                          onUpdateTrancheSubjectSelectionMode={updateTrancheSubjectSelectionMode}
+                          onUpdateTranche={updateTranche}
+                          onUpdateTrancheSubjectSelection={updateTrancheSubjectSelection}
+                        />
+                        {renderComponentExtensions(section)}
+                      </React.Fragment>
+                    );
+                  case 'validation':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <ValidationSection
+                          isActive={activeSection === section.key}
+                          exposureLoading={exposureLoading}
+                          liveExposureDisplay={fmtCurrency(liveExposureValue)}
+                          sourceLabel={sourceSubmission ? `Seeded from ${sourceSubmission.submissionNumber}` : 'Manual draft'}
+                          subjectCount={subjects.length}
+                          trancheCount={tranches.length}
+                          sourceTypeLabel={sourceSubmission ? sourceSubmission.lineOfBusiness : 'Draft'}
+                          subjectPreview={subjectPreview || 'No subject labels have been configured yet.'}
+                          checks={validationChecks}
+                        />
+                        {renderComponentExtensions(section)}
+                      </React.Fragment>
+                    );
+                  case 'submission':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <SubmissionSection
+                          isActive={activeSection === section.key}
+                          liveExposureDisplay={fmtCurrency(liveExposureValue)}
+                          premiumDisplay={fmtCurrency(Number(premium) || 0)}
+                          subjectCount={subjects.length}
+                          trancheCount={tranches.length}
+                          loading={loading}
+                          message={message}
+                          onSubmit={() => {
+                            void submitDeal();
+                          }}
+                        />
+                        {renderComponentExtensions(section)}
+                      </React.Fragment>
+                    );
+                  case 'signing':
+                    return (
+                      <React.Fragment key={section.key}>
+                        <SigningSection isActive={activeSection === section.key} checks={signingChecks} />
+                        {renderComponentExtensions(section)}
+                      </React.Fragment>
+                    );
+                  default:
+                    return (
+                      <DynamicFormSection
+                        key={section.key}
+                        isActive={activeSection === section.key}
+                        label={section.label}
+                        description={section.description}
+                        fields={section.fields}
+                        repeatable={section.repeatable}
+                        badge={section.origin === 'ai' ? 'ai' : null}
+                        organizationId={user?.organizationId ?? null}
+                        sectionKey={section.key}
+                        onRemoveField={handleRemoveField}
+                      />
+                    );
+                }
+              })}
             </S.Form>
           </S.LeftColumn>
-
-          <LiveSummaryAside
-            exposureLoading={exposureLoading}
-            exposureDisplay={exposure != null ? fmtCurrency(exposure) : '—'}
-            subjects={subjects}
-            workflowChecks={workflowChecks}
-          />
       </S.ContentArea>
 
       <S.MobileBottomBar>

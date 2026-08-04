@@ -16,7 +16,7 @@
  * sandbox blocks the DB connection, so this is authored to be run by the maintainer:
  *   nvm use 24 && npx jest test/integration/catComputeSpine.db.test.ts --runInBand
  */
-import { getSequelize } from '../../src/config/database';
+import { getSequelize } from '../../src/db/config/database';
 import {
   CanonicalSubmission,
   ModelRun,
@@ -25,9 +25,9 @@ import {
 } from '../../src/db/models';
 import { BenchmarkPrior } from '../../src/db/models/benchmarkPrior.models';
 import { initTestDb } from '../helpers/db';
-import { upsertRegistry } from '../../src/pipeline/registry/upsert';
-import { computeForSubmission } from '../../src/pipeline/compute/service';
-import { CITED_DEFAULT_DAMAGE_CURVE_SET } from '../../src/pipeline/catastrophe/damageCurves';
+import { upsertRegistry } from '../../src/services/pipeline/registry/upsert';
+import { computeForSubmission } from '../../src/services/pipeline/compute/service';
+import { CITED_DEFAULT_DAMAGE_CURVE_SET } from '../../src/services/pipeline/catastrophe/damageCurves';
 import { SAMPLE_FLORIDA_WIND_EVENT_SET } from '../../src/db/seed-data/catEventSet';
 
 const LOB = 'catastrophe_property';

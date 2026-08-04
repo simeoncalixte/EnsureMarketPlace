@@ -78,8 +78,33 @@ export class PipelineArtifact extends Model<InferAttributes<PipelineArtifact>, I
   declare contentHash: string | null;
   declare mediaType: string | null;
   declare payload: Record<string, unknown> | null;
+  /** Internal execution payload; never returned from the audit API. */
+  declare privatePayload: Record<string, unknown> | null;
   declare sizeBytes: number | null;
   declare createdAt: CreationOptional<Date>;
+}
+
+/**
+ * Durable work item for automatically advancing an inbound submission.  This is
+ * intentionally separate from PipelineRun: a run is audit history, while a job
+ * is operational state that may be retried after a process restart.
+ */
+export class PipelineJob extends Model<InferAttributes<PipelineJob>, InferCreationAttributes<PipelineJob>> {
+  declare id: CreationOptional<number>;
+  declare submissionId: number;
+  declare organizationId: number;
+  declare status: string;
+  /** Failed stage to rerun before the job may advance again. */
+  declare stageKey: string | null;
+  declare attemptCount: number;
+  declare maxAttempts: number;
+  declare nextRunAt: Date | null;
+  declare lockedAt: Date | null;
+  declare lockedBy: string | null;
+  declare lastError: string | null;
+  declare completedAt: Date | null;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 }
 
 /**
@@ -174,6 +199,7 @@ export function initPipelineModels(sequelize: Sequelize): void {
       contentHash: { type: DataTypes.STRING, allowNull: true },
       mediaType: { type: DataTypes.STRING, allowNull: true, defaultValue: 'application/json' },
       payload: { type: DataTypes.JSONB, allowNull: true },
+      privatePayload: { type: DataTypes.JSONB, allowNull: true, field: 'private_payload' },
       sizeBytes: { type: DataTypes.INTEGER, allowNull: true },
       createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
     } as any,
@@ -184,6 +210,26 @@ export function initPipelineModels(sequelize: Sequelize): void {
       underscored: true,
       updatedAt: false,
     },
+  );
+
+  PipelineJob.init(
+    {
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      submissionId: { type: DataTypes.INTEGER, allowNull: false, unique: true },
+      organizationId: { type: DataTypes.INTEGER, allowNull: false, field: 'organization_id' },
+      status: { type: DataTypes.STRING, allowNull: false, defaultValue: 'queued' },
+      stageKey: { type: DataTypes.STRING, allowNull: true, field: 'stage_key' },
+      attemptCount: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+      maxAttempts: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 3 },
+      nextRunAt: { type: DataTypes.DATE, allowNull: true, field: 'next_run_at' },
+      lockedAt: { type: DataTypes.DATE, allowNull: true, field: 'locked_at' },
+      lockedBy: { type: DataTypes.STRING, allowNull: true, field: 'locked_by' },
+      lastError: { type: DataTypes.TEXT, allowNull: true, field: 'last_error' },
+      completedAt: { type: DataTypes.DATE, allowNull: true, field: 'completed_at' },
+      createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
+      updatedAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
+    },
+    { sequelize, modelName: 'PipelineJob', tableName: 'pipeline_jobs', underscored: true },
   );
 
   AgentTrace.init(

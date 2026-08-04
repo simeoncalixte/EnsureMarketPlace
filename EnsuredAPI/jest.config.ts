@@ -8,7 +8,9 @@ const config: Config = {
       diagnostics: false,
     },
   },
-  roots: ['<rootDir>/test', '<rootDir>/src/pipeline', '<rootDir>/src/underwriting', '<rootDir>/src/signature'],
+  // Route tests are co-located beside the route they cover (src/routes/<name>/<name>.test.ts);
+  // the remaining roots hold cross-cutting suites and the legacy test/ tree.
+  roots: ['<rootDir>/test', '<rootDir>/src/routes', '<rootDir>/src/services'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   clearMocks: true,
   watchman: false,

@@ -9,7 +9,7 @@ import {
   User,
   Wallet,
 } from '../db/models';
-import { getSequelize } from '../config/database';
+import { getSequelize } from '../db/config/database';
 import { CapitalInvestorContext, CapitalSeedService } from './CapitalSeedService';
 import { PolicySeedService } from './PolicySeedService';
 

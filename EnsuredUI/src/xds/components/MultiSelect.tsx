@@ -156,6 +156,14 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     [visibleOptions]
   )
 
+  const selectedVisibleCount = useMemo(
+    () => visibleValues.reduce((count, value) => (selectedSet.has(value) ? count + 1 : count), 0),
+    [selectedSet, visibleValues]
+  )
+
+  const allVisibleSelected =
+    visibleValues.length > 0 && selectedVisibleCount === visibleValues.length
+
   const selectedCount = selectedSet.size
   const summary =
     selectedCount === 0
@@ -197,6 +205,29 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   }
 
   const hasOptions = options.length > 0
+
+  const toggleAllVisible = () => {
+    if (visibleValues.length === 0) return
+
+    if (allVisibleSelected) {
+      if (onClear) {
+        onClear(visibleValues)
+        return
+      }
+      visibleValues.forEach((value) => {
+        if (selectedSet.has(value)) onToggle(value)
+      })
+      return
+    }
+
+    if (onSelectAll) {
+      onSelectAll(visibleValues)
+      return
+    }
+    visibleValues.forEach((value) => {
+      if (!selectedSet.has(value)) onToggle(value)
+    })
+  }
 
   return (
     <SelectRoot ref={rootRef} className={className}>
@@ -254,23 +285,17 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             )}
           </OptionList>
 
-          {hasOptions && !isLoading && !error && (onSelectAll || onClear) ? (
+          {hasOptions && !isLoading && !error ? (
             <Footer>
               <span>{selectedCount} selected</span>
               <FooterActions>
-                {onClear ? (
-                  <FooterButton type="button" onClick={() => onClear(visibleValues)}>
-                    Clear
-                  </FooterButton>
-                ) : null}
-                {onSelectAll ? (
-                  <FooterButton
-                    type="button"
-                    onClick={() => onSelectAll(visibleValues)}
-                  >
-                    Select all
-                  </FooterButton>
-                ) : null}
+                <FooterButton
+                  type="button"
+                  disabled={visibleValues.length === 0}
+                  onClick={toggleAllVisible}
+                >
+                  {allVisibleSelected ? 'Clear all' : 'Select all'}
+                </FooterButton>
               </FooterActions>
             </Footer>
           ) : null}

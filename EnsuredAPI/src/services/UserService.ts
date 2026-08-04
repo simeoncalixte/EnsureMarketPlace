@@ -127,6 +127,21 @@ export class UserService {
     );
 
     const all = [...fixed, ...extraInvestorUsers];
-    return User.bulkCreate(all, { returning: true });
+
+    // Idempotent re-seed: `email` is unique, and the fixed users have stable
+    // emails, so a plain bulkCreate throws `users_email_key` the second time the
+    // admin clicks "User Seeding". Skip rows whose email already exists, insert
+    // the rest, and return the full set (pre-existing + newly created) so callers
+    // get a stable picture regardless of how many were actually new.
+    const emails = all.map((u) => u.email);
+    const existing = await User.findAll({ where: { email: emails } });
+    const existingEmails = new Set(existing.map((u) => u.email));
+    const toCreate = all.filter((u) => !existingEmails.has(u.email));
+
+    const created = toCreate.length
+      ? await User.bulkCreate(toCreate, { returning: true })
+      : [];
+
+    return [...existing, ...created];
   }
 }

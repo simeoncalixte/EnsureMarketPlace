@@ -102,6 +102,8 @@ export class Submission extends Model<InferAttributes<Submission>, InferCreation
   declare transport: string | null;
   declare receivedAt: Date | null;
   declare ingestionChannelId: number | null;
+  /** Stable hash supplied/derived by an inbound connector; prevents duplicate intake. */
+  declare ingestionKey: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -346,6 +348,7 @@ export function initUnderwritingModels(sequelize: Sequelize): void {
       transport: { type: DataTypes.STRING, allowNull: true },
       receivedAt: { type: DataTypes.DATE, allowNull: true, defaultValue: DataTypes.NOW, field: 'received_at' },
       ingestionChannelId: { type: DataTypes.INTEGER, allowNull: true, field: 'ingestion_channel_id' },
+      ingestionKey: { type: DataTypes.STRING, allowNull: true, unique: true, field: 'ingestion_key' },
       createdAt: { type: DataTypes.DATE, allowNull: true, field: 'created_at' },
       updatedAt: { type: DataTypes.DATE, allowNull: true, field: 'updated_at' },
     },

@@ -1,4 +1,4 @@
-import { getSequelize, closeSequelize } from '../config/database';
+import { getSequelize, closeSequelize } from './config/database';
 
 async function run(): Promise<void> {
   console.log('checking submissions schema...');
