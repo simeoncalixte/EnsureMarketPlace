@@ -51,7 +51,7 @@ export const Modal: React.FC<ModalProps> = ({ open, title, onClose, children, fo
       >
         <div style={{ padding: spacing.lg - 8, borderBottom: `1px solid ${outlineColorLight}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700, color: colors.text.primary }}>{title}</h3>
-          <button aria-label="Close" onClick={onClose} style={{ background: 'transparent', border: 'none', color: withAlpha(colors.white, 0.7), cursor: 'pointer' }}>
+          <button aria-label="Close" onClick={onClose} style={{ background: 'transparent', border: 'none', color: withAlpha(colors.onSurface, 0.7), cursor: 'pointer' }}>
             ✕
           </button>
         </div>
@@ -68,7 +68,7 @@ export const Modal: React.FC<ModalProps> = ({ open, title, onClose, children, fo
               <button style={{ flex: 1, padding: '12px 16px', background: 'transparent', border: 'none', color: colors.text.secondary, fontWeight: 600, cursor: 'pointer' }} onClick={onClose}>
                 Cancel
               </button>
-              <button style={{ flex: 1, padding: '12px 16px', background: colors.brand[500], border: 'none', color: colors.white, borderRadius: radii.sm, fontWeight: 700, cursor: 'pointer' }}>
+              <button style={{ flex: 1, padding: '12px 16px', background: colors.primary, border: 'none', color: colors.white, borderRadius: radii.sm, fontWeight: 700, cursor: 'pointer' }}>
                 Confirm Transaction
               </button>
             </>

@@ -66,6 +66,11 @@ const ShellMain = styled.main`
   }
 `;
 
+const FullBleedMain = styled.main`
+  min-height: calc(100vh - 4rem);
+  position: relative;
+`;
+
 const AuthShellGrid = styled.main`
   min-height: calc(100vh - 4rem);
   display: grid;
@@ -601,6 +606,7 @@ type AuthenticatedAppShellProps = {
 
 type PublicAppShellProps = {
   children?: React.ReactNode;
+  fullBleed?: boolean;
 };
 
 const AppChromeContext = createContext<AppChromeState>({ isAuthenticated: false, user: null });
@@ -653,7 +659,7 @@ function HomeRoute() {
 
   if (!user) {
     return (
-      <PublicAppShell>
+      <PublicAppShell fullBleed>
         <LandingPage />
       </PublicAppShell>
     );
@@ -662,13 +668,15 @@ function HomeRoute() {
   return <Navigate to="/marketplace" replace />;
 }
 
-function PublicAppShell({ children }: PublicAppShellProps = {}) {
+function PublicAppShell({ children, fullBleed = false }: PublicAppShellProps = {}) {
+  const Main = fullBleed ? FullBleedMain : ShellMain;
+
   return (
     <ShellRoot>
       <TopBarNav user={null} />
-      <ShellMain>
+      <Main>
         {children ?? <Outlet />}
-      </ShellMain>
+      </Main>
     </ShellRoot>
   );
 }

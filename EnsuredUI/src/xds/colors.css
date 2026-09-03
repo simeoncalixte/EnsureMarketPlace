@@ -25,40 +25,40 @@
   --neutral-900: #0f172a;
 
   /* Semantic */
-  --color-success: #16a34a;
-  --color-info: #0891b2;
-  --color-warning: #f59e0b;
-  --color-danger: #dc2626;
+  --color-success: #95d4b3;
+  --color-info: #bfc9c1;
+  --color-warning: #e9c349;
+  --color-danger: #ffb3ae;
 
   /* Surfaces and text */
-  --bg: #071129;
-  --surface: #0b1220;
-  --text-primary: #e6eef8;
-  --text-secondary: #98a6bf;
-  --text-accent: rgba(75,142,255,1);
+  --bg: #0f141b;
+  --surface: #0f141b;
+  --text-primary: #f0e6d8;
+  --text-secondary: #bfc9c1;
+  --text-accent: #e9c349;
   /* Navigation item container background using variable opacity like Tailwind's syntax */
-  --nav-item-bg: rgb(19 27 46 / var(--tw-bg-opacity, 1));
+  --nav-item-bg: rgb(27 32 39 / var(--tw-bg-opacity, 1));
 
   /* Semantic tokens used by XDS components */
-  --primary: #4b8eff;
-  --primary-container: #e6f0ff;
-  --on-primary-container: #05204b;
+  --primary: #95d4b3;
+  --primary-container: #2d6a4f;
+  --on-primary-container: #a8e7c5;
 
-  --secondary: #7ee787;
-  --secondary-container: #08220f;
-  --on-secondary-container: #05220a;
+  --secondary: #e9c349;
+  --secondary-container: #af8d11;
+  --on-secondary-container: #342800;
 
-  --error: #ff6b6b;
-  --error-container: #3a0b0b;
-  --on-error-container: #fff5f5;
+  --error: #ffb4ab;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
 
-  --surface-container-low: #071423;
-  --surface-container: #0b1220;
-  --surface-container-high: #0f1726;
-  --surface-container-highest: #12202b;
+  --surface-container-low: #171c23;
+  --surface-container: #1b2027;
+  --surface-container-high: #252a32;
+  --surface-container-highest: #30353d;
 
-  --outline-variant: rgba(148,163,184,0.2);
-  --on-surface: #e6eef8;
-  --on-surface-variant: #98a6bf;
-  --tertiary-container: #1f2a37;
+  --outline-variant: #404943;
+  --on-surface: #dee2ec;
+  --on-surface-variant: #bfc9c1;
+  --tertiary-container: #ae3032;
 }

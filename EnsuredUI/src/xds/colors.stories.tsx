@@ -64,7 +64,7 @@ const Chip = styled.div<{ $value: string }>`
   border-radius: 8px;
   background: ${(p) => p.$value};
   /* Inset ring so very light and very dark swatches stay visible on the surface */
-  box-shadow: inset 0 0 0 1px ${withAlpha(colors.white, 0.14)},
+  box-shadow: inset 0 0 0 1px ${withAlpha(colors.onSurface, 0.14)},
     inset 0 0 0 2px ${withAlpha(colors.black, 0.25)};
 `
 

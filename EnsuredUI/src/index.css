@@ -1,26 +1,75 @@
 :root {
-  /* Dark theme tokens to match designs */
-  --bg: #071129;
-  --surface: #0b1220;
-  --surface-variant: #131b2e;
-  --surface-container-low: #071423;
-  --surface-container: #0b1220;
-  --surface-container-high: #0f1726;
-  --primary: #4b8eff;
-  --primary-container: #e6f0ff;
-  --on-primary: #05204b;
-  --text: #e6eef8;
-  --text-variant: #98a6bf;
-  --outline-variant: rgba(148,163,184,0.12);
-  --secondary: #7ee787;
-  --shadow-glow: 0 8px 40px rgba(11,18,32,0.45);
+  /* Dark defaults prevent a flash before XdsThemeProvider applies the saved theme. */
+  color-scheme: dark;
+  --xds-background: #0f141b;
+  --xds-surface: #0f141b;
+  --xds-surface-variant: #30353d;
+  --xds-surface-container-low: #171c23;
+  --xds-surface-container: #1b2027;
+  --xds-surface-container-high: #252a32;
+  --xds-surface-container-highest: #30353d;
+  --xds-surface-deep: #090f15;
+  --xds-surface-low: #171c23;
+  --xds-surface-panel: #1b2027;
+  --xds-surface-raised: #252a32;
+  --xds-surface-high: #30353d;
+  --xds-surface-elevated: #343941;
+  --xds-primary: #95d4b3;
+  --xds-primary-hover: #235a43;
+  --xds-primary-soft: #b1f0ce;
+  --xds-primary-container: #2d6a4f;
+  --xds-on-primary: #003824;
+  --xds-on-primary-container: #a8e7c5;
+  --xds-secondary: #e9c349;
+  --xds-secondary-container: #af8d11;
+  --xds-on-secondary-container: #342800;
+  --xds-accent: #95d4b3;
+  --xds-accent-strong: #2d6a4f;
+  --xds-success: #95d4b3;
+  --xds-info: #bfc9c1;
+  --xds-warning: #e9c349;
+  --xds-danger: #ffb3ae;
+  --xds-danger-deep: #721121;
+  --xds-error: #ffb4ab;
+  --xds-error-container: #93000a;
+  --xds-on-error-container: #ffdad6;
+  --xds-error-soft: #ffb4ab;
+  --xds-danger-bright: #ffb3ae;
+  --xds-on-surface: #dee2ec;
+  --xds-on-surface-variant: #bfc9c1;
+  --xds-on-surface-strong: #f0e6d8;
+  --xds-on-surface-muted: #e2d9cc;
+  --xds-outline: #8a938c;
+  --xds-outline-variant: #404943;
+  --xds-border: #30363d;
+  --xds-scrim: #090f15;
+  --xds-tertiary-container: #ae3032;
+  --xds-text-primary: #f0e6d8;
+  --xds-text-secondary: #bfc9c1;
+  --xds-text-inverse: #0f141b;
+  --xds-text-accent: #e9c349;
+  --bg: #0f141b;
+  --surface: #0f141b;
+  --surface-variant: #30353d;
+  --surface-container-low: #171c23;
+  --surface-container: #1b2027;
+  --surface-container-high: #252a32;
+  --primary: #95d4b3;
+  --primary-container: #2d6a4f;
+  --on-primary: #003824;
+  --text: #f0e6d8;
+  --text-variant: #bfc9c1;
+  --outline-variant: #404943;
+  --secondary: #e9c349;
+  --shadow-glow: 0 8px 40px rgba(9,15,21,0.55);
 }
 
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--xds-background, var(--bg));
+  color: var(--xds-text-primary, var(--text));
+  transition: background-color 180ms ease, color 180ms ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,10 +79,10 @@ body {
 .bg-surface-variant { background: var(--surface-variant); }
 .text-on-surface { color: var(--text); }
 .text-on-surface-variant { color: var(--text-variant); }
-.bg-mesh { background-image: radial-gradient(ellipse at 10% 10%, rgba(75,142,255,0.02) 0%, transparent 30%), radial-gradient(ellipse at 90% 80%, rgba(126,231,135,0.02) 0%, transparent 30%); }
+.bg-mesh { background-image: radial-gradient(ellipse at 10% 10%, rgba(149,212,179,0.02) 0%, transparent 30%), radial-gradient(ellipse at 90% 80%, rgba(233,195,73,0.02) 0%, transparent 30%); }
 .bg-primary { background: var(--primary); }
-.bg-primary\/5 { background: rgba(75,142,255,0.05); }
-.bg-secondary\/5 { background: rgba(126,231,135,0.05); }
+.bg-primary\/5 { background: color-mix(in srgb, var(--primary) 5%, transparent); }
+.bg-secondary\/5 { background: color-mix(in srgb, var(--secondary) 5%, transparent); }
 .text-primary { color: var(--primary); }
 .text-secondary { color: var(--secondary); }
 .bg-primary-container { background: var(--primary-container); }
@@ -63,7 +112,7 @@ body {
 .group:hover .group-hover\:opacity-100 { opacity: 1; }
 
 /* Outline / borders */
-.border-outline-variant\/10 { border-color: rgba(148,163,184,0.06); }
+.border-outline-variant\/10 { border-color: color-mix(in srgb, var(--outline-variant) 60%, transparent); }
 
 /* Small responsive niceties */
 @media (min-width: 1024px) {

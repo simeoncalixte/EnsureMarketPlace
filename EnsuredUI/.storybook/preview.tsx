@@ -6,6 +6,13 @@ import '../src/xds/colors.css'
 import '../src/index.css'
 import React from 'react'
 import { withRouter } from 'storybook-addon-remix-react-router'
+import { XdsThemeProvider } from '../src/xds/theme'
+
+const withXdsTheme = (Story: any) => (
+  <XdsThemeProvider>
+    <Story />
+  </XdsThemeProvider>
+)
 
 const withLocationPathControl = (Story: any, context: any) => {
   const locationPath = context.args?.locationPath
@@ -26,7 +33,7 @@ const withLocationPathControl = (Story: any, context: any) => {
   return (withRouter as any)(Story, context)
 }
 
-export const decorators = [withLocationPathControl]
+export const decorators = [withXdsTheme, withLocationPathControl]
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

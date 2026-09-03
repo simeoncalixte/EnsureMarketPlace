@@ -17,6 +17,9 @@ export const radii = {
 
 export const typography = {
   fontFamily: "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+  bodyFamily: "'EB Garamond', Georgia, serif",
+  headlineFamily: "'Newsreader', Georgia, serif",
+  labelFamily: "'Space Mono', 'JetBrains Mono', ui-monospace, Menlo, monospace",
   sizes: {
     xs: 12,
     sm: 14,

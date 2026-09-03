@@ -1,4 +1,8 @@
-// Design color palette tokens for EnsuredUI
+// Design color palette tokens for EnsuredUI. Semantic aliases resolve through
+// XDS theme variables; raw brand, neutral, data-viz, and vendor palettes stay
+// fixed so they can also be used by canvas/map renderers that do not resolve CSS.
+const themed = (name: string, fallback: string): string => `var(--xds-${name}, ${fallback})`
+
 export const colors = {
   // Brand
   brand: {
@@ -30,40 +34,41 @@ export const colors = {
   },
 
   // Semantic
-  success: '#16a34a',
-  info: '#0891b2',
-  warning: '#f59e0b',
-  danger: '#dc2626',
+  success: themed('success', '#95d4b3'),
+  info: themed('info', '#bfc9c1'),
+  warning: themed('warning', '#e9c349'),
+  danger: themed('danger', '#ffb3ae'),
 
   // Surfaces
-  background: '#071129',
-  surface: '#0b1220',
+  background: themed('background', '#0f141b'),
+  surface: themed('surface', '#0f141b'),
 
   // Semantic aliases
-  primary: '#4b8eff',
-  primaryContainer: '#e6f0ff',
-  onPrimaryContainer: '#05204b',
+  primary: themed('primary', '#95d4b3'),
+  primaryHover: themed('primary-hover', '#235a43'),
+  primaryContainer: themed('primary-container', '#2d6a4f'),
+  onPrimaryContainer: themed('on-primary-container', '#a8e7c5'),
   // Dark-navy text/icon shown on a solid `primary` fill (e.g. primary buttons).
-  onPrimary: '#002e69',
+  onPrimary: themed('on-primary', '#003824'),
 
-  secondary: '#7ee787',
-  secondaryContainer: '#08220f',
-  onSecondaryContainer: '#05220a',
+  secondary: themed('secondary', '#e9c349'),
+  secondaryContainer: themed('secondary-container', '#af8d11'),
+  onSecondaryContainer: themed('on-secondary-container', '#342800'),
 
-  error: '#ff6b6b',
-  errorContainer: '#3a0b0b',
-  onErrorContainer: '#fff5f5',
+  error: themed('error', '#ffb4ab'),
+  errorContainer: themed('error-container', '#93000a'),
+  onErrorContainer: themed('on-error-container', '#ffdad6'),
 
   // Surface containers
-  surfaceContainerLow: '#071423',
-  surfaceContainer: '#0b1220',
-  surfaceContainerHigh: '#0f1726',
-  surfaceContainerHighest: '#12202b',
+  surfaceContainerLow: themed('surface-container-low', '#171c23'),
+  surfaceContainer: themed('surface-container', '#1b2027'),
+  surfaceContainerHigh: themed('surface-container-high', '#252a32'),
+  surfaceContainerHighest: themed('surface-container-highest', '#30353d'),
 
-  outlineVariant: 'rgba(148,163,184,0.2)',
-  onSurface: '#e6eef8',
-  onSurfaceVariant: '#98a6bf',
-  tertiaryContainer: '#1f2a37',
+  outlineVariant: themed('outline-variant', '#404943'),
+  onSurface: themed('on-surface', '#dee2ec'),
+  onSurfaceVariant: themed('on-surface-variant', '#bfc9c1'),
+  tertiaryContainer: themed('tertiary-container', '#ae3032'),
 
   // Pure black/white anchors (for alpha overlays, scrims, shadows)
   black: '#000000',
@@ -71,31 +76,32 @@ export const colors = {
 
   // --- Extended brand / accent (promoted from recurring app usage) ---
   // Lighter primary used for text/icon accents on dark surfaces.
-  primarySoft: '#adc6ff',
+  primarySoft: themed('primary-soft', '#b1f0ce'),
   // Teal-green accent ramp, distinct from `secondary`/`success`.
-  accent: '#4edea3',
-  accentStrong: '#00a572',
+  accent: themed('accent', '#95d4b3'),
+  accentStrong: themed('accent-strong', '#2d6a4f'),
   // Brighter danger used on dark dashboard surfaces (distinct from `danger`/`error`).
-  dangerBright: '#ff5451',
+  dangerBright: themed('danger-bright', '#ffb3ae'),
+  dangerDeep: themed('danger-deep', '#721121'),
   // Soft salmon error text shown on dark error containers.
-  errorSoft: '#ffb4ab',
+  errorSoft: themed('error-soft', '#ffb4ab'),
 
   // --- Extended on-surface text ramp (dark theme) ---
-  onSurfaceStrong: '#dae2fd', // brightest body text
-  onSurfaceMuted: '#c1c6d7', // muted body text
+  onSurfaceStrong: themed('on-surface-strong', '#f0e6d8'), // brightest body text
+  onSurfaceMuted: themed('on-surface-muted', '#e2d9cc'), // muted body text
 
   // --- Surface ramp (dark dashboard blues, darkest -> lightest) ---
-  scrim: '#020617', // near-black overlay/scrim base
-  surfaceDeep: '#0b1326',
-  surfaceLow: '#0f1724',
-  surfacePanel: '#131b2e',
-  surfaceRaised: '#171f33',
-  surfaceHigh: '#222a3d',
-  surfaceElevated: '#2d3449',
+  scrim: themed('scrim', '#090f15'), // overlay/scrim base
+  surfaceDeep: themed('surface-deep', '#090f15'),
+  surfaceLow: themed('surface-low', '#171c23'),
+  surfacePanel: themed('surface-panel', '#1b2027'),
+  surfaceRaised: themed('surface-raised', '#252a32'),
+  surfaceHigh: themed('surface-high', '#30353d'),
+  surfaceElevated: themed('surface-elevated', '#343941'),
 
   // --- Outlines / borders ---
-  outline: '#8b90a0',
-  border: '#414755',
+  outline: themed('outline', '#8a938c'),
+  border: themed('border', '#30363d'),
 
   // --- Categorical data-visualization palette (chart series) ---
   dataViz: {
@@ -136,10 +142,10 @@ export const colors = {
 
   // Text
   text: {
-    primary: '#e6eef8',
-    secondary: '#98a6bf',
-    inverse: '#0b1220',
-    accent: 'rgba(75,142,255,1)'
+    primary: themed('text-primary', '#f0e6d8'),
+    secondary: themed('text-secondary', '#bfc9c1'),
+    inverse: themed('text-inverse', '#0f141b'),
+    accent: themed('text-accent', '#e9c349')
   }
   ,
   ui: {
@@ -156,8 +162,16 @@ export type Colors = typeof colors
  *
  * @example withAlpha(colors.primary, 0.12) // 'rgba(75, 142, 255, 0.12)'
  */
-export const withAlpha = (hex: string, alpha: number): string => {
-  const normalized = hex.replace('#', '')
+export const withAlpha = (color: string, alpha: number): string => {
+  const normalizedAlpha = Math.min(1, Math.max(0, alpha))
+
+  // Theme tokens are CSS variables. color-mix preserves their runtime nature,
+  // allowing one styled-component definition to respond to theme changes.
+  if (!color.startsWith('#')) {
+    return `color-mix(in srgb, ${color} ${normalizedAlpha * 100}%, transparent)`
+  }
+
+  const normalized = color.replace('#', '')
   const full =
     normalized.length === 3
       ? normalized
@@ -168,7 +182,7 @@ export const withAlpha = (hex: string, alpha: number): string => {
   const r = parseInt(full.slice(0, 2), 16)
   const g = parseInt(full.slice(2, 4), 16)
   const b = parseInt(full.slice(4, 6), 16)
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+  return `rgba(${r}, ${g}, ${b}, ${normalizedAlpha})`
 }
 
 export default colors

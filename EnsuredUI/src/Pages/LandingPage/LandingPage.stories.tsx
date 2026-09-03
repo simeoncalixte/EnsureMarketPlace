@@ -10,9 +10,9 @@ const meta: Meta = {
 export default meta
 
 const shellStyle: React.CSSProperties = {
-  background: '#071129',
+  background: 'var(--xds-background)',
   minHeight: '100vh',
-  color: '#dae2fd',
+  color: 'var(--xds-text-primary)',
 }
 
 export const Default = () => (

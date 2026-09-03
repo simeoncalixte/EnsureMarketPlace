@@ -195,7 +195,7 @@ const Card = styled.article<{ $accent: string; $error: boolean }>`
   padding: 0.95rem;
   border-radius: 10px;
   background: ${colors.surfacePanel};
-  border: 1px solid ${({ $error }) => ($error ? withAlpha(colors.error, 0.4) : withAlpha(colors.white, 0.12))};
+  border: 1px solid ${({ $error }) => ($error ? withAlpha(colors.error, 0.4) : withAlpha(colors.onSurface, 0.12))};
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   cursor: pointer;
 
@@ -250,8 +250,8 @@ const CardFacts = styled.div`
   gap: 0.7rem 0.6rem;
   padding: 0.8rem 0;
   margin: 0.6rem 0 0.5rem;
-  border-top: 1px solid ${withAlpha(colors.white, 0.05)};
-  border-bottom: 1px solid ${withAlpha(colors.white, 0.05)};
+  border-top: 1px solid ${withAlpha(colors.onSurface, 0.05)};
+  border-bottom: 1px solid ${withAlpha(colors.onSurface, 0.05)};
 `;
 
 const Fact = styled.div`
@@ -344,7 +344,7 @@ const LaneEmpty = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1.25rem 1rem;
-  border: 2px dashed ${withAlpha(colors.white, 0.06)};
+  border: 2px dashed ${withAlpha(colors.onSurface, 0.06)};
   border-radius: 8px;
   color: ${colors.neutral[500]};
   text-align: center;

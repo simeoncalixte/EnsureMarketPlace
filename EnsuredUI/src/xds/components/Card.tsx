@@ -41,7 +41,7 @@ export type XdsCardProps = CardProps
 // Original literal surface colors preserved exactly so existing pages render pixel-identical.
 const ORIGINAL_SURFACE = colors.surfaceRaised
 const ORIGINAL_ELEVATED = colors.surfaceElevated
-const ORIGINAL_BORDER = withAlpha(colors.white, 0.05)
+const ORIGINAL_BORDER = withAlpha(colors.onSurface, 0.05)
 
 const variantBackground: Record<XdsCardVariant, string> = {
   surface: ORIGINAL_SURFACE,

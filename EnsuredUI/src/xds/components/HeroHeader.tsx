@@ -5,7 +5,7 @@ export const HeroHeader: React.FC<{ title?: string; subtitle?: string; tag?: str
   return (
     <header style={{margin: '0 auto' }}>
       {tag && (
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 9999, background: withAlpha(colors.white, 0.03), border: `1px solid ${colors.outlineVariant}`, marginBottom: 16 }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 9999, background: withAlpha(colors.onSurface, 0.03), border: `1px solid ${colors.outlineVariant}`, marginBottom: 16 }}>
           <span style={{ width: 8, height: 8, borderRadius: 8, background: colors.secondary }} />
           <span style={{ fontSize: 10, fontFamily: 'ui-monospace, Menlo, monospace', textTransform: 'uppercase', letterSpacing: 1, color: colors.onSurfaceVariant }}>{tag}</span>
         </div>

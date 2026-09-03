@@ -34,7 +34,7 @@ const Item = styled.li<{ $state: 'active' | 'completed' | 'upcoming' }>`
   gap: ${spacing.xs}px;
   min-width: 0;
   color: ${({ $state }) =>
-    $state === 'active' ? colors.brand[500] : colors.neutral[400]};
+    $state === 'active' ? colors.primary : colors.neutral[400]};
 `
 
 const Number = styled.span<{ $state: 'active' | 'completed' | 'upcoming' }>`
@@ -42,7 +42,7 @@ const Number = styled.span<{ $state: 'active' | 'completed' | 'upcoming' }>`
   font-weight: ${typography.weights.bold};
   line-height: 1;
   color: ${({ $state }) =>
-    $state === 'active' ? colors.brand[500] : colors.neutral[400]};
+    $state === 'active' ? colors.primary : colors.neutral[400]};
 `
 
 const Label = styled.span`
@@ -56,7 +56,7 @@ const Title = styled.span<{ $state: 'active' | 'completed' | 'upcoming' }>`
   font-size: ${typography.sizes.sm}px;
   font-weight: ${typography.weights.semibold};
   color: ${({ $state }) =>
-    $state === 'active' ? colors.brand[500] : colors.neutral[500]};
+    $state === 'active' ? colors.primary : colors.neutral[500]};
 `
 
 const pad = (n: number): string => String(n).padStart(2, '0')

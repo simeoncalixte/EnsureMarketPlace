@@ -5,7 +5,7 @@ import { colors, withAlpha } from '../colors'
 
 const RowWrapper = styled.div<{ $hasError?: boolean }>`
   background: ${withAlpha(colors.surfaceDeep, 0.4)};
-  border: 1px solid ${(p) => (p.$hasError ? withAlpha(colors.dangerBright, 0.65) : withAlpha(colors.white, 0.05))};
+  border: 1px solid ${(p) => (p.$hasError ? withAlpha(colors.dangerBright, 0.65) : withAlpha(colors.onSurface, 0.05))};
   border-radius: 12px;
   padding: 16px 20px;
   display: flex;

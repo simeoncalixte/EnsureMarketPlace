@@ -1,5 +1,6 @@
 export * from './colors'
 export * from './tokens'
+export * from './theme'
 
 // Components
 export * from './components/ActivityFeed'
@@ -49,5 +50,8 @@ export * from './components/TimeSeriesChart'
 export * from './components/ToggleSwitch'
 export * from './components/TopBarNav'
 export * from './components/TopNavBar'
+export * from './components/ThemeToggle'
 export * from './components/Typography'
 export * from './components/ValidationMessage'
+export * from './components/Chatbot'
+export * from './hoc/withChatbot'

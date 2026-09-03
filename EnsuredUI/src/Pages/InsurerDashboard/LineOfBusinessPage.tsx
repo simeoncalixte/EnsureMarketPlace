@@ -82,7 +82,7 @@ const Table = styled.table`
   }
 
   tbody tr[data-kind='primary']:hover {
-    background: ${withAlpha(colors.white, 0.03)};
+    background: ${withAlpha(colors.onSurface, 0.03)};
   }
 
   tbody tr[data-kind='subtype'] td {
