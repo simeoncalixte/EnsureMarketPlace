@@ -1,11 +1,14 @@
 import { BrowserRouter } from 'react-router';
 import { AppRoutes } from './AppRoutes';
+import { XdsThemeProvider } from './xds/theme';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <XdsThemeProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </XdsThemeProvider>
   );
 }
 

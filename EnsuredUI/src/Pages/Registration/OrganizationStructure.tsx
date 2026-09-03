@@ -30,7 +30,7 @@ const ApproachCard = styled.button<{ $active?: boolean }>`
   text-align: left;
   color: inherit;
   border-radius: 14px;
-  border: 1px solid ${(props) => (props.$active ? withAlpha(colors.primary, 0.7) : withAlpha(colors.white, 0.06))};
+  border: 1px solid ${(props) => (props.$active ? withAlpha(colors.primary, 0.7) : withAlpha(colors.onSurface, 0.06))};
   background: ${(props) => (props.$active ? withAlpha(colors.primary, 0.08) : withAlpha(colors.surfaceDeep, 0.48))};
   padding: 18px;
   cursor: pointer;
@@ -98,7 +98,7 @@ const OrganizationCard = styled.button<{ $active?: boolean }>`
   width: 100%;
   text-align: left;
   border-radius: 14px;
-  border: 1px solid ${(props) => (props.$active ? withAlpha(colors.primary, 0.7) : withAlpha(colors.white, 0.06))};
+  border: 1px solid ${(props) => (props.$active ? withAlpha(colors.primary, 0.7) : withAlpha(colors.onSurface, 0.06))};
   background: ${(props) => (props.$active ? withAlpha(colors.primary, 0.08) : withAlpha(colors.surfaceDeep, 0.48))};
   padding: 18px;
   color: inherit;

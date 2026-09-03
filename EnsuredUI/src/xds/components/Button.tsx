@@ -30,7 +30,7 @@ const toneColor = (tone: XdsButtonTone): string => {
       return colors.danger
     case 'default':
     default:
-      return colors.brand[500]
+      return colors.primary
   }
 }
 
@@ -44,14 +44,14 @@ const variantStyles = (variant: XdsButtonVariant, tone: XdsButtonTone) => {
   switch (variant) {
     case 'primary':
       return css`
-        background: ${tinted ? accent : colors.brand[500]};
-        color: ${colors.white};
+        background: ${tinted ? accent : colors.primary};
+        color: ${colors.onPrimary};
         border: none;
       `
     case 'secondary':
       return css`
         background: ${tinted ? accent : colors.neutral[300]};
-        color: ${tinted ? colors.white : colors.text.primary};
+        color: ${tinted ? colors.onPrimary : colors.text.primary};
         border: none;
       `
     case 'ghost':
@@ -69,7 +69,7 @@ const variantStyles = (variant: XdsButtonVariant, tone: XdsButtonTone) => {
     case 'text':
       return css`
         background: transparent;
-        color: ${tinted ? accent : colors.brand[500]};
+        color: ${tinted ? accent : colors.primary};
         border: none;
       `
     default:
@@ -100,6 +100,11 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-family: Inter, system-ui, sans-serif;
   ${({ $variant, $tone }) => variantStyles($variant, $tone)}
   ${({ $size }) => sizeStyles($size)}
+
+  &:hover:not(:disabled) {
+    background: ${({ $variant, $tone }) =>
+      $variant === 'primary' && $tone === 'default' ? colors.primaryHover : undefined};
+  }
 
   &:disabled {
     cursor: not-allowed;

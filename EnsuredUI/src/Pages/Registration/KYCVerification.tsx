@@ -105,7 +105,7 @@ const DocList = styled.div`
 
 const CheckRow = styled.div`
   background: ${withAlpha(colors.surfaceDeep, 0.4)};
-  border: 1px solid ${withAlpha(colors.white, 0.05)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.05)};
   border-radius: ${radii.md}px;
   padding: 12px ${spacing.md}px;
   display: flex;

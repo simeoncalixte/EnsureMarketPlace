@@ -532,7 +532,7 @@ export const AggregatedDealCard = styled(DealCardSurface)`
   border: 1px solid ${withAlpha(colors.border, 0.18)};
   border-radius: 0.125rem;
   background: ${colors.surfaceRaised};
-  box-shadow: inset 0 1px 0 ${withAlpha(colors.white, 0.02)};
+  box-shadow: inset 0 1px 0 ${withAlpha(colors.onSurface, 0.02)};
   &:hover {
     background: ${colors.surfaceRaised};
   }

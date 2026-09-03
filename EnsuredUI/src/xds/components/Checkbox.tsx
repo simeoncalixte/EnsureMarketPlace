@@ -20,7 +20,7 @@ const Input = styled.input`
   accent-color: ${colors.primary};
   appearance: none;
   background: transparent;
-  border: 1px solid ${withAlpha(colors.white, 0.06)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.06)};
   display: inline-block;
 
   &:checked {

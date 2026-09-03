@@ -701,7 +701,7 @@ export const AddChannelIcon = styled.span`
 
 export const PickerPanel = styled.div`
   background: ${withAlpha(colors.surfaceDeep, 0.98)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   padding: 1.5rem;
   grid-column: 1 / -1;
@@ -734,8 +734,8 @@ export const PickerTypeCard = styled.button<{ $accent: string; $selected: boolea
   font-size: 0.8125rem;
   font-weight: 600;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
-  background: ${({ $selected, $accent }) => $selected ? `${$accent}1a` : withAlpha(colors.white, 0.03)};
-  border: 1.5px solid ${({ $selected, $accent }) => $selected ? $accent : withAlpha(colors.white, 0.06)};
+  background: ${({ $selected, $accent }) => $selected ? `${$accent}1a` : withAlpha(colors.onSurface, 0.03)};
+  border: 1.5px solid ${({ $selected, $accent }) => $selected ? $accent : withAlpha(colors.onSurface, 0.06)};
   color: ${({ $selected, $accent }) => $selected ? $accent : colors.neutral[500]};
   &:hover { border-color: ${({ $accent }) => $accent}; color: ${({ $accent }) => $accent}; background: ${({ $accent }) => $accent}14; }
 `;
@@ -757,7 +757,7 @@ export const PickerActions = styled.div`
   gap: 0.625rem;
   margin-top: 1.25rem;
   padding-top: 1rem;
-  border-top: 1px solid ${withAlpha(colors.white, 0.06)};
+  border-top: 1px solid ${withAlpha(colors.onSurface, 0.06)};
 `;
 
 // ---- RabbitMQ Config page ----
@@ -1872,7 +1872,7 @@ export const SFTPConnCard = styled.div`
   grid-column: 1;
   grid-row: 1 / 3;
   background: ${withAlpha(colors.surfacePanel, 0.72)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   padding: 1.75rem;
   position: relative;
@@ -1884,7 +1884,7 @@ export const SFTPConnCardDecor = styled.span`
   top: -1rem; right: -1rem;
   font-family: 'Material Symbols Outlined';
   font-size: 9rem;
-  color: ${withAlpha(colors.white, 0.03)};
+  color: ${withAlpha(colors.onSurface, 0.03)};
   pointer-events: none;
   user-select: none;
   line-height: 1;
@@ -1914,8 +1914,8 @@ export const SFTPAuthTab = styled.button<{ $active: boolean }>`
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
-  background: ${({ $active }) => $active ? withAlpha(colors.primary, 0.18) : withAlpha(colors.white, 0.04)};
-  border: 1.5px solid ${({ $active }) => $active ? colors.primary : withAlpha(colors.white, 0.08)};
+  background: ${({ $active }) => $active ? withAlpha(colors.primary, 0.18) : withAlpha(colors.onSurface, 0.04)};
+  border: 1.5px solid ${({ $active }) => $active ? colors.primary : withAlpha(colors.onSurface, 0.08)};
   color: ${({ $active }) => $active ? colors.primarySoft : colors.neutral[500]};
   &:hover { border-color: ${t.primary}; color: ${t.primarySoft}; }
 `;
@@ -1924,8 +1924,8 @@ export const SFTPKeyArea = styled.textarea`
   width: 100%;
   box-sizing: border-box;
   min-height: 8rem;
-  background: ${withAlpha(colors.white, 0.04)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  background: ${withAlpha(colors.onSurface, 0.04)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 0.5rem;
   color: ${colors.primarySoft};
   font-family: 'JetBrains Mono', monospace;
@@ -1943,7 +1943,7 @@ export const SFTPKnownHostsRow = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.625rem 0;
-  border-top: 1px solid ${withAlpha(colors.white, 0.06)};
+  border-top: 1px solid ${withAlpha(colors.onSurface, 0.06)};
 `;
 
 export const SFTPKnownHostsLabel = styled.span`
@@ -1962,7 +1962,7 @@ export const SFTPKnownHostsFp = styled.code`
 
 export const SFTPStatsCard = styled.div`
   background: ${withAlpha(colors.surfacePanel, 0.72)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   padding: 1.5rem;
 `;
@@ -1981,7 +1981,7 @@ export const SFTPStatRow = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 0;
-  border-bottom: 1px solid ${withAlpha(colors.white, 0.05)};
+  border-bottom: 1px solid ${withAlpha(colors.onSurface, 0.05)};
   &:last-child { border-bottom: none; }
 `;
 
@@ -1999,7 +1999,7 @@ export const SFTPStatValue = styled.span`
 
 export const SFTPSessionsCard = styled.div`
   background: ${withAlpha(colors.surfacePanel, 0.72)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   overflow: hidden;
 `;
@@ -2009,7 +2009,7 @@ export const SFTPSessionsTop = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid ${withAlpha(colors.white, 0.06)};
+  border-bottom: 1px solid ${withAlpha(colors.onSurface, 0.06)};
 `;
 
 export const SFTPSessionsTitle = styled.h3`
@@ -2032,13 +2032,13 @@ export const SFTPTh = styled.th`
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 500;
-  background: ${withAlpha(colors.white, 0.02)};
+  background: ${withAlpha(colors.onSurface, 0.02)};
 `;
 
 export const SFTPTr = styled.tr`
-  border-top: 1px solid ${withAlpha(colors.white, 0.05)};
+  border-top: 1px solid ${withAlpha(colors.onSurface, 0.05)};
   transition: background 0.12s;
-  &:hover { background: ${withAlpha(colors.white, 0.025)}; }
+  &:hover { background: ${withAlpha(colors.onSurface, 0.025)}; }
 `;
 
 export const SFTPTd = styled.td`
@@ -2098,7 +2098,7 @@ export const WebhookGrid = styled.div`
 export const WebhookEndpointCard = styled.div`
   grid-column: 1;
   background: ${withAlpha(colors.surfacePanel, 0.72)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   padding: 1.75rem;
   position: relative;
@@ -2110,7 +2110,7 @@ export const WebhookEndpointDecor = styled.span`
   top: -1rem; right: -1rem;
   font-family: 'Material Symbols Outlined';
   font-size: 9rem;
-  color: ${withAlpha(colors.white, 0.03)};
+  color: ${withAlpha(colors.onSurface, 0.03)};
   pointer-events: none;
   user-select: none;
   line-height: 1;
@@ -2130,8 +2130,8 @@ export const WebhookUrlDisplay = styled.div`
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  background: ${withAlpha(colors.white, 0.04)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  background: ${withAlpha(colors.onSurface, 0.04)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 0.5rem;
   padding: 0.625rem 0.75rem;
   margin-bottom: 1.25rem;
@@ -2177,8 +2177,8 @@ export const WebhookRotateBtn = styled.button`
   font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
-  background: ${withAlpha(colors.white, 0.05)};
-  border: 1px solid ${withAlpha(colors.white, 0.10)};
+  background: ${withAlpha(colors.onSurface, 0.05)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.10)};
   color: ${t.neutral400};
   white-space: nowrap;
   transition: background 0.15s, color 0.15s;
@@ -2189,7 +2189,7 @@ export const WebhookEventsCard = styled.div`
   grid-column: 2;
   grid-row: 1;
   background: ${withAlpha(colors.surfacePanel, 0.72)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   padding: 1.75rem;
 `;
@@ -2209,7 +2209,7 @@ export const WebhookEventRow = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.625rem 0;
-  border-bottom: 1px solid ${withAlpha(colors.white, 0.05)};
+  border-bottom: 1px solid ${withAlpha(colors.onSurface, 0.05)};
   &:last-child { border-bottom: none; }
 `;
 
@@ -2235,7 +2235,7 @@ export const WebhookDeliveryCard = styled.div`
   grid-column: 2;
   grid-row: 2;
   background: ${withAlpha(colors.surfacePanel, 0.72)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   padding: 1.75rem;
 `;
@@ -2253,7 +2253,7 @@ export const WebhookDeliveryTitle = styled.h2`
 export const WebhookLogsSection = styled.div`
   grid-column: 1 / -1;
   background: ${withAlpha(colors.surfacePanel, 0.72)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   border-radius: 1rem;
   overflow: hidden;
 `;
@@ -2263,7 +2263,7 @@ export const WebhookLogsTop = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid ${withAlpha(colors.white, 0.06)};
+  border-bottom: 1px solid ${withAlpha(colors.onSurface, 0.06)};
 `;
 
 export const WebhookLogsTitle = styled.h3`
@@ -2286,13 +2286,13 @@ export const WebhookTh = styled.th`
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 500;
-  background: ${withAlpha(colors.white, 0.02)};
+  background: ${withAlpha(colors.onSurface, 0.02)};
 `;
 
 export const WebhookTr = styled.tr`
-  border-top: 1px solid ${withAlpha(colors.white, 0.05)};
+  border-top: 1px solid ${withAlpha(colors.onSurface, 0.05)};
   transition: background 0.12s;
-  &:hover { background: ${withAlpha(colors.white, 0.025)}; }
+  &:hover { background: ${withAlpha(colors.onSurface, 0.025)}; }
 `;
 
 export const WebhookTd = styled.td`
@@ -2342,8 +2342,8 @@ export const WebhookReplayBtn = styled.button`
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  background: ${withAlpha(colors.white, 0.04)};
-  border: 1px solid ${withAlpha(colors.white, 0.08)};
+  background: ${withAlpha(colors.onSurface, 0.04)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.08)};
   color: ${t.neutral500};
   transition: background 0.15s, color 0.15s;
   &:hover { background: ${withAlpha(colors.primary, 0.12)}; border-color: ${t.primary}; color: ${t.primarySoft}; }

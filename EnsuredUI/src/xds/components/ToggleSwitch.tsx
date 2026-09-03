@@ -29,13 +29,13 @@ const Track = styled.button<{ $checked: boolean }>`
   padding: 0;
   border: none;
   border-radius: ${radii.round}px;
-  background: ${({ $checked }) => ($checked ? colors.brand[500] : colors.neutral[300])};
+  background: ${({ $checked }) => ($checked ? colors.primary : colors.surfaceElevated)};
   transition: background 0.2s ease;
   cursor: inherit;
   outline-offset: 2px;
 
   &:focus-visible {
-    outline: 2px solid ${colors.brand[400]};
+    outline: 2px solid ${colors.primary};
   }
 
   &:disabled {

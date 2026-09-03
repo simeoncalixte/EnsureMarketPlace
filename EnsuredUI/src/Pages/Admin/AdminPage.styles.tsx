@@ -155,7 +155,7 @@ export const TopBarTitle = styled.div`
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: ${colors.white};
+  color: ${colors.onSurfaceStrong};
   font-family: 'Manrope', sans-serif;
 `;
 
@@ -682,7 +682,7 @@ export const ViewAllBtn = styled.button`
   align-items: center;
   gap: 0.5rem;
   transition: color 150ms;
-  &:hover { color: ${colors.white}; }
+  &:hover { color: ${colors.onSurfaceStrong}; }
   .material-symbols-outlined { font-size: 0.75rem; }
 `;
 

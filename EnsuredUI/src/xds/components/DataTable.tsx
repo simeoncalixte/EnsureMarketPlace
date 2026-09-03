@@ -51,7 +51,7 @@ const Table = styled.table`
 `
 
 const HeaderRow = styled.tr`
-  background: ${withAlpha(colors.white, 0.02)};
+  background: ${withAlpha(colors.onSurface, 0.02)};
 `
 
 const HeaderCell = styled.th<{ $align?: Align }>`

@@ -288,7 +288,7 @@ const TableHeadCell = styled.th`
   letter-spacing: 0.14em;
   color: ${colors.onSurfaceVariant};
   text-align: left;
-  background: ${withAlpha(colors.white, 0.02)};
+  background: ${withAlpha(colors.onSurface, 0.02)};
 `
 
 const TableRow = styled.tr<{ $clickable?: boolean }>`
@@ -322,7 +322,7 @@ const SubmissionCard = styled.article<{ $accent: string }>`
   overflow: hidden;
   padding: 1rem;
   background: ${colors.surfacePanel};
-  border: 1px solid ${withAlpha(colors.white, 0.15)};
+  border: 1px solid ${withAlpha(colors.onSurface, 0.15)};
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   user-select: none;
   cursor: pointer;
@@ -388,8 +388,8 @@ const CardFacts = styled.div`
   gap: 0.75rem 0.6rem;
   padding: 0.85rem 0;
   margin: 0.7rem 0 1rem;
-  border-top: 1px solid ${withAlpha(colors.white, 0.05)};
-  border-bottom: 1px solid ${withAlpha(colors.white, 0.05)};
+  border-top: 1px solid ${withAlpha(colors.onSurface, 0.05)};
+  border-bottom: 1px solid ${withAlpha(colors.onSurface, 0.05)};
 `
 
 const Fact = styled.div`
@@ -430,7 +430,7 @@ const EmptyState = styled.div`
   justify-content: center;
   gap: 0.75rem;
   padding: 1.5rem 1rem;
-  border: 2px dashed ${withAlpha(colors.white, 0.05)};
+  border: 2px dashed ${withAlpha(colors.onSurface, 0.05)};
   border-radius: 8px;
   color: ${colors.neutral[500]};
   text-align: center;
