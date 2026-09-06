@@ -1,1 +1,0 @@
-function _(){const e=typeof window<"u"?window:void 0,t=(e==null?void 0:e.__API_BASE__)??(e==null?void 0:e.__VITE_API_BASE__)??(e==null?void 0:e.VITE_API_BASE)??(typeof import.meta<"u"&&"http://localhost:3001")??"";return String(t).replace(/\/$/,"")}export{_ as g};

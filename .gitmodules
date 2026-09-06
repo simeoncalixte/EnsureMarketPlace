@@ -1,0 +1,28 @@
+[submodule "EnsuredAPI"]
+	path = EnsuredAPI
+	url = https://github.com/simeoncalixte/EnsuredAPI.git
+	branch = main
+[submodule "EnsuredAuth"]
+	path = EnsuredAuth
+	url = https://github.com/simeoncalixte/EnsuredAuth.git
+	branch = main
+[submodule "EnsuredKYC"]
+	path = EnsuredKYC
+	url = https://github.com/simeoncalixte/EnsuredKYC.git
+	branch = main
+[submodule "EnsuredUI"]
+	path = EnsuredUI
+	url = https://github.com/simeoncalixte/EnsuredUI.git
+	branch = main
+[submodule "SubmissionUI"]
+	path = SubmissionUI
+	url = https://github.com/simeoncalixte/SubmissionUI.git
+	branch = main
+[submodule "docs"]
+	path = docs
+	url = https://github.com/simeoncalixte/EnsureMarketPlace-docs.git
+	branch = main
+[submodule "pdfs"]
+	path = pdfs
+	url = https://github.com/simeoncalixte/EnsureMarketPlace-pdfs.git
+	branch = main

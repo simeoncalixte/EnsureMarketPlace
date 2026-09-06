@@ -20,3 +20,8 @@ simplemaps_worldcities_*
 # PII, never commit. The app recreates these dirs at runtime.
 **/storage/registration-documents/
 **/storage/uploads/
+
+# Local metadata and environment copies
+.DS_Store
+**/.env*
+!**/.env.example

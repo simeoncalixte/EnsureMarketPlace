@@ -1,3 +1,0 @@
-Mock Proof of Address document for Storybook upload tests.
-Address: 123 Market Lane, Test City, TS 99999
-Issued Date: 2026-05-10
