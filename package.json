@@ -14,7 +14,11 @@
     "start:gateway": "npm --prefix EnsuredAuth run gateway",
     "test:auth": "npm --prefix EnsuredAuth test && npm --prefix EnsuredAPI run test:auth",
     "start:kyc": "npm --prefix EnsuredKYC run dev",
-    "test:kyc": "npm --prefix EnsuredKYC test"
+    "test:kyc": "npm --prefix EnsuredKYC test",
+    "setup:ui": "npm --prefix EnsuredXDS ci && npm --prefix EnsuredUI ci",
+    "build:ui": "npm --prefix EnsuredXDS run build && npm --prefix EnsuredUI run build",
+    "storybook:xds": "npm --prefix EnsuredXDS run storybook",
+    "test:xds": "npm --prefix EnsuredXDS test"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.36",

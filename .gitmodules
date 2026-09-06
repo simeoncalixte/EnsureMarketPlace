@@ -26,3 +26,7 @@
 	path = pdfs
 	url = https://github.com/simeoncalixte/EnsureMarketPlace-pdfs.git
 	branch = main
+[submodule "EnsuredXDS"]
+	path = EnsuredXDS
+	url = https://github.com/simeoncalixte/EnsuredXDS.git
+	branch = main

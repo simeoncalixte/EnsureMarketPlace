@@ -1,12 +1,13 @@
 # EnsureMarketPlace
 
-This repository coordinates seven independent private repositories through Git submodules. Each directory has its own commits and remote; `.claude` and shared project files remain here. The earlier monorepo history is preserved in this parent repository. Child repositories start from the code snapshot at the split.
+This repository coordinates eight independent private repositories through Git submodules. Each directory has its own commits and remote; `.claude` and shared project files remain here. The earlier monorepo history is preserved in this parent repository. Child repositories start from the code snapshot at the split.
 
 | Directory | Repository |
 | --- | --- |
 | `EnsuredAPI` | [EnsuredAPI](https://github.com/simeoncalixte/EnsuredAPI) |
 | `EnsuredAuth` | [EnsuredAuth](https://github.com/simeoncalixte/EnsuredAuth) |
 | `EnsuredKYC` | [EnsuredKYC](https://github.com/simeoncalixte/EnsuredKYC) |
+| `EnsuredXDS` | [EnsuredXDS](https://github.com/simeoncalixte/EnsuredXDS) |
 | `EnsuredUI` | [EnsuredUI](https://github.com/simeoncalixte/EnsuredUI) |
 | `SubmissionUI` | [SubmissionUI](https://github.com/simeoncalixte/SubmissionUI) |
 | `docs` | [EnsureMarketPlace-docs](https://github.com/simeoncalixte/EnsureMarketPlace-docs) |
@@ -37,3 +38,7 @@ Account registration, email/password login, social sign-in and session verificat
 ## KYC
 
 [EnsuredKYC](EnsuredKYC/README.md) owns KYC submissions, private evidence, review decisions and verification status in a separate service/database. Swagger is at `http://localhost:3002/kyc/docs/`. The marketplace consumes status only. See the service guide for setup, reviewer access and preservation/import of legacy records.
+
+## Shared UI library
+
+[EnsuredXDS](EnsuredXDS/README.md) provides `@ensured/xds`, consumed by EnsuredUI as a sibling package. After initializing submodules, run `npm run setup:ui`, then `npm run start`. Use `npm run build:ui` to build both projects, or `npm run storybook:xds` for the shared component catalogue.
