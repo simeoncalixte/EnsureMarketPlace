@@ -1,0 +1,97 @@
+# Applications use the shared PostgreSQL service on ensured-platform.
+services:
+  auth:
+    build: ./EnsuredAuth
+    container_name: ensured-auth
+    env_file: ./EnsuredAuth/.env
+    environment:
+      AUTH_DEV_UI_ORIGIN: http://localhost:3000
+      AUTH_BIND_HOST: 0.0.0.0
+      AUTH_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_identity
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+    command: ['sh', '-c', 'npm run migrate && npm start']
+    ports: ['127.0.0.1:3003:3003']
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3003/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  kyc:
+    build: ./EnsuredKYC
+    container_name: ensured-kyc
+    env_file: ./EnsuredKYC/.env
+    environment:
+      KYC_BIND_HOST: 0.0.0.0
+      KYC_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_kyc
+    command: ['sh', '-c', 'npm run migrate && npm start']
+    ports: ['127.0.0.1:3004:3004']
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3004/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  gateway:
+    build: ./EnsuredAuth
+    container_name: ensured-gateway
+    env_file: ./EnsuredAuth/.env
+    environment:
+      AUTH_DEV_UI_ORIGIN: http://localhost:3000
+      AUTH_BIND_HOST: 0.0.0.0
+      AUTH_INTERNAL_URL: http://auth:3003
+      KYC_INTERNAL_URL: http://kyc:3004
+      MARKETPLACE_API_URL: http://api:3001
+      MARKETPLACE_UI_URL: http://frontend.localhost:3000
+      SERVICES_REGISTRY_URL: ''
+    command: ['npm', 'run', 'start:gateway']
+    ports: ['127.0.0.1:3002:3002']
+    restart: unless-stopped
+    depends_on:
+      auth: { condition: service_healthy }
+      kyc: { condition: service_healthy }
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3002/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  catalog:
+    build: ./EnsuredServices
+    container_name: ensured-services
+    environment:
+      SERVICES_HOST: 0.0.0.0
+      SERVICES_READ_TOKEN: ${DOCKER_SERVICES_READ_TOKEN:?Run scripts/start-docker-services.mjs}
+      SERVICES_PROVIDER: local
+      SERVICES_CATALOG_FILE: /app/catalog.docker.json
+    volumes: ['./EnsuredServices/catalog.docker.json:/app/catalog.docker.json:ro']
+    ports: ['127.0.0.1:3010:3010']
+    restart: unless-stopped
+  submission-ui:
+    build: ./SubmissionUI
+    container_name: ensured-submission-ui
+    command: ['npm', 'run', 'frontend']
+    ports: ['127.0.0.1:30025:30025']
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:30025/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  submission-relay:
+    build: ./SubmissionUI
+    container_name: ensured-submission-relay
+    command: ['npm', 'run', 'relay']
+    environment:
+      RABBIT_URL: amqp://rabbitmq
+    ports: ['127.0.0.1:30026:30026']
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:30026/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+networks:
+  default:
+    name: ensured-platform
+    external: true

@@ -1,0 +1,12 @@
+**/node_modules
+**/.git
+**/.env
+**/.env.*
+**/test-results
+**/storybook-static
+**/storybook-live
+**/dist
+**/dist-standalone
+docker-backups
+output
+pdfs

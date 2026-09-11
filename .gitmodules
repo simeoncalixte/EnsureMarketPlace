@@ -30,3 +30,23 @@
 	path = EnsuredXDS
 	url = https://github.com/simeoncalixte/EnsuredXDS.git
 	branch = main
+[submodule "EnsuredServices"]
+	path = EnsuredServices
+	url = https://github.com/simeoncalixte/EnsuredServices.git
+	branch = main
+[submodule "EnsuredMarketplace"]
+	path = EnsuredMarketplace
+	url = https://github.com/simeoncalixte/EnsuredMarketplace.git
+	branch = main
+[submodule "EnsuredAuthUI"]
+	path = EnsuredAuthUI
+	url = https://github.com/simeoncalixte/EnsuredAuthUI.git
+	branch = main
+[submodule "EnsuredNetwork"]
+	path = EnsuredNetwork
+	url = https://github.com/simeoncalixte/EnsuredNetwork.git
+	branch = main
+[submodule "EnsuredLogistics"]
+	path = EnsuredLogistics
+	url = https://github.com/simeoncalixte/EnsuredLogistics.git
+	branch = main
