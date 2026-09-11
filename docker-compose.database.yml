@@ -1,0 +1,27 @@
+# Shared development PostgreSQL. Keep the existing marketplace volume/project.
+name: ensuredapi
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ensured-api-postgres
+    environment:
+      POSTGRES_DB: ensured_marketplace
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: ['127.0.0.1:5432:5432']
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init-databases.sql:/docker-entrypoint-initdb.d/01-databases.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d ensured_marketplace']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+volumes:
+  postgres_data:
+    name: ensuredapi_postgres_data
+networks:
+  default:
+    name: ensured-platform
+    external: true

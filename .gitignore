@@ -25,3 +25,9 @@ simplemaps_worldcities_*
 .DS_Store
 **/.env*
 !**/.env.example
+
+# Local database migration backups
+/docker-backups/
+
+# Local rollout database snapshots and image references
+/output/platform-admin-rollout/
