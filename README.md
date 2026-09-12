@@ -85,3 +85,7 @@ If you previously used `EnsuredAPI/docker-compose.auth.yml`, its former `identit
 ## Insurance professional network
 
 [EnsuredNetwork](EnsuredNetwork/README.md) is a separate social application with its own backend/database and an XDS microfrontend embedded at `/network`. Existing identity and gateway services own authentication. Its guide includes live-server Storybook journeys; see its README for isolated test setup and integration secrets.
+
+## Email connectors
+
+[EnsuredEmail](EnsuredEmail/README.md) owns Gmail and Microsoft Graph mailbox access and OAuth exchanges as a separate application. EnsuredAPI discovers `ensured-email` through EnsuredServices and calls it over authenticated HTTP and retains channel state, submission creation, parsing and validation. Configure `SERVICES_REGISTRY_URL`, `SERVICES_READ_TOKEN` (when required by the registry), and the shared `EMAIL_SERVICE_SECRET` before using email channels. See the project README for setup and migration instructions.

@@ -41,7 +41,11 @@
     "network:test": "npm --prefix EnsuredNetwork test",
     "network:storybook": "npm --prefix EnsuredNetwork run storybook:fixtures",
     "network:storybook:live": "npm --prefix EnsuredNetwork run storybook:live",
-    "network:test:live": "npm --prefix EnsuredNetwork run test:storybook:live"
+    "network:test:live": "npm --prefix EnsuredNetwork run test:storybook:live",
+    "setup:email": "npm --prefix EnsuredEmail ci && npm --prefix EnsuredEmail run build",
+    "start:email": "npm --prefix EnsuredEmail start",
+    "build:email": "npm --prefix EnsuredEmail run build",
+    "test:email": "npm --prefix EnsuredEmail test && npm --prefix EnsuredAPI run test:email && node --test EnsuredServices/test/emailCatalog.test.js"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.36",

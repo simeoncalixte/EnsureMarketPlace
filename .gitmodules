@@ -50,3 +50,7 @@
 	path = EnsuredLogistics
 	url = https://github.com/simeoncalixte/EnsuredLogistics.git
 	branch = main
+[submodule "EnsuredEmail"]
+	path = EnsuredEmail
+	url = https://github.com/simeoncalixte/EnsuredEmail.git
+	branch = main
