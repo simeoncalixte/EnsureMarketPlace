@@ -1,0 +1,179 @@
+{
+  "test": "should process organization defined ui elements",
+  "status": "passed",
+  "source": "Console output from the completed live TypeSafe API test",
+  "note": "This contains the logged results, not the raw API response. Probability distributions were validated by the test but were not logged.",
+  "fieldCount": 28,
+  "allChoicesMatched": true,
+  "probabilityChecksPassed": true,
+  "results": [
+    {
+      "field": "applicationState[0][0]:lineOfBusiness",
+      "expected": "xds.select",
+      "selected": "xds.select",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[0][1]:subType",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[0][2]:subjectName",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[0][3]:locationInfo",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.98
+    },
+    {
+      "field": "applicationState[0][4]:countryOfRisk",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.98
+    },
+    {
+      "field": "applicationState[0][5]:subjectInsuredValue",
+      "expected": "xds.number",
+      "selected": "xds.number",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[0][6]:requestedCoverages",
+      "expected": "xds.requested-coverage",
+      "selected": "xds.requested-coverage",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[1][0]:lineOfBusiness",
+      "expected": "xds.select",
+      "selected": "xds.select",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[1][1]:subType",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[1][2]:subjectName",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[1][3]:locationInfo",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.97
+    },
+    {
+      "field": "applicationState[1][4]:countryOfRisk",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.99
+    },
+    {
+      "field": "applicationState[1][5]:subjectInsuredValue",
+      "expected": "xds.number",
+      "selected": "xds.number",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[1][6]:requestedCoverages",
+      "expected": "xds.requested-coverage",
+      "selected": "xds.requested-coverage",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[2][0]:lineOfBusiness",
+      "expected": "xds.select",
+      "selected": "xds.select",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[2][1]:subType",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[2][2]:subjectName",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[2][3]:locationInfo",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.96
+    },
+    {
+      "field": "applicationState[2][4]:countryOfRisk",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.99
+    },
+    {
+      "field": "applicationState[2][5]:subjectInsuredValue",
+      "expected": "xds.number",
+      "selected": "xds.number",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[2][6]:requestedCoverages",
+      "expected": "xds.requested-coverage",
+      "selected": "xds.requested-coverage",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[3][0]:lineOfBusiness",
+      "expected": "xds.select",
+      "selected": "xds.select",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[3][1]:subType",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[3][2]:subjectName",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[3][3]:locationInfo",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.98
+    },
+    {
+      "field": "applicationState[3][4]:countryOfRisk",
+      "expected": "xds.input",
+      "selected": "xds.input",
+      "confidence": 0.99
+    },
+    {
+      "field": "applicationState[3][5]:subjectInsuredValue",
+      "expected": "xds.number",
+      "selected": "xds.number",
+      "confidence": 1
+    },
+    {
+      "field": "applicationState[3][6]:requestedCoverages",
+      "expected": "xds.requested-coverage",
+      "selected": "xds.requested-coverage",
+      "confidence": 1
+    }
+  ]
+}

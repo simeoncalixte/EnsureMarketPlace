@@ -54,3 +54,63 @@
 	path = EnsuredEmail
 	url = https://github.com/simeoncalixte/EnsuredEmail.git
 	branch = main
+[submodule "EnsuredPipelineShared"]
+	path = EnsuredPipelineShared
+	url = https://github.com/simeoncalixte/EnsuredPipelineShared.git
+[submodule "EnsuredPipelineIngestionAmqp"]
+	path = EnsuredPipelineIngestionAmqp
+	url = https://github.com/simeoncalixte/EnsuredPipelineIngestionAmqp.git
+[submodule "EnsuredPipelineIngestion"]
+	path = EnsuredPipelineIngestion
+	url = https://github.com/simeoncalixte/EnsuredPipelineIngestion.git
+[submodule "EnsuredPipelineOcr"]
+	path = EnsuredPipelineOcr
+	url = https://github.com/simeoncalixte/EnsuredPipelineOcr.git
+[submodule "EnsuredPipelineClassification"]
+	path = EnsuredPipelineClassification
+	url = https://github.com/simeoncalixte/EnsuredPipelineClassification.git
+[submodule "EnsuredPipelineExtraction"]
+	path = EnsuredPipelineExtraction
+	url = https://github.com/simeoncalixte/EnsuredPipelineExtraction.git
+[submodule "EnsuredPipelineLocationDiscovery"]
+	path = EnsuredPipelineLocationDiscovery
+	url = https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery.git
+[submodule "EnsuredPipelineNormalization"]
+	path = EnsuredPipelineNormalization
+	url = https://github.com/simeoncalixte/EnsuredPipelineNormalization.git
+[submodule "EnsuredPipelineValidation"]
+	path = EnsuredPipelineValidation
+	url = https://github.com/simeoncalixte/EnsuredPipelineValidation.git
+[submodule "EnsuredPipelineSchemaGeneration"]
+	path = EnsuredPipelineSchemaGeneration
+	url = https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration.git
+[submodule "EnsuredPipelinePreRating"]
+	path = EnsuredPipelinePreRating
+	url = https://github.com/simeoncalixte/EnsuredPipelinePreRating.git
+[submodule "EnsuredPipelineCapacity"]
+	path = EnsuredPipelineCapacity
+	url = https://github.com/simeoncalixte/EnsuredPipelineCapacity.git
+[submodule "EnsuredPipelineOracleAttestation"]
+	path = EnsuredPipelineOracleAttestation
+	url = https://github.com/simeoncalixte/EnsuredPipelineOracleAttestation.git
+[submodule "EnsuredPipelineWorkflow"]
+	path = EnsuredPipelineWorkflow
+	url = https://github.com/simeoncalixte/EnsuredPipelineWorkflow.git
+[submodule "EnsuredPipelineRiskCompute"]
+	path = EnsuredPipelineRiskCompute
+	url = https://github.com/simeoncalixte/EnsuredPipelineRiskCompute.git
+[submodule "EnsuredPipelineStorageSearch"]
+	path = EnsuredPipelineStorageSearch
+	url = https://github.com/simeoncalixte/EnsuredPipelineStorageSearch.git
+[submodule "EnsuredSubmissionFeedback"]
+	path = EnsuredSubmissionFeedback
+	url = https://github.com/simeoncalixte/EnsuredSubmissionFeedback.git
+[submodule "EnsuredConstants"]
+	path = EnsuredConstants
+	url = https://github.com/simeoncalixte/EnsuredConstants.git
+[submodule "EnsuredPipelineFinancialDiscovery"]
+	path = EnsuredPipelineFinancialDiscovery
+	url = https://github.com/simeoncalixte/EnsuredPipelineFinancialDiscovery.git
+[submodule "EnsuredPipelineSubjectDiscovery"]
+	path = EnsuredPipelineSubjectDiscovery
+	url = https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery.git
