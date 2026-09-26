@@ -1,0 +1,172 @@
+{
+  "submissionId": 3,
+  "testedAt": "2026-09-21T00:00:58.082Z",
+  "providerMode": "live",
+  "provider": "qwen",
+  "model": "qwen3-32b",
+  "endpoint": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+  "inputSummary": {
+    "subjectCount": 4,
+    "documents": [
+      {
+        "id": "document-0",
+        "fileName": "body.txt",
+        "characters": 0
+      },
+      {
+        "id": "document-1",
+        "fileName": "Property_003_Miami_Biscayne.pdf",
+        "characters": 737
+      },
+      {
+        "id": "document-2",
+        "fileName": "Property_002_Fremont_Industrial-1.pdf",
+        "characters": 736
+      },
+      {
+        "id": "document-3",
+        "fileName": "Property_001_Austin_Capitol.pdf",
+        "characters": 733
+      },
+      {
+        "id": "document-4",
+        "fileName": "Property_002_Fremont_Industrial.pdf",
+        "characters": 736
+      },
+      {
+        "id": "document-5",
+        "fileName": "Property_004_NYC_WallSt.pdf",
+        "characters": 731
+      },
+      {
+        "id": "document-6",
+        "fileName": "Master_Real_Property_Portfolio_Proposal.pdf",
+        "characters": 1637
+      }
+    ]
+  },
+  "persisted": true,
+  "result": {
+    "ok": true,
+    "service": "financialDiscovery",
+    "facts": [
+      {
+        "kind": "other",
+        "label": "Total Schedule Building Limit",
+        "value": "$23,350,000 USD",
+        "scope": "portfolio",
+        "subjectIndex": null,
+        "subjectId": null,
+        "coverage": null,
+        "period": null,
+        "currency": "USD",
+        "amount": 23350000,
+        "documentId": "document-6",
+        "evidence": "TOTAL SCHEDULE BUILDING LIMIT $23,350,000 USD ANNUAL RENTAL INCOME COVERED $1,870,000 USD",
+        "subjectEvidence": null,
+        "needsReview": true,
+        "conflicting": false
+      },
+      {
+        "kind": "deductible",
+        "label": "Special Form Commercial Property Deductible",
+        "value": "$5,000 per Occ.",
+        "scope": "portfolio",
+        "subjectIndex": null,
+        "subjectId": null,
+        "coverage": "Special Form Commercial Property",
+        "period": null,
+        "currency": null,
+        "amount": null,
+        "documentId": "document-6",
+        "evidence": "Special Form Commercial Property Replacement Cost (100%) $23,350,000 Blanket Limit $5,000 per Occ. REQUESTED",
+        "subjectEvidence": null,
+        "needsReview": true,
+        "conflicting": false
+      },
+      {
+        "kind": "limit",
+        "label": "Commercial General Liability Master Limit",
+        "value": "$1,000,000 / $2,000,000",
+        "scope": "portfolio",
+        "subjectIndex": null,
+        "subjectId": null,
+        "coverage": "Commercial General Liability (Master)",
+        "period": null,
+        "currency": null,
+        "amount": null,
+        "documentId": "document-6",
+        "evidence": "REQUESTED Commercial General Liability (Master) Occurrence Form $1,000,000 / $2,000,000 $0 Deductible REQUESTED",
+        "subjectEvidence": null,
+        "needsReview": true,
+        "conflicting": false
+      }
+    ],
+    "warnings": [
+      "Rejected financial fact 0: evidence does not isolate the referenced subject",
+      "Rejected financial fact 1: unsupported currency, coverage or period",
+      "Rejected financial fact 2: evidence does not isolate the referenced subject",
+      "Rejected financial fact 3: evidence does not isolate the referenced subject",
+      "Rejected financial fact 4: evidence does not isolate the referenced subject",
+      "Rejected financial fact 5: unsupported currency, coverage or period",
+      "Rejected financial fact 6: evidence does not isolate the referenced subject",
+      "Rejected financial fact 7: unsupported currency, coverage or period",
+      "Rejected financial fact 8: evidence does not isolate the referenced subject",
+      "Rejected financial fact 9: evidence does not isolate the referenced subject",
+      "Rejected financial fact 10: evidence does not isolate the referenced subject",
+      "Rejected financial fact 11: unsupported currency, coverage or period",
+      "Rejected financial fact 12: evidence does not isolate the referenced subject",
+      "Rejected financial fact 13: unsupported currency, coverage or period",
+      "Rejected financial fact 14: evidence does not isolate the referenced subject",
+      "Rejected financial fact 15: evidence does not isolate the referenced subject",
+      "Rejected financial fact 16: evidence does not isolate the referenced subject",
+      "Rejected financial fact 17: unsupported currency, coverage or period",
+      "Rejected financial fact 18: evidence does not isolate the referenced subject",
+      "Rejected financial fact 19: unsupported currency, coverage or period",
+      "Rejected financial fact 20: evidence does not isolate the referenced subject",
+      "Rejected financial fact 21: evidence does not isolate the referenced subject",
+      "Rejected financial fact 22: evidence does not isolate the referenced subject",
+      "Rejected financial fact 23: unsupported currency, coverage or period",
+      "Rejected financial fact 24: value or evidence is not present in the source document",
+      "Rejected financial fact 26: unsupported currency, coverage or period",
+      "Rejected financial fact 27: value or evidence is not present in the source document",
+      "Rejected financial fact 29: unsupported currency, coverage or period"
+    ],
+    "needsReview": true,
+    "factCount": 3,
+    "sourceFingerprint": "3add56053013bd48432e22659089d4851d4449a215fd1b6e9ad64fdddcc4afbd",
+    "sourceSubjectDiscoveryFingerprint": "baf61ffaab5425b7711bf4317b20e7a6c8bb88d675c0122fe2c9a361d1e816b7",
+    "sourceDocumentsFingerprint": "f80dc30dac33ee89aac78aa7b891bbea2a2f4bf5339d3261acd4cd0a10569a2f",
+    "generatedAt": "2026-09-21T00:00:58.056Z",
+    "documents": [
+      {
+        "id": "document-0",
+        "fileName": "body.txt"
+      },
+      {
+        "id": "document-1",
+        "fileName": "Property_003_Miami_Biscayne.pdf"
+      },
+      {
+        "id": "document-2",
+        "fileName": "Property_002_Fremont_Industrial-1.pdf"
+      },
+      {
+        "id": "document-3",
+        "fileName": "Property_001_Austin_Capitol.pdf"
+      },
+      {
+        "id": "document-4",
+        "fileName": "Property_002_Fremont_Industrial.pdf"
+      },
+      {
+        "id": "document-5",
+        "fileName": "Property_004_NYC_WallSt.pdf"
+      },
+      {
+        "id": "document-6",
+        "fileName": "Master_Real_Property_Portfolio_Proposal.pdf"
+      }
+    ]
+  }
+}

@@ -89,3 +89,25 @@ If you previously used `EnsuredAPI/docker-compose.auth.yml`, its former `identit
 ## Email connectors
 
 [EnsuredEmail](EnsuredEmail/README.md) owns Gmail and Microsoft Graph mailbox access and OAuth exchanges as a separate application. EnsuredAPI discovers `ensured-email` through EnsuredServices and calls it over authenticated HTTP and retains channel state, submission creation, parsing and validation. Configure `SERVICES_REGISTRY_URL`, `SERVICES_READ_TOKEN` (when required by the registry), and the shared `EMAIL_SERVICE_SECRET` before using email channels. See the project README for setup and migration instructions.
+
+## Standalone pipeline stage repositories
+
+The 15 pipeline operations now have separate TypeScript packages and private repositories, with shared persistence/provider support. Run `npm run pipeline:setup` to install and build them, and `npm run pipeline:test` for package tests. See [PIPELINE_PACKAGES.md](PIPELINE_PACKAGES.md) for repository links, standalone bootstrap instructions, and migration boundaries.
+
+### Shared environment
+
+`EnsuredAPI/.env` is the shared local configuration for all packages. Create it from
+`EnsuredAPI/.env.example` and keep service, provider, and frontend settings there.
+Package-local `.env` files are no longer loaded. Existing shell/container variables
+take precedence, and test suites retain their explicit test overrides. Vite reads
+its environment files from `EnsuredAPI` and exposes only `VITE_` settings to browsers;
+never prefix secrets with `VITE_`. Restart running processes after changing settings.
+
+Pipeline source and compiled modules resolve the shared file relative to the package,
+so importing a provider from another working directory uses the same configuration.
+Deployments without the repository's `.env` should inject configuration through the
+process environment. Explicit live-test environment files remain supported.
+
+### Submission feedback service
+
+`EnsuredSubmissionFeedback/` is an independent local Git repository and HTTP service for field feedback, immutable submission versions and restores. See [its README](EnsuredSubmissionFeedback/README.md). Run it with `docker-compose.feedback.yml`; EnsuredAPI forwards authorized requests using `SUBMISSION_FEEDBACK_URL` and `SUBMISSION_FEEDBACK_TOKEN`. The service owns its PostgreSQL schema and does not mutate pipeline artifacts.

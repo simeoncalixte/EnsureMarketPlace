@@ -4,7 +4,7 @@ import { parseEnv } from 'node:util';
 import { randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 process.chdir(fileURLToPath(new URL('../', import.meta.url)));
-const envPath = 'EnsuredServices/.env';
+const envPath = 'EnsuredAPI/.env';
 let catalogEnv = existsSync(envPath) ? readFileSync(envPath, 'utf8') : '';
 let catalog = parseEnv(catalogEnv);
 if (!catalog.SERVICES_READ_TOKEN) {

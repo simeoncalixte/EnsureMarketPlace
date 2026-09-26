@@ -6,10 +6,10 @@
     "submission:build": "npm --prefix SubmissionUI run build",
     "submission:preview": "npm --prefix SubmissionUI run preview",
     "start:api": "npm --prefix EnsuredAPI run dev",
-    "test": "npm --prefix EnsuredAPI test",
+    "test": "npm run pipeline:test && npm --prefix EnsuredAPI test",
     "test:api": "npm --prefix EnsuredAPI test",
     "test:channels": "npm --prefix channels test",
-    "test:all": "npm run test:api && npm run test:channels",
+    "test:all": "npm run test && npm run test:channels",
     "start:auth": "npm --prefix EnsuredAuth run dev",
     "start:gateway": "npm --prefix EnsuredAuth run gateway",
     "test:auth": "npm --prefix EnsuredAuth test && npm --prefix EnsuredAPI run test:auth",
@@ -45,10 +45,34 @@
     "setup:email": "npm --prefix EnsuredEmail ci && npm --prefix EnsuredEmail run build",
     "start:email": "npm --prefix EnsuredEmail start",
     "build:email": "npm --prefix EnsuredEmail run build",
-    "test:email": "npm --prefix EnsuredEmail test && npm --prefix EnsuredAPI run test:email && node --test EnsuredServices/test/emailCatalog.test.js"
+    "test:email": "npm --prefix EnsuredEmail test && npm --prefix EnsuredAPI run test:email && node --test EnsuredServices/test/emailCatalog.test.js",
+    "pipeline:setup": "npm install && npm run pipeline:build",
+    "pipeline:build": "node scripts/pipeline-packages.mjs build",
+    "pipeline:test": "node scripts/pipeline-packages.mjs test",
+    "pipeline:verify": "node scripts/pipeline-packages.mjs verify && node scripts/verify-pipeline-parity.mjs"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.36",
     "styled-components": "^6.3.12"
-  }
+  },
+  "workspaces": [
+    "EnsuredPipelineShared",
+    "EnsuredPipelineIngestion",
+    "EnsuredPipelineOcr",
+    "EnsuredPipelineClassification",
+    "EnsuredPipelineExtraction",
+    "EnsuredPipelineSubjectDiscovery",
+    "EnsuredPipelineFinancialDiscovery",
+    "EnsuredPipelineLocationDiscovery",
+    "EnsuredPipelineNormalization",
+    "EnsuredPipelineValidation",
+    "EnsuredPipelineSchemaGeneration",
+    "EnsuredPipelinePreRating",
+    "EnsuredPipelineCapacity",
+    "EnsuredPipelineOracleAttestation",
+    "EnsuredPipelineWorkflow",
+    "EnsuredPipelineRiskCompute",
+    "EnsuredPipelineStorageSearch",
+    "EnsuredPipelineIngestionAmqp"
+  ]
 }

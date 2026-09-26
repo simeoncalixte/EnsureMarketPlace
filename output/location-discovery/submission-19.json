@@ -1,0 +1,720 @@
+{
+  "submissionId": 19,
+  "testedAt": "2026-09-20T13:30:46.641Z",
+  "subjectDiscoverySource": "live-provider",
+  "sourceSubjectDiscovery": {
+    "ok": true,
+    "service": "subjectDiscovery",
+    "subjects": [
+      {
+        "label": "Property_001_Austin_Capitol.pdf",
+        "location": "1100 Congress Ave, Austin, TX 78701",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_001_Austin_Capitol.pdf – 1100 Congress Ave, Austin, TX 78701",
+        "linesOfBusiness": [
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_retail",
+            "subTypeLabel": "Retail",
+            "subTypeSource": "catalog",
+            "evidence": "Commercial Property / Structure $4,500,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Multi-Family (12 Units)",
+            "evidence": "OCCUPANCY / USAGE Multi-Family (12 Units)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$360,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $360,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$4,500,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $4,500,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false
+      },
+      {
+        "label": "Property_002_Fremont_Industrial.pdf",
+        "location": "45500 Fremont Blvd, Fremont, CA 94538",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_002_Fremont_Industrial.pdf – 45500 Fremont Blvd, Fremont, CA 94538",
+        "linesOfBusiness": [
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_industrial",
+            "subTypeLabel": "Industrial",
+            "subTypeSource": "catalog",
+            "evidence": "Commercial Property / Structure $6,250,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Commercial / Industrial",
+            "evidence": "OCCUPANCY / USAGE Commercial / Industrial",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$480,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $480,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$6,250,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $6,250,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false
+      },
+      {
+        "label": "Property_003_Miami_Biscayne.pdf",
+        "location": "100 Biscayne Blvd, Miami, FL 33132",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_003_Miami_Biscayne.pdf – 100 Biscayne Blvd, Miami, FL 33132",
+        "linesOfBusiness": [
+          {
+            "code": "residential_property",
+            "label": "Residential Property",
+            "source": "catalog",
+            "subTypeCode": "residential_property_multi_family",
+            "subTypeLabel": "Multi-Family",
+            "subTypeSource": "catalog",
+            "evidence": "OCCUPANCY / USAGE Residential High-Rise Block",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Residential High-Rise Block",
+            "evidence": "OCCUPANCY / USAGE Residential High-Rise Block",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$310,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $310,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$3,850,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $3,850,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false
+      },
+      {
+        "label": "Property_004_NYC_WallSt.pdf",
+        "location": "1 Wall St, New York, NY 10005",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_004_NYC_WallSt.pdf – 1 Wall St, New York, NY 10005",
+        "linesOfBusiness": [
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_office",
+            "subTypeLabel": "Office",
+            "subTypeSource": "catalog",
+            "evidence": "OCCUPANCY / USAGE Mixed-Use Retail & Office",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_retail",
+            "subTypeLabel": "Retail",
+            "subTypeSource": "catalog",
+            "evidence": "OCCUPANCY / USAGE Mixed-Use Retail & Office",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Mixed-Use Retail & Office",
+            "evidence": "OCCUPANCY / USAGE Mixed-Use Retail & Office",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$720,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $720,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$8,750,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $8,750,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false
+      }
+    ],
+    "warnings": [],
+    "subjectCount": 4,
+    "needsReview": false,
+    "sourceExtractionFingerprint": "ab5bd722aba4647d0e3c0f8d905685d490f2309c057f6f1c74cc491af8429641"
+  },
+  "result": {
+    "ok": true,
+    "service": "locationDiscovery",
+    "sourceExtractionFingerprint": "ab5bd722aba4647d0e3c0f8d905685d490f2309c057f6f1c74cc491af8429641",
+    "sourceSubjectFingerprint": "8738065ad006369b16f260549adda63ebac37cad5732a7c00ed361b8bf1c1f43",
+    "extractionVersion": 1,
+    "subjectCount": 4,
+    "provider": "nominatim",
+    "subjects": [
+      {
+        "label": "Property_001_Austin_Capitol.pdf",
+        "location": "1100 Congress Ave, Austin, TX 78701",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_001_Austin_Capitol.pdf – 1100 Congress Ave, Austin, TX 78701",
+        "linesOfBusiness": [
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_retail",
+            "subTypeLabel": "Retail",
+            "subTypeSource": "catalog",
+            "evidence": "Commercial Property / Structure $4,500,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Multi-Family (12 Units)",
+            "evidence": "OCCUPANCY / USAGE Multi-Family (12 Units)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$360,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $360,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$4,500,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $4,500,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #001 Ref No: RE-LOC-001-2026 Date: September 12, 2026 PROPERTY LOCATION Austin Downtown Multi-Family 1100 Congress Ave, Austin, TX 78701 BUILDING REPLACEMENT VALUE $4,500,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Multi-Family (12 Units) ANNUAL RENTAL INCOME $360,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #001 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $4,500,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $360,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false,
+        "normalizedLocation": {
+          "formattedAddress": "1100, Congress Avenue, Austin, Travis County, Texas, 78701, United States",
+          "line1": "1100 Congress Avenue",
+          "line2": null,
+          "city": "Austin",
+          "state": "Texas",
+          "postalCode": "78701",
+          "countryCode": "US",
+          "latitude": 30.276513,
+          "longitude": -97.739758,
+          "placeId": "412684157",
+          "confidence": 0.00000999999999995449,
+          "provider": "nominatim"
+        },
+        "latitude": 30.276513,
+        "longitude": -97.739758
+      },
+      {
+        "label": "Property_002_Fremont_Industrial.pdf",
+        "location": "45500 Fremont Blvd, Fremont, CA 94538",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_002_Fremont_Industrial.pdf – 45500 Fremont Blvd, Fremont, CA 94538",
+        "linesOfBusiness": [
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_industrial",
+            "subTypeLabel": "Industrial",
+            "subTypeSource": "catalog",
+            "evidence": "Commercial Property / Structure $6,250,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Commercial / Industrial",
+            "evidence": "OCCUPANCY / USAGE Commercial / Industrial",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$480,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $480,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$6,250,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $6,250,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #002 Ref No: RE-LOC-002-2026 Date: September 12, 2026 PROPERTY LOCATION Tesla Factory Area Commercial 45500 Fremont Blvd, Fremont, CA 94538 BUILDING REPLACEMENT VALUE $6,250,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Commercial / Industrial ANNUAL RENTAL INCOME $480,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #002 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $6,250,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $480,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false,
+        "normalizedLocation": {
+          "formattedAddress": "45500, Fremont Boulevard, Warm Springs District, Fremont, Alameda County, California, 94538, United States",
+          "line1": "45500 Fremont Boulevard",
+          "line2": null,
+          "city": "Fremont",
+          "state": "California",
+          "postalCode": "94538",
+          "countryCode": "US",
+          "latitude": 37.4970579,
+          "longitude": -121.94498,
+          "placeId": "322011176",
+          "confidence": 0.00006470359349961116,
+          "provider": "nominatim"
+        },
+        "latitude": 37.4970579,
+        "longitude": -121.94498
+      },
+      {
+        "label": "Property_003_Miami_Biscayne.pdf",
+        "location": "100 Biscayne Blvd, Miami, FL 33132",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_003_Miami_Biscayne.pdf – 100 Biscayne Blvd, Miami, FL 33132",
+        "linesOfBusiness": [
+          {
+            "code": "residential_property",
+            "label": "Residential Property",
+            "source": "catalog",
+            "subTypeCode": "residential_property_multi_family",
+            "subTypeLabel": "Multi-Family",
+            "subTypeSource": "catalog",
+            "evidence": "OCCUPANCY / USAGE Residential High-Rise Block",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Residential High-Rise Block",
+            "evidence": "OCCUPANCY / USAGE Residential High-Rise Block",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$310,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $310,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$3,850,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $3,850,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #003 Ref No: RE-LOC-003-2026 Date: September 12, 2026 PROPERTY LOCATION Downtown Miami High-Rise Unit 100 Biscayne Blvd, Miami, FL 33132 BUILDING REPLACEMENT VALUE $3,850,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Residential High-Rise Block ANNUAL RENTAL INCOME $310,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #003 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $3,850,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $310,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false,
+        "normalizedLocation": {
+          "formattedAddress": "100 Biscayne, 100, Biscayne Boulevard, Torch of Friendship, Miami, Miami-Dade County, Florida, 33132, United States",
+          "line1": "100 Biscayne Boulevard",
+          "line2": null,
+          "city": "Miami",
+          "state": "Florida",
+          "postalCode": "33132",
+          "countryCode": "US",
+          "latitude": 25.7754915,
+          "longitude": -80.1881299,
+          "placeId": "304976635",
+          "confidence": 0.2917175836992075,
+          "provider": "nominatim"
+        },
+        "latitude": 25.7754915,
+        "longitude": -80.1881299
+      },
+      {
+        "label": "Property_004_NYC_WallSt.pdf",
+        "location": "1 Wall St, New York, NY 10005",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_004_NYC_WallSt.pdf – 1 Wall St, New York, NY 10005",
+        "linesOfBusiness": [
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_office",
+            "subTypeLabel": "Office",
+            "subTypeSource": "catalog",
+            "evidence": "OCCUPANCY / USAGE Mixed-Use Retail & Office",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "commercial_property",
+            "label": "Commercial Property",
+            "source": "catalog",
+            "subTypeCode": "commercial_property_retail",
+            "subTypeLabel": "Retail",
+            "subTypeSource": "catalog",
+            "evidence": "OCCUPANCY / USAGE Mixed-Use Retail & Office",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "property",
+            "label": "Property",
+            "source": "catalog",
+            "subTypeCode": "property_business_interruption",
+            "subTypeLabel": "Business Interruption",
+            "subTypeSource": "catalog",
+            "evidence": "Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max)",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          },
+          {
+            "code": "general_liability",
+            "label": "General Liability",
+            "source": "catalog",
+            "subTypeCode": "general_liability_premises_ops",
+            "subTypeLabel": "Premises / Operations",
+            "subTypeSource": "catalog",
+            "evidence": "General Liability Allocation $1,000,000 / $2,000,000",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0",
+            "needsReview": false
+          }
+        ],
+        "facts": [
+          {
+            "label": "Occupancy / Usage",
+            "value": "Mixed-Use Retail & Office",
+            "evidence": "OCCUPANCY / USAGE Mixed-Use Retail & Office",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Annual Rental Income",
+            "value": "$720,000 USD",
+            "evidence": "ANNUAL RENTAL INCOME $720,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Building Replacement Value",
+            "value": "$8,750,000 USD",
+            "evidence": "BUILDING REPLACEMENT VALUE $8,750,000 USD",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          },
+          {
+            "label": "Valuation Basis",
+            "value": "100% Replacement Cost",
+            "evidence": "VALUATION BASIS 100% Replacement Cost",
+            "subjectEvidence": "PROPERTY RISK SCHEDULE Master Portfolio Location Asset Schedule • Loc #004 Ref No: RE-LOC-004-2026 Date: September 12, 2026 PROPERTY LOCATION New York Financial Center Spot 1 Wall St, New York, NY 10005 BUILDING REPLACEMENT VALUE $8,750,000 USD 01. ASSET SPECIFICATIONS OCCUPANCY / USAGE Mixed-Use Retail & Office ANNUAL RENTAL INCOME $720,000 USD VALUATION BASIS 100% Replacement Cost 02. INDIVIDUAL COVERAGE ALLOCATION Apex Real Estate Holdings LLC • Location Risk Schedule #004 COVERAGE LINE LIMIT DEDUCTIBLE Commercial Property / Structure $8,750,000 USD $5,000 per Occurrence Loss of Rental Income / Business Interruption $720,000 USD (12 Mo. Max) 24-Hour Waiting Period General Liability Allocation $1,000,000 / $2,000,000 $0"
+          }
+        ],
+        "needsReview": false,
+        "normalizedLocation": {
+          "formattedAddress": "Bank of New York Building, 1, Wall Street, Financial District, Lower Manhattan, Manhattan, New York County, New York, 10005, United States",
+          "line1": "1 Wall Street",
+          "line2": null,
+          "city": "New York",
+          "state": "New York",
+          "postalCode": "10005",
+          "countryCode": "US",
+          "latitude": 40.7071243,
+          "longitude": -74.0118265,
+          "placeId": "353366014",
+          "confidence": 0.42828097732087733,
+          "provider": "nominatim"
+        },
+        "latitude": 40.7071243,
+        "longitude": -74.0118265
+      }
+    ],
+    "locations": [
+      {
+        "ref": "Property_001_Austin_Capitol.pdf",
+        "index": 0,
+        "query": "1100 Congress Ave, Austin, TX 78701",
+        "resolved": true,
+        "provider": "nominatim",
+        "formattedAddress": "1100, Congress Avenue, Austin, Travis County, Texas, 78701, United States",
+        "latitude": 30.276513,
+        "longitude": -97.739758,
+        "confidence": 0.00000999999999995449,
+        "addressId": null
+      },
+      {
+        "ref": "Property_002_Fremont_Industrial.pdf",
+        "index": 1,
+        "query": "45500 Fremont Blvd, Fremont, CA 94538",
+        "resolved": true,
+        "provider": "nominatim",
+        "formattedAddress": "45500, Fremont Boulevard, Warm Springs District, Fremont, Alameda County, California, 94538, United States",
+        "latitude": 37.4970579,
+        "longitude": -121.94498,
+        "confidence": 0.00006470359349961116,
+        "addressId": null
+      },
+      {
+        "ref": "Property_003_Miami_Biscayne.pdf",
+        "index": 2,
+        "query": "100 Biscayne Blvd, Miami, FL 33132",
+        "resolved": true,
+        "provider": "nominatim",
+        "formattedAddress": "100 Biscayne, 100, Biscayne Boulevard, Torch of Friendship, Miami, Miami-Dade County, Florida, 33132, United States",
+        "latitude": 25.7754915,
+        "longitude": -80.1881299,
+        "confidence": 0.2917175836992075,
+        "addressId": null
+      },
+      {
+        "ref": "Property_004_NYC_WallSt.pdf",
+        "index": 3,
+        "query": "1 Wall St, New York, NY 10005",
+        "resolved": true,
+        "provider": "nominatim",
+        "formattedAddress": "Bank of New York Building, 1, Wall Street, Financial District, Lower Manhattan, Manhattan, New York County, New York, 10005, United States",
+        "latitude": 40.7071243,
+        "longitude": -74.0118265,
+        "confidence": 0.42828097732087733,
+        "addressId": null
+      }
+    ],
+    "total": 4,
+    "resolved": 4,
+    "unresolved": 0,
+    "warnings": [
+      "Duplicate document content: Property_002_Fremont_Industrial.pdf repeats Property_002_Fremont_Industrial-1.pdf"
+    ]
+  }
+}

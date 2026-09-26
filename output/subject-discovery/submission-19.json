@@ -1,0 +1,63 @@
+{
+  "submissionId": 19,
+  "testedAt": "2026-09-20T00:15:01.314Z",
+  "result": {
+    "ok": true,
+    "service": "subjectDiscovery",
+    "subjects": [
+      {
+        "label": "Property_001_Austin_Capitol.pdf",
+        "location": "1100 Congress Ave, Austin, TX 78701",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_001_Austin_Capitol.pdf – 1100 Congress Ave, Austin, TX 78701",
+        "linesOfBusiness": [],
+        "needsReview": true
+      },
+      {
+        "label": "Property_002_Fremont_Industrial.pdf",
+        "location": "45500 Fremont Blvd, Fremont, CA 94538",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_002_Fremont_Industrial.pdf – 45500 Fremont Blvd, Fremont, CA 94538",
+        "linesOfBusiness": [],
+        "needsReview": true
+      },
+      {
+        "label": "Property_003_Miami_Biscayne.pdf",
+        "location": "100 Biscayne Blvd, Miami, FL 33132",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_003_Miami_Biscayne.pdf – 100 Biscayne Blvd, Miami, FL 33132",
+        "linesOfBusiness": [],
+        "needsReview": true
+      },
+      {
+        "label": "Property_004_NYC_WallSt.pdf",
+        "location": "1 Wall St, New York, NY 10005",
+        "assetType": "property",
+        "locationSource": "explicit_schedule",
+        "locationEvidence": "Property_004_NYC_WallSt.pdf – 1 Wall St, New York, NY 10005",
+        "linesOfBusiness": [],
+        "needsReview": true
+      }
+    ],
+    "warnings": [
+      "Ignored unsupported line of business for Property_001_Austin_Capitol.pdf",
+      "Ignored unsupported line of business for Property_001_Austin_Capitol.pdf",
+      "Ignored unsupported line of business for Property_001_Austin_Capitol.pdf",
+      "Ignored unsupported line of business for Property_002_Fremont_Industrial.pdf",
+      "Ignored unsupported line of business for Property_002_Fremont_Industrial.pdf",
+      "Ignored unsupported line of business for Property_002_Fremont_Industrial.pdf",
+      "Ignored unsupported line of business for Property_003_Miami_Biscayne.pdf",
+      "Ignored unsupported line of business for Property_003_Miami_Biscayne.pdf",
+      "Ignored unsupported line of business for Property_003_Miami_Biscayne.pdf",
+      "Ignored unsupported line of business for Property_004_NYC_WallSt.pdf",
+      "Ignored unsupported line of business for Property_004_NYC_WallSt.pdf",
+      "Ignored unsupported line of business for Property_004_NYC_WallSt.pdf"
+    ],
+    "subjectCount": 4,
+    "needsReview": true,
+    "sourceExtractionFingerprint": "ab5bd722aba4647d0e3c0f8d905685d490f2309c057f6f1c74cc491af8429641"
+  }
+}

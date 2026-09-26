@@ -1,0 +1,522 @@
+[
+  [
+    {
+      "fieldId": "lineOfBusiness",
+      "label": "Line of Business",
+      "fieldType": "select",
+      "description": "Primary insurance line of business for this subject or exposure.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Commercial Property",
+      "componentRef": {
+        "id": "xds.select",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subType",
+      "label": "Subject Sub-Type",
+      "fieldType": "text",
+      "description": "Specific sub-categorization or asset class descriptor.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "High-Rise Unit",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectName",
+      "label": "Subject Name / Identifier",
+      "fieldType": "text",
+      "description": "Universal primary descriptor, asset title, registration ID, or location nickname.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Downtown Miami High-Rise Unit",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "locationInfo",
+      "label": "Location / Site Information",
+      "fieldType": "text",
+      "description": "Specific physical address, port/terminal, site ID, or operational boundary.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": "100 Biscayne Blvd, Miami, FL 33132",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "countryOfRisk",
+      "label": "Primary Country / Jurisdiction of Risk",
+      "fieldType": "text",
+      "description": "Primary sovereign jurisdiction or flag country where the subject or risk exposure is sited.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "United States",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectInsuredValue",
+      "label": "Subject Insured Value / Exposure Limit",
+      "fieldType": "number",
+      "description": "Declared valuation, limit of liability, or sum insured assigned to this specific subject entry.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": 3850000,
+      "componentRef": {
+        "id": "xds.number",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "requestedCoverages",
+      "label": "Requested Coverages",
+      "fieldType": "object-array",
+      "description": "Detailed coverage breakdown including sub-limits, deductibles, valuation basis, and conditions.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": [
+        {
+          "coverageName": "Building Replacement Value",
+          "subLimit": null,
+          "deductible": 0,
+          "valuationBasis": "Replacement Cost",
+          "status": "Requested",
+          "termsAndConditions": null
+        }
+      ],
+      "componentRef": {
+        "id": "xds.requested-coverage",
+        "version": 1
+      }
+    }
+  ],
+  [
+    {
+      "fieldId": "lineOfBusiness",
+      "label": "Line of Business",
+      "fieldType": "select",
+      "description": "Primary insurance line of business for this subject or exposure.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Commercial Property",
+      "componentRef": {
+        "id": "xds.select",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subType",
+      "label": "Subject Sub-Type",
+      "fieldType": "text",
+      "description": "Specific sub-categorization or asset class descriptor.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Factory Area",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectName",
+      "label": "Subject Name / Identifier",
+      "fieldType": "text",
+      "description": "Universal primary descriptor, asset title, registration ID, or location nickname.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Tesla Factory Area Commercial",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "locationInfo",
+      "label": "Location / Site Information",
+      "fieldType": "text",
+      "description": "Specific physical address, port/terminal, site ID, or operational boundary.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": "45500 Fremont Blvd, Fremont, CA 94538",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "countryOfRisk",
+      "label": "Primary Country / Jurisdiction of Risk",
+      "fieldType": "text",
+      "description": "Primary sovereign jurisdiction or flag country where the subject or risk exposure is sited.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "United States",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectInsuredValue",
+      "label": "Subject Insured Value / Exposure Limit",
+      "fieldType": "number",
+      "description": "Declared valuation, limit of liability, or sum insured assigned to this specific subject entry.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": 6250000,
+      "componentRef": {
+        "id": "xds.number",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "requestedCoverages",
+      "label": "Requested Coverages",
+      "fieldType": "object-array",
+      "description": "Detailed coverage breakdown including sub-limits, deductibles, valuation basis, and conditions.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": [
+        {
+          "coverageName": "Building Replacement Value",
+          "subLimit": null,
+          "deductible": 0,
+          "valuationBasis": "Replacement Cost",
+          "status": "Requested",
+          "termsAndConditions": null
+        }
+      ],
+      "componentRef": {
+        "id": "xds.requested-coverage",
+        "version": 1
+      }
+    }
+  ],
+  [
+    {
+      "fieldId": "lineOfBusiness",
+      "label": "Line of Business",
+      "fieldType": "select",
+      "description": "Primary insurance line of business for this subject or exposure.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Commercial Property",
+      "componentRef": {
+        "id": "xds.select",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subType",
+      "label": "Subject Sub-Type",
+      "fieldType": "text",
+      "description": "Specific sub-categorization or asset class descriptor.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Multi-Family",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectName",
+      "label": "Subject Name / Identifier",
+      "fieldType": "text",
+      "description": "Universal primary descriptor, asset title, registration ID, or location nickname.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Austin Downtown Multi-Family",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "locationInfo",
+      "label": "Location / Site Information",
+      "fieldType": "text",
+      "description": "Specific physical address, port/terminal, site ID, or operational boundary.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": "1100 Congress Ave, Austin, TX 78701",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "countryOfRisk",
+      "label": "Primary Country / Jurisdiction of Risk",
+      "fieldType": "text",
+      "description": "Primary sovereign jurisdiction or flag country where the subject or risk exposure is sited.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "United States",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectInsuredValue",
+      "label": "Subject Insured Value / Exposure Limit",
+      "fieldType": "number",
+      "description": "Declared valuation, limit of liability, or sum insured assigned to this specific subject entry.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": 4500000,
+      "componentRef": {
+        "id": "xds.number",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "requestedCoverages",
+      "label": "Requested Coverages",
+      "fieldType": "object-array",
+      "description": "Detailed coverage breakdown including sub-limits, deductibles, valuation basis, and conditions.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": [
+        {
+          "coverageName": "Building Replacement Value",
+          "subLimit": null,
+          "deductible": 0,
+          "valuationBasis": "Replacement Cost",
+          "status": "Requested",
+          "termsAndConditions": null
+        }
+      ],
+      "componentRef": {
+        "id": "xds.requested-coverage",
+        "version": 1
+      }
+    }
+  ],
+  [
+    {
+      "fieldId": "lineOfBusiness",
+      "label": "Line of Business",
+      "fieldType": "select",
+      "description": "Primary insurance line of business for this subject or exposure.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Commercial Property",
+      "componentRef": {
+        "id": "xds.select",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subType",
+      "label": "Subject Sub-Type",
+      "fieldType": "text",
+      "description": "Specific sub-categorization or asset class descriptor.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "Financial Center Spot",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectName",
+      "label": "Subject Name / Identifier",
+      "fieldType": "text",
+      "description": "Universal primary descriptor, asset title, registration ID, or location nickname.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "New York Financial Center Spot",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "locationInfo",
+      "label": "Location / Site Information",
+      "fieldType": "text",
+      "description": "Specific physical address, port/terminal, site ID, or operational boundary.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": "1 Wall St, New York, NY 10005",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "countryOfRisk",
+      "label": "Primary Country / Jurisdiction of Risk",
+      "fieldType": "text",
+      "description": "Primary sovereign jurisdiction or flag country where the subject or risk exposure is sited.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": "United States",
+      "componentRef": {
+        "id": "xds.input",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "subjectInsuredValue",
+      "label": "Subject Insured Value / Exposure Limit",
+      "fieldType": "number",
+      "description": "Declared valuation, limit of liability, or sum insured assigned to this specific subject entry.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 1
+      },
+      "value": 8750000,
+      "componentRef": {
+        "id": "xds.number",
+        "version": 1
+      }
+    },
+    {
+      "fieldId": "requestedCoverages",
+      "label": "Requested Coverages",
+      "fieldType": "object-array",
+      "description": "Detailed coverage breakdown including sub-limits, deductibles, valuation basis, and conditions.",
+      "validation": {
+        "isRequired": true
+      },
+      "uiConfig": {
+        "colSpan": 2
+      },
+      "value": [
+        {
+          "coverageName": "Building Replacement Value",
+          "subLimit": null,
+          "deductible": 0,
+          "valuationBasis": "Replacement Cost",
+          "status": "Requested",
+          "termsAndConditions": null
+        }
+      ],
+      "componentRef": {
+        "id": "xds.requested-coverage",
+        "version": 1
+      }
+    }
+  ]
+]

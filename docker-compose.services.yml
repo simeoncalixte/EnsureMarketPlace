@@ -3,11 +3,12 @@ services:
   auth:
     build: ./EnsuredAuth
     container_name: ensured-auth
-    env_file: ./EnsuredAuth/.env
+    env_file: ./EnsuredAPI/.env
     environment:
       AUTH_DEV_UI_ORIGIN: http://localhost:3000
       AUTH_BIND_HOST: 0.0.0.0
       AUTH_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_identity
+      MARKETPLACE_API_URL: http://api:3001
       SMTP_HOST: mailpit
       SMTP_PORT: 1025
     command: ['sh', '-c', 'npm run migrate && npm start']
@@ -21,7 +22,7 @@ services:
   kyc:
     build: ./EnsuredKYC
     container_name: ensured-kyc
-    env_file: ./EnsuredKYC/.env
+    env_file: ./EnsuredAPI/.env
     environment:
       KYC_BIND_HOST: 0.0.0.0
       KYC_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_kyc
@@ -36,7 +37,7 @@ services:
   gateway:
     build: ./EnsuredAuth
     container_name: ensured-gateway
-    env_file: ./EnsuredAuth/.env
+    env_file: ./EnsuredAPI/.env
     environment:
       AUTH_DEV_UI_ORIGIN: http://localhost:3000
       AUTH_BIND_HOST: 0.0.0.0
@@ -59,6 +60,7 @@ services:
   catalog:
     build: ./EnsuredServices
     container_name: ensured-services
+    env_file: ./EnsuredAPI/.env
     environment:
       SERVICES_HOST: 0.0.0.0
       SERVICES_READ_TOKEN: ${DOCKER_SERVICES_READ_TOKEN:?Run scripts/start-docker-services.mjs}
@@ -81,6 +83,7 @@ services:
   submission-relay:
     build: ./SubmissionUI
     container_name: ensured-submission-relay
+    env_file: ./EnsuredAPI/.env
     command: ['npm', 'run', 'relay']
     environment:
       RABBIT_URL: amqp://rabbitmq

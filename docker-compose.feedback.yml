@@ -1,0 +1,20 @@
+services:
+  submission-feedback:
+    build: ./EnsuredSubmissionFeedback
+    container_name: ensured-submission-feedback
+    environment:
+      SUBMISSION_FEEDBACK_TOKEN: ${SUBMISSION_FEEDBACK_TOKEN:?Set SUBMISSION_FEEDBACK_TOKEN}
+      FEEDBACK_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_marketplace
+      PORT: 3014
+    ports: ['127.0.0.1:3014:3014']
+    restart: unless-stopped
+    networks: [platform]
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3014/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+networks:
+  platform:
+    external: true
+    name: ensured-platform
