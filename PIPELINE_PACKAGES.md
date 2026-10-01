@@ -1,6 +1,6 @@
 # Pipeline packages
 
-The pipeline now consists of 15 stage packages and a shared support package. Each package has a private GitHub repository, a TypeScript build, a dependency lockfile, and its own test command. Existing API URLs, operation keys, database schema, and job execution semantics are preserved.
+The pipeline now consists of 18 packages. Each package has a private GitHub repository, a TypeScript build, and its own test command. Existing API URLs, operation keys, database schema, and job execution semantics are preserved.
 
 ## Repositories
 
@@ -11,6 +11,8 @@ The pipeline now consists of 15 stage packages and a shared support package. Eac
 | ingestion | [EnsuredPipelineIngestion](https://github.com/simeoncalixte/EnsuredPipelineIngestion) |
 | ocr | [EnsuredPipelineOcr](https://github.com/simeoncalixte/EnsuredPipelineOcr) |
 | classification | [EnsuredPipelineClassification](https://github.com/simeoncalixte/EnsuredPipelineClassification) |
+| subjectDiscovery | [EnsuredPipelineSubjectDiscovery](https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery) |
+| financialDiscovery | [EnsuredPipelineFinancialDiscovery](https://github.com/simeoncalixte/EnsuredPipelineFinancialDiscovery) |
 | extraction | [EnsuredPipelineExtraction](https://github.com/simeoncalixte/EnsuredPipelineExtraction) |
 | locationDiscovery | [EnsuredPipelineLocationDiscovery](https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery) |
 | normalization | [EnsuredPipelineNormalization](https://github.com/simeoncalixte/EnsuredPipelineNormalization) |
@@ -23,22 +25,82 @@ The pipeline now consists of 15 stage packages and a shared support package. Eac
 | riskCompute | [EnsuredPipelineRiskCompute](https://github.com/simeoncalixte/EnsuredPipelineRiskCompute) |
 | storageSearch | [EnsuredPipelineStorageSearch](https://github.com/simeoncalixte/EnsuredPipelineStorageSearch) |
 
-## Development
+## Install published packages
 
-From this marketplace checkout:
+Packages use the `@simeoncalixte/ensured-pipeline-*` scope and version `0.1.0`.
+Both the API and pipeline packages declare exact registry versions. They do not
+use npm workspaces or `file:` dependencies. Source checkouts are needed only when
+editing the pipeline itself.
+
+The committed `.npmrc` files map this scope to `https://npm.pkg.github.com` and
+read credentials from `NODE_AUTH_TOKEN`. Use a GitHub token with `read:packages`
+and access to the private packages. Never commit the token.
+
+After the initial releases have been published:
 
 ```sh
-git submodule update --init --recursive
-npm run pipeline:setup
-npm --prefix EnsuredAPI install
-npm run pipeline:test
-npm run pipeline:verify
-npm --prefix EnsuredAPI test
+npm --prefix EnsuredAPI install --include=dev
+npm --prefix EnsuredAPI run build
+npm --prefix EnsuredAPI start
 ```
 
-For a single repository, clone it and run `npm run bootstrap`, then `npm test`. Bootstrap clones missing private sibling dependencies using your existing Git credentials and builds dependencies before the selected package. No EnsuredAPI checkout is required. `file:../` dependencies deliberately match the existing repository's sibling-package convention; the superproject submodule revisions pin the compatible checkout set. Package artifacts are not published to the public npm registry.
+Legacy lockfiles containing local links have been removed. The first registry
+install creates replacement lockfiles; commit them and then use `npm ci` for
+reproducible deployment installs. The API build currently has pre-existing
+TypeScript errors that must be resolved before deployment.
 
-Run all pipeline package tests with `npm run pipeline:test`, or one package with `npm --prefix EnsuredPipelineSubjectDiscovery test`. Each package's `tsconfig.json` includes tests and Jest globals for editor support without emitting files. Production builds use `tsconfig.build.json`, which excludes tests and loads only Node globals. If an open editor still reports missing `describe` or `expect` after pulling these configurations, restart its TypeScript server.
+## Publishing
+
+Initial publication must follow the dependency order in `pipeline-packages.json`.
+Set `NODE_AUTH_TOKEN` to a token with `read:packages` and `write:packages` access,
+then run:
+
+```sh
+npm run pipeline:publish
+npm --prefix EnsuredAPI install --package-lock-only --ignore-scripts
+```
+
+The publishing command installs released dependencies, regenerates lockfiles,
+performs a clean TypeScript build through `prepack`, and publishes to GitHub
+Packages. Shared is published first. Schema Generation also requires the existing
+`@simeoncalixte/ensured-constants@0.1.0` package to be accessible.
+
+Each package repository includes `.github/workflows/packages.yml`. A `v*` tag
+matching its package version or a manual dispatch builds and publishes the
+package. For dependencies in other private repositories, grant the workflow
+repository read access in each dependency package's **Manage Actions access**
+settings, or configure a `PACKAGES_READ_TOKEN` secret with `read:packages` access.
+The workflow publishes its own package with `GITHUB_TOKEN`.
+
+Publish dependencies before their dependents. Increment versions for subsequent
+releases; GitHub Packages cannot overwrite an existing version. Commit and push
+each package repository separately, then update the superproject submodule refs.
+
+## Development
+
+For a single package checkout, set `NODE_AUTH_TOKEN`, run `npm run bootstrap`,
+then `npm test`. No sibling source checkout is required for building the package.
+From the superproject, `npm run pipeline:setup` installs and builds all packages,
+and `npm run pipeline:test` runs their tests. Cross-package integration tests may
+require the other released pipeline packages as test dependencies; they no longer
+resolve source from sibling folders.
+
+Builds clear `dist` and compile runtime code and declarations. Only `dist` and npm's
+standard metadata files are packed. Configuration comes from the host process or
+`.env` in its working directory; `ENSURED_ENV_FILE` selects an explicit file.
+
+## Render API service
+
+After publishing and resolving the API's existing TypeScript build errors:
+
+- For the superproject, root directory: `EnsuredAPI`. For the standalone EnsuredAPI
+  repository, leave the root blank.
+- Build command: `npm install --include=dev && npm run build` (use `npm ci` after
+  committing the regenerated registry lockfile).
+- Start command: `npm start`.
+- Set `NODE_AUTH_TOKEN` with `read:packages` and the API's runtime environment variables.
+
+The API deployment downloads compiled pipeline packages and does not build them.
 
 ## Ownership and compatibility
 

@@ -46,33 +46,17 @@
     "start:email": "npm --prefix EnsuredEmail start",
     "build:email": "npm --prefix EnsuredEmail run build",
     "test:email": "npm --prefix EnsuredEmail test && npm --prefix EnsuredAPI run test:email && node --test EnsuredServices/test/emailCatalog.test.js",
-    "pipeline:setup": "npm install && npm run pipeline:build",
+    "pipeline:setup": "node scripts/pipeline-packages.mjs setup",
     "pipeline:build": "node scripts/pipeline-packages.mjs build",
     "pipeline:test": "node scripts/pipeline-packages.mjs test",
-    "pipeline:verify": "node scripts/pipeline-packages.mjs verify && node scripts/verify-pipeline-parity.mjs"
+    "pipeline:verify": "node scripts/pipeline-packages.mjs verify && node scripts/verify-pipeline-parity.mjs",
+    "pipeline:publish": "node scripts/pipeline-packages.mjs publish"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.36",
     "styled-components": "^6.3.12"
   },
-  "workspaces": [
-    "EnsuredPipelineShared",
-    "EnsuredPipelineIngestion",
-    "EnsuredPipelineOcr",
-    "EnsuredPipelineClassification",
-    "EnsuredPipelineExtraction",
-    "EnsuredPipelineSubjectDiscovery",
-    "EnsuredPipelineFinancialDiscovery",
-    "EnsuredPipelineLocationDiscovery",
-    "EnsuredPipelineNormalization",
-    "EnsuredPipelineValidation",
-    "EnsuredPipelineSchemaGeneration",
-    "EnsuredPipelinePreRating",
-    "EnsuredPipelineCapacity",
-    "EnsuredPipelineOracleAttestation",
-    "EnsuredPipelineWorkflow",
-    "EnsuredPipelineRiskCompute",
-    "EnsuredPipelineStorageSearch",
-    "EnsuredPipelineIngestionAmqp"
-  ]
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
 }

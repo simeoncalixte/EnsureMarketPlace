@@ -92,7 +92,7 @@ If you previously used `EnsuredAPI/docker-compose.auth.yml`, its former `identit
 
 ## Standalone pipeline stage repositories
 
-The 15 pipeline operations now have separate TypeScript packages and private repositories, with shared persistence/provider support. Run `npm run pipeline:setup` to install and build them, and `npm run pipeline:test` for package tests. See [PIPELINE_PACKAGES.md](PIPELINE_PACKAGES.md) for repository links, standalone bootstrap instructions, and migration boundaries.
+The pipeline consists of 18 versioned npm packages configured for GitHub Packages, with shared persistence/provider support. Run `npm run pipeline:setup` to install and build them, and `npm run pipeline:test` for package tests. See [PIPELINE_PACKAGES.md](PIPELINE_PACKAGES.md) for repository links, standalone bootstrap instructions, and migration boundaries.
 
 ### Shared environment
 

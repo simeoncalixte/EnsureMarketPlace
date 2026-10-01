@@ -2,13 +2,13 @@
   "packages": [
     {
       "key": "shared",
-      "name": "@ensured/pipeline-shared",
+      "name": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "dependencies": []
     },
     {
       "key": "ingestionAmqp",
-      "name": "@ensured/pipeline-ingestion-amqp",
+      "name": "@simeoncalixte/ensured-pipeline-ingestion-amqp",
       "directory": "EnsuredPipelineIngestionAmqp",
       "dependencies": [
         "shared"
@@ -16,7 +16,7 @@
     },
     {
       "key": "ingestion",
-      "name": "@ensured/pipeline-ingestion",
+      "name": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "dependencies": [
         "shared",
@@ -25,7 +25,7 @@
     },
     {
       "key": "ocr",
-      "name": "@ensured/pipeline-ocr",
+      "name": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "dependencies": [
         "shared"
@@ -33,7 +33,7 @@
     },
     {
       "key": "classification",
-      "name": "@ensured/pipeline-classification",
+      "name": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "dependencies": [
         "shared"
@@ -41,7 +41,7 @@
     },
     {
       "key": "extraction",
-      "name": "@ensured/pipeline-extraction",
+      "name": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "dependencies": [
         "shared"
@@ -49,7 +49,7 @@
     },
     {
       "key": "subjectDiscovery",
-      "name": "@ensured/pipeline-subject-discovery",
+      "name": "@simeoncalixte/ensured-pipeline-subject-discovery",
       "directory": "EnsuredPipelineSubjectDiscovery",
       "dependencies": [
         "shared",
@@ -58,7 +58,7 @@
     },
     {
       "key": "financialDiscovery",
-      "name": "@ensured/pipeline-financial-discovery",
+      "name": "@simeoncalixte/ensured-pipeline-financial-discovery",
       "directory": "EnsuredPipelineFinancialDiscovery",
       "dependencies": [
         "shared"
@@ -66,7 +66,7 @@
     },
     {
       "key": "locationDiscovery",
-      "name": "@ensured/pipeline-location-discovery",
+      "name": "@simeoncalixte/ensured-pipeline-location-discovery",
       "directory": "EnsuredPipelineLocationDiscovery",
       "dependencies": [
         "shared"
@@ -74,7 +74,7 @@
     },
     {
       "key": "normalization",
-      "name": "@ensured/pipeline-normalization",
+      "name": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "dependencies": [
         "shared"
@@ -82,7 +82,7 @@
     },
     {
       "key": "validation",
-      "name": "@ensured/pipeline-validation",
+      "name": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "dependencies": [
         "normalization",
@@ -91,7 +91,7 @@
     },
     {
       "key": "schemaGeneration",
-      "name": "@ensured/pipeline-schema-generation",
+      "name": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "dependencies": [
         "shared"
@@ -99,7 +99,7 @@
     },
     {
       "key": "preRating",
-      "name": "@ensured/pipeline-pre-rating",
+      "name": "@simeoncalixte/ensured-pipeline-pre-rating",
       "directory": "EnsuredPipelinePreRating",
       "dependencies": [
         "shared"
@@ -107,7 +107,7 @@
     },
     {
       "key": "capacity",
-      "name": "@ensured/pipeline-capacity",
+      "name": "@simeoncalixte/ensured-pipeline-capacity",
       "directory": "EnsuredPipelineCapacity",
       "dependencies": [
         "shared",
@@ -116,7 +116,7 @@
     },
     {
       "key": "oracleAttestation",
-      "name": "@ensured/pipeline-oracle-attestation",
+      "name": "@simeoncalixte/ensured-pipeline-oracle-attestation",
       "directory": "EnsuredPipelineOracleAttestation",
       "dependencies": [
         "shared"
@@ -124,7 +124,7 @@
     },
     {
       "key": "workflow",
-      "name": "@ensured/pipeline-workflow",
+      "name": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "dependencies": [
         "shared",
@@ -133,7 +133,7 @@
     },
     {
       "key": "riskCompute",
-      "name": "@ensured/pipeline-risk-compute",
+      "name": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "dependencies": [
         "shared"
@@ -141,1344 +141,1346 @@
     },
     {
       "key": "storageSearch",
-      "name": "@ensured/pipeline-storage-search",
+      "name": "@simeoncalixte/ensured-pipeline-storage-search",
       "directory": "EnsuredPipelineStorageSearch",
-      "dependencies": []
+      "dependencies": [
+        "shared"
+      ]
     }
   ],
   "files": {
     "src/pipeline/stageResult.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/stageResult.ts"
     },
     "src/pipeline/stageResult.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/stageResult.test.ts"
     },
     "src/pipeline/highPrecision.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/highPrecision.ts"
     },
     "src/pipeline/classification/classification.real.test.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/classification.real.test.ts"
     },
     "src/pipeline/classification/catalog.test.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/catalog.test.ts"
     },
     "src/pipeline/classification/catalog.fixture.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/catalog.fixture.ts"
     },
     "src/pipeline/classification/service.test.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/service.test.ts"
     },
     "src/pipeline/classification/service.highPrecision.test.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/service.highPrecision.test.ts"
     },
     "src/pipeline/classification/README.md": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/README.md"
     },
     "src/pipeline/classification/GeminiClassificationProvider.test.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/GeminiClassificationProvider.test.ts"
     },
     "src/pipeline/classification/GeminiClassificationProvider.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/GeminiClassificationProvider.ts"
     },
     "src/pipeline/classification/service.regression.test.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/service.regression.test.ts"
     },
     "src/pipeline/classification/service.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/service.ts"
     },
     "src/pipeline/classification/catalog.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/catalog.ts"
     },
     "src/pipeline/connectors/s3.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/s3.ts"
     },
     "src/pipeline/connectors/sftp.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/sftp.ts"
     },
     "src/pipeline/connectors/llm.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/llm.ts"
     },
     "src/pipeline/connectors/amqp.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/amqp.ts"
     },
     "src/pipeline/connectors/ocr/imageType.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/imageType.ts"
     },
     "src/pipeline/connectors/ocr/DocxOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/DocxOcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/DocumentAiOcrProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/DocumentAiOcrProvider.test.ts"
     },
     "src/pipeline/connectors/ocr/PlainTextOcrProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/PlainTextOcrProvider.test.ts"
     },
     "src/pipeline/connectors/ocr/DocumentAiOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/DocumentAiOcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/selectOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/selectOcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/GeminiVisionOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/GeminiVisionOcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/OcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/OcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/PlainTextOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/PlainTextOcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/GeminiVisionOcrProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/GeminiVisionOcrProvider.test.ts"
     },
     "src/pipeline/connectors/ocr/LocalDocumentOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/LocalDocumentOcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/TesseractOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/TesseractOcrProvider.ts"
     },
     "src/pipeline/connectors/ocr/imageOcr.real.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/imageOcr.real.test.ts"
     },
     "src/pipeline/connectors/ocr/index.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/index.ts"
     },
     "src/pipeline/connectors/ocr/selectOcrProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/selectOcrProvider.test.ts"
     },
     "src/pipeline/connectors/ocr/LocalDocumentOcrProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/LocalDocumentOcrProvider.test.ts"
     },
     "src/pipeline/connectors/ocr/TesseractOcrProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/TesseractOcrProvider.test.ts"
     },
     "src/pipeline/connectors/ocr/runOcr.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/runOcr.test.ts"
     },
     "src/pipeline/connectors/ocr/PdfTextOcrProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/ocr/PdfTextOcrProvider.ts"
     },
     "src/pipeline/connectors/geocoding/selectGeocodeProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/geocoding/selectGeocodeProvider.test.ts"
     },
     "src/pipeline/connectors/geocoding/GoogleGeocodeProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/geocoding/GoogleGeocodeProvider.ts"
     },
     "src/pipeline/connectors/geocoding/GeocodeProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/geocoding/GeocodeProvider.ts"
     },
     "src/pipeline/connectors/geocoding/NominatimGeocodeProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/geocoding/NominatimGeocodeProvider.ts"
     },
     "src/pipeline/connectors/geocoding/selectGeocodeProvider.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/geocoding/selectGeocodeProvider.ts"
     },
     "src/pipeline/connectors/geocoding/GoogleGeocodeProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/geocoding/GoogleGeocodeProvider.test.ts"
     },
     "src/pipeline/connectors/geocoding/NominatimGeocodeProvider.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/connectors/geocoding/NominatimGeocodeProvider.test.ts"
     },
     "src/pipeline/settings/service.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/settings/service.test.ts"
     },
     "src/pipeline/settings/service.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/settings/service.ts"
     },
     "src/pipeline/oracleAttestation/service.test.ts": {
-      "package": "@ensured/pipeline-oracle-attestation",
+      "package": "@simeoncalixte/ensured-pipeline-oracle-attestation",
       "directory": "EnsuredPipelineOracleAttestation",
       "path": "src/pipeline/oracleAttestation/service.test.ts"
     },
     "src/pipeline/oracleAttestation/service.ts": {
-      "package": "@ensured/pipeline-oracle-attestation",
+      "package": "@simeoncalixte/ensured-pipeline-oracle-attestation",
       "directory": "EnsuredPipelineOracleAttestation",
       "path": "src/pipeline/oracleAttestation/service.ts"
     },
     "src/pipeline/ingestion/ingestion.amqp.test.ts": {
-      "package": "@ensured/pipeline-ingestion",
+      "package": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "path": "src/pipeline/ingestion/ingestion.amqp.test.ts"
     },
     "src/pipeline/ingestion/service.test.ts": {
-      "package": "@ensured/pipeline-ingestion",
+      "package": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "path": "src/pipeline/ingestion/service.test.ts"
     },
     "src/pipeline/ingestion/ingestion.email.test.ts": {
-      "package": "@ensured/pipeline-ingestion",
+      "package": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "path": "src/pipeline/ingestion/ingestion.email.test.ts"
     },
     "src/pipeline/ingestion/service.ts": {
-      "package": "@ensured/pipeline-ingestion",
+      "package": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "path": "src/pipeline/ingestion/service.ts"
     },
     "src/pipeline/normalization/service.test.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/normalization/service.test.ts"
     },
     "src/pipeline/normalization/service.error.test.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/normalization/service.error.test.ts"
     },
     "src/pipeline/normalization/service.slice3.test.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/normalization/service.slice3.test.ts"
     },
     "src/pipeline/normalization/service.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/normalization/service.ts"
     },
     "src/pipeline/schemaGeneration/financials.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/financials.test.ts"
     },
     "src/pipeline/schemaGeneration/catalogAssembly.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/catalogAssembly.ts"
     },
     "src/pipeline/schemaGeneration/sectionGeneration.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/sectionGeneration.ts"
     },
     "src/pipeline/schemaGeneration/agentPlan.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/agentPlan.ts"
     },
     "src/pipeline/schemaGeneration/wireResponse.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/wireResponse.test.ts"
     },
     "src/pipeline/schemaGeneration/evidenceCatalog.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/evidenceCatalog.test.ts"
     },
     "src/pipeline/schemaGeneration/evidenceCatalog.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/evidenceCatalog.ts"
     },
     "src/pipeline/schemaGeneration/dealParameters.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/dealParameters.test.ts"
     },
     "src/pipeline/schemaGeneration/subprocessStore.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/subprocessStore.ts"
     },
     "src/pipeline/schemaGeneration/fieldDeduplication.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/fieldDeduplication.ts"
     },
     "src/pipeline/schemaGeneration/wireResponse.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/wireResponse.ts"
     },
     "src/pipeline/schemaGeneration/catalogAssembly.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/catalogAssembly.test.ts"
     },
     "src/pipeline/schemaGeneration/promptCompaction.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/promptCompaction.test.ts"
     },
     "src/pipeline/schemaGeneration/subjectTemplateFields.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/subjectTemplateFields.test.ts"
     },
     "src/pipeline/schemaGeneration/subprocesses.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/subprocesses.test.ts"
     },
     "src/pipeline/schemaGeneration/service.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/service.test.ts"
     },
     "src/pipeline/schemaGeneration/subjectEnrichment.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/subjectEnrichment.ts"
     },
     "src/pipeline/schemaGeneration/coverageComponents.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/coverageComponents.test.ts"
     },
     "src/pipeline/schemaGeneration/subjectEnrichment.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/subjectEnrichment.test.ts"
     },
     "src/pipeline/schemaGeneration/taxonomy.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/taxonomy.ts"
     },
     "src/pipeline/schemaGeneration/dealParameters.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/dealParameters.ts"
     },
     "src/pipeline/schemaGeneration/dynamic.regression.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/dynamic.regression.test.ts"
     },
     "src/pipeline/schemaGeneration/valuePopulation.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/valuePopulation.ts"
     },
     "src/pipeline/schemaGeneration/README.md": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/README.md"
     },
     "src/pipeline/schemaGeneration/logic.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/logic.ts"
     },
     "src/pipeline/schemaGeneration/coverageSummary.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/coverageSummary.ts"
     },
     "src/pipeline/schemaGeneration/types.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/types.ts"
     },
     "src/pipeline/schemaGeneration/GeminiSchemaProvider.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/GeminiSchemaProvider.ts"
     },
     "src/pipeline/schemaGeneration/valuePopulation.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/valuePopulation.test.ts"
     },
     "src/pipeline/schemaGeneration/logic.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/logic.test.ts"
     },
     "src/pipeline/schemaGeneration/sectionGeneration.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/sectionGeneration.test.ts"
     },
     "src/pipeline/schemaGeneration/constants.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/constants.ts"
     },
     "src/pipeline/schemaGeneration/failureReview.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/failureReview.ts"
     },
     "src/pipeline/schemaGeneration/submission.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/submission.ts"
     },
     "src/pipeline/schemaGeneration/fieldDeduplication.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/fieldDeduplication.test.ts"
     },
     "src/pipeline/schemaGeneration/subjectTemplateFields.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/subjectTemplateFields.ts"
     },
     "src/pipeline/schemaGeneration/subprocesses.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/subprocesses.ts"
     },
     "src/pipeline/schemaGeneration/financials.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/financials.ts"
     },
     "src/pipeline/schemaGeneration/agentPlan.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/agentPlan.test.ts"
     },
     "src/pipeline/schemaGeneration/schemaGeneration.real.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/schemaGeneration.real.test.ts"
     },
     "src/pipeline/schemaGeneration/failureReview.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/failureReview.test.ts"
     },
     "src/pipeline/schemaGeneration/taxonomy.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/taxonomy.test.ts"
     },
     "src/pipeline/schemaGeneration/agentPlanTypes.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/agentPlanTypes.ts"
     },
     "src/pipeline/schemaGeneration/service.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/service.ts"
     },
     "src/pipeline/schemaGeneration/GeminiSchemaProvider.test.ts": {
-      "package": "@ensured/pipeline-schema-generation",
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/GeminiSchemaProvider.test.ts"
     },
     "src/pipeline/benchmarkPriors/upsert.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/benchmarkPriors/upsert.ts"
     },
     "src/pipeline/benchmarkPriors/coverage.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/benchmarkPriors/coverage.test.ts"
     },
     "src/pipeline/benchmarkPriors/seed.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/benchmarkPriors/seed.ts"
     },
     "src/pipeline/benchmarkPriors/coverage.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/benchmarkPriors/coverage.ts"
     },
     "src/pipeline/benchmarkPriors/resolve.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/benchmarkPriors/resolve.ts"
     },
     "src/pipeline/ocr/service.corpus.test.ts": {
-      "package": "@ensured/pipeline-ocr",
+      "package": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "path": "src/pipeline/ocr/service.corpus.test.ts"
     },
     "src/pipeline/ocr/persistOcrResult.ts": {
-      "package": "@ensured/pipeline-ocr",
+      "package": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "path": "src/pipeline/ocr/persistOcrResult.ts"
     },
     "src/pipeline/ocr/service.test.ts": {
-      "package": "@ensured/pipeline-ocr",
+      "package": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "path": "src/pipeline/ocr/service.test.ts"
     },
     "src/pipeline/ocr/portfolio.test.ts": {
-      "package": "@ensured/pipeline-ocr",
+      "package": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "path": "src/pipeline/ocr/portfolio.test.ts"
     },
     "src/pipeline/ocr/corpus.test.ts": {
-      "package": "@ensured/pipeline-ocr",
+      "package": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "path": "src/pipeline/ocr/corpus.test.ts"
     },
     "src/pipeline/ocr/service.ts": {
-      "package": "@ensured/pipeline-ocr",
+      "package": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "path": "src/pipeline/ocr/service.ts"
     },
     "src/pipeline/canonicalize/deriveLob.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/canonicalize/deriveLob.ts"
     },
     "src/pipeline/canonicalize/service.test.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/canonicalize/service.test.ts"
     },
     "src/pipeline/canonicalize/pin.test.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/canonicalize/pin.test.ts"
     },
     "src/pipeline/canonicalize/deriveLob.test.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/canonicalize/deriveLob.test.ts"
     },
     "src/pipeline/canonicalize/service.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/canonicalize/service.ts"
     },
     "src/pipeline/canonicalize/pin.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/canonicalize/pin.ts"
     },
     "src/pipeline/agents/qwen.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/agents/qwen.test.ts"
     },
     "src/pipeline/agents/qwen.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/agents/qwen.ts"
     },
     "src/pipeline/agents/llm.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/agents/llm.ts"
     },
     "src/pipeline/agents/gemini.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/agents/gemini.ts"
     },
     "src/pipeline/agents/llm.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/agents/llm.test.ts"
     },
     "src/pipeline/agents/gemini.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/agents/gemini.test.ts"
     },
     "src/pipeline/casualty/ilf.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/casualty/ilf.ts"
     },
     "src/pipeline/casualty/strategies.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/casualty/strategies.test.ts"
     },
     "src/pipeline/casualty/strategies.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/casualty/strategies.ts"
     },
     "src/pipeline/riskCompute/service.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/riskCompute/service.test.ts"
     },
     "src/pipeline/riskCompute/service.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/riskCompute/service.ts"
     },
     "src/pipeline/capacity/service.test.ts": {
-      "package": "@ensured/pipeline-capacity",
+      "package": "@simeoncalixte/ensured-pipeline-capacity",
       "directory": "EnsuredPipelineCapacity",
       "path": "src/pipeline/capacity/service.test.ts"
     },
     "src/pipeline/capacity/service.ts": {
-      "package": "@ensured/pipeline-capacity",
+      "package": "@simeoncalixte/ensured-pipeline-capacity",
       "directory": "EnsuredPipelineCapacity",
       "path": "src/pipeline/capacity/service.ts"
     },
     "src/pipeline/schema/publish.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schema/publish.ts"
     },
     "src/pipeline/schema/compile.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schema/compile.ts"
     },
     "src/pipeline/schema/compile.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schema/compile.test.ts"
     },
     "src/pipeline/locationDiscovery/source.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/locationDiscovery/source.ts"
     },
     "src/pipeline/locationDiscovery/service.test.ts": {
-      "package": "@ensured/pipeline-location-discovery",
+      "package": "@simeoncalixte/ensured-pipeline-location-discovery",
       "directory": "EnsuredPipelineLocationDiscovery",
       "path": "src/pipeline/locationDiscovery/service.test.ts"
     },
     "src/pipeline/locationDiscovery/regression.test.ts": {
-      "package": "@ensured/pipeline-location-discovery",
+      "package": "@simeoncalixte/ensured-pipeline-location-discovery",
       "directory": "EnsuredPipelineLocationDiscovery",
       "path": "src/pipeline/locationDiscovery/regression.test.ts"
     },
     "src/pipeline/locationDiscovery/geography.ts": {
-      "package": "@ensured/pipeline-location-discovery",
+      "package": "@simeoncalixte/ensured-pipeline-location-discovery",
       "directory": "EnsuredPipelineLocationDiscovery",
       "path": "src/pipeline/locationDiscovery/geography.ts"
     },
     "src/pipeline/locationDiscovery/service.ts": {
-      "package": "@ensured/pipeline-location-discovery",
+      "package": "@simeoncalixte/ensured-pipeline-location-discovery",
       "directory": "EnsuredPipelineLocationDiscovery",
       "path": "src/pipeline/locationDiscovery/service.ts"
     },
     "src/pipeline/preRating/service.test.ts": {
-      "package": "@ensured/pipeline-pre-rating",
+      "package": "@simeoncalixte/ensured-pipeline-pre-rating",
       "directory": "EnsuredPipelinePreRating",
       "path": "src/pipeline/preRating/service.test.ts"
     },
     "src/pipeline/preRating/service.ts": {
-      "package": "@ensured/pipeline-pre-rating",
+      "package": "@simeoncalixte/ensured-pipeline-pre-rating",
       "directory": "EnsuredPipelinePreRating",
       "path": "src/pipeline/preRating/service.ts"
     },
     "src/pipeline/compute/compute.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/compute/compute.test.ts"
     },
     "src/pipeline/compute/assemble.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/compute/assemble.ts"
     },
     "src/pipeline/compute/credibility.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/compute/credibility.ts"
     },
     "src/pipeline/compute/service.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/compute/service.ts"
     },
     "src/pipeline/workflow/service.agent.test.ts": {
-      "package": "@ensured/pipeline-workflow",
+      "package": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "path": "src/pipeline/workflow/service.agent.test.ts"
     },
     "src/pipeline/workflow/GeminiWorkflowProvider.test.ts": {
-      "package": "@ensured/pipeline-workflow",
+      "package": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "path": "src/pipeline/workflow/GeminiWorkflowProvider.test.ts"
     },
     "src/pipeline/workflow/service.test.ts": {
-      "package": "@ensured/pipeline-workflow",
+      "package": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "path": "src/pipeline/workflow/service.test.ts"
     },
     "src/pipeline/workflow/GeminiWorkflowProvider.ts": {
-      "package": "@ensured/pipeline-workflow",
+      "package": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "path": "src/pipeline/workflow/GeminiWorkflowProvider.ts"
     },
     "src/pipeline/workflow/service.ts": {
-      "package": "@ensured/pipeline-workflow",
+      "package": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "path": "src/pipeline/workflow/service.ts"
     },
     "src/pipeline/workflow/workflow.real.test.ts": {
-      "package": "@ensured/pipeline-workflow",
+      "package": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "path": "src/pipeline/workflow/workflow.real.test.ts"
     },
     "src/pipeline/registry/upsert.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/registry/upsert.ts"
     },
     "src/pipeline/registry/seed.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/registry/seed.ts"
     },
     "src/pipeline/registry/types.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/registry/types.ts"
     },
     "src/pipeline/registry/strategy.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/registry/strategy.ts"
     },
     "src/pipeline/registry/resolve.test.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/registry/resolve.test.ts"
     },
     "src/pipeline/registry/resolve.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/registry/resolve.ts"
     },
     "src/pipeline/catastrophe/epEngine.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/epEngine.test.ts"
     },
     "src/pipeline/catastrophe/eventLoss.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/eventLoss.test.ts"
     },
     "src/pipeline/catastrophe/epEngine.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/epEngine.ts"
     },
     "src/pipeline/catastrophe/strategies.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/strategies.test.ts"
     },
     "src/pipeline/catastrophe/accumulation.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/accumulation.ts"
     },
     "src/pipeline/catastrophe/eventLoss.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/eventLoss.ts"
     },
     "src/pipeline/catastrophe/damageCurves.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/damageCurves.ts"
     },
     "src/pipeline/catastrophe/damageCurves.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/damageCurves.test.ts"
     },
     "src/pipeline/catastrophe/strategies.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/strategies.ts"
     },
     "src/pipeline/catastrophe/accumulation.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/accumulation.test.ts"
     },
     "src/pipeline/catastrophe/service.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/catastrophe/service.ts"
     },
     "src/pipeline/extraction/service.agent.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/service.agent.test.ts"
     },
     "src/pipeline/extraction/sov.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/sov.ts"
     },
     "src/pipeline/extraction/quality.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/quality.ts"
     },
     "src/pipeline/extraction/quality.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/quality.test.ts"
     },
     "src/pipeline/extraction/extraction.real.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/extraction.real.test.ts"
     },
     "src/pipeline/extraction/service.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/service.test.ts"
     },
     "src/pipeline/extraction/confidence.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/confidence.test.ts"
     },
     "src/pipeline/extraction/versioning.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/versioning.ts"
     },
     "src/pipeline/extraction/submission15.fixture.json": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/submission15.fixture.json"
     },
     "src/pipeline/extraction/details.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/details.ts"
     },
     "src/pipeline/extraction/README.md": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/README.md"
     },
     "src/pipeline/extraction/GeminiExtractionProvider.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/GeminiExtractionProvider.ts"
     },
     "src/pipeline/extraction/GeminiExtractionProvider.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/GeminiExtractionProvider.test.ts"
     },
     "src/pipeline/extraction/confidence.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/confidence.ts"
     },
     "src/pipeline/extraction/service.regression.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/service.regression.test.ts"
     },
     "src/pipeline/extraction/service.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/service.ts"
     },
     "src/pipeline/extraction/sov.test.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/sov.test.ts"
     },
     "src/pipeline/storageSearch/service.test.ts": {
-      "package": "@ensured/pipeline-storage-search",
+      "package": "@simeoncalixte/ensured-pipeline-storage-search",
       "directory": "EnsuredPipelineStorageSearch",
       "path": "src/pipeline/storageSearch/service.test.ts"
     },
     "src/pipeline/storageSearch/service.ts": {
-      "package": "@ensured/pipeline-storage-search",
+      "package": "@simeoncalixte/ensured-pipeline-storage-search",
       "directory": "EnsuredPipelineStorageSearch",
       "path": "src/pipeline/storageSearch/service.ts"
     },
     "src/pipeline/validation/semanticAdapter.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/semanticAdapter.ts"
     },
     "src/pipeline/validation/semanticAdapter.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/semanticAdapter.test.ts"
     },
     "src/pipeline/validation/appetiteEngine.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/appetiteEngine.ts"
     },
     "src/pipeline/validation/repository.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/repository.ts"
     },
     "src/pipeline/validation/taxonomyResolve.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/taxonomyResolve.test.ts"
     },
     "src/pipeline/validation/coerce.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/coerce.test.ts"
     },
     "src/pipeline/validation/taxonomyResolve.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/taxonomyResolve.ts"
     },
     "src/pipeline/validation/service.di.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/service.di.test.ts"
     },
     "src/pipeline/validation/service.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/service.test.ts"
     },
     "src/pipeline/validation/appetiteEngine.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/appetiteEngine.test.ts"
     },
     "src/pipeline/validation/scrub.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/scrub.ts"
     },
     "src/pipeline/validation/ruleSchema.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/ruleSchema.test.ts"
     },
     "src/pipeline/validation/coerce.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/coerce.ts"
     },
     "src/pipeline/validation/taxonomyAppetite.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/taxonomyAppetite.ts"
     },
     "src/pipeline/validation/logic.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/logic.ts"
     },
     "src/pipeline/validation/types.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/types.ts"
     },
     "src/pipeline/validation/repository.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/repository.test.ts"
     },
     "src/pipeline/validation/logic.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/logic.test.ts"
     },
     "src/pipeline/validation/scrub.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/scrub.test.ts"
     },
     "src/pipeline/validation/taxonomyAppetite.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/taxonomyAppetite.test.ts"
     },
     "src/pipeline/validation/appetiteEngine.taxonomy.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/appetiteEngine.taxonomy.test.ts"
     },
     "src/pipeline/validation/validation.real.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/validation.real.test.ts"
     },
     "src/pipeline/validation/ruleSchema.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/ruleSchema.ts"
     },
     "src/pipeline/validation/semantic.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/semantic.ts"
     },
     "src/pipeline/validation/service.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/service.ts"
     },
     "src/pipeline/validation/semantic.test.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/semantic.test.ts"
     },
     "src/pipeline/parametric/definition.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/parametric/definition.ts"
     },
     "src/pipeline/parametric/definition.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/parametric/definition.test.ts"
     },
     "src/pipeline/parametric/strategies.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/parametric/strategies.test.ts"
     },
     "src/pipeline/parametric/formula.test.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/parametric/formula.test.ts"
     },
     "src/pipeline/parametric/formula.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/parametric/formula.ts"
     },
     "src/pipeline/parametric/strategies.ts": {
-      "package": "@ensured/pipeline-risk-compute",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
       "directory": "EnsuredPipelineRiskCompute",
       "path": "src/pipeline/parametric/strategies.ts"
     },
     "src/pipeline/strategies.ts": {
-      "package": "@ensured/pipeline-ingestion",
+      "package": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "path": "src/pipeline/strategies.ts"
     },
     "src/pipeline/emailInbox.ts": {
-      "package": "@ensured/pipeline-ingestion",
+      "package": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "path": "src/pipeline/emailInbox.ts"
     },
     "src/db/seed-data/lineOfBusinessTaxonomy.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/seed-data/lineOfBusinessTaxonomy.ts"
     },
     "src/db/models/index.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/index.ts"
     },
     "src/config/database.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/config/database.ts"
     },
     "src/formCatalog/catalog.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/formCatalog/catalog.ts"
     },
     "src/formCatalog/composites.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/formCatalog/composites.ts"
     },
     "src/formCatalog/xds-components.json": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/formCatalog/xds-components.json"
     },
     "src/db/models/pageTemplates.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/pageTemplates.models.ts"
     },
     "src/formCatalog/validation.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/formCatalog/validation.ts"
     },
     "src/db/seed-data/pageTemplates.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/seed-data/pageTemplates.ts"
     },
     "src/formCatalog/service.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/formCatalog/service.ts"
     },
     "src/db/models/benchmarkPrior.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/benchmarkPrior.models.ts"
     },
     "src/db/models/riskClassSchema.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/riskClassSchema.models.ts"
     },
     "src/db/models/riskClassRegistry.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/riskClassRegistry.models.ts"
     },
     "src/db/models/constants.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/constants.ts"
     },
     "src/db/models/cresta.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/cresta.models.ts"
     },
     "src/integrations/email/inboxIdentity.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/integrations/email/inboxIdentity.ts"
     },
     "src/db/models/emailInbox.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/emailInbox.models.ts"
     },
     "src/integrations/email/index.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/integrations/email/index.ts"
     },
     "src/db/models/formCatalog.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/formCatalog.models.ts"
     },
     "src/db/models/identity.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/identity.models.ts"
     },
     "src/db/models/capital.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/capital.models.ts"
     },
     "src/db/models/governance.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/governance.models.ts"
     },
     "src/db/models/underwriting.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/underwriting.models.ts"
     },
     "src/db/models/lineOfBusiness.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/lineOfBusiness.models.ts"
     },
     "src/db/models/ingestion.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/ingestion.models.ts"
     },
     "src/db/models/pipelineConfig.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/pipelineConfig.models.ts"
     },
     "src/db/models/appetite.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/appetite.models.ts"
     },
     "src/db/models/pipeline.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/pipeline.models.ts"
     },
     "src/db/models/billing.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/billing.models.ts"
     },
     "src/db/models/geography.models.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/db/models/geography.models.ts"
     },
     "src/config/env.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/config/env.ts"
     },
     "src/integrations/email/client.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/integrations/email/client.ts"
     },
     "src/integrations/email/credentials.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/integrations/email/credentials.ts"
     },
     "src/integrations/email/types.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/integrations/email/types.ts"
     },
     "src/integrations/email/state.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/integrations/email/state.ts"
     },
     "src/integrations/serviceDiscovery.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/integrations/serviceDiscovery.ts"
     },
     "src/types/amqplib.d.ts": {
-      "package": "@ensured/pipeline-shared",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/types/amqplib.d.ts"
     },
     "src/pipeline/ingestion/route.ts": {
-      "package": "@ensured/pipeline-ingestion",
+      "package": "@simeoncalixte/ensured-pipeline-ingestion",
       "directory": "EnsuredPipelineIngestion",
       "path": "src/pipeline/ingestion/route.ts"
     },
     "src/pipeline/ocr/route.ts": {
-      "package": "@ensured/pipeline-ocr",
+      "package": "@simeoncalixte/ensured-pipeline-ocr",
       "directory": "EnsuredPipelineOcr",
       "path": "src/pipeline/ocr/route.ts"
     },
     "src/pipeline/classification/route.ts": {
-      "package": "@ensured/pipeline-classification",
+      "package": "@simeoncalixte/ensured-pipeline-classification",
       "directory": "EnsuredPipelineClassification",
       "path": "src/pipeline/classification/route.ts"
     },
     "src/pipeline/extraction/route.ts": {
-      "package": "@ensured/pipeline-extraction",
+      "package": "@simeoncalixte/ensured-pipeline-extraction",
       "directory": "EnsuredPipelineExtraction",
       "path": "src/pipeline/extraction/route.ts"
     },
     "src/pipeline/locationDiscovery/route.ts": {
-      "package": "@ensured/pipeline-location-discovery",
+      "package": "@simeoncalixte/ensured-pipeline-location-discovery",
       "directory": "EnsuredPipelineLocationDiscovery",
       "path": "src/pipeline/locationDiscovery/route.ts"
     },
     "src/pipeline/normalization/route.ts": {
-      "package": "@ensured/pipeline-normalization",
+      "package": "@simeoncalixte/ensured-pipeline-normalization",
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/normalization/route.ts"
     },
     "src/pipeline/validation/route.ts": {
-      "package": "@ensured/pipeline-validation",
+      "package": "@simeoncalixte/ensured-pipeline-validation",
       "directory": "EnsuredPipelineValidation",
       "path": "src/pipeline/validation/route.ts"
     },
     "src/pipeline/workflow/route.ts": {
-      "package": "@ensured/pipeline-workflow",
+      "package": "@simeoncalixte/ensured-pipeline-workflow",
       "directory": "EnsuredPipelineWorkflow",
       "path": "src/pipeline/workflow/route.ts"
     },
     "src/pipeline/storageSearch/route.ts": {
-      "package": "@ensured/pipeline-storage-search",
+      "package": "@simeoncalixte/ensured-pipeline-storage-search",
       "directory": "EnsuredPipelineStorageSearch",
       "path": "src/pipeline/storageSearch/route.ts"
     }
