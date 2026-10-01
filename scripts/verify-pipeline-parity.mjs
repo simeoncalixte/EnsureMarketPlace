@@ -18,7 +18,7 @@ function logicalModule(specifier, filename, base) {
 function runtimeHash(source, filename, base) {
   // Module wiring and type declarations may change; executable bodies must match.
   source = source.replace(/(['"])([^'"\n]+)\1/g, (text, quote, value) => {
-    if (!value.startsWith('.') && !value.startsWith('@ensured/')) return text;
+    if (!value.startsWith('.') && !value.startsWith('@simeoncalixte/')) return text;
     return quote + logicalModule(value, filename, base) + quote;
   });
   if (filename.endsWith('/pipeline/strategies.ts')) source = source.replace('new AmqpStrategy(new IngestionService())', 'new AmqpStrategy()');
