@@ -1,10 +1,15 @@
 # Applications use the shared PostgreSQL service on ensured-platform.
 services:
   auth:
-    build: ./EnsuredAuth
+    build:
+      context: ./EnsuredAuth
+      secrets: [node_auth_token]
     container_name: ensured-auth
     env_file: ./EnsuredAPI/.env
     environment:
+      SERVICES_AUTH_URL: http://auth:3003
+      SERVICES_REGISTRY_URL: http://catalog:3010
+      SERVICES_INSTANCE_ID: auth-local
       AUTH_DEV_UI_ORIGIN: http://localhost:3000
       AUTH_BIND_HOST: 0.0.0.0
       AUTH_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_identity
@@ -35,7 +40,9 @@ services:
       timeout: 5s
       retries: 6
   gateway:
-    build: ./EnsuredAuth
+    build:
+      context: ./EnsuredAuth
+      secrets: [node_auth_token]
     container_name: ensured-gateway
     env_file: ./EnsuredAPI/.env
     environment:
@@ -94,6 +101,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+secrets:
+  node_auth_token:
+    environment: NODE_AUTH_TOKEN
+
 networks:
   default:
     name: ensured-platform
