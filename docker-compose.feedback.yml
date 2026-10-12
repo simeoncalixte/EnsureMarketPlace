@@ -1,3 +1,5 @@
+# Development: docker compose -f docker-compose.feedback.yml up --build --watch
+# Keep Watch running to apply source changes; dependency changes rebuild the affected image.
 services:
   submission-feedback:
     build: ./EnsuredSubmissionFeedback
@@ -14,6 +16,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./EnsuredSubmissionFeedback
+          target: /app
+          initial_sync: true
+          ignore: [node_modules/, .git/, dist/, .env, .env.*, package.json, package-lock.json, Dockerfile]
+        - action: rebuild
+          path: ./EnsuredSubmissionFeedback/package.json
+        - action: rebuild
+          path: ./EnsuredSubmissionFeedback/package-lock.json
+        - action: rebuild
+          path: ./EnsuredSubmissionFeedback/Dockerfile
+
 networks:
   platform:
     external: true

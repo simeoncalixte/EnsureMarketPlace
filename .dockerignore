@@ -7,6 +7,7 @@
 **/storybook-live
 **/dist
 **/dist-standalone
+**/data/submission-documents
 docker-backups
 output
 pdfs

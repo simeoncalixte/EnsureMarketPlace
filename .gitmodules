@@ -114,3 +114,6 @@
 [submodule "EnsuredPipelineSubjectDiscovery"]
 	path = EnsuredPipelineSubjectDiscovery
 	url = https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery.git
+[submodule "EnsuredCallGraph"]
+	path = EnsuredCallGraph
+	url = https://github.com/simeoncalixte/EnsuredCallGraph.git

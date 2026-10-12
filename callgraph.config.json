@@ -1,0 +1,17 @@
+{
+  "exclude": [
+    "**/test/**",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/__mocks__/**",
+    "**/fixtures/**",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/db/migrations/**",
+    "**/migrations/**"
+  ],
+  "includeExternalPackages": true,
+  "includeUnresolvedCalls": true
+}

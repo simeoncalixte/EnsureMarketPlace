@@ -1,3 +1,5 @@
+# Development: docker compose -f docker-compose.services.yml up --build --watch
+# Keep Watch running to apply source changes; dependency changes rebuild the affected image.
 # Applications use the shared PostgreSQL service on ensured-platform.
 services:
   auth:
@@ -24,6 +26,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./EnsuredAuth
+          target: /app
+          initial_sync: true
+          ignore: [node_modules/, .git/, dist/, .env, .env.*, package.json, package-lock.json, Dockerfile]
+        - action: rebuild
+          path: ./EnsuredAuth/package.json
+        - action: rebuild
+          path: ./EnsuredAuth/package-lock.json
+        - action: rebuild
+          path: ./EnsuredAuth/Dockerfile
+
   kyc:
     build: ./EnsuredKYC
     container_name: ensured-kyc
@@ -39,6 +55,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./EnsuredKYC
+          target: /app
+          initial_sync: true
+          ignore: [node_modules/, .git/, dist/, .env, .env.*, package.json, package-lock.json, Dockerfile]
+        - action: rebuild
+          path: ./EnsuredKYC/package.json
+        - action: rebuild
+          path: ./EnsuredKYC/package-lock.json
+        - action: rebuild
+          path: ./EnsuredKYC/Dockerfile
+
   gateway:
     build:
       context: ./EnsuredAuth
@@ -64,6 +94,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./EnsuredAuth
+          target: /app
+          initial_sync: true
+          ignore: [node_modules/, .git/, dist/, .env, .env.*, package.json, package-lock.json, Dockerfile]
+        - action: rebuild
+          path: ./EnsuredAuth/package.json
+        - action: rebuild
+          path: ./EnsuredAuth/package-lock.json
+        - action: rebuild
+          path: ./EnsuredAuth/Dockerfile
+
   catalog:
     build: ./EnsuredServices
     container_name: ensured-services
@@ -76,6 +120,22 @@ services:
     volumes: ['./EnsuredServices/catalog.docker.json:/app/catalog.docker.json:ro']
     ports: ['127.0.0.1:3010:3010']
     restart: unless-stopped
+    develop:
+      watch:
+        - action: restart
+          path: ./EnsuredServices/catalog.docker.json
+        - action: sync+restart
+          path: ./EnsuredServices
+          target: /app
+          initial_sync: true
+          ignore: [node_modules/, .git/, dist/, .env, .env.*, package.json, package-lock.json, Dockerfile, catalog.docker.json]
+        - action: rebuild
+          path: ./EnsuredServices/package.json
+        - action: rebuild
+          path: ./EnsuredServices/package-lock.json
+        - action: rebuild
+          path: ./EnsuredServices/Dockerfile
+
   submission-ui:
     build: ./SubmissionUI
     container_name: ensured-submission-ui
@@ -87,6 +147,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+    develop:
+      watch:
+        - action: sync
+          path: ./SubmissionUI
+          target: /app
+          initial_sync: true
+          ignore: [node_modules/, .git/, dist/, .env, .env.*, package.json, package-lock.json, Dockerfile]
+        - action: rebuild
+          path: ./SubmissionUI/package.json
+        - action: rebuild
+          path: ./SubmissionUI/package-lock.json
+        - action: rebuild
+          path: ./SubmissionUI/Dockerfile
+
   submission-relay:
     build: ./SubmissionUI
     container_name: ensured-submission-relay
@@ -101,6 +175,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 6
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./SubmissionUI
+          target: /app
+          initial_sync: true
+          ignore: [node_modules/, .git/, dist/, .env, .env.*, package.json, package-lock.json, Dockerfile]
+        - action: rebuild
+          path: ./SubmissionUI/package.json
+        - action: rebuild
+          path: ./SubmissionUI/package-lock.json
+        - action: rebuild
+          path: ./SubmissionUI/Dockerfile
+
 secrets:
   node_auth_token:
     environment: NODE_AUTH_TOKEN
