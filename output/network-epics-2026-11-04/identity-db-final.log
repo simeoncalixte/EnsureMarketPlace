@@ -1,0 +1,39 @@
+ Network ensured-finance-test-e201fb0ea570_default Creating 
+ Network ensured-finance-test-e201fb0ea570_default Creating 
+ Network ensured-finance-test-e201fb0ea570_default Created 
+ Network ensured-finance-test-e201fb0ea570_default Created 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Creating 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Created 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Starting 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Started 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Waiting 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Healthy 
+PASS test/relationships/subledger.db.test.ts (5.991 s)
+  AIN-34: canonical accounts and source-reconciled party subledger
+    ✓ legacy reviewed entries import once; unresolved evidence is not guessed (47 ms)
+    ✓ all financial roles have explicit stable identities; equal names never merge (401 ms)
+    ✓ reviewed Network identity requires member consent and never implies financial access (343 ms)
+    ✓ Network identity is suppressed immediately when reviewer authority expires (179 ms)
+    ✓ Network links retain exact SPV/investor sources, private consent and current affiliation (286 ms)
+    ✓ Network participation pages expose only authorized entries and invalidate cursors after revocation (792 ms)
+    ✓ exact postings reconcile; duplicate operations and source identities cannot double post (55 ms)
+    ✓ concurrent settlement cannot exceed the obligation; full reversals are referenced and once-only (135 ms)
+    ✓ direct invalid writes and failed posting pairs cannot leave partial journals (32 ms)
+    ✓ cross-contract account/party references and unauthorized actors are denied (32 ms)
+    ✓ mandated representatives obtain only their party statement; revocation/expiry/account changes are immediate (58 ms)
+    ✓ concurrent duplicate commands post once; database rejects precision loss and late postings (14 ms)
+    ✓ inactive representatives and withdrawn granting relationships lose statement access (13 ms)
+    ✓ statement balances rebuild from immutable postings and pagination does not duplicate entries (515 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       14 passed, 14 total
+Snapshots:   0 total
+Time:        6.152 s, estimated 7 s
+Ran all test suites within paths "test/relationships/subledger.db.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Stopping 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Stopped 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Removing 
+ Container ensured-finance-test-e201fb0ea570-postgres-1 Removed 
+ Network ensured-finance-test-e201fb0ea570_default Removing 
+ Network ensured-finance-test-e201fb0ea570_default Removed 

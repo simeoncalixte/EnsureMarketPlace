@@ -1,0 +1,62 @@
+{
+  "runId": "b8abb2cd-a291-418c-a800-5b6a0f3a7ae9",
+  "pipeline": "skipped; no workers started",
+  "personas": [
+    {
+      "name": "Maya Chen",
+      "userId": "1",
+      "organizationId": null,
+      "role": "placing broker"
+    },
+    {
+      "name": "Daniel Okoro",
+      "userId": "2",
+      "organizationId": "1",
+      "role": "insured representative"
+    },
+    {
+      "name": "Casey Morgan",
+      "userId": "3",
+      "organizationId": "2",
+      "role": "underwriter"
+    },
+    {
+      "name": "Taylor Brooks",
+      "userId": "4",
+      "organizationId": "2",
+      "role": "admin"
+    }
+  ],
+  "cases": [
+    {
+      "mode": "signed",
+      "submissionId": 1,
+      "investorProfileId": 1,
+      "dealId": 1
+    },
+    {
+      "mode": "admin_override",
+      "submissionId": 2,
+      "investorProfileId": 1,
+      "dealId": 2
+    }
+  ],
+  "checks": [
+    "signed: unpublished and unbound blocked",
+    "One missing external signature blocks binding",
+    "All three signatures, binding, and reviewed listing permit standard publication",
+    "signed: visible in shared Network/Marketplace opportunity API",
+    "signed: cross-organization access blocked",
+    "admin_override: unpublished and unbound blocked",
+    "Admin binds and publishes with two audited reasons and no invented signatures",
+    "admin_override: visible in shared Network/Marketplace opportunity API",
+    "admin_override: cross-organization access blocked",
+    "AIN-77: owning-source withdrawal and changed listing hide the old link and deny terms; restoring source produces one listing",
+    "AIN-77: live Network handoff retains exact publication hash; stale hash returns no listing",
+    "AIN-84: live reviewer Storybook records participant-specific bound subject approval after real independent KYC review",
+    "AIN-78/33: host exact opportunity opens terms; live Storybook double-click creates one pending commitment",
+    "AIN-78: lost-response replay, conflicting retry, outsider, revocation and immutable database evidence",
+    "AIN-30 slice: pending commitments never report funded cash; listing funding is explicitly unverified",
+    "Live Network Storybook renders both real published opportunities through the gateway"
+  ]
+}

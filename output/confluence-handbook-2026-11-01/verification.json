@@ -1,0 +1,146 @@
+[
+  {
+    "id": "294914",
+    "title": "Ensured Project Handbook",
+    "parent_id": "98420",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "98435",
+    "title": "01 Product Vision and Goals",
+    "parent_id": "294914",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "327681",
+    "title": "01.1 Participants and End-to-End Journeys",
+    "parent_id": "98435",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "360449",
+    "title": "01.2 Scope, Milestones and Success Criteria",
+    "parent_id": "98435",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "393217",
+    "title": "02 Platform Architecture",
+    "parent_id": "294914",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "294941",
+    "title": "02.1 Repository and Service Ownership Catalog",
+    "parent_id": "393217",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "65804",
+    "title": "02.2 Submission Pipeline and Human Review",
+    "parent_id": "393217",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "360480",
+    "title": "02.3 Identity, Authorization and Evidence Boundaries",
+    "parent_id": "393217",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "294976",
+    "title": "03 Data and Financial Models",
+    "parent_id": "294914",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "295007",
+    "title": "03.1 Entity Catalog and Relationships",
+    "parent_id": "294976",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "327716",
+    "title": "03.2 Party Financial Flows and Accounting Semantics",
+    "parent_id": "294976",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "425985",
+    "title": "03.3 Risk, Pricing and Return Calculation Models",
+    "parent_id": "294976",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "327759",
+    "title": "03.4 Data Model Improvement Plan",
+    "parent_id": "294976",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "393250",
+    "title": "04 Delivery and Quality",
+    "parent_id": "294914",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "131081",
+    "title": "04.1 Jira Roadmap and Release Dependencies",
+    "parent_id": "393250",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "327802",
+    "title": "04.2 Known Defects, Validation and Unverified Risks",
+    "parent_id": "393250",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "295044",
+    "title": "05 Operations and Maintenance",
+    "parent_id": "294914",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  },
+  {
+    "id": "98464",
+    "title": "05.1 Configuration, Release and Recovery Runbook",
+    "parent_id": "295044",
+    "content_verified": true,
+    "rendered_view_checked": true,
+    "version": 1
+  }
+]

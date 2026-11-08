@@ -1,0 +1,25 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10475",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10475",
+  "key": "AIN-152",
+  "fields": {
+    "summary": "[Settings] Keep reference controls readable without external icon fonts",
+    "issuelinks": [],
+    "subtasks": [],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+      "name": "Done",
+      "id": "10037",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+        "id": 3,
+        "key": "done",
+        "colorName": "green",
+        "name": "Done"
+      }
+    }
+  }
+}

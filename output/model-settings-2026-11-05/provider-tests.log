@@ -1,0 +1,14 @@
+
+> @simeoncalixte/ensured-pipeline-shared@0.1.0 test
+> jest --runInBand --watchman=false --runTestsByPath src/pipeline/agents/muse.test.ts src/pipeline/agents/llm.test.ts src/pipeline/agents/qwen.test.ts src/pipeline/agents/tokenUsage.test.ts
+
+PASS src/pipeline/agents/muse.test.ts (5.901 s)
+PASS src/pipeline/agents/llm.test.ts
+PASS src/pipeline/agents/qwen.test.ts
+PASS src/pipeline/agents/tokenUsage.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       55 passed, 55 total
+Snapshots:   0 total
+Time:        7.81 s
+Ran all test suites within paths "src/pipeline/agents/muse.test.ts", "src/pipeline/agents/llm.test.ts", "src/pipeline/agents/qwen.test.ts", "src/pipeline/agents/tokenUsage.test.ts".

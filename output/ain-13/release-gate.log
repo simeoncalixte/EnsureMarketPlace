@@ -1,0 +1,84 @@
+
+> pipeline:verify
+> node scripts/pipeline-packages.mjs verify && node scripts/verify-pipeline-parity.mjs && npm run component-policy:check
+
+verify: @simeoncalixte/ensured-pipeline-shared@0.1.0
+verify: @simeoncalixte/ensured-pipeline-ingestion-amqp@0.1.0
+verify: @simeoncalixte/ensured-pipeline-ingestion@0.1.0
+verify: @simeoncalixte/ensured-pipeline-ocr@0.1.0
+verify: @simeoncalixte/ensured-pipeline-classification@0.1.0
+verify: @simeoncalixte/ensured-pipeline-extraction@0.1.0
+verify: @simeoncalixte/ensured-pipeline-subject-discovery@0.1.0
+verify: @simeoncalixte/ensured-pipeline-financial-discovery@0.1.0
+verify: @simeoncalixte/ensured-pipeline-location-discovery@0.1.0
+verify: @simeoncalixte/ensured-pipeline-normalization@0.1.0
+verify: @simeoncalixte/ensured-pipeline-validation@0.1.0
+verify: @simeoncalixte/ensured-pipeline-schema-generation@0.1.0
+verify: @simeoncalixte/ensured-pipeline-pre-rating@0.1.0
+verify: @simeoncalixte/ensured-pipeline-capacity@0.1.0
+verify: @simeoncalixte/ensured-pipeline-oracle-attestation@0.1.0
+verify: @simeoncalixte/ensured-pipeline-workflow@0.1.0
+verify: @simeoncalixte/ensured-pipeline-risk-compute@0.1.0
+verify: @simeoncalixte/ensured-pipeline-storage-search@0.1.0
+
+> @simeoncalixte/ensured-pipeline-shared@0.1.0 build
+> node scripts/build.mjs
+
+
+> @simeoncalixte/ensured-pipeline-capacity@0.1.0 build
+> node scripts/build.mjs
+
+
+> @simeoncalixte/ensured-pipeline-risk-compute@0.1.0 build
+> node scripts/build.mjs
+
+{
+  "financialArtifacts": [
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
+      "version": "0.1.0",
+      "files": 160,
+      "sha256": "8ee2a7c09e9599ee0a80c507b583a279afe4a01a930ade472b3e2b864514d58e",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredPipelineCapacity",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
+      "version": "0.1.0",
+      "files": 160,
+      "sha256": "8ee2a7c09e9599ee0a80c507b583a279afe4a01a930ade472b3e2b864514d58e",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredPipelineRiskCompute",
+      "package": "@simeoncalixte/ensured-pipeline-shared",
+      "version": "0.1.0",
+      "files": 160,
+      "sha256": "8ee2a7c09e9599ee0a80c507b583a279afe4a01a930ade472b3e2b864514d58e",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@simeoncalixte/ensured-pipeline-capacity",
+      "version": "0.1.0",
+      "files": 4,
+      "sha256": "93cdfba32c38b49a4f11cd7ff3ec3c0ecd1cd14b91ce5cba11cf91a611416005",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@simeoncalixte/ensured-pipeline-risk-compute",
+      "version": "0.1.0",
+      "files": 48,
+      "sha256": "f5bf0598a769acc32bb65d7dbccf5387c77bd25edd9a919c60f176199e0a8445",
+      "matchesSourceBuild": true
+    }
+  ],
+  "errors": []
+}
+
+> component-policy:check
+> node EnsuredXDS/scripts/generate-component-policy.mjs --check && node EnsuredXDS/scripts/sync-schema-registry.mjs --check && node scripts/check-component-capabilities.mjs
+
+Component policy and explicit adapter inventories agree.

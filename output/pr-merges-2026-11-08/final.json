@@ -1,0 +1,542 @@
+[
+  {
+    "repo": "simeoncalixte/EnsureMarketPlace",
+    "originalPRs": [
+      {
+        "baseRefName": "master",
+        "headRefOid": "2ac308d01a90980a09b726e1a6f9c300d49cfa9b",
+        "mergeCommit": {
+          "oid": "758d759b112659b24d441112e2773d969c77d01b"
+        },
+        "mergedAt": "2026-11-08T12:46:01Z",
+        "number": 74,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/74"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredAPI",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "31dcfde46df9adb91f49917f3a8393b3c0e1910f",
+        "mergeCommit": {
+          "oid": "33406bc263e0a16d06425d827ce75a7ca43bc584"
+        },
+        "mergedAt": "2026-11-08T12:43:48Z",
+        "number": 16,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredAPI/pull/16"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredAuth",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "492ded8a58a068d7c60e53c2dc86a9356e1ee3b5",
+        "mergeCommit": {
+          "oid": "b89fc7bf19d42260c29e259713c66c2ac3b0b1ab"
+        },
+        "mergedAt": "2026-11-08T12:43:51Z",
+        "number": 18,
+        "state": "MERGED",
+        "statusCheckRollup": [
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:47:08Z",
+            "conclusion": "SUCCESS",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredAuth/actions/runs/38244823225/job/114795972379",
+            "name": "verify",
+            "startedAt": "2026-10-12T11:46:34Z",
+            "status": "COMPLETED",
+            "workflowName": "Verify shared email client"
+          },
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:46:42Z",
+            "conclusion": "FAILURE",
+            "detailsUrl": "https://dash.cloudflare.com/ac3f12c162dd690b2907184d0ecd2572/workers/services/view/ensuredauth/production/builds/a77fcd99-2f68-4f16-9c13-77c8e5307841",
+            "name": "Workers Builds: ensuredauth",
+            "startedAt": "2026-10-12T11:46:42Z",
+            "status": "COMPLETED",
+            "workflowName": ""
+          }
+        ],
+        "url": "https://github.com/simeoncalixte/EnsuredAuth/pull/18"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredKYC",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredUI",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "3ee1b3220bc1dbc90b86e8d0b0f211929a029fbe",
+        "mergeCommit": {
+          "oid": "b697143e9db890c0b9d7aebe640f914b0d7768cf"
+        },
+        "mergedAt": "2026-11-08T12:45:56Z",
+        "number": 14,
+        "state": "MERGED",
+        "statusCheckRollup": [
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-11-08T12:46:06Z",
+            "conclusion": "FAILURE",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredUI/actions/runs/42481727962/job/128734919762",
+            "name": "build",
+            "startedAt": "2026-11-08T12:45:31Z",
+            "status": "COMPLETED",
+            "workflowName": "Build frontend"
+          },
+          {
+            "__typename": "StatusContext",
+            "context": "Vercel",
+            "startedAt": "2026-11-08T12:45:36Z",
+            "state": "FAILURE",
+            "targetUrl": "https://vercel.com/simeoncalixte-3191s-projects/ensured-ui/A7bNUVXmGutG4bu1YTsSZemsvFW6"
+          },
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-11-08T12:45:37Z",
+            "conclusion": "SUCCESS",
+            "detailsUrl": "https://vercel.com/github",
+            "name": "Vercel Preview Comments",
+            "startedAt": "2026-11-08T12:45:37Z",
+            "status": "COMPLETED",
+            "workflowName": ""
+          }
+        ],
+        "url": "https://github.com/simeoncalixte/EnsuredUI/pull/14"
+      },
+      {
+        "baseRefName": "main",
+        "headRefOid": "5325604dfa66a9edbcc502e762c210eee27e54bd",
+        "mergeCommit": {
+          "oid": "a0b1941d133a04df3726389d3ee2d6b27b61639b"
+        },
+        "mergedAt": "2026-11-08T12:43:42Z",
+        "number": 12,
+        "state": "MERGED",
+        "statusCheckRollup": [
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-09-29T01:32:22Z",
+            "conclusion": "SUCCESS",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredUI/actions/runs/36508278391/job/109214537614",
+            "name": "build",
+            "startedAt": "2026-09-29T01:31:08Z",
+            "status": "COMPLETED",
+            "workflowName": "Build frontend"
+          },
+          {
+            "__typename": "StatusContext",
+            "context": "Vercel",
+            "startedAt": "2026-09-29T01:30:09Z",
+            "state": "SUCCESS",
+            "targetUrl": "https://vercel.com/simeoncalixte-3191s-projects/ensured-ui/hoPAMpMiS9fJn92MehbJPTxrKUpZ"
+          },
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-09-29T01:31:07Z",
+            "conclusion": "SUCCESS",
+            "detailsUrl": "https://vercel.com/github",
+            "name": "Vercel Preview Comments",
+            "startedAt": "2026-09-29T01:31:07Z",
+            "status": "COMPLETED",
+            "workflowName": ""
+          }
+        ],
+        "url": "https://github.com/simeoncalixte/EnsuredUI/pull/12"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/SubmissionUI",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsureMarketPlace-docs",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsureMarketPlace-pdfs",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredXDS",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "603bb023d7ccc00130954fc53104e29f206bdc43",
+        "mergeCommit": {
+          "oid": "88b5e0dcf5b51fabaef5905b2c3259cd9b743133"
+        },
+        "mergedAt": "2026-11-08T12:43:16Z",
+        "number": 7,
+        "state": "MERGED",
+        "statusCheckRollup": [
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:47:33Z",
+            "conclusion": "SUCCESS",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredXDS/actions/runs/38244840377/job/114796030037",
+            "name": "build",
+            "startedAt": "2026-10-12T11:46:44Z",
+            "status": "COMPLETED",
+            "workflowName": "Package"
+          },
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:47:33Z",
+            "conclusion": "SKIPPED",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredXDS/actions/runs/38244840377/job/114796338364",
+            "name": "publish",
+            "startedAt": "2026-10-12T11:47:33Z",
+            "status": "COMPLETED",
+            "workflowName": "Package"
+          }
+        ],
+        "url": "https://github.com/simeoncalixte/EnsuredXDS/pull/7"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredServices",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredMarketplace",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredAuthUI",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredNetwork",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "cb512a89a1eac3ca62b18d3c25d4342a4ba41a29",
+        "mergeCommit": {
+          "oid": "e4dd878e1fda9528abba129561bb76bfe0a8f72b"
+        },
+        "mergedAt": "2026-11-08T12:43:55Z",
+        "number": 4,
+        "state": "MERGED",
+        "statusCheckRollup": [
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:47:21Z",
+            "conclusion": "SUCCESS",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredNetwork/actions/runs/38244867501/job/114796120303",
+            "name": "build",
+            "startedAt": "2026-10-12T11:46:59Z",
+            "status": "COMPLETED",
+            "workflowName": "Package"
+          },
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:47:21Z",
+            "conclusion": "SKIPPED",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredNetwork/actions/runs/38244867501/job/114796268969",
+            "name": "publish",
+            "startedAt": "2026-10-12T11:47:21Z",
+            "status": "COMPLETED",
+            "workflowName": "Package"
+          }
+        ],
+        "url": "https://github.com/simeoncalixte/EnsuredNetwork/pull/4"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredLogistics",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredEmail",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineShared",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "3cd4f5e2e6e31a1e34c6eff5d7f7ad3a92702062",
+        "mergeCommit": {
+          "oid": "6552747627f77a1a884550f6330ea037f65f1fcb"
+        },
+        "mergedAt": "2026-11-08T12:43:21Z",
+        "number": 4,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineShared/pull/4"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineIngestionAmqp",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineIngestion",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineOcr",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineClassification",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "229e165fd42b0ff1be3531158cb014a4cddcd408",
+        "mergeCommit": {
+          "oid": "ed8c23958914939c99add2237f4a2c5e79abb4d1"
+        },
+        "mergedAt": "2026-11-08T12:43:32Z",
+        "number": 3,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineClassification/pull/3"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineExtraction",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineLocationDiscovery",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "21006e78aeeac6a656207a6b185fdc0f85de897f",
+        "mergeCommit": {
+          "oid": "b287feb6e93c65385b724c575ee12c454d11617a"
+        },
+        "mergedAt": "2026-11-08T12:43:35Z",
+        "number": 3,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery/pull/3"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineNormalization",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "1b0dc3184c26179a63e7b12e85289e94fdf619ba",
+        "mergeCommit": {
+          "oid": "f1c3e3d88d947184a2f1cfe8edac4110a988cada"
+        },
+        "mergedAt": "2026-11-08T12:43:27Z",
+        "number": 3,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineNormalization/pull/3"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineValidation",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "a7029311d2911c4d371073757c5a1cd5c8f75643",
+        "mergeCommit": {
+          "oid": "0c281cdfdf9f96574b73f5a7c5d6bbf40ddce61d"
+        },
+        "mergedAt": "2026-11-08T12:43:39Z",
+        "number": 3,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineValidation/pull/3"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineSchemaGeneration",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "77d9e5aa2808ac69ba76033ddf4dad85effc84a3",
+        "mergeCommit": {
+          "oid": "b7de5b1bf990199897611dcb67127e2cdb662337"
+        },
+        "mergedAt": "2026-11-08T12:43:42Z",
+        "number": 4,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/4"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelinePreRating",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineCapacity",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "fc0d85260cf626d2be88153356c4308dd094ee51",
+        "mergeCommit": {
+          "oid": "4ba89da5786efb374b8c9f7b5a635b78ed449cd8"
+        },
+        "mergedAt": "2026-11-08T12:43:45Z",
+        "number": 3,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineCapacity/pull/3"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineOracleAttestation",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineWorkflow",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineRiskCompute",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineStorageSearch",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredSubmissionFeedback",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredConstants",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "5e1c970da755b3e6829aa35342a73b8d5c528250",
+        "mergeCommit": {
+          "oid": "d3f037167857e882df79a96c6a8d99c2405c67cd"
+        },
+        "mergedAt": "2026-11-08T12:43:13Z",
+        "number": 3,
+        "state": "MERGED",
+        "statusCheckRollup": [
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:47:30Z",
+            "conclusion": "SUCCESS",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredConstants/actions/runs/38244894903/job/114796210249",
+            "name": "build",
+            "startedAt": "2026-10-12T11:47:15Z",
+            "status": "COMPLETED",
+            "workflowName": "Package"
+          },
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-10-12T11:47:30Z",
+            "conclusion": "SKIPPED",
+            "detailsUrl": "https://github.com/simeoncalixte/EnsuredConstants/actions/runs/38244894903/job/114796322639",
+            "name": "publish",
+            "startedAt": "2026-10-12T11:47:31Z",
+            "status": "COMPLETED",
+            "workflowName": "Package"
+          }
+        ],
+        "url": "https://github.com/simeoncalixte/EnsuredConstants/pull/3"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineFinancialDiscovery",
+    "originalPRs": [],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineSubjectDiscovery",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "4894fee638594561867ddcaf80e6ad69e59b23be",
+        "mergeCommit": {
+          "oid": "0a23fa2ef83f085692c561df34870753b34ace2a"
+        },
+        "mergedAt": "2026-11-08T12:43:47Z",
+        "number": 3,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery/pull/3"
+      }
+    ],
+    "openPRs": []
+  },
+  {
+    "repo": "simeoncalixte/EnsuredCallGraph",
+    "originalPRs": [
+      {
+        "baseRefName": "main",
+        "headRefOid": "a2b5e707d92b8521f1dbe0e488e00c7299d72d90",
+        "mergeCommit": {
+          "oid": "16dc18c7dd8a6f4fe48350c10dcabec006fc802d"
+        },
+        "mergedAt": "2026-11-08T12:43:24Z",
+        "number": 1,
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/simeoncalixte/EnsuredCallGraph/pull/1"
+      }
+    ],
+    "openPRs": []
+  }
+]

@@ -1,0 +1,200 @@
+
+> ensured-network-app@0.1.0 test:storybook:docker
+> node test/docker-live.mjs
+
+
+> @simeoncalixte/ensured-marketplace@0.1.1 build
+> tsc -p tsconfig.build.json && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 15 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/style.css          48.89 kB │ gzip:   5.84 kB
+dist/marketplace.js  2,570.58 kB │ gzip: 596.54 kB
+✓ built in 2.22s
+
+> @simeoncalixte/ensured-network@0.1.1 build
+> tsc -p tsconfig.build.json && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 8 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/style.css   25.85 kB │ gzip:  5.37 kB
+dist/network.js  82.98 kB │ gzip: 18.83 kB
+✓ built in 121ms
+
+> @simeoncalixte/ensured-network@0.1.1 build-storybook:live
+> storybook build -c .storybook-live -o storybook-live
+
+@storybook/core v8.6.18
+
+info => Cleaning outputDir: storybook-live
+info => Loading presets
+info => Building manager..
+info => Manager built ([38;2;181;126;229m70 ms[39m)
+info => Building preview..
+info Using tsconfig paths for react-docgen
+vite v5.4.21 building for production...
+transforming...
+✓ 791 modules transformed.
+node_modules/@storybook/core/dist/preview/runtime.js (3683:15): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+node_modules/@storybook/core/dist/preview/runtime.js (3685:16): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+rendering chunks...
+computing gzip size...
+storybook-live/iframe.html                                        17.66 kB │ gzip:   4.95 kB
+storybook-live/assets/preview-CfwOIIBS.css                         1.21 kB │ gzip:   0.50 kB
+storybook-live/assets/Live-D74e2QfK.css                           25.85 kB │ gzip:   5.37 kB
+storybook-live/assets/preview-BH1ppSuS.js                          0.16 kB │ gzip:   0.16 kB
+storybook-live/assets/preview-CvbIS5ZJ.js                          0.18 kB │ gzip:   0.16 kB
+storybook-live/assets/index-CMA1Yv9H.js                            0.42 kB │ gzip:   0.27 kB
+storybook-live/assets/jsx-runtime-BjG_zV1W.js                      0.64 kB │ gzip:   0.42 kB
+storybook-live/assets/chunk-XP5HYGXS-BHXC9YeQ.js                   0.71 kB │ gzip:   0.40 kB
+storybook-live/assets/preview-DGUiP6tS.js                          0.71 kB │ gzip:   0.50 kB
+storybook-live/assets/index-Bhqu_tAV.js                            0.79 kB │ gzip:   0.47 kB
+storybook-live/assets/preview-DxRvDCQE.js                          0.89 kB │ gzip:   0.56 kB
+storybook-live/assets/test-utils-C04nzTzz.js                       1.03 kB │ gzip:   0.65 kB
+storybook-live/assets/preview-DD_OYowb.js                          3.51 kB │ gzip:   1.69 kB
+storybook-live/assets/preview-B0GEC7uH.js                          5.06 kB │ gzip:   1.88 kB
+storybook-live/assets/preview-B5CtxQ45.js                          6.10 kB │ gzip:   1.80 kB
+storybook-live/assets/preview-CCCznEf4.js                          7.62 kB │ gzip:   1.56 kB
+storybook-live/assets/preview-BBWR9nbA.js                          8.12 kB │ gzip:   3.10 kB
+storybook-live/assets/index-v1M-TlC-.js                            8.74 kB │ gzip:   3.39 kB
+storybook-live/assets/Participation.live.stories--d1qeLbI.js      13.81 kB │ gzip:   4.32 kB
+storybook-live/assets/styled-components.browser.esm-BmPZ0OLR.js   27.39 kB │ gzip:  11.21 kB
+storybook-live/assets/Color-YHDXOIA2-C8k0HeUr.js                  29.31 kB │ gzip:  11.04 kB
+storybook-live/assets/entry-preview-_QBiDSJe.js                   29.72 kB │ gzip:   9.51 kB
+storybook-live/assets/index-_C1_vaFD.js                           57.14 kB │ gzip:  16.28 kB
+storybook-live/assets/Live.stories-BIH7IzPj.js                    90.31 kB │ gzip:  22.80 kB
+storybook-live/assets/iframe-CPXUdNz6.js                         207.86 kB │ gzip:  71.70 kB
+storybook-live/assets/react-18-CqZhZrO7.js                       213.70 kB │ gzip:  66.50 kB
+storybook-live/assets/entry-preview-docs-DW7NE6_i.js             244.67 kB │ gzip:  73.42 kB
+storybook-live/assets/index-BVN4dGpI.js                          662.30 kB │ gzip: 156.76 kB
+storybook-live/assets/DocsRenderer-CFRXHY34-hAGUWO6s.js          883.31 kB │ gzip: 275.56 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 3.15s
+info => Preview built ([38;2;181;126;229m3.54 s[39m)
+info => Output directory: /Users/simeon/Projects/EnsureMarketPlace/EnsuredNetwork/frontend/storybook-live
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 322B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24-alpine
+#2 DONE 0.3s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 97B done
+#3 DONE 0.0s
+
+#4 [1/8] FROM docker.io/library/node:24-alpine@sha256:8a32c8cf649a49915a66e81e7a609223c708d0adabf288ee3f4077d765542f85
+#4 resolve docker.io/library/node:24-alpine@sha256:8a32c8cf649a49915a66e81e7a609223c708d0adabf288ee3f4077d765542f85 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 9.33kB done
+#5 DONE 0.0s
+
+#6 [3/8] COPY package.json package-lock.json ./
+#6 CACHED
+
+#7 [2/8] WORKDIR /app
+#7 CACHED
+
+#8 [4/8] RUN npm ci --omit=dev --ignore-scripts
+#8 CACHED
+
+#9 [5/8] COPY backend ./backend
+#9 DONE 0.0s
+
+#10 [6/8] COPY contracts ./contracts
+#10 DONE 0.0s
+
+#11 [7/8] COPY scripts ./scripts
+#11 DONE 0.0s
+
+#12 [8/8] RUN chown -R node:node /app
+#12 DONE 0.4s
+
+#13 exporting to image
+#13 exporting layers 0.1s done
+#13 exporting manifest sha256:1eccbabbb35d2d700543ea54ea70d92e5a4a843c76fdf9f03e02ede03bfd2fb1 done
+#13 exporting config sha256:feee89136ee73cd2e90d9c4fca663ad5db47cf34d925d93c8ac99700015ac22d done
+#13 exporting attestation manifest sha256:1f1595a8c65578f97e4cbbcb83c4930e8cbc37000c1a0d208fa5e69eb6180f36
+#13 exporting attestation manifest sha256:1f1595a8c65578f97e4cbbcb83c4930e8cbc37000c1a0d208fa5e69eb6180f36 done
+#13 exporting manifest list sha256:62103f2427bf1358eb98d2f5428cda8b2417ecc95a729e237662c2e901fc4bc3 done
+#13 naming to docker.io/library/ensured-network-live:local done
+#13 unpacking to docker.io/library/ensured-network-live:local 0.1s done
+#13 DONE 0.2s
+ Network ensured-network-live-11708_default Creating 
+ Network ensured-network-live-11708_default Creating 
+ Network ensured-network-live-11708_default Created 
+ Network ensured-network-live-11708_default Created 
+ Container ensured-network-live-11708-postgres-1 Creating 
+ Container ensured-network-live-11708-mailpit-1 Creating 
+ Container ensured-network-live-11708-mailpit-1 Created 
+ Container ensured-network-live-11708-postgres-1 Created 
+ Container ensured-network-live-11708-postgres-1 Starting 
+ Container ensured-network-live-11708-mailpit-1 Starting 
+ Container ensured-network-live-11708-postgres-1 Started 
+ Container ensured-network-live-11708-mailpit-1 Started 
+ Container ensured-network-live-11708-mailpit-1 Waiting 
+ Container ensured-network-live-11708-postgres-1 Waiting 
+ Container ensured-network-live-11708-mailpit-1 Healthy 
+ Container ensured-network-live-11708-postgres-1 Healthy 
+✔ assertions bind issuer, audience, method, exact path and expiry (2.923209ms)
+✔ Unicode, empty content and unsafe URLs are validated consistently (0.169667ms)
+✔ cursors cannot cross actor/filter contexts and have bounded limits (1.190541ms)
+✔ publications use durable posts and enforce source access across social actions (406.490792ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 496.426375
+PASS AIN-73-OPERATOR review-network-identity-host
+PASS AIN-73 accept-reviewed-identity
+PASS AIN-74 authorized-party-participation
+PASS AIN-73-REVOKE revoke-reviewed-identity
+PASS LIVE-01 independent-discovery
+PASS LIVE-02 follow-and-read-feed
+PASS LIVE-APPETITE private-capacity-appetite
+PASS private capacity/appetite persistence, validation, authorization, pause and unfollow cleanup
+PASS LIVE-03 publish-as-person
+PASS LIVE-04 publish-as-organization
+PASS LIVE-05 organization-permission-denied
+PASS LIVE-06 reply-across-organizations
+PASS LIVE-07 react-repost-and-bookmark
+PASS LIVE-08-SEND send-introduction
+PASS LIVE-08 introduction-accepted
+PASS LIVE-09 introduction-conflict
+PASS LIVE-10 notification-read-state
+PASS LIVE-11 public-profile-privacy
+PASS LIVE-12 block-and-report
+PASS LIVE-13 delete-and-revisit
+PASS LIVE-14 session-and-grant-revocation
+PASS LIVE-15 service-outage-recovery
+PASS LIVE-16 cross-tenant-isolation
+PASS AIN-74-MARKET authorized-market-roles
+PASS AIN-77 exact-publication-handoff
+PASS integrated host and responsive checks
+ Container ensured-network-live-11708-postgres-1 Stopping 
+ Container ensured-network-live-11708-mailpit-1 Stopping 
+ Container ensured-network-live-11708-postgres-1 Stopped 
+ Container ensured-network-live-11708-postgres-1 Removing 
+ Container ensured-network-live-11708-postgres-1 Removed 
+ Container ensured-network-live-11708-mailpit-1 Stopped 
+ Container ensured-network-live-11708-mailpit-1 Removing 
+ Container ensured-network-live-11708-mailpit-1 Removed 
+ Network ensured-network-live-11708_default Removing 
+ Network ensured-network-live-11708_default Removed 

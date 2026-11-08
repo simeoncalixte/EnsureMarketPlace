@@ -1,0 +1,49 @@
+
+> @simeoncalixte/ensured-email@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> @simeoncalixte/ensured-email@0.1.0 test
+> jest --runInBand --watchman=false
+
+PASS src/connectors/gmail.test.ts
+PASS src/connectors/microsoft.test.ts
+  ● Console
+
+    console.warn
+      [microsoft] delta token expired, restarting delta
+
+      77 |       // 410 Gone => delta token expired; restart a fresh delta walk.
+      78 |       if (err instanceof MailboxProviderError && err.providerStatus === 410) {
+    > 79 |         console.warn('[microsoft] delta token expired, restarting delta');
+         |                 ^
+      80 |         return this.deltaWalk(this.firstDeltaUrl(max), max);
+      81 |       }
+      82 |       throw err;
+
+      at MicrosoftGraphClient.listNewMessages (src/connectors/microsoft.ts:79:17)
+      at Object.<anonymous> (src/connectors/microsoft.test.ts:68:17)
+
+    console.warn
+      [microsoft] skipping unsupported attachment type #microsoft.graph.itemAttachment
+
+      134 |           // item / reference attachments are out of scope this round.
+      135 |           if (att['@odata.type'] && att['@odata.type'] !== '#microsoft.graph.fileAttachment') {
+    > 136 |             console.warn(`[microsoft] skipping unsupported attachment type ${att['@odata.type']}`);
+          |                     ^
+      137 |           }
+      138 |           continue;
+      139 |         }
+
+      at MicrosoftGraphClient.getMessage (src/connectors/microsoft.ts:136:21)
+      at Object.<anonymous> (src/connectors/microsoft.test.ts:126:17)
+
+PASS test/app.test.ts
+PASS test/mailjet.test.ts
+PASS src/connectors/oauth.test.ts
+
+Test Suites: 5 passed, 5 total
+Tests:       41 passed, 41 total
+Snapshots:   0 total
+Time:        2.124 s
+Ran all test suites.

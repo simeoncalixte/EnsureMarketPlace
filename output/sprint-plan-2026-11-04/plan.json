@@ -1,0 +1,792 @@
+{
+  "cadence": "One developer, two-week sprints",
+  "capacity": "Planning envelope: 6 implementation days + 2 integrated verification days + 1 review/refinement day + 1 contingency day; not measured velocity. One primary outcome in progress; at most two closely related workflow slices. Story/task pairs share effort, not double-counted work.",
+  "commitment": "Existing active sprint remains active with original dates; only its goal/name and unfinished membership are reorganized. Every new sprint is future and undated. No fabricated story-point/time estimates or assignees. The ordered slots are a provisional work breakdown, not a fixed delivery forecast. Before activation, split any candidate exceeding six implementation days and verify reviewer/provider readiness; preserve all parent acceptance criteria.",
+  "activeSprintId": 36,
+  "boardId": 34,
+  "sprints": [
+    {
+      "number": 1,
+      "name": "Build and paid-access guardrails",
+      "issues": [
+        "AIN-13",
+        "AIN-41",
+        "AIN-42"
+      ],
+      "goal": "Make the clean-checkout verification reliable and close the two bounded production checkout guardrail defects.",
+      "exit": "Pipeline parity passes; unconfigured paid production checkout and unauthorized plan selection are rejected with regression evidence. Existing active sprint dates stay unchanged.",
+      "jira_name": "AIN S01: Build/access"
+    },
+    {
+      "number": 2,
+      "name": "Canonical ownership contracts",
+      "issues": [
+        "AIN-48"
+      ],
+      "goal": "Finish the remaining field/ownership inventory and agree the contracts needed by subsequent slices.",
+      "exit": "Current/proposed ownership, money/null/version semantics and raw-SQL/service-owned fields are reviewed; unresolved mappings are explicit.",
+      "jira_name": "AIN S02: Model ownership"
+    },
+    {
+      "number": 3,
+      "name": "Database integrity and CI",
+      "issues": [
+        "AIN-49",
+        "AIN-55"
+      ],
+      "goal": "Enforce the reviewed tenant/reference/state constraints and make drift detectable in CI.",
+      "exit": "Valid legacy fixtures migrate; direct invalid writes and concurrent duplicates fail; model/migration drift checks pass.",
+      "jira_name": "AIN S03: Integrity/CI"
+    },
+    {
+      "number": 4,
+      "name": "Flexible schema and revision contracts",
+      "issues": [
+        "AIN-50",
+        "AIN-51"
+      ],
+      "goal": "Specify and validate stable typed core facts plus versioned JSON extensions and immutable temporal references.",
+      "exit": "Old/new schemas remain readable; missing/conflicting/zero are distinct; effective/recorded/valuation times and revision links are tested.",
+      "jira_name": "AIN S04: Schema contracts"
+    },
+    {
+      "number": 5,
+      "name": "Currency propagation and precision",
+      "issues": [
+        "AIN-35"
+      ],
+      "goal": "Complete remaining money writers/readers against the existing explicit currency policy.",
+      "exit": "Supported precision and provenance are enforced across remaining consumers; unknown legacy currencies remain unresolved; approved backfill mappings are prepared, not guessed.",
+      "jira_name": "AIN S05: Currency"
+    },
+    {
+      "number": 6,
+      "name": "Truthful financial views",
+      "issues": [
+        "AIN-17",
+        "AIN-30",
+        "AIN-31",
+        "AIN-32",
+        "AIN-80"
+      ],
+      "goal": "Finish one financial-truth outcome across existing board, portfolio and Marketplace views, reusing the currency contract.",
+      "exit": "No mixed-currency sums, unowned-return pollution, pending-as-funded amounts or live illustrative totals; unavailable states and exact-version action gates pass interaction and API tests.",
+      "jira_name": "AIN S06: Financial truth"
+    },
+    {
+      "number": 7,
+      "name": "Document financial provenance",
+      "issues": [
+        "AIN-15"
+      ],
+      "goal": "Preserve source-backed parties, amounts, currency, units and valuation from documents.",
+      "exit": "Ambiguous/conflicting facts remain review issues; each accepted fact resolves to a document/page/table anchor and exact version.",
+      "jira_name": "AIN S07: Source evidence"
+    },
+    {
+      "number": 8,
+      "name": "Reliable intake execution",
+      "issues": [
+        "intake"
+      ],
+      "goal": "Close the original ingestion epic criteria for duplicate deliveries, worker restart, cancellation and provider failure.",
+      "exit": "The configured pilot intake channels persist one submission/artifact chain; partial failure, replay and dead-letter recovery retain evidence without duplicate side effects.",
+      "jira_name": "AIN S08: Intake resilience"
+    },
+    {
+      "number": 9,
+      "name": "Authorized evidence search",
+      "issues": [
+        "AIN-16"
+      ],
+      "goal": "Implement tenant-scoped indexing and exact artifact retrieval on the evidenced intake chain.",
+      "exit": "Authorized users retrieve original financial evidence; cross-tenant, duplicate indexing and retention/deletion cases pass.",
+      "jira_name": "AIN S09: Evidence search"
+    },
+    {
+      "number": 10,
+      "name": "Document-generated review forms",
+      "issues": [
+        "AIN-87"
+      ],
+      "goal": "Deliver reviewable LLM-generated structured forms on pinned evidence and validated component contracts.",
+      "exit": "Sparse/conflicting/unfamiliar/repeated/hostile-document corpus passes; extensions and evidence survive; unsafe output and provider failures cannot replace the active form.",
+      "jira_name": "AIN S10: Generated forms"
+    },
+    {
+      "number": 11,
+      "name": "Safe regeneration and activation",
+      "issues": [
+        "AIN-18",
+        "AIN-95"
+      ],
+      "goal": "Connect effective financial revisions and preserve human corrections during regeneration.",
+      "exit": "Stable semantic/entity matching survives reorder; material changes identify stale pricing/quotes/approvals; one effective revision and historical replay are proven.",
+      "jira_name": "AIN S11: Regeneration"
+    },
+    {
+      "number": 12,
+      "name": "Indexed rebuildable projections",
+      "issues": [
+        "AIN-53"
+      ],
+      "goal": "Deliver authorized submission/party projections with consistent pagination and rebuild semantics.",
+      "exit": "Counts, currency totals and source checkpoints reconcile after rebuild; query plans and latency meet an explicitly recorded pilot workload.",
+      "jira_name": "AIN S12: Projections"
+    },
+    {
+      "number": 13,
+      "name": "Submission readiness",
+      "issues": [
+        "AIN-98"
+      ],
+      "goal": "Make missing/conflicting generated-form information actionable without rejecting valid drafts.",
+      "exit": "Issues have owner and resolution; configured publication/quote/bind gates re-evaluate against the current revision; stale readiness cannot authorize a transition.",
+      "jira_name": "AIN S13: Readiness"
+    },
+    {
+      "number": 14,
+      "name": "Underwriting work queue",
+      "issues": [
+        "AIN-106"
+      ],
+      "goal": "Expose one prioritized queue with ownership, deadlines, referrals and exact deep links.",
+      "exit": "Assignment/escalation, stable sort/pagination, current access and return-to-queue interactions pass.",
+      "jira_name": "AIN S14: Work queue"
+    },
+    {
+      "number": 15,
+      "name": "Remaining financial identity adapters",
+      "issues": [
+        "AIN-59"
+      ],
+      "goal": "Finish canonical ownership/funding/collateral/payout identity mappings without inventing identities.",
+      "exit": "Owning-domain adapters and unresolved legacy records are explicit; social consent never grants financial authority. Downstream provider journeys revalidate these mappings later.",
+      "jira_name": "AIN S15: Identity adapters"
+    },
+    {
+      "number": 16,
+      "name": "Counterparty transaction review",
+      "issues": [
+        "AIN-28",
+        "AIN-92"
+      ],
+      "goal": "Apply the approved transaction-specific policy using current EnsuredAPI submissions, insured subjects and role evidence.",
+      "exit": "Reviewed policy and accountable reviewer are recorded; stale/revoked/unavailable evidence blocks/refers; participant approval is not universal clearance.",
+      "jira_name": "AIN S16: Eligibility"
+    },
+    {
+      "number": 17,
+      "name": "Beneficiary mandates",
+      "issues": [
+        "AIN-29"
+      ],
+      "goal": "Enforce verified payout destinations and independent payment approval.",
+      "exit": "Beneficiary changes invalidate prior approval; unauthorized changes/self-approval are rejected; statement-view mandates remain separate.",
+      "jira_name": "AIN S17: Beneficiaries"
+    },
+    {
+      "number": 18,
+      "name": "Rating-basis correctness",
+      "issues": [
+        "AIN-19",
+        "AIN-20"
+      ],
+      "goal": "Repair the two bounded pricing-input/output correctness gaps before experience modeling.",
+      "exit": "Configured revenue/payroll/TIV basis is selected correctly; unavailable premium remains distinct from a genuine approved zero.",
+      "jira_name": "AIN S18: Rating basis"
+    },
+    {
+      "number": 19,
+      "name": "Loss experience into pricing",
+      "issues": [
+        "AIN-22",
+        "AIN-96"
+      ],
+      "goal": "Reconcile approved loss/exposure experience and feed it into existing credibility pricing.",
+      "exit": "Gross/net, paid/incurred, dates and currency reconcile; duplicates and exceptional losses are reviewed; no-experience and qualified-experience known answers pass.",
+      "jira_name": "AIN S19: Loss experience"
+    },
+    {
+      "number": 20,
+      "name": "Defensible pricing review",
+      "issues": [
+        "AIN-23",
+        "AIN-100"
+      ],
+      "goal": "Publish reviewed model methods and expose reproducible results and overrides.",
+      "exit": "Independent known answers and two unlike configured classes pass; model/input versions and override authority replay exactly. Portfolio stress extension is verified in its later sprint.",
+      "jira_name": "AIN S20: Pricing review"
+    },
+    {
+      "number": 21,
+      "name": "Capacity lifecycle",
+      "issues": [
+        "AIN-24",
+        "AIN-25",
+        "AIN-88",
+        "capacity-slice"
+      ],
+      "goal": "Use authoritative facility balances and complete the pending reservation/expiry/release slice of capital lifecycle.",
+      "exit": "Concurrent allocation cannot exceed limits; unknown currency/capacity cannot authorize bind; retry/expiry/cancellation releases once. External funded-capital work remains under AIN-36.",
+      "jira_name": "AIN S21: Capacity"
+    },
+    {
+      "number": 22,
+      "name": "Underwriting authority and referrals",
+      "issues": [
+        "AIN-27",
+        "AIN-99"
+      ],
+      "goal": "Enforce reviewed decision authority, explicit exceptions and independent approvals.",
+      "exit": "Over-limit/expired/delegated/manual paths enforce policy server-side; material source changes invalidate approval. Bind event integration remains under AIN-26.",
+      "jira_name": "AIN S22: Authority"
+    },
+    {
+      "number": 23,
+      "name": "Incremental portfolio accumulation",
+      "issues": [
+        "AIN-101"
+      ],
+      "goal": "Show the current and proposed concentration of evidenced underlying exposure.",
+      "exit": "Overlapping participations are deduplicated by evidenced identity; gross/ceded/retained and currency views reconcile; concurrent updates require re-evaluation.",
+      "jira_name": "AIN S23: Accumulation"
+    },
+    {
+      "number": 24,
+      "name": "Delegated facility oversight",
+      "issues": [
+        "AIN-107"
+      ],
+      "goal": "Monitor mandate usage, exceptions and overdue reporting with current authority.",
+      "exit": "Expired/revoked grants and over-limit activity are controlled; exceptions have owners and retained evidence.",
+      "jira_name": "AIN S24: Delegation"
+    },
+    {
+      "number": 25,
+      "name": "Document-derived treaty terms",
+      "issues": [
+        "AIN-105"
+      ],
+      "goal": "Make reviewed facultative/treaty wording available as typed, versioned executable semantics.",
+      "exit": "Unfamiliar clauses remain extensions; supported-economics matrix is explicit; ambiguous/unsupported terms cannot silently drive a generic calculation.",
+      "jira_name": "AIN S25: Treaty terms"
+    },
+    {
+      "number": 26,
+      "name": "Quote-to-bind handoff",
+      "issues": [
+        "AIN-26",
+        "AIN-108"
+      ],
+      "goal": "Bind the exact approved terms and consume capacity with a durable financial/servicing handoff.",
+      "exit": "One idempotent bind produces one contract/capacity effect and recoverable obligations; stale approval/signature alone cannot bind.",
+      "jira_name": "AIN S26: Binding"
+    },
+    {
+      "number": 27,
+      "name": "Recipient-specific disclosure",
+      "issues": [
+        "AIN-102"
+      ],
+      "goal": "Replace all-or-nothing sharing with immutable, previewed recipient packages.",
+      "exit": "Nested fields/documents are actually omitted or redacted in API/export payloads; changed audience/content invalidates consent; revocation blocks future platform access.",
+      "jira_name": "AIN S27: Disclosure"
+    },
+    {
+      "number": 28,
+      "name": "Comparable quotations",
+      "issues": [
+        "AIN-103"
+      ],
+      "goal": "Compare current offers and material wording differences using evidence-backed semantic bindings.",
+      "exit": "Different deductible/coverage bases and missing terms are shown accurately; changed or expired offers cannot be accepted as current.",
+      "jira_name": "AIN S28: Quote comparison"
+    },
+    {
+      "number": 29,
+      "name": "Client recommendation approval",
+      "issues": [
+        "AIN-109"
+      ],
+      "goal": "Present a private client recommendation and retain exact-terms approval.",
+      "exit": "Client authority, package hash and version are recorded; material changes invalidate approval without rewriting history or implying insurer binding.",
+      "jira_name": "AIN S29: Client approval"
+    },
+    {
+      "number": 30,
+      "name": "Issued contract documents",
+      "issues": [
+        "AIN-113"
+      ],
+      "goal": "Issue and deliver exact bound artifacts with explicit lifecycle states.",
+      "exit": "Draft/issued/superseded states, source hash, delivery retry and access revocation are verified; missing required terms block issuance.",
+      "jira_name": "AIN S30: Issued documents"
+    },
+    {
+      "number": 31,
+      "name": "Client workspace",
+      "issues": [
+        "AIN-91"
+      ],
+      "goal": "Project existing client submissions, placement and servicing into one authorized workspace.",
+      "exit": "No duplicate client or ledger; permitted counts/deep links, ownership/next actions, pagination and partial-service outages are verified.",
+      "jira_name": "AIN S31: Client workspace"
+    },
+    {
+      "number": 32,
+      "name": "Market approaches",
+      "issues": [
+        "AIN-110"
+      ],
+      "goal": "Track authorized approaches, responses, declines and remaining placement work.",
+      "exit": "Delivery is evidenced rather than inferred; retries do not duplicate recipients; revised packages/offers and remaining capacity reconcile.",
+      "jira_name": "AIN S32: Market approaches"
+    },
+    {
+      "number": 33,
+      "name": "Broker handover and follow-up",
+      "issues": [
+        "AIN-116",
+        "AIN-97"
+      ],
+      "goal": "Make client responsibility transfers and permitted introduction follow-up accountable.",
+      "exit": "Handover retains decisions/deadlines; assignment is not access; private follow-ups do not leak through Network and stale commercial links are denied.",
+      "jira_name": "AIN S33: Handover/follow-up"
+    },
+    {
+      "number": 34,
+      "name": "Effective market discovery",
+      "issues": [
+        "AIN-79"
+      ],
+      "goal": "Make supported Marketplace filtering/sorting effective and explain source freshness for matching.",
+      "exit": "Map/list/table inventory agrees under filters; unknown/stale appetite is not represented as willingness to quote; permissions and exact source links hold.",
+      "jira_name": "AIN S34: Market discovery"
+    },
+    {
+      "number": 35,
+      "name": "Premium and commission accruals",
+      "issues": [
+        "premium-slice"
+      ],
+      "goal": "Implement the accrual/invoice and typed basis slice of AIN-37 using the existing party subledger.",
+      "exit": "Reviewed gross-to-net example reconciles by party/currency; quoted, earned and due states remain distinct; unsupported commission economics remain unavailable.",
+      "jira_name": "AIN S35: Premium accruals"
+    },
+    {
+      "number": 36,
+      "name": "Premium receipts and adjustments",
+      "issues": [
+        "AIN-37",
+        "AIN-89"
+      ],
+      "goal": "Finish supported premium/commission/tax/fee lifecycle and its user workflow.",
+      "exit": "Partial receipts, supported variable commission boundaries and reversal requirements reconcile; actual provider receipt evidence is required before settlement claims.",
+      "jira_name": "AIN S36: Premium receipts"
+    },
+    {
+      "number": 37,
+      "name": "Provider funding handoff",
+      "issues": [
+        "funding-slice"
+      ],
+      "goal": "Implement one approved provider sandbox call/receipt handoff, with persisted operation and uncertain-result recovery.",
+      "exit": "Timeout-after-success, duplicate/out-of-order events and failed persistence recover to one matched receipt; no simulated event is called confirmed cash.",
+      "jira_name": "AIN S37: Funding handoff"
+    },
+    {
+      "number": 38,
+      "name": "Funding and collateral reconciliation",
+      "issues": [
+        "AIN-36",
+        "AIN-90"
+      ],
+      "goal": "Complete funded-capital/custody/collateral reconciliation and authorized release on the approved provider scope.",
+      "exit": "Partial/reversed/unmatched statements, mandate changes and release limits reconcile by party/currency; attach provider-sandbox evidence. Reuse earlier capacity slice.",
+      "jira_name": "AIN S38: Collateral"
+    },
+    {
+      "number": 39,
+      "name": "Management financial metrics",
+      "issues": [
+        "AIN-94"
+      ],
+      "goal": "Expose current reconciled management KPIs and source drill-through.",
+      "exit": "Definitions, ownership, freshness, missing coverage and currencies are explicit; rebuilt metrics reconcile to authoritative transactions.",
+      "jira_name": "AIN S39: Management metrics"
+    },
+    {
+      "number": 40,
+      "name": "Contractual reports and bordereaux",
+      "issues": [
+        "AIN-104"
+      ],
+      "goal": "Track obligations and validate document-derived reporting without losing unfamiliar evidence.",
+      "exit": "Revised/duplicate rows and period/currency discrepancies enter resolution; accepted reports update one current projection with retained history.",
+      "jira_name": "AIN S40: Bordereaux"
+    },
+    {
+      "number": 41,
+      "name": "Layer and reinstatement economics",
+      "issues": [
+        "AIN-38",
+        "AIN-111"
+      ],
+      "goal": "Calculate supported multilayer protection and reinstatement effects from approved terms.",
+      "exit": "Independent boundary, aggregate exhaustion and reinstatement premium/coverage cases pass; unsupported clauses block computation.",
+      "jira_name": "AIN S41: Layers"
+    },
+    {
+      "number": 42,
+      "name": "Endorsements and cancellation",
+      "issues": [
+        "AIN-112"
+      ],
+      "goal": "Amend bound coverage with effective-date, financial and capacity adjustments.",
+      "exit": "Limit endorsement and cancellation after partial premium payment reconcile; retries do not double-release/refund; prior coverage and approvals remain historical.",
+      "jira_name": "AIN S42: Endorsements"
+    },
+    {
+      "number": 43,
+      "name": "Operational claims workflow",
+      "issues": [
+        "AIN-114"
+      ],
+      "goal": "Replace sample claims with durable intake, review, reserves and adjudication linked to bound coverage.",
+      "exit": "Document-derived evidence/conflicts and current roles are exercised; recognized/disputed/paid/outstanding states reconcile to existing servicing.",
+      "jira_name": "AIN S43: Claims"
+    },
+    {
+      "number": 44,
+      "name": "Cash reversal integration",
+      "issues": [
+        "AIN-39"
+      ],
+      "goal": "Connect original-event-linked reversals across premium, recovery and capital provider workflows.",
+      "exit": "Repeated/partial/over-limit reversal tests preserve immutable evidence and reconcile provider outcome separately from local adjustment.",
+      "jira_name": "AIN S44: Cash reversals"
+    },
+    {
+      "number": 45,
+      "name": "Recoveries and beneficiary waterfalls",
+      "issues": [
+        "AIN-40",
+        "AIN-118"
+      ],
+      "goal": "Complete party recoverables, approved distributions and evidenced receipts/payments.",
+      "exit": "Known-answer priorities/rounding, disputes, insufficient cash, partial receipts and reversals reconcile; beneficiary authority and provider sandbox evidence pass.",
+      "jira_name": "AIN S45: Recoveries"
+    },
+    {
+      "number": 46,
+      "name": "Parametric trigger review",
+      "issues": [
+        "parametric"
+      ],
+      "goal": "Close the original claims epic requirement for authenticated trigger observations and reviewable parametric payouts.",
+      "exit": "Pinned observations and approved trigger/formula versions reproduce the payout; duplicate/conflicting triggers and disputes cannot cause duplicate payments.",
+      "jira_name": "AIN S46: Parametric"
+    },
+    {
+      "number": 47,
+      "name": "Outward protection traceability",
+      "issues": [
+        "AIN-120"
+      ],
+      "goal": "Trace retrocession through underlying versions, amendments and losses.",
+      "exit": "Two outward covers cannot duplicate or cycle recoveries; ceded/retained amounts and remaining protection reconcile by version/currency.",
+      "jira_name": "AIN S47: Retrocession"
+    },
+    {
+      "number": 48,
+      "name": "Reproducible stress scenarios",
+      "issues": [
+        "AIN-117"
+      ],
+      "goal": "Compare baseline/proposed portfolio stress without changing booked positions.",
+      "exit": "Pinned model/portfolio scenarios replay; known-answer layer effects and missing-data limits are visible; no live ledger writes occur.",
+      "jira_name": "AIN S48: Stress scenarios"
+    },
+    {
+      "number": 49,
+      "name": "Renewal preparation",
+      "issues": [
+        "AIN-115"
+      ],
+      "goal": "Assemble renewal dossiers from evidenced experience, changes and outstanding servicing.",
+      "exit": "Open recovery/changed exposure is visible; fresh periods and approvals are required; predecessor history and compatible corrections are preserved.",
+      "jira_name": "AIN S49: Renewals"
+    },
+    {
+      "number": 50,
+      "name": "Idempotent subscription checkout",
+      "issues": [
+        "AIN-43"
+      ],
+      "goal": "Prevent duplicate external subscriptions and recover uncertain checkout outcomes.",
+      "exit": "Concurrent checkout, timeout-after-provider-success and DB failure converge to one intended provider subscription.",
+      "jira_name": "AIN S50: Checkout"
+    },
+    {
+      "number": 51,
+      "name": "Billing lifecycle and entitlements",
+      "issues": [
+        "AIN-44"
+      ],
+      "goal": "Finish lifecycle events, usage/invoice reconciliation and customer access behavior.",
+      "exit": "Renewal/past-due/cancellation/refund/out-of-order cases converge; usage totals and receivables match provider invoices/payments; customer change/cancel paths pass.",
+      "jira_name": "AIN S51: Billing"
+    },
+    {
+      "number": 52,
+      "name": "Pilot system adapter contracts",
+      "issues": [
+        "integration-slice"
+      ],
+      "goal": "Pin the named pilot policy/claims/accounting adapter scope and deliver its first bounded end-to-end handoff.",
+      "exit": "Authoritative writers, IDs and semantic mappings are documented; a named sandbox exchange passes deduplication, stale-input and rejected-mapping cases.",
+      "jira_name": "AIN S52: Adapter contracts"
+    },
+    {
+      "number": 53,
+      "name": "External system reconciliation",
+      "issues": [
+        "AIN-119"
+      ],
+      "goal": "Finish the remaining explicitly agreed pilot adapter mappings and recovery/reconciliation workflows.",
+      "exit": "Every supported adapter passes vendor sandbox duplicate/out-of-order/uncertain outcome tests; counts/versions/currencies reconcile. Split further before activation if the agreed adapter set exceeds one developer sprint.",
+      "jira_name": "AIN S53: Integrations"
+    },
+    {
+      "number": 54,
+      "name": "Legacy migration rehearsal",
+      "issues": [
+        "AIN-54"
+      ],
+      "goal": "Rehearse additive migrations/backfills and compatible application cutover on representative legacy data.",
+      "exit": "All delivered migrations, including identity/participation additions, have reviewed mappings or quarantine; idempotent batches and rollback preserve immutable history.",
+      "jira_name": "AIN S54: Migrations"
+    },
+    {
+      "number": 55,
+      "name": "Restore and operational recovery",
+      "issues": [
+        "AIN-14",
+        "AIN-93"
+      ],
+      "goal": "Prove cross-service restore, interrupted-job recovery and external outcome reconciliation.",
+      "exit": "Recorded recovery targets, restored versions/counts/balances and provider replay are verified; rollback never implies cash reversal.",
+      "jira_name": "AIN S55: Restore"
+    },
+    {
+      "number": 56,
+      "name": "Financial invariant release gate",
+      "issues": [
+        "AIN-45",
+        "AIN-46"
+      ],
+      "goal": "Reconcile the full coverage register and execute cross-party failure injection across all delivered financial domains.",
+      "exit": "Conservation, concurrency, replay, provider uncertainty and restore evidence pass; unresolved risks and scope limits are explicit, not silently waived.",
+      "jira_name": "AIN S56: Finance gates"
+    },
+    {
+      "number": 57,
+      "name": "Staged persona acceptance",
+      "issues": [
+        "AIN-121"
+      ],
+      "goal": "Certify the agreed pilot and capital scope across two unlike configured classes and all three personas.",
+      "exit": "Baseline/measured outcomes, exact build versions, Storybook/API/provider evidence, accessibility, owner sign-off and rollback criteria are recorded; every required child/epic gate is reconciled.",
+      "jira_name": "AIN S57: Pilot acceptance"
+    }
+  ],
+  "assignment": {
+    "AIN-13": 1,
+    "AIN-41": 1,
+    "AIN-42": 1,
+    "AIN-48": 2,
+    "AIN-49": 3,
+    "AIN-55": 3,
+    "AIN-50": 4,
+    "AIN-51": 4,
+    "AIN-35": 5,
+    "AIN-17": 6,
+    "AIN-30": 6,
+    "AIN-31": 6,
+    "AIN-32": 6,
+    "AIN-80": 6,
+    "AIN-15": 7,
+    "intake": 8,
+    "AIN-16": 9,
+    "AIN-87": 10,
+    "AIN-18": 11,
+    "AIN-95": 11,
+    "AIN-53": 12,
+    "AIN-98": 13,
+    "AIN-106": 14,
+    "AIN-59": 15,
+    "AIN-28": 16,
+    "AIN-92": 16,
+    "AIN-29": 17,
+    "AIN-19": 18,
+    "AIN-20": 18,
+    "AIN-22": 19,
+    "AIN-96": 19,
+    "AIN-23": 20,
+    "AIN-100": 20,
+    "AIN-24": 21,
+    "AIN-25": 21,
+    "AIN-88": 21,
+    "capacity-slice": 21,
+    "AIN-27": 22,
+    "AIN-99": 22,
+    "AIN-101": 23,
+    "AIN-107": 24,
+    "AIN-105": 25,
+    "AIN-26": 26,
+    "AIN-108": 26,
+    "AIN-102": 27,
+    "AIN-103": 28,
+    "AIN-109": 29,
+    "AIN-113": 30,
+    "AIN-91": 31,
+    "AIN-110": 32,
+    "AIN-116": 33,
+    "AIN-97": 33,
+    "AIN-79": 34,
+    "premium-slice": 35,
+    "AIN-37": 36,
+    "AIN-89": 36,
+    "funding-slice": 37,
+    "AIN-36": 38,
+    "AIN-90": 38,
+    "AIN-94": 39,
+    "AIN-104": 40,
+    "AIN-38": 41,
+    "AIN-111": 41,
+    "AIN-112": 42,
+    "AIN-114": 43,
+    "AIN-39": 44,
+    "AIN-40": 45,
+    "AIN-118": 45,
+    "parametric": 46,
+    "AIN-120": 47,
+    "AIN-117": 48,
+    "AIN-115": 49,
+    "AIN-43": 50,
+    "AIN-44": 51,
+    "integration-slice": 52,
+    "AIN-119": 53,
+    "AIN-54": 54,
+    "AIN-14": 55,
+    "AIN-93": 55,
+    "AIN-45": 56,
+    "AIN-46": 56,
+    "AIN-121": 57,
+    "AIN-130": 33,
+    "AIN-129": 33,
+    "AIN-128": 32,
+    "AIN-127": 31,
+    "AIN-126": 49,
+    "AIN-125": 40,
+    "AIN-124": 43,
+    "AIN-123": 28,
+    "AIN-122": 27
+  },
+  "extra": {
+    "intake": {
+      "epic": "AIN-2",
+      "type": "Task",
+      "summary": "[Sprint slice] Verify intake worker resilience and artifact lineage",
+      "owner": "AIN-2",
+      "related": [
+        "AIN-87",
+        "AIN-15",
+        "AIN-16"
+      ],
+      "description": "Required original AIN-2 acceptance is broader than its evidence/search children. For the configured pilot intake channels, test duplicate delivery, worker restart, cancellation, timeout, dead-letter/replay and persisted searchable lineage. Preserve existing ingestion packages. Backend integration evidence links to AIN-87; any changed UI needs executable stories. This is missing coverage, not a second ingestion engine."
+    },
+    "capacity-slice": {
+      "epic": "AIN-9",
+      "type": "Task",
+      "summary": "[Sprint slice] Finish pending commitment expiry and capacity release",
+      "owner": "AIN-36",
+      "related": [
+        "AIN-88"
+      ],
+      "description": "Bounded early slice of AIN-36: pending acceptance/cancellation/expiry and exactly-once release of unconsumed capacity using current commitment receipts and commercial ledger. Verify concurrency, stale source and duplicate commands. No provider funding/custody/cash work is included in this slice; AIN-36 retains that later obligation. This slice unblocks AIN-88 without requiring funded-capital completion before binding."
+    },
+    "premium-slice": {
+      "epic": "AIN-9",
+      "type": "Task",
+      "summary": "[Sprint slice] Implement premium and commission accrual contracts",
+      "owner": "AIN-37",
+      "related": [
+        "AIN-89"
+      ],
+      "description": "Bounded early slice of AIN-37: reviewed amount/rate/basis semantics, party/currency attribution, earned/payable rules and idempotent accrual/invoice posting. Known-answer gross-to-net and supported variable commission examples are required. Receipts/provider reconciliation/reversals and full AIN-89 acceptance remain in the following sprint."
+    },
+    "funding-slice": {
+      "epic": "AIN-9",
+      "type": "Task",
+      "summary": "[Sprint slice] Verify persisted provider funding operations and receipts",
+      "owner": "AIN-36",
+      "related": [
+        "AIN-90"
+      ],
+      "description": "Bounded provider handoff slice of AIN-36: approved provider sandbox, persisted operation, signed event intake, call/receipt correlation, deduplication and timeout-after-success recovery. Use existing outbox/inbox. Actual sandbox evidence required; custody/collateral position reconciliation and release remain under AIN-36/90 in the following sprint."
+    },
+    "parametric": {
+      "epic": "AIN-10",
+      "type": "Story",
+      "summary": "[Claims] Review authenticated parametric triggers and payout decisions",
+      "owner": "AIN-10",
+      "related": [
+        "AIN-114",
+        "AIN-118"
+      ],
+      "description": "As a claims reviewer, I want authenticated trigger observations tied to the approved contract and formula so I can verify parametric payout decisions and resolve disputes without duplicate payments. This preserves the original AIN-10 parametric scope, which lacked an explicit child. Pin observation/source/time, trigger/formula/contract versions; retain conflicting/late observations and independent review; show unavailable providers; calculate reproducible payout and use existing authorized payment/beneficiary workflow. LLM-extracted trigger wording is a review proposal, never authoritative observation or payout approval."
+    },
+    "integration-slice": {
+      "epic": "AIN-1",
+      "type": "Task",
+      "summary": "[Sprint slice] Validate named pilot adapter mappings and first handoff",
+      "owner": "AIN-119",
+      "related": [
+        "AIN-52"
+      ],
+      "description": "Bounded first slice of AIN-119: record the supported named pilot systems, owners, API/schema versions and approved access; implement first concrete policy/claims/accounting exchange with semantic IDs and outbox/inbox. Verify actual vendor sandbox acknowledgement and duplicate/out-of-order handling. Remaining supported adapters and end-to-end reconciliation stay under AIN-119; do not claim all integrations from one connector or a mock."
+    }
+  },
+  "epic_order": [
+    "AIN-1",
+    "AIN-47",
+    "AIN-2",
+    "AIN-3",
+    "AIN-7",
+    "AIN-4",
+    "AIN-5",
+    "AIN-6",
+    "AIN-86",
+    "AIN-8",
+    "AIN-9",
+    "AIN-10",
+    "AIN-11",
+    "AIN-12"
+  ],
+  "completed_epics": [
+    "AIN-70",
+    "AIN-71",
+    "AIN-72"
+  ],
+  "epic_dependency_rule": "Historical epic-level Blocks links remain intact as delivery/release constraints. Readiness for a child uses the named prerequisite milestone, not completion of every late child of a foundational epic. AIN-1 provides build/staging foundations early and full integration/restore late; AIN-47 contracts are early and legacy cutover late. No epic is closed at an early milestone.",
+  "scope": "All 17 epics reviewed: 14 open epics sequenced; 3 Done Network epics preserved as reusable evidence. Every unfinished non-epic issue and subtask is assigned; no related work is silently excluded. Completed issues retain current sprint/history and status. Existing acceptance criteria and hierarchy remain unchanged.",
+  "gates": [
+    "Each sprint must meet the affected issue AC/DoD, including executable Storybook action/payload assertions and isolated Docker integration where applicable.",
+    "Generated forms remain documentation-driven with evidence anchors, stable semantic/entity IDs, reviewed corrections and explicit activation; LLM output grants no authority.",
+    "Provider/vendor-dependent candidates cannot be activated as executable commitments until approved provider scope, sandbox access and reviewer availability are established. Work on mocks does not satisfy settlement/integration acceptance.",
+    "Migrations and operational readiness are verified incrementally per story and rehearsed globally before launch. No separate late testing phase substitutes for per-sprint verification.",
+    "Business/actuarial/compliance review is external to the one developer capacity; missing review is an explicit dependency, not invented sign-off."
+  ]
+}

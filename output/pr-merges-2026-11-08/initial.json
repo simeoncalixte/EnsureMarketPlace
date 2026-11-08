@@ -1,0 +1,368 @@
+[
+  {
+    "repo": "simeoncalixte/EnsureMarketPlace",
+    "prs": [
+      {
+        "baseRefName": "master",
+        "headRefName": "codex/service-registration-submodules",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 74,
+        "title": "Integrate submission workflows, underwriting dashboards, and Docker development",
+        "url": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/74"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredAPI",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 16,
+        "title": "Add submission documents, quotes, binding, and underwriting workflows",
+        "url": "https://github.com/simeoncalixte/EnsuredAPI/pull/16"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredAuth",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "UNSTABLE",
+        "mergeable": "MERGEABLE",
+        "number": 18,
+        "title": "Allow guest quote requests through the Auth gateway",
+        "url": "https://github.com/simeoncalixte/EnsuredAuth/pull/18"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredKYC",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredUI",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "UNSTABLE",
+        "mergeable": "MERGEABLE",
+        "number": 14,
+        "title": "Add submission workbench, quotes, appetite, and pipeline observatory",
+        "url": "https://github.com/simeoncalixte/EnsuredUI/pull/14"
+      },
+      {
+        "baseRefName": "codex/fix-registry-lockfile",
+        "headRefName": "codex/manual-submission",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 12,
+        "title": "Create submissions from schema-generated default fields",
+        "url": "https://github.com/simeoncalixte/EnsuredUI/pull/12"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/SubmissionUI",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsureMarketPlace-docs",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsureMarketPlace-pdfs",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredXDS",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 7,
+        "title": "Add underwriting dashboard components and refresh design system",
+        "url": "https://github.com/simeoncalixte/EnsuredXDS/pull/7"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredServices",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredMarketplace",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredAuthUI",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredNetwork",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 4,
+        "title": "Enable Docker development file watching",
+        "url": "https://github.com/simeoncalixte/EnsuredNetwork/pull/4"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredLogistics",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredEmail",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineShared",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 4,
+        "title": "Add Excel OCR, appetite models, and submission document fixtures",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineShared/pull/4"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineIngestionAmqp",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineIngestion",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineOcr",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineClassification",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 3,
+        "title": "Add document type classification pipeline",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineClassification/pull/3"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineExtraction",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineLocationDiscovery",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 3,
+        "title": "Expand location discovery and geocoding coverage",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery/pull/3"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineNormalization",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 3,
+        "title": "Support transactions during canonical normalization",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineNormalization/pull/3"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineValidation",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 3,
+        "title": "Validate personal and geographic appetite rules",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineValidation/pull/3"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineSchemaGeneration",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 4,
+        "title": "Enforce schema generation and UI refinement contracts",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/4"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelinePreRating",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineCapacity",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 3,
+        "title": "Apply submitting user appetite to capacity matching",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineCapacity/pull/3"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineOracleAttestation",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineWorkflow",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineRiskCompute",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineStorageSearch",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredSubmissionFeedback",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredConstants",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 3,
+        "title": "Share submission quote contracts and summary types",
+        "url": "https://github.com/simeoncalixte/EnsuredConstants/pull/3"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineFinancialDiscovery",
+    "prs": [],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredPipelineSubjectDiscovery",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "copilot/fix-publishing-job-failure",
+        "isDraft": true,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 3,
+        "title": "[WIP] Fix failing GitHub Actions job publish",
+        "url": "https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery/pull/3"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "repo": "simeoncalixte/EnsuredCallGraph",
+    "prs": [
+      {
+        "baseRefName": "main",
+        "headRefName": "codex/pending-changes-2026-10-12",
+        "isDraft": false,
+        "mergeStateStatus": "CLEAN",
+        "mergeable": "MERGEABLE",
+        "number": 1,
+        "title": "Configure private package registry and TypeScript dependency",
+        "url": "https://github.com/simeoncalixte/EnsuredCallGraph/pull/1"
+      }
+    ],
+    "error": ""
+  }
+]

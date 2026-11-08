@@ -429,210 +429,25 @@
       "directory": "EnsuredPipelineNormalization",
       "path": "src/pipeline/normalization/service.ts"
     },
-    "src/pipeline/schemaGeneration/financials.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/financials.test.ts"
-    },
-    "src/pipeline/schemaGeneration/catalogAssembly.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/catalogAssembly.ts"
-    },
-    "src/pipeline/schemaGeneration/sectionGeneration.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/sectionGeneration.ts"
-    },
-    "src/pipeline/schemaGeneration/agentPlan.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/agentPlan.ts"
-    },
-    "src/pipeline/schemaGeneration/wireResponse.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/wireResponse.test.ts"
-    },
-    "src/pipeline/schemaGeneration/evidenceCatalog.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/evidenceCatalog.test.ts"
-    },
-    "src/pipeline/schemaGeneration/evidenceCatalog.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/evidenceCatalog.ts"
-    },
-    "src/pipeline/schemaGeneration/dealParameters.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/dealParameters.test.ts"
-    },
-    "src/pipeline/schemaGeneration/subprocessStore.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/subprocessStore.ts"
-    },
-    "src/pipeline/schemaGeneration/fieldDeduplication.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/fieldDeduplication.ts"
-    },
-    "src/pipeline/schemaGeneration/wireResponse.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/wireResponse.ts"
-    },
-    "src/pipeline/schemaGeneration/catalogAssembly.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/catalogAssembly.test.ts"
-    },
-    "src/pipeline/schemaGeneration/promptCompaction.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/promptCompaction.test.ts"
-    },
-    "src/pipeline/schemaGeneration/subjectTemplateFields.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/subjectTemplateFields.test.ts"
-    },
-    "src/pipeline/schemaGeneration/subprocesses.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/subprocesses.test.ts"
-    },
-    "src/pipeline/schemaGeneration/service.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/service.test.ts"
-    },
-    "src/pipeline/schemaGeneration/subjectEnrichment.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/subjectEnrichment.ts"
-    },
-    "src/pipeline/schemaGeneration/coverageComponents.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/coverageComponents.test.ts"
-    },
-    "src/pipeline/schemaGeneration/subjectEnrichment.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/subjectEnrichment.test.ts"
-    },
     "src/pipeline/schemaGeneration/taxonomy.ts": {
       "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/taxonomy.ts"
-    },
-    "src/pipeline/schemaGeneration/dealParameters.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/dealParameters.ts"
-    },
-    "src/pipeline/schemaGeneration/dynamic.regression.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/dynamic.regression.test.ts"
-    },
-    "src/pipeline/schemaGeneration/valuePopulation.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/valuePopulation.ts"
     },
     "src/pipeline/schemaGeneration/README.md": {
       "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/README.md"
     },
-    "src/pipeline/schemaGeneration/logic.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/logic.ts"
-    },
-    "src/pipeline/schemaGeneration/coverageSummary.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/coverageSummary.ts"
-    },
     "src/pipeline/schemaGeneration/types.ts": {
       "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/types.ts"
     },
-    "src/pipeline/schemaGeneration/GeminiSchemaProvider.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/GeminiSchemaProvider.ts"
-    },
-    "src/pipeline/schemaGeneration/valuePopulation.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/valuePopulation.test.ts"
-    },
-    "src/pipeline/schemaGeneration/logic.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/logic.test.ts"
-    },
-    "src/pipeline/schemaGeneration/sectionGeneration.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/sectionGeneration.test.ts"
-    },
     "src/pipeline/schemaGeneration/constants.ts": {
       "package": "@simeoncalixte/ensured-pipeline-shared",
       "directory": "EnsuredPipelineShared",
       "path": "src/pipeline/schemaGeneration/constants.ts"
-    },
-    "src/pipeline/schemaGeneration/failureReview.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/failureReview.ts"
-    },
-    "src/pipeline/schemaGeneration/submission.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/submission.ts"
-    },
-    "src/pipeline/schemaGeneration/fieldDeduplication.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/fieldDeduplication.test.ts"
-    },
-    "src/pipeline/schemaGeneration/subjectTemplateFields.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/subjectTemplateFields.ts"
-    },
-    "src/pipeline/schemaGeneration/subprocesses.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/subprocesses.ts"
-    },
-    "src/pipeline/schemaGeneration/financials.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/financials.ts"
-    },
-    "src/pipeline/schemaGeneration/agentPlan.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/agentPlan.test.ts"
-    },
-    "src/pipeline/schemaGeneration/schemaGeneration.real.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/schemaGeneration.real.test.ts"
-    },
-    "src/pipeline/schemaGeneration/failureReview.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/failureReview.test.ts"
     },
     "src/pipeline/schemaGeneration/taxonomy.test.ts": {
       "package": "@simeoncalixte/ensured-pipeline-shared",
@@ -648,11 +463,6 @@
       "package": "@simeoncalixte/ensured-pipeline-schema-generation",
       "directory": "EnsuredPipelineSchemaGeneration",
       "path": "src/pipeline/schemaGeneration/service.ts"
-    },
-    "src/pipeline/schemaGeneration/GeminiSchemaProvider.test.ts": {
-      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
-      "directory": "EnsuredPipelineSchemaGeneration",
-      "path": "src/pipeline/schemaGeneration/GeminiSchemaProvider.test.ts"
     },
     "src/pipeline/benchmarkPriors/upsert.ts": {
       "package": "@simeoncalixte/ensured-pipeline-risk-compute",
@@ -1483,6 +1293,464 @@
       "package": "@simeoncalixte/ensured-pipeline-storage-search",
       "directory": "EnsuredPipelineStorageSearch",
       "path": "src/pipeline/storageSearch/route.ts"
+    }
+  },
+  "retiredFiles": {
+    "src/pipeline/schemaGeneration/financials.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/financials.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/catalogAssembly.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/catalogAssembly.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/sectionGeneration.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/sectionGeneration.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/agentPlan.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/agentPlan.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/wireResponse.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/wireResponse.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/evidenceCatalog.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/evidenceCatalog.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/evidenceCatalog.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/evidenceCatalog.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/dealParameters.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/dealParameters.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/subprocessStore.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/subprocessStore.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/fieldDeduplication.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/fieldDeduplication.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/wireResponse.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/wireResponse.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/catalogAssembly.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/catalogAssembly.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/promptCompaction.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/promptCompaction.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/subjectTemplateFields.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/subjectTemplateFields.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/subprocesses.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/subprocesses.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/service.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/service.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/subjectEnrichment.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/subjectEnrichment.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/coverageComponents.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/coverageComponents.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/subjectEnrichment.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/subjectEnrichment.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/dealParameters.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/dealParameters.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/dynamic.regression.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/dynamic.regression.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/valuePopulation.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/valuePopulation.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/logic.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/logic.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/coverageSummary.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/coverageSummary.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/GeminiSchemaProvider.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/GeminiSchemaProvider.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/valuePopulation.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/valuePopulation.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/logic.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/logic.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/sectionGeneration.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/sectionGeneration.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/failureReview.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/failureReview.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/submission.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/submission.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/fieldDeduplication.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/fieldDeduplication.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/subjectTemplateFields.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/subjectTemplateFields.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/subprocesses.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/subprocesses.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/financials.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/financials.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/agentPlan.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/agentPlan.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/schemaGeneration.real.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/schemaGeneration.real.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/failureReview.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/failureReview.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
+    },
+    "src/pipeline/schemaGeneration/GeminiSchemaProvider.test.ts": {
+      "package": "@simeoncalixte/ensured-pipeline-schema-generation",
+      "directory": "EnsuredPipelineSchemaGeneration",
+      "path": "src/pipeline/schemaGeneration/GeminiSchemaProvider.test.ts",
+      "reason": "Schema subprocess implementation replaced by section snapshots; EnsuredPipelineSchemaGeneration commit e7b16ae. Historical audit retained in pipeline-parity.json.",
+      "replacements": [
+        "src/pipeline/schemaGeneration/service.ts",
+        "src/pipeline/schemaGeneration/generationContract.ts",
+        "src/pipeline/schemaGeneration/schemaReviewer.ts",
+        "src/pipeline/schemaGeneration/uiRefiner.ts"
+      ]
     }
   }
 }

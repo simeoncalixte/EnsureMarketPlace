@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "unbound publication",
+    "invited source access",
+    "independent quote",
+    "price counteroffer",
+    "reinsurer confirmation",
+    "insurer acceptance",
+    "mobile viewport"
+  ],
+  "pageErrors": []
+}

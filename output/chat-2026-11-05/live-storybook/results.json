@@ -1,0 +1,17 @@
+[
+  {
+    "id": "ai-application-chat-live--authenticated-whole-app",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ai-application-chat-live--authenticated-whole-app",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

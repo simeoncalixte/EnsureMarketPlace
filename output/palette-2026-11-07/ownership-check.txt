@@ -1,0 +1,6 @@
+
+> theme:check
+> node scripts/sync-xds-theme-assets.mjs --check && node scripts/check-xds-color-ownership.mjs
+
+XDS theme assets verified: 4
+XDS color ownership verified across 312 product source files. Generated CSS is checked separately with theme:check. Raw renderer and vendor colors must be imported from XDS. Developer CallGraph demos, third-party assets and document output formats are outside this UI check.

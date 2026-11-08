@@ -1,0 +1,30 @@
+
+> ensured-network-app@0.1.0 test:storybook:fixtures
+> npm --prefix frontend run test:fixtures
+
+
+> @simeoncalixte/ensured-network@0.1.1 test:fixtures
+> playwright test
+
+[WebServer] (node:89950) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:89950) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+
+Running 12 tests using 1 worker
+
+(node:89974) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 test/fixtures.spec.ts:2:1 › fixture story posts a persisted-in-fixture update and renders at mobile width (2.2s)
+  ✓   2 test/fixtures.spec.ts:14:1 › two embedded instances remain isolated in React Strict Mode (524ms)
+  ✓   3 test/fixtures.spec.ts:26:1 › market journey evaluates, follows, publishes and hands off exact opportunity (1.3s)
+  ✓   4 test/fixtures.spec.ts:47:1 › empty and failed opportunity states remain distinct (611ms)
+  ✓   5 test/fixtures.spec.ts:55:1 › private capacity preferences persist, can pause, and disappear after unfollow (1.3s)
+  ✓   6 test/fixtures.spec.ts:86:1 › post accent fades once viewed and stays clear after scrolling away (1.8s)
+  ✓   7 test/fixtures.spec.ts:101:1 › exported navigation controls the separate body and protects drafts (410ms)
+  ✓   8 test/fixtures.spec.ts:117:1 › My Profile edits individual introduction sections inline (902ms)
+  ✓   9 test/fixtures.spec.ts:144:1 › facility and retrocession publications share post identity and social actions (1.1s)
+  ✓  10 test/fixtures.spec.ts:171:3 › party participation interaction: private-consent-and-revocation (393ms)
+  ✓  11 test/fixtures.spec.ts:171:3 › party participation interaction: reject-unresolved-identity (270ms)
+  ✓  12 test/fixtures.spec.ts:171:3 › party participation interaction: failure-and-retry (253ms)
+
+  12 passed (13.9s)

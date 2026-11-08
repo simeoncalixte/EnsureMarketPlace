@@ -1,0 +1,102 @@
+{
+  "created": [],
+  "updated": [
+    {
+      "key": "AIN-28",
+      "status": "To Do",
+      "parent": "AIN-7",
+      "related": [
+        "AIN-84"
+      ]
+    },
+    {
+      "key": "AIN-29",
+      "status": "To Do",
+      "parent": "AIN-7",
+      "related": [
+        "AIN-68",
+        "AIN-36"
+      ]
+    },
+    {
+      "key": "AIN-30",
+      "status": "In Progress",
+      "parent": "AIN-8",
+      "related": [
+        "AIN-78",
+        "AIN-36"
+      ]
+    },
+    {
+      "key": "AIN-35",
+      "status": "In Progress",
+      "parent": "AIN-9",
+      "related": [
+        "AIN-78",
+        "AIN-54"
+      ]
+    },
+    {
+      "key": "AIN-36",
+      "status": "To Do",
+      "parent": "AIN-9",
+      "related": [
+        "AIN-33",
+        "AIN-78",
+        "AIN-34",
+        "AIN-52",
+        "AIN-29"
+      ]
+    },
+    {
+      "key": "AIN-37",
+      "status": "To Do",
+      "parent": "AIN-9",
+      "related": [
+        "AIN-78",
+        "AIN-34"
+      ]
+    },
+    {
+      "key": "AIN-39",
+      "status": "To Do",
+      "parent": "AIN-10",
+      "related": [
+        "AIN-65",
+        "AIN-36"
+      ]
+    },
+    {
+      "key": "AIN-54",
+      "status": "To Do",
+      "parent": "AIN-47",
+      "related": [
+        "AIN-72",
+        "AIN-14"
+      ]
+    },
+    {
+      "key": "AIN-59",
+      "status": "In Progress",
+      "parent": "AIN-47",
+      "related": [
+        "AIN-70",
+        "AIN-36",
+        "AIN-40"
+      ]
+    },
+    {
+      "key": "AIN-45",
+      "status": "To Do",
+      "parent": "AIN-12",
+      "related": [
+        "AIN-72",
+        "AIN-36",
+        "AIN-37",
+        "AIN-40",
+        "AIN-44"
+      ]
+    }
+  ],
+  "reason": "Existing tickets cover all identified broader obligations; descriptions and links clarify remaining work without duplicates."
+}

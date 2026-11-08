@@ -1,0 +1,10 @@
+import sys,json
+from pathlib import Path
+sys.path.insert(0,'output/sprint-plan-2026-11-04');from jira import api
+msg='Digital Vermilion applied centrally with all ten exact user colors and accessible semantic tones in both themes. Generated standalone assets and raw renderer consumers updated. Main workspace/host/SubmissionUI/Logistics builds pass; exact/contrast/CSS tests5/5, Services7/7, ownership audit312 sources and4 generated copies pass. 22 successful interaction runs across11 unique stories: XDS palette workflow and host landing/nav/eight commercial stories, dark1440/light375; synthetic writes isolated. AIN-160 fixed standalone stale XDS optimization and mobile reserve headline overflow, covered by runtime and executable landing width assertion. Local runtime7/7, both themes and Auth/Services CSS200; existing signed-in Firefox renders new palette/dashboard. Pipeline page separately displays data-service unavailable error; not claimed repaired or a palette failure. No production deployment/migration/account changes. Final evidence output/vermilion-2026-11-07/verification-summary.json, runtime.json, build/test logs and screenshots; TASK_HANDOFF.md reconciled. Broader AIN-1 and pre-existing AIN-151 remain excluded/incomplete.'
+doc={'type':'doc','version':1,'content':[{'type':'paragraph','content':[{'type':'text','text':msg}]}]}
+for k in ['AIN-160','AIN-159']:
+ if k=='AIN-159':
+  r=api('/rest/api/3/issue/'+k+'?fields=subtasks');assert all(x['fields']['status']['name']=='Done' for x in r['fields']['subtasks'])
+ api('/rest/api/3/issue/'+k+'/comment','POST',{'body':doc});t=next(t for t in api('/rest/api/3/issue/'+k+'/transitions')['transitions'] if t['to']['name']=='Done');api('/rest/api/3/issue/'+k+'/transitions','POST',{'transition':{'id':t['id']}})
+r={k:api('/rest/api/3/issue/'+k+'?fields=status,subtasks') for k in ['AIN-159','AIN-160']};Path('output/vermilion-2026-11-07/jira-final.json').write_text(json.dumps(r,indent=2));print({k:v['fields']['status']['name'] for k,v in r.items()})

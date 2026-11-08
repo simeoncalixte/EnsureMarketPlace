@@ -1,0 +1,78 @@
+
+> @simeoncalixte/ensured-pipeline-risk-compute@0.1.0 build
+> node scripts/build.mjs
+
+
+> @simeoncalixte/ensured-pipeline-risk-compute@0.1.0 test
+> jest --runInBand --watchman=false --runTestsByPath src/pipeline/riskCompute/service.test.ts
+
+  console.error
+    pipeline stage "riskCompute" failed: Error: submission_not_found
+        at Object.<anonymous> (/Users/simeon/Projects/EnsureMarketPlace/EnsuredPipelineRiskCompute/src/pipeline/riskCompute/service.test.ts:134:37)
+        at Promise.then.completed (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/utils.js:298:28)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/utils.js:231:10)
+        at _callCircusTest (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:316:40)
+        at _runTest (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:252:3)
+        at _runTestsForDescribeBlock (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:126:9)
+        at _runTestsForDescribeBlock (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:121:9)
+        at run (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:71:3)
+        at runAndTransformResultsToJestFormat (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+        at jestAdapter (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+        at runTestInternal (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-runner/build/runTest.js:367:16)
+        at runTest (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-runner/build/runTest.js:444:34)
+
+      37 |     catch (err) {
+      38 |         // eslint-disable-next-line no-console
+    > 39 |         console.error(`pipeline stage "${service}" failed:`, err instanceof Error ? err.stack ?? err.message : err);
+         |                 ^
+      40 |         return stageFailure(service, err);
+      41 |     }
+      42 | }
+
+      at runStage (../EnsuredPipelineShared/dist/pipeline/stageResult.js:39:17)
+      at Object.<anonymous> (src/pipeline/riskCompute/service.test.ts:135:20)
+
+  console.error
+    pipeline stage "riskCompute" failed: Error: write_failed
+        at Object.<anonymous> (/Users/simeon/Projects/EnsureMarketPlace/EnsuredPipelineRiskCompute/src/pipeline/riskCompute/service.test.ts:144:37)
+        at Promise.then.completed (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/utils.js:298:28)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/utils.js:231:10)
+        at _callCircusTest (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:316:40)
+        at _runTest (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:252:3)
+        at _runTestsForDescribeBlock (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:126:9)
+        at _runTestsForDescribeBlock (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:121:9)
+        at run (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/run.js:71:3)
+        at runAndTransformResultsToJestFormat (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+        at jestAdapter (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+        at runTestInternal (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-runner/build/runTest.js:367:16)
+        at runTest (/Users/simeon/Projects/EnsureMarketPlace/node_modules/jest-runner/build/runTest.js:444:34)
+
+      37 |     catch (err) {
+      38 |         // eslint-disable-next-line no-console
+    > 39 |         console.error(`pipeline stage "${service}" failed:`, err instanceof Error ? err.stack ?? err.message : err);
+         |                 ^
+      40 |         return stageFailure(service, err);
+      41 |     }
+      42 | }
+
+      at runStage (../EnsuredPipelineShared/dist/pipeline/stageResult.js:39:17)
+      at Object.<anonymous> (src/pipeline/riskCompute/service.test.ts:145:5)
+
+PASS src/pipeline/riskCompute/service.test.ts
+  RiskComputeService (Slice 5.4 stage wrapper)
+    ✓ retry operation identity reaches the compute writer and result (3 ms)
+    ✓ payload with submission.id ⇒ {ok:true} surfacing confidence/premium/expectedLoss
+    ✓ parametric submission ⇒ rateOnLine surfaced from provenance.parametric (1 ms)
+    ✓ missing submission id ⇒ {ok:false, NO_SUBMISSION} and compute not called
+    ✓ empty payload ⇒ {ok:false, NO_SUBMISSION}
+    ✓ non-numeric id ⇒ {ok:false, NO_SUBMISSION}
+    ✓ computeForSubmission throws ⇒ {ok:false} (never throws out) (50 ms)
+    ✓ computeForSubmission throws a generic DB error ⇒ {ok:false} (no propagation) (7 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        1.129 s
+Ran all test suites within paths "src/pipeline/riskCompute/service.test.ts".

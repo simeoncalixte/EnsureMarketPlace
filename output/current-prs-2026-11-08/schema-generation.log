@@ -1,0 +1,18 @@
+
+> @simeoncalixte/ensured-pipeline-schema-generation@0.1.0 build
+> node scripts/build.mjs
+
+
+> @simeoncalixte/ensured-pipeline-schema-generation@0.1.0 test
+> jest --runInBand --watchman=false --runTestsByPath src/pipeline/schemaGeneration/generationContract.test.ts src/pipeline/schemaGeneration/sectionPlanning.test.ts src/pipeline/schemaGeneration/schemaReviewProcess.test.ts src/pipeline/schemaGeneration/uiRefiner.test.ts
+
+PASS src/pipeline/schemaGeneration/schemaReviewProcess.test.ts
+PASS src/pipeline/schemaGeneration/sectionPlanning.test.ts
+PASS src/pipeline/schemaGeneration/generationContract.test.ts
+PASS src/pipeline/schemaGeneration/uiRefiner.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       39 passed, 39 total
+Snapshots:   0 total
+Time:        2.122 s
+Ran all test suites within paths "src/pipeline/schemaGeneration/generationContract.test.ts", "src/pipeline/schemaGeneration/sectionPlanning.test.ts", "src/pipeline/schemaGeneration/schemaReviewProcess.test.ts", "src/pipeline/schemaGeneration/uiRefiner.test.ts".

@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('../../',import.meta.url));
+const run=(...args)=>spawnSync(process.execPath,['scripts/seed-network.mjs',...args],{cwd:root,encoding:'utf8',env:{...process.env,DOCKER_HOST:'tcp://remote.invalid:2375'}});
+test('default invocation previews complete coverage without connecting to Docker',()=>{const result=run();assert.equal(result.status,0);const plan=JSON.parse(result.stdout);assert.equal(plan.mode,'plan');assert.ok(plan.coverage.includes('Commitments and capacity ledger'));assert.ok(plan.coverage.includes('Submission-backed funded retrocession publishing'));assert.ok(plan.coverage.some(page=>page.startsWith('Servicing')));});
+test('rejects unknown flags and conflicting mutation modes',()=>{for(const args of [['--reset'],['--apply','--verify'],['--reviewer'],['--plan','--apply']])assert.notEqual(run(...args).status,0);});
+test('refuses remote Docker engines before provisioning accounts',()=>{const result=run('--apply');assert.notEqual(result.status,0);assert.match(result.stderr,/local Docker engine/);});
+test('preview accepts an explicit reviewer without fetching private account data',()=>{const result=run('--plan','--reviewer','reviewer@example.test');assert.equal(result.status,0);assert.match(JSON.parse(result.stdout).reviewer,/membership unchanged/);assert.doesNotMatch(result.stdout,/password":/);});

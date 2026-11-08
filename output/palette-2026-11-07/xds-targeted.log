@@ -1,0 +1,15 @@
+✔ extracts inherited/nested JSON props and reports unsupported props without weakening unions (179.074625ms)
+✔ generates the XDS catalog without executing React and preserves reviewed validation (1129.284458ms)
+✔ approved palette remains exact (0.732334ms)
+✔ dark: readable text, actions and semantic states (0.786708ms)
+✔ dark: CSS contract includes all semantic tokens (1.77625ms)
+✔ light: readable text, actions and semantic states (0.146625ms)
+✔ light: CSS contract includes all semantic tokens (0.917042ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1517.350416

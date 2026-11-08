@@ -1,0 +1,4 @@
+
+> @simeoncalixte/ensured-network@0.1.1 typecheck
+> tsc --noEmit
+

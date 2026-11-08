@@ -1,0 +1,646 @@
+{
+  "userId": 8,
+  "email": "simeoncalixte@gmail.com",
+  "organizationId": 19,
+  "count": 42,
+  "boardCount": 42,
+  "lanes": {
+    "ingestion": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "ocr": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "classification": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "extraction": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "subjectDiscovery": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "financialDiscovery": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "locationDiscovery": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "normalization": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "validation": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "schemaGeneration": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "resolvePicklists": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "selectComponents": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "workflow": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    },
+    "riskCompute": {
+      "submitted": 1,
+      "quoted": 1,
+      "bound": 1
+    }
+  },
+  "quotes": 28,
+  "bindings": 14,
+  "checks": [
+    {
+      "id": 14,
+      "target": "ingestion",
+      "status": "submitted",
+      "missing": [],
+      "files": 9,
+      "schema": null
+    },
+    {
+      "id": 15,
+      "target": "ingestion",
+      "status": "quoted",
+      "missing": [],
+      "files": 17,
+      "schema": null
+    },
+    {
+      "id": 16,
+      "target": "ingestion",
+      "status": "bound",
+      "missing": [],
+      "files": 8,
+      "schema": null
+    },
+    {
+      "id": 17,
+      "target": "ocr",
+      "status": "submitted",
+      "missing": [],
+      "files": 9,
+      "schema": null
+    },
+    {
+      "id": 18,
+      "target": "ocr",
+      "status": "quoted",
+      "missing": [],
+      "files": 8,
+      "schema": null
+    },
+    {
+      "id": 19,
+      "target": "ocr",
+      "status": "bound",
+      "missing": [],
+      "files": 16,
+      "schema": null
+    },
+    {
+      "id": 20,
+      "target": "classification",
+      "status": "submitted",
+      "missing": [],
+      "files": 6,
+      "schema": null
+    },
+    {
+      "id": 21,
+      "target": "classification",
+      "status": "quoted",
+      "missing": [],
+      "files": 8,
+      "schema": null
+    },
+    {
+      "id": 22,
+      "target": "classification",
+      "status": "bound",
+      "missing": [],
+      "files": 15,
+      "schema": null
+    },
+    {
+      "id": 23,
+      "target": "extraction",
+      "status": "submitted",
+      "missing": [],
+      "files": 8,
+      "schema": null
+    },
+    {
+      "id": 24,
+      "target": "extraction",
+      "status": "quoted",
+      "missing": [],
+      "files": 10,
+      "schema": null
+    },
+    {
+      "id": 25,
+      "target": "extraction",
+      "status": "bound",
+      "missing": [],
+      "files": 9,
+      "schema": null
+    },
+    {
+      "id": 26,
+      "target": "subjectDiscovery",
+      "status": "submitted",
+      "missing": [],
+      "files": 16,
+      "schema": null
+    },
+    {
+      "id": 27,
+      "target": "subjectDiscovery",
+      "status": "quoted",
+      "missing": [],
+      "files": 7,
+      "schema": null
+    },
+    {
+      "id": 28,
+      "target": "subjectDiscovery",
+      "status": "bound",
+      "missing": [],
+      "files": 10,
+      "schema": null
+    },
+    {
+      "id": 29,
+      "target": "financialDiscovery",
+      "status": "submitted",
+      "missing": [],
+      "files": 11,
+      "schema": null
+    },
+    {
+      "id": 30,
+      "target": "financialDiscovery",
+      "status": "quoted",
+      "missing": [],
+      "files": 7,
+      "schema": null
+    },
+    {
+      "id": 31,
+      "target": "financialDiscovery",
+      "status": "bound",
+      "missing": [],
+      "files": 14,
+      "schema": null
+    },
+    {
+      "id": 32,
+      "target": "locationDiscovery",
+      "status": "submitted",
+      "missing": [],
+      "files": 7,
+      "schema": null
+    },
+    {
+      "id": 33,
+      "target": "locationDiscovery",
+      "status": "quoted",
+      "missing": [],
+      "files": 12,
+      "schema": null
+    },
+    {
+      "id": 34,
+      "target": "locationDiscovery",
+      "status": "bound",
+      "missing": [],
+      "files": 6,
+      "schema": null
+    },
+    {
+      "id": 35,
+      "target": "normalization",
+      "status": "submitted",
+      "missing": [],
+      "files": 9,
+      "schema": null
+    },
+    {
+      "id": 36,
+      "target": "normalization",
+      "status": "quoted",
+      "missing": [],
+      "files": 12,
+      "schema": null
+    },
+    {
+      "id": 37,
+      "target": "normalization",
+      "status": "bound",
+      "missing": [],
+      "files": 6,
+      "schema": null
+    },
+    {
+      "id": 38,
+      "target": "validation",
+      "status": "submitted",
+      "missing": [],
+      "files": 10,
+      "schema": null
+    },
+    {
+      "id": 39,
+      "target": "validation",
+      "status": "quoted",
+      "missing": [],
+      "files": 8,
+      "schema": null
+    },
+    {
+      "id": 40,
+      "target": "validation",
+      "status": "bound",
+      "missing": [],
+      "files": 12,
+      "schema": null
+    },
+    {
+      "id": 41,
+      "target": "schemaGeneration",
+      "status": "submitted",
+      "missing": [],
+      "files": 6,
+      "schema": {
+        "service": "schemaGeneration",
+        "presentationStatus": "proposed",
+        "diagnostics": {
+          "fields": 117,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 0,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 0
+        }
+      }
+    },
+    {
+      "id": 42,
+      "target": "schemaGeneration",
+      "status": "quoted",
+      "missing": [],
+      "files": 13,
+      "schema": {
+        "service": "schemaGeneration",
+        "presentationStatus": "proposed",
+        "diagnostics": {
+          "fields": 112,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 0,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 0
+        }
+      }
+    },
+    {
+      "id": 43,
+      "target": "schemaGeneration",
+      "status": "bound",
+      "missing": [],
+      "files": 12,
+      "schema": {
+        "service": "schemaGeneration",
+        "presentationStatus": "proposed",
+        "diagnostics": {
+          "fields": 99,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 0,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 0
+        }
+      }
+    },
+    {
+      "id": 44,
+      "target": "resolvePicklists",
+      "status": "submitted",
+      "missing": [],
+      "files": 7,
+      "schema": {
+        "service": "resolvePicklists",
+        "presentationStatus": "enriched",
+        "diagnostics": {
+          "fields": 76,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 0,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 0
+        }
+      }
+    },
+    {
+      "id": 45,
+      "target": "resolvePicklists",
+      "status": "quoted",
+      "missing": [],
+      "files": 10,
+      "schema": {
+        "service": "resolvePicklists",
+        "presentationStatus": "enriched",
+        "diagnostics": {
+          "fields": 138,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 0,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 0
+        }
+      }
+    },
+    {
+      "id": 46,
+      "target": "resolvePicklists",
+      "status": "bound",
+      "missing": [],
+      "files": 8,
+      "schema": {
+        "service": "resolvePicklists",
+        "presentationStatus": "enriched",
+        "diagnostics": {
+          "fields": 133,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 0,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 0
+        }
+      }
+    },
+    {
+      "id": 47,
+      "target": "selectComponents",
+      "status": "submitted",
+      "missing": [],
+      "files": 13,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 151,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 151,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 16
+        }
+      }
+    },
+    {
+      "id": 48,
+      "target": "selectComponents",
+      "status": "quoted",
+      "missing": [],
+      "files": 5,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 113,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 113,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 21
+        }
+      }
+    },
+    {
+      "id": 49,
+      "target": "selectComponents",
+      "status": "bound",
+      "missing": [],
+      "files": 10,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 171,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 171,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 21
+        }
+      }
+    },
+    {
+      "id": 50,
+      "target": "workflow",
+      "status": "submitted",
+      "missing": [],
+      "files": 10,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 91,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 91,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 12
+        }
+      }
+    },
+    {
+      "id": 51,
+      "target": "workflow",
+      "status": "quoted",
+      "missing": [],
+      "files": 6,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 135,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 135,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 17
+        }
+      }
+    },
+    {
+      "id": 52,
+      "target": "workflow",
+      "status": "bound",
+      "missing": [],
+      "files": 9,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 102,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 102,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 20
+        }
+      }
+    },
+    {
+      "id": 53,
+      "target": "riskCompute",
+      "status": "submitted",
+      "missing": [],
+      "files": 7,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 100,
+          "defaults": 2,
+          "explicit": 0,
+          "inferred": 98,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 19
+        }
+      }
+    },
+    {
+      "id": 54,
+      "target": "riskCompute",
+      "status": "quoted",
+      "missing": [],
+      "files": 14,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 144,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 144,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 28
+        }
+      }
+    },
+    {
+      "id": 55,
+      "target": "riskCompute",
+      "status": "bound",
+      "missing": [],
+      "files": 7,
+      "schema": {
+        "service": "selectComponents",
+        "presentationStatus": "finalizedWithIssues",
+        "diagnostics": {
+          "fields": 99,
+          "defaults": 0,
+          "explicit": 0,
+          "inferred": 99,
+          "repaired": 0,
+          "unresolved": 0,
+          "repairFailures": 0,
+          "plannedSections": 5,
+          "inferredSections": 0,
+          "unresolvedPicklists": 20
+        }
+      }
+    }
+  ],
+  "missingArtifacts": [],
+  "mismatchedLanes": []
+}

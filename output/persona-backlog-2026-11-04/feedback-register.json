@@ -1,0 +1,387 @@
+{
+  "I1": {
+    "concern": "Claims credibility",
+    "stories": [
+      "AIN-114"
+    ]
+  },
+  "I2": {
+    "concern": "Fragmented claims experience",
+    "stories": [
+      "AIN-114",
+      "AIN-118"
+    ]
+  },
+  "I3": {
+    "concern": "Underwriting priorities",
+    "stories": [
+      "AIN-98",
+      "AIN-106"
+    ]
+  },
+  "I4": {
+    "concern": "Decision traceability",
+    "stories": [
+      "AIN-99"
+    ]
+  },
+  "I5": {
+    "concern": "Extraction confidence",
+    "stories": [
+      "AIN-87"
+    ]
+  },
+  "I6": {
+    "concern": "Change impact",
+    "stories": [
+      "AIN-95"
+    ]
+  },
+  "I7": {
+    "concern": "Authority controls",
+    "stories": [
+      "AIN-99",
+      "AIN-107"
+    ]
+  },
+  "I8": {
+    "concern": "Portfolio accumulation",
+    "stories": [
+      "AIN-101",
+      "AIN-117"
+    ]
+  },
+  "I9": {
+    "concern": "Pricing governance",
+    "stories": [
+      "AIN-100"
+    ]
+  },
+  "I10": {
+    "concern": "Coverage certainty",
+    "stories": [
+      "AIN-108",
+      "AIN-113"
+    ]
+  },
+  "I11": {
+    "concern": "Post-bind amendments",
+    "stories": [
+      "AIN-112"
+    ]
+  },
+  "I12": {
+    "concern": "Premium reconciliation",
+    "stories": [
+      "AIN-89",
+      "AIN-90"
+    ]
+  },
+  "I13": {
+    "concern": "Delegated authority oversight",
+    "stories": [
+      "AIN-107"
+    ]
+  },
+  "I14": {
+    "concern": "Reporting quality",
+    "stories": [
+      "AIN-104"
+    ]
+  },
+  "I15": {
+    "concern": "Renewal preparation",
+    "stories": [
+      "AIN-115"
+    ]
+  },
+  "I16": {
+    "concern": "Operational accountability",
+    "stories": [
+      "AIN-106",
+      "AIN-116"
+    ]
+  },
+  "I17": {
+    "concern": "System integration",
+    "stories": [
+      "AIN-119"
+    ]
+  },
+  "I18": {
+    "concern": "Management reporting",
+    "stories": [
+      "AIN-94",
+      "AIN-80"
+    ]
+  },
+  "I19": {
+    "concern": "Operational resilience",
+    "stories": [
+      "AIN-93"
+    ]
+  },
+  "I20": {
+    "concern": "Adoption economics",
+    "stories": [
+      "AIN-121"
+    ]
+  },
+  "B1": {
+    "concern": "Client-centered navigation",
+    "stories": [
+      "AIN-91"
+    ]
+  },
+  "B2": {
+    "concern": "Duplicate entry",
+    "stories": [
+      "AIN-87",
+      "AIN-95",
+      "AIN-119"
+    ]
+  },
+  "B3": {
+    "concern": "Submission readiness",
+    "stories": [
+      "AIN-87",
+      "AIN-98"
+    ]
+  },
+  "B4": {
+    "concern": "Market suitability",
+    "stories": [
+      "AIN-79"
+    ]
+  },
+  "B5": {
+    "concern": "Functional discovery controls",
+    "stories": [
+      "AIN-79"
+    ]
+  },
+  "B6": {
+    "concern": "Selective disclosure",
+    "stories": [
+      "AIN-102"
+    ]
+  },
+  "B7": {
+    "concern": "Client confidentiality",
+    "stories": [
+      "AIN-102"
+    ]
+  },
+  "B8": {
+    "concern": "Market approach tracking",
+    "stories": [
+      "AIN-110"
+    ]
+  },
+  "B9": {
+    "concern": "Comparable quotations",
+    "stories": [
+      "AIN-103"
+    ]
+  },
+  "B10": {
+    "concern": "Negotiation clarity",
+    "stories": [
+      "AIN-103"
+    ]
+  },
+  "B11": {
+    "concern": "Placement completeness",
+    "stories": [
+      "AIN-88",
+      "AIN-108",
+      "AIN-110"
+    ]
+  },
+  "B12": {
+    "concern": "Client presentation",
+    "stories": [
+      "AIN-109"
+    ]
+  },
+  "B13": {
+    "concern": "Client approvals",
+    "stories": [
+      "AIN-109"
+    ]
+  },
+  "B14": {
+    "concern": "Document delivery",
+    "stories": [
+      "AIN-113"
+    ]
+  },
+  "B15": {
+    "concern": "Communication continuity",
+    "stories": [
+      "AIN-97"
+    ]
+  },
+  "B16": {
+    "concern": "Commission accounting",
+    "stories": [
+      "AIN-89"
+    ]
+  },
+  "B17": {
+    "concern": "Servicing continuity",
+    "stories": [
+      "AIN-112",
+      "AIN-114",
+      "AIN-115",
+      "AIN-91"
+    ]
+  },
+  "B18": {
+    "concern": "Team handovers",
+    "stories": [
+      "AIN-116"
+    ]
+  },
+  "B19": {
+    "concern": "Relationship protection",
+    "stories": [
+      "AIN-102",
+      "AIN-92"
+    ]
+  },
+  "B20": {
+    "concern": "Commercial value",
+    "stories": [
+      "AIN-121"
+    ]
+  },
+  "R1": {
+    "concern": "Submission depth",
+    "stories": [
+      "AIN-87",
+      "AIN-96"
+    ]
+  },
+  "R2": {
+    "concern": "Data quality",
+    "stories": [
+      "AIN-87",
+      "AIN-98"
+    ]
+  },
+  "R3": {
+    "concern": "Loss experience",
+    "stories": [
+      "AIN-96"
+    ]
+  },
+  "R4": {
+    "concern": "Exposure reconciliation",
+    "stories": [
+      "AIN-95",
+      "AIN-96"
+    ]
+  },
+  "R5": {
+    "concern": "Treaty specificity",
+    "stories": [
+      "AIN-105"
+    ]
+  },
+  "R6": {
+    "concern": "Contract economics",
+    "stories": [
+      "AIN-105"
+    ]
+  },
+  "R7": {
+    "concern": "Layer relationships",
+    "stories": [
+      "AIN-111"
+    ]
+  },
+  "R8": {
+    "concern": "Reinstatements",
+    "stories": [
+      "AIN-111"
+    ]
+  },
+  "R9": {
+    "concern": "Commission complexity",
+    "stories": [
+      "AIN-89"
+    ]
+  },
+  "R10": {
+    "concern": "Wording differences",
+    "stories": [
+      "AIN-103",
+      "AIN-105"
+    ]
+  },
+  "R11": {
+    "concern": "Model provenance",
+    "stories": [
+      "AIN-100"
+    ]
+  },
+  "R12": {
+    "concern": "Portfolio accumulation",
+    "stories": [
+      "AIN-101"
+    ]
+  },
+  "R13": {
+    "concern": "Scenario analysis",
+    "stories": [
+      "AIN-117"
+    ]
+  },
+  "R14": {
+    "concern": "Capacity certainty",
+    "stories": [
+      "AIN-88"
+    ]
+  },
+  "R15": {
+    "concern": "Counterparty assessment",
+    "stories": [
+      "AIN-92"
+    ]
+  },
+  "R16": {
+    "concern": "Collateral visibility",
+    "stories": [
+      "AIN-90"
+    ]
+  },
+  "R17": {
+    "concern": "Reporting obligations",
+    "stories": [
+      "AIN-104"
+    ]
+  },
+  "R18": {
+    "concern": "Claims and recoveries",
+    "stories": [
+      "AIN-114",
+      "AIN-118"
+    ]
+  },
+  "R19": {
+    "concern": "Retrocession traceability",
+    "stories": [
+      "AIN-120"
+    ]
+  },
+  "R20": {
+    "concern": "Settlement and renewal evidence",
+    "stories": [
+      "AIN-118",
+      "AIN-90",
+      "AIN-115",
+      "AIN-121"
+    ]
+  }
+}

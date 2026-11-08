@@ -1,0 +1,9 @@
+import sys,json
+from pathlib import Path
+sys.path.insert(0,'output/sprint-plan-2026-11-04');from jira import api
+p=Path('output/vermilion-2026-11-07')
+def doc(s):return {'type':'doc','version':1,'content':[{'type':'paragraph','content':[{'type':'text','text':s}]}]}
+for k in ['AIN-153','AIN-158','AIN-1']:
+ r=api('/rest/api/3/issue/'+k+'?fields=status,description,subtasks,issuelinks');(p/(k+'.json')).write_text(json.dumps(r))
+r=api('/rest/api/3/issue','POST',{'fields':{'project':{'key':'AIN'},'issuetype':{'name':'Story'},'parent':{'key':'AIN-1'},'summary':'Apply Digital Vermilion palette through EnsuredXDS','description':doc('As an application user, I want the Digital Vermilion visual palette consistently across all existing product surfaces so that investment dashboards and professional workflows share a coherent editorial appearance. User supersedes Espresso with exact Obsidian #17191D, Vermilion #FF563B, Paper #F3F1EA, Powder Blue #97B8C3, Stone #D5D0C3, Gunmetal #41454A, Salmon #FF9A83, Blue Haze #D6E7EC, Pewter #A7A297, Off White #FFFCF6. Acceptance: central XDS definitions and accessible derived semantic tones in both themes; regenerate all standalone assets and rebuild consumers; existing executable palette interaction/contrast stories pass; runtime checks and XDS direct-import regression pass; refresh local app, preserve workflows/session and prior AIN-158 fix. Required predecessor AIN-153 and child AIN-158 complete, refresh evidence before implementation. Broader AIN-1 release and unrelated AIN-151 boundary failure excluded; no production publication/deployment or new layout/workflow required.') }})
+(p/'ticket.json').write_text(json.dumps(r));k=r['key'];t=next(t for t in api('/rest/api/3/issue/'+k+'/transitions')['transitions'] if t['to']['name']=='In Progress');api('/rest/api/3/issue/'+k+'/transitions','POST',{'transition':{'id':t['id']}});print(k)

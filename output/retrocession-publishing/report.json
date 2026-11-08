@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "private draft",
+    "publication consent",
+    "Network and Marketplace discovery",
+    "private interest",
+    "cross-surface response consistency",
+    "closed discovery",
+    "retained owner inbox",
+    "mobile layout"
+  ],
+  "socialData": "fixtures",
+  "commercialData": "real isolated PostgreSQL and gateway"
+}

@@ -1,0 +1,47 @@
+
+> test:finance:docker
+> node scripts/test-finance-docker.mjs
+
+ Network ensured-finance-test-f899bff5572a_default Creating 
+ Network ensured-finance-test-f899bff5572a_default Creating 
+ Network ensured-finance-test-f899bff5572a_default Created 
+ Network ensured-finance-test-f899bff5572a_default Created 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Creating 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Created 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Starting 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Started 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Waiting 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Healthy 
+PASS test/relationships/commercial.db.test.ts (17.502 s)
+PASS test/relationships/subledger.db.test.ts
+PASS test/relationships/parties.db.test.ts
+PASS test/relationships/reinsurance.db.test.ts
+PASS test/relationships/relationships.db.test.ts
+PASS test/relationships/opportunities.db.test.ts
+PASS test/relationships/pricingAtomicity.db.test.ts
+PASS test/relationships/financialEvents.db.test.ts
+PASS test/relationships/currencyMigration.db.test.ts
+PASS test/relationships/currency.test.ts
+PASS test/relationships/ledger.test.ts
+PASS test/relationships/opportunityUpgrade.db.test.ts
+PASS test/relationships/networkPublications.test.ts
+PASS test/relationships/submissionSources.test.ts
+PASS test/relationships/reinsuranceTerms.test.ts
+PASS test/relationships/policy.test.ts
+PASS test/relationships/opportunitySeed.test.ts
+PASS test/relationships/participationAmounts.test.ts
+PASS test/relationships/submissionFacts.test.ts
+PASS test/relationships/governance.test.ts
+
+Test Suites: 20 passed, 20 total
+Tests:       121 passed, 121 total
+Snapshots:   0 total
+Time:        27.368 s, estimated 39 s
+Ran all test suites.
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-f899bff5572a-postgres-1 Stopping 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Stopped 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Removing 
+ Container ensured-finance-test-f899bff5572a-postgres-1 Removed 
+ Network ensured-finance-test-f899bff5572a_default Removing 
+ Network ensured-finance-test-f899bff5572a_default Removed 

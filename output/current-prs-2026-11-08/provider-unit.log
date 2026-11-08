@@ -1,0 +1,31 @@
+
+> @simeoncalixte/ensured-pipeline-shared@0.1.0 test
+> jest --runInBand --watchman=false --runTestsByPath src/pipeline/agents/muse.test.ts
+
+PASS src/pipeline/agents/muse.test.ts
+  ✓ requires explicit model/key, supports official key alias and validates timeout/base (20 ms)
+  ✓ passes configurable model muse-spark-1.3 and exact schema/messages without modifying caller data (17 ms)
+  ✓ passes configurable model future-muse-chat-version and exact schema/messages without modifying caller data (7 ms)
+  ✓ reports actionable HTTP 400 and makes no fallback call
+  ✓ reports actionable HTTP 401 and makes no fallback call
+  ✓ reports actionable HTTP 403 and makes no fallback call (1 ms)
+  ✓ reports actionable HTTP 404 and makes no fallback call
+  ✓ reports actionable HTTP 422 and makes no fallback call
+  ✓ reports actionable HTTP 429 and makes no fallback call
+  ✓ reports actionable HTTP 500 and makes no fallback call
+  ✓ rejects incomplete/unusable provider output (4 ms)
+  ✓ rejects incomplete/unusable provider output (4 ms)
+  ✓ rejects incomplete/unusable provider output (4 ms)
+  ✓ rejects incomplete/unusable provider output (5 ms)
+  ✓ rejects incomplete/unusable provider output (3 ms)
+  ✓ rejects incomplete/unusable provider output (3 ms)
+  ✓ redacts secrets and bounds response diagnostics propagated to stage failures (1 ms)
+  ✓ times out and releases timer; supports cancellation and redacts transport errors (1 ms)
+  ✓ attributes actual returned model/usage and leaves unavailable counts unknown (1 ms)
+  ✓ concurrent model contexts remain isolated without changing process environment (6 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       20 passed, 20 total
+Snapshots:   0 total
+Time:        2.136 s, estimated 6 s
+Ran all test suites within paths "src/pipeline/agents/muse.test.ts".

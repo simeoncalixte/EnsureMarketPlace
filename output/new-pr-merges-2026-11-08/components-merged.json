@@ -1,0 +1,200 @@
+[
+  {
+    "baseRefName": "main",
+    "headRefOid": "bef65a0fca72e4ce45e6b297815fcc1ac99328ea",
+    "mergeCommit": {
+      "oid": "d8fb50197bf3b4b62be2491dbed7b0d8e4ecb50b"
+    },
+    "mergedAt": "2026-11-08T13:12:46Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredConstants/pull/4",
+    "path": "EnsuredConstants"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "85845d155e21cbf550c3a57903fa0be3987bb432",
+    "mergeCommit": {
+      "oid": "c40be9c0f61a437c898fe4eb3c1e3ea2892d4158"
+    },
+    "mergedAt": "2026-11-08T13:12:50Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredXDS/pull/8",
+    "path": "EnsuredXDS"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "aeb9462a1e8b4dc9ceee2f50b15e772f13fccf5e",
+    "mergeCommit": {
+      "oid": "b133be58575ee27b64e83c82fab1a5d07a7ffb34"
+    },
+    "mergedAt": "2026-11-08T13:12:54Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineShared/pull/5",
+    "path": "EnsuredPipelineShared"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "e012ec5f5c835bd78e416967c7d6e2ef488dd81e",
+    "mergeCommit": {
+      "oid": "76f50c50bdeae09d6a42d7954d5f085dd10786ac"
+    },
+    "mergedAt": "2026-11-08T13:12:59Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/pull/3",
+    "path": "EnsuredPipelineRiskCompute"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "a5c748f393dfce9604aa69e376f91ee82fef9d7f",
+    "mergeCommit": {
+      "oid": "2dba1d6cde8ecb9e7d8f3cc84c640b9cb82bdff9"
+    },
+    "mergedAt": "2026-11-08T13:13:03Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/5",
+    "path": "EnsuredPipelineSchemaGeneration"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "76c43ae9cfd1876dc60fe7ea8263c7a6e79d9673",
+    "mergeCommit": {
+      "oid": "5e3806bc8a93f0916b1bbc5740f27f86abaf2c21"
+    },
+    "mergedAt": "2026-11-08T13:13:07Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredAPI/pull/17",
+    "path": "EnsuredAPI"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "8a7c492f030d78290370fc264e22f52797895b30",
+    "mergeCommit": {
+      "oid": "f04534d98d74cdb32624e4b94d32f931848bc6cd"
+    },
+    "mergedAt": "2026-11-08T13:13:11Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredAuth/pull/19",
+    "path": "EnsuredAuth"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "869e57c28d25c5ff2e21737a78ab08145785bd25",
+    "mergeCommit": {
+      "oid": "d2f0ddb5fe5ac9adfd8227826c640877997bb47b"
+    },
+    "mergedAt": "2026-11-08T13:13:16Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredKYC/pull/3",
+    "path": "EnsuredKYC"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "3a63a20a28d51ba1b7cc991a7d45b0495513fe06",
+    "mergeCommit": {
+      "oid": "bd6fc3f47a2b5221c5b32eadc2e2fb8e151b0af1"
+    },
+    "mergedAt": "2026-11-08T13:13:20Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredServices/pull/10",
+    "path": "EnsuredServices"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "2991e6f268f6d9242dd19b09a03c633acb50d805",
+    "mergeCommit": {
+      "oid": "d9bb1416126dc042987584d21135c78a0d9bbbd5"
+    },
+    "mergedAt": "2026-11-08T13:13:24Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredEmail/pull/5",
+    "path": "EnsuredEmail"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "1f5e7fa3c9c27831fe1f7ed2c40099cedeed3c29",
+    "mergeCommit": {
+      "oid": "6cbba426038e7e7aad086311a9428ae4f4d9e24a"
+    },
+    "mergedAt": "2026-11-08T13:13:27Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredSubmissionFeedback/pull/2",
+    "path": "EnsuredSubmissionFeedback"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "19239232170ff1210f838f1cc3c88e011349b22b",
+    "mergeCommit": {
+      "oid": "77e799ae046c15ef050a7e7fadd0ccd53d6c2120"
+    },
+    "mergedAt": "2026-11-08T13:13:31Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredAuthUI/pull/4",
+    "path": "EnsuredAuthUI"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "fd2d04bad6fc1eec7e66f99ee7b23d6efd8b31d0",
+    "mergeCommit": {
+      "oid": "ac0bc020f1e326ab2dbca4eb28115cdf4454cbc9"
+    },
+    "mergedAt": "2026-11-08T13:13:35Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredMarketplace/pull/3",
+    "path": "EnsuredMarketplace"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "449b3bfd3bad9120f0b270c35f56aa09978bad2f",
+    "mergeCommit": {
+      "oid": "fa024026610af002a1339bc2c8dcf411d41f7787"
+    },
+    "mergedAt": "2026-11-08T13:13:39Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredNetwork/pull/5",
+    "path": "EnsuredNetwork"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "8eb7997732cb5b907ee2a42f186769ed746bbec4",
+    "mergeCommit": {
+      "oid": "97f19897661243ddf440fe50431b8d51c0926241"
+    },
+    "mergedAt": "2026-11-08T13:13:44Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredLogistics/pull/3",
+    "path": "EnsuredLogistics"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "dd002383b4185f5d936e54f05857ccd91eb6ae3a",
+    "mergeCommit": {
+      "oid": "9072737998b4589cec58f856252d1fa14f910cb7"
+    },
+    "mergedAt": "2026-11-08T13:13:48Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/SubmissionUI/pull/3",
+    "path": "SubmissionUI"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "34e6cb279f0ecdba9f6c7283457db5473e5ccb3c",
+    "mergeCommit": {
+      "oid": "c2a6b64223796df013f036ebc065349f2800fc2d"
+    },
+    "mergedAt": "2026-11-08T13:13:52Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredUI/pull/15",
+    "path": "EnsuredUI"
+  },
+  {
+    "baseRefName": "main",
+    "headRefOid": "43987cf2c08e53998859a8a9f4e63ffffe6bc922",
+    "mergeCommit": {
+      "oid": "db5995dccf53d6be4eb93414ac8a9640c2782ba1"
+    },
+    "mergedAt": "2026-11-08T13:13:56Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/2",
+    "path": "docs"
+  }
+]

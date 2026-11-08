@@ -1,0 +1,2323 @@
+{
+  "AIN-143": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10466",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+    "key": "AIN-143",
+    "fields": {
+      "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "User story: As a signed-in individual, I want the existing AI chat box to become available after a successful connection to my effective configured model, so that I can converse with the provider/model I selected personally or inherited from my current organization. User explicitly requested creating the ticket before implementation."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Existing source verified: EnsuredUI/src/components/marketplace/withChatbot.tsx renders Chatbot.tsx. It is currently mounted on Pages/LandingPage/LandingPage.tsx. Chatbot uses local answerFor canned responses and its own open/minimize/audio controls; it is not a live authenticated model chat. Reuse and extend this wrapper instead of building a duplicate UI. Model settings, current-scope resolution and connection-test endpoint already exist under AIN-138/139/140; Muse adapter remains AIN-137."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 1: After a successful model connection test, show the existing chat box/affordance in the authenticated application using the existing open/minimize behavior. Hide/unavailable before an effective saved model is verified, while unconfigured, or after a failed test. Merely saving configuration or having an API key is not evidence of connectivity. Loading and connection failure states are explicit."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 2: Gate visibility and send authorization using server-verified connection state for the exact effective configuration scope/revision, provider/model and current authenticated account membership. A personal override supersedes an organization connection result; testing organization settings must not unlock an unverified personal override. Support inherited organization settings and independent personal accounts. A browser flag/localStorage value alone must never authorize chat."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 3: Restore verified status on reload/navigation using authoritative state with a documented freshness policy. Invalidate/recheck after provider/model/key/endpoint changes, return to inheritance, organization revision changes, membership removal/change, logout/account switching, failed reconnect, or provider authentication/permission failure. Prevent a late successful test from enabling a newer untested configuration. Avoid repeated automatic billable probes on every page render."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 4: Send conversation requests through an authenticated server endpoint using current effective model settings and stored credentials. Do not send credentials to the browser or accept a caller-forged provider/scope as authority. Display actual selected-provider replies, loading/sending state and errors; do not present answerFor canned responses as live model output. Preserve or safely clear account/config-scoped history and prevent cross-account/tenant disclosure."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 5: Preserve the wrapper\u2019s existing open/minimize/accessibility behavior and verify keyboard and narrow-screen use. Provide bounded history/request sizes, empty-input validation, duplicate-send protection and explicit failure/retry. Connection loss must disable/hide the live chat appropriately and provide a path back to model settings without losing unsent text unnecessarily. Reconcile the public landing-page demo separately so it does not falsely claim a verified personal/organization model connection."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Verification / Definition of Done: executable isolated Storybook play stories assert hidden-before-connect, exact successful effective-config unlock, inherited/personal precedence, reload, stale test race, changed credentials/model, disconnected/retry, logout/membership revocation, send payload and actual observable reply/error, empty/loading and narrow/keyboard states. Synthetic transports must block accidental application writes. Pagination is not needed for the bounded initial conversation; document history limits. Authenticated API/database integration tests prove authoritative verification, current membership, tenant/account separation and server-side provider routing. Include a configured-provider conversation and integrated staging evidence with build/provider/model versions; mocked replies alone do not prove live chat."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Ticket-to-component-to-story-to-verification mapping is required in Jira and TASK_HANDOFF.md before Done. Add regression tickets for discovered defects. Preserve generated-form and financial authorization boundaries; this request is chat, not authorization for new autonomous business/financial writes. No credentials in tickets, logs or evidence."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Dependencies and exclusions: Required milestone from AIN-138/139 is effective organization/personal settings resolution plus connection testing; this does not replace or close their remaining original acceptance/staging gates. AIN-137 is related adapter ownership and remains required for Muse-specific proof. Parent AIN-2 and AIN-87 retain all broader obligations. Exclude rebuilding the wrapper, unimplemented provider adapters, public anonymous use of stored organization credentials, and unrelated pipeline/financial features. User\u2019s earlier hands-on account test remains deferred until they return. No implementation, deployment, sprint commitment, assignee or estimate is claimed by creating this backlog entry."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10231",
+        "key": "AIN-2",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10231",
+        "fields": {
+          "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "issuelinks": [
+        {
+          "id": "10363",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10363",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "inwardIssue": {
+            "id": "10461",
+            "key": "AIN-138",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+            "fields": {
+              "summary": "[AI settings] Configure organization models and individual inheritance",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10364",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10364",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10460",
+            "key": "AIN-137",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10460",
+            "fields": {
+              "summary": "[Pipeline] Support Muse provider with configurable model selection like Qwen",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                "id": "10038",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                "name": "Task",
+                "subtask": false,
+                "avatarId": 10318,
+                "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "10467",
+          "key": "AIN-144",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10467",
+          "fields": {
+            "summary": "Implement verified effective-model connection state and scoped chat API",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10468",
+          "key": "AIN-145",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10468",
+          "fields": {
+            "summary": "Gate existing chat wrapper on connection and verify interactions",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10469",
+          "key": "AIN-146",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10469",
+          "fields": {
+            "summary": "[Bug] Avoid chat pool starvation during concurrent scope rechecks",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10470",
+          "key": "AIN-147",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10470",
+          "fields": {
+            "summary": "[Bug] Preserve chat draft edits made while a reply is pending",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10471",
+          "key": "AIN-148",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10471",
+          "fields": {
+            "summary": "[Bug] Restore persisted chat history on the initial verified load",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10472",
+          "key": "AIN-149",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10472",
+          "fields": {
+            "summary": "[Bug] Keep global chat controls usable without external icon fonts",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      ],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-144": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10467",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10467",
+    "key": "AIN-144",
+    "fields": {
+      "summary": "Implement verified effective-model connection state and scoped chat API",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Implement the server requirements of AIN-143: revision/scope-bound connection verification and freshness, stale-success protection, effective-config and membership invalidation, authenticated bounded conversation endpoint, stored-key routing and account isolation. Reuse AIN-139 effective settings and AIN-137 adapters."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: parent backend criteria pass with isolated API/database concurrency and authorization tests, exact provider/model transport assertions, recorded provider conversation and staging evidence. Include no secret values in chat responses or snapshots. Link evidence to parent and TASK_HANDOFF.md; do not close from a frontend visibility flag."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10466",
+        "key": "AIN-143",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+        "fields": {
+          "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-145": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10468",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10468",
+    "key": "AIN-145",
+    "fields": {
+      "summary": "Gate existing chat wrapper on connection and verify interactions",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Implement the UI requirements of AIN-143 using components/marketplace/withChatbot.tsx and Chatbot.tsx. Bind authenticated visibility/send state to effective server connection status, wire actual scoped chat transport, handle settings/inheritance changes, existing open/minimize controls and connection/error/retry states. Reconcile the existing landing demo without claiming canned replies are live."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: parent UI criteria pass with executable isolated Storybook action/payload/result assertions, keyboard/narrow layout, authenticated real-service browser journey and configured-provider/staging evidence. Document component/story IDs/commands/results and coverage gaps. Link implementation to parent and TASK_HANDOFF.md."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10466",
+        "key": "AIN-143",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+        "fields": {
+          "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-146": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10469",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10469",
+    "key": "AIN-146",
+    "fields": {
+      "summary": "[Bug] Avoid chat pool starvation during concurrent scope rechecks",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Discovered during AIN-144 concurrency review: performing scope/membership/history rechecks on new pool connections while holding a chat transaction can exhaust a small pool and stall concurrent replies."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: reuse the active transaction for all chat database reads/writes after acquiring its per-account lock; do not lock user membership across the provider call, and recheck current membership before delivery. A two-connection-pool integration regression must prove two different accounts can reach the provider concurrently, finish, and retain isolation. Existing same-account duplicate-send and in-flight revocation tests remain required."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10466",
+        "key": "AIN-143",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+        "fields": {
+          "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-147": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10470",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10470",
+    "key": "AIN-147",
+    "fields": {
+      "summary": "[Bug] Preserve chat draft edits made while a reply is pending",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "During AIN-145 review, a completed reply could clear a newer draft typed while the original message was in flight. This loses unsent application-wide chat state."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: completion clears only the submitted draft if it is still unchanged; preserve newer edits and append the reply to its original message. Add executable DraftTypedDuringReply Storybook regression with exact response association and draft assertion. Verify Escape/minimize restores launcher focus."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10466",
+        "key": "AIN-143",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+        "fields": {
+          "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-148": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10471",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10471",
+    "key": "AIN-148",
+    "fields": {
+      "summary": "[Bug] Restore persisted chat history on the initial verified load",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The executable ReloadRestoresHistory story found that the initial account/configuration reset advanced the message epoch after refresh captured it, so a valid first history response was discarded. Existing persisted messages appeared empty until a later poll."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: capture the history epoch after accepting the current server context; restore persisted current-scope conversation on initial load without accepting stale history that races a newer send/account/model change. ReloadRestoresHistory and full authenticated wrapper regression must pass."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10466",
+        "key": "AIN-143",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+        "fields": {
+          "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-149": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10472",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10472",
+    "key": "AIN-149",
+    "fields": {
+      "summary": "[Bug] Keep global chat controls usable without external icon fonts",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Visual verification at 375px with external requests blocked found chat controls rendering literal icon names (remove/arrow_upward), overflowing their buttons when the external icon font is unavailable."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: render minimize/send/audio controls with self-contained glyphs, retain accessible labels and keyboard behavior, wrap long configured-model labels, and verify the font-blocked narrow screenshot plus executable control/story regressions. Reuse the existing wrapper, not a new chat UI. Evidence before fix: output/chat-2026-11-05/screens/application-chat-mobile-before-icons.png."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10466",
+        "key": "AIN-143",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+        "fields": {
+          "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-2": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10231",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10231",
+    "key": "AIN-2",
+    "fields": {
+      "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Completion review: 2026-11-01. Scope: current local EnsureMarketPlace checkout plus existing Jira inventory. This is a code/document review, not a production audit. Existing implementations are to be extended. No full test suite was run."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Delivery: Insurer pilot | Planning priority: P0 (P0 = pilot blocker; P1 = next delivery priority)."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Observed state and evidence"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "EnsuredPipelineStorageSearch/src/pipeline/storageSearch/service.ts returns the received payload without indexing. API pipeline/jobs already implements queued advance/rerun work; standalone ingestion, OCR, extraction and normalization packages exist."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Scope"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Implement tenant-scoped artifact indexing/retrieval and indexing lifecycle instead of the Storage Search passthrough."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Verify real supported intake channels through the existing worker with idempotency, retry, cancellation, dead-letter handling and provider timeouts."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Keep source document lineage, extraction confidence and append-only replay across partial failures; protect document processing from hostile content."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance criteria"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "A non-seeded intake reaches persisted searchable artifacts and downstream stages with source/execution lineage."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Duplicate deliveries and worker restarts do not duplicate submissions or external side effects; failures remain actionable."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Search enforces tenant access and deletion/retention policy; representative PDF, table/SOV and email fixtures succeed or report explicit errors."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Dependencies"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Establish a reproducible, operable platform release"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Implementation constraints"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Preserve working functionality, tenant isolation, additive migrations and append-only audit/replay. Keep engines driven by risk-class configuration. Do not present seeded/illustrative figures as verified financial results. Owners and estimates remain unassigned until delivery planning."
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Single-developer sprint sequence \u2014 2026-11-04"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Roadmap priority 3 of 14 open epics. One developer, two-week sprints"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "S07 Document financial provenance: AIN-15"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "S08 Reliable intake execution: AIN-131"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "S09 Authorized evidence search: AIN-16"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Historical epic-level Blocks links remain intact as delivery/release constraints. Readiness for a child uses the named prerequisite milestone, not completion of every late child of a foundational epic. AIN-1 provides build/staging foundations early and full integration/restore late; AIN-47 contracts are early and legacy cutover late. No epic is closed at an early milestone."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Existing active sprint remains active with original dates; only its goal/name and unfinished membership are reorganized. Every new sprint is future and undated. No fabricated story-point/time estimates or assignees. The ordered slots are a provisional work breakdown, not a fixed delivery forecast. Before activation, split any candidate exceeding six implementation days and verify reviewer/provider readiness; preserve all parent acceptance criteria."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Epic completion requires every original criterion, unfinished child/subtask and required dependency, including criteria not exhausted by the sprint issue titles. Early foundation milestones do not close this epic. Full backlog mapping and gate register are recorded on AIN-12 and in TASK_HANDOFF.md."
+              }
+            ]
+          }
+        ]
+      },
+      "issuelinks": [
+        {
+          "id": "10033",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10033",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "inwardIssue": {
+            "id": "10230",
+            "key": "AIN-1",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10230",
+            "fields": {
+              "summary": "[Ensured] Establish a reproducible, operable platform release",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "To Do",
+                "id": "10036",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+                "id": "10035",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+                "name": "Epic",
+                "subtask": false,
+                "avatarId": 10307,
+                "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+                "hierarchyLevel": 1
+              }
+            }
+          }
+        },
+        {
+          "id": "10034",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10034",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "outwardIssue": {
+            "id": "10232",
+            "key": "AIN-3",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10232",
+            "fields": {
+              "summary": "[Ensured] Finish effective submission revisions and scalable board queries",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "To Do",
+                "id": "10036",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+                "id": "10035",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+                "name": "Epic",
+                "subtask": false,
+                "avatarId": 10307,
+                "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+                "hierarchyLevel": 1
+              }
+            }
+          }
+        },
+        {
+          "id": "10048",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10048",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "outwardIssue": {
+            "id": "10241",
+            "key": "AIN-12",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10241",
+            "fields": {
+              "summary": "[Ensured] Prove complete user journeys and certify staged launch readiness",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "To Do",
+                "id": "10036",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+                "id": "10035",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+                "name": "Epic",
+                "subtask": false,
+                "avatarId": 10307,
+                "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+                "hierarchyLevel": 1
+              }
+            }
+          }
+        },
+        {
+          "id": "10331",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10331",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "inwardIssue": {
+            "id": "10454",
+            "key": "AIN-131",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10454",
+            "fields": {
+              "summary": "[Sprint slice] Verify intake worker resilience and artifact lineage",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "To Do",
+                "id": "10036",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                "id": "10038",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                "name": "Task",
+                "subtask": false,
+                "avatarId": 10318,
+                "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        }
+      ],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "To Do",
+        "id": "10036",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "AIN-138": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10461",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+    "key": "AIN-138",
+    "fields": {
+      "summary": "[AI settings] Configure organization models and individual inheritance",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "As an organization administrator, I want to configure my organization\u2019s AI provider, model and credentials so that members and background processing can use our chosen model. As an individual, I want to inherit my current organization\u2019s configuration or use my own provider/model/credentials so that I control the model used for my work."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "User-approved scope expansion 2026-11-05: build self-service organization and individual settings, initially Gemini, Ollama, Qwen and Muse. Provider adapters are extensible; arbitrary model IDs supported by a configured adapter do not require per-model code. AIN-137 Muse support remains required and retains all original criteria. The user will help test their own account; do not infer their identity or copy personal credentials to organization scope."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: authenticated Settings page shows effective source/provider/model and personal inheritance choice. Current organization administrators alone may change organization settings; active members may view redacted metadata and inherit. Any active individual, with or without an organization, may configure personal settings. Scope/actor derive from live identity membership, never caller-supplied tenant IDs; impersonation cannot change or test credentials. Cross-tenant reads/writes and revoked membership fail."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: deterministic precedence is explicit personal override > current organization > existing platform configuration when no saved override exists. Choosing inherit removes personal override including its stored credential. Missing/invalid selected configuration fails visibly; no silent provider/model fallback. Organization automated work uses organization configuration; personal work uses the selected individual configuration. Effective provider/model provenance is recorded per execution; concurrent users cannot leak configuration via process.env."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: existing providers plus Muse can be selected with configurable model IDs and relevant endpoint/timeout. Credentials are write-only, encrypted at rest with an operator-managed key, omitted from responses/logs/artifact snapshots, and replaceable/removable without returning existing values. Personal overrides never implicitly copy organization secrets. Protected endpoint policy prevents arbitrary user-controlled SSRF; operator-approved custom endpoints enable local Ollama and compatible services."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: save/reload, inheritance/override/return-to-inheritance, organization member/admin permissions, explicit synthetic connection test, configuration validation, loading/empty/error/retry and revocation are implemented. Test action reports actual selected provider/model and failure without disclosing secrets. Do not run real document processing or change live credentials without the user choosing the action."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Verification: isolated synthetic Storybook transports block real writes and assert exact submitted payloads, observable results, permissions, keyboard/narrow layout and retry states; database/API integration tests prove durable encrypted state, current membership, authorization, concurrency isolation, and effective settings applied to pipeline consumers. Record ticket/component/story IDs/commands/results mapping. Configured provider and integrated staging evidence remain required; mocked stories cannot prove real Muse access. No pagination needed for a single settings record and a bounded provider list; model ID remains free text."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Dependencies: AIN-137 provides Muse adapter. Existing generated-form user outcome AIN-87 and release gate AIN-13 are related and retain broader obligations. Parent AIN-2 remains open until all original outcomes pass. Exclude pricing/capital financial model tickets, training/hosting new models, all other providers without an implemented adapter, and unrelated settings permissions repair. No sprint commitments or assignees invented."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10231",
+        "key": "AIN-2",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10231",
+        "fields": {
+          "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "issuelinks": [
+        {
+          "id": "10359",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10359",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "inwardIssue": {
+            "id": "10460",
+            "key": "AIN-137",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10460",
+            "fields": {
+              "summary": "[Pipeline] Support Muse provider with configurable model selection like Qwen",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                "id": "10038",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                "name": "Task",
+                "subtask": false,
+                "avatarId": 10318,
+                "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10360",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10360",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10410",
+            "key": "AIN-87",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10410",
+            "fields": {
+              "summary": "[Persona] Review document-generated forms with complete evidence and safe extensions",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "To Do",
+                "id": "10036",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10361",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10361",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "inwardIssue": {
+            "id": "10464",
+            "key": "AIN-141",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10464",
+            "fields": {
+              "summary": "[Local UI] Apply package metadata mounts so model settings can render",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "Done",
+                "id": "10037",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10037",
+                "id": "10037",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+                "name": "Bug",
+                "subtask": false,
+                "avatarId": 10303,
+                "entityId": "61221f88-600f-4dc2-987d-6c7c77a94ee4",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10363",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10363",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "outwardIssue": {
+            "id": "10466",
+            "key": "AIN-143",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+            "fields": {
+              "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "10462",
+          "key": "AIN-139",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10462",
+          "fields": {
+            "summary": "Implement scoped encrypted model configuration and pipeline resolution",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10463",
+          "key": "AIN-140",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10463",
+          "fields": {
+            "summary": "Implement model settings UI and executable interaction evidence",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10465",
+          "key": "AIN-142",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10465",
+          "fields": {
+            "summary": "[Bug] Preserve requesting actor for queued model selection",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      ],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-137": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10460",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10460",
+    "key": "AIN-137",
+    "fields": {
+      "summary": "[Pipeline] Support Muse provider with configurable model selection like Qwen",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "User request: allow selecting any model available through Muse, just as Qwen supports a configurable model ID. This is a backlog addition, not authorization to replace existing providers or implement now."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Actor / intent / benefit: As a pipeline operator, I want to select Muse and configure its model ID so that document-processing and generated-form workflows can use an available compatible Muse model without a code change for each model. Affected existing user story: AIN-87. Preserve its full evidence, validation and human-review obligations."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Current source: EnsuredPipelineShared/src/pipeline/agents/llm.ts selects Gemini, Ollama or Qwen; Qwen uses QWEN_MODEL, QWEN_BASE_URL, QWEN_API_KEY and timeout configuration in agents/qwen.ts. Gemini uses LangChain; the shared invoke interface also supports direct provider adapters. Extend that interface rather than rebuilding pipeline orchestration."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 1: Add Muse to shared provider selection, model resolution and configuration validation; document MUSE_MODEL, MUSE_BASE_URL, MUSE_API_KEY and timeout settings (adjust names only with documented provider requirements). Accept arbitrary provider-supported model identifiers without a hardcoded per-model allowlist. Model changes require configuration only, not code."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 2: Route the exact selected model through shared pipeline consumers, preserving message handling, response contracts and JSON/schema validation. Account access and required task capabilities govern usability: unsupported models/capabilities must return an actionable error, never silently switch models/providers or claim every catalog model supports every task."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 3: Verify the actual Muse provider identity, official endpoint/API contract, authentication and model-ID format before implementation. These details are currently unresolved; do not assume an OpenAI-compatible API or equate Muse with another similarly named provider. Reuse an appropriate LangChain adapter if compatible with the verified contract, otherwise use the established invoke interface."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 4: Handle absent/invalid configuration, authentication/access failure, unknown model, rate limits, timeout/cancellation, server failure, malformed/empty/truncated responses and unsupported structured-output modes. Preserve effective saved artifacts and bounded existing retry semantics; no silent fallback or unintended provider charges."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 5: Attribute usage and diagnostics to the selected provider/model; redact secrets and preserve existing tenant/evidence boundaries. Do not fabricate token/cost data when unavailable. Existing Gemini/Ollama/Qwen behavior remains covered by regressions."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance 6: Isolated synthetic-transport tests assert exact model IDs and payloads for at least two model identifiers and all failure cases above. Provide a configured Muse integration run with approved synthetic documents, recorded provider/model versions and generated-form validation evidence; a mock alone does not prove provider support. Record component/test IDs, commands, results and coverage gaps. If a UI selector is changed or introduced, link its user story and add executable isolated Storybook play stories with exact submitted-payload/result assertions and relevant loading/empty/validation/retry/permission states."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Dependencies / boundaries: Parent AIN-2; relates to AIN-87 as an alternative provider for existing generated forms, not a mandatory blocker to Gemini/Qwen delivery. AIN-13 remains the separate package-release gate. Do not expand into all of AIN-87, model hosting/training, new image-generation workflows or unrelated financial-model work. Keep original epic/story obligations intact. No sprint, estimate, assignee or default-provider change requested."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Definition of Done: all criteria and regression/provider evidence pass; shared package/API wiring and configured staging run are verified with version attribution, documentation and ticket-to-component-to-test mapping. No credentials in Jira. Planning only: implementation, tests and deployment not yet performed. Provider identification, model access and test credentials are readiness inputs."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10231",
+        "key": "AIN-2",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10231",
+        "fields": {
+          "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "issuelinks": [
+        {
+          "id": "10358",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10358",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10410",
+            "key": "AIN-87",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10410",
+            "fields": {
+              "summary": "[Persona] Review document-generated forms with complete evidence and safe extensions",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "To Do",
+                "id": "10036",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10359",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10359",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "outwardIssue": {
+            "id": "10461",
+            "key": "AIN-138",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+            "fields": {
+              "summary": "[AI settings] Configure organization models and individual inheritance",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10364",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10364",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "inwardIssue": {
+            "id": "10466",
+            "key": "AIN-143",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+            "fields": {
+              "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        }
+      ],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  }
+}

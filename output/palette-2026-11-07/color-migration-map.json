@@ -1,0 +1,4820 @@
+[
+  [
+    "EnsuredUI/src/index.css",
+    "rgba(149,212,179,0.02)",
+    "surface-container-high",
+    ".bg-mesh { background-image: radial-gradient(ellipse at 10% 10%, "
+  ],
+  [
+    "EnsuredUI/src/index.css",
+    "rgba(233,195,73,0.02)",
+    "warning",
+    "gba(149,212,179,0.02) 0%, transparent 30%), radial-gradient(ellipse at 90% 80%, "
+  ],
+  [
+    "EnsuredUI/src/index.css",
+    "rgba(255,255,255,0.02)",
+    "on-surface",
+    ".ghost-border { box-shadow: inset 0 1px 0 "
+  ],
+  [
+    "EnsuredUI/src/index.css",
+    "rgba(2,6,23,0.45)",
+    "scrim",
+    ".shadow-card { box-shadow: 0 10px 30px "
+  ],
+  [
+    "EnsuredUI/src/index.css",
+    "#fff",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/index.css",
+    "rgba(75,142,255,0.08)",
+    "primary",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/index.css",
+    "rgba(126,231,135,0.05)",
+    "primary",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#0b1e2c",
+    "surface",
+    ".facility-terms{--ft-bg:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#112735",
+    "surface",
+    "--ft-inset:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#91a59f",
+    "text-secondary",
+    "--ft-muted:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#d0e0f1",
+    "text-primary",
+    "--ft-text:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#40dfae",
+    "success",
+    "--ft-green:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#42dafa",
+    "primary",
+    "--ft-cyan:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#132d3b",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#07352c",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#203c46",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#1b3642",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#1a303f",
+    "surface-panel",
+    ".facility-terms th{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#1a303f",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#1a303f",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#071925",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#24404c",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#0b1e2c",
+    "surface",
+    "checkbox]),.ft-amendment .panel select,.ft-amendment .panel textarea{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityTerms.css",
+    "#2b4554",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#061724",
+    "surface-deep",
+    ".commercial-activity{--ca-bg:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#122532",
+    "surface",
+    "--ca-card:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#0b1d2b",
+    "surface",
+    "--ca-inset:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#d3e0f2",
+    "text-primary",
+    "--ca-text:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#8ba2a6",
+    "text-secondary",
+    "--ca-muted:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#40dfaf",
+    "success",
+    "--ca-green:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#40d9fa",
+    "primary",
+    "--ca-cyan:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#1d3341",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#314654",
+    "surface-high",
+    ".ca-bars i:nth-child(4){background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#1b3040",
+    "surface-panel",
+    ".ca-toolbar input,.ca-toolbar select,.ca-toolbar nav{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#2a4053",
+    "surface-panel",
+    ".ca-toolbar button[aria-pressed=true]{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#06372f",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#29434a",
+    "border",
+    "border-left:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#28755f",
+    "border",
+    ".commercial-activity button.ca-event.selected{border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#1e3b47",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#163f3b",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#273d4b",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#1b3041",
+    "surface-panel",
+    ".ca-inspector-title,.ca-identity section,.ca-proof{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#142737",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#2d4652",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#20444b",
+    "surface-panel",
+    "background:radial-gradient(ellipse at center,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#102634",
+    "surface",
+    "background:radial-gradient(ellipse at center,#20444b 0%,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#061926",
+    "surface-deep",
+    ".ca-json pre{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#b8d4d4",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#1b3041",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#2d4652",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#2d4652",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/CommercialActivity.css",
+    "#1c3847",
+    "surface-panel",
+    ".ca-support button{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#071724",
+    "surface-deep",
+    ".facility-approvals{--fa-bg:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#132532",
+    "surface",
+    "--fa-card:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#0c1e2b",
+    "surface",
+    "--fa-inset:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#d1dfef",
+    "text-primary",
+    "--fa-text:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#93a8ad",
+    "text-secondary",
+    "--fa-muted:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#42dfaf",
+    "success",
+    "--fa-green:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#40d9fa",
+    "primary",
+    "--fa-cyan:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#203544",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#2b4657",
+    "surface-high",
+    ".facility-approvals button:hover{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#263b48",
+    "surface-panel",
+    ".fa-stats progress::-webkit-progress-bar{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#203544",
+    "surface-panel",
+    ".fa-filters button[aria-pressed=true]{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#2c414e",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#263c4c",
+    "surface-panel",
+    ".fa-icon{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#263a49",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#ffb5a7",
+    "danger",
+    ".fa-status.changes,.fa-warning{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#253e48",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#194548",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#203340",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#203544",
+    "surface-panel",
+    ".fa-controls .panel button{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#365464",
+    "outline",
+    "-controls .panel button:not(:disabled):not([class*='outline']){border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#324955",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityApprovals.css",
+    "#07352c",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#102330",
+    "surface",
+    ".facility-documents{--fd-bg:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#152b3a",
+    "surface",
+    "--fd-panel:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#061927",
+    "surface-deep",
+    "--fd-deep:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#90a8a8",
+    "text-secondary",
+    "--fd-muted:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#d0e1f3",
+    "text-primary",
+    "--fd-text:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#36dfb3",
+    "success",
+    "--fd-green:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#3ddafd",
+    "primary",
+    "--fd-cyan:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#1d3547",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#0ec894",
+    "primary",
+    ".facility-documents .fd-primary{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#002d25",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#0c1e2c",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#2bb89c",
+    "primary",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#112633",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#132936",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#031522",
+    "surface-deep",
+    ".facility-documents select,.facility-documents input{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#031522",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#1b3041",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#041a27",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#091d2a",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#1a3242",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#182f3f",
+    "surface-panel",
+    ".facility-documents tr.fd-selected{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#145143",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#3ee5b7",
+    "success",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#553039",
+    "surface-high",
+    ".fd-file-icon.pdf{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#ffbebd",
+    "danger",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#031623",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#061a26",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#1a3042",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#031827",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#1a3042",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#031724",
+    "surface-deep",
+    ".fd-checksum{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#102835",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#b7d2ce",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#294351",
+    "border",
+    "border-left:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityDocuments.css",
+    "#1c3a43",
+    "surface-panel",
+    ".fd-health>span{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityRequests.css",
+    "#324955",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityRequests.css",
+    "#78909c",
+    "border",
+    ".fr-request.declined,.fr-request.released{border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityRequests.css",
+    "#07352c",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#92b6aa",
+    "text-secondary",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#364542",
+    "border",
+    "    border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#c2ccc8",
+    "text-secondary",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#15211f",
+    "surface",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#9ce2bc",
+    "success",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#142b22",
+    "surface",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2c5140",
+    "border",
+    "    border-color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#ebd292",
+    "warning",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2a2518",
+    "surface",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#52472b",
+    "border",
+    "    border-color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#91a39d",
+    "text-secondary",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#293a35",
+    "border",
+    "    border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#111c1a",
+    "surface-deep",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2d3b36",
+    "border",
+    "    border-bottom: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#a8b7b0",
+    "text-secondary",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#a6e5c7",
+    "success",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#8ed3b2",
+    "border",
+    "    border-bottom-color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#14211d",
+    "surface",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2c3b35",
+    "border",
+    "    border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#111b18",
+    "surface-deep",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2c3b35",
+    "border",
+    "    border-right: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#a0b1a8",
+    "text-secondary",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2a3833",
+    "border",
+    "    border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#111b18",
+    "surface-deep",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2a3833",
+    "border",
+    "    border-top: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2a3833",
+    "border",
+    "    border-top: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#1e3028",
+    "surface",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#b4d8c5",
+    "success",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2a3833",
+    "border",
+    "    border-top: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx",
+    "#2c3b35",
+    "border",
+    "      border-bottom: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#0b1d2b",
+    "surface",
+    ".facility-overview{--fo-bg:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#122633",
+    "surface",
+    "--fo-inset:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#cfdef2",
+    "text-primary",
+    "--fo-text:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#91a49e",
+    "text-secondary",
+    "--fo-muted:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#45dfac",
+    "success",
+    "--fo-green:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#3fdcff",
+    "primary",
+    "--fo-cyan:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#ffb6a6",
+    "danger",
+    ".facility-overview .fo-warning{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#1c3040",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#122633",
+    "surface",
+    ".fo-version option{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#203443",
+    "surface-panel",
+    ".fo-badge{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#102c36",
+    "surface",
+    ".fo-core{background:radial-gradient(ellipse at top right,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#112b37",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#0e2130",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#b5c7c2",
+    "text-secondary",
+    ".fo-capacity p{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#243b49",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#233743",
+    "border",
+    ".fo-agreements{border-top:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#182b3b",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#061724",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#ffb6a6",
+    "danger",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#142e3b",
+    "surface",
+    "background:linear-gradient(130deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#061724",
+    "surface-deep",
+    "background:linear-gradient(130deg,#142e3b,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#102936",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#1a3040",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#2a414d",
+    "surface-panel",
+    "--fo-inset) 80%,transparent 82%),conic-gradient(var(--fo-green) var(--progress),"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#b7c9c3",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#233743",
+    "border",
+    "border-top:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#063428",
+    "success",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#233743",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#b7c9c3",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#45dfac",
+    "border",
+    ".facility-workspace>.tabs button[aria-selected=true]{border-bottom:3px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilityOverview.css",
+    "#cfdef2",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#eaf4ff",
+    "text-primary",
+    ".facilities-page{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#0c233038",
+    "surface",
+    "background:radial-gradient(ellipse at 60% 0,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#a9c2d9",
+    "text-secondary",
+    ".facilities-page p,.facilities-page small{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#11354c",
+    "surface-panel",
+    "background:linear-gradient(130deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#192937",
+    "surface",
+    "background:linear-gradient(130deg,#11354c,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#64dfcf",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#284251",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#30485b",
+    "border",
+    ".facilities-page button,.facility-manage,.facility-primary{border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#0c1b28",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#d6e6fa",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#54ebc5",
+    "outline",
+    ".facilities-page :focus-visible{outline:2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#00271f",
+    "on-primary",
+    ".facility-header-actions .facility-primary{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#54ebc5",
+    "primary",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#54ebc5",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#223747",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#10222f",
+    "surface",
+    "background:linear-gradient(110deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#0e1a27",
+    "surface",
+    "background:linear-gradient(110deg,#10222f,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#b9cde3",
+    "text-secondary",
+    ".facility-stats article>div>span{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#57f0cb",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#ffc666",
+    "warning",
+    ".tone-2{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#8b90ff",
+    "primary",
+    ".tone-3{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#223747",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#0e1e2a",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#091a27",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#d6e6fa",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#2a4255",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#223747",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#0c1f2d",
+    "surface",
+    "background:linear-gradient(120deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#0d1925",
+    "surface",
+    "background:linear-gradient(120deg,#0c1f2d,"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#a6c2d9",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#edf6ff",
+    "text-primary",
+    ".facility-identity a{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#103b3f66",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#8be7ce",
+    "success",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#ffce70",
+    "warning",
+    ".facility-pill.pending{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#66532c33",
+    "surface-high",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#9fb2c7",
+    "text-secondary",
+    ".facility-pill.unpublished{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#acc2d6",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#60f5cf",
+    "success",
+    ".facility-status.active{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#ffbd78",
+    "warning",
+    ".facility-status.suspended,.facility-status.blocked{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#abc4db",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#58efc9",
+    "primary",
+    ".facilities-page footer [aria-current]{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#003b2e",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/Commercial/FacilitiesPage.css",
+    "#9bb3c9",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/Settings.tsx",
+    "#061320",
+    "surface-deep",
+    " background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/Settings.tsx",
+    "#edf4ff",
+    "text-primary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/Settings.tsx",
+    "#203348",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#edf5ff",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#244766",
+    "border",
+    "--line:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#aac3df",
+    "text-secondary",
+    "--muted:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#54b1ff",
+    "primary",
+    ".title svg{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#10263e",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#57c9df",
+    "border",
+    "button:hover:not(:disabled){border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#16344f",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#006aff",
+    "primary",
+    ".primary{background:linear-gradient(110deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#119cf3",
+    "primary",
+    ".primary{background:linear-gradient(110deg,#006aff,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#198aff",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#107ee5",
+    "primary",
+    ".primary:hover:not(:disabled){background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#24e4cc",
+    "border",
+    ".test{border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#0b3b42",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#72eadc",
+    "outline",
+    " :focus-visible{outline:3px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#2f6b9d",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#0d2947",
+    "surface-panel",
+    "background:linear-gradient(110deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#092139",
+    "surface",
+    "background:linear-gradient(110deg,#0d2947,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#081c2d",
+    "surface",
+    "background:linear-gradient(110deg,#0d2947,#092139 64%,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#227ed2",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#073c7d",
+    "surface-high",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#9bd6ff",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#0a4583",
+    "surface-high",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#d6edff",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#0b2339",
+    "surface",
+    "background:linear-gradient(125deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#091c30",
+    "surface",
+    "background:linear-gradient(125deg,#0b2339,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#2debd5",
+    "border",
+    ".card[aria-pressed=true]{border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#2debd5",
+    "scrim",
+    "box-shadow:inset 3px 0 "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#2debd5",
+    "scrim",
+    "box-shadow:inset 3px 0 #2debd5,0 0 0 1px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#286078",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#061623",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#39e4ce",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#a0b2ff",
+    "primary",
+    ".provider-mark[data-provider=gemini]{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#c2a9ff",
+    "text-primary",
+    ".provider-mark[data-provider=qwen]{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#eee",
+    "text-primary",
+    ".provider-mark[data-provider=ollama]{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#34516c",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#bfd3e8",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#102d43",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#aaffec",
+    "text-primary",
+    ".badge.verified{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#0c8279",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#06433f",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#ffbdb7",
+    "danger",
+    ".badge.failed{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#844746",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#34232b",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#79e5ff",
+    "primary",
+    ".badge.default{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#138bb4",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#06364c",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#0c263e",
+    "surface",
+    "background:linear-gradient(140deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#07182b",
+    "surface",
+    "background:linear-gradient(140deg,#0c263e,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#203e58",
+    "border",
+    "border-top:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#355874",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#091d30",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#edf5ff",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#94b3d2",
+    "text-secondary",
+    "input::placeholder{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#31536c",
+    "border",
+    "border:1px dashed "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#4c9cc3",
+    "primary",
+    ".empty svg{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#246a69",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#0b333b",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#854542",
+    "border",
+    ".feedback[role=alert]{border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#33212a",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#ffc7c0",
+    "danger",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts",
+    "#94c4ed",
+    "primary",
+    ".privacy svg{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionFilterDrawer.tsx",
+    "rgba(0,0,0,.6)",
+    "scrim",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionFilterDrawer.tsx",
+    "rgba(0,0,0,.3)",
+    "scrim",
+    "  box-shadow: -12px 0 48px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SchemaSubprocessActivity.tsx",
+    "#555",
+    "border",
+    " style={{padding:'12px 0',borderBottom:'1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#2c4650",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#142730dd",
+    "surface",
+    "  background: linear-gradient(120deg, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#091b22ef",
+    "surface-deep",
+    "  background: linear-gradient(120deg, #142730dd, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#edf6fa",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#0002",
+    "scrim",
+    "  box-shadow: 0 12px 36px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#4aefcf",
+    "outline",
+    "  button:focus-visible, select:focus-visible { outline: 2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#afc7d5",
+    "text-secondary",
+    " p { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#3b5662",
+    "border",
+    "  select, button { border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#11252e",
+    "surface",
+    " background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#36e8c5",
+    "primary",
+    "  input { accent-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#163b3d",
+    "surface-panel",
+    "  background:${p=>p.$active ? 'linear-gradient(155deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#0b1e26",
+    "surface",
+    "  background:${p=>p.$active ? 'linear-gradient(155deg,#163b3d,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#1a303a",
+    "surface-panel",
+    "p.$active ? 'linear-gradient(155deg,#163b3d,#0b1e26)' : 'linear-gradient(150deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#0b1b23",
+    "primary",
+    "e ? 'linear-gradient(155deg,#163b3d,#0b1e26)' : 'linear-gradient(150deg,#1a303a,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#64ffde",
+    "border",
+    "  border:${p=>p.$active ? '2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#45616e",
+    "border",
+    "  border:${p=>p.$active ? '2px solid #64ffde' : '1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#23eac437",
+    "scrim",
+    "  box-shadow:${p=>p.$active ? '0 0 20px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#27cfb010",
+    "scrim",
+    "  box-shadow:${p=>p.$active ? '0 0 20px #23eac437, inset 0 0 12px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#b7cedc",
+    "text-secondary",
+    " small { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#64ffde",
+    "border",
+    "  &:hover { border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#64ffde",
+    "border",
+    " border-top:10px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#1c3d4b",
+    "surface-panel",
+    " background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#bce6fa",
+    "text-primary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#2d4955",
+    "border",
+    "  border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#0e232b88",
+    "surface",
+    "  background:linear-gradient(120deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#0a192188",
+    "surface-deep",
+    "  background:linear-gradient(120deg,#0e232b88,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#b0c7d6",
+    "text-secondary",
+    " p { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#263f4b",
+    "border",
+    " border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#192e3670",
+    "surface",
+    "  background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#304751",
+    "border",
+    " border-right:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#c1e7fa",
+    "text-primary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#b0c7d6",
+    "text-secondary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#2b434e",
+    "border",
+    "  border-left:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#253c46",
+    "border",
+    " border-top:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#405763",
+    "border",
+    " border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#243944",
+    "surface-panel",
+    " background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#30c4aa",
+    "border",
+    "><IconBox style={{borderRadius:7,background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#073b37",
+    "border",
+    "><IconBox style={{borderRadius:7,background:'#30c4aa',color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#48e3c4",
+    "primary",
+    " markerWidth=\"5\" markerHeight=\"5\" orient=\"auto\"><path d=\"M0 0L10 5L0 10Z\" fill=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#40c8ae",
+    "primary",
+    " stroke=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#104a43",
+    "surface-panel",
+    "><IconBox style={selected?.key===node.key ? {background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#54f7d4",
+    "primary",
+    "><IconBox style={selected?.key===node.key ? {background:'#104a43',color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#153f40",
+    "border",
+    "><IconBox style={{width:52,height:52,borderRadius:9,background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#50f4d0",
+    "border",
+    "><IconBox style={{width:52,height:52,borderRadius:9,background:'#153f40',color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#56e9c8",
+    "primary",
+    "</p></div><span style={{color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#103b36",
+    "surface",
+    "</p></div><span style={{color:'#56e9c8',background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx",
+    "#b4d4e1",
+    "border",
+    " style={{display:'block',background:'none',border:0,color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionVersionHistory.tsx",
+    "#4ade80",
+    "success",
+    "              <Pill $tone={entry.action === 'baseline' ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionVersionHistory.tsx",
+    "#a5b4fc",
+    "primary",
+    "$tone={entry.action === 'baseline' ? '#4ade80' : entry.action === 'feedback' ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#aabed6",
+    "text-secondary",
+    "  --ref-muted: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#2b425c",
+    "border",
+    " --ref-border: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#edf4ff",
+    "text-primary",
+    "  color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#bed2ec",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#081726",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#304963",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#edf4ff",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#172638",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#7f96b1",
+    "text-secondary",
+    "  input::placeholder { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#5ae4d2",
+    "outline",
+    "focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#8ba7c8",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#adc8e7",
+    "primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#486582",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#132235",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#0008",
+    "scrim",
+    " box-shadow: 0 10px 36px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#edf4ff",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#304963",
+    "border",
+    "  .picker { border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#172638",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#bed2ec",
+    "text-primary",
+    "  .choices button { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#0c1b2c",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#3a526b",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#172638",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#a4bad3",
+    "text-secondary",
+    "  .effective code { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#aac2de",
+    "text-secondary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#cbdcf0",
+    "text-primary",
+    "  .preview strong { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#51e0ce",
+    "primary",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#032c32",
+    "on-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#80f1e1",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#78ebdb",
+    "primary",
+    "  .save:hover:not(:disabled) { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#132133",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx",
+    "#ffb4ab",
+    "danger",
+    " [role=alert] { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineObservatory.tsx",
+    "#39e6ff",
+    "primary",
+    " className=\"brand\"><div className=\"logo\"/><div><h1>PIPELINE<span style={{color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineObservatory.tsx",
+    "#ff6d87",
+    "danger",
+    "      {activity.id===selectedId&&activity.error&&<p role=\"alert\" style={{color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineObservatory.tsx",
+    "#ff6d87",
+    "danger",
+    "</p>{execution.errorMessage&&<p style={{color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineObservatory.tsx",
+    "#ff6d87",
+    "danger",
+    "</b><small>Processing on board</small></div><div><b style={{color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineCardArtwork.tsx",
+    "#123c38",
+    "on-primary",
+    "ke=\"none\"/><path d=\"M15 8c-1-2-6-2-6 1 0 3 6 2 6 5 0 3-5 3-6 1M12 5v14\" stroke=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineCardArtwork.tsx",
+    "#38d8b9",
+    "primary",
+    "  const color = index === 0 ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineCardArtwork.tsx",
+    "#d16c70",
+    "danger",
+    "  const color = index === 0 ? '#38d8b9' : index === 2 ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineCardArtwork.tsx",
+    "#7295aa",
+    "text-secondary",
+    "  const color = index === 0 ? '#38d8b9' : index === 2 ? '#d16c70' : '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#edf4ff",
+    "text-primary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#b4c8de",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#324c67",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#0b1b2a",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#58728a",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#071421",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#edf4ff",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#61c9bd",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#123e40",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#eefefe",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#ffb4ab",
+    "danger",
+    " [role=alert]{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+    "#6ae4d1",
+    "outline",
+    " :focus-visible{outline:3px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#edf5fa",
+    "text-primary",
+    "  color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#10393755",
+    "surface",
+    "  background:radial-gradient(ellipse at 65% 0%,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#091b23",
+    "surface-deep",
+    "al-gradient(ellipse at 65% 0%,#10393755,transparent 45%),linear-gradient(130deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#06161d",
+    "primary",
+    "ent(ellipse at 65% 0%,#10393755,transparent 45%),linear-gradient(130deg,#091b23,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#afc7d5",
+    "text-secondary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#9eb5c3",
+    "text-secondary",
+    "  small { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#adcad7",
+    "text-secondary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#2d4854",
+    "border",
+    " border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#10222b",
+    "surface",
+    " background:linear-gradient(120deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#1b3039",
+    "surface-panel",
+    " background:linear-gradient(120deg,#10222b,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#ff857a",
+    "danger",
+    "    color:${p=>p.$alert?'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#4de7c5",
+    "primary",
+    "    color:${p=>p.$alert?'#ff857a':'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#4b313744",
+    "surface-panel",
+    " background:${p=>p.$alert?'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#17504766",
+    "surface-panel",
+    " background:${p=>p.$alert?'#4b313744':'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#34525c",
+    "border",
+    " border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#bfd7e5",
+    "text-secondary",
+    " color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#b6cedc",
+    "text-secondary",
+    "  p { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#62edd1",
+    "primary",
+    "        <div><span style={{fontSize:12,color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx",
+    "#4cd9bc",
+    "primary",
+    "</small><span style={{color:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#eef1f3",
+    "text-primary",
+    "  color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#1d3430",
+    "surface",
+    " background: radial-gradient(ellipse at top left, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#0f131c",
+    "surface-deep",
+    " background: radial-gradient(ellipse at top left, #1d3430 0, transparent 42%), "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#b5ddd0",
+    "success",
+    "  a { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#9cdac6",
+    "outline",
+    "  button:focus-visible, input:focus-visible { outline: 2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#424a51",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#d1d7db",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#ffffff10",
+    "on-surface",
+    "  &:hover:not(:disabled) { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#adbab9",
+    "text-secondary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#a8b4b7",
+    "text-secondary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#eef1f3",
+    "text-primary",
+    "  color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#ffffff05",
+    "on-surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#424a51",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#a8b4b7",
+    "text-secondary",
+    "  &::placeholder { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#373e47",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#61656a",
+    "text-secondary",
+    " scrollbar-color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#252a32",
+    "surface-panel",
+    " scrollbar-color: #61656a "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#373e47",
+    "border",
+    "  li + li { border-top: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#ffffff14",
+    "on-surface",
+    "  &:hover, &:focus-visible { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#373e47",
+    "border",
+    "  border-right: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#acb6bc",
+    "text-secondary",
+    "  small { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#ffffff20",
+    "on-surface",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#a7b3ba",
+    "text-secondary",
+    "  small { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#919aa5",
+    "text-secondary",
+    "const OpenIndicator = styled.span`color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#bcc6cc",
+    "text-secondary",
+    "const Notice = styled.p`color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#373e47",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#ffffff04",
+    "on-surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#ac5550",
+    "danger",
+    "  const palette = ['"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#4b94bd",
+    "primary",
+    "  const palette = ['#ac5550', '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#426d8d",
+    "primary",
+    "  const palette = ['#ac5550', '#4b94bd', '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#6877a5",
+    "text-secondary",
+    "  const palette = ['#ac5550', '#4b94bd', '#426d8d', '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#56867a",
+    "text-secondary",
+    "  const palette = ['#ac5550', '#4b94bd', '#426d8d', '#6877a5', '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#96704d",
+    "warning",
+    "  const palette = ['#ac5550', '#4b94bd', '#426d8d', '#6877a5', '#56867a', '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#373e47",
+    "border",
+    " border-bottom: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#a8b4b7",
+    "text-secondary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "#aaa",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#071421",
+    "primary",
+    "const colors = { ...themeColors, surfaceDeep: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#0c1a29",
+    "primary",
+    "const colors = { ...themeColors, surfaceDeep: '#071421', surfacePanel: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#102031",
+    "primary",
+    "  surfaceLow: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#1b2c40",
+    "primary",
+    "  surfaceLow: '#102031', surfaceContainer: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#263e53",
+    "outline",
+    "  surfaceLow: '#102031', surfaceContainer: '#1b2c40', outlineVariant: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#f1f5ff",
+    "text-primary",
+    "  onSurfaceStrong: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#c2d5eb",
+    "text-primary",
+    "  onSurfaceStrong: '#f1f5ff', onSurfaceVariant: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#73c9b5",
+    "text-secondary",
+    "  onSurfaceStrong: '#f1f5ff', onSurfaceVariant: '#c2d5eb', primary: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#082831",
+    "on-primary",
+    "Strong: '#f1f5ff', onSurfaceVariant: '#c2d5eb', primary: '#73c9b5', onPrimary: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#102b3333",
+    "surface",
+    "  background: radial-gradient(ellipse at top right, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#68c9af26",
+    "surface-container-high",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#44688744",
+    "surface-high",
+    " background: radial-gradient(ellipse, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#6893b1",
+    "text-secondary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#263f55",
+    "surface-panel",
+    " fill: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#6893b1",
+    "border",
+    " border: 1px dashed "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#68c9af12",
+    "surface-container-high",
+    "  .dropzone[data-dragging='true'], .dropzone:hover:not(:disabled) { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#447dcc44",
+    "primary",
+    "  .feature:nth-child(2) .icon-tile { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#a9ccff",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#8a65c444",
+    "surface-container-high",
+    " .feature:nth-child(3) .icon-tile { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#d5b4ff",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#d1b35433",
+    "primary",
+    " .feature:nth-child(4) .icon-tile { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#f3d577",
+    "warning",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#447dcc44",
+    "primary",
+    " .help-title .icon-tile { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "#d5e7ff",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#142730dd",
+    "surface",
+    "  background:linear-gradient(120deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#091b22ef",
+    "surface-deep",
+    "  background:linear-gradient(120deg,#142730dd,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#2c4650",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#afc7d5",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#304751",
+    "border",
+    "  details { border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#0b1e26",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#62edd1",
+    "primary",
+    " summary span { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#263f4b",
+    "border",
+    "border-top:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#62edd1",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#ffb547",
+    "warning",
+    " .method[data-method=POST] { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#b46bff",
+    "primary",
+    ".method[data-method=PUT] { color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#dbe8ff",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#afc7d5",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#304751",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#62edd1",
+    "outline",
+    "  button:focus-visible,summary:focus-visible { outline:2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx",
+    "#afc7d5",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#03050c",
+    "surface-deep",
+    "  --bg:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#dbe8ff",
+    "text-primary",
+    " --ink:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#6f83a8",
+    "text-secondary",
+    " --mute:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(120,200,255,.14)",
+    "border",
+    " --line:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#39e6ff",
+    "primary",
+    "  --cyan:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#b46bff",
+    "primary",
+    " --violet:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#ffb547",
+    "warning",
+    " --amber:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#34ffc8",
+    "success",
+    " --mint:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#ff4d6d",
+    "danger",
+    " --red:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(7,13,28,.58)",
+    "primary",
+    "  --glass:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(255,255,255,.018)",
+    "on-surface",
+    "background:repeating-linear-gradient(0deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(6,18,36,.75)",
+    "surface-deep",
+    "  background:linear-gradient(90deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(6,18,36,0)",
+    "surface-deep",
+    "  background:linear-gradient(90deg,rgba(6,18,36,.75),"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(6,14,30,.7)",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(57,230,255,.5)",
+    "scrim",
+    "box-shadow:0 0 14px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(57,230,255,.45)",
+    "border",
+    ".panel.hot{border-color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(57,230,255,.08)",
+    "scrim",
+    "box-shadow:0 0 0 1px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(57,230,255,.12)",
+    "scrim",
+    "box-shadow:0 0 0 1px rgba(57,230,255,.08),0 0 30px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(57,230,255,.35)",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#9fb3d6",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#ffd28a",
+    "warning",
+    " pre .s{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#4f6286",
+    "text-secondary",
+    " pre .c{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(120,200,255,.08)",
+    "border",
+    "border-bottom:1px dashed "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#5d6f92",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#c9d8f5",
+    "text-primary",
+    "tr.on td{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(255,77,109,.7)",
+    "scrim",
+    "text-shadow:0 0 10px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(0,0,0,.25)",
+    "scrim",
+    ".morph pre{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(120,200,255,.08)",
+    "primary",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#ff4d6d",
+    "error-container",
+    ".lat .bar.slow i{background:linear-gradient(90deg,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#ffb547",
+    "primary",
+    ".lat .bar.slow i{background:linear-gradient(90deg,#ff4d6d,"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(255,77,109,.6)",
+    "scrim",
+    "box-shadow:0 0 12px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#4f6286",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(57,230,255,.35)",
+    "scrim",
+    "text-shadow:0 0 24px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(120,200,255,.12)",
+    "primary",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#fff",
+    "surface-raised",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#fff",
+    "scrim",
+    "box-shadow:0 0 8px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#4f6286",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#03050cdd",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#03050cdd",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(5,12,25,.94)",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(5,12,25,.98)",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#0008",
+    "scrim",
+    "box-shadow:0 12px 36px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#050c19ed",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#10213b",
+    "surface",
+    ".camera-controls button{background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#a7b8d5",
+    "text-secondary",
+    ".camera-controls p{color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#03121bcc",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#83f5ff",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#14546ae6",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#39e6ff88",
+    "scrim",
+    "box-shadow:0 0 12px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#39e6ff",
+    "outline",
+    ".submission-light-label:focus-visible { outline:2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(5,12,25,.94)",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "rgba(5,12,25,.98)",
+    "surface-deep",
+    ".scene-label[aria-pressed=true] { background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#0008",
+    "scrim",
+    "box-shadow:0 12px 36px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#050c19f5",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#0008",
+    "scrim",
+    "box-shadow:0 12px 36px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts",
+    "#10213b",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#4b8eff",
+    "primary",
+    "  primary: colors.primary, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#98a6bf",
+    "text-secondary",
+    "  onSurfaceVariant: colors.onSurfaceVariant, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#e6eef8",
+    "text-primary",
+    "  onSurface: colors.onSurface, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#e2e8f0",
+    "text-primary",
+    "  neutral200: colors.neutral[200], // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#cbd5e1",
+    "text-secondary",
+    "  neutral300: colors.neutral[300], // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#94a3b8",
+    "text-secondary",
+    "  neutral400: colors.neutral[400], // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#64748b",
+    "text-secondary",
+    "  neutral500: colors.neutral[500], // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#475569",
+    "text-secondary",
+    "  neutral600: colors.neutral[600], // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#ffffff",
+    "text-primary",
+    "  white: colors.neutral[0], // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#adc6ff",
+    "text-primary",
+    "  primarySoft: colors.primarySoft, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#dae2fd",
+    "text-primary",
+    "  text: colors.onSurfaceStrong, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#c1c6d7",
+    "text-secondary",
+    "  textMuted: colors.onSurfaceMuted, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#4edea3",
+    "success",
+    "  accent: colors.accent, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#00a572",
+    "success",
+    "  accentStrong: colors.accentStrong, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#ff5451",
+    "danger",
+    "  danger: colors.dangerBright, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#0b1326",
+    "primary",
+    "  surface: colors.surfaceDeep, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#0f1724",
+    "primary",
+    "  surfaceLow: colors.surfaceLow, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#131b2e",
+    "primary",
+    "  surfacePanel: colors.surfacePanel, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#171f33",
+    "primary",
+    "  surfaceRaised: colors.surfaceRaised, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx",
+    "#222a3d",
+    "surface-panel",
+    "  surfaceHigh: colors.surfaceHigh, // "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx",
+    "#aabed6",
+    "text-secondary",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx",
+    "#2b425c",
+    "border",
+    "    border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx",
+    "#081726",
+    "surface",
+    "    background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx",
+    "#51e0ce",
+    "primary",
+    "    accent-color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx",
+    "#ffb4ab",
+    "danger",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.tsx",
+    "#00edbd",
+    "primary",
+    " stroke={i%2?'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.tsx",
+    "#008dff",
+    "primary",
+    " stroke={i%2?'#00edbd':'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#edf1f3",
+    "text-primary",
+    "  color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#213e37",
+    "surface-panel",
+    " background: radial-gradient(ellipse at top left, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#1c3435",
+    "primary",
+    "e at top left, #213e37 0, transparent 45%), radial-gradient(ellipse at 60% 90%, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#080f16",
+    "primary",
+    "nsparent 45%), radial-gradient(ellipse at 60% 90%, #1c3435 0, transparent 40%), "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#d3dcdc",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#9cdac6",
+    "outline",
+    "n:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#ffb4ab",
+    "danger",
+    "  [role='alert'] { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#b5dace",
+    "success",
+    "  [role='status'] { color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#39444d",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#060d1340",
+    "surface-deep",
+    "  background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#50525e",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#f0f1f3",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#303039",
+    "surface-panel",
+    "  background: linear-gradient("
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#25252e",
+    "surface-panel",
+    "  background: linear-gradient(#303039, "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#3c434a",
+    "surface-high",
+    "  &:hover:not(:disabled) { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#799489",
+    "border",
+    " border-color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#fff",
+    "surface-raised",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#182026",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#e7eee9",
+    "surface-raised",
+    "  &:hover:not(:disabled) { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#869e9a",
+    "border",
+    " border: 1px solid ${p => p.$checked ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#39444d",
+    "border",
+    " border: 1px solid ${p => p.$checked ? '#869e9a' : '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#ffffff24",
+    "on-surface",
+    "  background: ${p => p.$checked ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#9cdac6",
+    "outline",
+    "  &:focus-within { outline: 2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#f1f3f4",
+    "text-primary",
+    "    color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#2b2b34",
+    "surface-panel",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#7c818a",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#ccd5d7",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#39444d",
+    "border",
+    "const TableWrap = styled.div`border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#2b2b34",
+    "surface-panel",
+    "  th { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#39444d",
+    "border",
+    " border-top: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#ffffff05",
+    "on-surface",
+    "  tbody tr:hover { background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#39444d",
+    "border",
+    "    tr + tr { border-top: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#49665f",
+    "surface-high",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#e5f2ea",
+    "success",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#7f958e",
+    "border",
+    " border: 1px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#a8d4bd",
+    "success",
+    " color: ${p => p.$active ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#c1cbd0",
+    "text-secondary",
+    " color: ${p => p.$active ? '#a8d4bd' : '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#c1cbd0",
+    "text-secondary",
+    " color: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#4285f4",
+    "primary",
+    "    <path d=\"M3 23V5L16 15L29 5V23\" stroke=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#34a853",
+    "primary",
+    "    <path d=\"M29 23V5L23 9.6V23\" fill=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#ea4335",
+    "danger",
+    "    <path d=\"M3 5L16 15L29 5\" stroke=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#c5221f",
+    "danger",
+    "    <path d=\"M3 5V12\" stroke=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#fbbc04",
+    "warning",
+    "<path d=\"M3 5V12\" stroke=\"#c5221f\" strokeWidth=\"6\" /><path d=\"M29 5V12\" stroke=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#168bd0",
+    "primary",
+    "    <rect x=\"10\" y=\"2\" width=\"20\" height=\"24\" rx=\"2\" fill=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#55b7ed",
+    "primary",
+    "dth=\"20\" height=\"24\" rx=\"2\" fill=\"#168bd0\" /><path d=\"M10 13L20 20L30 13\" fill=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx",
+    "#0867b5",
+    "primary",
+    "    <rect x=\"0\" y=\"6\" width=\"19\" height=\"19\" rx=\"2\" fill=\""
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/FieldFeedbackEditor.tsx",
+    "#32d98b",
+    "success",
+    ") => $selected ? ($tone === 'negative' ? colors.warning : '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/FieldFeedbackEditor.tsx",
+    "#38aaff",
+    "outline",
+    "  &:focus-visible { outline: 2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/GeneratedSubmissionSection.tsx",
+    "#38aaff",
+    "primary",
+    ") => $feedback === 'editing' ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/GeneratedSubmissionSection.tsx",
+    "#32d98b",
+    "success",
+    ") => $feedback === 'editing' ? '#38aaff' : $feedback === 'saved' ? '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/GeneratedSubmissionSection.tsx",
+    "#38aaff",
+    "outline",
+    "  summary:focus-visible { outline: 2px solid "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/GeneratedSubmissionSection.tsx",
+    "rgba(0, 0, 0, 0.3)",
+    "scrim",
+    "  box-shadow: 0 8px 24px "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/appetite/GeographyRulesEditor.tsx",
+    "#071c2e",
+    "surface",
+    " background: "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/appetite/GeographyRulesEditor.tsx",
+    "#071c2eee",
+    "surface",
+    "label style={{ position: 'absolute', zIndex: 1, top: 12, left: 12, background: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/appetite/GeographyRulesEditor.tsx",
+    "#dcf4ff",
+    "border",
+    "eft: 12, background: '#071c2eee', padding: '8px 10px', borderRadius: 8, color: '"
+  ],
+  [
+    "EnsuredUI/src/components/marketplace/ApplicationSidebar.tsx",
+    "#0008",
+    "scrim",
+    " background: "
+  ],
+  [
+    "EnsuredMarketplace/src/Pages/Marketplace/MarketplaceParticipation.tsx",
+    "#64748b",
+    "border",
+    "        border: \"1px solid "
+  ],
+  [
+    "EnsuredMarketplace/src/Pages/Marketplace/Marketplace.styles.tsx",
+    "#000",
+    "scrim",
+    "  mask-image: linear-gradient(to right, transparent, "
+  ],
+  [
+    "EnsuredMarketplace/src/Pages/Marketplace/Marketplace.styles.tsx",
+    "#000",
+    "scrim",
+    "  mask-image: linear-gradient(to right, transparent, #000 6%, "
+  ],
+  [
+    "EnsuredMarketplace/src/Pages/Marketplace/Marketplace.styles.tsx",
+    "#000",
+    "scrim",
+    "  -webkit-mask-image: linear-gradient(to right, transparent, "
+  ],
+  [
+    "EnsuredMarketplace/src/Pages/Marketplace/Marketplace.styles.tsx",
+    "#000",
+    "scrim",
+    "  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#fff8f3",
+    "surface-raised",
+    "  --en-bg: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#f6e9dd",
+    "surface-raised",
+    "  --en-panel: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#1c2922",
+    "text-primary",
+    "  --en-text: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#53665b",
+    "text-secondary",
+    "  --en-muted: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#d9ded5",
+    "border",
+    "  --en-border: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#1b4332",
+    "success",
+    "  --en-primary: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#ae3032",
+    "danger",
+    "  color: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#fff8f3",
+    "surface-raised",
+    "  background: var(--en-bg, "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#1c2922",
+    "text-primary",
+    "  color: var(--en-text, "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#ccc",
+    "border",
+    "  border: 1px solid var(--en-border, "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#07160f99",
+    "surface-deep",
+    "  background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#00000020",
+    "scrim",
+    "  --en-shadow: 0 8px 24px "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#ffffff06",
+    "on-surface",
+    "  --en-shadow: 0 8px 24px #00000020, inset 0 1px 0 "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#ffffff12",
+    "on-surface",
+    "  box-shadow: inset 0 1px 0 "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#00000018",
+    "scrim",
+    "  box-shadow: inset 0 1px 0 #ffffff12, 0 3px 8px "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#00000018",
+    "scrim",
+    "  box-shadow: 0 2px 5px "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#21445d",
+    "border",
+    ".en-discovery { --discovery-line: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#42e5bd",
+    "primary",
+    " --discovery-mint: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#12473899",
+    "surface-panel",
+    " background: radial-gradient(ellipse at 85% 0%, "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#00121e",
+    "surface-deep",
+    "gradient(ellipse at 85% 0%, #12473899, transparent 46%), linear-gradient(120deg,"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#06243b",
+    "primary",
+    "(ellipse at 85% 0%, #12473899, transparent 46%), linear-gradient(120deg,#00121e,"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#f5f8ff",
+    "text-primary",
+    " color: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#bed6ee",
+    "text-primary",
+    ".en-discover-hero > p { color: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#35dbac",
+    "success",
+    " stroke: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#0d514944",
+    "surface-panel",
+    " background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#bed6ee",
+    "text-primary",
+    ".en-discover-stats small { color: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#51e4bc",
+    "primary",
+    ".en-discover-search > button { background: linear-gradient(120deg,"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#17b98d",
+    "primary",
+    ".en-discover-search > button { background: linear-gradient(120deg,#51e4bc,"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#00251f",
+    "on-primary",
+    " color: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#20cca2",
+    "primary",
+    ".en-discover-toggle input { accent-color: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#13516a33",
+    "surface-panel",
+    " background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#07304422",
+    "surface",
+    " background: linear-gradient(115deg,var(--en-panel),"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#226659",
+    "surface-high",
+    ".en-discover-person .en-avatar { background: radial-gradient(circle at 65% 25%,"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#0c3538",
+    "surface",
+    "cover-person .en-avatar { background: radial-gradient(circle at 65% 25%,#226659,"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#bcffeb",
+    "success",
+    " color: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#164d684d",
+    "surface-panel",
+    ".en-discover-person .en-tags span { background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#031b2b",
+    "surface",
+    ".en-discovery { --en-panel: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#eff5ff",
+    "text-primary",
+    " --en-text: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#bad0e5",
+    "text-secondary",
+    " --en-muted: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#31525d",
+    "surface-high",
+    " background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#c7dce7",
+    "surface-container-high",
+    " background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#127d68",
+    "primary",
+    ".en-discover-toggle input:checked { background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/styles.css",
+    "#63ffd4",
+    "primary",
+    " background: "
+  ],
+  [
+    "EnsuredNetwork/frontend/src/LiveHarness.tsx",
+    "#efdf9b",
+    "surface-container-high",
+    "      <div style={{ background: '"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/LiveHarness.tsx",
+    "#242c22",
+    "surface",
+    "      <div style={{ background: '#efdf9b', padding: 12, color: '"
+  ],
+  [
+    "EnsuredNetwork/frontend/src/FixtureHarness.tsx",
+    "#f2e7c4",
+    "surface-container-high",
+    "      <div style={{ padding: 8, fontSize: 11, background: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "#4b8eff",
+    "primary",
+    "      accent: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(75, 142, 255, 0.12)",
+    "primary",
+    "      background: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(75, 142, 255, 0.28)",
+    "border",
+    "      border: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "#f59e0b",
+    "warning",
+    "      accent: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(245, 158, 11, 0.12)",
+    "primary",
+    "      background: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(245, 158, 11, 0.28)",
+    "border",
+    "      border: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "#22c55e",
+    "success",
+    "      accent: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(34, 197, 94, 0.12)",
+    "primary",
+    "      background: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(34, 197, 94, 0.28)",
+    "border",
+    "      border: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "#a78bfa",
+    "primary",
+    "      accent: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(167, 139, 250, 0.12)",
+    "surface-container-high",
+    "      background: '"
+  ],
+  [
+    "SubmissionUI/src/App.tsx",
+    "rgba(167, 139, 250, 0.28)",
+    "border",
+    "      border: '"
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#06101c",
+    "surface-deep",
+    "  --bg: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#0b1728",
+    "surface",
+    "  --bg-alt: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(10, 18, 31, 0.84)",
+    "surface-deep",
+    "  --panel: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(13, 22, 39, 0.95)",
+    "surface",
+    "  --panel-strong: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(158, 176, 202, 0.16)",
+    "border",
+    "  --line: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(158, 176, 202, 0.28)",
+    "border",
+    "  --line-strong: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#eff5ff",
+    "text-primary",
+    "  --text: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#a0b3cd",
+    "text-secondary",
+    "  --muted: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#7d8da6",
+    "text-secondary",
+    "  --muted-strong: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#4fd1c5",
+    "primary",
+    "  --accent: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#f6ad55",
+    "warning",
+    "  --accent-2: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#7c9cff",
+    "primary",
+    "  --accent-3: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#4ade80",
+    "success",
+    "  --success: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#f87171",
+    "danger",
+    "  --danger: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(0, 0, 0, 0.42)",
+    "scrim",
+    "  --shadow: 0 28px 90px "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(79, 209, 197, 0.16)",
+    "primary",
+    "    radial-gradient(circle at top left, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(246, 173, 85, 0.14)",
+    "warning",
+    "    radial-gradient(circle at 86% 10%, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(124, 156, 255, 0.12)",
+    "primary",
+    "    radial-gradient(circle at 18% 84%, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#04090f",
+    "primary",
+    "    linear-gradient(180deg, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#07111f",
+    "primary",
+    "    linear-gradient(180deg, #04090f 0%, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#06101c",
+    "primary",
+    "    linear-gradient(180deg, #04090f 0%, #07111f 48%, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(255, 255, 255, 0.04)",
+    "on-surface",
+    "    linear-gradient("
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(255, 255, 255, 0.04)",
+    "on-surface",
+    "    linear-gradient(90deg, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(79, 209, 197, 0.14)",
+    "primary",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(246, 173, 85, 0.08)",
+    "primary",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(255, 255, 255, 0.04)",
+    "on-surface",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(74, 222, 128, 0.28)",
+    "border",
+    "  border-color: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(74, 222, 128, 0.08)",
+    "primary",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(248, 113, 113, 0.3)",
+    "border",
+    "  border-color: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(248, 113, 113, 0.1)",
+    "error-container",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(255, 255, 255, 0.03)",
+    "on-surface",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(2, 8, 18, 0.6)",
+    "surface-deep",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(79, 209, 197, 0.55)",
+    "border",
+    "  border-color: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(79, 209, 197, 0.12)",
+    "scrim",
+    "  box-shadow: 0 0 0 4px "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(255, 255, 255, 0.03)",
+    "on-surface",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(79, 209, 197, 0.5)",
+    "border",
+    "  border-color: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(79, 209, 197, 0.12)",
+    "primary",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(255, 255, 255, 0.03)",
+    "on-surface",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(246, 173, 85, 0.5)",
+    "border",
+    "  border-color: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(246, 173, 85, 0.08)",
+    "primary",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(2, 8, 18, 0.48)",
+    "surface-deep",
+    "  background: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#d9e3f2",
+    "text-primary",
+    "  color: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#07101c",
+    "on-primary",
+    "  color: "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#4fd1c5",
+    "primary",
+    "  background: linear-gradient(135deg, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "#f6ad55",
+    "primary",
+    "  background: linear-gradient(135deg, #4fd1c5, "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(79, 209, 197, 0.18)",
+    "scrim",
+    "  box-shadow: 0 10px 24px "
+  ],
+  [
+    "SubmissionUI/src/styles.css",
+    "rgba(255, 255, 255, 0.04)",
+    "on-surface",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/components/ui/chart.tsx",
+    "#ccc",
+    "text-secondary",
+    "-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='"
+  ],
+  [
+    "EnsuredLogistics/components/ui/chart.tsx",
+    "#fff",
+    "border",
+    ".recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='"
+  ],
+  [
+    "EnsuredLogistics/components/ui/chart.tsx",
+    "#ccc",
+    "outline",
+    "transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='"
+  ],
+  [
+    "EnsuredLogistics/components/ui/chart.tsx",
+    "#ccc",
+    "text-secondary",
+    "tangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='"
+  ],
+  [
+    "EnsuredLogistics/components/ui/chart.tsx",
+    "#fff",
+    "outline",
+    "]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#eef2f6",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#091119",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#b6d8f1",
+    "primary",
+    "a{color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#24313e",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#eef2f6",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#8dafc7",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#aebfce",
+    "text-secondary",
+    "aside p{color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#8baecb",
+    "surface-container-high",
+    "background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#111d29",
+    "surface",
+    ".card{background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#2e4052",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#0003",
+    "scrim",
+    "box-shadow:0 24px 64px "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#b2bfca",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#425365",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#0b151f",
+    "surface-deep",
+    "background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#f3f6f9",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#93c5ed",
+    "outline",
+    "input:focus{outline:2px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#8b9cad",
+    "text-secondary",
+    "input::placeholder{color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#b6d8f1",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#b5d7f1",
+    "surface-container-high",
+    ".primary{background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#0a1823",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#b5d7f1",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#d0e8fa",
+    "surface-raised",
+    ".primary:hover{background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#162635",
+    "surface",
+    ".secondary,.provider{background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#ecf3fa",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#465a6d",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#21374a",
+    "surface-panel",
+    ".secondary:hover,.provider:hover{background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#a2b1bf",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#344655",
+    "surface-high",
+    "background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#a3b5c4",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#2b3b4a",
+    "border",
+    ".footnote{border-top:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#1b3041",
+    "surface-panel",
+    "background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#426580",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#3c242a",
+    "surface-panel",
+    "#status[data-error=true]{background:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#bd7d89",
+    "border",
+    "border-color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#ffe1e7",
+    "text-primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#c0cdd7",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#b6d8f1",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#24313e",
+    "border",
+    "border-top:1px solid "
+  ],
+  [
+    "EnsuredAuth/public/style.css",
+    "#95a9ba",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#16253d",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#f3f6fa",
+    "surface-raised",
+    "background:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#10233f",
+    "surface",
+    "background:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#b5c8e4",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#6580a6",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#345f96",
+    "primary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#506078",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#b9c8da",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#173e71",
+    "surface-high",
+    "button{background:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#16253d",
+    "on-primary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#4e91ed",
+    "outline",
+    "ble,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#d4deeb",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#d4deeb",
+    "border",
+    "border-right:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#506078",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#d4deeb",
+    "border",
+    "border:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#66758c",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#eef2f7",
+    "surface-raised",
+    "background:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#526178",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#e3f5ec",
+    "surface-raised",
+    ".badge.healthy{background:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#176143",
+    "success",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#fff0e4",
+    "surface-raised",
+    ".badge.unhealthy,.badge.unregistered{background:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#8c4314",
+    "warning",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#526178",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#e3e9f0",
+    "border",
+    ".endpoints{border-top:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#e3e9f0",
+    "border",
+    "border-bottom:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#215a9f",
+    "primary",
+    ".endpoint a,a{color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#526178",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#61728b",
+    "text-secondary",
+    "color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#e7effc",
+    "surface-raised",
+    "background:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#a12929",
+    "danger",
+    "#message.error{color:"
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#d4deeb",
+    "border",
+    ".summary div:nth-child(-n+2){border-bottom:1px solid "
+  ],
+  [
+    "EnsuredServices/public/catalog.css",
+    "#345f96",
+    "primary",
+    "color:"
+  ]
+]

@@ -1,0 +1,32 @@
+import {chromium} from '../EnsuredNetwork/node_modules/playwright/index.mjs';
+import {expect} from '../EnsuredNetwork/node_modules/@playwright/test/index.mjs';
+import {mkdir} from 'node:fs/promises';
+const browser=await chromium.launch({headless:true});
+try {
+ const page=await browser.newPage({viewport:{width:1440,height:1100}}),errors=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:3015/test/facilityApprovals.html');
+ await expect(page.getByRole('heading',{name:'Governance Matrix'})).toBeVisible();
+ await expect(page.locator('.fa-approval-card')).toHaveCount(2);
+ await page.getByRole('button',{name:/^Pending/}).click();
+ await expect(page.locator('.fa-approval-card')).toHaveCount(1);
+ await page.getByRole('button',{name:/All approvals/}).click();
+ const approve=page.getByRole('button',{name:'Approve terms for our organization'});
+ await expect(approve).toBeDisabled();
+ await page.getByLabel('I have reviewed version 1').check();
+ await expect(approve).toBeEnabled();await approve.click();
+ expect(await page.evaluate(()=>window.__lastAction.action)).toBe('approve');
+ await page.getByRole('button',{name:/Review package/}).first().click();
+ expect(await page.evaluate(()=>window.__navigation)).toBe('documents');
+ const download=page.waitForEvent('download');await page.getByRole('button',{name:/Export review record/}).click();expect((await download).suggestedFilename()).toContain('review.json');
+ await mkdir('output/facility-approvals',{recursive:true});
+ await page.screenshot({path:'output/facility-approvals/desktop.png',fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.screenshot({path:'output/facility-approvals/mobile.png',fullPage:true});
+ await page.goto('http://127.0.0.1:3015/test/facilityApprovals.html?readonly=1');
+ await expect(page.getByRole('button',{name:'Approve terms for our organization'})).toHaveCount(0);
+ await expect(page.getByRole('heading',{name:'Governance Matrix'})).toBeVisible();
+ expect(errors).toEqual([]);
+ console.log('Passed approval filters, consent gate, action payload, document navigation, export, read-only view, and mobile overflow checks.');
+}finally{await browser.close();}

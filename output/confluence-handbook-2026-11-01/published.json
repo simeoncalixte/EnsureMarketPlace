@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "home",
+    "id": "294914",
+    "title": "Ensured Project Handbook",
+    "parent_id": "98420",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/294914/Ensured+Project+Handbook"
+  },
+  {
+    "slug": "vision",
+    "id": "98435",
+    "title": "01 Product Vision and Goals",
+    "parent_id": "294914",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/98435/01+Product+Vision+and+Goals"
+  },
+  {
+    "slug": "personas",
+    "id": "327681",
+    "title": "01.1 Participants and End-to-End Journeys",
+    "parent_id": "98435",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/327681/01.1+Participants+and+End-to-End+Journeys"
+  },
+  {
+    "slug": "scope",
+    "id": "360449",
+    "title": "01.2 Scope, Milestones and Success Criteria",
+    "parent_id": "98435",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/360449/01.2+Scope+Milestones+and+Success+Criteria"
+  },
+  {
+    "slug": "architecture",
+    "id": "393217",
+    "title": "02 Platform Architecture",
+    "parent_id": "294914",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/393217/02+Platform+Architecture"
+  },
+  {
+    "slug": "services",
+    "id": "294941",
+    "title": "02.1 Repository and Service Ownership Catalog",
+    "parent_id": "393217",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/294941/02.1+Repository+and+Service+Ownership+Catalog"
+  },
+  {
+    "slug": "pipeline",
+    "id": "65804",
+    "title": "02.2 Submission Pipeline and Human Review",
+    "parent_id": "393217",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/65804/02.2+Submission+Pipeline+and+Human+Review"
+  },
+  {
+    "slug": "security",
+    "id": "360480",
+    "title": "02.3 Identity, Authorization and Evidence Boundaries",
+    "parent_id": "393217",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/360480/02.3+Identity+Authorization+and+Evidence+Boundaries"
+  },
+  {
+    "slug": "data",
+    "id": "294976",
+    "title": "03 Data and Financial Models",
+    "parent_id": "294914",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/294976/03+Data+and+Financial+Models"
+  },
+  {
+    "slug": "entities",
+    "id": "295007",
+    "title": "03.1 Entity Catalog and Relationships",
+    "parent_id": "294976",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/295007/03.1+Entity+Catalog+and+Relationships"
+  },
+  {
+    "slug": "finance",
+    "id": "327716",
+    "title": "03.2 Party Financial Flows and Accounting Semantics",
+    "parent_id": "294976",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/327716/03.2+Party+Financial+Flows+and+Accounting+Semantics"
+  },
+  {
+    "slug": "models",
+    "id": "425985",
+    "title": "03.3 Risk, Pricing and Return Calculation Models",
+    "parent_id": "294976",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/425985/03.3+Risk+Pricing+and+Return+Calculation+Models"
+  },
+  {
+    "slug": "schema-roadmap",
+    "id": "327759",
+    "title": "03.4 Data Model Improvement Plan",
+    "parent_id": "294976",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/327759/03.4+Data+Model+Improvement+Plan"
+  },
+  {
+    "slug": "delivery",
+    "id": "393250",
+    "title": "04 Delivery and Quality",
+    "parent_id": "294914",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/393250/04+Delivery+and+Quality"
+  },
+  {
+    "slug": "roadmap",
+    "id": "131081",
+    "title": "04.1 Jira Roadmap and Release Dependencies",
+    "parent_id": "393250",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/131081/04.1+Jira+Roadmap+and+Release+Dependencies"
+  },
+  {
+    "slug": "quality",
+    "id": "327802",
+    "title": "04.2 Known Defects, Validation and Unverified Risks",
+    "parent_id": "393250",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/327802/04.2+Known+Defects+Validation+and+Unverified+Risks"
+  },
+  {
+    "slug": "operations",
+    "id": "295044",
+    "title": "05 Operations and Maintenance",
+    "parent_id": "294914",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/295044/05+Operations+and+Maintenance"
+  },
+  {
+    "slug": "release",
+    "id": "98464",
+    "title": "05.1 Configuration, Release and Recovery Runbook",
+    "parent_id": "295044",
+    "url": "https://simeoncalixte1990.atlassian.net/wiki/spaces/AIN/pages/98464/05.1+Configuration+Release+and+Recovery+Runbook"
+  }
+]

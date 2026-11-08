@@ -1,0 +1,167 @@
+{
+  "runId": "da714c8d-e8b6-4fcd-bb33-74ae0efb8de3",
+  "results": [
+    {
+      "id": "AIN-73-OPERATOR",
+      "name": "review-network-identity-host",
+      "status": "passed",
+      "durationMs": 2296
+    },
+    {
+      "id": "AIN-73",
+      "name": "accept-reviewed-identity",
+      "status": "passed",
+      "durationMs": 1219
+    },
+    {
+      "id": "AIN-74",
+      "name": "authorized-party-participation",
+      "status": "passed",
+      "durationMs": 731
+    },
+    {
+      "id": "AIN-73-REVOKE",
+      "name": "revoke-reviewed-identity",
+      "status": "passed",
+      "durationMs": 720
+    },
+    {
+      "id": "LIVE-01",
+      "name": "independent-discovery",
+      "status": "passed",
+      "durationMs": 964
+    },
+    {
+      "id": "LIVE-02",
+      "name": "follow-and-read-feed",
+      "status": "passed",
+      "durationMs": 1246
+    },
+    {
+      "id": "LIVE-APPETITE",
+      "name": "private-capacity-appetite",
+      "status": "passed",
+      "durationMs": 936
+    },
+    {
+      "id": "LIVE-03",
+      "name": "publish-as-person",
+      "status": "passed",
+      "durationMs": 1617
+    },
+    {
+      "id": "LIVE-04",
+      "name": "publish-as-organization",
+      "status": "passed",
+      "durationMs": 1278
+    },
+    {
+      "id": "LIVE-05",
+      "name": "organization-permission-denied",
+      "status": "passed",
+      "durationMs": 522
+    },
+    {
+      "id": "LIVE-06",
+      "name": "reply-across-organizations",
+      "status": "passed",
+      "durationMs": 756
+    },
+    {
+      "id": "LIVE-07",
+      "name": "react-repost-and-bookmark",
+      "status": "passed",
+      "durationMs": 2150
+    },
+    {
+      "id": "LIVE-08-SEND",
+      "name": "send-introduction",
+      "status": "passed",
+      "durationMs": 1240
+    },
+    {
+      "id": "LIVE-08",
+      "name": "introduction-accepted",
+      "status": "passed",
+      "durationMs": 883
+    },
+    {
+      "id": "LIVE-09",
+      "name": "introduction-conflict",
+      "status": "passed",
+      "durationMs": 1844
+    },
+    {
+      "id": "LIVE-10",
+      "name": "notification-read-state",
+      "status": "passed",
+      "durationMs": 479
+    },
+    {
+      "id": "LIVE-11",
+      "name": "public-profile-privacy",
+      "status": "passed",
+      "durationMs": 1271
+    },
+    {
+      "id": "LIVE-12",
+      "name": "block-and-report",
+      "status": "passed",
+      "durationMs": 6712
+    },
+    {
+      "id": "LIVE-13",
+      "name": "delete-and-revisit",
+      "status": "passed",
+      "durationMs": 1627
+    },
+    {
+      "id": "LIVE-14",
+      "name": "session-and-grant-revocation",
+      "status": "passed",
+      "durationMs": 918
+    },
+    {
+      "id": "LIVE-15",
+      "name": "service-outage-recovery",
+      "status": "passed",
+      "durationMs": 1776
+    },
+    {
+      "id": "LIVE-16",
+      "name": "cross-tenant-isolation",
+      "status": "passed",
+      "durationMs": 2160
+    },
+    {
+      "id": "AIN-74-MARKET",
+      "name": "authorized-market-roles",
+      "status": "passed",
+      "durationMs": 2251
+    },
+    {
+      "id": "AIN-77",
+      "name": "exact-publication-handoff",
+      "status": "passed",
+      "durationMs": 2320
+    }
+  ],
+  "manifest": {
+    "runId": "da714c8d-e8b6-4fcd-bb33-74ae0efb8de3",
+    "posts": [
+      "e04175ea-8a63-4b46-bcef-21fc93124997",
+      "6cd2067d-d703-4124-aa59-18b43e4ba149",
+      "8f0445d9-a0fa-48c0-b55c-925f44dacb66",
+      "f9a8ef29-9426-4091-ae95-85d26aff0182",
+      "b8881268-b996-492a-9ee5-0bfebec078a9",
+      "55965070-2dfb-44f2-9fd9-1564fa0d5698"
+    ],
+    "introductions": [
+      "8a086f34-8e2e-4e6d-85f0-5f37e6900a2c",
+      "2bae643f-aaa6-46aa-af08-01a90cf17634"
+    ],
+    "reports": [
+      "f4cf5237-1bfe-43b4-9c56-a3a03afd2dc1"
+    ]
+  }
+}

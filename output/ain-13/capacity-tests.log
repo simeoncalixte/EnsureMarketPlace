@@ -1,0 +1,10 @@
+
+> @simeoncalixte/ensured-pipeline-capacity@0.1.0 test
+> jest --runInBand --watchman=false --silent
+
+PASS src/pipeline/capacity/service.test.ts
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        1.022 s

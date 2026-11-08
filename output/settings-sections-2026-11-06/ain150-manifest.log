@@ -1,0 +1,9 @@
+
+> @simeoncalixte/ensured-xds@0.1.0 generate:component-manifest
+> node scripts/generate-component-manifest.mjs
+
+Generated prop schemas for 66 components.
+
+> @simeoncalixte/ensured-xds@0.1.0 sync:schema-registry
+> node scripts/sync-schema-registry.mjs
+

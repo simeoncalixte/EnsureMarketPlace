@@ -1,0 +1,254 @@
+[
+  [
+    "EnsuredUI/src/Pages/Registration/BusinessConstitution.stories.tsx",
+    "#071129",
+    "surface",
+    "  <div style={{ background: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/Admin/OrgUsersSubpage.stories.tsx",
+    "#ffb4ab",
+    "danger",
+    "    return <div style={{ padding: 24, color: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/Admin/OrgUsersSubpage.stories.tsx",
+    "#c1c6d7",
+    "text-secondary",
+    "    return <div style={{ padding: 24, color: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.stories.tsx",
+    "#061320",
+    "surface-deep",
+    ",decorators:[Story=><div style={{padding:16,background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.stories.tsx",
+    "#061320",
+    "surface-deep",
+    ",decorators:[Story=><div style={{padding:12,background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.live.stories.tsx",
+    "#061320",
+    "surface-deep",
+    ",decorators:[Story=><div style={{padding:16,background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineGraph.stories.tsx",
+    "#4edea3",
+    "success",
+    "].map(s=>({...s,accent:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineGraph.stories.tsx",
+    "#123",
+    "surface",
+    "].map(s=>({...s,accent:'#4edea3',background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineGraph.stories.tsx",
+    "#345",
+    "border",
+    "].map(s=>({...s,accent:'#4edea3',background:'#123',border:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.stories.tsx",
+    "#501",
+    "danger",
+    "    await expect(await canvas.findByText('Added to pipeline \u00b7 Submission "
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerOnboarding.stories.tsx",
+    "#071129",
+    "surface",
+    "  <div style={{ background: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionActivity.stories.tsx",
+    "#7dd3fc",
+    "primary",
+    "item = { id: 1, stageKey: 'extraction', stageLabel: 'Extraction', stageAccent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionActivity.stories.tsx",
+    "#101827",
+    "surface",
+    "xtraction', stageLabel: 'Extraction', stageAccent: '#7dd3fc', stageBackground: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionActivity.stories.tsx",
+    "#334155",
+    "border",
+    "'Extraction', stageAccent: '#7dd3fc', stageBackground: '#101827', stageBorder: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionActivity.stories.tsx",
+    "#7dd3fc",
+    "primary",
+    " & Workflow'],['riskCompute','Pricing']].map(([key,label])=>({key,label,accent:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionActivity.stories.tsx",
+    "#101827",
+    "surface",
+    "ompute','Pricing']].map(([key,label])=>({key,label,accent:'#7dd3fc',background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionActivity.stories.tsx",
+    "#334155",
+    "border",
+    "]].map(([key,label])=>({key,label,accent:'#7dd3fc',background:'#101827',border:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineGraphEditor.stories.tsx",
+    "#4edea3",
+    "success",
+    "  dependsOn: index ? [labels[index - 1]] : [], accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineGraphEditor.stories.tsx",
+    "#123",
+    "surface",
+    "  dependsOn: index ? [labels[index - 1]] : [], accent: '#4edea3', background: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineGraphEditor.stories.tsx",
+    "#345",
+    "border",
+    "dex ? [labels[index - 1]] : [], accent: '#4edea3', background: '#123', border: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#4edea3",
+    "success",
+    "  { key: 'ingestion', label: 'Ingestion', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#4b8eff",
+    "primary",
+    "  { key: 'ocr', label: 'OCR', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#adc6ff",
+    "text-primary",
+    "  { key: 'classification', label: 'Classification', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#7dd3fc",
+    "primary",
+    "  { key: 'extraction', label: 'Extraction', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#67e8f9",
+    "primary",
+    "ey: 'subjectDiscovery', label: 'Insured Subjects & Lines of Business', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#86efac",
+    "success",
+    "  { key: 'financialDiscovery', label: 'Financial Discovery', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#5eead4",
+    "primary",
+    "  { key: 'locationDiscovery', label: 'Location Discovery', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#a7f3d0",
+    "success",
+    "  { key: 'normalization', label: 'Normalization', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#fbbf24",
+    "warning",
+    "  { key: 'validation', label: 'Validation', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#f0abfc",
+    "primary",
+    "  { key: 'schemaGeneration', label: 'Schema Generation', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#c084fc",
+    "primary",
+    "  { key: 'workflow', label: 'Rating & Workflow', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#f472b6",
+    "primary",
+    "  { key: 'riskCompute', label: 'Pricing', accent: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#0b1326",
+    "surface",
+    "  <div style={{ minHeight: '100vh', background: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.stories.tsx",
+    "#dae2fd",
+    "surface-raised",
+    "  <div style={{ minHeight: '100vh', background: '#0b1326', color: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.live.stories.tsx",
+    "#061320",
+    "surface-deep",
+    ",decorators:[Story=><div style={{padding:16,background:'"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/LiveSummaryAside.stories.tsx",
+    "#4edea3",
+    "success",
+    "      { label: 'Validation', value: 'Complete', color: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/LiveSummaryAside.stories.tsx",
+    "#4b8eff",
+    "primary",
+    "      { label: 'Submission', value: 'Open', color: '"
+  ],
+  [
+    "EnsuredUI/src/Pages/InsurerDashboard/sections/LiveSummaryAside.stories.tsx",
+    "#c1c6d7",
+    "text-secondary",
+    "      { label: 'Signing', value: 'Pending', color: '"
+  ],
+  [
+    "EnsuredUI/src/components/marketplace/AIChat.live.stories.tsx",
+    "#061320",
+    "surface-deep",
+    "        background: \""
+  ],
+  [
+    "EnsuredUI/src/components/marketplace/TopNavBar.stories.tsx",
+    "#071129",
+    "surface",
+    "export const Default = () => <div style={{ background: '"
+  ],
+  [
+    "EnsuredUI/src/components/marketplace/AIChat.stories.tsx",
+    "#071421",
+    "surface-deep",
+    "          background: \""
+  ],
+  [
+    "EnsuredLogistics/app/logistics/Logistics.stories.tsx",
+    "#dce7ff",
+    "surface-raised",
+    "          background: '"
+  ]
+]

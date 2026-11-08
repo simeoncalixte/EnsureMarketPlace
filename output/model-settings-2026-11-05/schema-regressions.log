@@ -1,0 +1,8 @@
+PASS src/pipeline/schemaGeneration/service.test.ts
+PASS src/pipeline/schemaGeneration/route.access.test.ts
+
+Test Suites: 2 passed, 2 total
+Tests:       18 passed, 18 total
+Snapshots:   0 total
+Time:        3.478 s
+Ran all test suites within paths "src/pipeline/schemaGeneration/service.test.ts", "src/pipeline/schemaGeneration/route.access.test.ts".

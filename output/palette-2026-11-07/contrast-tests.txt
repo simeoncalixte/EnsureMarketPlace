@@ -1,0 +1,13 @@
+✔ approved palette remains exact (0.640959ms)
+✔ dark: readable text, actions and semantic states (0.76ms)
+✔ dark: CSS contract includes all semantic tokens (1.645ms)
+✔ light: readable text, actions and semantic states (0.149334ms)
+✔ light: CSS contract includes all semantic tokens (0.81325ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 47.533125

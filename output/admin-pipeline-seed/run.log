@@ -1,0 +1,23 @@
+{"event":"target","userId":8,"email":"simeoncalixte@gmail.com","organizationId":19}
+{"event":"pipeline-start","submissionId":14,"targetStage":"ingestion","at":"2026-10-14T23:31:32.716Z"}
+{"event":"pipeline-finish","submissionId":14,"ok":true,"stageKey":"ingestion","completedStages":["ingestion"],"warnings":[],"error":null,"at":"2026-10-14T23:31:32.983Z"}
+{"event":"pipeline-start","submissionId":15,"targetStage":"ingestion","at":"2026-10-14T23:31:32.991Z"}
+{"event":"pipeline-finish","submissionId":15,"ok":true,"stageKey":"ingestion","completedStages":["ingestion"],"warnings":[],"error":null,"at":"2026-10-14T23:31:33.504Z"}
+{"event":"pipeline-start","submissionId":16,"targetStage":"ingestion","at":"2026-10-14T23:31:33.507Z"}
+{"event":"pipeline-finish","submissionId":16,"ok":true,"stageKey":"ingestion","completedStages":["ingestion"],"warnings":[],"error":null,"at":"2026-10-14T23:31:33.604Z"}
+{"event":"pipeline-start","submissionId":17,"targetStage":"ocr","at":"2026-10-14T23:31:33.609Z"}
+Error opening data file ./eng.traineddata
+Please make sure the TESSDATA_PREFIX environment variable is set to your "tessdata" directory.
+Failed loading language 'eng'
+Tesseract couldn't load any languages!
+/workspace/EnsuredPipelineShared/node_modules/tesseract.js/src/createWorker.js:217
+        throw Error(data);
+              ^
+Error: initialization failed
+    at Worker.<anonymous> (/workspace/EnsuredPipelineShared/node_modules/tesseract.js/src/createWorker.js:217:15)
+    at Worker.emit (node:events:519:28)
+    at Worker.emit (node:domain:489:12)
+    at MessagePort.<anonymous> (node:internal/worker:270:53)
+    at MessagePort.[nodejs.internal.kHybridDispatch] (node:internal/event_target:843:20)
+    at MessagePort.<anonymous> (node:internal/per_context/messageport:23:28)
+    at MessagePort.callbackTrampoline (node:internal/async_hooks:130:17)

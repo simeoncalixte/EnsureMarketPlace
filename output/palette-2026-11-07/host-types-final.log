@@ -1,0 +1,57 @@
+EnsuredUI/src/App.stories.tsx(40,76): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+EnsuredUI/src/App.stories.tsx(61,72): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+EnsuredUI/src/App.stories.tsx(62,73): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+EnsuredUI/src/AppAuthenticationRegister.stories.tsx(41,65): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+EnsuredUI/src/AppAuthenticationRegister.stories.tsx(42,74): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+EnsuredUI/src/AppAuthenticationSignIn.stories.tsx(68,76): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+EnsuredUI/src/Pages/InsurerDashboard/sections/NestedInputFeedback.tsx(29,26): error TS2550: Property 'at' does not exist on type 'Path'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(17,25): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(22,25): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(24,23): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(63,66): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+EnsuredUI/src/Pages/Parties/Parties.stories.tsx(71,22): error TS2550: Property 'at' does not exist on type '{ path: string; body: any; }[]'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+EnsuredUI/src/simulations/index.ts(21,15): error TS2307: Cannot find module './01-IdentityOnboarding' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(22,15): error TS2307: Cannot find module './02-InsurerRiskSubmission' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(23,15): error TS2307: Cannot find module './03-UnderwritingPricing' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(24,15): error TS2307: Cannot find module './04-DealStructuring' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(25,15): error TS2307: Cannot find module './05-CapitalRaising' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(26,15): error TS2307: Cannot find module './06-OrderBookTrading' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(27,15): error TS2307: Cannot find module './07-ActiveDealMonitoring' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(28,15): error TS2307: Cannot find module './08-ClaimAndPayout' or its corresponding type declarations.
+EnsuredUI/src/simulations/index.ts(29,15): error TS2307: Cannot find module './09-GovernanceAudit' or its corresponding type declarations.

@@ -1,0 +1,131 @@
+[
+  {
+    "id": "financial-schedule",
+    "missing": [],
+    "inferred": 0,
+    "fields": 29,
+    "defaults": 0,
+    "unresolved": 0,
+    "durationMs": 26674,
+    "usage": {
+      "calls": [
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "structurePlanning",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:27.915Z",
+          "durationMs": 6235,
+          "inputTokens": 1293,
+          "outputTokens": 456,
+          "totalTokens": 1749
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:34.152Z",
+          "durationMs": 4786,
+          "inputTokens": 2294,
+          "outputTokens": 463,
+          "totalTokens": 2757
+        },
+        {
+          "provider": "typesafe",
+          "model": "jev-1.13.0",
+          "operation": "review:general-information",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:38.941Z",
+          "durationMs": 1547,
+          "inputTokens": 3674,
+          "outputTokens": 238,
+          "totalTokens": 3912
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:40.488Z",
+          "durationMs": 1745,
+          "inputTokens": 2172,
+          "outputTokens": 7,
+          "totalTokens": 2179
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:42.233Z",
+          "durationMs": 3979,
+          "inputTokens": 2276,
+          "outputTokens": 424,
+          "totalTokens": 2700
+        },
+        {
+          "provider": "typesafe",
+          "model": "jev-1.13.0",
+          "operation": "review:financials",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:46.215Z",
+          "durationMs": 858,
+          "inputTokens": 3405,
+          "outputTokens": 223,
+          "totalTokens": 3628
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:47.074Z",
+          "durationMs": 1247,
+          "inputTokens": 3288,
+          "outputTokens": 7,
+          "totalTokens": 3295
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:48.321Z",
+          "durationMs": 1363,
+          "inputTokens": 1235,
+          "outputTokens": 7,
+          "totalTokens": 1242
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:49.684Z",
+          "durationMs": 4668,
+          "inputTokens": 2465,
+          "outputTokens": 490,
+          "totalTokens": 2955
+        },
+        {
+          "provider": "typesafe",
+          "model": "jev-1.13.0",
+          "operation": "review:tranches",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:09:54.354Z",
+          "durationMs": 232,
+          "inputTokens": 3752,
+          "outputTokens": 258,
+          "totalTokens": 4010
+        }
+      ],
+      "inputTokens": 25854,
+      "outputTokens": 2573,
+      "totalTokens": 28427,
+      "unreportedCalls": 0
+    },
+    "humanReview": "required",
+    "gate": true
+  }
+]

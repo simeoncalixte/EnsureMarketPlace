@@ -1,0 +1,26 @@
+ Network ensured-finance-test-9e1979ed0d49_default Creating 
+ Network ensured-finance-test-9e1979ed0d49_default Creating 
+ Network ensured-finance-test-9e1979ed0d49_default Created 
+ Network ensured-finance-test-9e1979ed0d49_default Created 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Creating 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Created 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Starting 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Started 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Waiting 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Healthy 
+PASS test/relationships/commercial.db.test.ts (18.79 s)
+PASS test/relationships/marketplaceParticipation.db.test.ts
+PASS test/relationships/networkPublications.test.ts
+
+Test Suites: 3 passed, 3 total
+Tests:       36 passed, 36 total
+Snapshots:   0 total
+Time:        20.019 s, estimated 22 s
+Ran all test suites within paths "test/relationships/marketplaceParticipation.db.test.ts", "test/relationships/commercial.db.test.ts", "test/relationships/networkPublications.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Stopping 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Stopped 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Removing 
+ Container ensured-finance-test-9e1979ed0d49-postgres-1 Removed 
+ Network ensured-finance-test-9e1979ed0d49_default Removing 
+ Network ensured-finance-test-9e1979ed0d49_default Removed 

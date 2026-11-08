@@ -1,0 +1,38 @@
+ Network ensured-finance-test-2716672a47a1_default Creating 
+ Network ensured-finance-test-2716672a47a1_default Creating 
+ Network ensured-finance-test-2716672a47a1_default Created 
+ Network ensured-finance-test-2716672a47a1_default Created 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Creating 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Created 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Starting 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Started 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Waiting 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Healthy 
+PASS test/relationships/subledger.db.test.ts (5.943 s)
+  AIN-34: canonical accounts and source-reconciled party subledger
+    ✓ legacy reviewed entries import once; unresolved evidence is not guessed (50 ms)
+    ✓ all financial roles have explicit stable identities; equal names never merge (343 ms)
+    ✓ reviewed Network identity requires member consent and never implies financial access (418 ms)
+    ✓ Network identity is suppressed immediately when reviewer authority expires (115 ms)
+    ✓ Network links retain exact SPV/investor sources, private consent and current affiliation (544 ms)
+    ✓ exact postings reconcile; duplicate operations and source identities cannot double post (51 ms)
+    ✓ concurrent settlement cannot exceed the obligation; full reversals are referenced and once-only (149 ms)
+    ✓ direct invalid writes and failed posting pairs cannot leave partial journals (30 ms)
+    ✓ cross-contract account/party references and unauthorized actors are denied (22 ms)
+    ✓ mandated representatives obtain only their party statement; revocation/expiry/account changes are immediate (50 ms)
+    ✓ concurrent duplicate commands post once; database rejects precision loss and late postings (14 ms)
+    ✓ inactive representatives and withdrawn granting relationships lose statement access (13 ms)
+    ✓ statement balances rebuild from immutable postings and pagination does not duplicate entries (485 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       13 passed, 13 total
+Snapshots:   0 total
+Time:        6.121 s, estimated 10 s
+Ran all test suites within paths "test/relationships/subledger.db.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-2716672a47a1-postgres-1 Stopping 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Stopped 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Removing 
+ Container ensured-finance-test-2716672a47a1-postgres-1 Removed 
+ Network ensured-finance-test-2716672a47a1_default Removing 
+ Network ensured-finance-test-2716672a47a1_default Removed 

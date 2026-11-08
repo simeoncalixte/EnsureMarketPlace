@@ -1,0 +1,5 @@
+
+> component-policy:check
+> node EnsuredXDS/scripts/generate-component-policy.mjs --check && node EnsuredXDS/scripts/sync-schema-registry.mjs --check && node scripts/check-component-capabilities.mjs
+
+Component policy and explicit adapter inventories agree.

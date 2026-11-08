@@ -1,58 +1,92 @@
-import ts from 'typescript';
-import { readFileSync, existsSync, writeFileSync } from 'node:fs';
+// Release parity: compare freshly built owners with the artifacts consumers resolve.
+// The one-time pre-extraction body audit is scripts/audit-pipeline-extraction.mjs.
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { createRequire } from 'node:module';
+import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const manifest = JSON.parse(readFileSync(path.join(root, 'pipeline-packages.json'), 'utf8'));
-const auditPath = path.join(root, 'pipeline-parity.json');
-const sourceRoot = process.argv[2];
-const moduleNames = new Map(Object.entries(manifest.files).map(([old, info]) => [info.package + '/' + info.path.replace(/^src\//, '').replace(/\.ts$/, ''), old]));
-function logicalModule(specifier, filename, base) {
-  if (moduleNames.has(specifier)) return moduleNames.get(specifier);
-  if (!specifier.startsWith('.')) return specifier;
-  const full = path.resolve(path.dirname(filename), specifier);
-  const found = [full, full + '.ts', full + '.json', path.join(full, 'index.ts')].find(p => existsSync(p) && (p.endsWith('.ts') || p.endsWith('.json')));
-  return found ? path.relative(base, found).replaceAll(path.sep, '/') : specifier;
-}
-function runtimeHash(source, filename, base) {
-  // Module wiring and type declarations may change; executable bodies must match.
-  source = source.replace(/(['"])([^'"\n]+)\1/g, (text, quote, value) => {
-    if (!value.startsWith('.') && !value.startsWith('@simeoncalixte/')) return text;
-    return quote + logicalModule(value, filename, base) + quote;
-  });
-  if (filename.endsWith('/pipeline/strategies.ts')) source = source.replace('new AmqpStrategy(new IngestionService())', 'new AmqpStrategy()');
-  const parsed = ts.createSourceFile(filename, source, ts.ScriptTarget.Latest, true);
-  const statements = parsed.statements.filter(s => !ts.isImportDeclaration(s) && !ts.isExportDeclaration(s) && !(filename.endsWith('/pipeline/strategies.ts') && ts.isClassDeclaration(s) && s.name?.text === 'AmqpStrategy'));
-  const printer = ts.createPrinter({ removeComments: true });
-  source = statements.map(s => printer.printNode(ts.EmitHint.Unspecified, s, parsed)).join('\n').replace(/\bexport\s+/g, '');
-  const js = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext, removeComments: true } }).outputText;
-  return createHash('sha256').update(js).digest('hex');
-}
-const audit = sourceRoot ? { description: 'Executable TypeScript bodies compared with the pre-migration working tree; module wiring and erased types excluded. Existing type/constant declarations were relocated without changing values.', files: {} } : JSON.parse(readFileSync(auditPath, 'utf8'));
-let failures = 0;
-for (const [old, info] of Object.entries(manifest.files)) {
-  if (!old.endsWith('.ts') || old.endsWith('.test.ts') || old.endsWith('.d.ts')) continue;
-  const current = path.join(root, info.directory, info.path);
-  if (sourceRoot) {
-    const original = path.join(sourceRoot, old);
-    if (!existsSync(original)) continue;
-    audit.files[old] = runtimeHash(readFileSync(original, 'utf8'), original, sourceRoot);
+const json = p => JSON.parse(readFileSync(p, 'utf8'));
+export function artifactInventory(directory) {
+  const files = {};
+  function walk(current, prefix = '') {
+    for (const entry of readdirSync(current, { withFileTypes: true }).sort((a,b) => a.name.localeCompare(b.name))) {
+      const relative = prefix + entry.name;
+      if (entry.isDirectory()) walk(path.join(current, entry.name), relative + '/');
+      else files[relative] = createHash('sha256').update(readFileSync(path.join(current, entry.name))).digest('hex');
+    }
   }
-  if (!audit.files[old]) continue;
-  const actual = runtimeHash(readFileSync(current, 'utf8'), current, path.join(root, info.directory));
-  if (actual !== audit.files[old]) { console.error(`Runtime body differs: ${old}`); failures++; }
+  walk(directory);
+  if (!Object.keys(files).length) throw new Error(`Empty artifact: ${directory}`);
+  return files;
 }
-function amqpMethodHash(filename) {
-  const parsed = ts.createSourceFile(filename, readFileSync(filename, 'utf8'), ts.ScriptTarget.Latest, true);
-  const declaration = parsed.statements.find(s => ts.isClassDeclaration(s) && s.name?.text === 'AmqpStrategy');
-  const method = declaration.members.find(s => s.name?.getText(parsed) === 'ensureSubmissions');
-  const text = 'class AmqpStrategy {' + ts.createPrinter().printNode(ts.EmitHint.Unspecified, method, parsed) + '}';
-  return runtimeHash(text, 'amqp-method.ts', root);
+export function compareArtifacts(expected, actual) {
+  return [...new Set([...Object.keys(expected), ...Object.keys(actual)])].sort()
+    .filter(file => expected[file] !== actual[file]);
 }
-const amqpKey = 'AMQP.ensureSubmissions';
-if (sourceRoot) audit.files[amqpKey] = amqpMethodHash(path.join(sourceRoot, 'src/pipeline/strategies.ts'));
-if (audit.files[amqpKey] !== amqpMethodHash(path.join(root, 'EnsuredPipelineIngestionAmqp/src/index.ts'))) { console.error('AMQP delivery logic differs'); failures++; }
-if (sourceRoot && !failures) writeFileSync(auditPath, JSON.stringify(audit, null, 2) + '\n');
-console.log(`${Object.keys(audit.files).length} runtime checks audited; ${failures} differences.`);
-process.exitCode = failures ? 1 : 0;
+export function verifyOwnership(base, manifest) {
+  const errors = [];
+  const owners = new Map(manifest.packages.map(p => [p.directory, p.name]));
+  for (const [old, info] of Object.entries(manifest.files)) {
+    if (owners.get(info.directory) !== info.package) errors.push(`Invalid owner: ${old}`);
+    if (!existsSync(path.join(base, info.directory, info.path))) errors.push(`Missing owned source: ${info.directory}/${info.path}`);
+  }
+  for (const [old, info] of Object.entries(manifest.retiredFiles || {})) {
+    if (manifest.files[old] || !info.reason || !info.replacements?.length) errors.push(`Invalid retirement: ${old}`);
+    if (existsSync(path.join(base, info.directory, info.path))) errors.push(`Retired source reappeared: ${old}`);
+    for (const replacement of info.replacements || []) {
+      if (!existsSync(path.join(base, info.directory, replacement))) errors.push(`Missing replacement: ${info.directory}/${replacement}`);
+    }
+  }
+  return errors;
+}
+export function verifyPin(name, version, consumer, lock) {
+  const errors = [];
+  if (consumer.dependencies?.[name] !== version) errors.push(`Dependency must pin ${name}@${version}`);
+  const locked = lock.packages?.[`node_modules/${name}`];
+  if (lock.packages?.['']?.dependencies?.[name] !== version || locked?.version !== version || locked?.link || !locked?.integrity || !locked?.resolved?.startsWith('https://npm.pkg.github.com/')) {
+    errors.push(`Lockfile must pin registry artifact ${name}@${version} with integrity`);
+  }
+  return errors;
+}
+export function verifyRelease(base = root) {
+  const manifest = json(path.join(base, 'pipeline-packages.json'));
+  const errors = verifyOwnership(base, manifest);
+  const financial = manifest.packages.filter(p => ['shared', 'capacity', 'riskCompute'].includes(p.key));
+  if (financial.length !== 3) errors.push('Missing required shared/capacity/riskCompute package owner');
+  const consumers = ['EnsuredAPI', ...financial.map(p => p.directory)];
+  const evidence = [];
+  for (const owner of financial) {
+    const directory = path.join(base, owner.directory);
+    const pkg = json(path.join(directory, 'package.json'));
+    // Never accept yesterday's dist directory as evidence of today's source.
+    const build = spawnSync('npm', ['run', 'build'], { cwd: directory, stdio: 'inherit' });
+    if (build.error || build.status !== 0) { errors.push(`Fresh build failed: ${owner.directory}`); continue; }
+    const expected = artifactInventory(path.join(directory, 'dist'));
+    for (const consumer of consumers) {
+      if (consumer === owner.directory) continue;
+      const consumerPath = path.join(base, consumer, 'package.json');
+      const metadata = json(consumerPath);
+      if (consumer !== 'EnsuredAPI' && !metadata.dependencies?.[pkg.name]) continue;
+      try {
+        if (consumer === 'EnsuredAPI') {
+          errors.push(...verifyPin(pkg.name, pkg.version, metadata, json(path.join(base, consumer, 'package-lock.json'))).map(e => `${consumer}: ${e}`));
+        } else if (metadata.dependencies?.[pkg.name] !== pkg.version) {
+          errors.push(`${consumer}: dependency must pin ${pkg.name}@${pkg.version}`);
+        }
+        const require = createRequire(consumerPath);
+        const installedPath = require.resolve(`${pkg.name}/package.json`);
+        const installed = json(installedPath);
+        if (installed.version !== pkg.version) errors.push(`${consumer}: resolves ${pkg.name}@${installed.version}, expected ${pkg.version}`);
+        const actual = artifactInventory(path.join(path.dirname(installedPath), 'dist'));
+        const differences = compareArtifacts(expected, actual);
+        if (differences.length) errors.push(`${consumer}: stale ${pkg.name}@${pkg.version}: ${differences.length} artifact differences (${differences.slice(0,5).join(', ')})`);
+        evidence.push({ consumer, package: pkg.name, version: installed.version, files: Object.keys(actual).length, sha256: createHash('sha256').update(JSON.stringify(actual)).digest('hex'), matchesSourceBuild: !differences.length });
+      } catch (error) { errors.push(`${consumer}: cannot inspect ${pkg.name}: ${error.message}`); }
+    }
+  }
+  console.log(JSON.stringify({ financialArtifacts: evidence, errors }, null, 2));
+  return errors;
+}
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) process.exitCode = verifyRelease().length ? 1 : 0;

@@ -1,0 +1,14 @@
+{
+  "environment": "local development",
+  "migration": "20261106010000-model-library.ts",
+  "migrationCount": 1,
+  "existingDefaults": 1,
+  "preservedDefaultAndEncryptedCredential": 1,
+  "apiHealth": 200,
+  "gatewayHealth": 200,
+  "settingsPage": 200,
+  "componentModule": 200,
+  "unauthenticatedLibrary": 401,
+  "production": false,
+  "providerCalls": "none in this redesign"
+}

@@ -1,0 +1,28 @@
+<testsuites id="" name="" tests="12" failures="0" skipped="0" errors="0" time="13.864751">
+<testsuite name="fixtures.spec.ts" timestamp="2026-11-04T12:52:01.949Z" hostname="" tests="12" failures="0" skipped="0" time="11.118" errors="0">
+<testcase name="fixture story posts a persisted-in-fixture update and renders at mobile width" classname="fixtures.spec.ts" time="2.175">
+</testcase>
+<testcase name="two embedded instances remain isolated in React Strict Mode" classname="fixtures.spec.ts" time="0.524">
+</testcase>
+<testcase name="market journey evaluates, follows, publishes and hands off exact opportunity" classname="fixtures.spec.ts" time="1.344">
+</testcase>
+<testcase name="empty and failed opportunity states remain distinct" classname="fixtures.spec.ts" time="0.611">
+</testcase>
+<testcase name="private capacity preferences persist, can pause, and disappear after unfollow" classname="fixtures.spec.ts" time="1.34">
+</testcase>
+<testcase name="post accent fades once viewed and stays clear after scrolling away" classname="fixtures.spec.ts" time="1.806">
+</testcase>
+<testcase name="exported navigation controls the separate body and protects drafts" classname="fixtures.spec.ts" time="0.41">
+</testcase>
+<testcase name="My Profile edits individual introduction sections inline" classname="fixtures.spec.ts" time="0.902">
+</testcase>
+<testcase name="facility and retrocession publications share post identity and social actions" classname="fixtures.spec.ts" time="1.09">
+</testcase>
+<testcase name="party participation interaction: private-consent-and-revocation" classname="fixtures.spec.ts" time="0.393">
+</testcase>
+<testcase name="party participation interaction: reject-unresolved-identity" classname="fixtures.spec.ts" time="0.27">
+</testcase>
+<testcase name="party participation interaction: failure-and-retry" classname="fixtures.spec.ts" time="0.253">
+</testcase>
+</testsuite>
+</testsuites>

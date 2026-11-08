@@ -1,0 +1,106 @@
+✔ discovers URL and split settings, with URL precedence and decoded credentials (9.328833ms)
+✔ only provisions the shared local server (0.43275ms)
+✔ rejects malformed URLs, ambiguous query targets and oversized identifiers without leaking secrets (1.552208ms)
+✔ Docker rewriting changes only local host and port and preserves encoded URL components/options (0.21025ms)
+✔ reads package-local files, prioritizes injected variables, discovers new packages and rejects conflicts (21.241375ms)
+✔ SQL quotes identifiers through PostgreSQL format and never alters or drops existing objects (0.295125ms)
+✔ default invocation previews complete coverage without connecting to Docker (52.180042ms)
+✔ rejects unknown flags and conflicting mutation modes (247.816417ms)
+✔ refuses remote Docker engines before provisioning accounts (43.906167ms)
+✔ preview accepts an explicit reviewer without fetching private account data (41.394167ms)
+
+> @fixture/shared@1.0.0 build
+> node build.cjs
+
+
+> @fixture/capacity@1.0.0 build
+> node build.cjs
+
+
+> @fixture/riskCompute@1.0.0 build
+> node build.cjs
+
+{
+  "financialArtifacts": [
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/shared",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/capacity",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/riskCompute",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    }
+  ],
+  "errors": []
+}
+
+> @fixture/shared@1.0.0 build
+> node build.cjs
+
+
+> @fixture/capacity@1.0.0 build
+> node build.cjs
+
+
+> @fixture/riskCompute@1.0.0 build
+> node build.cjs
+
+{
+  "financialArtifacts": [
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/shared",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/capacity",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/riskCompute",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "a3283444192ab4bd1614ae9cd441163da9657d11e91c8fb741fed918d5845de5",
+      "matchesSourceBuild": false
+    }
+  ],
+  "errors": [
+    "EnsuredAPI: stale @fixture/riskCompute@1.0.0: 1 artifact differences (index.js)"
+  ]
+}
+✔ same-version stale JS, declarations, JSON, missing and extra files fail parity (15.887042ms)
+✔ missing owners and replacement files cannot be silently skipped (3.578958ms)
+✔ release consumers require exact version and registry integrity; links and ranges fail (0.145667ms)
+✔ release gate resolves consumer artifacts and rejects a stale package at the same version (1002.323959ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1129.814667

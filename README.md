@@ -58,15 +58,15 @@ Use `npm run docker:services -- ps` to inspect the application containers and `n
 
 ### Shared PostgreSQL
 
-Run `npm run docker:database` from the repository root before starting applications or running host migrations. One PostgreSQL 16 service, defined in `docker-compose.database.yml`, exposes **127.0.0.1:5432** and contains three separate databases:
+Run `npm run docker:database` from the repository root before starting applications or running host migrations. One PostgreSQL 16 service, defined in `docker-compose.database.yml`, exposes **127.0.0.1:5432**. The helper reads each immediate package's own `.env` (directories with `package.json`); exported shell variables take precedence. New packages need no database registration list.
 
-| Application | Database |
-| --- | --- |
-| Marketplace API | `ensured_marketplace` |
-| Auth | `ensured_identity` |
-| KYC | `ensured_kyc` |
+Database provisioning is implemented in `scripts/database-config.mjs`. It discovers `DATABASE_URL`, `DB_URL`, `*_DATABASE_URL`, `*_DB_URL`, and `DB_NAME`/`DATABASE_NAME` with optional prefixes and matching `HOST`, `PORT`, `USER`, and `PASSWORD` fields. URLs take precedence over split settings for the same prefix. Use `postgres://` or `postgresql://` with an explicit user and database; URL-encode special characters in credentials and names. Query options such as `sslmode` are preserved, but connection-coordinate query overrides are rejected. Conflicting owners or credentials fail before provisioning. Service-local declarations supersede duplicate prefixed settings left in the former shared API file.
 
-Host applications use `127.0.0.1:5432`; Docker applications use `postgres:5432` on `ensured-platform`. Local development credentials are `postgres` / `postgres`. Update existing Auth/KYC `.env` database URLs from ports 5433/5434 to 5432. The database helper creates the network and missing databases, including when the marketplace volume already exists. API Compose extends the same PostgreSQL definition and uses the same `ensuredapi` project and `ensuredapi_postgres_data` volume. Run application migrations separately when developing on the host.
+Only targets on the shared server's local aliases at port 5432 are provisioned. Remote servers and other ports are reported and skipped. Missing login roles and databases are created; existing data, ownership, and passwords are never changed. Existing-role credentials must match the service configuration. Database names are safely quoted, and repeated setup is idempotent. The initial Marketplace default remains `ensured_marketplace`; other databases come from configuration. Application tables still require the owning package's migrations.
+
+Host applications use `127.0.0.1:5432`; Docker applications use `postgres:5432` on `ensured-platform`. `docker:services` translates local Auth/KYC URLs from their package files for Docker without changing credentials, database names, or query options. Local development administrator credentials are `postgres` / `postgres`. The helper handles both fresh and existing volumes; run it even when using a Compose compatibility entry point. It refuses startup while legacy host-development database containers are still running.
+
+Run `node --test scripts/test/database-config.test.mjs` for configuration tests. The optional isolated PostgreSQL test uses a temporary container with no published ports or persistent volume: `DATABASE_DOCKER_TEST=1 node --test scripts/test/database-provision.integration.test.mjs`.
 
 For an existing installation with separate identity/KYC containers, migrate before starting the shared stack:
 
@@ -94,19 +94,11 @@ If you previously used `EnsuredAPI/docker-compose.auth.yml`, its former `identit
 
 The pipeline consists of 18 versioned npm packages configured for GitHub Packages, with shared persistence/provider support. Run `npm run pipeline:setup` to install and build them, and `npm run pipeline:test` for package tests. See [PIPELINE_PACKAGES.md](PIPELINE_PACKAGES.md) for repository links, standalone bootstrap instructions, and migration boundaries.
 
-### Shared environment
+### Package environments
 
-`EnsuredAPI/.env` is the shared local configuration for all packages. Create it from
-`EnsuredAPI/.env.example` and keep service, provider, and frontend settings there.
-Package-local `.env` files are no longer loaded. Existing shell/container variables
-take precedence, and test suites retain their explicit test overrides. Vite reads
-its environment files from `EnsuredAPI` and exposes only `VITE_` settings to browsers;
-never prefix secrets with `VITE_`. Restart running processes after changing settings.
+Each package owns its `.env` configuration. Start packages through their npm scripts (which run in the package directory); injected shell/container variables take precedence. The shared pipeline configuration loader reads the consuming package's `.env`, with `ENSURED_ENV_FILE` available for an explicit override. Vite reads the frontend package's environment and exposes only `VITE_` settings; never use that prefix for secrets.
 
-Pipeline source and compiled modules resolve the shared file relative to the package,
-so importing a provider from another working directory uses the same configuration.
-Deployments without the repository's `.env` should inject configuration through the
-process environment. Explicit live-test environment files remain supported.
+When moving away from the former shared `EnsuredAPI/.env`, put each service's settings in that service's `.env` and frontend settings in the corresponding frontend package. Matching integration secrets must be configured in both participating services. Package loaders no longer fall back to the API file. Restart applications after configuration changes. Docker applications also load their package-owned files.
 
 ### Submission feedback service
 

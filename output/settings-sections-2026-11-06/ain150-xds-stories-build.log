@@ -1,0 +1,128 @@
+
+> @simeoncalixte/ensured-xds@0.1.0 build-storybook
+> storybook build
+
+@storybook/core v8.6.18
+
+info => Cleaning outputDir: storybook-static
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+info => Loading presets
+info => Building manager..
+info => Manager built ([38;2;181;126;229m88 ms[39m)
+info => Building preview..
+vite v5.4.21 building for production...
+transforming...
+node_modules/react-router/dist/development/index.mjs (11:0): Module level directives cause errors when bundled, "use client" in "node_modules/react-router/dist/development/index.mjs" was ignored.
+✓ 827 modules transformed.
+node_modules/@storybook/core/dist/preview/runtime.js (3683:15): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+node_modules/@storybook/core/dist/preview/runtime.js (3685:16): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+rendering chunks...
+computing gzip size...
+storybook-static/iframe.html                                             18.04 kB │ gzip:   5.17 kB
+storybook-static/assets/preview-CVcpBMh0.css                              1.73 kB │ gzip:   0.78 kB
+storybook-static/assets/preview-CvbIS5ZJ.js                               0.18 kB │ gzip:   0.16 kB
+storybook-static/assets/index-C9DmNn2p.js                                 0.42 kB │ gzip:   0.27 kB
+storybook-static/assets/tokens-UfE_4Ljc.js                                0.44 kB │ gzip:   0.33 kB
+storybook-static/assets/chunk-XP5HYGXS-BHXC9YeQ.js                        0.71 kB │ gzip:   0.40 kB
+storybook-static/assets/preview-DGUiP6tS.js                               0.71 kB │ gzip:   0.50 kB
+storybook-static/assets/ValidationMessage-Dg2L4mLi.js                     0.75 kB │ gzip:   0.44 kB
+storybook-static/assets/index-Bhqu_tAV.js                                 0.79 kB │ gzip:   0.47 kB
+storybook-static/assets/preview-Pk1WgUhB.js                               0.86 kB │ gzip:   0.55 kB
+storybook-static/assets/Checkbox-PBj4KPNE.js                              1.00 kB │ gzip:   0.56 kB
+storybook-static/assets/test-utils-B7m40138.js                            1.03 kB │ gzip:   0.65 kB
+storybook-static/assets/TreatyRenewalCard.stories-DfFGPQ0d.js             1.39 kB │ gzip:   0.62 kB
+storybook-static/assets/IconGrid.stories-D0J4l-xJ.js                      1.70 kB │ gzip:   0.83 kB
+storybook-static/assets/AllocationList.stories-CC-wZG7S.js                1.75 kB │ gzip:   0.76 kB
+storybook-static/assets/Navigation.stories-Bogjhbex.js                    1.76 kB │ gzip:   0.68 kB
+storybook-static/assets/ResultsPanel.stories-TIV2sfs8.js                  1.91 kB │ gzip:   0.73 kB
+storybook-static/assets/HeroHeader.stories-DyQiEeXq.js                    1.91 kB │ gzip:   0.88 kB
+storybook-static/assets/Input.stories-BejHgvM4.js                         2.05 kB │ gzip:   0.83 kB
+storybook-static/assets/ResultsToolbar.stories-En9BTzjh.js                2.07 kB │ gzip:   0.84 kB
+storybook-static/assets/AllocationList-BGNWDjJs.js                        2.11 kB │ gzip:   1.02 kB
+storybook-static/assets/ResultsToolbar-DyrdxqrG.js                        2.34 kB │ gzip:   0.97 kB
+storybook-static/assets/PipelineStageCard.stories-by_kFElW.js             2.66 kB │ gzip:   1.05 kB
+storybook-static/assets/ProgressBar-BvcYOKdI.js                           2.67 kB │ gzip:   1.16 kB
+storybook-static/assets/Card-ZFYptCbp.js                                  2.68 kB │ gzip:   1.18 kB
+storybook-static/assets/Input-C5XbuUC0.js                                 2.69 kB │ gzip:   1.10 kB
+storybook-static/assets/Button-qWiiuNQY.js                                2.72 kB │ gzip:   0.95 kB
+storybook-static/assets/Textarea.stories-D2UvnciN.js                      2.77 kB │ gzip:   1.21 kB
+storybook-static/assets/Badge-DXrVq-MY.js                                 2.83 kB │ gzip:   1.09 kB
+storybook-static/assets/ResultsPanel-C2zJICRz.js                          2.87 kB │ gzip:   1.21 kB
+storybook-static/assets/Checkbox.stories-BCocvpHf.js                      2.99 kB │ gzip:   1.12 kB
+storybook-static/assets/tokens.stories-K7WpUhB8.js                        3.09 kB │ gzip:   0.95 kB
+storybook-static/assets/colors-Drsn8_zJ.js                                3.18 kB │ gzip:   1.38 kB
+storybook-static/assets/InfoCard-DCVhpyZr.js                              3.44 kB │ gzip:   1.32 kB
+storybook-static/assets/SubNavigation.stories-rJ-eyoFO.js                 3.51 kB │ gzip:   1.60 kB
+storybook-static/assets/preview-DD_OYowb.js                               3.51 kB │ gzip:   1.69 kB
+storybook-static/assets/Navigation-BlhD4Nxn.js                            3.59 kB │ gzip:   1.56 kB
+storybook-static/assets/Select.stories-BE6Ym_Na.js                        3.66 kB │ gzip:   1.28 kB
+storybook-static/assets/index-DaSxx5jD.js                                 3.82 kB │ gzip:   1.50 kB
+storybook-static/assets/NumberInput.stories-CuluNBQm.js                   3.84 kB │ gzip:   1.33 kB
+storybook-static/assets/ResultMetricCard.stories-BEpm_o0o.js              3.96 kB │ gzip:   1.30 kB
+storybook-static/assets/MetricCard-DQlUW1P4.js                            4.07 kB │ gzip:   1.47 kB
+storybook-static/assets/PipelineStageCard-BDewcyLo.js                     4.13 kB │ gzip:   1.44 kB
+storybook-static/assets/ProgressBar.stories-DvMyKGr7.js                   4.19 kB │ gzip:   1.39 kB
+storybook-static/assets/Badge.stories-K6Y9D0BS.js                         4.34 kB │ gzip:   1.40 kB
+storybook-static/assets/Card.stories-BItU-Omj.js                          4.39 kB │ gzip:   1.49 kB
+storybook-static/assets/MaskedSecretInput.stories-Bl78aAOF.js             4.51 kB │ gzip:   1.72 kB
+storybook-static/assets/ToggleSwitch.stories-BrZ8PxLq.js                  4.55 kB │ gzip:   1.73 kB
+storybook-static/assets/MetricCard.stories-uW8TPSHj.js                    4.67 kB │ gzip:   1.65 kB
+storybook-static/assets/ResultMetricCard-BOIKv75V.js                      4.83 kB │ gzip:   1.62 kB
+storybook-static/assets/AvatarStack.stories-CA3ukhsa.js                   4.87 kB │ gzip:   1.84 kB
+storybook-static/assets/Breadcrumb.stories-DU1BzALt.js                    4.88 kB │ gzip:   1.89 kB
+storybook-static/assets/Stepper.stories-l09wRfJU.js                       4.88 kB │ gzip:   1.86 kB
+storybook-static/assets/PriorityUnderwriterQueue.stories-agfbZpcC.js      5.02 kB │ gzip:   1.96 kB
+storybook-static/assets/Button.stories-BhsRbaC8.js                        5.05 kB │ gzip:   1.52 kB
+storybook-static/assets/preview-B0GEC7uH.js                               5.06 kB │ gzip:   1.88 kB
+storybook-static/assets/Range.stories-DCfKdhuF.js                         5.06 kB │ gzip:   1.92 kB
+storybook-static/assets/ConfidenceBadge.stories-D9infZ38.js               5.17 kB │ gzip:   1.72 kB
+storybook-static/assets/SegmentedSwitch.stories-Cyst7L2g.js               5.24 kB │ gzip:   1.85 kB
+storybook-static/assets/SlaVelocityPanel.stories-BtlvtRdv.js              5.29 kB │ gzip:   1.75 kB
+storybook-static/assets/ConnectedGrid-BH6q_BkH.js                         5.36 kB │ gzip:   1.59 kB
+storybook-static/assets/SectionHeader.stories-CG6qtNP7.js                 5.39 kB │ gzip:   1.93 kB
+storybook-static/assets/FileDropzone.stories-D8leIniq.js                  5.48 kB │ gzip:   2.06 kB
+storybook-static/assets/AppetiteDistribution.stories-Dm2zr89I.js          5.63 kB │ gzip:   2.07 kB
+storybook-static/assets/FormField.stories-BbgmyzRu.js                     5.73 kB │ gzip:   2.08 kB
+storybook-static/assets/Typography.stories-yG_Hg2au.js                    5.73 kB │ gzip:   1.97 kB
+storybook-static/assets/Modal.stories-ByAn8QOY.js                         6.28 kB │ gzip:   1.96 kB
+storybook-static/assets/InfoCard.stories-D0xGoAna.js                      6.39 kB │ gzip:   2.01 kB
+storybook-static/assets/DealCard.stories-aFJrGnT_.js                      6.59 kB │ gzip:   2.08 kB
+storybook-static/assets/SubmissionPipelineOverview.stories-CQ-Q6VHx.js    6.92 kB │ gzip:   2.54 kB
+storybook-static/assets/ActivityFeed.stories-DmuVD16h.js                  6.94 kB │ gzip:   2.32 kB
+storybook-static/assets/ConnectedGrid.stories-BiAKef0H.js                 7.24 kB │ gzip:   2.54 kB
+storybook-static/assets/preview-CCCznEf4.js                               7.62 kB │ gzip:   1.56 kB
+storybook-static/assets/StatCard.stories-CZXyMFTm.js                      8.09 kB │ gzip:   2.56 kB
+storybook-static/assets/preview-BBWR9nbA.js                               8.12 kB │ gzip:   3.10 kB
+storybook-static/assets/index-OHqKpUGr.js                                 8.39 kB │ gzip:   3.27 kB
+storybook-static/assets/SideNavBar.stories-kggbvJT7.js                    8.41 kB │ gzip:   2.46 kB
+storybook-static/assets/DataTable.stories-zldiqVMY.js                     8.78 kB │ gzip:   2.87 kB
+storybook-static/assets/OnboardingChecklist.stories-Cu--S0Yi.js           9.13 kB │ gzip:   3.25 kB
+storybook-static/assets/KanbanBoard.stories-CAga6uU3.js                   9.94 kB │ gzip:   3.24 kB
+storybook-static/assets/colors.stories-ym59eo-4.js                        9.95 kB │ gzip:   3.05 kB
+storybook-static/assets/DocumentRow.stories-BI8epW-d.js                   9.98 kB │ gzip:   2.82 kB
+storybook-static/assets/ScrollableNavigation.stories-DgmxX6UC.js         10.13 kB │ gzip:   3.60 kB
+storybook-static/assets/CollapsibleSection.stories-CVhU_nOL.js           10.19 kB │ gzip:   2.90 kB
+storybook-static/assets/NatCatRiskBanner.stories-BVuM2gwg.js             10.53 kB │ gzip:   3.23 kB
+storybook-static/assets/SelectionCard.stories-CFfH_PCu.js                10.89 kB │ gzip:   3.21 kB
+storybook-static/assets/ConnectedGridWorkspace.stories-FFlPXePG.js       11.33 kB │ gzip:   3.51 kB
+storybook-static/assets/TreatyRenewalWatchlist.stories-DWZvdFe-.js       13.03 kB │ gzip:   3.79 kB
+storybook-static/assets/preview-BRnTY8wX.js                              15.51 kB │ gzip:   5.44 kB
+storybook-static/assets/styled-components.browser.esm-CsSoQN9L.js        27.75 kB │ gzip:  11.35 kB
+storybook-static/assets/Color-YHDXOIA2-ihNGByie.js                       29.30 kB │ gzip:  11.03 kB
+storybook-static/assets/entry-preview-iD56LgNF.js                        29.75 kB │ gzip:   9.51 kB
+storybook-static/assets/index-COKtM4y0.js                                57.14 kB │ gzip:  16.28 kB
+storybook-static/assets/chunk-BV7QT456-C470GbEB.js                       91.44 kB │ gzip:  30.93 kB
+storybook-static/assets/react-18-Cn_UnKfT.js                            180.99 kB │ gzip:  57.05 kB
+storybook-static/assets/iframe-BxcnG-wM.js                              219.47 kB │ gzip:  74.48 kB
+storybook-static/assets/entry-preview-docs-D2AJFTE2.js                  244.67 kB │ gzip:  73.42 kB
+storybook-static/assets/UnderwritingResults.stories-BEwlVPkG.js         394.08 kB │ gzip: 115.42 kB
+storybook-static/assets/index-DeN4tkzB.js                               662.40 kB │ gzip: 157.06 kB
+storybook-static/assets/DocsRenderer-CFRXHY34-BaydguRA.js               883.96 kB │ gzip: 275.80 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 4.10s
+info => Preview built ([38;2;181;126;229m4.69 s[39m)
+info => Output directory: /Users/simeon/Projects/EnsureMarketPlace/EnsuredXDS/storybook-static

@@ -1,0 +1,17 @@
+{
+  "epicsReviewed": 17,
+  "openEpicsRanked": 14,
+  "doneEpicsPreserved": 3,
+  "sprints": 57,
+  "futureUndatedSprints": 56,
+  "originalUnfinishedItemsMapped": 85,
+  "additionalSliceOrCoverageItems": 6,
+  "originalActiveUnfinished": 41,
+  "newActiveUnfinished": 3,
+  "allOriginalStatusesParentsCriteriaEstimatesPreserved": true,
+  "allCompletedSprintHistoriesPreserved": true,
+  "dependencyOrderingVerified": true,
+  "rankOrderingVerified": true,
+  "applicationImplementation": "not performed",
+  "deployment": "not performed"
+}

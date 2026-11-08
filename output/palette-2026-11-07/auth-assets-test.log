@@ -1,0 +1,11 @@
+2026-11-07T14:55:12.574Z ERROR [Better Auth]: Could not validate the database schema. Check your database connection.
+✔ combined Auth serves bundled account pages with unavailable upstreams and discovery (52.858833ms)
+﹣ combined server handles identity locally and retains gateway protection (0.109416ms) # SKIP
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 629.413792

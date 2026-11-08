@@ -1,0 +1,69 @@
+
+> ensured-auth@0.1.0 build
+> tsc --noEmit
+
+
+> ensured-auth@0.1.0 test
+> tsx --test test/*.test.ts
+
+2026-11-08T13:00:20.782Z ERROR [Better Auth]: Could not validate the database schema. Check your database connection.
+✔ combined Auth serves bundled account pages with unavailable upstreams and discovery (70.19ms)
+﹣ combined server handles identity locally and retains gateway protection (0.12775ms) # SKIP
+(node:55472) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ commercial gateway retains agreement commercial_approve scope (182.810042ms)
+✔ commercial gateway retains commitment commercial_approve scope (26.370125ms)
+✔ commercial gateway retains commitment capacity_post scope (6.406625ms)
+✔ commercial gateway retains retrocession commercial_approve scope (13.597291ms)
+✔ commercial gateway retains retrocession servicing_post scope (9.908458ms)
+✔ commercial gateway retains agreement servicing_post scope (8.080583ms)
+✔ disabled discovery preserves configured targets (0.4145ms)
+✔ gateway adapter uses healthy destinations and fails closed on discovery outage (58.664292ms)
+✔ gateway rejects missing, expired and unverified sessions, and fails closed during identity outages (218.119834ms)
+(node:55474) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ gateway strips forged identity and cookies, signs method and path, forwards bodies and session rotation (25.376541ms)
+✔ gateway rejects cross-origin and missing-origin mutations before consulting identity (12.207834ms)
+✔ configuration fails closed on missing/shared secrets, incomplete OAuth settings, and insecure production URLs (1.254792ms)
+✔ gateway and account application start with independent configuration (0.222541ms)
+✔ KYC has an independent assertion audience, accepts unprovisioned identities, and hides internal status endpoints (6.979875ms)
+✔ account pages mount in the UI while identity APIs and documentation stay with the identity service (22.99675ms)
+✔ Network is a separate signed destination; projection routes and live stories are private by default (5.767875ms)
+✔ direct UI origin is opt-in, loopback-only, and ignored in production (0.335459ms)
+✔ development UI requests still require a session and reject other origins (2.458292ms)
+{"event":"impersonated_request","impersonationId":"audit-1","actorId":"admin","targetId":"target","method":"GET","path":"/api/private","status":200}
+✔ impersonation uses only target permissions and records the original actor in signed assertions (11.986167ms)
+✔ guest signature routes bypass login only for exact POST paths and still enforce origins (15.166459ms)
+✔ guest quote access allows only exact POST paths, strips identity, and enforces trusted origins (21.242125ms)
+✔ participant appetite uses gateway-verified follow scope and fails closed before API writes (54.227541ms)
+﹣ HTTP account app through real gateway: SMTP verification, browser cookies, API access and logout (0.349791ms) # SKIP
+﹣ real identity lifecycle: registration, verification, login, recovery, revocation and OAuth defenses (0.338959ms) # SKIP
+﹣ real cookie sessions: linked test identities, impersonation, expiry, revocation, audit and return to admin (0.360333ms) # SKIP
+✔ direct Mailjet replaces SMTP requirements; migrations ignore delivery config (1.150333ms)
+✔ sendMail calls Mailjet directly and preserves the auth-generated link (2.0135ms)
+✔ Mailjet failures propagate safely without retrying or falling back to SMTP (0.391042ms)
+✔ production migrations require no email settings, including partial SMTP configuration (0.672166ms)
+✔ production identity startup still validates email configuration (0.342125ms)
+✔ migration configuration retains database, secret, and HTTPS validation (0.107583ms)
+﹣ bootstrap is atomic, persistent, and backfills the earliest existing identity (0.327458ms) # SKIP
+(node:55481) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ gateway delegates relationship access using a private, request-bound resolution and strips browser claims (96.002ms)
+✔ gateway denies relationship operations during impersonation before resolving access (1.47375ms)
+✔ gateway forwards resolved party reads while rejecting unsupported scopes (145.477042ms)
+✔ Auth registers and deregisters with its own service name and write token (14.221417ms)
+✔ disabled registration and invalid configuration (0.337125ms)
+✔ initial registry failure is reported without stopping Auth (0.18675ms)
+✔ reports actionable configuration failures without their values (0.627583ms)
+✔ 503 response exposes only safe configuration details and is not cached (29.257958ms)
+✔ does not log third-party errors, stacks, URLs or arbitrary thrown values (0.198792ms)
+✔ allows a UI public origin as upstream when Worker has a separate host (0.413334ms)
+✔ rejects Worker loops and malformed upstreams (0.152792ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 5
+ℹ todo 0
+ℹ duration_ms 1304.609542

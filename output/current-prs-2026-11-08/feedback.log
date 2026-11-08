@@ -1,0 +1,43 @@
+
+> @ensured/submission-feedback@0.1.0 build
+> node --check src/server.js && node --check src/app.js && node --check src/store.js && node --check src/feedback.js
+
+
+> @ensured/submission-feedback@0.1.0 test
+> node --test test/*.test.js
+
+✔ a newly processed baseline is visible while earlier edits remain in history (0.541875ms)
+✔ restoring an earlier snapshot does not get replaced by the same processing baseline (0.09625ms)
+✔ beginning a revision appends the new baseline with its own execution identity (0.254042ms)
+✔ edits only the selected repeated field and preserves original output (1.994292ms)
+✔ rejects invalid paths, wrong types and missing correction notes (0.245416ms)
+✔ stores positive feedback without replacing the value (0.126375ms)
+✔ service requires authentication and validates trusted actor context (88.899333ms)
+✔ adds a submission option and selection together, retaining catalog provenance and immutable baseline (0.667542ms)
+✔ rejects blank, duplicate, oversized and malformed additions and requires a note (0.209542ms)
+✔ supports multi-select additions and prevents options on non-choice, taxonomy, dependent or read-only fields (0.223375ms)
+✔ applies trusted publication references and catalog snapshot to the edited submission (0.291292ms)
+✔ saves explained corrections and written concerns without a thumbs rating (0.149916ms)
+✔ saves requested coverage child controls through the parent field without losing nested data (0.155458ms)
+✔ individual inputs record before/after and preserve other inputs and the source (0.188708ms)
+✔ rejects invalid input paths, wrong types, compound replacements, and metadata edits (0.178291ms)
+✔ original coverage controls can save omitted optional values individually (0.187083ms)
+✔ preview validates and rolls back without writing a new feedback version (3.122958ms)
+✔ final save refuses unpublished additions and foreign organization resolutions (0.561167ms)
+✔ stale edits fail before a preview can be published (0.149083ms)
+✔ persists personal select additions and selection and reloads them (1.796666ms)
+✔ persists personal multiselect additions and selection and reloads them (2.232125ms)
+✔ persists personal multi-select additions and selection and reloads them (0.444792ms)
+✔ tracks individual inputs in history and rejects stale shared-session edits (0.425667ms)
+✔ one shared list supplies all sections, nested fields, and other submissions without changing selections or originals (1.414ms)
+✔ a previously saved submission can select a newly shared option and retain immutable history (4.095375ms)
+✔ publication and feedback save do not reject the same newly published option as a duplicate (0.371875ms)
+﹣ durable history, tenant isolation, immutable snapshots, concurrency and append-only restore (0.367834ms) # SKIP
+ℹ tests 27
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 255.143958
