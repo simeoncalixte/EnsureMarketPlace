@@ -1,0 +1,513 @@
+[
+  {
+    "baseRefName": "main",
+    "body": "Adds component capability policy, generated policy exports, catalog updates and contract tests.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-87](https://simeoncalixte1990.atlassian.net/browse/AIN-87) \u2014 To Do\n- [AIN-13](https://simeoncalixte1990.atlassian.net/browse/AIN-13) \u2014 In Progress\n\nValidation for this snapshot:\n\n- `npm test`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "bef65a0fca72e4ce45e6b297815fcc1ac99328ea",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 4,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:09Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredConstants/actions/runs/42483052127/job/128738949538",
+        "name": "build",
+        "startedAt": "2026-11-08T13:02:47Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:09Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredConstants/actions/runs/42483052127/job/128739048190",
+        "name": "publish",
+        "startedAt": "2026-11-08T13:03:09Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredConstants/pull/4",
+    "path": "EnsuredConstants"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Centralizes exact palette tokens, semantic themes and shared controls; adds palette interaction stories, component policy generation and embedded-panel support.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n- [AIN-160](https://simeoncalixte1990.atlassian.net/browse/AIN-160) \u2014 Done\n- [AIN-150](https://simeoncalixte1990.atlassian.net/browse/AIN-150) \u2014 Done\n- [AIN-151](https://simeoncalixte1990.atlassian.net/browse/AIN-151) \u2014 To Do\n\nValidation for this snapshot:\n\n- `npm run build:ui`: passed. \n- `node --test EnsuredXDS/test/palette.test.mjs && npm run theme:check && npm run component-policy:check`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "85845d155e21cbf550c3a57903fa0be3987bb432",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "number": 8,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:30Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredXDS/actions/runs/42483056429/job/128738962071",
+        "name": "build",
+        "startedAt": "2026-11-08T13:02:50Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:31Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredXDS/actions/runs/42483056429/job/128739137628",
+        "name": "publish",
+        "startedAt": "2026-11-08T13:03:31Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredXDS/pull/8",
+    "path": "EnsuredXDS"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds currency/accounting model contracts, schema component catalogs, request-scoped model execution and Muse/provider adapters.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-35](https://simeoncalixte1990.atlassian.net/browse/AIN-35) \u2014 In Progress\n- [AIN-52](https://simeoncalixte1990.atlassian.net/browse/AIN-52) \u2014 Done\n- [AIN-137](https://simeoncalixte1990.atlassian.net/browse/AIN-137) \u2014 In Progress\n- [AIN-138](https://simeoncalixte1990.atlassian.net/browse/AIN-138) \u2014 In Progress\n\nValidation for this snapshot:\n\n- `npm run build`: passed. \n- `npm test -- --runTestsByPath src/pipeline/agents/muse.test.ts`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "aeb9462a1e8b4dc9ceee2f50b15e772f13fccf5e",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 5,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineShared/pull/5",
+    "path": "EnsuredPipelineShared"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds transactional pricing publication and stable operation receipts with regression coverage.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-21](https://simeoncalixte1990.atlassian.net/browse/AIN-21) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run build && npm test -- --runTestsByPath src/pipeline/riskCompute/service.test.ts`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "e012ec5f5c835bd78e416967c7d6e2ef488dd81e",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 3,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/pull/3",
+    "path": "EnsuredPipelineRiskCompute"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds evidence batching, stable record identity, section planning and component inference evaluation while preserving generation/refinement contracts.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-87](https://simeoncalixte1990.atlassian.net/browse/AIN-87) \u2014 To Do\n- [AIN-50](https://simeoncalixte1990.atlassian.net/browse/AIN-50) \u2014 To Do\n\nValidation for this snapshot:\n\n- `npm run build && npm test -- --runTestsByPath src/pipeline/schemaGeneration/generationContract.test.ts src/pipeline/schemaGeneration/sectionPlanning.test.ts src/pipeline/schemaGeneration/schemaReviewProcess.test.ts src/pipeline/schemaGeneration/uiRefiner.test.ts`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "a5c748f393dfce9604aa69e376f91ee82fef9d7f",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 5,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/5",
+    "path": "EnsuredPipelineSchemaGeneration"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds commercial agreements/facilities, ledger and party subledger, network identity/publication/participation, reinsurance, scoped model settings/library/chat, authorization, migrations and integration fixtures. Includes partially delivered broader finance and release work; this checkpoint does not close its parent obligations.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-21](https://simeoncalixte1990.atlassian.net/browse/AIN-21) \u2014 Done\n- [AIN-34](https://simeoncalixte1990.atlassian.net/browse/AIN-34) \u2014 Done\n- [AIN-35](https://simeoncalixte1990.atlassian.net/browse/AIN-35) \u2014 In Progress\n- [AIN-48](https://simeoncalixte1990.atlassian.net/browse/AIN-48) \u2014 In Progress\n- [AIN-52](https://simeoncalixte1990.atlassian.net/browse/AIN-52) \u2014 Done\n- [AIN-70](https://simeoncalixte1990.atlassian.net/browse/AIN-70) \u2014 Done\n- [AIN-71](https://simeoncalixte1990.atlassian.net/browse/AIN-71) \u2014 Done\n- [AIN-72](https://simeoncalixte1990.atlassian.net/browse/AIN-72) \u2014 Done\n- [AIN-87](https://simeoncalixte1990.atlassian.net/browse/AIN-87) \u2014 To Do\n- [AIN-137](https://simeoncalixte1990.atlassian.net/browse/AIN-137) \u2014 In Progress\n- [AIN-138](https://simeoncalixte1990.atlassian.net/browse/AIN-138) \u2014 In Progress\n- [AIN-143](https://simeoncalixte1990.atlassian.net/browse/AIN-143) \u2014 In Progress\n\nValidation for this snapshot:\n\n- `npm run typecheck`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "76c43ae9cfd1876dc60fe7ea8263c7a6e79d9673",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 17,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/EnsuredAPI/pull/17",
+    "path": "EnsuredAPI"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds commercial/party/participation gateway boundaries, guest and account routing refinements, service-local configuration and generated theme asset delivery.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-70](https://simeoncalixte1990.atlassian.net/browse/AIN-70) \u2014 Done\n- [AIN-72](https://simeoncalixte1990.atlassian.net/browse/AIN-72) \u2014 Done\n- [AIN-83](https://simeoncalixte1990.atlassian.net/browse/AIN-83) \u2014 Done\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run build && npm test`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "8a7c492f030d78290370fc264e22f52797895b30",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "number": 19,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:29Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredAuth/actions/runs/42483078542/job/128739026957",
+        "name": "verify",
+        "startedAt": "2026-11-08T13:03:06Z",
+        "status": "COMPLETED",
+        "workflowName": "Verify shared email client"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:15Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://dash.cloudflare.com/ac3f12c162dd690b2907184d0ecd2572/workers/services/view/ensuredauth/production/builds/98b77c36-63c9-4e8f-9bd1-c553bc54fd49",
+        "name": "Workers Builds: ensuredauth",
+        "startedAt": "2026-11-08T13:03:15Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredAuth/pull/19",
+    "path": "EnsuredAuth"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Stops loading the API environment file and uses the KYC service environment file.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-1](https://simeoncalixte1990.atlassian.net/browse/AIN-1) \u2014 To Do\n\nValidation for this snapshot:\n\n- `npm run build && npm test`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "869e57c28d25c5ff2e21737a78ab08145785bd25",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 3,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/EnsuredKYC/pull/3",
+    "path": "EnsuredKYC"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Loads the registry service environment directly and serves generated XDS palette CSS with HTTP coverage.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-1](https://simeoncalixte1990.atlassian.net/browse/AIN-1) \u2014 To Do\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run build && npm test`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "3a63a20a28d51ba1b7cc991a7d45b0495513fe06",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 10,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:25Z",
+        "conclusion": "NEUTRAL",
+        "detailsUrl": "https://app.netlify.com/projects/effervescent-basbousa-12d77d/deploys/6af0730da6bbdcdba327e08e",
+        "name": "Pages changed - effervescent-basbousa-12d77d",
+        "startedAt": "2026-11-08T13:03:10Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://app.netlify.com/projects/effervescent-basbousa-12d77d/deploys/6af0730da6bbdcdba327e08e",
+        "name": "Header rules - effervescent-basbousa-12d77d",
+        "startedAt": "2026-11-08T13:03:10Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://app.netlify.com/projects/effervescent-basbousa-12d77d/deploys/6af0730da6bbdcdba327e08e",
+        "name": "Redirect rules - effervescent-basbousa-12d77d",
+        "startedAt": "2026-11-08T13:03:10Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "netlify/effervescent-basbousa-12d77d/deploy-preview",
+        "startedAt": "2026-11-08T13:03:26Z",
+        "state": "SUCCESS",
+        "targetUrl": "https://deploy-preview-10--effervescent-basbousa-12d77d.netlify.app"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredServices/pull/10",
+    "path": "EnsuredServices"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Changes email start/dev commands to read its own environment file.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-1](https://simeoncalixte1990.atlassian.net/browse/AIN-1) \u2014 To Do\n\nValidation for this snapshot:\n\n- `npm run build && npm test`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "2991e6f268f6d9242dd19b09a03c633acb50d805",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 5,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:39Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredEmail/actions/runs/42483090861/job/128739062117",
+        "name": "build",
+        "startedAt": "2026-11-08T13:03:15Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:39Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredEmail/actions/runs/42483090861/job/128739172506",
+        "name": "publish",
+        "startedAt": "2026-11-08T13:03:40Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredEmail/pull/5",
+    "path": "EnsuredEmail"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Updates feedback persistence, store behavior and shared-picklist integration for generated submission forms.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-87](https://simeoncalixte1990.atlassian.net/browse/AIN-87) \u2014 To Do\n- [AIN-50](https://simeoncalixte1990.atlassian.net/browse/AIN-50) \u2014 To Do\n\nValidation for this snapshot:\n\n- `npm run build && npm test`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "1f5e7fa3c9c27831fe1f7ed2c40099cedeed3c29",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 2,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/EnsuredSubmissionFeedback/pull/2",
+    "path": "EnsuredSubmissionFeedback"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Updates registration/account return flows, server-authorized administrator routing, shared controls and executable fixture interactions.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-2](https://simeoncalixte1990.atlassian.net/browse/AIN-2) \u2014 To Do\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n\nValidation for this snapshot:\n\n- `node --test test/*.test.mjs`: passed. \n- `npm run build:ui`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "19239232170ff1210f838f1cc3c88e011349b22b",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 4,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:56Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredAuthUI/actions/runs/42483099693/job/128739087349",
+        "name": "build",
+        "startedAt": "2026-11-08T13:03:21Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:57Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredAuthUI/actions/runs/42483099693/job/128739243841",
+        "name": "publish",
+        "startedAt": "2026-11-08T13:03:57Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredAuthUI/pull/4",
+    "path": "EnsuredAuthUI"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds reviewed participation terms, allocation requests and fixture interactions, listing transformations and shared palette integration.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-72](https://simeoncalixte1990.atlassian.net/browse/AIN-72) \u2014 Done\n- [AIN-78](https://simeoncalixte1990.atlassian.net/browse/AIN-78) \u2014 Done\n- [AIN-33](https://simeoncalixte1990.atlassian.net/browse/AIN-33) \u2014 Done\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run build:ui`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "fd2d04bad6fc1eec7e66f99ee7b23d6efd8b31d0",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "number": 3,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:50Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredMarketplace/actions/runs/42483103323/job/128739097462",
+        "name": "build",
+        "startedAt": "2026-11-08T13:03:23Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:51Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredMarketplace/actions/runs/42483103323/job/128739218868",
+        "name": "publish",
+        "startedAt": "2026-11-08T13:03:51Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredMarketplace/pull/3",
+    "path": "EnsuredMarketplace"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds opt-in party links, authorized market projections, exact publication handoffs, participation journeys, seed tools and real-service Docker/Storybook harnesses.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-70](https://simeoncalixte1990.atlassian.net/browse/AIN-70) \u2014 Done\n- [AIN-71](https://simeoncalixte1990.atlassian.net/browse/AIN-71) \u2014 Done\n- [AIN-72](https://simeoncalixte1990.atlassian.net/browse/AIN-72) \u2014 Done\n- [AIN-73](https://simeoncalixte1990.atlassian.net/browse/AIN-73) \u2014 Done\n- [AIN-74](https://simeoncalixte1990.atlassian.net/browse/AIN-74) \u2014 Done\n- [AIN-77](https://simeoncalixte1990.atlassian.net/browse/AIN-77) \u2014 Done\n- [AIN-78](https://simeoncalixte1990.atlassian.net/browse/AIN-78) \u2014 Done\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run build:ui`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "449b3bfd3bad9120f0b270c35f56aa09978bad2f",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "number": 5,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:49Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredNetwork/actions/runs/42483108260/job/128739112642",
+        "name": "build",
+        "startedAt": "2026-11-08T13:03:27Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:49Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredNetwork/actions/runs/42483108260/job/128739212834",
+        "name": "publish",
+        "startedAt": "2026-11-08T13:03:49Z",
+        "status": "COMPLETED",
+        "workflowName": "Package"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredNetwork/pull/5",
+    "path": "EnsuredNetwork"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Integrates XDS palette assets and shared chart/UI primitives, updates build configuration and executable logistics stories.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run typecheck`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "8eb7997732cb5b907ee2a42f186769ed746bbec4",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "number": 3,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:04:26Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredLogistics/actions/runs/42483112476/job/128739126175",
+        "name": "validate",
+        "startedAt": "2026-11-08T13:03:30Z",
+        "status": "COMPLETED",
+        "workflowName": "Logistics checks"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:04:39Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredLogistics/actions/runs/42483108162/job/128739112068",
+        "name": "validate",
+        "startedAt": "2026-11-08T13:03:27Z",
+        "status": "COMPLETED",
+        "workflowName": "Logistics checks"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredLogistics/pull/3",
+    "path": "EnsuredLogistics"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Updates standalone submission styling, theme bootstrap, relay configuration and Vite dependency handling.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n- [AIN-160](https://simeoncalixte1990.atlassian.net/browse/AIN-160) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run build`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "dd002383b4185f5d936e54f05857ccd91eb6ae3a",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 3,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/SubmissionUI/pull/3",
+    "path": "SubmissionUI"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds facilities/agreements/retrocession/reinsurance/parties workspaces, network participation, model library/settings/chat, schema-driven submission refinements and shared palette integration. Retains current main fixes for party labels and submission remounts. Corrects stale pipeline visualization color assertions.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-34](https://simeoncalixte1990.atlassian.net/browse/AIN-34) \u2014 Done\n- [AIN-70](https://simeoncalixte1990.atlassian.net/browse/AIN-70) \u2014 Done\n- [AIN-71](https://simeoncalixte1990.atlassian.net/browse/AIN-71) \u2014 Done\n- [AIN-72](https://simeoncalixte1990.atlassian.net/browse/AIN-72) \u2014 Done\n- [AIN-87](https://simeoncalixte1990.atlassian.net/browse/AIN-87) \u2014 To Do\n- [AIN-138](https://simeoncalixte1990.atlassian.net/browse/AIN-138) \u2014 In Progress\n- [AIN-143](https://simeoncalixte1990.atlassian.net/browse/AIN-143) \u2014 In Progress\n- [AIN-150](https://simeoncalixte1990.atlassian.net/browse/AIN-150) \u2014 Done\n- [AIN-159](https://simeoncalixte1990.atlassian.net/browse/AIN-159) \u2014 Done\n- [AIN-160](https://simeoncalixte1990.atlassian.net/browse/AIN-160) \u2014 Done\n\nValidation for this snapshot:\n\n- `npm run build:ui`: passed. \n- `node --test test/*.test.mjs config/gateway.test.mjs`: passed. 52/52 passed after replacing stale hard-coded colors with XDS palette contracts; ui-unit-final.log supersedes initial failure.\n- `node --test EnsuredXDS/test/palette.test.mjs && npm run theme:check && npm run component-policy:check`: passed. \n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "34e6cb279f0ecdba9f6c7283457db5473e5ccb3c",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "number": 15,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:04:08Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsuredUI/actions/runs/42483120630/job/128739150490",
+        "name": "build",
+        "startedAt": "2026-11-08T13:03:36Z",
+        "status": "COMPLETED",
+        "workflowName": "Build frontend"
+      },
+      {
+        "__typename": "StatusContext",
+        "context": "Vercel",
+        "startedAt": "2026-11-08T13:03:44Z",
+        "state": "FAILURE",
+        "targetUrl": "https://vercel.com/simeoncalixte-3191s-projects/ensured-ui/BfWnoF2fRfGdoMLaLRDCTq27atYE"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:03:44Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://vercel.com/github",
+        "name": "Vercel Preview Comments",
+        "startedAt": "2026-11-08T13:03:44Z",
+        "status": "COMPLETED",
+        "workflowName": ""
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsuredUI/pull/15",
+    "path": "EnsuredUI"
+  },
+  {
+    "baseRefName": "main",
+    "body": "Adds authoritative ownership/data dictionary, currency/events/subledger/pricing contracts, network/marketplace delivery evidence and schema inference planning.\n\nPart of the coordinated current-workspace review. Merge shared contracts and owning services before consumers; merge the parent submodule update last.\n\nJira scope (freshly read, statuses unchanged):\n\n- [AIN-48](https://simeoncalixte1990.atlassian.net/browse/AIN-48) \u2014 In Progress\n- [AIN-35](https://simeoncalixte1990.atlassian.net/browse/AIN-35) \u2014 In Progress\n- [AIN-34](https://simeoncalixte1990.atlassian.net/browse/AIN-34) \u2014 Done\n- [AIN-52](https://simeoncalixte1990.atlassian.net/browse/AIN-52) \u2014 Done\n- [AIN-70](https://simeoncalixte1990.atlassian.net/browse/AIN-70) \u2014 Done\n- [AIN-71](https://simeoncalixte1990.atlassian.net/browse/AIN-71) \u2014 Done\n- [AIN-72](https://simeoncalixte1990.atlassian.net/browse/AIN-72) \u2014 Done\n- [AIN-87](https://simeoncalixte1990.atlassian.net/browse/AIN-87) \u2014 To Do\n\nValidation for this snapshot:\n\n- Documentation review; no executable behavior changed. Two Markdown hard-break spaces are intentional.\n\nEvidence and prior story \u2192 component \u2192 Jira mappings: [workspace handoff](https://github.com/simeoncalixte/EnsureMarketPlace/blob/codex/workspace-changes-2026-11-08/TASK_HANDOFF.md) and [verification records](https://github.com/simeoncalixte/EnsureMarketPlace/tree/codex/workspace-changes-2026-11-08/output/current-prs-2026-11-08). Historical interaction/database evidence is retained in the handoff and output directories; it was not all rerun for PR preparation.\n\nDraft review checkpoint. Local builds use installed workspace dependencies, not a clean registry-only installation. No production migration, deployment, package publication or real-provider acceptance is claimed. Known XDS source-boundary, published-package/frontend CI, provider-access and staging gaps remain documented; broader Jira objectives remain incomplete.\n",
+    "headRefOid": "43987cf2c08e53998859a8a9f4e63ffffe6bc922",
+    "isDraft": true,
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 2,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/2",
+    "path": "docs"
+  },
+  {
+    "baseRefName": "master",
+    "body": "Capture the current multi-repository implementation and its verification evidence so the commercial, financial, network, AI-settings/chat and shared-theme changes can be reviewed together. Updates 18 submodule references and includes local Docker/database configuration, pipeline release checks, verification scripts, documentation and historical evidence.\n\nMerge the component PRs before this parent PR. Shared contracts and packages precede owning services and UI consumers. The parent targets `master`, the existing default branch approved by the user; components target `main`.\n\n- [EnsuredConstants](https://github.com/simeoncalixte/EnsuredConstants/pull/4) \u2014 `bef65a0fca72`\n- [EnsuredXDS](https://github.com/simeoncalixte/EnsuredXDS/pull/8) \u2014 `85845d155e21`\n- [EnsuredPipelineShared](https://github.com/simeoncalixte/EnsuredPipelineShared/pull/5) \u2014 `aeb9462a1e8b`\n- [EnsuredPipelineRiskCompute](https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/pull/3) \u2014 `e012ec5f5c83`\n- [EnsuredPipelineSchemaGeneration](https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/5) \u2014 `a5c748f393df`\n- [EnsuredAPI](https://github.com/simeoncalixte/EnsuredAPI/pull/17) \u2014 `76c43ae9cfd1`\n- [EnsuredAuth](https://github.com/simeoncalixte/EnsuredAuth/pull/19) \u2014 `8a7c492f030d`\n- [EnsuredKYC](https://github.com/simeoncalixte/EnsuredKYC/pull/3) \u2014 `869e57c28d25`\n- [EnsuredServices](https://github.com/simeoncalixte/EnsuredServices/pull/10) \u2014 `3a63a20a28d5`\n- [EnsuredEmail](https://github.com/simeoncalixte/EnsuredEmail/pull/5) \u2014 `2991e6f268f6`\n- [EnsuredSubmissionFeedback](https://github.com/simeoncalixte/EnsuredSubmissionFeedback/pull/2) \u2014 `1f5e7fa3c9c2`\n- [EnsuredAuthUI](https://github.com/simeoncalixte/EnsuredAuthUI/pull/4) \u2014 `19239232170f`\n- [EnsuredMarketplace](https://github.com/simeoncalixte/EnsuredMarketplace/pull/3) \u2014 `fd2d04bad6fc`\n- [EnsuredNetwork](https://github.com/simeoncalixte/EnsuredNetwork/pull/5) \u2014 `449b3bfd3bad`\n- [EnsuredLogistics](https://github.com/simeoncalixte/EnsuredLogistics/pull/3) \u2014 `8eb7997732cb`\n- [SubmissionUI](https://github.com/simeoncalixte/SubmissionUI/pull/3) \u2014 `dd002383b418`\n- [EnsuredUI](https://github.com/simeoncalixte/EnsuredUI/pull/15) \u2014 `34e6cb279f0e`\n- [docs](https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/2) \u2014 `43987cf2c08e`\n\nValidation: fresh component builds/typechecks and selected regression suites pass, including the full UI workspace build and 52 host UI tests. Corrected two stale pipeline color expectations. Exact commands/results are in `output/current-prs-2026-11-08/verification.json`; historical interaction/database evidence and Jira \u2192 component \u2192 story mappings are retained in `TASK_HANDOFF.md`.\n\nAll 160 Jira issues were refreshed without status changes. Existing platform, registry/package, provider and staging obligations remain open. Draft review checkpoint: full integration/interaction suites and clean-registry installs were not rerun; no production migration, package publication or deployment is claimed. Known AIN-13/AIN-151 and provider limitations are preserved in the handoff.\n\nIncludes all non-ignored current source/evidence changes. Environment files, runtime-uploaded data, credential manifests, local database snapshots and Python caches remain excluded. No application data or credentials are intentionally included.\n",
+    "headRefOid": "e38dc60e8ec81dbee5b8090dc5c37e566f12aac8",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "number": 75,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-08T13:05:56Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsureMarketPlace/actions/runs/42483303628/job/128739691058",
+        "name": "release-parity",
+        "startedAt": "2026-11-08T13:05:51Z",
+        "status": "COMPLETED",
+        "workflowName": "Pipeline release parity"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/75",
+    "path": "."
+  }
+]

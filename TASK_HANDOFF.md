@@ -1,3 +1,13 @@
+# New PR merge delivery — 2026-11-08
+
+User explicitly authorized merging all 19 newly created PRs, superseding the prior create-only instruction. Scope: the 18 component PRs listed below and parent #75. All component PRs were marked ready, merged through normal GitHub merge commits in dependency order, and read back as MERGED into main at their expected heads. Parent #75 is the final integration merge into the previously approved master branch; its GitHub merged state is the authoritative final receipt: https://github.com/simeoncalixte/EnsureMarketPlace/pull/75. The parent preserves all 18 reviewed submodule commits, now reachable from component main histories. No admin bypass, force push, source modification, branch deletion, manual migration or manual deployment.
+
+Evidence: `output/new-pr-merges-2026-11-08/{baseline.json,components-merged.json,ci-diagnostics.json,jira-readback.json}`. Prior snapshot build/regression evidence remains in `output/current-prs-2026-11-08/`; unchanged code was not retested. Fresh Jira read-back: AIN-1 To Do; AIN-13/137/138/143 In Progress; AIN-151 To Do. No issue status changed; merging source does not complete broader acceptance criteria.
+
+Seven PRs had failed checks at refresh: XDS formatting (16 files); Marketplace/Network older published XDS contracts; Logistics missing XDS modules/types; UI published Constants missing componentPolicy export plus Vercel failure; Auth Cloudflare failure; parent parity workflow missing checkout token. Normal merges are authorized despite these reported non-blocking checks; none were disabled or overridden. CI/deployment/release gaps remain unresolved. Merge-triggered automation may run independently; no successful deployment or package release is claimed. Next release work: resolve formatting, publish/pin compatible shared packages, provide the parity checkout credential and verify deployment/provider/staging gates. The broader release objective remains incomplete.
+
+---
+
 # Current-changes PR delivery — 2026-11-08
 
 Objective: create PRs for all current changes after the earlier 17-PR merge. Scope is all non-ignored existing source, tests, migrations, docs, scripts and recorded evidence in 18 dirty components plus the parent. Components target main; parent retains master per the user's approved branch choice. Existing secret/environment files, uploaded/runtime data, credential manifests/database snapshots and Python caches are excluded; no source workflow was dropped. Branch in every changed repository: `codex/workspace-changes-2026-11-08`.

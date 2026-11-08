@@ -1,0 +1,99 @@
+[
+  {
+    "path": "EnsuredXDS",
+    "run": "42483056429",
+    "diagnostic": [
+      "build\tRun npm run format:check\t2026-11-08T13:03:25.9182750Z [^[[33mwarn^[[39m] schema/component-registry.json",
+      "build\tRun npm run format:check\t2026-11-08T13:03:26.1829118Z [^[[33mwarn^[[39m] src/colors.stories.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:26.2439189Z [^[[33mwarn^[[39m] src/colors.ts",
+      "build\tRun npm run format:check\t2026-11-08T13:03:26.4979060Z [^[[33mwarn^[[39m] src/components/Badge.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:26.6889525Z [^[[33mwarn^[[39m] src/components/CollapsibleSection.stories.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:26.7117074Z [^[[33mwarn^[[39m] src/components/CollapsibleSection.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:27.1548100Z [^[[33mwarn^[[39m] src/components/GaugeChart.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:27.3409223Z [^[[33mwarn^[[39m] src/components/Input.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:27.9265379Z [^[[33mwarn^[[39m] src/components/Select.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:28.1564417Z [^[[33mwarn^[[39m] src/components/ThemeToggle.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:28.4779638Z [^[[33mwarn^[[39m] src/palette.stories.tsx",
+      "build\tRun npm run format:check\t2026-11-08T13:03:28.4935310Z [^[[33mwarn^[[39m] src/palette.ts",
+      "build\tRun npm run format:check\t2026-11-08T13:03:28.5971891Z [^[[33mwarn^[[39m] Code style issues found in 16 files. Run Prettier with --write to fix.",
+      "build\tRun npm run format:check\t2026-11-08T13:03:28.6287369Z ##[error]Process completed with exit code 1."
+    ],
+    "exit": 0
+  },
+  {
+    "path": "EnsuredMarketplace",
+    "run": "42483103323",
+    "diagnostic": [
+      "build\tRun npm run build\t2026-11-08T13:03:49.3231796Z ##[error]src/Pages/Marketplace/MarketplaceParticipation.tsx(388,24): error TS2322: Type '{ children: Element[]; bare: true; value: string; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:49.3246268Z ##[error]src/components/marketplace/mapLayers.ts(83,96): error TS2339: Property 'palette' does not exist on type '{ readonly brand: { readonly 50: \"#eef2ff\"; readonly 100: \"#e0e7ff\"; readonly 200: \"#c7d2fe\"; readonly 300: \"#a5b4fc\"; readonly 400: \"#818cf8\"; readonly 500: \"#6366f1\"; readonly 600: \"#4f46e5\"; readonly 700: \"#4338ca\"; readonly 800: \"#3730a3\"; readonly 900: \"#312e81\"; }; ... 48 more ...; readonly ui: { ...; }; }'.",
+      "build\tRun npm run build\t2026-11-08T13:03:49.3251945Z ##[error]src/components/marketplace/mapLayers.ts(104,98): error TS2339: Property 'palette' does not exist on type '{ readonly brand: { readonly 50: \"#eef2ff\"; readonly 100: \"#e0e7ff\"; readonly 200: \"#c7d2fe\"; readonly 300: \"#a5b4fc\"; readonly 400: \"#818cf8\"; readonly 500: \"#6366f1\"; readonly 600: \"#4f46e5\"; readonly 700: \"#4338ca\"; readonly 800: \"#3730a3\"; readonly 900: \"#312e81\"; }; ... 48 more ...; readonly ui: { ...; }; }'.",
+      "build\tRun npm run build\t2026-11-08T13:03:49.3413921Z ##[error]Process completed with exit code 2."
+    ],
+    "exit": 0
+  },
+  {
+    "path": "EnsuredNetwork",
+    "run": "42483108260",
+    "diagnostic": [
+      "build\tRun npm run build\t2026-11-08T13:03:46.2716227Z ##[error]src/AppetiteEditor.tsx(199,24): error TS2322: Type '{ children: Element[]; bare: true; disabled: true; value: string; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:46.2742216Z ##[error]src/Network.tsx(681,22): error TS2322: Type '{ children: Element[] | undefined; bare: true; multiple: true; value: string[]; disabled: boolean; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:46.2763877Z ##[error]src/Network.tsx(712,151): error TS2322: Type '{ children: (Element | Element[])[]; bare: true; value: string; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:46.2772876Z ##[error]src/Network.tsx(804,22): error TS2322: Type '{ children: Element[]; bare: true; value: string; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:46.2821795Z ##[error]src/Network.tsx(1169,16): error TS2322: Type '{ children: (Element | Element[])[]; bare: true; \"aria-label\": string; value: string; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:46.2853539Z ##[error]src/Network.tsx(1289,24): error TS2322: Type '{ children: Element[]; bare: true; value: string; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:46.2896834Z ##[error]src/Network.tsx(1782,26): error TS2322: Type '{ children: Element[]; bare: true; \"aria-label\": string; value: string; onChange: (e: ChangeEvent<HTMLSelectElement, HTMLSelectElement>) => void; }' is not assignable to type 'IntrinsicAttributes & SelectHTMLAttributes<HTMLSelectElement>'.",
+      "build\tRun npm run build\t2026-11-08T13:03:46.3228414Z ##[error]Process completed with exit code 2."
+    ],
+    "exit": 0
+  },
+  {
+    "path": "EnsuredLogistics",
+    "run": "42483112476",
+    "diagnostic": [
+      "validate\tRun npm test\t2026-11-08T13:04:24.6173727Z ##[error]app/logistics/LogisticsApp.tsx(2,35): error TS2307: Cannot find module '@ensured/xds/components/Input' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6183400Z ##[error]app/logistics/LogisticsApp.tsx(3,37): error TS2307: Cannot find module '@ensured/xds/components/Select' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6186226Z ##[error]app/logistics/LogisticsApp.tsx(4,41): error TS2307: Cannot find module '@ensured/xds/components/Textarea' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6188614Z ##[error]app/logistics/LogisticsApp.tsx(5,34): error TS2307: Cannot find module '@ensured/xds/theme' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6191002Z ##[error]app/logistics/LogisticsApp.tsx(6,37): error TS2307: Cannot find module '@ensured/xds/components/Button' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6193408Z ##[error]app/logistics/LogisticsApp.tsx(30,24): error TS2307: Cannot find module '@ensured/xds/components/Button' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6195655Z ##[error]app/logistics/LogisticsApp.tsx(487,30): error TS7006: Parameter 'e' implicitly has an 'any' type.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6197417Z ##[error]app/logistics/LogisticsApp.tsx(495,28): error TS7006: Parameter 'e' implicitly has an 'any' type.",
+      "validate\tRun npm test\t2026-11-08T13:04:24.6914784Z ##[error]Process completed with exit code 2."
+    ],
+    "exit": 0
+  },
+  {
+    "path": "EnsuredLogistics",
+    "run": "42483108162",
+    "diagnostic": [
+      "validate\tRun npm test\t2026-11-08T13:04:37.2312465Z ##[error]app/logistics/LogisticsApp.tsx(2,35): error TS2307: Cannot find module '@ensured/xds/components/Input' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.2325095Z ##[error]app/logistics/LogisticsApp.tsx(3,37): error TS2307: Cannot find module '@ensured/xds/components/Select' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.2328402Z ##[error]app/logistics/LogisticsApp.tsx(4,41): error TS2307: Cannot find module '@ensured/xds/components/Textarea' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.2331471Z ##[error]app/logistics/LogisticsApp.tsx(5,34): error TS2307: Cannot find module '@ensured/xds/theme' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.2335511Z ##[error]app/logistics/LogisticsApp.tsx(6,37): error TS2307: Cannot find module '@ensured/xds/components/Button' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.2338657Z ##[error]app/logistics/LogisticsApp.tsx(30,24): error TS2307: Cannot find module '@ensured/xds/components/Button' or its corresponding type declarations.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.2341366Z ##[error]app/logistics/LogisticsApp.tsx(487,30): error TS7006: Parameter 'e' implicitly has an 'any' type.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.2344070Z ##[error]app/logistics/LogisticsApp.tsx(495,28): error TS7006: Parameter 'e' implicitly has an 'any' type.",
+      "validate\tRun npm test\t2026-11-08T13:04:37.3232236Z ##[error]Process completed with exit code 2."
+    ],
+    "exit": 0
+  },
+  {
+    "path": "EnsuredUI",
+    "run": "42483120630",
+    "diagnostic": [
+      "build\tRun npm run build\t2026-11-08T13:04:06.8030961Z ^[[31mx^[[39m Build failed in 1.36s",
+      "build\tRun npm run build\t2026-11-08T13:04:06.8039964Z ^[[31merror during build:",
+      "build\tRun npm run build\t2026-11-08T13:04:06.8365382Z ##[error]Process completed with exit code 1."
+    ],
+    "exit": 0
+  },
+  {
+    "path": ".",
+    "run": "42483303628",
+    "diagnostic": [
+      "release-parity\tRun actions/checkout@v4\t2026-11-08T13:05:53.7862693Z ##[error]Input required and not supplied: token"
+    ],
+    "exit": 0
+  }
+]
