@@ -1,0 +1,20 @@
+{
+  "EnsuredAPI": {
+    "name": "ensured-api",
+    "version": "0.1.0",
+    "gitHead": "31dcfde46df9adb91f49917f3a8393b3c0e1910f",
+    "dirty": true
+  },
+  "EnsuredUI": {
+    "name": "ensured-ui",
+    "version": "0.1.0",
+    "gitHead": "3480e853ef0c09400bfe4acce4d223b1b7423ef7",
+    "dirty": true
+  },
+  "EnsuredPipelineShared": {
+    "name": "@simeoncalixte/ensured-pipeline-shared",
+    "version": "0.1.0",
+    "gitHead": "3cd4f5e2e6e31a1e34c6eff5d7f7ad3a92702062",
+    "dirty": true
+  }
+}

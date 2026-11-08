@@ -1,0 +1,315 @@
+EnsuredUI/src/components/signing/WrittenSignature.tsx:17: padding:12px 18px;border-radius:8px;background:#fff;color:#122132;overflow-wrap:anywhere;
+EnsuredUI/src/components/signing/WrittenSignature.tsx:19: img{display:block;max-width:100%;max-height:220px;object-fit:contain;}small{display:block;color:#475569;font-size:11px;margin-bottom:6px;}
+EnsuredUI/src/components/signing/WrittenSignature.tsx:29: const clearCanvas=()=>{const c=canvasRef.current,ctx=c?.getContext('2d');if(c&&ctx){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,c.width,c.height);ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#122132';}};
+EnsuredUI/src/components/signing/WrittenSignature.tsx:43:  <div hidden={mode!=='drawn'}><canvas ref={canvasRef} width={720} height={240} aria-label="Draw your signature with a mouse, touch, or pen. Choose Type for keyboard signing." onPointerDown={event=>{if(disabled||pointer.current!==null||event.button!==0)return;pointer.current=event.pointerId;event.currentTarget.setPointerCapture(event.pointerId);const ctx=event.currentTarget.getContext('2d'),p=point(event);if(ctx){ctx.beginPath();ctx.fillStyle='#122132';ctx.arc(p.x,p.y,1.25,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(p.x,p.y)}}} onPointerMove={event=>{if(disabled||pointer.current!==event.pointerId)return;const p=point(event),ctx=event.currentTarget.getContext('2d');ctx?.lineTo(p.x,p.y);ctx?.stroke()}} onPointerUp={finish} onPointerCancel={finish}/><div className="controls"><button type="button" disabled={disabled} onClick={()=>{pointer.current=null;clearCanvas();setDrawn('');onChange(null)}}>Clear signature</button><small>Use your mouse, finger, or pen. You can also type your name.</small></div></div>
+EnsuredUI/src/components/marketplace/ApplicationSidebar.tsx:8:  --nav-background: var(--xds-surface-deep, #0e1618);
+EnsuredUI/src/components/marketplace/ApplicationSidebar.tsx:9:  --nav-border: var(--xds-border, #213034);
+EnsuredUI/src/components/marketplace/ApplicationSidebar.tsx:10:  --nav-text: var(--xds-on-surface-variant, #9cabae);
+EnsuredUI/src/components/marketplace/ApplicationSidebar.tsx:11:  --nav-muted: var(--xds-outline, #637679);
+EnsuredUI/src/components/marketplace/ApplicationSidebar.tsx:12:  --nav-accent: var(--xds-primary, #6cd6b0);
+EnsuredUI/src/components/marketplace/ApplicationSidebar.tsx:51:  @media(max-width: 1023px) { display: block; position: fixed; inset: 0; z-index: 79; background: #0008; border: 0; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:10:  color: #edf1f3; background: radial-gradient(ellipse at top left, #213e37 0, transparent 45%), radial-gradient(ellipse at 60% 90%, #1c3435 0, transparent 40%), #080f16;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:16:  header p { font-size: 12px; line-height: 1.5; color: #d3dcdc; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:18:  button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #9cdac6; outline-offset: 3px; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:19:  [role='alert'] { color: #ffb4ab; line-height: 1.5; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:20:  [role='status'] { color: #b5dace; line-height: 1.5; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:23:  border: 1px solid #39444d; border-radius: 7px; padding: 14px;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:24:  background: #060d1340; display: grid; gap: 10px; min-width: 0;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:30:  padding: 8px 12px; border-radius: 5px; border: 1px solid #50525e; color: #f0f1f3;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:31:  background: linear-gradient(#303039, #25252e); cursor: pointer; font: inherit;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:32:  &:hover:not(:disabled) { background: #3c434a; border-color: #799489; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:36:  width: 100%; background: #fff; color: #182026; min-height: 34px;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:37:  &:hover:not(:disabled) { background: #e7eee9; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:48:  border-radius: 5px; border: 1px solid ${p => p.$checked ? '#869e9a' : '#39444d'};
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:49:  background: ${p => p.$checked ? '#ffffff24' : 'transparent'}; cursor: pointer; font-size: 13px;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:51:  &:focus-within { outline: 2px solid #9cdac6; outline-offset: 2px; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:57:    color: #f1f3f4; background: #2b2b34; border: 1px solid #7c818a; border-radius: 5px; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:60:const Consent = styled.p`font-size: 11px; line-height: 1.5; color: #ccd5d7;`
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:61:const TableWrap = styled.div`border: 1px solid #39444d; border-radius: 6px; overflow: hidden;`
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:64:  th { background: #2b2b34; padding: 6px 10px; font-size: 11px; font-weight: 400; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:66:  td { padding: 10px; vertical-align: middle; border-top: 1px solid #39444d; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:67:  tbody tr:hover { background: #ffffff05; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:75:    tr + tr { border-top: 1px solid #39444d; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:88:  border-radius: 50%; background: #49665f; color: #e5f2ea; border: 1px solid #7f958e;
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:90:const Status = styled.p<{ $active?: boolean }>`font-size: 11px; line-height: 1.5; color: ${p => p.$active ? '#a8d4bd' : '#c1cbd0'};`
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:91:const Metadata = styled.p`font-size: 11px; color: #c1cbd0; line-height: 1.5;`
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:97:    <path d="M3 23V5L16 15L29 5V23" stroke="#4285f4" strokeWidth="6" strokeLinejoin="round" />
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:98:    <path d="M29 23V5L23 9.6V23" fill="#34a853" />
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:99:    <path d="M3 5L16 15L29 5" stroke="#ea4335" strokeWidth="6" strokeLinejoin="round" />
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:100:    <path d="M3 5V12" stroke="#c5221f" strokeWidth="6" /><path d="M29 5V12" stroke="#fbbc04" strokeWidth="6" />
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:102:    <rect x="10" y="2" width="20" height="24" rx="2" fill="#168bd0" /><path d="M10 13L20 20L30 13" fill="#55b7ed" />
+EnsuredUI/src/Pages/InsurerDashboard/EmailIngestConfig.tsx:103:    <rect x="0" y="6" width="19" height="19" rx="2" fill="#0867b5" /><text x="9.5" y="20" textAnchor="middle" fill="white" fontSize="15" fontFamily="Arial">O</text>
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.tsx:42: <div className="banner"><span className="banner-icon"><Icon size={30}/></span><div><h3>Your models. The right choice for your work.</h3><p>Save models from your providers, verify their connections, and choose a default. Your personal choice takes priority over organization settings.</p></div><svg className="wave" viewBox="0 0 300 120" fill="none" aria-hidden="true">{Array.from({length:9},(_,i)=><path key={i} d={`M0 ${90+i*3} C80 ${-30+i*8},160 ${160-i*9},300 ${10+i*7}`} stroke={i%2?'#00edbd':'#008dff'}/>)}</svg></div>
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:32:    color: #92b6aa;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:47:    border: 1px solid #364542;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:51:    color: #c2ccc8;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:52:    background: #15211f;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:55:    color: #9ce2bc;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:56:    background: #142b22;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:57:    border-color: #2c5140;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:60:    color: #ebd292;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:61:    background: #2a2518;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:62:    border-color: #52472b;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:66:    color: #91a39d;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:75:    border: 1px solid #293a35;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:76:    background: #111c1a;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:97:    border-bottom: 1px solid #2d3b36;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:106:    color: #a8b7b0;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:110:    color: #a6e5c7;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:111:    border-bottom-color: #8ed3b2;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:112:    background: #14211d;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:118:    border: 1px solid #2c3b35;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:120:    background: #111b18;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:127:    border-right: 1px solid #2c3b35;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:135:    color: #a0b1a8;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:155:    border: 1px solid #2a3833;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:157:    background: #111b18;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:182:    border-top: 1px solid #2a3833;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:198:    border-top: 1px solid #2a3833;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:206:    background: #1e3028;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:207:    color: #b4d8c5;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:227:    border-top: 1px solid #2a3833;
+EnsuredUI/src/Pages/Commercial/RetrocessionDetail.tsx:249:      border-bottom: 1px solid #2c3b35;
+EnsuredUI/src/Pages/Admin/AdminPage.tsx:190:  { time: '14:18:45', tag: '[SYS]', tagColor: colors.primarySoft, message: 'Satellite imagery batch #992 processed (Cloud coverage 12%)...' },
+EnsuredUI/src/Pages/InsurerDashboard/pipelineDatabases.ts:3:  { key: 'pipeline', name: 'Pipeline artifacts', label: 'POSTGRES · JSONB', color: '#34ffc8', description: 'Processing stages persist recorded inputs and outputs in the shared pipeline artifact store.' },
+EnsuredUI/src/Pages/InsurerDashboard/Settings.tsx:9:  width:100%; min-width:0; flex:1; box-sizing:border-box; min-height:100%; background:#061320; color:#edf4ff;
+EnsuredUI/src/Pages/InsurerDashboard/Settings.tsx:10:  > header {display:flex;align-items:center;gap:12px;padding:20px 32px;border-bottom:1px solid #203348;}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:3: container-type:inline-size;color:#edf5ff;width:100%;min-width:0;--line:#244766;--muted:#aac3df;
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:5: .heading,.toolbar,.row,.actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.heading{justify-content:space-between;margin-bottom:26px}.heading p{margin-top:8px}.title{display:flex;align-items:center;gap:14px}.title svg{color:#54b1ff}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:6: button,input,select{font:inherit}button{cursor:pointer;color:inherit;border:1px solid var(--line);background:#10263e;padding:11px 17px;border-radius:10px}button:hover:not(:disabled){border-color:#57c9df;background:#16344f}button:disabled{opacity:.48;cursor:default}.primary{background:linear-gradient(110deg,#006aff,#119cf3);border-color:#198aff;color:white;font-weight:600}.primary:hover:not(:disabled){background:#107ee5}.test{border-color:#24e4cc;background:#0b3b42}.quiet{background:transparent}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:7: svg{flex-shrink:0} :focus-visible{outline:3px solid #72eadc;outline-offset:4px}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:8: .banner{display:flex;align-items:center;gap:22px;position:relative;overflow:hidden;border:1px solid #2f6b9d;border-radius:14px;padding:24px;margin-bottom:28px;background:linear-gradient(110deg,#0d2947,#092139 64%,#081c2d)}.banner p{margin-top:6px;max-width:690px}.banner-icon{display:grid;place-items:center;width:60px;height:60px;flex-shrink:0;border-radius:50%;border:1px solid #227ed2;background:#073c7d;color:#9bd6ff}.wave{position:absolute;right:-20px;bottom:-10px;width:280px;height:110px;opacity:.35;pointer-events:none}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:10: .layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:26px;align-items:start}.list-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}.count{display:inline-grid;place-items:center;min-width:27px;height:27px;border-radius:20px;background:#0a4583;color:#d6edff;font-size:14px;margin-left:10px}.search{max-width:250px;min-width:0}.cards{display:grid;gap:14px}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:11: .card{text-align:left;width:100%;display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;padding:22px;border-radius:14px;background:linear-gradient(125deg,#0b2339,#091c30);position:relative}.card[aria-pressed=true]{border-color:#2debd5;box-shadow:inset 3px 0 #2debd5,0 0 0 1px #2debd5}.card h3{font-size:19px;overflow-wrap:anywhere}.card p{font-size:14px;overflow-wrap:anywhere}.card .row{gap:8px;margin-top:9px}.provider-mark{width:62px;height:62px;display:grid;place-items:center;border-radius:17px;border:1px solid #286078;background:#061623;color:#39e4ce;font-size:25px;font-weight:700}.provider-mark[data-provider=gemini]{color:#a0b2ff}.provider-mark[data-provider=qwen]{color:#c2a9ff}.provider-mark[data-provider=ollama]{color:#eee}.badge{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:5px 10px;border-radius:20px;white-space:nowrap;border:1px solid #34516c;color:#bfd3e8;background:#102d43}.badge.verified{color:#aaffec;border-color:#0c8279;background:#06433f}.badge.failed{color:#ffbdb7;border-color:#844746;background:#34232b}.badge.default{color:#79e5ff;border-color:#138bb4;background:#06364c}.dot{width:7px;height:7px;background:currentColor;border-radius:50%}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:12: .detail{border:1px solid var(--line);border-radius:15px;background:linear-gradient(140deg,#0c263e,#07182b);padding:26px;min-width:0}.detail-head{display:flex;gap:17px;align-items:center;margin-bottom:24px}.detail-head h3{overflow-wrap:anywhere}.detail-head p{font-size:14px}.detail dl{margin:0 0 24px}.detail dl>div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;padding:16px 0;border-top:1px solid #203e58}.detail dt{color:var(--muted);font-size:14px}.detail dd{margin:0;overflow-wrap:anywhere;font-size:14px}.detail .actions{margin-top:18px}.detail .actions button{flex:1}.detail .hint{font-size:12px;margin-top:12px}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:13: input,select{box-sizing:border-box;width:100%;min-width:0;padding:11px 13px;border:1px solid #355874;border-radius:9px;background:#091d30;color:#edf5ff}input::placeholder{color:#94b3d2}.fields{display:grid;gap:17px;border:0;margin:0;padding:0;min-width:0}.fields label{display:grid;gap:7px;font-size:14px}.fields small{font-size:12px;color:var(--muted)}
+EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.styles.ts:14: .empty{padding:36px 20px;text-align:center;border:1px dashed #31536c;border-radius:14px;color:var(--muted)}.empty svg{color:#4c9cc3;margin-bottom:14px}.empty h3{margin-bottom:8px}.feedback{padding:13px 17px;margin-bottom:18px;border-radius:9px;border:1px solid #246a69;background:#0b333b;overflow-wrap:anywhere}.feedback[role=alert]{border-color:#854542;background:#33212a;color:#ffc7c0}.pagination{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:17px;font-size:13px;color:var(--muted)}.privacy{display:flex;gap:12px;align-items:center;font-size:13px;margin-top:30px;color:var(--muted)}.privacy svg{color:#94c4ed}
+EnsuredUI/src/Pages/InsurerDashboard/appetite/JurisdictionMap.tsx:28:      instance.setPaintProperty('appetite-country-fill', 'fill-color', ['case', ['in', ['get', 'iso_3166_1'], ['literal', latest.current.rules.filter(r => r.jurisdiction.type === 'country' && r.disposition === 'exclude').map(r => r.jurisdiction.countryCode)]], '#d45b73', '#25d5df'])
+EnsuredUI/src/Pages/InsurerDashboard/appetite/JurisdictionMap.tsx:34:        filter: ['in', ['get', 'iso_3166_1'], ['literal', []]], paint: { 'fill-color': '#25d5df', 'fill-opacity': 0.2 } })
+EnsuredUI/src/Pages/InsurerDashboard/appetite/JurisdictionMap.tsx:36:        paint: { 'line-color': '#40b9cd', 'line-opacity': 0.35, 'line-width': 1 } })
+EnsuredUI/src/Pages/InsurerDashboard/appetite/JurisdictionMap.tsx:54:      instance.setPaintProperty('appetite-country-fill', 'fill-color', ['case', ['in', ['get', 'iso_3166_1'], ['literal', rules.filter(r => r.jurisdiction.type === 'country' && r.disposition === 'exclude').map(r => r.jurisdiction.countryCode)]], '#d45b73', '#25d5df'])
+EnsuredUI/src/Pages/InsurerDashboard/appetite/JurisdictionMap.tsx:63:        background: rule.disposition === 'exclude' ? '#b73d51' : '#007e90', color: 'white', cursor: 'pointer', boxShadow: '0 2px 12px #0008' })
+EnsuredUI/src/Pages/InsurerDashboard/appetite/JurisdictionMap.tsx:76:    {(!token || error) && <p role="status" style={{ position: 'absolute', top: 14, left: 14, right: 58, padding: 12, background: '#071c2eee', color: '#ecf8ff', borderRadius: 8, fontSize: 12 }}>
+EnsuredUI/src/Pages/InsurerDashboard/appetite/JurisdictionMap.tsx:80:      background: '#071c2eee', color: '#c5dbe7', fontSize: 11, pointerEvents: 'none' }}>
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:54:    scene.background = new THREE.Color('#03050c');
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:55:    scene.fog = new THREE.FogExp2('#03050c', .008);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:75:    gradient.addColorStop(0, '#ffffff'); gradient.addColorStop(.12, '#ffffffaa');
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:76:    gradient.addColorStop(.4, '#ffffff30'); gradient.addColorStop(1, '#ffffff00');
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:84:    scene.add(new THREE.AmbientLight('#93c7ff', 1.2));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:85:    const keyLight = new THREE.DirectionalLight('#e6f5ff', 3);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:87:    const fillLight = new THREE.PointLight('#805bff', 80, 60);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:120:      const core = new THREE.Mesh(new THREE.IcosahedronGeometry(.26, 2), new THREE.MeshBasicMaterial({color:'#ffffff',toneMapped:false})); group.add(core);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:126:        new THREE.MeshStandardMaterial({ color: '#102238', metalness: .8, roughness: .25 }));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:145:        new THREE.MeshStandardMaterial({ color: '#102238', metalness: .8, roughness: .25 }));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:152:    const submissionMaterial = new THREE.MeshBasicMaterial({color:'#e0ffff', toneMapped:false});
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:169:        const halo = glow('#39e6ff', 1.4);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:171:          const sprite=glow('#39e6ff', .8-i*.1); sprite.visible=false; scene.add(sprite); return sprite;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:194:        new THREE.MeshBasicMaterial({color:'#34ffc8', transparent:true, opacity:.08, toneMapped:false}));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:196:      const packet = glow('#34ffc8', .9); scene.add(packet);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:207:        new THREE.MeshBasicMaterial({ color: '#39e6ff', transparent: true, opacity: .28, toneMapped: false }));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:209:      const arrow = new THREE.Mesh(new THREE.ConeGeometry(.2, .55, 10), new THREE.MeshBasicMaterial({ color: '#39e6ff', toneMapped: false }));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:212:      const mesh = new THREE.Mesh(new THREE.SphereGeometry(.14, 12, 8), new THREE.MeshBasicMaterial({ color: '#c5ffff', toneMapped: false }));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:213:      const trail = Array.from({ length: 6 }, (_, i) => { const sprite = glow('#39e6ff', .85 - i * .09); sprite.material.opacity = .6 - i * .08; scene.add(sprite); return sprite; });
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:219:      new THREE.MeshStandardMaterial({ color: '#081628', metalness: .7, roughness: .3 }));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:221:    const platformEdge = new THREE.LineSegments(new THREE.EdgesGeometry(platform.geometry), new THREE.LineBasicMaterial({color:'#39e6ff',transparent:true,opacity:.7}));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:223:    const underGlow = glow('#2a7cff', 30); underGlow.position.y=-1.2; scene.add(underGlow);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:225:      new THREE.MeshStandardMaterial({ color: '#ffffff', emissive: '#17415c', emissiveIntensity: .7, metalness: .5, roughness: .3 }), 1);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:258:      const ring = new THREE.Mesh(new THREE.TorusGeometry(r, .025, 8, 128), new THREE.MeshBasicMaterial({ color: '#39e6ff', transparent: true, opacity: .45, toneMapped: false }));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:261:    const grid = new THREE.GridHelper(radius * 4, 50, '#244862', '#142639');
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:271:    scene.add(new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: '#739fce', size: .07, transparent: true, opacity: .55 })));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:324:        shapeMesh.setColorAt(pickedIndex,new THREE.Color('#ffffff'));
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:382:        entity.halo.material.color.set(selected ? '#ffffff' : '#39e6ff');
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:436:        link.tube.material.color.set(recorded ? '#34ffc8' : active ? '#39e6ff' : '#42607c');
+EnsuredUI/src/Pages/InsurerDashboard/PipelineScene3D.tsx:452:        packet.tube.material.color.set(active ? executionColors.running : completed ? executionColors.completed : '#42607c');
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionFilterDrawer.tsx:9:  position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,.6);
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionFilterDrawer.tsx:15:  box-shadow: -12px 0 48px rgba(0,0,0,.3);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineCardArtwork.tsx:22:    premium: <><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M15 8c-1-2-6-2-6 1 0 3 6 2 6 5 0 3-5 3-6 1M12 5v14" stroke="#123c38"/></>,
+EnsuredUI/src/Pages/InsurerDashboard/PipelineCardArtwork.tsx:30:  const color = index === 0 ? '#38d8b9' : index === 2 ? '#d16c70' : '#7295aa';
+EnsuredUI/src/Pages/InsurerDashboard/appetite/GeographyRulesEditor.tsx:22:  .pad { padding: 17px; } .map { min-height: 570px; position: relative; background: #071c2e; }
+EnsuredUI/src/Pages/InsurerDashboard/appetite/GeographyRulesEditor.tsx:192:        <label style={{ position: 'absolute', zIndex: 1, top: 12, left: 12, background: '#071c2eee', padding: '8px 10px', borderRadius: 8, color: '#dcf4ff', fontSize: 11 }}>
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionVersionHistory.tsx:100:              <Pill $tone={entry.action === 'baseline' ? '#4ade80' : entry.action === 'feedback' ? '#a5b4fc' : undefined}>{type}</Pill>
+EnsuredUI/src/Pages/InsurerDashboard/sections/FieldFeedbackEditor.tsx:29:  color: ${({ $selected, $tone }) => $selected ? ($tone === 'negative' ? colors.warning : '#32d98b') : colors.onSurfaceVariant};
+EnsuredUI/src/Pages/InsurerDashboard/sections/FieldFeedbackEditor.tsx:34:  &:focus-visible { outline: 2px solid #38aaff; outline-offset: 3px; }
+EnsuredUI/src/Pages/InsurerDashboard/SchemaSubprocessActivity.tsx:33: {data?.steps.map((step,index)=>{const latest=data.attempts.find(a=>a.step===step.key);const reason=blocker(step.key);return <section key={step.key} style={{padding:'12px 0',borderBottom:'1px solid #555'}}>
+EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx:19:    color: #aabed6;
+EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx:26:    border: 1px solid #2b425c;
+EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx:28:    background: #081726;
+EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx:48:    accent-color: #51e0ce;
+EnsuredUI/src/Pages/InsurerDashboard/OrganizationCapabilitiesSettings.tsx:54:    color: #ffb4ab;
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:6:  --ref-muted: #aabed6; --ref-border: #2b425c;
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:7:  color: #edf4ff; width: 100%; font-size: 14px;
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:10:  .intro > span { font-size: 30px; color: #bed2ec; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:14:  form { border: 1px solid var(--ref-border); border-radius: 12px; padding: 26px; display: grid; gap: 24px; background: #081726; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:18:  && input, && select { width: 100%; height: 46px; border: 1px solid #304963; border-radius: 9px; padding: 0 14px; color: #edf4ff; background: #172638; font: inherit; accent-color: auto; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:19:  input::placeholder { color: #7f96b1; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:20:  input:focus-visible, select:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #5ae4d2; outline-offset: 3px; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:24:  .help > summary { list-style: none; cursor: pointer; display: grid; place-items: center; border: 1px solid #8ba7c8; border-radius: 50%; width: 16px; height: 16px; font-size: 11px; color: #adc8e7; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:26:  .popover { position: absolute; z-index: 4; top: 25px; left: 0; width: 290px; padding: 16px; border: 1px solid #486582; border-radius: 10px; background: #132235; box-shadow: 0 10px 36px #0008; line-height: 1.6; color: var(--ref-muted); }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:27:  .popover strong { display: block; color: #edf4ff; margin-bottom: 6px; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:30:  .picker { border: 1px solid #304963; border-radius: 9px; background: #172638; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:33:  .choices button { color: #bed2ec; background: #0c1b2c; border: 1px solid #3a526b; border-radius: 6px; padding: 7px 10px; font-size: 12px; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:34:  .effective { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #172638; border-radius: 9px; padding: 13px 14px; min-width: 0; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:35:  .effective code { color: #a4bad3; overflow-wrap: anywhere; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:36:  .copy { background: transparent; border: 0; padding: 0; color: #aac2de; display: flex; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:38:  .preview strong { color: #cbdcf0; font-family: monospace; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:39:  .save { display: flex; align-items: center; gap: 9px; justify-content: center; justify-self: start; background: #51e0ce; color: #032c32; border: 1px solid #80f1e1; border-radius: 10px; padding: 12px 22px; font-weight: 650; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:40:  .save:hover:not(:disabled) { background: #78ebdb; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:41:  aside { border: 1px solid var(--ref-border); border-radius: 12px; padding: 20px; background: #132133; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionReferenceSettings.tsx:46:  .feedback { font-size: 13px; } [role=alert] { color: #ffb4ab; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:9:  padding: 20px 18px 12px; border: 1px solid #2c4650; border-radius: 10px;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:10:  background: linear-gradient(120deg, #142730dd, #091b22ef); color: #edf6fa;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:11:  box-shadow: 0 12px 36px #0002;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:13:  button:focus-visible, select:focus-visible { outline: 2px solid #4aefcf; outline-offset: 4px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:17:  h2 { font-size:19px; margin:0 0 5px; } p { color:#afc7d5; font-size:12px; margin:0; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:22:  select, button { border:1px solid #3b5662; border-radius:6px; background:#11252e; padding:9px 12px; cursor:pointer; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:23:  input { accent-color:#36e8c5; width:17px; height:17px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:28:  background:${p=>p.$active ? 'linear-gradient(155deg,#163b3d,#0b1e26)' : 'linear-gradient(150deg,#1a303a,#0b1b23)'};
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:29:  border:${p=>p.$active ? '2px solid #64ffde' : '1px solid #45616e'};
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:30:  box-shadow:${p=>p.$active ? '0 0 20px #23eac437, inset 0 0 12px #27cfb010' : 'none'};
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:33:  b { font-size:13px; } small { color:#b7cedc; font-size:10px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:34:  &:hover { border-color:#64ffde; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:35:  ${p=>p.$active ? `&:after { content:''; position:absolute; bottom:-12px; left:calc(50% - 10px); border-left:10px solid transparent; border-right:10px solid transparent; border-top:10px solid #64ffde; }` : ''}
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:38:  display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:#1c3d4b; color:#bce6fa;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:42:  border:1px solid #2d4955; border-radius:9px; padding:18px 20px 12px;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:44:  background:linear-gradient(120deg,#0e232b88,#0a192188);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:45:  h3 { margin:0 0 5px; font-size:20px; } p { color:#b0c7d6; font-size:12px; margin:0; line-height:1.5; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:49:  display:grid; grid-template-columns:1fr 1fr 1fr 1.35fr; border:1px solid #263f4b; border-radius:8px;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:50:  background:#192e3670; padding:18px 4px; margin:22px 0 28px;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:51:  >div { padding:0 18px; border-right:1px solid #304751; } >div:last-child { border:0; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:52:  b { display:block; font-size:23px; color:#c1e7fa; margin-bottom:3px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:53:  span, small { display:block; font-size:12px; color:#b0c7d6; line-height:1.55; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:57:  border-left:1px solid #2b434e; padding-left:24px; font-size:12px;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:60:  li { display:flex; align-items:center; gap:14px; padding:10px 0; border-top:1px solid #253c46; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:61:  li span { display:grid; place-items:center; width:29px; height:29px; flex-shrink:0; border-radius:50%; border:1px solid #405763; background:#243944; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:83:    <Toolbar><div style={{display:'flex',gap:14,alignItems:'center'}}><IconBox style={{borderRadius:7,background:'#30c4aa',color:'#073b37'}}><PipelineIcon stage="schemaGeneration" /></IconBox><div><h2>Pipeline Flow</h2><p>Follow submissions from left to right. Select a stage to view subprocess details.</p></div></div>
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:87:      <svg aria-hidden="true" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" style={{position:'absolute',width:'100%',height:'100%',pointerEvents:'none'}}><defs><marker id={marker} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#48e3c4" /></marker></defs>{nodes.flatMap(node=>node.dependsOn.map(key=>{const parent=positions.get(key)!;const x=parent.x+108,y=parent.y+64,end=node.x;return <path key={`${key}:${node.key}`} d={`M${x} ${y} C${(x+end)/2} ${y},${(x+end)/2} ${node.y+64},${end} ${node.y+64}`} stroke="#40c8ae" strokeWidth="1.5" fill="none" markerEnd={`url(#${marker})`} />;}))}</svg>
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:88:      {nodes.map(node=>{const stage=stages.find(s=>s.key===node.key)!;const count=items.filter(item=>item.stageKey===node.key).length;return <Stage type="button" key={node.key} $active={selected?.key===node.key} $muted={stage.enabled === false || !subscribed.has(node.key)} style={{borderStyle:stage.enabled === false ? 'dashed' : undefined,left:`${node.x/width*100}%`,width:`${108/width*100}%`,top:node.y*zoom,height:128*zoom}} onClick={()=>onSelect(node.key)} aria-pressed={selected?.key===node.key} aria-controls="pipeline-stage-detail" title={`${stage.label}${stage.enabled === false ? ' — Disabled; skipped during execution' : ''}. Prerequisites: ${node.dependsOn.map(key=>stages.find(s=>s.key===key)?.label).join(', ') || 'None'}`}><IconBox style={selected?.key===node.key ? {background:'#104a43',color:'#54f7d4'} : undefined}><PipelineIcon stage={node.key}/></IconBox><strong>{stage.label}</strong><b>{count}</b><small>{stage.enabled === false ? 'Disabled' : subscribed.has(node.key)?'in queue':'Not subscribed'}</small></Stage>;})}
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:90:    {selected && <Detail id="pipeline-stage-detail" style={!showSteps ? {gridTemplateColumns:'1fr'} : undefined}><div><div style={{display:'flex',alignItems:'center',gap:20}}><IconBox style={{width:52,height:52,borderRadius:9,background:'#153f40',color:'#50f4d0'}}><PipelineIcon stage={selected.key}/></IconBox><div style={{flex:1}}><h3>{selected.label}</h3><p>{selected.description}</p></div><span style={{color:'#56e9c8',background:'#103b36',borderRadius:24,padding:'10px 15px',fontSize:12}}>{selected.enabled === false ? 'Disabled — skipped during execution' : subscribed.has(selected.key)?'● Selected stage':'Not subscribed'}</span></div>
+EnsuredUI/src/Pages/InsurerDashboard/PipelineFlow.tsx:92:      <details open><summary style={{fontSize:13,cursor:'pointer',marginBottom:10}}>Recent activity</summary>{selectedItems.length ? selectedItems.slice(0,3).map(item=><button key={item.id} type="button" onClick={()=>onActivity(item)} style={{display:'block',background:'none',border:0,color:'#b4d4e1',padding:'5px 0',cursor:'pointer',fontSize:12}}>{item.values.submissionNumber ?? `Submission ${item.id}`} · {item.eventStatus==='ok'?'On track':item.eventStatus} · {item.values.lastEventLabel ?? 'View activity'} →</button>) : <p style={{paddingLeft:18}}>No activity in this stage yet.</p>}</details></div>
+EnsuredUI/src/Pages/InsurerDashboard/sections/GeneratedSubmissionSection.tsx:16:  border: 2px solid ${({ $review, $feedback }) => $feedback === 'editing' ? '#38aaff' : $feedback === 'saved' ? '#32d98b' : $review?.color ?? 'transparent'};
+EnsuredUI/src/Pages/InsurerDashboard/sections/GeneratedSubmissionSection.tsx:49:  summary:focus-visible { outline: 2px solid #38aaff; outline-offset: 2px; }
+EnsuredUI/src/Pages/InsurerDashboard/sections/GeneratedSubmissionSection.tsx:56:  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+EnsuredUI/src/Pages/InsurerDashboard/pipelineExecution.ts:5:  pending: '#657b96', queued: '#ffb547', running: '#39e6ff', completed: '#34ffc8',
+EnsuredUI/src/Pages/InsurerDashboard/pipelineExecution.ts:6:  failed: '#ff4d6d', skipped: '#af93ce', unconfirmed: '#ffb547',
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:9:  color: #eef1f3; background: radial-gradient(ellipse at top left, #1d3430 0, transparent 42%), #0f131c;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:13:  a { color: #b5ddd0; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:14:  button:focus-visible, input:focus-visible { outline: 2px solid #9cdac6; outline-offset: -3px; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:19:  padding: 5px 9px; border: 1px solid #424a51; border-radius: 5px;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:20:  background: transparent; color: #d1d7db; font: inherit; font-size: 12px; cursor: pointer;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:21:  &:hover:not(:disabled) { background: #ffffff10; color: white; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:24:const Back = styled(Control)`border: 0; padding: 0; color: #adbab9;`
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:25:const Caption = styled.p`margin: 26px 0 16px; color: #a8b4b7; font-size: 12px; line-height: 1.6;`
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:29:  color: #eef1f3; background: #ffffff05; border: 1px solid #424a51; border-radius: 5px; font: inherit; font-size: 12px;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:30:  &::placeholder { color: #a8b4b7; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:34:  list-style: none; padding: 0; margin: 0; border: 1px solid #373e47; border-radius: 7px;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:35:  max-height: 62vh; overflow-y: auto; scrollbar-color: #61656a #252a32; scrollbar-width: thin;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:36:  li + li { border-top: 1px solid #373e47; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:42:  &:hover, &:focus-visible { background: #ffffff14; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:48:  border-right: 1px solid #373e47; padding: 16px 20px; font-size: 13px; gap: 4px;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:49:  small { color: #acb6bc; font-size: 11px; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:54:  background: ${p => p.$color}; color: white; font-size: 18px; border: 1px solid #ffffff20;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:61:  small { color: #a7b3ba; font-size: 12px; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:63:const OpenIndicator = styled.span`color: #919aa5; text-align: right; @media (max-width: 600px) { display: none; }`
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:64:const Notice = styled.p`color: #bcc6cc; padding: 18px 0; line-height: 1.6;`
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:65:const Detail = styled.article`margin-top: 24px; padding: 24px; border: 1px solid #373e47; border-radius: 7px; background: #ffffff04;`
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:72:  const palette = ['#ac5550', '#4b94bd', '#426d8d', '#6877a5', '#56867a', '#96704d']
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:83:  justify-content: space-between; padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid #373e47;
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:85:  small { display: block; color: #a8b4b7; margin-top: 4px; }
+EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx:87:const List = styled.ul`list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; li { padding: 1rem; border: 1px solid #aaa; border-radius: 8px; }`
+EnsuredUI/src/Pages/InsurerDashboard/pipelineSubmissionShape.ts:47:        color:field?.origin==='ai'||section.origin==='ai'?'#a46bff':section.repeatable?'#ffb547':'#39e6ff'});
+EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx:15: max-width:760px;display:grid;gap:16px; color:#edf4ff;
+EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx:16: h2,h3,p{margin:0} p{line-height:1.5;color:#b4c8de} form{display:grid;gap:18px;padding:24px;border:1px solid #324c67;border-radius:12px;background:#0b1b2a}
+EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx:18: input:not([type=checkbox]),select{box-sizing:border-box;width:100%;min-width:0;padding:11px;border:1px solid #58728a;border-radius:6px;background:#071421;color:#edf4ff;font:inherit}
+EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx:19: input[type=checkbox]{width:18px;height:18px} .actions{display:flex;gap:12px;flex-wrap:wrap}button{padding:10px 16px;border:1px solid #61c9bd;border-radius:6px;background:#123e40;color:#eefefe;font:inherit;cursor:pointer}button:disabled{opacity:.5;cursor:default}
+EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx:20: [role=alert]{color:#ffb4ab} :focus-visible{outline:3px solid #6ae4d1;outline-offset:3px} @media(max-width:600px){form{padding:16px}.actions button{width:100%}}
+EnsuredUI/src/Pages/InsurerDashboard/PipelineObservatory.tsx:102:    <header><div className="brand"><div className="logo"/><div><h1>PIPELINE<span style={{color:'#39e6ff'}}>·</span>OBSERVATORY</h1><p>DOCUMENT PROCESSING — RECORDED EXECUTIONS</p></div></div><div className="status"><span>RUN <b>{run?`#${run.id}`:'—'}</b></span><span className={trace.fresh&&!trace.seeded&&data?.pipelineJobStatus==='running'?'rec':undefined}>{trace.seeded?'DEMO':activity.error?'STALE':data?.pipelineJobStatus==='running'?'LIVE':'RECORDED'}</span><button type="button" onClick={()=>setFullscreen(value=>!value)}>{fullscreen?'Exit fullscreen':'Fullscreen'}</button></div></header>
+EnsuredUI/src/Pages/InsurerDashboard/PipelineObservatory.tsx:110:      {activity.id===selectedId&&activity.error&&<p role="alert" style={{color:'#ff6d87'}}>{activity.error} {data?'Showing stale records; execution animation is stopped.':''}</p>}
+EnsuredUI/src/Pages/InsurerDashboard/PipelineObservatory.tsx:119:    {selected&&<div className="col r"><div className="kpis">{[['ATTEMPTS',executions.length,'Recorded in this run'],['COMPLETED',executions.filter(entry=>entry.status==='completed').length,'Recorded attempts'],['FAILED',executions.filter(entry=>entry.status==='failed').length,'Includes retries'],['ON BOARD',activeItems.length,'Selected stage']].map(([label,value,context])=><div className="kpi" key={label}><small>{label}</small><strong>{value}</strong><span>{context}</span></div>)}</div><aside className={`panel stage-information${traceStatus==='running'&&trace.fresh&&!trace.seeded?' hot':''}`}><small>SELECTED PROCESS</small><h3 style={{color:selected.accent}}>{selected.label}</h3><p>{selected.description}</p><div className="trace-details" aria-label="Selected stage execution"><strong style={{color:executionColors[traceStatus]}}>{traceStatus==='pending'?'No attempt in this run':traceStatus==='unconfirmed'?'Recorded running attempt · job activity unconfirmed':traceStatus}</strong>{execution&&<><p>Execution #{execution.id} · Attempt {execution.attempt} · {executionDuration(execution)}<br/>Started: {time(execution.startedAt)}<br/>Finished: {time(execution.finishedAt)}{execution.provider&&<><br/>Provider: {execution.provider}</>}</p>{execution.errorMessage&&<p style={{color:'#ff6d87'}}>{execution.errorMessage}</p>}<p>Input artifact: {execution.inputArtifactId!=null?`#${execution.inputArtifactId}`:'Not recorded'}<br/>Output artifact: {execution.outputArtifactId!=null?`#${execution.outputArtifactId}`:execution.status==='running'?'Pending':'Not recorded'}</p>{submission&&run&&<button type="button" onClick={()=>inspect(submission,{runId:run.id,executionId:execution.id})}>Inspect recorded inputs / outputs</button>}</>}</div><p>{selected.enabled===false?'Disabled — skipped during execution':subscribed.has(selected.key)?'Subscribed to this process':'Not subscribed to this process'}</p><div className="stats"><div><b>{activeItems.length}</b><small>On board</small></div><div><b>{activeItems.filter(i=>i.eventStatus==='processing').length}</b><small>Processing on board</small></div><div><b style={{color:'#ff6d87'}}>{activeItems.filter(i=>i.hasError||i.eventStatus==='failed').length}</b><small>Failed on board</small></div></div><small>PREREQUISITES</small><p>{positions.get(selected.key)?.dependsOn.map(key=>stages.find(s=>s.key===key)?.label).join(' · ')||'Entry point'}</p><h4>Subprocesses</h4>{selected.subprocesses?.length?<ol>{selected.subprocesses.map(step=><li key={step.key}>{step.label}</li>)}</ol>:<p>No subprocesses registered.</p>}<h4>Board activity</h4>{activeItems.length?activeItems.slice(0,5).map(item=><button className="activity" type="button" key={item.id} onClick={()=>inspect(item)}>{item.values.submissionNumber??`Submission ${item.id}`} · {item.hasError?'Failed':item.eventStatus==='ok'?'On track':item.eventStatus} →</button>):<p>No activity in this stage yet.</p>}</aside></div>}
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:140:  color:#edf5fa; padding:16px 12px 24px;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:141:  background:radial-gradient(ellipse at 65% 0%,#10393755,transparent 45%),linear-gradient(130deg,#091b23,#06161d);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:147:  p { max-width:600px; font-size:12px; line-height:1.6; color:#afc7d5; margin:0; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:153:  small { color:#9eb5c3; font-size:11px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:154:  .meta { gap:18px; color:#adcad7; font-size:12px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:158:  padding:18px 16px; border:1px solid #2d4854; border-radius:8px; background:linear-gradient(120deg,#10222b,#1b3039);
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:160:    color:${p=>p.$alert?'#ff857a':'#4de7c5'}; background:${p=>p.$alert?'#4b313744':'#17504766'}; border:1px solid #34525c; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:164:  label { display:block; font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:#bfd7e5; margin:3px 0 6px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:166:  p { color:#b6cedc; font-size:11px; line-height:1.5; margin:0; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:663:        <div><span style={{fontSize:12,color:'#62edd1'}}>▢ &nbsp; Data Pipeline &nbsp; ↗</span>
+EnsuredUI/src/Pages/InsurerDashboard/PipelineProcesses.tsx:669:          <div className="meta"><small>• {loading?'Updating…':error?'Unavailable':board?.refreshedAt ? `Updated ${new Date(board.refreshedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}` : 'Live pipeline'}</small><span style={{color:'#4cd9bc'}}>● &nbsp; {items.length} submissions</span><span>● &nbsp; {activeChannels} active channels</span><span>● &nbsp; {board?.availableStages?.length ?? config?.stages.length ?? 0} stages</span></div>
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:12:const colors = { ...themeColors, surfaceDeep: '#071421', surfacePanel: '#0c1a29',
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:13:  surfaceLow: '#102031', surfaceContainer: '#1b2c40', outlineVariant: '#263e53',
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:14:  onSurfaceStrong: '#f1f5ff', onSurfaceVariant: '#c2d5eb', primary: '#73c9b5', onPrimary: '#082831' };
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:31:  background: radial-gradient(ellipse at top right, #102b3333, transparent 65%), ${colors.surfaceDeep};
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:45:  .icon-tile { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 14px; color: ${colors.primary}; background: #68c9af26; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:59:  .illustration { position: relative; width: 190px; height: 132px; margin: auto; display: grid; place-items: center; background: radial-gradient(ellipse, #44688744, transparent 70%); }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:60:  .illustration > svg { width: 95px; height: 110px; color: #6893b1; fill: #263f55; transform: rotate(-8deg); stroke-width: 1; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:62:  .dropzone { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px 16px; border: 1px dashed #6893b1; border-radius: 10px; background: transparent; color: ${colors.onSurfaceStrong}; font: inherit; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:63:  .dropzone[data-dragging='true'], .dropzone:hover:not(:disabled) { background: #68c9af12; border-color: ${colors.primary}; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:68:  .feature:nth-child(2) .icon-tile { background: #447dcc44; color: #a9ccff; } .feature:nth-child(3) .icon-tile { background: #8a65c444; color: #d5b4ff; } .feature:nth-child(4) .icon-tile { background: #d1b35433; color: #f3d577; }
+EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx:69:  aside { padding: 24px; } .help-title { display: flex; align-items: flex-start; gap: 18px; } .help-title .icon-tile { background: #447dcc44; color: #d5e7ff; } aside h3 { font-size: 16px; margin: 8px 0; } aside p, aside li { font-size: 13px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:28:  background:linear-gradient(120deg,#142730dd,#091b22ef);border:1px solid #2c4650;border-radius:10px;
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:29:  h2 { font-size:17px;margin:0 0 6px; } p { font-size:12px;color:#afc7d5;margin:0;line-height:1.6; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:31:  details { border:1px solid #304751;border-radius:8px;background:#0b1e26;padding:12px;min-width:0; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:32:  summary { cursor:pointer;font-size:13px;font-weight:600; } summary span { color:#62edd1;font-size:11px;font-weight:400;margin-left:8px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:33:  details p { margin-top:8px; } ul { list-style:none;padding:0;margin:12px 0 0; } li { padding:10px 0;border-top:1px solid #263f4b; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:34:  .endpoint { display:flex;gap:8px;align-items:flex-start; } .method { flex-shrink:0;font:700 10px/1.8 monospace;color:#62edd1; } .method[data-method=POST] { color:#ffb547; }.method[data-method=PUT] { color:#b46bff; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:35:  code { font:10px/1.8 monospace;overflow-wrap:anywhere;flex:1;min-width:0;color:#dbe8ff; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:36:  button { cursor:pointer;background:transparent;color:#afc7d5;border:1px solid #304751;border-radius:4px;padding:2px 6px;font:10px/1.8 inherit; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:37:  button:focus-visible,summary:focus-visible { outline:2px solid #62edd1;outline-offset:3px; }
+EnsuredUI/src/Pages/InsurerDashboard/PipelineAvailableApis.tsx:38:  li small { display:block;margin-top:4px;color:#afc7d5;font-size:11px; }
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:7:  --bg:#03050c; --ink:#dbe8ff; --mute:#6f83a8; --line:rgba(120,200,255,.14);
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:8:  --cyan:#39e6ff; --violet:#b46bff; --amber:#ffb547; --mint:#34ffc8; --red:#ff4d6d;
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:9:  --glass:rgba(7,13,28,.58);
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:18:.scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:23:  background:linear-gradient(90deg,rgba(6,18,36,.75),rgba(6,18,36,0));font-family:'JetBrains Mono',monospace}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:26:.lbl.chip .t{bottom:-9px;border:1px solid currentColor;border-radius:3px;padding:2px 7px;background:rgba(6,14,30,.7)}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:34:.logo::before,.logo::after{content:"";position:absolute;inset:0;border:1.5px solid var(--cyan);transform:rotate(45deg);border-radius:4px;box-shadow:0 0 14px rgba(57,230,255,.5)}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:52:.panel.hot{border-color:rgba(57,230,255,.45);box-shadow:0 0 0 1px rgba(57,230,255,.08),0 0 30px rgba(57,230,255,.12) inset}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:57:.ph .tag{color:var(--cyan);border:1px solid rgba(57,230,255,.35);padding:1px 6px;border-radius:3px;letter-spacing:.08em}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:58:pre{font-family:'JetBrains Mono',monospace;font-size:10.8px;line-height:1.55;white-space:pre;color:#9fb3d6;min-height:40px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:59:pre .k{color:var(--cyan)} pre .s{color:#ffd28a} pre .n{color:var(--mint)} pre .w{color:var(--violet);font-weight:700} pre .c{color:#4f6286}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:62:td{padding:3.5px 0;border-bottom:1px dashed rgba(120,200,255,.08);color:#5d6f92;transition:color .3s}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:64:tr.on td{color:#c9d8f5}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:68:tr.flash td{color:var(--red)!important;text-shadow:0 0 10px rgba(255,77,109,.7)}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:89:.morph pre{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:6px;padding:7px 8px;min-height:0;font-size:10px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:91:.bar{height:6px;background:rgba(120,200,255,.08);border-radius:3px;overflow:hidden;margin-top:5px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:97:.lat .bar.slow i{background:linear-gradient(90deg,#ff4d6d,#ffb547);box-shadow:0 0 12px rgba(255,77,109,.6)}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:98:.explain{font-size:9.5px;color:#4f6286;margin-top:10px;line-height:1.5}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:102:.caption .x{font-family:'Space Grotesk';font-weight:300;font-size:26px;letter-spacing:.02em;margin-top:6px;text-shadow:0 0 24px rgba(57,230,255,.35)}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:115:.track{height:3px;background:rgba(120,200,255,.12);border-radius:2px;overflow:hidden}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:117:.playhead{position:absolute;bottom:-4px;width:1px;height:11px;background:#fff;box-shadow:0 0 8px #fff}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:118:.foot2{display:flex;gap:16px;justify-content:space-between;font-size:9.5px;color:#4f6286;letter-spacing:.1em;margin-top:9px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:120:.schema-panel{overflow:auto;min-height:160px}.col.l{overflow:auto;pointer-events:auto}.tl{overflow-x:auto}.seg{min-width:85px}.seg .lab{font-size:8px}.caption .x{white-space:normal;max-width:520px}.caption{width:40%;padding:12px;background:#03050cdd;border:1px solid var(--line);border-radius:10px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:121:.caption.review-state .n,.caption.review-state .x{animation:none;opacity:1}.caption.review-state .x{font-size:22px}.caption.review-state{padding:12px;background:#03050cdd;border:1px solid var(--line);border-radius:10px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:123:.lbl.node-card .t{width:190px;white-space:normal;background:rgba(5,12,25,.94);border:1px solid var(--line);border-left:2px solid currentColor;border-radius:8px;padding:10px 12px;transition:width .5s ease,background .5s ease,box-shadow .5s ease;}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:130:.lbl.node-card.expanded .t{width:300px;background:rgba(5,12,25,.98);box-shadow:0 12px 36px #0008}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:135:.camera-controls{position:absolute;bottom:94px;left:50%;transform:translateX(-50%);z-index:10;max-width:calc(100vw - 32px);padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:#050c19ed;text-align:center;font:10px/1.7 var(--font-code);color:var(--ink)}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:136:.camera-controls button{background:#10213b;border:1px solid var(--cyan);border-radius:4px;color:var(--ink);padding:5px 9px;font:inherit;cursor:pointer;margin-left:8px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:138:.camera-controls p{color:#a7b8d5;margin-top:4px}
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:143:.submission-light-label { position:absolute;left:0;top:0;pointer-events:auto;border:0;border-radius:4px;background:#03121bcc;color:#83f5ff;padding:3px 5px;font:9px/1.4 var(--font-code);cursor:pointer;white-space:nowrap;will-change:transform; }
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:144:.submission-light-label[aria-pressed=true] { color:white;background:#14546ae6;box-shadow:0 0 12px #39e6ff88; }
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:145:.submission-light-label:focus-visible { outline:2px solid #39e6ff;outline-offset:3px; }
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:147:.scene-label { position:absolute;left:0;top:0;width:190px;pointer-events:auto;text-align:left;background:rgba(5,12,25,.94);border:1px solid var(--line);border-left:2px solid currentColor;border-radius:8px;padding:10px 12px;transition:background .18s,box-shadow .18s;will-change:transform; }
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:150:.scene-label[aria-pressed=true] { background:rgba(5,12,25,.98);box-shadow:0 12px 36px #0008; }
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:154:.shape-inspector { position:absolute;left:50%;bottom:180px;transform:translateX(-50%);width:min(360px,calc(100% - 32px));max-height:300px;overflow:auto;z-index:12;pointer-events:auto;padding:16px;background:#050c19f5;border:1px solid var(--cyan);border-radius:10px;box-shadow:0 12px 36px #0008; }
+EnsuredUI/src/Pages/InsurerDashboard/pipelineObservatoryStyles.ts:168:button,select { color:var(--ink);background:#10213b;border:1px solid var(--line);border-radius:4px;padding:5px 9px;font:10px/1.7 var(--font-code);cursor:pointer; }
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:16:  primary: colors.primary, // #4b8eff
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:17:  onSurfaceVariant: colors.onSurfaceVariant, // #98a6bf
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:18:  onSurface: colors.onSurface, // #e6eef8
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:19:  neutral200: colors.neutral[200], // #e2e8f0
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:20:  neutral300: colors.neutral[300], // #cbd5e1
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:21:  neutral400: colors.neutral[400], // #94a3b8
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:22:  neutral500: colors.neutral[500], // #64748b
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:23:  neutral600: colors.neutral[600], // #475569
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:24:  white: colors.neutral[0], // #ffffff
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:27:  primarySoft: colors.primarySoft, // #adc6ff
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:28:  text: colors.onSurfaceStrong, // #dae2fd
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:29:  textMuted: colors.onSurfaceMuted, // #c1c6d7
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:30:  accent: colors.accent, // #4edea3
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:31:  accentStrong: colors.accentStrong, // #00a572
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:32:  danger: colors.dangerBright, // #ff5451
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:33:  surface: colors.surfaceDeep, // #0b1326
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:34:  surfaceLow: colors.surfaceLow, // #0f1724
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:35:  surfacePanel: colors.surfacePanel, // #131b2e
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:36:  surfaceRaised: colors.surfaceRaised, // #171f33
+EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.styles.tsx:37:  surfaceHigh: colors.surfaceHigh, // #222a3d

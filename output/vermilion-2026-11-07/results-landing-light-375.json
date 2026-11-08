@@ -1,0 +1,20 @@
+[
+  {
+    "id": "pages-landingpage--default",
+    "passed": false,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-landingpage--default",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": [
+      "Narrow-screen overflow",
+      "[{\"tag\":\"DIV\",\"cls\":\"sc-bdfDLd GYMDb sc-higWOd sc-fXozIE fWLttN jyHixr\",\"text\":\"Total collateralized value$624.31M100% par collateralized$514.43M\",\"width\":381.609375,\"right\":413.609375},{\"tag\":\"DIV\",\"cls\":\"sc-FyhMp ifMbqH\",\"text\":\"Total collateralized value$624.31M100% par collateralized\",\"width\":342.828125,\"right\":394.21875},{\"tag\":\"SPAN\",\"cls\":\"sc-biBsFP jweacV\",\"text\":\"100% par collateralized\",\"width\":174.8125,\"right\":394.21875},{\"tag\":\"DIV\",\"cls\":\"sc-fmlIYk gRGhqi\",\"text\":\"$514.43M T-bills$109.88M\",\"width\":342.828125,\"right\":394.21875},{\"tag\":\"DIV\",\"cls\":\"sc-jmhDzS bQaNwk\",\"text\":\"$109.88M\",\"width\":59.984375,\"right\":393.203125},{\"tag\":\"DIV\",\"cls\":\"sc-dUrlDD fpkvQz\",\"text\":\"Ultra-short U.S. Treasury billsSegregated institutional custody. \",\"width\":342.828125,\"right\":394.21875},{\"tag\":\"DIV\",\"cls\":\"sc-htubao fYfnjp\",\"text\":\"Ultra-short U.S. Treasury billsSegregated institutional custody. \",\"width\":342.828125,\"right\":394.21875},{\"tag\":\"STRONG\",\"cls\":\"\",\"text\":\"5.25%\",\"width\":53.375,\"right\":381.21875},{\"tag\":\"DIV\",\"cls\":\"sc-htubao fYfnjp\",\"text\":\"Underwriting premium floatProgrammatic premium stream from 48 act\",\"width\":342.828125,\"right\":394.21875},{\"tag\":\"STRONG\",\"cls\":\"\",\"text\":\"+6.15%\",\"width\":64.203125,\"right\":381.21875},{\"tag\":\"DIV\",\"cls\":\"sc-cbDJdZ dhJsBl\",\"text\":\"Net realized blended APY11.40% sovereign yieldStreamed per second\",\"width\":342.828125,\"right\":394.21875},{\"tag\":\"SPAN\",\"cls\":\"\",\"text\":\"Streamed per secondT+0 redeemable\",\"width\":84.625,\"right\":379.828125}]"
+    ]
+  }
+]

@@ -1,0 +1,372 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10473",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10473",
+  "key": "AIN-150",
+  "fields": {
+    "summary": "[Settings] Organize settings into XDS collapsible subsections",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "User request (2026-11-06): separate Settings into subsections using the standard XDS section component."
+            }
+          ],
+          "attrs": {
+            "localId": "8e3ecc77f7d2"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "User story: As an individual or organization administrator, I want clearly labeled, independently expandable settings subsections so I can find and manage the relevant configuration without scrolling through unrelated forms. Reuse the existing settings workflows and AIN-138 user story; this task supplements AIN-140 and does not replace its broader obligations."
+            }
+          ],
+          "attrs": {
+            "localId": "f138216bb603"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Scope / source map: EnsuredUI/src/Pages/InsurerDashboard/Settings.tsx currently renders ModelLibrary, OrganizationCapabilitiesSettings and SubmissionReferenceSettings consecutively. Reuse the exported XDS CollapsibleSection from EnsuredXDS/src/components/CollapsibleSection.tsx (already used in SubjectInsuranceSection and SubjectTemplateFields). Use XDS tokens and its controlled collapsed/onToggle API; do not build a parallel custom accordion. SectionHeader is a heading primitive, not a substitute for the standard section container."
+            }
+          ],
+          "attrs": {
+            "localId": "594242ec8c00"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance criteria:"
+            }
+          ],
+          "attrs": {
+            "localId": "b784c876f6db"
+          }
+        },
+        {
+          "type": "orderedList",
+          "attrs": {
+            "order": 1,
+            "localId": "a988ae7e73af"
+          },
+          "content": [
+            {
+              "type": "listItem",
+              "attrs": {
+                "localId": "48c64cf878b2"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Settings has three clearly labeled subsections: AI Models, Organization capabilities, and Submission contract references. Each uses the standard XDS CollapsibleSection with concise descriptive text and consistent spacing, headings and responsive styling."
+                    }
+                  ],
+                  "attrs": {
+                    "localId": "9cacebcdb76e"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "attrs": {
+                "localId": "3baccd731a8b"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Sections expand/collapse independently via pointer and keyboard, expose correct aria-expanded state, and have visible focus. Avoid duplicate page-level titles or nested action buttons inside the section toggle. Keep all existing workflows reachable."
+                    }
+                  ],
+                  "attrs": {
+                    "localId": "72fd81307fb3"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "attrs": {
+                "localId": "c30ed1e30bde"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Collapse/reopen preserves unsaved drafts, selected records, scope and relevant status. Current CollapsibleSection unmounts children when collapsed: explicitly solve state preservation by lifting state or a backward-compatible shared component enhancement; do not lose API keys being entered or trigger accidental saves/tests. Initial open/closed state is deliberate and covered by tests."
+                    }
+                  ],
+                  "attrs": {
+                    "localId": "2ef49cacda49"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "attrs": {
+                "localId": "70d828624592"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Preserve permissions and all current save/test/default/inheritance/removal behavior. Show only actual saved model records; do not seed providers or choose unknown defaults. No backend configuration, credential, authorization or data-model changes required for presentation regrouping."
+                    }
+                  ],
+                  "attrs": {
+                    "localId": "816997948569"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "attrs": {
+                "localId": "ab0d3723d3f6"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Executable Storybook play stories cover section toggling, independent state, keyboard/focus, draft preservation, observable save results and exact submitted payloads; include loading, empty, error/retry, permission and narrow-screen states. Use synthetic transports and block accidental application writes. Retain existing component and API/database regressions. If XDS changes, add shared-component regressions."
+                    }
+                  ],
+                  "attrs": {
+                    "localId": "3ef10ef5ad8c"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "attrs": {
+                "localId": "5459b55830c9"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Verify the integrated Settings page at desktop and 375px without horizontal overflow; record ticket -> component -> story IDs -> commands/results in Jira and TASK_HANDOFF.md before Done."
+                    }
+                  ],
+                  "attrs": {
+                    "localId": "08edb07b1ec5"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Related work: AIN-138 / AIN-140 own model settings behavior; AIN-143 chat connection behavior must not regress. Existing provider-access/staging gates remain open and are not prerequisites for arranging the settings sections. Exclude new providers, financial workflows, unrelated settings features and production rollout."
+            }
+          ],
+          "attrs": {
+            "localId": "55fe2ea0f6ba"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Task creation only: implementation has not started."
+            }
+          ],
+          "attrs": {
+            "localId": "398368537f15"
+          }
+        }
+      ]
+    },
+    "parent": {
+      "id": "10231",
+      "key": "AIN-2",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10231",
+      "fields": {
+        "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10036",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "priority": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "issuetype": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+          "id": "10035",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+          "hierarchyLevel": 1
+        }
+      }
+    },
+    "issuelinks": [
+      {
+        "id": "10365",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10365",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10461",
+          "key": "AIN-138",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+          "fields": {
+            "summary": "[AI settings] Configure organization models and individual inheritance",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10366",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10366",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10463",
+          "key": "AIN-140",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10463",
+          "fields": {
+            "summary": "Implement model settings UI and executable interaction evidence",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      }
+    ],
+    "subtasks": [],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+      "name": "To Do",
+      "id": "10036",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+        "id": 2,
+        "key": "new",
+        "colorName": "blue-gray",
+        "name": "To Do"
+      }
+    }
+  }
+}

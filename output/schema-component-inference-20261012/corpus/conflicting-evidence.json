@@ -1,0 +1,4673 @@
+{
+  "input": {
+    "submission": {
+      "referenceNumber": "EVAL-007"
+    },
+    "pipelineOutputs": [
+      {
+        "dataValues": {
+          "id": 1,
+          "stageKey": "extraction",
+          "payload": {
+            "ok": true,
+            "structuredData": {
+              "documentA": {
+                "insured": "Conflict Company",
+                "sumInsured": 1000000
+              },
+              "documentB": {
+                "insured": "Conflict Company",
+                "sumInsured": 1200000
+              },
+              "note": "Both documents are current; conflict is unresolved."
+            }
+          }
+        }
+      }
+    ]
+  },
+  "output": {
+    "sections": {
+      "general-information": [
+        {
+          "fieldId": "internalId",
+          "label": "Internal ID",
+          "fieldType": "text",
+          "description": "Internal identifier for the deal, used for tracking and reference purposes.",
+          "placeholder": "e.g., INT-DEAL-88219",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "internalId",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+          "review": {
+            "confidence": 0.722,
+            "score": 3.61,
+            "status": "warning",
+            "error": null,
+            "warning": "Internal ID has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[0]"
+          },
+          "componentRef": {
+            "id": "xds.input",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "referenceNumber",
+          "label": "Reference Number",
+          "fieldType": "text",
+          "description": "Unique deal reference number or policy tracking code.",
+          "placeholder": "e.g., REF-2026-09-001",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "referenceNumber",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+          "review": {
+            "confidence": 0.426,
+            "score": 2.13,
+            "status": "error",
+            "error": "Reference Number has low confidence against the section evidence and requires correction or verification.",
+            "warning": null
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[1]"
+          },
+          "componentRef": {
+            "id": "xds.input",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "subjectLinesOfBusiness",
+          "label": "Lines of Business",
+          "fieldType": "multi-select",
+          "description": "High-level coverage categories included in this deal placement.",
+          "options": [
+            "Commercial Property",
+            "General Liability",
+            "Cyber Liability",
+            "Commercial Auto",
+            "Workers Compensation",
+            "Directors & Officers"
+          ],
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "subjectLinesOfBusiness",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+          "review": {
+            "confidence": 0.5660000000000001,
+            "score": 2.83,
+            "status": "warning",
+            "error": null,
+            "warning": "Lines of Business has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.checkbox",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[2]"
+          },
+          "componentRef": {
+            "id": "xds.checkbox",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "effectiveDate",
+          "label": "Effective Date",
+          "fieldType": "date",
+          "description": "Policy inception date when coverage begins.",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "effectiveDate",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+          "review": {
+            "confidence": 0.742,
+            "score": 3.71,
+            "status": "warning",
+            "error": null,
+            "warning": "Effective Date has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[3]"
+          },
+          "componentRef": {
+            "id": "xds.input",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "expirationDate",
+          "label": "Expiration Date",
+          "fieldType": "date",
+          "description": "Policy expiration date when coverage ends.",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "expirationDate",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+          "review": {
+            "confidence": 0.72,
+            "score": 3.6,
+            "status": "warning",
+            "error": null,
+            "warning": "Expiration Date has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[4]"
+          },
+          "componentRef": {
+            "id": "xds.input",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "assignedBroker",
+          "label": "Assigned Broker / Producer",
+          "fieldType": "text",
+          "description": "Primary broker or producer responsible for the placement.",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "assignedBroker",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+          "review": {
+            "confidence": 0.746,
+            "score": 3.73,
+            "status": "warning",
+            "error": null,
+            "warning": "Assigned Broker / Producer has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[5]"
+          },
+          "componentRef": {
+            "id": "xds.input",
+            "version": 1
+          }
+        }
+      ],
+      "parties": [],
+      "financials": [
+        {
+          "fieldId": "baseCurrency",
+          "label": "Base Currency",
+          "fieldType": "select",
+          "description": "Primary currency in which the deal premium and values are quoted.",
+          "options": [
+            "USD",
+            "EUR",
+            "GBP",
+            "CAD",
+            "AUD",
+            "JPY",
+            "CHF"
+          ],
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "baseCurrency",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+          "review": {
+            "confidence": 0.616,
+            "score": 3.08,
+            "status": "warning",
+            "error": null,
+            "warning": "Base Currency has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.select",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[0]"
+          },
+          "componentRef": {
+            "id": "xds.select",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "totalGrossWrittenPremium",
+          "label": "Gross Written Premium (GWP)",
+          "fieldType": "number",
+          "description": "Total top-line gross premium figure for the full policy term across all lines.",
+          "placeholder": "e.g., 250000",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "totalGrossWrittenPremium",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+          "review": {
+            "confidence": 0.628,
+            "score": 3.14,
+            "status": "warning",
+            "error": null,
+            "warning": "Gross Written Premium (GWP) has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.number",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[1]"
+          },
+          "componentRef": {
+            "id": "xds.number",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "totalInsuredValue",
+          "label": "Total Insured Value (TIV / TSI)",
+          "fieldType": "number",
+          "description": "Aggregate exposure limit or sum insured declared across the entire deal container.",
+          "placeholder": "e.g., 50000000",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "totalInsuredValue",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+          "review": {
+            "confidence": 0.662,
+            "score": 3.31,
+            "status": "warning",
+            "error": null,
+            "warning": "Total Insured Value (TIV / TSI) has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.number",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[2]"
+          },
+          "componentRef": {
+            "id": "xds.number",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "brokerCommissionPercentage",
+          "label": "Broker Commission (%)",
+          "fieldType": "number",
+          "description": "Overarching broker/producer commission percentage calculated on the GWP.",
+          "placeholder": "e.g., 12.5",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "brokerCommissionPercentage",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+          "review": {
+            "confidence": 0.596,
+            "score": 2.98,
+            "status": "warning",
+            "error": null,
+            "warning": "Broker Commission (%) has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.number",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[3]"
+          },
+          "componentRef": {
+            "id": "xds.number",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "paymentFrequency",
+          "label": "Payment Schedule / Frequency",
+          "fieldType": "select",
+          "description": "Agreed premium payment schedule installment structure.",
+          "options": [
+            "Annual (100% upfront)",
+            "Semi-Annual (50/50)",
+            "Quarterly (4 Split)",
+            "Monthly"
+          ],
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "paymentFrequency",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+          "review": {
+            "confidence": 0.6940000000000001,
+            "score": 3.47,
+            "status": "warning",
+            "error": null,
+            "warning": "Payment Schedule / Frequency has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.select",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[4]"
+          },
+          "componentRef": {
+            "id": "xds.select",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "premiumDueDate",
+          "label": "First Premium Due Date",
+          "fieldType": "date",
+          "description": "Deadline date for the initial premium payment settlement.",
+          "validation": {
+            "isRequired": true
+          },
+          "uiConfig": {
+            "colSpan": 1
+          },
+          "value": null,
+          "evidenceIssues": [
+            {
+              "code": "missing_required_field",
+              "fieldId": "premiumDueDate",
+              "message": "Required field omitted by generation; value remains missing."
+            }
+          ],
+          "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+          "review": {
+            "confidence": 0.752,
+            "score": 3.76,
+            "status": "warning",
+            "error": null,
+            "warning": "First Premium Due Date has uncertain support in the section evidence and should be reviewed."
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "source": "default",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[5]"
+          },
+          "componentRef": {
+            "id": "xds.input",
+            "version": 1
+          }
+        }
+      ],
+      "subjects": [],
+      "underwriting-risk": [],
+      "tranches": [],
+      "ext:insured-conflict": [
+        {
+          "fieldId": "insured",
+          "fieldType": "text",
+          "label": "Insured",
+          "description": "Name of the insured entity",
+          "validation": {},
+          "uiConfig": {},
+          "value": "Conflict Company",
+          "componentProposal": {
+            "id": "xds.input",
+            "version": 1
+          },
+          "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+          "review": {
+            "confidence": 0.992,
+            "score": 4.96,
+            "status": "passed",
+            "error": null,
+            "warning": null
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "source": "inference",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[0]"
+          },
+          "componentRef": {
+            "id": "xds.input",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "sumInsured",
+          "fieldType": "currency",
+          "label": "Sum Insured",
+          "description": "Total insured amount",
+          "validation": {},
+          "uiConfig": {},
+          "value": 1000000,
+          "componentProposal": {
+            "id": "xds.currency",
+            "version": 1
+          },
+          "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+          "review": {
+            "confidence": 0.984,
+            "score": 4.92,
+            "status": "passed",
+            "error": null,
+            "warning": null
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.currency",
+              "version": 1
+            },
+            "source": "inference",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[1]"
+          },
+          "componentRef": {
+            "id": "xds.currency",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "sumInsuredConflict",
+          "fieldType": "currency",
+          "label": "Sum Insured (Conflict)",
+          "description": "Conflicting sum insured value from another document",
+          "validation": {},
+          "uiConfig": {},
+          "value": 1200000,
+          "componentProposal": {
+            "id": "xds.currency",
+            "version": 1
+          },
+          "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+          "review": {
+            "confidence": 0.994,
+            "score": 4.97,
+            "status": "passed",
+            "error": null,
+            "warning": null
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.currency",
+              "version": 1
+            },
+            "source": "inference",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[2]"
+          },
+          "componentRef": {
+            "id": "xds.currency",
+            "version": 1
+          }
+        },
+        {
+          "fieldId": "conflictNote",
+          "fieldType": "textarea",
+          "label": "Conflict Note",
+          "description": "Note about unresolved conflict between documents",
+          "validation": {},
+          "uiConfig": {},
+          "value": "Both documents are current; conflict is unresolved.",
+          "componentProposal": {
+            "id": "xds.textarea",
+            "version": 1
+          },
+          "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+          "review": {
+            "confidence": 0.992,
+            "score": 4.96,
+            "status": "passed",
+            "error": null,
+            "warning": null
+          },
+          "componentResolution": {
+            "capabilityVersion": 1,
+            "diagnostics": [],
+            "status": "resolved",
+            "ref": {
+              "id": "xds.textarea",
+              "version": 1
+            },
+            "source": "inference",
+            "policyVersion": 1,
+            "issues": [],
+            "address": "applicationState[3]"
+          },
+          "componentRef": {
+            "id": "xds.textarea",
+            "version": 1
+          }
+        }
+      ]
+    },
+    "sectionDescriptors": [
+      {
+        "id": "general-information",
+        "label": "General Information",
+        "origin": "template",
+        "templateId": "general-information",
+        "layout": "fields",
+        "purpose": "General policy information",
+        "evidenceRefs": []
+      },
+      {
+        "id": "parties",
+        "label": "Parties & Counterparties",
+        "origin": "template",
+        "templateId": "parties",
+        "layout": "records",
+        "purpose": "Parties and counterparties involved",
+        "evidenceRefs": []
+      },
+      {
+        "id": "financials",
+        "label": "Financials",
+        "origin": "template",
+        "templateId": "financials",
+        "layout": "fields",
+        "purpose": "Financial details",
+        "evidenceRefs": []
+      },
+      {
+        "id": "subjects",
+        "label": "Subjects of Insurance",
+        "origin": "template",
+        "templateId": "subjects",
+        "layout": "records",
+        "purpose": "Subjects covered by insurance",
+        "evidenceRefs": []
+      },
+      {
+        "id": "underwriting-risk",
+        "label": "Underwriting & Risk",
+        "origin": "template",
+        "templateId": "underwriting-risk",
+        "layout": "fields",
+        "purpose": "Underwriting and risk assessment",
+        "evidenceRefs": []
+      },
+      {
+        "id": "tranches",
+        "label": "Tranche Structure",
+        "origin": "template",
+        "templateId": "tranches",
+        "layout": "records",
+        "purpose": "Tranche structure details",
+        "evidenceRefs": []
+      },
+      {
+        "id": "ext:insured-conflict",
+        "label": "Insured Conflict",
+        "origin": "inferred",
+        "layout": "fields",
+        "recordLabel": "Insured Conflict",
+        "purpose": "Capture conflicting insured information from evidence",
+        "evidenceRefs": [
+          "artifact:1"
+        ]
+      }
+    ],
+    "sectionPlan": {
+      "sections": [
+        {
+          "id": "general-information",
+          "label": "General Information",
+          "origin": "template",
+          "templateId": "general-information",
+          "layout": "fields",
+          "purpose": "General policy information",
+          "evidenceRefs": []
+        },
+        {
+          "id": "parties",
+          "label": "Parties & Counterparties",
+          "origin": "template",
+          "templateId": "parties",
+          "layout": "records",
+          "purpose": "Parties and counterparties involved",
+          "evidenceRefs": []
+        },
+        {
+          "id": "financials",
+          "label": "Financials",
+          "origin": "template",
+          "templateId": "financials",
+          "layout": "fields",
+          "purpose": "Financial details",
+          "evidenceRefs": []
+        },
+        {
+          "id": "subjects",
+          "label": "Subjects of Insurance",
+          "origin": "template",
+          "templateId": "subjects",
+          "layout": "records",
+          "purpose": "Subjects covered by insurance",
+          "evidenceRefs": []
+        },
+        {
+          "id": "underwriting-risk",
+          "label": "Underwriting & Risk",
+          "origin": "template",
+          "templateId": "underwriting-risk",
+          "layout": "fields",
+          "purpose": "Underwriting and risk assessment",
+          "evidenceRefs": []
+        },
+        {
+          "id": "tranches",
+          "label": "Tranche Structure",
+          "origin": "template",
+          "templateId": "tranches",
+          "layout": "records",
+          "purpose": "Tranche structure details",
+          "evidenceRefs": []
+        },
+        {
+          "id": "ext:insured-conflict",
+          "label": "Insured Conflict",
+          "origin": "inferred",
+          "layout": "fields",
+          "recordLabel": "Insured Conflict",
+          "purpose": "Capture conflicting insured information from evidence",
+          "evidenceRefs": [
+            "artifact:1"
+          ]
+        }
+      ],
+      "omittedTemplates": [],
+      "unplacedEvidence": []
+    },
+    "reviews": {
+      "general-information": {
+        "applicationState": [
+          {
+            "fieldId": "internalId",
+            "label": "Internal ID",
+            "fieldType": "text",
+            "description": "Internal identifier for the deal, used for tracking and reference purposes.",
+            "placeholder": "e.g., INT-DEAL-88219",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "internalId",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.722,
+              "score": 3.61,
+              "status": "warning",
+              "error": null,
+              "warning": "Internal ID has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "referenceNumber",
+            "label": "Reference Number",
+            "fieldType": "text",
+            "description": "Unique deal reference number or policy tracking code.",
+            "placeholder": "e.g., REF-2026-09-001",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "referenceNumber",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.426,
+              "score": 2.13,
+              "status": "error",
+              "error": "Reference Number has low confidence against the section evidence and requires correction or verification.",
+              "warning": null
+            }
+          },
+          {
+            "fieldId": "subjectLinesOfBusiness",
+            "label": "Lines of Business",
+            "fieldType": "multi-select",
+            "description": "High-level coverage categories included in this deal placement.",
+            "options": [
+              "Commercial Property",
+              "General Liability",
+              "Cyber Liability",
+              "Commercial Auto",
+              "Workers Compensation",
+              "Directors & Officers"
+            ],
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "subjectLinesOfBusiness",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.5660000000000001,
+              "score": 2.83,
+              "status": "warning",
+              "error": null,
+              "warning": "Lines of Business has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "effectiveDate",
+            "label": "Effective Date",
+            "fieldType": "date",
+            "description": "Policy inception date when coverage begins.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "effectiveDate",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.742,
+              "score": 3.71,
+              "status": "warning",
+              "error": null,
+              "warning": "Effective Date has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "expirationDate",
+            "label": "Expiration Date",
+            "fieldType": "date",
+            "description": "Policy expiration date when coverage ends.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "expirationDate",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.72,
+              "score": 3.6,
+              "status": "warning",
+              "error": null,
+              "warning": "Expiration Date has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "assignedBroker",
+            "label": "Assigned Broker / Producer",
+            "fieldType": "text",
+            "description": "Primary broker or producer responsible for the placement.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "assignedBroker",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.746,
+              "score": 3.73,
+              "status": "warning",
+              "error": null,
+              "warning": "Assigned Broker / Producer has uncertain support in the section evidence and should be reviewed."
+            }
+          }
+        ],
+        "summary": {
+          "section": {
+            "id": "general-information",
+            "label": "General Information"
+          },
+          "fieldCount": 6,
+          "confidence": 0.6536666666666667,
+          "errors": 1,
+          "warnings": 5,
+          "passed": 0
+        },
+        "request": {
+          "state": {
+            "reviewInstructions": "Check factual accuracy, completeness and section placement. Use relevantPipelineProcess as primary evidence; submission and pipelineOutput provide context. An empty value is correct when no supporting information exists. Higher scores are better.",
+            "fields": [
+              {
+                "path": "applicationState[0]",
+                "field": {
+                  "fieldId": "internalId",
+                  "label": "Internal ID",
+                  "fieldType": "text",
+                  "description": "Internal identifier for the deal, used for tracking and reference purposes.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "internalId",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                }
+              },
+              {
+                "path": "applicationState[1]",
+                "field": {
+                  "fieldId": "referenceNumber",
+                  "label": "Reference Number",
+                  "fieldType": "text",
+                  "description": "Unique deal reference number or policy tracking code.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "referenceNumber",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                }
+              },
+              {
+                "path": "applicationState[2]",
+                "field": {
+                  "fieldId": "subjectLinesOfBusiness",
+                  "label": "Lines of Business",
+                  "fieldType": "multi-select",
+                  "description": "High-level coverage categories included in this deal placement.",
+                  "options": [
+                    "Commercial Property",
+                    "General Liability",
+                    "Cyber Liability",
+                    "Commercial Auto",
+                    "Workers Compensation",
+                    "Directors & Officers"
+                  ],
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "subjectLinesOfBusiness",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                }
+              },
+              {
+                "path": "applicationState[3]",
+                "field": {
+                  "fieldId": "effectiveDate",
+                  "label": "Effective Date",
+                  "fieldType": "date",
+                  "description": "Policy inception date when coverage begins.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "effectiveDate",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                }
+              },
+              {
+                "path": "applicationState[4]",
+                "field": {
+                  "fieldId": "expirationDate",
+                  "label": "Expiration Date",
+                  "fieldType": "date",
+                  "description": "Policy expiration date when coverage ends.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "expirationDate",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                }
+              },
+              {
+                "path": "applicationState[5]",
+                "field": {
+                  "fieldId": "assignedBroker",
+                  "label": "Assigned Broker / Producer",
+                  "fieldType": "text",
+                  "description": "Primary broker or producer responsible for the placement.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "assignedBroker",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                }
+              }
+            ],
+            "relevantPipelineProcess": [],
+            "submission": {
+              "referenceNumber": "EVAL-007"
+            },
+            "pipelineOutput": [
+              {
+                "stageKey": "extraction"
+              }
+            ],
+            "section": {
+              "id": "general-information",
+              "label": "General Information"
+            }
+          },
+          "questions": {
+            "applicationState[0]:internalId": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[0] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[1]:referenceNumber": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[1] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[2]:subjectLinesOfBusiness": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[2] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[3]:effectiveDate": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[3] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[4]:expirationDate": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[4] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[5]:assignedBroker": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[5] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            }
+          }
+        },
+        "response": {
+          "model": "jev-1.13.0",
+          "answers": {
+            "applicationState[0]:internalId": {
+              "type": "score",
+              "score": 3.61,
+              "confidence": 0.1,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.26,
+                "1": 0,
+                "2": 0.01,
+                "3": 0,
+                "4": 0.02,
+                "5": 0.71
+              }
+            },
+            "applicationState[1]:referenceNumber": {
+              "type": "score",
+              "score": 2.13,
+              "confidence": 0.76,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.04,
+                "1": 0.03,
+                "2": 0.84,
+                "3": 0,
+                "4": 0.02,
+                "5": 0.07
+              }
+            },
+            "applicationState[2]:subjectLinesOfBusiness": {
+              "type": "score",
+              "score": 2.83,
+              "confidence": 0,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.4,
+                "1": 0,
+                "2": 0.04,
+                "3": 0,
+                "4": 0.02,
+                "5": 0.53
+              }
+            },
+            "applicationState[3]:effectiveDate": {
+              "type": "score",
+              "score": 3.71,
+              "confidence": 0.14,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.25,
+                "1": 0,
+                "2": 0.01,
+                "3": 0,
+                "4": 0.01,
+                "5": 0.73
+              }
+            },
+            "applicationState[4]:expirationDate": {
+              "type": "score",
+              "score": 3.6,
+              "confidence": 0.08,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.26,
+                "1": 0,
+                "2": 0.02,
+                "3": 0,
+                "4": 0.02,
+                "5": 0.7
+              }
+            },
+            "applicationState[5]:assignedBroker": {
+              "type": "score",
+              "score": 3.73,
+              "confidence": 0.16,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.23,
+                "1": 0,
+                "2": 0.03,
+                "3": 0,
+                "4": 0.02,
+                "5": 0.72
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 2373,
+            "output_tokens": 144
+          }
+        },
+        "batches": [
+          {
+            "request": {
+              "state": {
+                "reviewInstructions": "Check factual accuracy, completeness and section placement. Use relevantPipelineProcess as primary evidence; submission and pipelineOutput provide context. An empty value is correct when no supporting information exists. Higher scores are better.",
+                "fields": [
+                  {
+                    "path": "applicationState[0]",
+                    "field": {
+                      "fieldId": "internalId",
+                      "label": "Internal ID",
+                      "fieldType": "text",
+                      "description": "Internal identifier for the deal, used for tracking and reference purposes.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "internalId",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                    }
+                  },
+                  {
+                    "path": "applicationState[1]",
+                    "field": {
+                      "fieldId": "referenceNumber",
+                      "label": "Reference Number",
+                      "fieldType": "text",
+                      "description": "Unique deal reference number or policy tracking code.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "referenceNumber",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                    }
+                  },
+                  {
+                    "path": "applicationState[2]",
+                    "field": {
+                      "fieldId": "subjectLinesOfBusiness",
+                      "label": "Lines of Business",
+                      "fieldType": "multi-select",
+                      "description": "High-level coverage categories included in this deal placement.",
+                      "options": [
+                        "Commercial Property",
+                        "General Liability",
+                        "Cyber Liability",
+                        "Commercial Auto",
+                        "Workers Compensation",
+                        "Directors & Officers"
+                      ],
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "subjectLinesOfBusiness",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                    }
+                  },
+                  {
+                    "path": "applicationState[3]",
+                    "field": {
+                      "fieldId": "effectiveDate",
+                      "label": "Effective Date",
+                      "fieldType": "date",
+                      "description": "Policy inception date when coverage begins.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "effectiveDate",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                    }
+                  },
+                  {
+                    "path": "applicationState[4]",
+                    "field": {
+                      "fieldId": "expirationDate",
+                      "label": "Expiration Date",
+                      "fieldType": "date",
+                      "description": "Policy expiration date when coverage ends.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "expirationDate",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                    }
+                  },
+                  {
+                    "path": "applicationState[5]",
+                    "field": {
+                      "fieldId": "assignedBroker",
+                      "label": "Assigned Broker / Producer",
+                      "fieldType": "text",
+                      "description": "Primary broker or producer responsible for the placement.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "assignedBroker",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436"
+                    }
+                  }
+                ],
+                "relevantPipelineProcess": [],
+                "submission": {
+                  "referenceNumber": "EVAL-007"
+                },
+                "pipelineOutput": [
+                  {
+                    "stageKey": "extraction"
+                  }
+                ],
+                "section": {
+                  "id": "general-information",
+                  "label": "General Information"
+                }
+              },
+              "questions": {
+                "applicationState[0]:internalId": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[0] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[1]:referenceNumber": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[1] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[2]:subjectLinesOfBusiness": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[2] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[3]:effectiveDate": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[3] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[4]:expirationDate": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[4] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[5]:assignedBroker": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[5] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                }
+              }
+            },
+            "response": {
+              "model": "jev-1.13.0",
+              "answers": {
+                "applicationState[0]:internalId": {
+                  "type": "score",
+                  "score": 3.61,
+                  "confidence": 0.1,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.26,
+                    "1": 0,
+                    "2": 0.01,
+                    "3": 0,
+                    "4": 0.02,
+                    "5": 0.71
+                  }
+                },
+                "applicationState[1]:referenceNumber": {
+                  "type": "score",
+                  "score": 2.13,
+                  "confidence": 0.76,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.04,
+                    "1": 0.03,
+                    "2": 0.84,
+                    "3": 0,
+                    "4": 0.02,
+                    "5": 0.07
+                  }
+                },
+                "applicationState[2]:subjectLinesOfBusiness": {
+                  "type": "score",
+                  "score": 2.83,
+                  "confidence": 0,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.4,
+                    "1": 0,
+                    "2": 0.04,
+                    "3": 0,
+                    "4": 0.02,
+                    "5": 0.53
+                  }
+                },
+                "applicationState[3]:effectiveDate": {
+                  "type": "score",
+                  "score": 3.71,
+                  "confidence": 0.14,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.25,
+                    "1": 0,
+                    "2": 0.01,
+                    "3": 0,
+                    "4": 0.01,
+                    "5": 0.73
+                  }
+                },
+                "applicationState[4]:expirationDate": {
+                  "type": "score",
+                  "score": 3.6,
+                  "confidence": 0.08,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.26,
+                    "1": 0,
+                    "2": 0.02,
+                    "3": 0,
+                    "4": 0.02,
+                    "5": 0.7
+                  }
+                },
+                "applicationState[5]:assignedBroker": {
+                  "type": "score",
+                  "score": 3.73,
+                  "confidence": 0.16,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.23,
+                    "1": 0,
+                    "2": 0.03,
+                    "3": 0,
+                    "4": 0.02,
+                    "5": 0.72
+                  }
+                }
+              },
+              "usage": {
+                "input_tokens": 2373,
+                "output_tokens": 144
+              }
+            }
+          }
+        ]
+      },
+      "parties": {
+        "applicationState": [],
+        "summary": {
+          "section": {
+            "id": "parties",
+            "label": "Parties & Counterparties"
+          },
+          "fieldCount": 0,
+          "confidence": null,
+          "errors": 0,
+          "warnings": 0,
+          "passed": 0
+        },
+        "request": null,
+        "response": null,
+        "batches": []
+      },
+      "financials": {
+        "applicationState": [
+          {
+            "fieldId": "baseCurrency",
+            "label": "Base Currency",
+            "fieldType": "select",
+            "description": "Primary currency in which the deal premium and values are quoted.",
+            "options": [
+              "USD",
+              "EUR",
+              "GBP",
+              "CAD",
+              "AUD",
+              "JPY",
+              "CHF"
+            ],
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "baseCurrency",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.616,
+              "score": 3.08,
+              "status": "warning",
+              "error": null,
+              "warning": "Base Currency has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "totalGrossWrittenPremium",
+            "label": "Gross Written Premium (GWP)",
+            "fieldType": "number",
+            "description": "Total top-line gross premium figure for the full policy term across all lines.",
+            "placeholder": "e.g., 250000",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "totalGrossWrittenPremium",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.628,
+              "score": 3.14,
+              "status": "warning",
+              "error": null,
+              "warning": "Gross Written Premium (GWP) has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "totalInsuredValue",
+            "label": "Total Insured Value (TIV / TSI)",
+            "fieldType": "number",
+            "description": "Aggregate exposure limit or sum insured declared across the entire deal container.",
+            "placeholder": "e.g., 50000000",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "totalInsuredValue",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.662,
+              "score": 3.31,
+              "status": "warning",
+              "error": null,
+              "warning": "Total Insured Value (TIV / TSI) has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "brokerCommissionPercentage",
+            "label": "Broker Commission (%)",
+            "fieldType": "number",
+            "description": "Overarching broker/producer commission percentage calculated on the GWP.",
+            "placeholder": "e.g., 12.5",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "brokerCommissionPercentage",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.596,
+              "score": 2.98,
+              "status": "warning",
+              "error": null,
+              "warning": "Broker Commission (%) has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "paymentFrequency",
+            "label": "Payment Schedule / Frequency",
+            "fieldType": "select",
+            "description": "Agreed premium payment schedule installment structure.",
+            "options": [
+              "Annual (100% upfront)",
+              "Semi-Annual (50/50)",
+              "Quarterly (4 Split)",
+              "Monthly"
+            ],
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "paymentFrequency",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.6940000000000001,
+              "score": 3.47,
+              "status": "warning",
+              "error": null,
+              "warning": "Payment Schedule / Frequency has uncertain support in the section evidence and should be reviewed."
+            }
+          },
+          {
+            "fieldId": "premiumDueDate",
+            "label": "First Premium Due Date",
+            "fieldType": "date",
+            "description": "Deadline date for the initial premium payment settlement.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "premiumDueDate",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.752,
+              "score": 3.76,
+              "status": "warning",
+              "error": null,
+              "warning": "First Premium Due Date has uncertain support in the section evidence and should be reviewed."
+            }
+          }
+        ],
+        "summary": {
+          "section": {
+            "id": "financials",
+            "label": "Financials"
+          },
+          "fieldCount": 6,
+          "confidence": 0.658,
+          "errors": 0,
+          "warnings": 6,
+          "passed": 0
+        },
+        "request": {
+          "state": {
+            "reviewInstructions": "Check factual accuracy, completeness and section placement. Use relevantPipelineProcess as primary evidence; submission and pipelineOutput provide context. An empty value is correct when no supporting information exists. Higher scores are better.",
+            "fields": [
+              {
+                "path": "applicationState[0]",
+                "field": {
+                  "fieldId": "baseCurrency",
+                  "label": "Base Currency",
+                  "fieldType": "select",
+                  "description": "Primary currency in which the deal premium and values are quoted.",
+                  "options": [
+                    "USD",
+                    "EUR",
+                    "GBP",
+                    "CAD",
+                    "AUD",
+                    "JPY",
+                    "CHF"
+                  ],
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "baseCurrency",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                }
+              },
+              {
+                "path": "applicationState[1]",
+                "field": {
+                  "fieldId": "totalGrossWrittenPremium",
+                  "label": "Gross Written Premium (GWP)",
+                  "fieldType": "number",
+                  "description": "Total top-line gross premium figure for the full policy term across all lines.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "totalGrossWrittenPremium",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                }
+              },
+              {
+                "path": "applicationState[2]",
+                "field": {
+                  "fieldId": "totalInsuredValue",
+                  "label": "Total Insured Value (TIV / TSI)",
+                  "fieldType": "number",
+                  "description": "Aggregate exposure limit or sum insured declared across the entire deal container.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "totalInsuredValue",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                }
+              },
+              {
+                "path": "applicationState[3]",
+                "field": {
+                  "fieldId": "brokerCommissionPercentage",
+                  "label": "Broker Commission (%)",
+                  "fieldType": "number",
+                  "description": "Overarching broker/producer commission percentage calculated on the GWP.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "brokerCommissionPercentage",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                }
+              },
+              {
+                "path": "applicationState[4]",
+                "field": {
+                  "fieldId": "paymentFrequency",
+                  "label": "Payment Schedule / Frequency",
+                  "fieldType": "select",
+                  "description": "Agreed premium payment schedule installment structure.",
+                  "options": [
+                    "Annual (100% upfront)",
+                    "Semi-Annual (50/50)",
+                    "Quarterly (4 Split)",
+                    "Monthly"
+                  ],
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "paymentFrequency",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                }
+              },
+              {
+                "path": "applicationState[5]",
+                "field": {
+                  "fieldId": "premiumDueDate",
+                  "label": "First Premium Due Date",
+                  "fieldType": "date",
+                  "description": "Deadline date for the initial premium payment settlement.",
+                  "validation": {
+                    "isRequired": true
+                  },
+                  "value": null,
+                  "evidenceIssues": [
+                    {
+                      "code": "missing_required_field",
+                      "fieldId": "premiumDueDate",
+                      "message": "Required field omitted by generation; value remains missing."
+                    }
+                  ],
+                  "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                }
+              }
+            ],
+            "relevantPipelineProcess": [],
+            "submission": {
+              "referenceNumber": "EVAL-007"
+            },
+            "pipelineOutput": [
+              {
+                "stageKey": "extraction"
+              }
+            ],
+            "section": {
+              "id": "financials",
+              "label": "Financials"
+            }
+          },
+          "questions": {
+            "applicationState[0]:baseCurrency": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[0] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[1]:totalGrossWrittenPremium": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[1] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[2]:totalInsuredValue": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[2] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[3]:brokerCommissionPercentage": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[3] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[4]:paymentFrequency": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[4] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[5]:premiumDueDate": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[5] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            }
+          }
+        },
+        "response": {
+          "model": "jev-1.13.0",
+          "answers": {
+            "applicationState[0]:baseCurrency": {
+              "type": "score",
+              "score": 3.08,
+              "confidence": 0,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.37,
+                "1": 0,
+                "2": 0.01,
+                "3": 0,
+                "4": 0.03,
+                "5": 0.59
+              }
+            },
+            "applicationState[1]:totalGrossWrittenPremium": {
+              "type": "score",
+              "score": 3.14,
+              "confidence": 0,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.36,
+                "1": 0,
+                "2": 0.01,
+                "3": 0,
+                "4": 0.03,
+                "5": 0.6
+              }
+            },
+            "applicationState[2]:totalInsuredValue": {
+              "type": "score",
+              "score": 3.31,
+              "confidence": 0,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.33,
+                "1": 0,
+                "2": 0.01,
+                "3": 0,
+                "4": 0.04,
+                "5": 0.62
+              }
+            },
+            "applicationState[3]:brokerCommissionPercentage": {
+              "type": "score",
+              "score": 2.98,
+              "confidence": 0,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.39,
+                "1": 0,
+                "2": 0.01,
+                "3": 0,
+                "4": 0.02,
+                "5": 0.58
+              }
+            },
+            "applicationState[4]:paymentFrequency": {
+              "type": "score",
+              "score": 3.47,
+              "confidence": 0,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.3,
+                "1": 0,
+                "2": 0,
+                "3": 0,
+                "4": 0.01,
+                "5": 0.6900000000000001
+              }
+            },
+            "applicationState[5]:premiumDueDate": {
+              "type": "score",
+              "score": 3.76,
+              "confidence": 0.19,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0.24,
+                "1": 0,
+                "2": 0,
+                "3": 0,
+                "4": 0.01,
+                "5": 0.75
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 2454,
+            "output_tokens": 152
+          }
+        },
+        "batches": [
+          {
+            "request": {
+              "state": {
+                "reviewInstructions": "Check factual accuracy, completeness and section placement. Use relevantPipelineProcess as primary evidence; submission and pipelineOutput provide context. An empty value is correct when no supporting information exists. Higher scores are better.",
+                "fields": [
+                  {
+                    "path": "applicationState[0]",
+                    "field": {
+                      "fieldId": "baseCurrency",
+                      "label": "Base Currency",
+                      "fieldType": "select",
+                      "description": "Primary currency in which the deal premium and values are quoted.",
+                      "options": [
+                        "USD",
+                        "EUR",
+                        "GBP",
+                        "CAD",
+                        "AUD",
+                        "JPY",
+                        "CHF"
+                      ],
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "baseCurrency",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                    }
+                  },
+                  {
+                    "path": "applicationState[1]",
+                    "field": {
+                      "fieldId": "totalGrossWrittenPremium",
+                      "label": "Gross Written Premium (GWP)",
+                      "fieldType": "number",
+                      "description": "Total top-line gross premium figure for the full policy term across all lines.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "totalGrossWrittenPremium",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                    }
+                  },
+                  {
+                    "path": "applicationState[2]",
+                    "field": {
+                      "fieldId": "totalInsuredValue",
+                      "label": "Total Insured Value (TIV / TSI)",
+                      "fieldType": "number",
+                      "description": "Aggregate exposure limit or sum insured declared across the entire deal container.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "totalInsuredValue",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                    }
+                  },
+                  {
+                    "path": "applicationState[3]",
+                    "field": {
+                      "fieldId": "brokerCommissionPercentage",
+                      "label": "Broker Commission (%)",
+                      "fieldType": "number",
+                      "description": "Overarching broker/producer commission percentage calculated on the GWP.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "brokerCommissionPercentage",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                    }
+                  },
+                  {
+                    "path": "applicationState[4]",
+                    "field": {
+                      "fieldId": "paymentFrequency",
+                      "label": "Payment Schedule / Frequency",
+                      "fieldType": "select",
+                      "description": "Agreed premium payment schedule installment structure.",
+                      "options": [
+                        "Annual (100% upfront)",
+                        "Semi-Annual (50/50)",
+                        "Quarterly (4 Split)",
+                        "Monthly"
+                      ],
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "paymentFrequency",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                    }
+                  },
+                  {
+                    "path": "applicationState[5]",
+                    "field": {
+                      "fieldId": "premiumDueDate",
+                      "label": "First Premium Due Date",
+                      "fieldType": "date",
+                      "description": "Deadline date for the initial premium payment settlement.",
+                      "validation": {
+                        "isRequired": true
+                      },
+                      "value": null,
+                      "evidenceIssues": [
+                        {
+                          "code": "missing_required_field",
+                          "fieldId": "premiumDueDate",
+                          "message": "Required field omitted by generation; value remains missing."
+                        }
+                      ],
+                      "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4"
+                    }
+                  }
+                ],
+                "relevantPipelineProcess": [],
+                "submission": {
+                  "referenceNumber": "EVAL-007"
+                },
+                "pipelineOutput": [
+                  {
+                    "stageKey": "extraction"
+                  }
+                ],
+                "section": {
+                  "id": "financials",
+                  "label": "Financials"
+                }
+              },
+              "questions": {
+                "applicationState[0]:baseCurrency": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[0] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[1]:totalGrossWrittenPremium": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[1] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[2]:totalInsuredValue": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[2] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[3]:brokerCommissionPercentage": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[3] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[4]:paymentFrequency": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[4] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[5]:premiumDueDate": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[5] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                }
+              }
+            },
+            "response": {
+              "model": "jev-1.13.0",
+              "answers": {
+                "applicationState[0]:baseCurrency": {
+                  "type": "score",
+                  "score": 3.08,
+                  "confidence": 0,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.37,
+                    "1": 0,
+                    "2": 0.01,
+                    "3": 0,
+                    "4": 0.03,
+                    "5": 0.59
+                  }
+                },
+                "applicationState[1]:totalGrossWrittenPremium": {
+                  "type": "score",
+                  "score": 3.14,
+                  "confidence": 0,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.36,
+                    "1": 0,
+                    "2": 0.01,
+                    "3": 0,
+                    "4": 0.03,
+                    "5": 0.6
+                  }
+                },
+                "applicationState[2]:totalInsuredValue": {
+                  "type": "score",
+                  "score": 3.31,
+                  "confidence": 0,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.33,
+                    "1": 0,
+                    "2": 0.01,
+                    "3": 0,
+                    "4": 0.04,
+                    "5": 0.62
+                  }
+                },
+                "applicationState[3]:brokerCommissionPercentage": {
+                  "type": "score",
+                  "score": 2.98,
+                  "confidence": 0,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.39,
+                    "1": 0,
+                    "2": 0.01,
+                    "3": 0,
+                    "4": 0.02,
+                    "5": 0.58
+                  }
+                },
+                "applicationState[4]:paymentFrequency": {
+                  "type": "score",
+                  "score": 3.47,
+                  "confidence": 0,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.3,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0.01,
+                    "5": 0.6900000000000001
+                  }
+                },
+                "applicationState[5]:premiumDueDate": {
+                  "type": "score",
+                  "score": 3.76,
+                  "confidence": 0.19,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0.24,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0.01,
+                    "5": 0.75
+                  }
+                }
+              },
+              "usage": {
+                "input_tokens": 2454,
+                "output_tokens": 152
+              }
+            }
+          }
+        ]
+      },
+      "subjects": {
+        "applicationState": [],
+        "summary": {
+          "section": {
+            "id": "subjects",
+            "label": "Subjects of Insurance"
+          },
+          "fieldCount": 0,
+          "confidence": null,
+          "errors": 0,
+          "warnings": 0,
+          "passed": 0
+        },
+        "request": null,
+        "response": null,
+        "batches": []
+      },
+      "underwriting-risk": {
+        "applicationState": [],
+        "summary": {
+          "section": {
+            "id": "underwriting-risk",
+            "label": "Underwriting & Risk"
+          },
+          "fieldCount": 0,
+          "confidence": null,
+          "errors": 0,
+          "warnings": 0,
+          "passed": 0
+        },
+        "request": null,
+        "response": null,
+        "batches": []
+      },
+      "tranches": {
+        "applicationState": [],
+        "summary": {
+          "section": {
+            "id": "tranches",
+            "label": "Tranche Structure"
+          },
+          "fieldCount": 0,
+          "confidence": null,
+          "errors": 0,
+          "warnings": 0,
+          "passed": 0
+        },
+        "request": null,
+        "response": null,
+        "batches": []
+      },
+      "ext:insured-conflict": {
+        "applicationState": [
+          {
+            "fieldId": "insured",
+            "fieldType": "text",
+            "label": "Insured",
+            "description": "Name of the insured entity",
+            "validation": {},
+            "uiConfig": {},
+            "value": "Conflict Company",
+            "componentProposal": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.992,
+              "score": 4.96,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            }
+          },
+          {
+            "fieldId": "sumInsured",
+            "fieldType": "currency",
+            "label": "Sum Insured",
+            "description": "Total insured amount",
+            "validation": {},
+            "uiConfig": {},
+            "value": 1000000,
+            "componentProposal": {
+              "id": "xds.currency",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.984,
+              "score": 4.92,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            }
+          },
+          {
+            "fieldId": "sumInsuredConflict",
+            "fieldType": "currency",
+            "label": "Sum Insured (Conflict)",
+            "description": "Conflicting sum insured value from another document",
+            "validation": {},
+            "uiConfig": {},
+            "value": 1200000,
+            "componentProposal": {
+              "id": "xds.currency",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.994,
+              "score": 4.97,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            }
+          },
+          {
+            "fieldId": "conflictNote",
+            "fieldType": "textarea",
+            "label": "Conflict Note",
+            "description": "Note about unresolved conflict between documents",
+            "validation": {},
+            "uiConfig": {},
+            "value": "Both documents are current; conflict is unresolved.",
+            "componentProposal": {
+              "id": "xds.textarea",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.992,
+              "score": 4.96,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            }
+          }
+        ],
+        "summary": {
+          "section": {
+            "id": "ext:insured-conflict",
+            "label": "Insured Conflict"
+          },
+          "fieldCount": 4,
+          "confidence": 0.9904999999999999,
+          "errors": 0,
+          "warnings": 0,
+          "passed": 4
+        },
+        "request": {
+          "state": {
+            "reviewInstructions": "Check factual accuracy, completeness and section placement. Use relevantPipelineProcess as primary evidence; submission and pipelineOutput provide context. An empty value is correct when no supporting information exists. Higher scores are better.",
+            "fields": [
+              {
+                "path": "applicationState[0]",
+                "field": {
+                  "fieldId": "insured",
+                  "fieldType": "text",
+                  "label": "Insured",
+                  "description": "Name of the insured entity",
+                  "validation": {},
+                  "value": "Conflict Company",
+                  "componentProposal": {
+                    "id": "xds.input",
+                    "version": 1
+                  },
+                  "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                }
+              },
+              {
+                "path": "applicationState[1]",
+                "field": {
+                  "fieldId": "sumInsured",
+                  "fieldType": "currency",
+                  "label": "Sum Insured",
+                  "description": "Total insured amount",
+                  "validation": {},
+                  "value": 1000000,
+                  "componentProposal": {
+                    "id": "xds.currency",
+                    "version": 1
+                  },
+                  "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                }
+              },
+              {
+                "path": "applicationState[2]",
+                "field": {
+                  "fieldId": "sumInsuredConflict",
+                  "fieldType": "currency",
+                  "label": "Sum Insured (Conflict)",
+                  "description": "Conflicting sum insured value from another document",
+                  "validation": {},
+                  "value": 1200000,
+                  "componentProposal": {
+                    "id": "xds.currency",
+                    "version": 1
+                  },
+                  "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                }
+              },
+              {
+                "path": "applicationState[3]",
+                "field": {
+                  "fieldId": "conflictNote",
+                  "fieldType": "textarea",
+                  "label": "Conflict Note",
+                  "description": "Note about unresolved conflict between documents",
+                  "validation": {},
+                  "value": "Both documents are current; conflict is unresolved.",
+                  "componentProposal": {
+                    "id": "xds.textarea",
+                    "version": 1
+                  },
+                  "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                }
+              }
+            ],
+            "relevantPipelineProcess": [
+              {
+                "ok": true,
+                "structuredData": {
+                  "documentA": {
+                    "insured": "Conflict Company",
+                    "sumInsured": 1000000
+                  },
+                  "documentB": {
+                    "insured": "Conflict Company",
+                    "sumInsured": 1200000
+                  },
+                  "note": "Both documents are current; conflict is unresolved."
+                }
+              }
+            ],
+            "submission": {
+              "referenceNumber": "EVAL-007"
+            },
+            "pipelineOutput": [],
+            "section": {
+              "id": "ext:insured-conflict",
+              "label": "Insured Conflict"
+            }
+          },
+          "questions": {
+            "applicationState[0]:insured": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[0] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[1]:sumInsured": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[1] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[2]:sumInsuredConflict": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[2] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            },
+            "applicationState[3]:conflictNote": {
+              "type": "score",
+              "instructions": "Review the field at applicationState[3] using the shared reviewInstructions and ascending rubric.",
+              "criteria": [
+                "Wrong or omitted; cannot be verified.",
+                "Contradicts evidence or belongs outside this section.",
+                "Empty despite an available supporting value.",
+                "Partially correct, incomplete, vague or imprecise.",
+                "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              ]
+            }
+          }
+        },
+        "response": {
+          "model": "jev-1.13.0",
+          "answers": {
+            "applicationState[0]:insured": {
+              "type": "score",
+              "score": 4.96,
+              "confidence": 0.99,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0,
+                "1": 0,
+                "2": 0,
+                "3": 0,
+                "4": 0.01,
+                "5": 0.99
+              }
+            },
+            "applicationState[1]:sumInsured": {
+              "type": "score",
+              "score": 4.92,
+              "confidence": 0.95,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0,
+                "1": 0.01,
+                "2": 0,
+                "3": 0,
+                "4": 0.03,
+                "5": 0.96
+              }
+            },
+            "applicationState[2]:sumInsuredConflict": {
+              "type": "score",
+              "score": 4.97,
+              "confidence": 0.99,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0,
+                "1": 0,
+                "2": 0,
+                "3": 0,
+                "4": 0.02,
+                "5": 0.98
+              }
+            },
+            "applicationState[3]:conflictNote": {
+              "type": "score",
+              "score": 4.96,
+              "confidence": 0.98,
+              "legend": {
+                "0": "Wrong or omitted; cannot be verified.",
+                "1": "Contradicts evidence or belongs outside this section.",
+                "2": "Empty despite an available supporting value.",
+                "3": "Partially correct, incomplete, vague or imprecise.",
+                "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+              },
+              "probabilities": {
+                "0": 0,
+                "1": 0,
+                "2": 0,
+                "3": 0,
+                "4": 0.03,
+                "5": 0.97
+              }
+            }
+          },
+          "usage": {
+            "input_tokens": 1653,
+            "output_tokens": 93
+          }
+        },
+        "batches": [
+          {
+            "request": {
+              "state": {
+                "reviewInstructions": "Check factual accuracy, completeness and section placement. Use relevantPipelineProcess as primary evidence; submission and pipelineOutput provide context. An empty value is correct when no supporting information exists. Higher scores are better.",
+                "fields": [
+                  {
+                    "path": "applicationState[0]",
+                    "field": {
+                      "fieldId": "insured",
+                      "fieldType": "text",
+                      "label": "Insured",
+                      "description": "Name of the insured entity",
+                      "validation": {},
+                      "value": "Conflict Company",
+                      "componentProposal": {
+                        "id": "xds.input",
+                        "version": 1
+                      },
+                      "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                    }
+                  },
+                  {
+                    "path": "applicationState[1]",
+                    "field": {
+                      "fieldId": "sumInsured",
+                      "fieldType": "currency",
+                      "label": "Sum Insured",
+                      "description": "Total insured amount",
+                      "validation": {},
+                      "value": 1000000,
+                      "componentProposal": {
+                        "id": "xds.currency",
+                        "version": 1
+                      },
+                      "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                    }
+                  },
+                  {
+                    "path": "applicationState[2]",
+                    "field": {
+                      "fieldId": "sumInsuredConflict",
+                      "fieldType": "currency",
+                      "label": "Sum Insured (Conflict)",
+                      "description": "Conflicting sum insured value from another document",
+                      "validation": {},
+                      "value": 1200000,
+                      "componentProposal": {
+                        "id": "xds.currency",
+                        "version": 1
+                      },
+                      "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                    }
+                  },
+                  {
+                    "path": "applicationState[3]",
+                    "field": {
+                      "fieldId": "conflictNote",
+                      "fieldType": "textarea",
+                      "label": "Conflict Note",
+                      "description": "Note about unresolved conflict between documents",
+                      "validation": {},
+                      "value": "Both documents are current; conflict is unresolved.",
+                      "componentProposal": {
+                        "id": "xds.textarea",
+                        "version": 1
+                      },
+                      "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977"
+                    }
+                  }
+                ],
+                "relevantPipelineProcess": [
+                  {
+                    "ok": true,
+                    "structuredData": {
+                      "documentA": {
+                        "insured": "Conflict Company",
+                        "sumInsured": 1000000
+                      },
+                      "documentB": {
+                        "insured": "Conflict Company",
+                        "sumInsured": 1200000
+                      },
+                      "note": "Both documents are current; conflict is unresolved."
+                    }
+                  }
+                ],
+                "submission": {
+                  "referenceNumber": "EVAL-007"
+                },
+                "pipelineOutput": [],
+                "section": {
+                  "id": "ext:insured-conflict",
+                  "label": "Insured Conflict"
+                }
+              },
+              "questions": {
+                "applicationState[0]:insured": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[0] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[1]:sumInsured": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[1] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[2]:sumInsuredConflict": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[2] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                },
+                "applicationState[3]:conflictNote": {
+                  "type": "score",
+                  "instructions": "Review the field at applicationState[3] using the shared reviewInstructions and ascending rubric.",
+                  "criteria": [
+                    "Wrong or omitted; cannot be verified.",
+                    "Contradicts evidence or belongs outside this section.",
+                    "Empty despite an available supporting value.",
+                    "Partially correct, incomplete, vague or imprecise.",
+                    "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  ]
+                }
+              }
+            },
+            "response": {
+              "model": "jev-1.13.0",
+              "answers": {
+                "applicationState[0]:insured": {
+                  "type": "score",
+                  "score": 4.96,
+                  "confidence": 0.99,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0.01,
+                    "5": 0.99
+                  }
+                },
+                "applicationState[1]:sumInsured": {
+                  "type": "score",
+                  "score": 4.92,
+                  "confidence": 0.95,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0,
+                    "1": 0.01,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0.03,
+                    "5": 0.96
+                  }
+                },
+                "applicationState[2]:sumInsuredConflict": {
+                  "type": "score",
+                  "score": 4.97,
+                  "confidence": 0.99,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0.02,
+                    "5": 0.98
+                  }
+                },
+                "applicationState[3]:conflictNote": {
+                  "type": "score",
+                  "score": 4.96,
+                  "confidence": 0.98,
+                  "legend": {
+                    "0": "Wrong or omitted; cannot be verified.",
+                    "1": "Contradicts evidence or belongs outside this section.",
+                    "2": "Empty despite an available supporting value.",
+                    "3": "Partially correct, incomplete, vague or imprecise.",
+                    "4": "Accurate and correctly placed; minor formatting or phrasing differences.",
+                    "5": "Exact evidence match and correct placement, including expected empty values when evidence is absent."
+                  },
+                  "probabilities": {
+                    "0": 0,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0.03,
+                    "5": 0.97
+                  }
+                }
+              },
+              "usage": {
+                "input_tokens": 1653,
+                "output_tokens": 93
+              }
+            }
+          }
+        ]
+      }
+    },
+    "mappings": {
+      "general-information": {
+        "applicationState": [
+          {
+            "fieldId": "internalId",
+            "label": "Internal ID",
+            "fieldType": "text",
+            "description": "Internal identifier for the deal, used for tracking and reference purposes.",
+            "placeholder": "e.g., INT-DEAL-88219",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "internalId",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.722,
+              "score": 3.61,
+              "status": "warning",
+              "error": null,
+              "warning": "Internal ID has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.input",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[0]"
+            },
+            "componentRef": {
+              "id": "xds.input",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "referenceNumber",
+            "label": "Reference Number",
+            "fieldType": "text",
+            "description": "Unique deal reference number or policy tracking code.",
+            "placeholder": "e.g., REF-2026-09-001",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "referenceNumber",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.426,
+              "score": 2.13,
+              "status": "error",
+              "error": "Reference Number has low confidence against the section evidence and requires correction or verification.",
+              "warning": null
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.input",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[1]"
+            },
+            "componentRef": {
+              "id": "xds.input",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "subjectLinesOfBusiness",
+            "label": "Lines of Business",
+            "fieldType": "multi-select",
+            "description": "High-level coverage categories included in this deal placement.",
+            "options": [
+              "Commercial Property",
+              "General Liability",
+              "Cyber Liability",
+              "Commercial Auto",
+              "Workers Compensation",
+              "Directors & Officers"
+            ],
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "subjectLinesOfBusiness",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.5660000000000001,
+              "score": 2.83,
+              "status": "warning",
+              "error": null,
+              "warning": "Lines of Business has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.checkbox",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[2]"
+            },
+            "componentRef": {
+              "id": "xds.checkbox",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "effectiveDate",
+            "label": "Effective Date",
+            "fieldType": "date",
+            "description": "Policy inception date when coverage begins.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "effectiveDate",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.742,
+              "score": 3.71,
+              "status": "warning",
+              "error": null,
+              "warning": "Effective Date has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.input",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[3]"
+            },
+            "componentRef": {
+              "id": "xds.input",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "expirationDate",
+            "label": "Expiration Date",
+            "fieldType": "date",
+            "description": "Policy expiration date when coverage ends.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "expirationDate",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.72,
+              "score": 3.6,
+              "status": "warning",
+              "error": null,
+              "warning": "Expiration Date has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.input",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[4]"
+            },
+            "componentRef": {
+              "id": "xds.input",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "assignedBroker",
+            "label": "Assigned Broker / Producer",
+            "fieldType": "text",
+            "description": "Primary broker or producer responsible for the placement.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "assignedBroker",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:02bc2070-313c-428b-bee4-0879725d8436",
+            "review": {
+              "confidence": 0.746,
+              "score": 3.73,
+              "status": "warning",
+              "error": null,
+              "warning": "Assigned Broker / Producer has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.input",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[5]"
+            },
+            "componentRef": {
+              "id": "xds.input",
+              "version": 1
+            }
+          }
+        ],
+        "response": null
+      },
+      "parties": {
+        "applicationState": [],
+        "response": null
+      },
+      "financials": {
+        "applicationState": [
+          {
+            "fieldId": "baseCurrency",
+            "label": "Base Currency",
+            "fieldType": "select",
+            "description": "Primary currency in which the deal premium and values are quoted.",
+            "options": [
+              "USD",
+              "EUR",
+              "GBP",
+              "CAD",
+              "AUD",
+              "JPY",
+              "CHF"
+            ],
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "baseCurrency",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.616,
+              "score": 3.08,
+              "status": "warning",
+              "error": null,
+              "warning": "Base Currency has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.select",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[0]"
+            },
+            "componentRef": {
+              "id": "xds.select",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "totalGrossWrittenPremium",
+            "label": "Gross Written Premium (GWP)",
+            "fieldType": "number",
+            "description": "Total top-line gross premium figure for the full policy term across all lines.",
+            "placeholder": "e.g., 250000",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "totalGrossWrittenPremium",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.628,
+              "score": 3.14,
+              "status": "warning",
+              "error": null,
+              "warning": "Gross Written Premium (GWP) has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.number",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[1]"
+            },
+            "componentRef": {
+              "id": "xds.number",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "totalInsuredValue",
+            "label": "Total Insured Value (TIV / TSI)",
+            "fieldType": "number",
+            "description": "Aggregate exposure limit or sum insured declared across the entire deal container.",
+            "placeholder": "e.g., 50000000",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "totalInsuredValue",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.662,
+              "score": 3.31,
+              "status": "warning",
+              "error": null,
+              "warning": "Total Insured Value (TIV / TSI) has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.number",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[2]"
+            },
+            "componentRef": {
+              "id": "xds.number",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "brokerCommissionPercentage",
+            "label": "Broker Commission (%)",
+            "fieldType": "number",
+            "description": "Overarching broker/producer commission percentage calculated on the GWP.",
+            "placeholder": "e.g., 12.5",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "brokerCommissionPercentage",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.596,
+              "score": 2.98,
+              "status": "warning",
+              "error": null,
+              "warning": "Broker Commission (%) has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.number",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[3]"
+            },
+            "componentRef": {
+              "id": "xds.number",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "paymentFrequency",
+            "label": "Payment Schedule / Frequency",
+            "fieldType": "select",
+            "description": "Agreed premium payment schedule installment structure.",
+            "options": [
+              "Annual (100% upfront)",
+              "Semi-Annual (50/50)",
+              "Quarterly (4 Split)",
+              "Monthly"
+            ],
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "paymentFrequency",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.6940000000000001,
+              "score": 3.47,
+              "status": "warning",
+              "error": null,
+              "warning": "Payment Schedule / Frequency has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.select",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[4]"
+            },
+            "componentRef": {
+              "id": "xds.select",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "premiumDueDate",
+            "label": "First Premium Due Date",
+            "fieldType": "date",
+            "description": "Deadline date for the initial premium payment settlement.",
+            "validation": {
+              "isRequired": true
+            },
+            "uiConfig": {
+              "colSpan": 1
+            },
+            "value": null,
+            "evidenceIssues": [
+              {
+                "code": "missing_required_field",
+                "fieldId": "premiumDueDate",
+                "message": "Required field omitted by generation; value remains missing."
+              }
+            ],
+            "recordId": "record:bd43f41b-1401-48c4-beaa-68bf470604c4",
+            "review": {
+              "confidence": 0.752,
+              "score": 3.76,
+              "status": "warning",
+              "error": null,
+              "warning": "First Premium Due Date has uncertain support in the section evidence and should be reviewed."
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.input",
+                "version": 1
+              },
+              "source": "default",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[5]"
+            },
+            "componentRef": {
+              "id": "xds.input",
+              "version": 1
+            }
+          }
+        ],
+        "response": null
+      },
+      "subjects": {
+        "applicationState": [],
+        "response": null
+      },
+      "underwriting-risk": {
+        "applicationState": [],
+        "response": null
+      },
+      "tranches": {
+        "applicationState": [],
+        "response": null
+      },
+      "ext:insured-conflict": {
+        "applicationState": [
+          {
+            "fieldId": "insured",
+            "fieldType": "text",
+            "label": "Insured",
+            "description": "Name of the insured entity",
+            "validation": {},
+            "uiConfig": {},
+            "value": "Conflict Company",
+            "componentProposal": {
+              "id": "xds.input",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.992,
+              "score": 4.96,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.input",
+                "version": 1
+              },
+              "source": "inference",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[0]"
+            },
+            "componentRef": {
+              "id": "xds.input",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "sumInsured",
+            "fieldType": "currency",
+            "label": "Sum Insured",
+            "description": "Total insured amount",
+            "validation": {},
+            "uiConfig": {},
+            "value": 1000000,
+            "componentProposal": {
+              "id": "xds.currency",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.984,
+              "score": 4.92,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.currency",
+                "version": 1
+              },
+              "source": "inference",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[1]"
+            },
+            "componentRef": {
+              "id": "xds.currency",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "sumInsuredConflict",
+            "fieldType": "currency",
+            "label": "Sum Insured (Conflict)",
+            "description": "Conflicting sum insured value from another document",
+            "validation": {},
+            "uiConfig": {},
+            "value": 1200000,
+            "componentProposal": {
+              "id": "xds.currency",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.994,
+              "score": 4.97,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.currency",
+                "version": 1
+              },
+              "source": "inference",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[2]"
+            },
+            "componentRef": {
+              "id": "xds.currency",
+              "version": 1
+            }
+          },
+          {
+            "fieldId": "conflictNote",
+            "fieldType": "textarea",
+            "label": "Conflict Note",
+            "description": "Note about unresolved conflict between documents",
+            "validation": {},
+            "uiConfig": {},
+            "value": "Both documents are current; conflict is unresolved.",
+            "componentProposal": {
+              "id": "xds.textarea",
+              "version": 1
+            },
+            "recordId": "record:65d4343b-8a9a-4da9-af65-d191b5288977",
+            "review": {
+              "confidence": 0.992,
+              "score": 4.96,
+              "status": "passed",
+              "error": null,
+              "warning": null
+            },
+            "componentResolution": {
+              "capabilityVersion": 1,
+              "diagnostics": [],
+              "status": "resolved",
+              "ref": {
+                "id": "xds.textarea",
+                "version": 1
+              },
+              "source": "inference",
+              "policyVersion": 1,
+              "issues": [],
+              "address": "applicationState[3]"
+            },
+            "componentRef": {
+              "id": "xds.textarea",
+              "version": 1
+            }
+          }
+        ],
+        "response": null
+      }
+    },
+    "policySnapshot": {
+      "surface": "results",
+      "capabilityVersion": 1,
+      "catalog": {
+        "version": 1,
+        "components": [
+          {
+            "id": "xds.input",
+            "version": 1,
+            "fieldTypes": [
+              "text",
+              "date"
+            ],
+            "description": "Single-line text or date"
+          },
+          {
+            "id": "xds.number",
+            "version": 1,
+            "fieldTypes": [
+              "number",
+              "integer",
+              "currency",
+              "percentage"
+            ],
+            "description": "Numeric input with units and constraints"
+          },
+          {
+            "id": "xds.select",
+            "version": 1,
+            "fieldTypes": [
+              "select",
+              "boolean",
+              "radio"
+            ],
+            "description": "Single choice from a picklist"
+          },
+          {
+            "id": "xds.checkbox",
+            "version": 1,
+            "fieldTypes": [
+              "multiselect"
+            ],
+            "description": "Multiple choices from a picklist"
+          },
+          {
+            "id": "xds.textarea",
+            "version": 1,
+            "fieldTypes": [
+              "textarea"
+            ],
+            "description": "Multi-line text"
+          },
+          {
+            "id": "xds.requested-coverage",
+            "version": 1,
+            "fieldTypes": [],
+            "description": "Requested coverage cards with editable titles, requested selection, independent limit and deductible currencies, additional terms, add/remove and reorder. Owns the entire subject coverages collection; do not generate duplicate coverage fields.",
+            "semantic": "coverages"
+          },
+          {
+            "id": "xds.currency",
+            "version": 1,
+            "fieldTypes": [
+              "currency"
+            ],
+            "description": "Amount with a separate currency selector; the renderer binds amount and currency independently."
+          },
+          {
+            "id": "xds.range",
+            "version": 1,
+            "fieldTypes": [
+              "number",
+              "integer",
+              "percentage"
+            ],
+            "description": "Numeric slider with minimum, maximum and step."
+          },
+          {
+            "id": "xds.toggle-switch",
+            "version": 1,
+            "fieldTypes": [
+              "boolean"
+            ],
+            "description": "Boolean on/off switch."
+          },
+          {
+            "id": "xds.segmented-switch",
+            "version": 1,
+            "fieldTypes": [
+              "select",
+              "radio",
+              "boolean"
+            ],
+            "description": "Single choice using string options with an index value, or label/value options with a string value."
+          },
+          {
+            "id": "xds.masked-secret-input",
+            "version": 1,
+            "fieldTypes": [
+              "text"
+            ],
+            "description": "Secret text input with a visibility control."
+          },
+          {
+            "id": "xds.selection-card",
+            "version": 1,
+            "fieldTypes": [
+              "select",
+              "radio",
+              "boolean"
+            ],
+            "description": "Selectable card with title, description content and selection callbacks."
+          },
+          {
+            "id": "xds.form-field",
+            "version": 1,
+            "fieldTypes": [
+              "text",
+              "date",
+              "number",
+              "integer"
+            ],
+            "description": "Labeled HTML input with an inline validation error."
+          }
+        ],
+        "defaults": [
+          {
+            "fieldTypes": [
+              "text",
+              "date"
+            ],
+            "ref": {
+              "id": "xds.input",
+              "version": 1
+            }
+          },
+          {
+            "fieldTypes": [
+              "number",
+              "integer",
+              "currency",
+              "percentage"
+            ],
+            "ref": {
+              "id": "xds.number",
+              "version": 1
+            }
+          },
+          {
+            "fieldTypes": [
+              "select",
+              "radio"
+            ],
+            "ref": {
+              "id": "xds.select",
+              "version": 1
+            }
+          },
+          {
+            "fieldTypes": [
+              "multiselect"
+            ],
+            "ref": {
+              "id": "xds.checkbox",
+              "version": 1
+            }
+          },
+          {
+            "fieldTypes": [
+              "textarea"
+            ],
+            "ref": {
+              "id": "xds.textarea",
+              "version": 1
+            }
+          },
+          {
+            "fieldTypes": [
+              "boolean"
+            ],
+            "ref": {
+              "id": "xds.toggle-switch",
+              "version": 1
+            },
+            "surfaces": [
+              "manual",
+              "results"
+            ]
+          },
+          {
+            "fieldTypes": [
+              "array"
+            ],
+            "semantic": "coverages",
+            "ref": {
+              "id": "xds.requested-coverage",
+              "version": 1
+            }
+          },
+          {
+            "fieldTypes": [
+              "boolean"
+            ],
+            "surfaces": [
+              "legacy"
+            ],
+            "ref": {
+              "id": "xds.select",
+              "version": 1
+            }
+          }
+        ]
+      },
+      "capabilities": [
+        {
+          "id": "xds.input",
+          "version": 1
+        },
+        {
+          "id": "xds.number",
+          "version": 1
+        },
+        {
+          "id": "xds.select",
+          "version": 1
+        },
+        {
+          "id": "xds.checkbox",
+          "version": 1
+        },
+        {
+          "id": "xds.textarea",
+          "version": 1
+        },
+        {
+          "id": "xds.toggle-switch",
+          "version": 1
+        },
+        {
+          "id": "xds.requested-coverage",
+          "version": 1
+        },
+        {
+          "id": "xds.currency",
+          "version": 1
+        },
+        {
+          "id": "xds.range",
+          "version": 1
+        },
+        {
+          "id": "xds.segmented-switch",
+          "version": 1
+        },
+        {
+          "id": "xds.masked-secret-input",
+          "version": 1
+        },
+        {
+          "id": "xds.selection-card",
+          "version": 1
+        },
+        {
+          "id": "xds.form-field",
+          "version": 1
+        }
+      ]
+    }
+  },
+  "planningResponse": {
+    "sections": [
+      {
+        "id": "general-information",
+        "label": "General Information",
+        "origin": "template",
+        "templateId": "general-information",
+        "layout": "fields",
+        "purpose": "General policy information",
+        "evidenceRefs": []
+      },
+      {
+        "id": "parties",
+        "label": "Parties & Counterparties",
+        "origin": "template",
+        "templateId": "parties",
+        "layout": "records",
+        "purpose": "Parties and counterparties involved",
+        "evidenceRefs": []
+      },
+      {
+        "id": "financials",
+        "label": "Financials",
+        "origin": "template",
+        "templateId": "financials",
+        "layout": "fields",
+        "purpose": "Financial details",
+        "evidenceRefs": []
+      },
+      {
+        "id": "subjects",
+        "label": "Subjects of Insurance",
+        "origin": "template",
+        "templateId": "subjects",
+        "layout": "records",
+        "purpose": "Subjects covered by insurance",
+        "evidenceRefs": []
+      },
+      {
+        "id": "underwriting-risk",
+        "label": "Underwriting & Risk",
+        "origin": "template",
+        "templateId": "underwriting-risk",
+        "layout": "fields",
+        "purpose": "Underwriting and risk assessment",
+        "evidenceRefs": []
+      },
+      {
+        "id": "tranches",
+        "label": "Tranche Structure",
+        "origin": "template",
+        "templateId": "tranches",
+        "layout": "records",
+        "purpose": "Tranche structure details",
+        "evidenceRefs": []
+      },
+      {
+        "id": "ext:insured-conflict",
+        "label": "Insured Conflict",
+        "origin": "inferred",
+        "layout": "fields",
+        "recordLabel": "Insured Conflict",
+        "purpose": "Capture conflicting insured information from evidence",
+        "evidenceRefs": [
+          "artifact:1"
+        ]
+      }
+    ],
+    "omittedTemplates": [],
+    "unplacedEvidence": []
+  },
+  "sectionResponses": {
+    "general-information": [
+      "{\n  \"data\": []\n}"
+    ],
+    "parties": [
+      "{\n  \"data\": []\n}"
+    ],
+    "financials": [
+      "{\n  \"data\": []\n}"
+    ],
+    "subjects": [
+      "{\n  \"data\": []\n}"
+    ],
+    "underwriting-risk": [
+      "{\n  \"data\": []\n}"
+    ],
+    "tranches": [
+      "{\n  \"data\": []\n}"
+    ],
+    "ext:insured-conflict": [
+      "{\n  \"data\": [\n    {\n      \"fieldId\": \"insured\",\n      \"fieldType\": \"text\",\n      \"label\": \"Insured\",\n      \"description\": \"Name of the insured entity\",\n      \"validation\": {},\n      \"uiConfig\": {},\n      \"value\": \"Conflict Company\",\n      \"componentProposal\": {\n        \"id\": \"xds.input\",\n        \"version\": 1\n      }\n    },\n    {\n      \"fieldId\": \"sumInsured\",\n      \"fieldType\": \"currency\",\n      \"label\": \"Sum Insured\",\n      \"description\": \"Total insured amount\",\n      \"validation\": {},\n      \"uiConfig\": {},\n      \"value\": 1000000,\n      \"componentProposal\": {\n        \"id\": \"xds.currency\",\n        \"version\": 1\n      }\n    },\n    {\n      \"fieldId\": \"sumInsuredConflict\",\n      \"fieldType\": \"currency\",\n      \"label\": \"Sum Insured (Conflict)\",\n      \"description\": \"Conflicting sum insured value from another document\",\n      \"validation\": {},\n      \"uiConfig\": {},\n      \"value\": 1200000,\n      \"componentProposal\": {\n        \"id\": \"xds.currency\",\n        \"version\": 1\n      }\n    },\n    {\n      \"fieldId\": \"conflictNote\",\n      \"fieldType\": \"textarea\",\n      \"label\": \"Conflict Note\",\n      \"description\": \"Note about unresolved conflict between documents\",\n      \"validation\": {},\n      \"uiConfig\": {},\n      \"value\": \"Both documents are current; conflict is unresolved.\",\n      \"componentProposal\": {\n        \"id\": \"xds.textarea\",\n        \"version\": 1\n      }\n    }\n  ]\n}"
+    ]
+  },
+  "result": {
+    "id": "conflicting-evidence",
+    "missing": [],
+    "inferred": 1,
+    "fields": 16,
+    "defaults": 12,
+    "unresolved": 0,
+    "durationMs": 17589,
+    "usage": {
+      "calls": [
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "structurePlanning",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:30.073Z",
+          "durationMs": 4920,
+          "inputTokens": 1283,
+          "outputTokens": 484,
+          "totalTokens": 1767
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:34.993Z",
+          "durationMs": 1056,
+          "inputTokens": 2227,
+          "outputTokens": 7,
+          "totalTokens": 2234
+        },
+        {
+          "provider": "typesafe",
+          "model": "jev-1.13.0",
+          "operation": "review:general-information",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:36.050Z",
+          "durationMs": 375,
+          "inputTokens": 2373,
+          "outputTokens": 144,
+          "totalTokens": 2517
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:36.425Z",
+          "durationMs": 1355,
+          "inputTokens": 2168,
+          "outputTokens": 7,
+          "totalTokens": 2175
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:37.780Z",
+          "durationMs": 1526,
+          "inputTokens": 2210,
+          "outputTokens": 7,
+          "totalTokens": 2217
+        },
+        {
+          "provider": "typesafe",
+          "model": "jev-1.13.0",
+          "operation": "review:financials",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:39.306Z",
+          "durationMs": 325,
+          "inputTokens": 2454,
+          "outputTokens": 152,
+          "totalTokens": 2606
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:39.631Z",
+          "durationMs": 1416,
+          "inputTokens": 3283,
+          "outputTokens": 7,
+          "totalTokens": 3290
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:41.047Z",
+          "durationMs": 1071,
+          "inputTokens": 1232,
+          "outputTokens": 7,
+          "totalTokens": 1239
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:42.118Z",
+          "durationMs": 1156,
+          "inputTokens": 2315,
+          "outputTokens": 7,
+          "totalTokens": 2322
+        },
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "sectionGeneration",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:43.274Z",
+          "durationMs": 4202,
+          "inputTokens": 1294,
+          "outputTokens": 365,
+          "totalTokens": 1659
+        },
+        {
+          "provider": "typesafe",
+          "model": "jev-1.13.0",
+          "operation": "review:ext:insured-conflict",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:08:47.476Z",
+          "durationMs": 182,
+          "inputTokens": 1653,
+          "outputTokens": 93,
+          "totalTokens": 1746
+        }
+      ],
+      "inputTokens": 22492,
+      "outputTokens": 1280,
+      "totalTokens": 23772,
+      "unreportedCalls": 0
+    },
+    "humanReview": "required",
+    "gate": true
+  }
+}

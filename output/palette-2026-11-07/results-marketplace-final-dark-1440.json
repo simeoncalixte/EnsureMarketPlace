@@ -1,0 +1,257 @@
+[
+  {
+    "id": "marketplace-experience--browse",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--browse",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--taxonomy-interaction",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--taxonomy-interaction",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--empty",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--empty",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--error",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--error",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--loading",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--loading",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--network-handoff",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--network-handoff",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--pinned-publication",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--pinned-publication",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--stale-publication",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--stale-publication",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--unverified-funding",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--unverified-funding",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--confirm-pending",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--confirm-pending",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--lost-response-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--lost-response-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--denied",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--denied",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--stale",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--stale",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--error-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--error-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--loading",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--loading",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--validation",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--validation",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--reviewer",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--reviewer",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

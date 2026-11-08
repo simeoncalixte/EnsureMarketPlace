@@ -1,0 +1,88 @@
+{
+  "AIN-159": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10482",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10482",
+    "key": "AIN-159",
+    "fields": {
+      "subtasks": [
+        {
+          "id": "10483",
+          "key": "AIN-160",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10483",
+          "fields": {
+            "summary": "Fix standalone palette caching and mobile collateral overflow",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      ],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-160": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10483",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10483",
+    "key": "AIN-160",
+    "fields": {
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  }
+}

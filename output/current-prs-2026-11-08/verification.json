@@ -1,0 +1,136 @@
+[
+  {
+    "name": "constants",
+    "cwd": "EnsuredConstants",
+    "command": "npm test",
+    "exitCode": 0,
+    "seconds": 1.0
+  },
+  {
+    "name": "shared-build",
+    "cwd": "EnsuredPipelineShared",
+    "command": "npm run build",
+    "exitCode": 0,
+    "seconds": 2.6
+  },
+  {
+    "name": "ui-workspace",
+    "cwd": ".",
+    "command": "npm run build:ui",
+    "exitCode": 0,
+    "seconds": 21.1
+  },
+  {
+    "name": "api",
+    "cwd": "EnsuredAPI",
+    "command": "npm run typecheck",
+    "exitCode": 0,
+    "seconds": 4.6
+  },
+  {
+    "name": "auth",
+    "cwd": "EnsuredAuth",
+    "command": "npm run build && npm test",
+    "exitCode": 0,
+    "seconds": 2.0
+  },
+  {
+    "name": "kyc",
+    "cwd": "EnsuredKYC",
+    "command": "npm run build && npm test",
+    "exitCode": 0,
+    "seconds": 2.0
+  },
+  {
+    "name": "services",
+    "cwd": "EnsuredServices",
+    "command": "npm run build && npm test",
+    "exitCode": 0,
+    "seconds": 0.9
+  },
+  {
+    "name": "email",
+    "cwd": "EnsuredEmail",
+    "command": "npm run build && npm test",
+    "exitCode": 0,
+    "seconds": 3.9
+  },
+  {
+    "name": "feedback",
+    "cwd": "EnsuredSubmissionFeedback",
+    "command": "npm run build && npm test",
+    "exitCode": 0,
+    "seconds": 0.7
+  },
+  {
+    "name": "schema-generation",
+    "cwd": "EnsuredPipelineSchemaGeneration",
+    "command": "npm run build && npm test -- --runTestsByPath src/pipeline/schemaGeneration/generationContract.test.ts src/pipeline/schemaGeneration/sectionPlanning.test.ts src/pipeline/schemaGeneration/schemaReviewProcess.test.ts src/pipeline/schemaGeneration/uiRefiner.test.ts",
+    "exitCode": 0,
+    "seconds": 4.2
+  },
+  {
+    "name": "risk-compute",
+    "cwd": "EnsuredPipelineRiskCompute",
+    "command": "npm run build && npm test -- --runTestsByPath src/pipeline/riskCompute/service.test.ts",
+    "exitCode": 0,
+    "seconds": 2.7
+  },
+  {
+    "name": "provider-unit",
+    "cwd": "EnsuredPipelineShared",
+    "command": "npm test -- --runTestsByPath src/pipeline/agents/muse.test.ts",
+    "exitCode": 0,
+    "seconds": 2.8
+  },
+  {
+    "name": "root-unit",
+    "cwd": ".",
+    "command": "node --test scripts/test/database-config.test.mjs scripts/test/pipeline-parity.test.mjs scripts/test/network-seed.test.mjs",
+    "exitCode": 0,
+    "seconds": 1.3
+  },
+  {
+    "name": "ui-unit",
+    "cwd": "EnsuredUI",
+    "command": "node --test test/*.test.mjs config/gateway.test.mjs",
+    "exitCode": 1,
+    "seconds": 0.5
+  },
+  {
+    "name": "auth-ui",
+    "cwd": "EnsuredAuthUI",
+    "command": "node --test test/*.test.mjs",
+    "exitCode": 0,
+    "seconds": 0.1
+  },
+  {
+    "name": "palette",
+    "cwd": ".",
+    "command": "node --test EnsuredXDS/test/palette.test.mjs && npm run theme:check && npm run component-policy:check",
+    "exitCode": 0,
+    "seconds": 0.5
+  },
+  {
+    "name": "submission-ui",
+    "cwd": "SubmissionUI",
+    "command": "npm run build",
+    "exitCode": 0,
+    "seconds": 0.9
+  },
+  {
+    "name": "logistics",
+    "cwd": "EnsuredLogistics",
+    "command": "npm run typecheck",
+    "exitCode": 0,
+    "seconds": 2.6
+  },
+  {
+    "name": "ui-unit-final",
+    "cwd": "EnsuredUI",
+    "command": "node --test test/*.test.mjs config/gateway.test.mjs",
+    "exitCode": 0,
+    "testsPassed": 52,
+    "note": "Supersedes initial 50/52 result: stale palette expectations corrected."
+  }
+]

@@ -31,3 +31,10 @@ simplemaps_worldcities_*
 
 # Local rollout database snapshots and image references
 /output/platform-admin-rollout/
+
+# Local Network demo credentials and seed manifests
+/output/network-seed/
+
+# Local Python execution caches
+**/__pycache__/
+**/*.pyc

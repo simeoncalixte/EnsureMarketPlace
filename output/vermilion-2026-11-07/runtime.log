@@ -1,0 +1,7 @@
+PASS host dark {"state":{"theme":"dark","background":"#17191D","primary":"#FF563B","heading":"Where primary tail risk converts into sovereign liquidity."},"errors":[]}
+PASS host light {"state":{"theme":"light","background":"#F3F1EA","primary":"#9C2918","heading":"Where primary tail risk converts into sovereign liquidity."},"errors":[]}
+PASS submission dark {"state":{"theme":"dark","background":"#17191D","primary":"#FF563B","heading":"Build, shape, and publish submission payloads against the marketplace stack."},"errors":[]}
+PASS submission light {"state":{"theme":"light","background":"#F3F1EA","primary":"#9C2918","heading":"Build, shape, and publish submission payloads against the marketplace stack."},"errors":[]}
+PASS services dark {"state":{"background":"#17191D","primary":"#FF563B","heading":"Service catalog"},"errors":[]}
+services-css 200
+auth-css 200

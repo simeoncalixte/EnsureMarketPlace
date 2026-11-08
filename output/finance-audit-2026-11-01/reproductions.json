@@ -1,0 +1,107 @@
+[
+  {
+    "case": "Pending commitment reported as funded/invested",
+    "actual": {
+      "summary": {
+        "totalInvested": 100,
+        "totalAvailable": 900,
+        "activePositions": 1,
+        "availableDeals": 0,
+        "blendedIrr": 10,
+        "projectedAnnualReturn": 10,
+        "capitalAtRisk": 100,
+        "liveTranches": 1
+      },
+      "deals": [
+        {
+          "id": "1-1-1",
+          "investorUserId": 1,
+          "investorProfileId": 1,
+          "dealId": 1,
+          "dealName": "D",
+          "dealStatus": "active",
+          "trancheId": 1,
+          "trancheName": "T",
+          "expectedReturnPct": 10,
+          "capitalRequired": 1000,
+          "fundedAmount": 100,
+          "pendingAmount": 900,
+          "investorCommittedAmount": 100,
+          "investorAllocationPct": 10,
+          "status": "active"
+        }
+      ]
+    },
+    "expected": "Committed 100; funded/deployed 0; do not report 100 invested."
+  },
+  {
+    "case": "Unowned opportunity changes portfolio return",
+    "actual": {
+      "totalInvested": 100,
+      "totalAvailable": 1000,
+      "activePositions": 1,
+      "availableDeals": 1,
+      "blendedIrr": 10.792079207920793,
+      "projectedAnnualReturn": 10.792079207920793,
+      "capitalAtRisk": 100,
+      "liveTranches": 2
+    },
+    "expected": "Owned-position return remains 10%; no cash-flow IRR is calculated."
+  },
+  {
+    "case": "Production missing Stripe key",
+    "actual": {
+      "provider": "simulated",
+      "status": "active",
+      "stripeCustomerId": "cus_sim_ffea85a0-bda",
+      "stripeSubscriptionId": "sub_sim_d96a044e-803",
+      "clientSecret": null,
+      "amountCents": 250000,
+      "currency": "usd",
+      "currentPeriodEnd": "2026-12-01T17:02:58.481Z"
+    },
+    "expected": "Reject paid checkout in production; never simulate active paid subscription."
+  },
+  {
+    "case": "Ordinary investor selects admin subscription",
+    "actual": {
+      "subscription": {
+        "id": 1,
+        "planCode": "platform-operations",
+        "role": "admin",
+        "billingInterval": "monthly",
+        "amountCents": 0,
+        "amountDisplay": "$0",
+        "currency": "usd",
+        "status": "active",
+        "provider": "simulated",
+        "currentPeriodEnd": "2026-12-01T17:02:58.490Z"
+      },
+      "clientSecret": null
+    },
+    "expected": "Server checks eligible plans against authenticated participant; rejects free admin plan for ordinary investor. Does not prove privilege escalation."
+  },
+  {
+    "case": "Revenue basis selects TIV",
+    "actual": {
+      "exposureBase": 1000000,
+      "exposureBasis": "revenue"
+    },
+    "expected": {
+      "exposureBase": 100000,
+      "exposureBasis": "revenue"
+    }
+  },
+  {
+    "case": "Unmodelable price persisted as zero",
+    "actual": {
+      "expectedLoss": null,
+      "var99": null,
+      "premium": "0",
+      "expectedReturn": null,
+      "riskScore": null,
+      "riskMetricExpectedLoss": null
+    },
+    "expected": "Unavailable price remains unavailable rather than becoming a numerical zero premium."
+  }
+]

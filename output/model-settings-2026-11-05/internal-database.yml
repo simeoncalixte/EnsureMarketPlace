@@ -1,0 +1,4 @@
+# Keep the existing workspace database volume; avoid another project's host port.
+services:
+  postgres:
+    ports: !reset []

@@ -1,0 +1,962 @@
+[
+  {
+    "key": "AIN-160",
+    "summary": "Fix standalone palette caching and mobile collateral overflow",
+    "status": "Done",
+    "parent": "AIN-159"
+  },
+  {
+    "key": "AIN-159",
+    "summary": "Apply Digital Vermilion palette through EnsuredXDS",
+    "status": "Done",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-158",
+    "summary": "Fix blank application from stale optimized XDS exports",
+    "status": "Done",
+    "parent": "AIN-153"
+  },
+  {
+    "key": "AIN-157",
+    "summary": "[Palette regression] Preserve reviewer completion and serve shared static theme assets",
+    "status": "Done",
+    "parent": "AIN-153"
+  },
+  {
+    "key": "AIN-156",
+    "summary": "[Palette] Verify Espresso rollout across application surfaces",
+    "status": "Done",
+    "parent": "AIN-153"
+  },
+  {
+    "key": "AIN-155",
+    "summary": "[Palette] Migrate application colors and shared visual components to XDS",
+    "status": "Done",
+    "parent": "AIN-153"
+  },
+  {
+    "key": "AIN-154",
+    "summary": "[Palette] Define Espresso palette and shared theme contracts",
+    "status": "Done",
+    "parent": "AIN-153"
+  },
+  {
+    "key": "AIN-153",
+    "summary": "[XDS] Apply Espresso palette consistently across application surfaces",
+    "status": "Done",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-152",
+    "summary": "[Settings] Keep reference controls readable without external icon fonts",
+    "status": "Done",
+    "parent": "AIN-150"
+  },
+  {
+    "key": "AIN-151",
+    "summary": "[XDS] Resolve existing dashboard API route in shared-package boundary test",
+    "status": "To Do",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-150",
+    "summary": "[Settings] Organize settings with XDS horizontal subnavigation",
+    "status": "Done",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-149",
+    "summary": "[Bug] Keep global chat controls usable without external icon fonts",
+    "status": "Done",
+    "parent": "AIN-143"
+  },
+  {
+    "key": "AIN-148",
+    "summary": "[Bug] Restore persisted chat history on the initial verified load",
+    "status": "Done",
+    "parent": "AIN-143"
+  },
+  {
+    "key": "AIN-147",
+    "summary": "[Bug] Preserve chat draft edits made while a reply is pending",
+    "status": "Done",
+    "parent": "AIN-143"
+  },
+  {
+    "key": "AIN-146",
+    "summary": "[Bug] Avoid chat pool starvation during concurrent scope rechecks",
+    "status": "Done",
+    "parent": "AIN-143"
+  },
+  {
+    "key": "AIN-145",
+    "summary": "Gate existing chat wrapper on connection and verify interactions",
+    "status": "In Progress",
+    "parent": "AIN-143"
+  },
+  {
+    "key": "AIN-144",
+    "summary": "Implement verified effective-model connection state and scoped chat API",
+    "status": "In Progress",
+    "parent": "AIN-143"
+  },
+  {
+    "key": "AIN-143",
+    "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+    "status": "In Progress",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-142",
+    "summary": "[Bug] Preserve requesting actor for queued model selection",
+    "status": "Done",
+    "parent": "AIN-138"
+  },
+  {
+    "key": "AIN-141",
+    "summary": "[Local UI] Apply package metadata mounts so model settings can render",
+    "status": "Done",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-140",
+    "summary": "Implement model settings UI and executable interaction evidence",
+    "status": "In Progress",
+    "parent": "AIN-138"
+  },
+  {
+    "key": "AIN-139",
+    "summary": "Implement scoped encrypted model configuration and pipeline resolution",
+    "status": "In Progress",
+    "parent": "AIN-138"
+  },
+  {
+    "key": "AIN-138",
+    "summary": "[AI settings] Configure organization models and individual inheritance",
+    "status": "In Progress",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-137",
+    "summary": "[Pipeline] Support Muse provider with configurable model selection like Qwen",
+    "status": "In Progress",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-136",
+    "summary": "[Sprint slice] Validate named pilot adapter mappings and first handoff",
+    "status": "To Do",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-135",
+    "summary": "[Claims] Review authenticated parametric triggers and payout decisions",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-134",
+    "summary": "[Sprint slice] Verify persisted provider funding operations and receipts",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-133",
+    "summary": "[Sprint slice] Implement premium and commission accrual contracts",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-132",
+    "summary": "[Sprint slice] Finish pending commitment expiry and capacity release",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-131",
+    "summary": "[Sprint slice] Verify intake worker resilience and artifact lineage",
+    "status": "To Do",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-130",
+    "summary": "Implement and verify: Reassign client work with a complete authorized handover",
+    "status": "To Do",
+    "parent": "AIN-116"
+  },
+  {
+    "key": "AIN-129",
+    "summary": "Implement and verify: Turn permitted introductions into accountable commercial follow-up",
+    "status": "To Do",
+    "parent": "AIN-97"
+  },
+  {
+    "key": "AIN-128",
+    "summary": "Implement and verify: Track market approaches responses and remaining placement work",
+    "status": "To Do",
+    "parent": "AIN-110"
+  },
+  {
+    "key": "AIN-127",
+    "summary": "Implement and verify: Coordinate the client lifecycle in one authorized workspace",
+    "status": "To Do",
+    "parent": "AIN-91"
+  },
+  {
+    "key": "AIN-126",
+    "summary": "Implement and verify: Prepare renewals using reconciled experience and outstanding obligations",
+    "status": "To Do",
+    "parent": "AIN-115"
+  },
+  {
+    "key": "AIN-125",
+    "summary": "Implement and verify: Validate bordereaux and track contractual reporting obligations",
+    "status": "To Do",
+    "parent": "AIN-104"
+  },
+  {
+    "key": "AIN-124",
+    "summary": "Implement and verify: Manage actual claims from intake through adjudication and reserves",
+    "status": "To Do",
+    "parent": "AIN-114"
+  },
+  {
+    "key": "AIN-123",
+    "summary": "Implement and verify: Compare market quotations and negotiated wording on equivalent terms",
+    "status": "To Do",
+    "parent": "AIN-103"
+  },
+  {
+    "key": "AIN-122",
+    "summary": "Implement and verify: Preview and authorize recipient-specific submission disclosure packages",
+    "status": "To Do",
+    "parent": "AIN-102"
+  },
+  {
+    "key": "AIN-121",
+    "summary": "[Persona] Demonstrate persona workflows and measure operational value in staging",
+    "status": "To Do",
+    "parent": "AIN-12"
+  },
+  {
+    "key": "AIN-120",
+    "summary": "[Persona] Trace outward protection and changes to underlying exposures",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-119",
+    "summary": "[Persona] Synchronize policy claims and accounting records with recoverable handoffs",
+    "status": "To Do",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-118",
+    "summary": "[Persona] Calculate and reconcile claims recoveries and beneficiary payments",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-117",
+    "summary": "[Persona] Compare stressed portfolio losses and retained protection",
+    "status": "To Do",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-116",
+    "summary": "[Persona] Reassign client work with a complete authorized handover",
+    "status": "To Do",
+    "parent": "AIN-86"
+  },
+  {
+    "key": "AIN-115",
+    "summary": "[Persona] Prepare renewals using reconciled experience and outstanding obligations",
+    "status": "To Do",
+    "parent": "AIN-86"
+  },
+  {
+    "key": "AIN-114",
+    "summary": "[Persona] Manage actual claims from intake through adjudication and reserves",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-113",
+    "summary": "[Persona] Retrieve and deliver authoritative bound documents",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-112",
+    "summary": "[Persona] Process endorsements and cancellations with downstream adjustments",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-111",
+    "summary": "[Persona] Calculate multilayer protection and reinstatement effects from approved terms",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-110",
+    "summary": "[Persona] Track market approaches responses and remaining placement work",
+    "status": "To Do",
+    "parent": "AIN-86"
+  },
+  {
+    "key": "AIN-109",
+    "summary": "[Persona] Present a client recommendation and capture exact-terms approval",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-108",
+    "summary": "[Persona] Trace requested coverage through quote binding and servicing handoff",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-107",
+    "summary": "[Persona] Monitor delegated underwriting authority and facility exceptions",
+    "status": "To Do",
+    "parent": "AIN-5"
+  },
+  {
+    "key": "AIN-106",
+    "summary": "[Persona] Prioritize underwriting work with ownership deadlines and referrals",
+    "status": "To Do",
+    "parent": "AIN-3"
+  },
+  {
+    "key": "AIN-105",
+    "summary": "[Persona] Review document-derived facultative and treaty terms as executable contracts",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-104",
+    "summary": "[Persona] Validate bordereaux and track contractual reporting obligations",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-103",
+    "summary": "[Persona] Compare market quotations and negotiated wording on equivalent terms",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-102",
+    "summary": "[Persona] Preview and authorize recipient-specific submission disclosure packages",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-101",
+    "summary": "[Persona] Assess incremental portfolio accumulation before approving capacity",
+    "status": "To Do",
+    "parent": "AIN-5"
+  },
+  {
+    "key": "AIN-100",
+    "summary": "[Persona] Inspect reproducible pricing model assumptions and approved overrides",
+    "status": "To Do",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-99",
+    "summary": "[Persona] Approve underwriting decisions and exceptions within current authority",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-98",
+    "summary": "[Persona] Resolve submission readiness issues before market or underwriting decisions",
+    "status": "To Do",
+    "parent": "AIN-3"
+  },
+  {
+    "key": "AIN-97",
+    "summary": "[Persona] Turn permitted introductions into accountable commercial follow-up",
+    "status": "To Do",
+    "parent": "AIN-86"
+  },
+  {
+    "key": "AIN-96",
+    "summary": "[Persona] Review reconciled exposure and loss experience for pricing",
+    "status": "To Do",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-95",
+    "summary": "[Persona] Review material changes and preserve corrections when forms regenerate",
+    "status": "To Do",
+    "parent": "AIN-3"
+  },
+  {
+    "key": "AIN-94",
+    "summary": "[Persona] Inspect reconciled management metrics with provenance and freshness",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-93",
+    "summary": "[Persona] Recover interrupted workflows and restore consistent business history",
+    "status": "To Do",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-92",
+    "summary": "[Persona] Review current counterparty evidence and transaction eligibility",
+    "status": "To Do",
+    "parent": "AIN-7"
+  },
+  {
+    "key": "AIN-91",
+    "summary": "[Persona] Coordinate the client lifecycle in one authorized workspace",
+    "status": "To Do",
+    "parent": "AIN-86"
+  },
+  {
+    "key": "AIN-90",
+    "summary": "[Persona] Verify funding collateral and reconciliation exceptions",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-89",
+    "summary": "[Persona] Reconcile premium commission tax and fee obligations to receipts",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-88",
+    "summary": "[Persona] Reserve commit expire and release capacity consistently",
+    "status": "To Do",
+    "parent": "AIN-5"
+  },
+  {
+    "key": "AIN-87",
+    "summary": "[Persona] Review document-generated forms with complete evidence and safe extensions",
+    "status": "To Do",
+    "parent": "AIN-3"
+  },
+  {
+    "key": "AIN-86",
+    "summary": "[Broker] Coordinate client placement servicing and team workflows",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-85",
+    "summary": "[Publication] Pin facility and bound-opportunity revisions in cross-app links",
+    "status": "Done",
+    "parent": "AIN-72"
+  },
+  {
+    "key": "AIN-84",
+    "summary": "[Marketplace] Review participant eligibility and terms for exact insured subjects",
+    "status": "Done",
+    "parent": "AIN-72"
+  },
+  {
+    "key": "AIN-83",
+    "summary": "[Parties/Gateway] Accept the owning API party_read scope for real host pages",
+    "status": "Done",
+    "parent": "AIN-70"
+  },
+  {
+    "key": "AIN-82",
+    "summary": "[Network/Marketplace] Resolve publications by exact source ID and version",
+    "status": "Done",
+    "parent": "AIN-72"
+  },
+  {
+    "key": "AIN-81",
+    "summary": "[Bug][Network] Repair stale discovery and profile live interaction steps",
+    "status": "Done",
+    "parent": "AIN-71"
+  },
+  {
+    "key": "AIN-80",
+    "summary": "[Marketplace] Distinguish authoritative metrics and available investment actions",
+    "status": "To Do",
+    "parent": "AIN-8"
+  },
+  {
+    "key": "AIN-79",
+    "summary": "[Marketplace] Find opportunities using effective filters and sorting",
+    "status": "To Do",
+    "parent": "AIN-8"
+  },
+  {
+    "key": "AIN-78",
+    "summary": "[Network / Marketplace] Enter an eligible participation workflow from a published opportunity",
+    "status": "Done",
+    "parent": "AIN-72"
+  },
+  {
+    "key": "AIN-77",
+    "summary": "[Network / Marketplace] Follow a current authorized opportunity across applications",
+    "status": "Done",
+    "parent": "AIN-72"
+  },
+  {
+    "key": "AIN-76",
+    "summary": "[Network] Enforce blocking reporting moderation and access revocation",
+    "status": "Done",
+    "parent": "AIN-71"
+  },
+  {
+    "key": "AIN-75",
+    "summary": "[Network] Use social interactions with current person and organization authority",
+    "status": "Done",
+    "parent": "AIN-71"
+  },
+  {
+    "key": "AIN-74",
+    "summary": "[Network] View only authorized participation on a party profile",
+    "status": "Done",
+    "parent": "AIN-70"
+  },
+  {
+    "key": "AIN-73",
+    "summary": "[Network] Link my profile to reviewed party identities",
+    "status": "Done",
+    "parent": "AIN-70"
+  },
+  {
+    "key": "AIN-72",
+    "summary": "[Network / Marketplace] Complete published-opportunity participation journeys",
+    "status": "Done",
+    "parent": null
+  },
+  {
+    "key": "AIN-71",
+    "summary": "[Network] Verify social permissions moderation and member journeys",
+    "status": "Done",
+    "parent": null
+  },
+  {
+    "key": "AIN-70",
+    "summary": "[Network] Connect verified identities to authorized party participation",
+    "status": "Done",
+    "parent": null
+  },
+  {
+    "key": "AIN-69",
+    "summary": "[Bug][Party finance] Align amount input validation with API decimal format",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-68",
+    "summary": "[Party finance] Grant and revoke limited statement mandates",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-67",
+    "summary": "[Party finance] Read authorized financial statements and source traces",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-66",
+    "summary": "[Party finance] Review per-currency accounts and reconciliation coverage",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-65",
+    "summary": "[Party finance] Settle reduce and reverse recorded obligations",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-64",
+    "summary": "[Party finance] Record financial obligations with safe retries",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-63",
+    "summary": "[Party finance] Attribute servicing events to an evidenced payer and payee",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-62",
+    "summary": "[Party finance] Register reviewed financial identities and roles",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-61",
+    "summary": "[Party finance] Browse parties and inspect evidenced contract participation",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-60",
+    "summary": "[Bug][Parties] Allow proposer withdrawal of nonbinding agreement in principle",
+    "status": "Done",
+    "parent": "AIN-8"
+  },
+  {
+    "key": "AIN-59",
+    "summary": "[Parties] Resolve individual, SPV and investor identities into the party participation model",
+    "status": "In Progress",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-58",
+    "summary": "[Parties] Build the Parties workspace with detailed participation and financial context",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-57",
+    "summary": "[Parties] Implement an authorized party directory and participation dossier API",
+    "status": "Done",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-56",
+    "summary": "[Parties] Define the registered-party participation contract and finance attribution boundaries",
+    "status": "Done",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-55",
+    "summary": "[Data model] Add schema drift, direct-write integrity and migration contract checks to CI",
+    "status": "To Do",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-54",
+    "summary": "[Data model] Deliver additive schema migrations, legacy backfills and reconciliation reports",
+    "status": "To Do",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-53",
+    "summary": "[Data model] Build indexed, rebuildable projections for party balances and submission queries",
+    "status": "To Do",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-52",
+    "summary": "[Data model] Define cross-service event schemas and reliable financial handoff records",
+    "status": "Done",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-51",
+    "summary": "[Data model] Specify immutable version references and financial temporal semantics",
+    "status": "To Do",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-50",
+    "summary": "[Data model] Version and validate flexible JSON schemas without losing relational integrity",
+    "status": "To Do",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-49",
+    "summary": "[Data model] Enforce tenant-safe references, uniqueness and valid state constraints",
+    "status": "To Do",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-48",
+    "summary": "[Data model] Publish entity relationships, data dictionary and authoritative model ownership",
+    "status": "In Progress",
+    "parent": "AIN-47"
+  },
+  {
+    "key": "AIN-47",
+    "summary": "[Ensured] Strengthen canonical data models and database integrity",
+    "status": "In Progress",
+    "parent": null
+  },
+  {
+    "key": "AIN-46",
+    "summary": "[Gap][Finance] Maintain a finance model/coverage register and investigate untested risks",
+    "status": "To Do",
+    "parent": "AIN-12"
+  },
+  {
+    "key": "AIN-45",
+    "summary": "[Gap][Finance] Create a cross-party financial invariant and failure-injection suite",
+    "status": "To Do",
+    "parent": "AIN-12"
+  },
+  {
+    "key": "AIN-44",
+    "summary": "[Gap][Finance] Reconcile subscription lifecycle, invoices and usage into platform receivables",
+    "status": "To Do",
+    "parent": "AIN-11"
+  },
+  {
+    "key": "AIN-43",
+    "summary": "[Bug][Finance] Prevent duplicate external subscriptions on concurrent checkout or retry",
+    "status": "To Do",
+    "parent": "AIN-11"
+  },
+  {
+    "key": "AIN-42",
+    "summary": "[Bug][Finance] Restrict checkout plans to the authenticated participant eligibility",
+    "status": "To Do",
+    "parent": "AIN-11"
+  },
+  {
+    "key": "AIN-41",
+    "summary": "[Bug][Finance] Reject paid subscription simulation in production when Stripe is unconfigured",
+    "status": "To Do",
+    "parent": "AIN-11"
+  },
+  {
+    "key": "AIN-40",
+    "summary": "[Gap][Finance] Implement party-specific recoveries and investor distribution waterfalls",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-39",
+    "summary": "[Gap][Finance] Support auditable payment reversals and financial adjustments",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-38",
+    "summary": "[Gap][Finance] Calculate gross, ceded and retained claims using approved treaty terms",
+    "status": "To Do",
+    "parent": "AIN-10"
+  },
+  {
+    "key": "AIN-37",
+    "summary": "[Gap][Finance] Model gross-to-net premium, commissions, taxes and platform fees per party",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-36",
+    "summary": "[Gap][Finance] Implement funded-capital and collateral reconciliation beyond seeded records",
+    "status": "To Do",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-35",
+    "summary": "[Gap][Finance] Define currency and minor-unit rules across all financial models",
+    "status": "In Progress",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-34",
+    "summary": "[Gap][Finance] Add explicit payer/payee financial accounts and a reconciled party subledger",
+    "status": "Done",
+    "parent": "AIN-9"
+  },
+  {
+    "key": "AIN-33",
+    "summary": "[Gap][Finance] Connect marketplace actions to authorized financial workflows",
+    "status": "Done",
+    "parent": "AIN-8"
+  },
+  {
+    "key": "AIN-32",
+    "summary": "[Bug][Finance] Remove hardcoded financial totals from the live marketplace",
+    "status": "To Do",
+    "parent": "AIN-8"
+  },
+  {
+    "key": "AIN-31",
+    "summary": "[Bug][Finance] Exclude unowned opportunities from portfolio return and stop calling weighted yield IRR",
+    "status": "To Do",
+    "parent": "AIN-8"
+  },
+  {
+    "key": "AIN-30",
+    "summary": "[Bug][Finance] Do not report pending commitments as funded or invested capital",
+    "status": "In Progress",
+    "parent": "AIN-8"
+  },
+  {
+    "key": "AIN-29",
+    "summary": "[Gap][Finance] Verify beneficiary mandates and separate payment approval duties",
+    "status": "To Do",
+    "parent": "AIN-7"
+  },
+  {
+    "key": "AIN-28",
+    "summary": "[Gap][Finance] Apply versioned eligibility checks to parties incurring financial obligations",
+    "status": "To Do",
+    "parent": "AIN-7"
+  },
+  {
+    "key": "AIN-27",
+    "summary": "[Gap][Finance] Specify financial completeness and exception policy for all binding paths",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-26",
+    "summary": "[Gap][Finance] Link existing bindings to authoritative pricing, capacity and party obligations",
+    "status": "To Do",
+    "parent": "AIN-6"
+  },
+  {
+    "key": "AIN-25",
+    "summary": "[Gap][Finance] Define and enforce unknown-capacity and currency policy",
+    "status": "To Do",
+    "parent": "AIN-5"
+  },
+  {
+    "key": "AIN-24",
+    "summary": "[Gap][Finance] Use committed facility balances for underwriting capacity decisions",
+    "status": "To Do",
+    "parent": "AIN-5"
+  },
+  {
+    "key": "AIN-23",
+    "summary": "[Gap][Finance] Publish a financial model inventory and independent validation suite",
+    "status": "To Do",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-22",
+    "summary": "[Gap][Finance] Feed validated party loss experience into credibility-weighted pricing",
+    "status": "To Do",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-21",
+    "summary": "[Bug][Finance] Make model and pricing-version persistence atomic and concurrency safe",
+    "status": "Done",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-20",
+    "summary": "[Bug][Finance] Preserve unavailable model premium instead of persisting numeric zero",
+    "status": "To Do",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-19",
+    "summary": "[Bug][Finance] Select exposure by the declared rating basis instead of always preferring TIV",
+    "status": "To Do",
+    "parent": "AIN-4"
+  },
+  {
+    "key": "AIN-18",
+    "summary": "[Gap][Finance] Pin a common financial revision across workbench, pricing, quotes and servicing",
+    "status": "To Do",
+    "parent": "AIN-3"
+  },
+  {
+    "key": "AIN-17",
+    "summary": "[Bug][Finance] Stop combining different currencies in legacy board premium totals",
+    "status": "To Do",
+    "parent": "AIN-3"
+  },
+  {
+    "key": "AIN-16",
+    "summary": "[Gap][Finance] Implement tenant-scoped search for financial evidence",
+    "status": "To Do",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-15",
+    "summary": "[Gap][Finance] Preserve party, currency and valuation evidence from financial documents",
+    "status": "To Do",
+    "parent": "AIN-2"
+  },
+  {
+    "key": "AIN-14",
+    "summary": "[Gap][Finance] Prove consistent financial backups and cross-service recovery",
+    "status": "To Do",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-13",
+    "summary": "[Bug][Finance] Repair the failing pipeline parity gate before financial releases",
+    "status": "In Progress",
+    "parent": "AIN-1"
+  },
+  {
+    "key": "AIN-12",
+    "summary": "[Ensured] Prove complete user journeys and certify staged launch readiness",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-11",
+    "summary": "[Ensured] Finish subscription lifecycle, usage metering and entitlements",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-10",
+    "summary": "[Ensured] Complete claims, recoveries and investor payout servicing",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-9",
+    "summary": "[Ensured] Complete capital commitments, collateral and financial reconciliation",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-8",
+    "summary": "[Ensured] Make marketplace discovery and investment actions functional",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-7",
+    "summary": "[Ensured] Enforce transaction eligibility and evidence-based screening",
+    "status": "In Progress",
+    "parent": null
+  },
+  {
+    "key": "AIN-6",
+    "summary": "[Ensured] Complete quote approval, binding and contract handoff",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-5",
+    "summary": "[Ensured] Connect underwriting capacity to facility and treaty balances",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-4",
+    "summary": "[Ensured] Connect loss experience and validate defensible pricing",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-3",
+    "summary": "[Ensured] Finish effective submission revisions and scalable board queries",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-2",
+    "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+    "status": "To Do",
+    "parent": null
+  },
+  {
+    "key": "AIN-1",
+    "summary": "[Ensured] Establish a reproducible, operable platform release",
+    "status": "To Do",
+    "parent": null
+  }
+]

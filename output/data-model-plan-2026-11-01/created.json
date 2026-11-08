@@ -1,0 +1,65 @@
+[
+  {
+    "key": "AIN-47",
+    "title": "[Ensured] Strengthen canonical data models and database integrity",
+    "parent": null,
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-47",
+    "verified": true
+  },
+  {
+    "key": "AIN-48",
+    "title": "[Data model] Publish entity relationships, data dictionary and authoritative model ownership",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-48",
+    "verified": true
+  },
+  {
+    "key": "AIN-49",
+    "title": "[Data model] Enforce tenant-safe references, uniqueness and valid state constraints",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-49",
+    "verified": true
+  },
+  {
+    "key": "AIN-50",
+    "title": "[Data model] Version and validate flexible JSON schemas without losing relational integrity",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-50",
+    "verified": true
+  },
+  {
+    "key": "AIN-51",
+    "title": "[Data model] Specify immutable version references and financial temporal semantics",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-51",
+    "verified": true
+  },
+  {
+    "key": "AIN-52",
+    "title": "[Data model] Define cross-service event schemas and reliable financial handoff records",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-52",
+    "verified": true
+  },
+  {
+    "key": "AIN-53",
+    "title": "[Data model] Build indexed, rebuildable projections for party balances and submission queries",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-53",
+    "verified": true
+  },
+  {
+    "key": "AIN-54",
+    "title": "[Data model] Deliver additive schema migrations, legacy backfills and reconciliation reports",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-54",
+    "verified": true
+  },
+  {
+    "key": "AIN-55",
+    "title": "[Data model] Add schema drift, direct-write integrity and migration contract checks to CI",
+    "parent": "AIN-47",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-55",
+    "verified": true
+  }
+]

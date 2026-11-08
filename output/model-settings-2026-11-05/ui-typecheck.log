@@ -1,0 +1,65 @@
+src/App.stories.tsx(26,3): error TS2322: Type 'LoaderFunction<ReactRenderer, { fetch?: { (input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response>; (input: string | ... 1 more ... | Request, init?: RequestInit | undefined): Promise<...>; } | undefined; forwardToHome?: boolean | undefined; } | undefined> | LoaderFunction<...>[] | undefined' is not assignable to type 'LoaderFunction<ReactRenderer, unknown> | LoaderFunction<ReactRenderer, unknown>[] | undefined'.
+  Type 'LoaderFunction<ReactRenderer, { fetch?: { (input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response>; (input: string | ... 1 more ... | Request, init?: RequestInit | undefined): Promise<...>; } | undefined; forwardToHome?: boolean | undefined; } | undefined>' is not assignable to type 'LoaderFunction<ReactRenderer, unknown> | LoaderFunction<ReactRenderer, unknown>[] | undefined'.
+    Type 'LoaderFunction<ReactRenderer, { fetch?: { (input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response>; (input: string | ... 1 more ... | Request, init?: RequestInit | undefined): Promise<...>; } | undefined; forwardToHome?: boolean | undefined; } | undefined>' is not assignable to type 'LoaderFunction<ReactRenderer, unknown>'.
+      Types of parameters 'context' and 'context' are incompatible.
+        Type 'StoryContextForLoaders<ReactRenderer, unknown>' is not assignable to type 'StoryContextForLoaders<ReactRenderer, { fetch?: { (input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response>; (input: string | ... 1 more ... | Request, init?: RequestInit | undefined): Promise<...>; } | undefined; forwardToHome?: boolean | undefined; } | undefined>'.
+          Types of property 'step' are incompatible.
+            Type 'StepFunction<ReactRenderer, unknown>' is not assignable to type 'StepFunction<ReactRenderer, { fetch?: { (input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response>; (input: string | ... 1 more ... | Request, init?: RequestInit | undefined): Promise<...>; } | undefined; forwardToHome?: boolean | undefined; } | undefined>'.
+              Type 'unknown' is not assignable to type '{ fetch?: { (input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response>; (input: string | URL | Request, init?: RequestInit | undefined): Promise<...>; } | undefined; forwardToHome?: boolean | undefined; } | undefined'.
+src/App.stories.tsx(40,76): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+src/App.stories.tsx(61,72): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+src/App.stories.tsx(62,73): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement | null', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+src/AppAuthenticationRegister.stories.tsx(41,65): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+src/AppAuthenticationRegister.stories.tsx(42,74): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+src/AppAuthenticationSignIn.stories.tsx(68,76): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Argument of type '{ name: string; exact: boolean; }' is not assignable to parameter of type 'ByRoleOptions'.
+      Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+src/Pages/InsurerDashboard/sections/NestedInputFeedback.tsx(28,26): error TS2550: Property 'at' does not exist on type 'Path'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(17,25): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(22,25): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(24,23): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx(63,66): error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/Parties/Parties.stories.tsx(71,22): error TS2550: Property 'at' does not exist on type '{ path: string; body: any; }[]'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+src/simulations/index.ts(21,15): error TS2307: Cannot find module './01-IdentityOnboarding' or its corresponding type declarations.
+src/simulations/index.ts(22,15): error TS2307: Cannot find module './02-InsurerRiskSubmission' or its corresponding type declarations.
+src/simulations/index.ts(23,15): error TS2307: Cannot find module './03-UnderwritingPricing' or its corresponding type declarations.
+src/simulations/index.ts(24,15): error TS2307: Cannot find module './04-DealStructuring' or its corresponding type declarations.
+src/simulations/index.ts(25,15): error TS2307: Cannot find module './05-CapitalRaising' or its corresponding type declarations.
+src/simulations/index.ts(26,15): error TS2307: Cannot find module './06-OrderBookTrading' or its corresponding type declarations.
+src/simulations/index.ts(27,15): error TS2307: Cannot find module './07-ActiveDealMonitoring' or its corresponding type declarations.
+src/simulations/index.ts(28,15): error TS2307: Cannot find module './08-ClaimAndPayout' or its corresponding type declarations.
+src/simulations/index.ts(29,15): error TS2307: Cannot find module './09-GovernanceAudit' or its corresponding type declarations.

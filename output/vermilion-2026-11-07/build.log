@@ -1,0 +1,85 @@
+
+> build:ui
+> npm --prefix EnsuredXDS run build && npm run theme:sync && npm run build:auth-ui && npm run marketplace:build && npm run network:build && npm --prefix EnsuredUI run build
+
+
+> @simeoncalixte/ensured-xds@0.1.0 build
+> node scripts/clean.mjs && npm run generate:dashboard-validators && tsc -p tsconfig.build.json && node scripts/copy-css.mjs
+
+
+> @simeoncalixte/ensured-xds@0.1.0 generate:dashboard-validators
+> node scripts/generate-dashboard-validators.mjs
+
+Generated 9 standalone dashboard validators.
+
+> theme:sync
+> node scripts/sync-xds-theme-assets.mjs
+
+XDS theme assets synced: 4
+
+> build:auth-ui
+> npm --prefix EnsuredAuthUI run build
+
+
+> @simeoncalixte/ensured-auth-ui@0.1.1 build
+> node scripts/build.mjs
+
+
+> marketplace:build
+> npm --prefix EnsuredMarketplace run build
+
+
+> @simeoncalixte/ensured-marketplace@0.1.1 build
+> tsc -p tsconfig.build.json && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 15 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/style.css          48.89 kB │ gzip:   5.84 kB
+dist/marketplace.js  2,572.84 kB │ gzip: 596.93 kB
+✓ built in 2.18s
+
+> network:build
+> npm --prefix EnsuredNetwork run build
+
+
+> ensured-network-app@0.1.0 build
+> npm --prefix frontend run build
+
+
+> @simeoncalixte/ensured-network@0.1.1 build
+> tsc -p tsconfig.build.json && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 8 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/style.css   34.13 kB │ gzip:  6.61 kB
+dist/network.js  83.85 kB │ gzip: 18.92 kB
+✓ built in 144ms
+
+> ensured-ui@0.1.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 1104 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.85 kB │ gzip:     0.48 kB
+dist/assets/index-CM83l76c.css                 171.22 kB │ gzip:    25.50 kB
+dist/assets/index-C7RIb8I0.js                   29.12 kB │ gzip:     8.25 kB
+dist/assets/network-DDZTSkwd.js                 55.32 kB │ gzip:    15.90 kB
+dist/assets/registration-C94VSjdS.js           336.26 kB │ gzip:   105.51 kB
+dist/assets/PipelineObservatory-C_zEyCd3.js    658.26 kB │ gzip:   167.11 kB
+dist/assets/marketplace-CefOYfvp.js          1,919.71 kB │ gzip:   539.85 kB
+dist/assets/index-BNTcLCz1.js                3,791.25 kB │ gzip: 1,028.93 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 8.71s

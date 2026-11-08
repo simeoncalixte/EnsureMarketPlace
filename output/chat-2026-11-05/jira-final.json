@@ -1,0 +1,513 @@
+{
+  "AIN-143": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10466",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+    "key": "AIN-143",
+    "fields": {
+      "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+      "issuelinks": [
+        {
+          "id": "10363",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10363",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+          },
+          "inwardIssue": {
+            "id": "10461",
+            "key": "AIN-138",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+            "fields": {
+              "summary": "[AI settings] Configure organization models and individual inheritance",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10364",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10364",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10460",
+            "key": "AIN-137",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10460",
+            "fields": {
+              "summary": "[Pipeline] Support Muse provider with configurable model selection like Qwen",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                "id": "10038",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                "name": "Task",
+                "subtask": false,
+                "avatarId": 10318,
+                "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "10467",
+          "key": "AIN-144",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10467",
+          "fields": {
+            "summary": "Implement verified effective-model connection state and scoped chat API",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10468",
+          "key": "AIN-145",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10468",
+          "fields": {
+            "summary": "Gate existing chat wrapper on connection and verify interactions",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10469",
+          "key": "AIN-146",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10469",
+          "fields": {
+            "summary": "[Bug] Avoid chat pool starvation during concurrent scope rechecks",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10470",
+          "key": "AIN-147",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10470",
+          "fields": {
+            "summary": "[Bug] Preserve chat draft edits made while a reply is pending",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10471",
+          "key": "AIN-148",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10471",
+          "fields": {
+            "summary": "[Bug] Restore persisted chat history on the initial verified load",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10472",
+          "key": "AIN-149",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10472",
+          "fields": {
+            "summary": "[Bug] Keep global chat controls usable without external icon fonts",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      ],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-144": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10467",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10467",
+    "key": "AIN-144",
+    "fields": {
+      "summary": "Implement verified effective-model connection state and scoped chat API",
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-145": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10468",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10468",
+    "key": "AIN-145",
+    "fields": {
+      "summary": "Gate existing chat wrapper on connection and verify interactions",
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+        "description": "This work item is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
+    }
+  },
+  "AIN-146": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10469",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10469",
+    "key": "AIN-146",
+    "fields": {
+      "summary": "[Bug] Avoid chat pool starvation during concurrent scope rechecks",
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-147": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10470",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10470",
+    "key": "AIN-147",
+    "fields": {
+      "summary": "[Bug] Preserve chat draft edits made while a reply is pending",
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-148": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10471",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10471",
+    "key": "AIN-148",
+    "fields": {
+      "summary": "[Bug] Restore persisted chat history on the initial verified load",
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-149": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10472",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10472",
+    "key": "AIN-149",
+    "fields": {
+      "summary": "[Bug] Keep global chat controls usable without external icon fonts",
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  }
+}

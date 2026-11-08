@@ -1,0 +1,478 @@
+[
+  {
+    "epic": "AIN-1",
+    "kind": "Bug",
+    "slug": "parity",
+    "title": "Repair the failing pipeline parity gate before financial releases",
+    "evidence": "npm run pipeline:verify failed in the preceding review: runtime body differences and missing EnsuredPipelineSchemaGeneration/src/pipeline/schemaGeneration/catalogAssembly.ts; scripts/verify-pipeline-parity.mjs reads the stale target.",
+    "action": "Reconcile package ownership and parity manifests without deleting meaningful verification.",
+    "criteria": [
+      "Clean checkout pipeline:verify completes successfully.",
+      "CI verifies the actual versions of compute, capacity and shared financial models."
+    ],
+    "priority": "P0",
+    "confidence": "command-reproduced-previous-review"
+  },
+  {
+    "epic": "AIN-1",
+    "kind": "Gap",
+    "slug": "restore",
+    "title": "Prove consistent financial backups and cross-service recovery",
+    "evidence": "Commercial entries, pricing, bindings, subscriptions and feedback live behind separate persistence/service boundaries; no cross-service financial restore proof was established.",
+    "action": "Define recovery checkpoints and reconcile financial references after restore, including immutable evidence and provider event replay.",
+    "criteria": [
+      "Restore a test backup and reconcile totals, source hashes and active versions.",
+      "Document recovery objective, rollback boundaries and treatment of external payments."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-2",
+    "kind": "Gap",
+    "slug": "money-extraction",
+    "title": "Preserve party, currency and valuation evidence from financial documents",
+    "evidence": "Pipeline extraction/normalization exist; downstream pricing reads selected canonical financial keys while servicing records external evidence references. End-to-end party/money provenance is not established.",
+    "action": "Define typed source facts for amounts, currency, unit, period, payer/payee candidates and document/table location; preserve conflicting facts for review.",
+    "criteria": [
+      "Fixtures distinguish premium, TIV, limit, paid/incurred loss and commissions.",
+      "Every accepted financial input points to source evidence; ambiguous currency or party stays unresolved."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-2",
+    "kind": "Gap",
+    "slug": "artifact-search",
+    "title": "Implement tenant-scoped search for financial evidence",
+    "evidence": "EnsuredPipelineStorageSearch/src/pipeline/storageSearch/service.ts returns {ok:true, received:payload}; no indexing is performed.",
+    "action": "Index approved financial artifacts with tenant, submission, party and immutable revision metadata; support retrieval and retention.",
+    "criteria": [
+      "A user retrieves the exact evidence for a posted financial item.",
+      "Cross-tenant search is denied; retries do not create duplicate artifact versions."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-3",
+    "kind": "Bug",
+    "slug": "board-currency",
+    "title": "Stop combining different currencies in legacy board premium totals",
+    "evidence": "EnsuredAPI/src/routes/underwritingSubmissions.ts:437-465 sums item.values.premium using Number and formats one total/average without currency partitioning. New issuedQuoteMetric separately uses currency buckets; this bug concerns the legacy board summary only.",
+    "action": "Apply explicit financial provenance and currency grouping to the board summary; avoid shared-portfolio double counting.",
+    "criteria": [
+      "USD 100 and EUR 100 never display as one 200 currency amount without a cited FX conversion.",
+      "Same-source duplicates are counted once and unavailable premiums are excluded rather than treated as observed zero."
+    ],
+    "priority": "P1",
+    "confidence": "code-confirmed; runtime-route-not-exercised"
+  },
+  {
+    "epic": "AIN-3",
+    "kind": "Gap",
+    "slug": "financial-lineage",
+    "title": "Pin a common financial revision across workbench, pricing, quotes and servicing",
+    "evidence": "Compute reads CanonicalSubmission.data; quotes freeze saved workbench sections; bindings freeze signing snapshots; commercial entries reference commercial revisions. These histories exist but no common financial dependency manifest was demonstrated.",
+    "action": "Link approved financial revisions and their source hashes across these existing stores; invalidate dependent calculations on material corrections.",
+    "criteria": [
+      "A currency/premium correction identifies all stale quotes and computations.",
+      "Restore/replay selects the same inputs without rewriting old quotes or posted entries."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-4",
+    "kind": "Bug",
+    "slug": "exposure-basis",
+    "title": "Select exposure by the declared rating basis instead of always preferring TIV",
+    "evidence": "compute/service.ts deriveExposure checks financials.tiv before revenue/payroll regardless of exposureBasis. Isolated source helper: TIV=1000000, revenue=100000, basis=revenue returns exposureBase=1000000 labeled revenue.",
+    "action": "Resolve the configured/prior basis before choosing a canonical value; validate nested/flat mapping and compatible units.",
+    "criteria": [
+      "Revenue fixture selects 100000, payroll selects payroll and TIV selects TIV.",
+      "Missing required basis defers modeling rather than silently substituting another measure."
+    ],
+    "priority": "P0",
+    "confidence": "isolated-source-reproduced"
+  },
+  {
+    "epic": "AIN-4",
+    "kind": "Bug",
+    "slug": "null-premium",
+    "title": "Preserve unavailable model premium instead of persisting numeric zero",
+    "evidence": "compute/assemble.ts mapToPersistence maps technicalPremium=null to premium=\"0\". Isolated source reproduction confirms it. Some board evidence paths mask the flag, but the stored numeric value remains ambiguous. This is not a claim that legitimately negotiated zero-premium quotes are invalid.",
+    "action": "Add explicit pricing availability to persistence/contracts and update consumers to distinguish unavailable from a legitimate zero.",
+    "criteria": [
+      "Null model output remains unavailable in persistence and every pricing consumer.",
+      "A genuine approved zero premium remains representable with its own evidence."
+    ],
+    "priority": "P0",
+    "confidence": "isolated-source-reproduced"
+  },
+  {
+    "epic": "AIN-4",
+    "kind": "Bug",
+    "slug": "compute-atomic",
+    "title": "Make model and pricing-version persistence atomic and concurrency safe",
+    "evidence": "compute/service.ts:549 onward independently creates ModelRun, finds/creates Pricing, reads max version, creates PricingVersion, updates currentVersionNumber and writes RiskMetric; no encompassing transaction/lock is passed. Concurrent calls can select the same next version; later failure can leave a partial financial result.",
+    "action": "Serialize version allocation per submission and commit all linked computation records together; define retry/idempotency semantics.",
+    "criteria": [
+      "Concurrent runs produce unique monotonic versions with the correct current pointer.",
+      "Injected failures at every write leave no partial published pricing result; retries are safe."
+    ],
+    "priority": "P0",
+    "confidence": "code-confirmed; DB-concurrency-not-yet-reproduced"
+  },
+  {
+    "epic": "AIN-4",
+    "kind": "Gap",
+    "slug": "experience",
+    "title": "Feed validated party loss experience into credibility-weighted pricing",
+    "evidence": "compute/service.ts:372-375 fixes experienceLossCost=null and observedClaimCount=0. Credibility module implements Z=min(1,sqrt(n/nFull)); current outputs therefore remain prior driven.",
+    "action": "Build versioned, tenant-scoped experience records with paid/incurred basis, exposure periods, valuation date and recoveries; map them to comparable model inputs.",
+    "criteria": [
+      "No data gives Z=0; qualified fixtures give documented Z>0.",
+      "Gross/net losses, currency and valuation periods cannot be mixed silently."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-4",
+    "kind": "Gap",
+    "slug": "model-register",
+    "title": "Publish a financial model inventory and independent validation suite",
+    "evidence": "Implemented methods include generic exposure-times-loss-rate, loss-ratio pricing, cat event-loss/Monte Carlo EP curves, parametric probability/payout, casualty ILF and credibility blending. deriveReturnAndRisk uses marginTarget as expectedReturn and loss/premium as riskScore. No cash-flow IRR is computed there.",
+    "action": "Document each method, input units, gross/net basis, assumptions, confidence, calibration and intended consumers; establish independently reviewed known-answer cases.",
+    "criteria": [
+      "Document model/version/inputs for every loss, premium, return and risk field.",
+      "Separate underwriting margin, investor yield and cash-flow IRR; label simplified cat/casualty inputs."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-5",
+    "kind": "Gap",
+    "slug": "capacity-ledger",
+    "title": "Use committed facility balances for underwriting capacity decisions",
+    "evidence": "CapacityMatchService reads configured capacityByPeril; commercial/ledger.ts has exact BigInt-cent reservations/allocations/releases with limits. The stage does not read that authoritative commercial ledger.",
+    "action": "Connect stage decisions to eligible facility/commitment balances and carry stable reservation IDs into binding.",
+    "criteria": [
+      "Concurrent bind/allocation cannot exceed facility limits.",
+      "Release, expiry and declined quotes update available capacity exactly once."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-5",
+    "kind": "Gap",
+    "slug": "unknown-capacity",
+    "title": "Define and enforce unknown-capacity and currency policy",
+    "evidence": "CapacityMatchService sets hasCapacity=true when riskCapacity is null and parses dealSize with Number without an explicit currency conversion contract. It emits an unconfigured flag, but transaction use of that flag needs a policy.",
+    "action": "Keep unknown distinct from available; require reviewed capacity/currency evidence before increasing obligations.",
+    "criteria": [
+      "Missing cap cannot authorize a binding financial commitment.",
+      "Currency mismatch and missing FX basis produce a clear referral or rejection."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-6",
+    "kind": "Gap",
+    "slug": "binding-bundle",
+    "title": "Link existing bindings to authoritative pricing, capacity and party obligations",
+    "evidence": "signing/binding.ts already supports immutable signed/manual binding with locks and hashes. It inserts snapshots and financial fields but does not invoke commercial capacity posting or create payer/payee receivables; no pricing-version FK is supplied.",
+    "action": "Extend the existing bind operation with approved financial lineage, reservation consumption and durable obligation handoff, using an outbox/reconciliation approach for separate services.",
+    "criteria": [
+      "One bind links its pricing decision or documented manual override, accepted terms and capacity reservation.",
+      "Retry/failure produces one bind and one financial obligation set with recoverable pending work."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-6",
+    "kind": "Gap",
+    "slug": "binding-policy",
+    "title": "Specify financial completeness and exception policy for all binding paths",
+    "evidence": "binding.ts permits a missing quote when signatures are ready, and bindingFinancials may return null date/currency/value; manual admin binding exists. These may be intentional paths, so they are policy/verification gaps rather than assumed bugs.",
+    "action": "Define permitted no-quote/manual cases and mandatory financial evidence for each; enforce approved rules server-side.",
+    "criteria": [
+      "Approved exception cases require accountable reason and financial evidence.",
+      "Normal binding rejects missing required terms, stale source hashes and unapproved financial overrides."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-7",
+    "kind": "Gap",
+    "slug": "transaction-screening",
+    "title": "Apply versioned eligibility checks to parties incurring financial obligations",
+    "evidence": "KYC supplies manual verification/expiry; scrub.ts only returns address/domain signals. Commercial terms include free-text eligibility and approvals, but reviewed binding/commercial paths do not establish a central transaction-screening decision.",
+    "action": "Record and enforce policy decisions for provider, recipient, intermediary, capital owner and beneficiary at each financial action.",
+    "criteria": [
+      "Expired/revoked/unknown evidence causes the policy-defined block/referral.",
+      "A transaction retains evidence version, decision time and authorized exception; no heuristic is called sanctions clearance."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-7",
+    "kind": "Gap",
+    "slug": "beneficiary-controls",
+    "title": "Verify beneficiary mandates and separate payment approval duties",
+    "evidence": "Commercial entries retain posting organization/actor; those fields are not proof of beneficial ownership, payout destination or authorization to change bank details. No payout mandate model was established.",
+    "action": "Define beneficiary verification, payout-account change controls and independent payment approval against each party role.",
+    "criteria": [
+      "Changing beneficiary/payment details invalidates prior approval.",
+      "Negative tests reject unauthorized party changes and self-approved disbursements under the agreed policy."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-8",
+    "kind": "Bug",
+    "slug": "funded-vs-committed",
+    "title": "Do not report pending commitments as funded or invested capital",
+    "evidence": "InvestorDealsService.ts includes pending subscriptions and sums committedAmount into fundedAmount and totalInvested; deployedAmount is ignored. Reproduction: pending committed=100, deployed=0 produces fundedAmount=100,totalInvested=100,capitalAtRisk=100.",
+    "action": "Separate committed, called, received, deployed and settled amounts; derive cash-funded metrics from reconciled evidence.",
+    "criteria": [
+      "Pending fixture displays committed 100 and funded/deployed 0.",
+      "Cancelled, partially funded and reversed cases have correct distinct totals."
+    ],
+    "priority": "P0",
+    "confidence": "isolated-source-reproduced"
+  },
+  {
+    "epic": "AIN-8",
+    "kind": "Bug",
+    "slug": "portfolio-return",
+    "title": "Exclude unowned opportunities from portfolio return and stop calling weighted yield IRR",
+    "evidence": "InvestorDealsService.buildDashboardSummary weights every row by Math.max(1,investorCommittedAmount). Reproduction: owned 100 at 10% plus unowned opportunity at 90% changes blendedIrr from 10 to 10.792079%. No dated cash-flow IRR is computed.",
+    "action": "Weight only eligible owned positions and use an accurate metric label; implement cash-flow IRR separately if required.",
+    "criteria": [
+      "Adding/removing unowned deals never changes portfolio return.",
+      "Zero portfolio reports unavailable/zero per policy; IRR requires dated cash flows and solver validation."
+    ],
+    "priority": "P1",
+    "confidence": "isolated-source-reproduced"
+  },
+  {
+    "epic": "AIN-8",
+    "kind": "Bug",
+    "slug": "illustrative-tvl",
+    "title": "Remove hardcoded financial totals from the live marketplace",
+    "evidence": "EnsuredMarketplace/src/Pages/Marketplace/Marketplace.sections.tsx renders Global TVL: $4.2B; REVIEW.md acknowledges illustrative market signal/counts/grades.",
+    "action": "Source aggregate financial indicators from reconciled data with currency, as-of and coverage, or label/remove demonstration values.",
+    "criteria": [
+      "No fixture-derived TVL appears as live money.",
+      "Loading/unavailable states cannot be confused with zero or a verified balance."
+    ],
+    "priority": "P1",
+    "confidence": "code-confirmed"
+  },
+  {
+    "epic": "AIN-8",
+    "kind": "Gap",
+    "slug": "allocation-workflow",
+    "title": "Connect marketplace actions to authorized financial workflows",
+    "evidence": "Marketplace.sections.tsx Allocate buttons have no handlers; REVIEW.md also identifies prospectus/risk-model and filtering gaps.",
+    "action": "Wire allocations to the approved commitment workflow with financial preview, eligibility, capacity and idempotent confirmation.",
+    "criteria": [
+      "Allocation displays party, currency, amount, fees and resulting commitment state.",
+      "Errors/retries do not duplicate commitments; documents show the exact reviewed version."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "slug": "party-subledger",
+    "title": "Add explicit payer/payee financial accounts and a reconciled party subledger",
+    "evidence": "commercial_servicing_entries stores record_id, amount/currency and posting organization_id/actor_id, but no payer/payee/account sides. Capital models separately store balances and Fee.chargedToEntityType/Id. Current summaries are per contract/currency, not per-party receivable/payable statements.",
+    "action": "Design canonical party/account identities and balanced append-only postings or an equivalently reconcilable subledger; map existing contractual events without treating the posting actor as debtor.",
+    "criteria": [
+      "Insured/broker/MGA/cedent/reinsurer/retrocessionaire/SPV/investor/platform balances trace to contracts and source events.",
+      "Per-currency debits and credits reconcile; each party can obtain an authorized receivable/payable statement."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "slug": "currency-contract",
+    "title": "Define currency and minor-unit rules across all financial models",
+    "evidence": "Deal, Tranche, CapitalCommitment, TrancheSubscription and Fee lack explicit currency fields in capital.models.ts; CollateralAccount has currency. Commercial money helpers and numeric(18,2) use two decimals while accepting a broad currency set.",
+    "action": "Adopt explicit currency inheritance/snapshots, supported currency precision and controlled FX conversions; backfill without guessing.",
+    "criteria": [
+      "Mixed-currency totals are prohibited without rate/source/time and reporting currency.",
+      "Supported zero/two/three-decimal currencies round correctly or are explicitly rejected; unknown legacy currency stays unresolved."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "slug": "settlement-reconciliation",
+    "title": "Implement funded-capital and collateral reconciliation beyond seeded records",
+    "evidence": "CapitalCommitment, TrancheSubscription, CollateralAccount and CollateralMovement models exist. Reviewed API create/bulkCreate call sites for commitment/subscription/movement records occur in CapitalSeedService; a live external settlement path was not established.",
+    "action": "Implement provider-confirmed calls, receipts, custody movements and immutable reconciliation with clear pending/failed/reversed states.",
+    "criteria": [
+      "A sandbox commitment-to-funding journey updates one reconciled party position.",
+      "Duplicate/out-of-order events and unmatched statement items are handled without inventing cash."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "slug": "commissions-fees",
+    "title": "Model gross-to-net premium, commissions, taxes and platform fees per party",
+    "evidence": "RetrocessionTerms stores premium and commission as decimal strings without a commission-basis discriminator; Fee stores amount/rate and charged entity but no currency/payee/accrual lifecycle. No unified premium distribution calculation was established.",
+    "action": "Define amount-versus-rate semantics and a versioned premium waterfall for the supported contracts; distinguish premium pass-through from platform revenue.",
+    "criteria": [
+      "Worked example reconciles insured gross premium, intermediary commission, taxes, ceded/net premium and platform fee by currency.",
+      "Accrual, invoice, receipt, distribution and reversal remain distinct and auditable."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-10",
+    "kind": "Gap",
+    "slug": "claim-economics",
+    "title": "Calculate gross, ceded and retained claims using approved treaty terms",
+    "evidence": "servicing.ts validates recorded claims against aggregate and ceded exposure caps; it does not calculate layer attachment/exhaustion, proportional share or reinstatement economics from gross loss. These inputs exist in RetrocessionTerms.",
+    "action": "Define gross-loss input and calculate approved layer recoverables/retentions with explicit claim valuation and treaty basis.",
+    "criteria": [
+      "Known-answer examples cover below attachment, within layer, exhausted layer and aggregate limits.",
+      "Gross, ceded, retained, paid and outstanding amounts reconcile without double-counting recoveries."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-10",
+    "kind": "Gap",
+    "slug": "servicing-reversals",
+    "title": "Support auditable payment reversals and financial adjustments",
+    "evidence": "servicingKinds includes premium_due/premium_paid/claim/claim_reduction/recovery but no premium-payment or recovery reversal; database triggers prohibit updates/deletes. claim_reduction is not a cash reversal.",
+    "action": "Add referenced immutable correction/reversal events with authorization and accounting effects.",
+    "criteria": [
+      "Reverse a mistaken premium receipt/recovery without deleting history.",
+      "A repeated reversal cannot exceed or reverse the original movement twice; party balances and statements reconcile."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-10",
+    "kind": "Gap",
+    "slug": "payout-waterfall",
+    "title": "Implement party-specific recoveries and investor distribution waterfalls",
+    "evidence": "servicingSummary returns contract-level premium/claim/recovery totals. Capital ownership/tranches exist, but no reviewed calculation connects approved claim recoveries to beneficiary distributions.",
+    "action": "Apply versioned waterfall priorities, fees, ownership record dates and collateral release rules; separate approved, payable and paid.",
+    "criteria": [
+      "Known-answer multi-party waterfall sums to distributable funds, including rounding residuals.",
+      "Retry, insufficient cash, disputed claims and reversed payments preserve correct balances."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-11",
+    "kind": "Bug",
+    "slug": "production-simulation",
+    "title": "Reject paid subscription simulation in production when Stripe is unconfigured",
+    "evidence": "stripe.service.ts chooses simulation solely from missing STRIPE_SECRET_KEY. Isolated NODE_ENV=production fixture with a paid plan and arbitrary nonempty paymentMethodId returns simulated active subscription.",
+    "action": "Require explicit nonproduction simulation mode; fail closed for paid production checkout with missing provider configuration.",
+    "criteria": [
+      "Production missing key returns configuration error and persists no active paid subscription.",
+      "Local/test simulation remains explicit and marked; free plans retain intended behavior."
+    ],
+    "priority": "P0",
+    "confidence": "isolated-source-reproduced"
+  },
+  {
+    "epic": "AIN-11",
+    "kind": "Bug",
+    "slug": "free-admin-plan",
+    "title": "Restrict checkout plans to the authenticated participant eligibility",
+    "evidence": "subscriptions.ts trusts body.planCode/body.role and does not compare selected plan with user role/eligibility. Reproduced mocked authenticated investor + {role:\"admin\"} yields active platform-operations subscription costing 0. This confirms subscription eligibility bypass, not admin privilege escalation.",
+    "action": "Resolve permitted plans server-side and reject unauthorized free/admin plan selection.",
+    "criteria": [
+      "Ordinary investor cannot select platform-operations through either role or planCode.",
+      "Role changes and permitted plan transitions are explicit and audited."
+    ],
+    "priority": "P0",
+    "confidence": "isolated-source-reproduced"
+  },
+  {
+    "epic": "AIN-11",
+    "kind": "Bug",
+    "slug": "checkout-idempotency",
+    "title": "Prevent duplicate external subscriptions on concurrent checkout or retry",
+    "evidence": "subscriptions.ts does findOne(active), then provider creation, then local Subscription.create without lock/idempotency. stripe.service.ts creates customer/product/subscription without an idempotency key; billing model has no unique external subscription constraint. Concurrent or incomplete retries can create multiple external obligations.",
+    "action": "Persist a checkout operation before provider calls, use stable provider idempotency keys, reconcile uncertain results and resume incomplete payment instead of creating another.",
+    "criteria": [
+      "Concurrent requests and timeout-after-provider-success yield one intended subscription/charge.",
+      "DB write failure can be reconciled to the existing provider subscription; incomplete checkout resumes safely."
+    ],
+    "priority": "P0",
+    "confidence": "code-confirmed; provider-concurrency-not-exercised"
+  },
+  {
+    "epic": "AIN-11",
+    "kind": "Gap",
+    "slug": "billing-lifecycle",
+    "title": "Reconcile subscription lifecycle, invoices and usage into platform receivables",
+    "evidence": "Reviewed billing routes implement plans/checkout; no Stripe webhook route was found under API routes. Subscription stores current status/period, not invoice/payment/credit event history.",
+    "action": "Add verified event ingestion, lifecycle reconciliation, customer/organization entitlement rules and billable usage/invoice mapping.",
+    "criteria": [
+      "Renewal, past due, cancellation, refunds and out-of-order events converge correctly.",
+      "Invoice totals and platform receivables reconcile to usage and actual provider payments."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-12",
+    "kind": "Gap",
+    "slug": "financial-test-matrix",
+    "title": "Create a cross-party financial invariant and failure-injection suite",
+    "evidence": "Existing ledger and participationAmount suites passed (2 tests). Six isolated source reproductions expose other defects. No end-to-end financial conservation, concurrency or provider settlement proof was run.",
+    "action": "Create independent expected results for cross-party premium, capital, claims, fees and payouts; include decimal boundaries, currencies, concurrency and retry/reversal scenarios.",
+    "criteria": [
+      "Each financial lifecycle conserves amounts by currency and party.",
+      "Failure injection at DB/provider boundaries proves no duplicate money or orphaned published financial state."
+    ],
+    "priority": "P0",
+    "confidence": "code-reviewed"
+  },
+  {
+    "epic": "AIN-12",
+    "kind": "Gap",
+    "slug": "audit-coverage",
+    "title": "Maintain a finance model/coverage register and investigate untested risks",
+    "evidence": "This audit is local code review and isolated execution with mocked persistence/providers; it cannot establish production balances, deployed configuration, legal acceptance or real settlement correctness.",
+    "action": "Record models, ownership, formulas, authoritative writers, invariants, test evidence and unresolved risks; validate legacy balances and provider statements in staging with approved access.",
+    "criteria": [
+      "Every financial field has an owner, unit, party scope, source and validation status.",
+      "Unverified risks remain investigation gaps until reproduced; release sign-off records unresolved limitations."
+    ],
+    "priority": "P1",
+    "confidence": "code-reviewed"
+  }
+]

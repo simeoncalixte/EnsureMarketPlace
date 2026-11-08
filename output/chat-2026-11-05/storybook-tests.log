@@ -1,0 +1,16 @@
+PASS ai-application-chat--hidden-until-verified 
+PASS ai-application-chat--shared-across-application 
+PASS ai-application-chat--connection-established 
+PASS ai-application-chat--model-change-locks-chat 
+PASS ai-application-chat--logout-clears-state 
+PASS ai-application-chat--failure-retry-same-request 
+PASS ai-application-chat--context-can-be-omitted 
+PASS ai-application-chat--reload-restores-history 
+PASS ai-application-chat--sending-prevents-duplicates 
+PASS ai-application-chat--keyboard-and-empty-message 
+PASS ai-application-chat--stale-refresh-cannot-unlock 
+PASS ai-application-chat--account-switch-clears-private-state 
+PASS ai-application-chat--connection-loss-preserves-unsent-draft 
+PASS ai-application-chat--sensitive-feature-state-rejected 
+PASS ai-application-chat--draft-typed-during-reply 
+PASS ai-application-chat--long-model-label-fits-mobile 

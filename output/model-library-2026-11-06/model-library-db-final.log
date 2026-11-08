@@ -1,0 +1,33 @@
+
+> test:finance:docker
+> node scripts/test-finance-docker.mjs --runTestsByPath test/relationships/modelLibrary.db.test.ts test/relationships/modelSettings.db.test.ts test/relationships/aiChat.db.test.ts
+
+ Network ensured-finance-test-9b4edabc9f40_default Creating 
+ Network ensured-finance-test-9b4edabc9f40_default Creating 
+ Network ensured-finance-test-9b4edabc9f40_default Created 
+ Network ensured-finance-test-9b4edabc9f40_default Created 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Creating 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Created 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Starting 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Started 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Waiting 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Healthy 
+PASS pages-settings-model-library-live--saved-library-journey 
+PASS test/relationships/modelLibrary.db.test.ts (5.094 s)
+PASS ai-application-chat-live--authenticated-whole-app 
+PASS test/relationships/aiChat.db.test.ts
+PASS pages-settings-ai-models-live--authenticated-account 
+PASS test/relationships/modelSettings.db.test.ts
+
+Test Suites: 3 passed, 3 total
+Tests:       29 passed, 29 total
+Snapshots:   0 total
+Time:        9.846 s
+Ran all test suites within paths "test/relationships/modelLibrary.db.test.ts", "test/relationships/modelSettings.db.test.ts", "test/relationships/aiChat.db.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Stopping 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Stopped 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Removing 
+ Container ensured-finance-test-9b4edabc9f40-postgres-1 Removed 
+ Network ensured-finance-test-9b4edabc9f40_default Removing 
+ Network ensured-finance-test-9b4edabc9f40_default Removed 

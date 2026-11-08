@@ -1,0 +1,9 @@
+{
+  "story": "AIN-153",
+  "tasks": [
+    "AIN-154",
+    "AIN-155",
+    "AIN-156"
+  ],
+  "regression": "AIN-157"
+}

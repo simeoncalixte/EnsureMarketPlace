@@ -1,0 +1,107 @@
+[
+  {
+    "id": "ensuredauthui-00-registration-interaction-tests--complete-registration",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ensuredauthui-00-registration-interaction-tests--complete-registration",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "ensuredauthui-00-registration-interaction-tests--unverified-account",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ensuredauthui-00-registration-interaction-tests--unverified-account",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "ensuredauthui-00-registration-interaction-tests--required-identity-fields",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ensuredauthui-00-registration-interaction-tests--required-identity-fields",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "ensuredauthui-00-registration-interaction-tests--declined-payment",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ensuredauthui-00-registration-interaction-tests--declined-payment",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "ensuredauthui-00-registration-interaction-tests--incomplete-payment",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ensuredauthui-00-registration-interaction-tests--incomplete-payment",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "ensuredauthui-00-registration-interaction-tests--registered-non-admin-kyc",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ensuredauthui-00-registration-interaction-tests--registered-non-admin-kyc",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "ensuredauthui-00-registration-interaction-tests--registered-admin-bypass",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "ensuredauthui-00-registration-interaction-tests--registered-admin-bypass",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pages-settings-model-library-live--saved-library-journey",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library-live--saved-library-journey",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library-live--settings-sections-journey",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library-live--settings-sections-journey",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

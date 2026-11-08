@@ -1,0 +1,102 @@
+✔ validates configurable origins and prevents deployment loops (0.643375ms)
+✔ routes identity, gateway APIs and docs remotely while keeping account pages local (0.215166ms)
+✔ resolves approved XDS components and rejects unknown versions and incompatible controls (0.463792ms)
+✔ dependent lists follow the parent and remain scoped to each subject (0.138625ms)
+✔ changing a parent clears invalid descendants and preserves unrelated values (0.176708ms)
+✔ workspace config covers every approved dashboard component and rejects unsafe sources (1.158542ms)
+✔ shared filters are propagated unchanged and equivalent orderings share a key (9.160375ms)
+✔ matching count reuses the existing filtered submissions search (0.2645ms)
+✔ missing routes, invalid JSON, and mismatched scope fail explicitly (0.544291ms)
+✔ shared prop schemas reject incomplete nested data and preserve zero (1.097042ms)
+✔ saving from the coverage draft carries entered financial, subject and coverage values (0.861083ms)
+✔ blank numeric inputs remain missing rather than becoming invented zero values (0.074625ms)
+✔ new drafts have the same fields, component mappings and section grouping as persisted drafts (1.837625ms)
+✔ edits and repeated records survive saving without copying field definitions into the request (0.443958ms)
+✔ the application template renders the same complete form before and after its first save (4.049208ms)
+✔ coverage edits retain declared extra values without posting component prop aliases (0.136041ms)
+✔ latest recorded attempt wins, including a failed rerun after success (0.591459ms)
+✔ open runs do not imply active execution, nor do missing job confirmations (0.122084ms)
+✔ seeded and stale data remain distinguishable from live observations (0.105875ms)
+✔ duration is only reported from recorded timing (0.080417ms)
+✔ branches share a column and join waits for every prerequisite (0.8975ms)
+✔ older catalogs remain sequential (0.10525ms)
+✔ invalid dependencies fail explicitly (0.251291ms)
+✔ subprocess groups reserve space without overlapping parallel parents (0.147209ms)
+✔ moves in either direction without losing hidden stages (1.018708ms)
+✔ rewires graph connections to the chosen order and retains new stages (0.439083ms)
+✔ polling the same stage preserves an in-flight journey (0.998041ms)
+✔ rapid updates queue every observed hop, including retries (0.093625ms)
+✔ pause preserves progress and reduced motion snaps to the latest stage (0.069959ms)
+✔ occupancy increases stage size with a bounded maximum (0.085167ms)
+✔ no generated schema leaves the platform empty (0.716167ms)
+✖ schema fields, sections and repeatable records change the geometry (0.606833ms)
+✔ large schemas fit the platform and component sections retain a presence (5.185458ms)
+✖ actual pipeline envelope maps nested fields and repeated records without duplicating them (4.8045ms)
+✔ hides disabled stages and connects active stages across disabled branches (2.184125ms)
+✔ handles disabled roots, chains, legacy order and every stage disabled (0.270875ms)
+✔ retains disabled metadata when users show all processes (0.07675ms)
+✔ first document can save incomplete details while using server field definitions (1.438042ms)
+✔ validation failures show the fields that need attention before upload (0.606542ms)
+✔ existing and new subject-section contracts resolve to the subject editor (0.485458ms)
+✔ template and generated aliases edit the same nested value without losing source data (0.414375ms)
+✔ template changes retain custom values and do not replace a cleared value with a default (0.164125ms)
+✔ adding and removing items serializes only the current subject list with stable IDs (0.090417ms)
+✔ mixed-line subjects retain their own classifications and unknown subjects remain unclassified (0.082792ms)
+✔ coverage edits persist under their subject with typed parameters and explicit deselection (13.286083ms)
+✔ suggested fields follow the individual subject and preserve extracted field values (12.961041ms)
+✔ agent-managed subjects use the agent field list without adding hardcoded property suggestions (8.341417ms)
+✔ unexpected generated sections precede review and signing, with complete labels (1.003541ms)
+✔ unknown saved sections keep their original data keys and cannot collide with workflow IDs (0.18725ms)
+✔ schema refreshes add and remove navigation entries without duplicating built-in IDs (0.111625ms)
+✔ saved views omit absent data sections while retaining workflow navigation (0.066833ms)
+✔ descriptors exclusively order and label content while workflow stays application owned (0.115959ms)
+ℹ tests 52
+ℹ suites 0
+ℹ pass 50
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 467.489542
+
+✖ failing tests:
+
+test at test/pipelineSubmissionShape.test.mjs:8:1
+✖ schema fields, sections and repeatable records change the geometry (0.606833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '#FF563B'
+  - '#a46bff'
+  
+      at TestContext.<anonymous> (file:///Users/simeon/Projects/EnsureMarketPlace/EnsuredUI/test/pipelineSubmissionShape.test.mjs:14:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '#FF563B',
+    expected: '#a46bff',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/pipelineSubmissionShape.test.mjs:26:1
+✖ actual pipeline envelope maps nested fields and repeated records without duplicating them (4.8045ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(cells.every(cell=>cell.color==='#a46bff'))
+  
+      at TestContext.<anonymous> (file:///Users/simeon/Projects/EnsureMarketPlace/EnsuredUI/test/pipelineSubmissionShape.test.mjs:43:9)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

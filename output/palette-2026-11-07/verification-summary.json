@@ -1,0 +1,217 @@
+{
+  "runs": 151,
+  "uniqueStories": 96,
+  "suites": [
+    {
+      "file": "results-host-dark-1440.json",
+      "count": 41,
+      "stories": [
+        "pages-insurer-dashboard-email-ingest-config--default",
+        "pages-insurer-dashboard-email-ingest-config--connected",
+        "pages-insurer-dashboard-email-ingest-config--connection-error",
+        "pages-insurer-dashboard-email-ingest-config--remove-failed-connection",
+        "pages-insurer-dashboard-email-ingest-config--independent-contributor",
+        "pages-insurer-dashboard-email-ingest-config--account-overview",
+        "pages-settings-model-library--saved-records-only",
+        "pages-settings-model-library--add-without-default",
+        "pages-settings-model-library--select-default",
+        "pages-settings-model-library--edit-keeps-credential",
+        "pages-settings-model-library--test-connection",
+        "pages-settings-model-library--failure-retry",
+        "pages-settings-model-library--search-pagination",
+        "pages-settings-model-library--inherit-keeps-library",
+        "pages-settings-model-library--permissions",
+        "pages-settings-model-library--validation-and-cancel",
+        "pages-settings-model-library--save-failure-retains-draft",
+        "pages-settings-model-library--load-failure-retry",
+        "pages-settings-model-library--loading",
+        "pages-settings-model-library--keyboard-and-expired-proof",
+        "pages-settings-model-library--remove-credential",
+        "pages-insurer-dashboard-pipeline-processes--default",
+        "pages-insurer-dashboard-pipeline-processes--empty",
+        "pages-insurer-dashboard-pipeline-processes--loading",
+        "pages-insurer-dashboard-pipeline-processes--error-state",
+        "pages-insurer-dashboard-pipeline-processes--process-subscriptions",
+        "pages-insurer-dashboard-pipeline-processes--subscribed-subset",
+        "pages-insurer-dashboard-pipeline-processes--no-subscribed-processes",
+        "pages-insurer-dashboard-pipeline-processes--concurrent-processes",
+        "pages-insurer-dashboard-pipeline-processes--observatory",
+        "pages-insurer-dashboard-pipeline-processes--observatory-3-d",
+        "pages-insurer-dashboard-pipeline-processes--live-execution-3-d",
+        "pages-insurer-dashboard-settings--default",
+        "pages-insurer-dashboard-settings--independent-keyboard-toggles",
+        "pages-insurer-dashboard-settings--model-draft-preserved",
+        "pages-insurer-dashboard-settings--capability-draft-preserved",
+        "pages-insurer-dashboard-settings--reference-draft-and-scope-preserved",
+        "pages-insurer-dashboard-settings--failure-and-retry",
+        "pages-insurer-dashboard-settings--permissions-and-empty",
+        "pages-insurer-dashboard-settings--loading-survives-collapse",
+        "pages-insurer-dashboard-settings--pagination-and-connection-failure"
+      ]
+    },
+    {
+      "file": "results-host-final-light-375.json",
+      "count": 38,
+      "stories": [
+        "pages-commercial-palette-regression--overview",
+        "pages-commercial-palette-regression--terms",
+        "pages-commercial-palette-regression--documents",
+        "pages-commercial-palette-regression--document-permission",
+        "pages-commercial-palette-regression--approvals",
+        "pages-commercial-palette-regression--activity",
+        "pages-commercial-palette-regression--listing",
+        "pages-commercial-palette-regression--requests",
+        "pages-insurer-dashboard-email-ingest-config--default",
+        "pages-insurer-dashboard-email-ingest-config--connected",
+        "pages-insurer-dashboard-email-ingest-config--connection-error",
+        "pages-insurer-dashboard-email-ingest-config--remove-failed-connection",
+        "pages-insurer-dashboard-email-ingest-config--independent-contributor",
+        "pages-insurer-dashboard-email-ingest-config--account-overview",
+        "pages-settings-model-library--saved-records-only",
+        "pages-settings-model-library--add-without-default",
+        "pages-settings-model-library--select-default",
+        "pages-settings-model-library--edit-keeps-credential",
+        "pages-settings-model-library--test-connection",
+        "pages-settings-model-library--failure-retry",
+        "pages-settings-model-library--search-pagination",
+        "pages-settings-model-library--inherit-keeps-library",
+        "pages-settings-model-library--permissions",
+        "pages-settings-model-library--validation-and-cancel",
+        "pages-settings-model-library--save-failure-retains-draft",
+        "pages-settings-model-library--load-failure-retry",
+        "pages-settings-model-library--loading",
+        "pages-settings-model-library--keyboard-and-expired-proof",
+        "pages-settings-model-library--remove-credential",
+        "pages-insurer-dashboard-settings--default",
+        "pages-insurer-dashboard-settings--independent-keyboard-toggles",
+        "pages-insurer-dashboard-settings--model-draft-preserved",
+        "pages-insurer-dashboard-settings--capability-draft-preserved",
+        "pages-insurer-dashboard-settings--reference-draft-and-scope-preserved",
+        "pages-insurer-dashboard-settings--failure-and-retry",
+        "pages-insurer-dashboard-settings--permissions-and-empty",
+        "pages-insurer-dashboard-settings--loading-survives-collapse",
+        "pages-insurer-dashboard-settings--pagination-and-connection-failure"
+      ]
+    },
+    {
+      "file": "results-commercial-light-1440.json",
+      "count": 10,
+      "stories": [
+        "pages-commercial-palette-regression--overview",
+        "pages-commercial-palette-regression--terms",
+        "pages-commercial-palette-regression--documents",
+        "pages-commercial-palette-regression--document-permission",
+        "pages-commercial-palette-regression--approvals",
+        "pages-commercial-palette-regression--activity",
+        "pages-commercial-palette-regression--listing",
+        "pages-commercial-palette-regression--requests",
+        "pages-landingpage--default",
+        "xds-topnavbar--default"
+      ]
+    },
+    {
+      "file": "results-marketplace-final-dark-1440.json",
+      "count": 17,
+      "stories": [
+        "marketplace-experience--browse",
+        "marketplace-experience--taxonomy-interaction",
+        "marketplace-experience--empty",
+        "marketplace-experience--error",
+        "marketplace-experience--loading",
+        "marketplace-experience--network-handoff",
+        "marketplace-experience--pinned-publication",
+        "marketplace-experience--stale-publication",
+        "marketplace-experience--unverified-funding",
+        "marketplace-participation--confirm-pending",
+        "marketplace-participation--lost-response-retry",
+        "marketplace-participation--denied",
+        "marketplace-participation--stale",
+        "marketplace-participation--error-retry",
+        "marketplace-participation--loading",
+        "marketplace-participation--validation",
+        "marketplace-participation--reviewer"
+      ]
+    },
+    {
+      "file": "results-network-final-light-375.json",
+      "count": 15,
+      "stories": [
+        "network-fixtures--populated",
+        "network-fixtures--publish",
+        "network-fixtures--empty",
+        "network-fixtures--failure",
+        "network-fixtures--loading",
+        "network-fixtures--two-instances",
+        "network-fixtures--market-journey",
+        "network-fixtures--private-capacity-appetite",
+        "network-fixtures--split-layout",
+        "network-fixtures--publications",
+        "network-party-participation--private-consent-and-revocation",
+        "network-party-participation--reject-unresolved-identity",
+        "network-party-participation--failure-and-retry",
+        "network-party-participation--pagination-scope-change",
+        "network-party-participation--scoped-market-roles"
+      ]
+    },
+    {
+      "file": "results-network-dark-1440.json",
+      "count": 15,
+      "stories": [
+        "network-fixtures--populated",
+        "network-fixtures--publish",
+        "network-fixtures--empty",
+        "network-fixtures--failure",
+        "network-fixtures--loading",
+        "network-fixtures--two-instances",
+        "network-fixtures--market-journey",
+        "network-fixtures--private-capacity-appetite",
+        "network-fixtures--split-layout",
+        "network-fixtures--publications",
+        "network-party-participation--private-consent-and-revocation",
+        "network-party-participation--reject-unresolved-identity",
+        "network-party-participation--failure-and-retry",
+        "network-party-participation--pagination-scope-change",
+        "network-party-participation--scoped-market-roles"
+      ]
+    },
+    {
+      "file": "results-logistics-light-1440.json",
+      "count": 5,
+      "stories": [
+        "logistics-collaboration--partner-journey",
+        "logistics-collaboration--post-load",
+        "logistics-collaboration--search-and-filter",
+        "logistics-collaboration--error-state",
+        "logistics-collaboration--loading-state"
+      ]
+    },
+    {
+      "file": "results-auth-light-1440.json",
+      "count": 7,
+      "stories": [
+        "ensuredauthui-00-registration-interaction-tests--complete-registration",
+        "ensuredauthui-00-registration-interaction-tests--unverified-account",
+        "ensuredauthui-00-registration-interaction-tests--required-identity-fields",
+        "ensuredauthui-00-registration-interaction-tests--declined-payment",
+        "ensuredauthui-00-registration-interaction-tests--incomplete-payment",
+        "ensuredauthui-00-registration-interaction-tests--registered-non-admin-kyc",
+        "ensuredauthui-00-registration-interaction-tests--registered-admin-bypass"
+      ]
+    },
+    {
+      "file": "results-xds-reviewed-dark-1440.json",
+      "count": 1,
+      "stories": [
+        "xds-palette-workflow--theme-and-form"
+      ]
+    },
+    {
+      "file": "results-visual-reviewed-light-1440.json",
+      "count": 2,
+      "stories": [
+        "pages-landingpage--default",
+        "xds-topnavbar--default"
+      ]
+    }
+  ]
+}

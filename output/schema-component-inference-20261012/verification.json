@@ -1,0 +1,38 @@
+{
+  "status": "automated gates passed; human review pending",
+  "featureFlag": {
+    "name": "SCHEMA_COMPONENT_INFERENCE",
+    "default": false
+  },
+  "verification": {
+    "policyTests": 6,
+    "generationTests": 70,
+    "apiTests": 85,
+    "manualSubmissionTests": 67,
+    "uiTests": 11,
+    "feedbackTests": 26,
+    "databaseTestsSkipped": 8,
+    "builds": [
+      "Constants",
+      "PipelineShared",
+      "SchemaGeneration",
+      "UI production"
+    ],
+    "apiTypecheck": "passed",
+    "registryFreshness": "passed",
+    "targetedLint": "passed",
+    "uiStandaloneTypecheck": "Existing Storybook, simulation import and ES target errors remain in untouched files.",
+    "fullGenerationLint": "Existing unused-variable errors in src/pipeline/test/SchemaGenerationService.test.ts remain."
+  },
+  "humanReview": "required before enablement",
+  "baselineComparison": "not performed; no comparative quality or cost claim",
+  "evaluationNotes": [
+    "Corpus run retained a financial-schedule planner failure for inspection.",
+    "Financial-schedule passed after bounded planner correction was implemented; that live retry returned a valid plan on the first attempt. Rejected-plan correction is covered by deterministic tests.",
+    "Other cases use the same implementation before the additive planner-correction change.",
+    "All selected passing cases are rechecked with exact scalar retention, not substring matching.",
+    "Two unsupported structured array fields retain complete values with explicit generic-display fallback: orbitalDebrisProtocols and subjects. Component suitability requires human review."
+  ],
+  "passingCases": 8,
+  "totalCases": 8
+}

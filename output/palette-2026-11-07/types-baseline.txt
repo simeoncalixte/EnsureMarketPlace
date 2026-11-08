@@ -1,0 +1,21 @@
+src/App.stories.tsx: error TS2769: No overload matches this call.
+src/App.stories.tsx: error TS2769: No overload matches this call.
+src/App.stories.tsx: error TS2769: No overload matches this call.
+src/AppAuthenticationRegister.stories.tsx: error TS2769: No overload matches this call.
+src/AppAuthenticationRegister.stories.tsx: error TS2769: No overload matches this call.
+src/AppAuthenticationSignIn.stories.tsx: error TS2769: No overload matches this call.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx: error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx: error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx: error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx: error TS2339: Property 'json' does not exist on type '{ new (body?: BodyInit | null | undefined, init?: ResponseInit | undefined): Response; prototype: Response; error(): Response; redirect(url: string | URL, status?: number | undefined): Response; }'.
+src/Pages/InsurerDashboard/sections/NestedInputFeedback.tsx: error TS2550: Property 'at' does not exist on type 'Path'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+src/Pages/Parties/Parties.stories.tsx: error TS2550: Property 'at' does not exist on type '{ path: string; body: any; }[]'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+src/simulations/index.ts: error TS2307: Cannot find module './01-IdentityOnboarding' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './02-InsurerRiskSubmission' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './03-UnderwritingPricing' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './04-DealStructuring' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './05-CapitalRaising' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './06-OrderBookTrading' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './07-ActiveDealMonitoring' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './08-ClaimAndPayout' or its corresponding type declarations.
+src/simulations/index.ts: error TS2307: Cannot find module './09-GovernanceAudit' or its corresponding type declarations.

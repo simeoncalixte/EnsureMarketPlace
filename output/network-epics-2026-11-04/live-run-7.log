@@ -1,0 +1,28 @@
+
+> ensured-network-app@0.1.0 test:storybook:live
+> node --env-file-if-exists=.env test/live.mjs
+
+PASS AIN-73 accept-reviewed-identity
+PASS AIN-74 authorized-party-participation
+PASS AIN-73-REVOKE revoke-reviewed-identity
+PASS LIVE-01 independent-discovery
+PASS LIVE-02 follow-and-read-feed
+PASS LIVE-APPETITE private-capacity-appetite
+PASS private capacity/appetite persistence, validation, authorization, pause and unfollow cleanup
+PASS LIVE-03 publish-as-person
+PASS LIVE-04 publish-as-organization
+PASS LIVE-05 organization-permission-denied
+PASS LIVE-06 reply-across-organizations
+PASS LIVE-07 react-repost-and-bookmark
+PASS LIVE-08-SEND send-introduction
+PASS LIVE-08 introduction-accepted
+PASS LIVE-09 introduction-conflict
+PASS LIVE-10 notification-read-state
+PASS LIVE-11 public-profile-privacy
+PASS LIVE-12 block-and-report
+PASS LIVE-13 delete-and-revisit
+PASS LIVE-14 session-and-grant-revocation
+PASS LIVE-15 service-outage-recovery
+PASS LIVE-16 cross-tenant-isolation
+PASS AIN-77 exact-publication-handoff
+PASS integrated host and responsive checks

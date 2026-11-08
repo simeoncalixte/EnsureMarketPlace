@@ -7,14 +7,14 @@ services:
       context: ./EnsuredAuth
       secrets: [node_auth_token]
     container_name: ensured-auth
-    env_file: ./EnsuredAPI/.env
+    env_file: ./EnsuredAuth/.env
     environment:
       SERVICES_AUTH_URL: http://auth:3003
       SERVICES_REGISTRY_URL: http://catalog:3010
       SERVICES_INSTANCE_ID: auth-local
       AUTH_DEV_UI_ORIGIN: http://localhost:3000
       AUTH_BIND_HOST: 0.0.0.0
-      AUTH_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_identity
+      AUTH_DATABASE_URL: ${DOCKER_AUTH_DATABASE_URL:?Run scripts/start-docker-services.mjs}
       MARKETPLACE_API_URL: http://api:3001
       SMTP_HOST: mailpit
       SMTP_PORT: 1025
@@ -43,10 +43,10 @@ services:
   kyc:
     build: ./EnsuredKYC
     container_name: ensured-kyc
-    env_file: ./EnsuredAPI/.env
+    env_file: ./EnsuredKYC/.env
     environment:
       KYC_BIND_HOST: 0.0.0.0
-      KYC_DATABASE_URL: postgres://postgres:postgres@postgres:5432/ensured_kyc
+      KYC_DATABASE_URL: ${DOCKER_KYC_DATABASE_URL:?Run scripts/start-docker-services.mjs}
     command: ['sh', '-c', 'npm run migrate && npm start']
     ports: ['127.0.0.1:3004:3004']
     restart: unless-stopped
@@ -74,12 +74,13 @@ services:
       context: ./EnsuredAuth
       secrets: [node_auth_token]
     container_name: ensured-gateway
-    env_file: ./EnsuredAPI/.env
+    env_file: ./EnsuredAuth/.env
     environment:
       AUTH_DEV_UI_ORIGIN: http://localhost:3000
       AUTH_BIND_HOST: 0.0.0.0
       AUTH_INTERNAL_URL: http://auth:3003
       KYC_INTERNAL_URL: http://kyc:3004
+      NETWORK_INTERNAL_URL: http://network:3011
       MARKETPLACE_API_URL: http://api:3001
       MARKETPLACE_UI_URL: http://frontend.localhost:3000
       SERVICES_REGISTRY_URL: ''
@@ -108,10 +109,35 @@ services:
         - action: rebuild
           path: ./EnsuredAuth/Dockerfile
 
+  network:
+    build: ./EnsuredNetwork
+    container_name: ensured-network
+    env_file: ./EnsuredNetwork/.env
+    environment:
+      NETWORK_HOST: 0.0.0.0
+      NETWORK_DATABASE_URL: ${DOCKER_NETWORK_DATABASE_URL:?Run scripts/start-docker-services.mjs}
+      NETWORK_API_URL: http://api:3001
+    ports: ['127.0.0.1:3011:3011']
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3011/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./EnsuredNetwork/backend
+          target: /app/backend
+        - action: rebuild
+          path: ./EnsuredNetwork/package.json
+        - action: rebuild
+          path: ./EnsuredNetwork/package-lock.json
+
   catalog:
     build: ./EnsuredServices
     container_name: ensured-services
-    env_file: ./EnsuredAPI/.env
+    env_file: ./EnsuredServices/.env
     environment:
       SERVICES_HOST: 0.0.0.0
       SERVICES_READ_TOKEN: ${DOCKER_SERVICES_READ_TOKEN:?Run scripts/start-docker-services.mjs}
@@ -164,7 +190,9 @@ services:
   submission-relay:
     build: ./SubmissionUI
     container_name: ensured-submission-relay
-    env_file: ./EnsuredAPI/.env
+    env_file:
+      - path: ./SubmissionUI/.env
+        required: false
     command: ['npm', 'run', 'relay']
     environment:
       RABBIT_URL: amqp://rabbitmq

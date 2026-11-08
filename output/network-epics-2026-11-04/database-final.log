@@ -1,0 +1,26 @@
+ Network ensured-finance-test-3952979e59c9_default Creating 
+ Network ensured-finance-test-3952979e59c9_default Creating 
+ Network ensured-finance-test-3952979e59c9_default Created 
+ Network ensured-finance-test-3952979e59c9_default Created 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Creating 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Created 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Starting 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Started 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Waiting 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Healthy 
+PASS test/relationships/subledger.db.test.ts (6.38 s)
+PASS test/relationships/opportunities.db.test.ts
+PASS test/relationships/networkPublications.test.ts
+
+Test Suites: 3 passed, 3 total
+Tests:       29 passed, 29 total
+Snapshots:   0 total
+Time:        7.521 s, estimated 8 s
+Ran all test suites within paths "test/relationships/subledger.db.test.ts", "test/relationships/opportunities.db.test.ts", "test/relationships/networkPublications.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-3952979e59c9-postgres-1 Stopping 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Stopped 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Removing 
+ Container ensured-finance-test-3952979e59c9-postgres-1 Removed 
+ Network ensured-finance-test-3952979e59c9_default Removing 
+ Network ensured-finance-test-3952979e59c9_default Removed 

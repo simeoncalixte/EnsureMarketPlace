@@ -1,0 +1,15 @@
+✔ catalog and SDK discover only healthy instances, preserve static discovery, authenticate writes (55.435ms)
+✔ leases expire, heartbeat renews, and static records cannot be overwritten (0.741292ms)
+✔ authenticated self-registration discovers a new origin with no static instances (20.157041ms)
+✔ registration accepts new origins and rejects unknown services and malformed origins (0.331833ms)
+✔ Consul registration, heartbeat, filtering, environment isolation and removal use its HTTP contract (6.876833ms)
+✔ a broken unrelated service does not block discovery of a healthy one (1.2105ms)
+✔ stopping a maintained registration waits for an in-flight renewal before removing it (0.714958ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 164.990417

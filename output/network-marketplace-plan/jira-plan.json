@@ -1,0 +1,138 @@
+[
+  {
+    "key": "AIN-70",
+    "type": "Epic",
+    "summary": "[Network] Connect verified identities to authorized party participation",
+    "parent": null,
+    "links": [
+      "AIN-59",
+      "AIN-48",
+      "AIN-49",
+      "AIN-34"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-71",
+    "type": "Epic",
+    "summary": "[Network] Verify social permissions moderation and member journeys",
+    "parent": null,
+    "links": [
+      "AIN-12",
+      "AIN-1"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-72",
+    "type": "Epic",
+    "summary": "[Network / Marketplace] Complete published-opportunity participation journeys",
+    "parent": null,
+    "links": [
+      "AIN-8",
+      "AIN-33",
+      "AIN-7",
+      "AIN-35",
+      "AIN-30",
+      "AIN-36",
+      "AIN-70"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-73",
+    "type": "Story",
+    "summary": "[Network] Link my profile to reviewed party identities",
+    "parent": "AIN-70",
+    "links": [
+      "AIN-59",
+      "AIN-61",
+      "AIN-62"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-74",
+    "type": "Story",
+    "summary": "[Network] View only authorized participation on a party profile",
+    "parent": "AIN-70",
+    "links": [
+      "AIN-59",
+      "AIN-57",
+      "AIN-58",
+      "AIN-67"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-75",
+    "type": "Story",
+    "summary": "[Network] Use social interactions with current person and organization authority",
+    "parent": "AIN-71",
+    "links": [
+      "AIN-70",
+      "AIN-12"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-76",
+    "type": "Story",
+    "summary": "[Network] Enforce blocking reporting moderation and access revocation",
+    "parent": "AIN-71",
+    "links": [
+      "AIN-12",
+      "AIN-49"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-77",
+    "type": "Story",
+    "summary": "[Network / Marketplace] Follow a current authorized opportunity across applications",
+    "parent": "AIN-72",
+    "links": [
+      "AIN-8",
+      "AIN-51",
+      "AIN-52"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-78",
+    "type": "Story",
+    "summary": "[Network / Marketplace] Enter an eligible participation workflow from a published opportunity",
+    "parent": "AIN-72",
+    "links": [
+      "AIN-33",
+      "AIN-7",
+      "AIN-30",
+      "AIN-35"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-79",
+    "type": "Story",
+    "summary": "[Marketplace] Find opportunities using effective filters and sorting",
+    "parent": "AIN-8",
+    "links": [
+      "AIN-72"
+    ],
+    "status": "To Do"
+  },
+  {
+    "key": "AIN-80",
+    "type": "Story",
+    "summary": "[Marketplace] Distinguish authoritative metrics and available investment actions",
+    "parent": "AIN-8",
+    "links": [
+      "AIN-30",
+      "AIN-31",
+      "AIN-32",
+      "AIN-33",
+      "AIN-35"
+    ],
+    "status": "To Do"
+  }
+]

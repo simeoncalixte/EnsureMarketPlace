@@ -1,0 +1,132 @@
+{
+  "input": {
+    "submission": {
+      "referenceNumber": "EVAL-005"
+    },
+    "pipelineOutputs": [
+      {
+        "dataValues": {
+          "id": 1,
+          "stageKey": "extraction",
+          "payload": {
+            "ok": true,
+            "structuredData": {
+              "currency": "USD",
+              "tranches": [
+                {
+                  "name": "Primary",
+                  "attachment": 0,
+                  "limit": 1000000
+                },
+                {
+                  "name": "Excess",
+                  "attachment": 1000000,
+                  "limit": 4000000
+                }
+              ],
+              "premium": 55000
+            }
+          }
+        }
+      }
+    ]
+  },
+  "planningResponse": {
+    "sections": [
+      {
+        "id": "general-information",
+        "label": "General Information",
+        "origin": "template",
+        "templateId": "general-information",
+        "layout": "fields",
+        "purpose": "General policy information"
+      },
+      {
+        "id": "parties",
+        "label": "Parties & Counterparties",
+        "origin": "template",
+        "templateId": "parties",
+        "layout": "records",
+        "purpose": "Parties and counterparties involved in the policy"
+      },
+      {
+        "id": "financials",
+        "label": "Financials",
+        "origin": "template",
+        "templateId": "financials",
+        "layout": "fields",
+        "purpose": "Financial details including premium and currency",
+        "evidenceRefs": [
+          "artifact:1"
+        ]
+      },
+      {
+        "id": "subjects",
+        "label": "Subjects of Insurance",
+        "origin": "template",
+        "templateId": "subjects",
+        "layout": "records",
+        "purpose": "Subjects covered by the insurance policy"
+      },
+      {
+        "id": "underwriting-risk",
+        "label": "Underwriting & Risk",
+        "origin": "template",
+        "templateId": "underwriting-risk",
+        "layout": "fields",
+        "purpose": "Underwriting and risk assessment information"
+      },
+      {
+        "id": "tranches",
+        "label": "Tranche Structure",
+        "origin": "template",
+        "templateId": "tranches",
+        "layout": "records",
+        "purpose": "Tranche structure details",
+        "evidenceRefs": [
+          "artifact:1"
+        ]
+      }
+    ],
+    "omittedTemplates": [],
+    "unplacedEvidence": []
+  },
+  "sectionResponses": {},
+  "result": {
+    "id": "financial-schedule",
+    "failure": "Invalid section descriptor",
+    "missing": [
+      "Primary",
+      "Excess",
+      1000000,
+      4000000,
+      55000
+    ],
+    "inferred": 0,
+    "fields": 0,
+    "defaults": 0,
+    "unresolved": 0,
+    "durationMs": 4363,
+    "usage": {
+      "calls": [
+        {
+          "provider": "qwen",
+          "model": "deepseek-v4-pro-0813",
+          "operation": "structurePlanning",
+          "status": "completed",
+          "startedAt": "2026-10-13T00:07:44.648Z",
+          "durationMs": 4361,
+          "inputTokens": 1284,
+          "outputTokens": 397,
+          "totalTokens": 1681
+        }
+      ],
+      "inputTokens": 1284,
+      "outputTokens": 397,
+      "totalTokens": 1681,
+      "unreportedCalls": 0
+    },
+    "humanReview": "required",
+    "gate": false
+  }
+}

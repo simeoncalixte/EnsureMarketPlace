@@ -1,0 +1,434 @@
+[
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#557dfa",
+    "outline",
+    "  outline: 3px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#10233d",
+    "surface",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#87adff",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#becde2",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#b9c8de",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#46628a",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#fff",
+    "text-primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border-right: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border-bottom: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#8090a5",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#155943",
+    "success",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#e4f4ed",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border-top: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "    border-bottom: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#b9c8de",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#f7f9fe",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "border",
+    "  border-left-color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#f0f4ff",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#e9edf3",
+    "border",
+    "  border-top: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#edf0ff",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#354ab4",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#fff1d5",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#79530b",
+    "warning",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#e1f3f1",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#146258",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#778599",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#e8edf5",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border-top: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border-bottom: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "border",
+    "  border-bottom-color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#f2f5fa",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#13243b",
+    "on-primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#c7d0dd",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#859abb",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#13243b",
+    "on-primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#fff0ed",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#922f25",
+    "danger",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#f0b8b0",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#e7f4ee",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#155943",
+    "success",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "  border: 1px solid "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#f4f6fa",
+    "surface-raised",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#596981",
+    "text-secondary",
+    "  color: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#1445db",
+    "primary",
+    "  background: "
+  ],
+  [
+    "EnsuredLogistics/app/globals.css",
+    "#dbe1ea",
+    "border",
+    "    border-right: 1px solid "
+  ]
+]

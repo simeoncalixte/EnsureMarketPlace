@@ -1,0 +1,5 @@
+{"stageKey":"resolvePicklists","ok":true,"submissionId":53,"fromStage":"schemaGeneration","fromStageLabel":"Schema Generation","toStage":"resolvePicklists","toStageLabel":"Create & Load Picklist Lookups","eventStatus":"ok","error":null,"warnings":[],"runId":55}
+{"stageKey":"selectComponents","ok":true,"submissionId":53,"fromStage":"resolvePicklists","fromStageLabel":"Create & Load Picklist Lookups","toStage":"selectComponents","toStageLabel":"Select Components","eventStatus":"ok","error":null,"warnings":[],"runId":55}
+{"stageKey":"workflow","ok":true,"submissionId":53,"fromStage":"selectComponents","fromStageLabel":"Select Components","toStage":"workflow","toStageLabel":"Rating & Workflow","eventStatus":"ok","error":null,"warnings":[],"runId":55}
+{"stageKey":"riskCompute","ok":true,"submissionId":53,"fromStage":"workflow","fromStageLabel":"Rating & Workflow","toStage":"riskCompute","toStageLabel":"Pricing","eventStatus":"ok","error":null,"warnings":[],"runId":55}
+{"diagnostics":{"fields":100,"defaults":2,"explicit":0,"inferred":98,"repaired":0,"unresolved":0,"repairFailures":0,"plannedSections":5,"inferredSections":0,"unresolvedPicklists":19}}

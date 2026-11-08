@@ -1,0 +1,21 @@
+(node:94452) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ commercial gateway retains agreement commercial_approve scope (35.461833ms)
+✔ commercial gateway retains commitment commercial_approve scope (5.953666ms)
+✔ commercial gateway retains commitment capacity_post scope (5.101625ms)
+✔ commercial gateway retains retrocession commercial_approve scope (3.930625ms)
+✔ commercial gateway retains retrocession servicing_post scope (4.658708ms)
+✔ commercial gateway retains agreement servicing_post scope (3.533791ms)
+(node:94453) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ gateway delegates relationship access using a private, request-bound resolution and strips browser claims (36.472583ms)
+✔ gateway denies relationship operations during impersonation before resolving access (1.423166ms)
+✔ gateway forwards resolved party reads while rejecting unsupported scopes (6.055375ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 234.5945

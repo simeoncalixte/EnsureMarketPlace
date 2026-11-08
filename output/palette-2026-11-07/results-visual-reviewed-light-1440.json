@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pages-landingpage--default",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-landingpage--default",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "xds-topnavbar--default",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "xds-topnavbar--default",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

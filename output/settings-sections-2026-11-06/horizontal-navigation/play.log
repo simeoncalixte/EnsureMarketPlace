@@ -1,0 +1,9 @@
+PASS pages-insurer-dashboard-settings--default 
+PASS pages-insurer-dashboard-settings--independent-keyboard-toggles 
+PASS pages-insurer-dashboard-settings--model-draft-preserved 
+PASS pages-insurer-dashboard-settings--capability-draft-preserved 
+PASS pages-insurer-dashboard-settings--reference-draft-and-scope-preserved 
+PASS pages-insurer-dashboard-settings--failure-and-retry 
+PASS pages-insurer-dashboard-settings--permissions-and-empty 
+PASS pages-insurer-dashboard-settings--loading-survives-collapse 
+PASS pages-insurer-dashboard-settings--pagination-and-connection-failure 

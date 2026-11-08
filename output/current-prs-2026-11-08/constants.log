@@ -1,0 +1,22 @@
+
+> @simeoncalixte/ensured-constants@0.1.0 test
+> npm run build && node --test test/*.test.cjs
+
+
+> @simeoncalixte/ensured-constants@0.1.0 build
+> tsc -p tsconfig.json && tsc -p tsconfig.esm.json && node scripts/esm-package.cjs
+
+✔ valid inference beats defaults and is independent of registry order (0.977167ms)
+✔ fixed assignments, conflicts, exact versions and repair (0.278042ms)
+✔ aliases, unknown types and coverage semantics (0.184333ms)
+✔ capability restrictions and saved references never remap (0.485875ms)
+✔ descriptors are one-to-one, ordered and old unknown sections remain visible (0.290666ms)
+✔ empty manual numeric values still receive an editable numeric control (0.059333ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 47.43975

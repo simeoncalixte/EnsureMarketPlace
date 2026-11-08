@@ -1,0 +1,25 @@
+
+> ensured-kyc@0.1.0 build
+> tsc --noEmit
+
+
+> ensured-kyc@0.1.0 test
+> tsx --test test/*.test.ts
+
+◇ injected env (8) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+﹣ KYC lifecycle, private evidence, independent reviews, expiry, resubmission, and least-privilege service status (0.351417ms) # SKIP
+﹣ backend retirement archives all legacy data; importer is idempotent and never trusts old approvals (0.050291ms) # SKIP
+◇ injected env (8) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+✔ KYC configuration requires distinct service and gateway keys (0.472167ms)
+✔ expired approvals cannot be reported as verified; MIME declarations alone are not accepted (0.229833ms)
+✔ docs are accessible, but direct requests, wrong audiences, expired assertions and session cookies fail closed (271.978375ms)
+✔ credential expiry is independent and invalid dates cannot be submitted (0.311958ms)
+✔ platform administrators can review KYC without a separate reviewer grant (18.180833ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 2
+ℹ todo 0
+ℹ duration_ms 736.929

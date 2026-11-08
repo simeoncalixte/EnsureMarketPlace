@@ -1,0 +1,216 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10473",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10473",
+  "key": "AIN-150",
+  "fields": {
+    "summary": "[Settings] Organize settings into XDS collapsible subsections",
+    "issuelinks": [
+      {
+        "id": "10365",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10365",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10461",
+          "key": "AIN-138",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+          "fields": {
+            "summary": "[AI settings] Configure organization models and individual inheritance",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10366",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10366",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10463",
+          "key": "AIN-140",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10463",
+          "fields": {
+            "summary": "Implement model settings UI and executable interaction evidence",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      },
+      {
+        "id": "10367",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10367",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10474",
+          "key": "AIN-151",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10474",
+          "fields": {
+            "summary": "[XDS] Resolve existing dashboard API route in shared-package boundary test",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10037",
+              "id": "10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+              "name": "Bug",
+              "subtask": false,
+              "avatarId": 10303,
+              "entityId": "61221f88-600f-4dc2-987d-6c7c77a94ee4",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      }
+    ],
+    "subtasks": [
+      {
+        "id": "10475",
+        "key": "AIN-152",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10475",
+        "fields": {
+          "summary": "[Settings] Keep reference controls readable without external icon fonts",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10037",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+            "id": "10034",
+            "description": "Subtasks track small pieces of work that are part of a larger task.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+            "name": "Subtask",
+            "subtask": true,
+            "avatarId": 10316,
+            "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+            "hierarchyLevel": -1
+          }
+        }
+      }
+    ],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+      "name": "Done",
+      "id": "10037",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+        "id": 3,
+        "key": "done",
+        "colorName": "green",
+        "name": "Done"
+      }
+    }
+  }
+}

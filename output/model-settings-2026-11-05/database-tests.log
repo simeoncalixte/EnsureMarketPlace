@@ -1,0 +1,39 @@
+
+> test:finance:docker
+> node scripts/test-finance-docker.mjs --runTestsByPath test/relationships/modelSettings.db.test.ts
+
+ Network ensured-finance-test-c3607303ca99_default Creating 
+ Network ensured-finance-test-c3607303ca99_default Creating 
+ Network ensured-finance-test-c3607303ca99_default Created 
+ Network ensured-finance-test-c3607303ca99_default Created 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Creating 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Created 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Starting 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Started 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Waiting 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Healthy 
+PASS pages-settings-ai-models-live--authenticated-account 
+PASS test/relationships/modelSettings.db.test.ts (5.115 s)
+  AIN-138/139 scoped model settings database and gateway
+    ✓ organization defaults persist encrypted, members inherit redacted metadata, other tenants and individuals cannot read them (55 ms)
+    ✓ personal override, exact request payload, reload and concurrent request contexts are isolated (32 ms)
+    ✓ manual jobs use the current actor override; automatic organization jobs use organization credentials (7 ms)
+    ✓ manual route queues the requester, not the submitter, and the durable worker uses that personal model (43 ms)
+    ✓ optimistic revisions arbitrate concurrent saves and survive delete/recreate; inheritance removes credential (26 ms)
+    ✓ credential and endpoint validation prevent platform-key fallback, unapproved egress and blank model (24 ms)
+    ✓ live membership/revocation, impersonation and unauthorized organization tests fail (18 ms)
+    ✓ authenticated browser saves organization and personal models, tests each and returns to inheritance (1755 ms)
+    ✓ connection failure is redacted; audit excludes keys and down/up restores migration compatibility (19 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        5.31 s, estimated 6 s
+Ran all test suites within paths "test/relationships/modelSettings.db.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-c3607303ca99-postgres-1 Stopping 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Stopped 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Removing 
+ Container ensured-finance-test-c3607303ca99-postgres-1 Removed 
+ Network ensured-finance-test-c3607303ca99_default Removing 
+ Network ensured-finance-test-c3607303ca99_default Removed 

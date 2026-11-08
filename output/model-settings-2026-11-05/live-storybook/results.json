@@ -1,0 +1,17 @@
+[
+  {
+    "id": "pages-settings-ai-models-live--authenticated-account",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-ai-models-live--authenticated-account",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

@@ -1,0 +1,265 @@
+[
+  {
+    "id": "marketplace-experience--browse",
+    "passed": false,
+    "outcome": [
+      {
+        "event": "playFunctionThrewException",
+        "payload": {
+          "name": "TestingLibraryElementError",
+          "message": "Found multiple elements with the role \"heading\" and name \"Deal Locations\"\n\nHere are the matching elements:\n\nIgnored nodes: comments, script, style\n<h2\n  class=\"sc-cidDfp kyiQGL\"\n>\n  Deal Locations\n</h2>\n\nIgnored nodes: comments, script, style\n<h3\n  style=\"margin: 0px; color: var(--xds-text-primary, #F6F0E8);\"\n>\n  Deal Locations\n</h3>\n\n(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <div\n    class=\"sc-pVUti pkM\"\n  >\n    <main\n      class=\"sc-iqsgXZ dZHfzu\"\n    >\n      <section\n        class=\"sc-hBUSYK dwvsQE\"\n      >\n        <div\n          class=\"sc-fotPuT ccOcES\"\n        >\n          <div\n            class=\"sc-cbTzWS\"\n          >\n            <div\n              class=\"sc-hjHbEU homVdI\"\n            >\n              Total Open Capacity\n            </div>\n            <div\n              class=\"sc-gUQxCx eJOeGL\"\n            >\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                $\n              </span>\n              750.0\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                K\n              </span>\n            </div>\n            <div\n              class=\"sc-gyEkUA fcunto\"\n            >\n              <span\n                class=\"sc-fFelbd cOuYaf\"\n              >\n                <span\n                  class=\"material-symbols-outlined\"\n                >\n                  trending_up\n                </span>\n                Live Pending Funding Capacity\n              </span>\n            </div>\n          </div>\n        </div>\n        <div\n          class=\"sc-fotPuT gjtooH\"\n        >\n          <div\n            class=\"sc-cbTzWS\"\n          >\n            <div\n              class=\"sc-hjHbEU homVdI\"\n            >\n              Total Funded\n            </div>\n            <div\n              class=\"sc-gUQxCx eJOeGL\"\n            >\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                $\n              </span>\n              250.0\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                K\n              </span>\n            </div>\n            <div\n              class=\"sc-gyEkUA dmJmEJ\"\n            >\n              <span\n                class=\"sc-fFelbd cOuYaf\"\n              >\n                <span\n                  class=\"material-symbols-outlined\"\n                >\n                  history\n                </span>\n                Reconciled cash evidence\n              </span>\n            </div>\n          </div>\n        </div>\n        <div\n          class=\"sc-fotPuT hHToOP\"\n        >\n          <div\n            class=\"sc-cbTzWS\"\n          >\n            <div\n              class=\"sc-hjHbEU homVdI\"\n            >\n              Active Deals\n            </div>\n            <div\n              class=\"sc-gUQxCx eJOeGL\"\n            >\n              1\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                Deals\n              </span>\n            </div>\n            <div\n              class=\"sc-gyEkUA dhpfZb\"\n            >\n              <span\n                class=\"sc-fFelbd cOuYaf\"\n              >\n                <span\n                  class=\"material-symbols-outlined\"\n                >\n                  emergency_home\n                </span>\n                Active Opportunities Pending Funding\n              </span>\n            </div>\n          </div>\n        </div>\n      </section>\n      <div\n        class=\"sc-cCcVtu fzVqDk\"\n      >\n        <h2\n          class=\"sc-cidDfp kyiQGL\"\n        >\n          Deal Locations\n        </h2>\n        <div\n          class=\"sc-caiMdP hxsDLx\"\n        >\n          <div\n            aria-label=\"Map or deals view\"\n            class=\"sc-eldhqJ qRDhU\"\n            role=\"group\"\n          >\n            <button\n              aria-pressed=\"true\"\n              class=\"sc-kiIydw hhRujS\"\n              type=\"button\"\n            >\n              Map\n            </button>\n            <button\n              aria-pressed=\"false\"\n              class=\"sc-kiIydw jwsAEr\"\n              type=\"button\"\n            >\n              Deals\n            </button>\n          </div>\n        </div>\n      </div>\n      <div\n        class=\"sc-hGPAwl dZwNwG\"\n      >\n        <div\n          style=\"border-radius: 12px; overflow: hidden; border: 1px solid var(--xds-outline-variant, #8E7866); background: var(--xds-surface-container-low, #402F26);\"\n        >\n          <div\n            style=\"display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 16px; border-bottom: 1px solid var(--xds-outline-variant, #8E7866); background: var(--xds-surface-container, #48372D); font-size: 12px;\"\n          >\n            <span\n              style=\"font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px; color: var(--xds-on-surface-variant, #DDCDBB);\"\n            >\n              Map layers\n            </span>\n            <div\n              style=\"display: flex; align-items: center; gap: 10px;\"\n            >\n              <label\n                style=\"display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                <input\n                  checked=\"\"\n                  class=\"sc-eCIkAO qBgVM\"\n                  type=\"checkbox\"\n                />\n                <span\n                  style=\"font-weight: 600;\"\n                >\n                  CRESTA Zones (2019)\n                </span>\n                <span\n                  style=\"color: var(--xds-on-surface-variant, #DDCDBB); font-size: 11px;\"\n                >\n                  · \n                  Loading…\n                </span>\n              </label>\n            </div>\n            <div\n              style=\"display: flex; align-items: center; gap: 10px;\"\n            >\n              <label\n                style=\"display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                <input\n                  class=\"sc-eCIkAO qBgVM\"\n                  type=\"checkbox\"\n                />\n                <span\n                  style=\"font-weight: 600;\"\n                >\n                  Active Events (live)\n                </span>\n                <span\n                  style=\"color: var(--xds-on-surface-variant, #DDCDBB); font-size: 11px;\"\n                >\n                  · \n                  Loading…\n                </span>\n              </label>\n            </div>\n            <div\n              style=\"display: flex; align-items: center; gap: 10px;\"\n            >\n              <label\n                style=\"display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                <input\n                  class=\"sc-eCIkAO qBgVM\"\n                  type=\"checkbox\"\n                />\n                <span\n                  style=\"font-weight: 600;\"\n                >\n                  Fault Lines (seismic)\n                </span>\n                <span\n                  style=\"color: var(--xds-on-surface-variant, #DDCDBB); font-size: 11px;\"\n                >\n                  · \n                  Loading…\n                </span>\n              </label>\n            </div>\n          </div>\n          <div\n            style=\"display: grid; grid-template-columns: 1fr 2fr;\"\n          >\n            <div\n              style=\"padding: 32px; border-right: 1px solid var(--xds-outline-variant, #8E7866); overflow-y: auto;\"\n            >\n              <h3\n                style=\"margin: 0px; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                Deal Locations\n              </h3>\n              <p\n                style=\"color: var(--xds-on-surface-variant, #DDCDBB); margin-top: 12px;\"\n              >\n                Oracles verify real-world events across the globe. Our ledger settles payouts within blocks of confirmed data arrival.\n              </p>\n              <div\n                style=\"margin-top: 12px;\"\n              >\n                <button\n                  class=\"sc-bdvwhi kzSoEN\"\n                  style=\"padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(0, 0, 0, 0.12); background: rgb(255, 255, 255); color: rgb(0, 0, 0); cursor: pointer;\"\n                >\n                  Flat Map (off)\n                </button>\n              </div>\n              <div\n                style=\"margin-top: 18px; display: flex; flex-direction: column; gap: 12px;\"\n              >\n                <div\n                  style=\"display: flex; gap: 12px; align-items: center;\"\n                >\n                  <div\n                    style=\"font-size: 20px; color: var(--xds-secondary, #F2DDBB);\"\n                  >\n                    ●\n                  </div>\n                  <div>\n                    <div\n                      style=\"font-size: 11px; color: var(--xds-on-surface-variant, #DDCDBB); font-family: ui-monospace, Menlo, monospace;\"\n                    >\n                      Deals\n                    </div>\n                    <div\n                      style=\"font-weight: 700; color: var(--xds-text-primary, #F6F0E8);\"\n                    >\n                      1\n                    </div>\n                  </div>\n                </div>\n                <div\n                  style=\"display: flex; gap: 12px; align-items: center;\"\n                >\n                  <div\n                    style=\"font-size: 20px; color: var(--xds-secondary, #F2DDBB);\"\n                  >\n                    ●\n                  </div>\n                  <div>\n                    <div\n                      style=\"font-size: 11px; color: var(--xds-on-surface-variant, #DDCDBB); font-family: ui-monospace, Menlo, monospace;\"\n                    >\n                      Open Capacity\n                    </div>\n                    <div\n                      style=\"font-weight: 700; color: var(--xds-text-primary, #F6F0E8);\"\n                    >\n                      $750.0K\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div\n              style=\"position: relative; height: clamp(360px, -320px + 100vh, 700px);\"\n            >\n              <div\n                style=\"width: 100%; height: 100%;\"\n              >\n                <div\n                  style=\"padding:16px;color:#ffffff;background:#38271F;\"\n                >\n                  No Mapbox token configured. Add VITE_MAPBOX_TOKEN in your .env and restart the dev server.\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </main>\n    <footer\n      class=\"sc-crHjOq kDLVwT\"\n    >\n      <div\n        class=\"sc-clIAoS cruUZd\"\n      >\n        <div\n          class=\"sc-faUoBp bIuGXV\"\n        >\n          <span\n            class=\"sc-GakyQ dCKeii\"\n          />\n          Monitoring global risk feed…\n        </div>\n        <div\n          class=\"sc-ZOvtA eXrXsJ\"\n        >\n          Global TVL: \n          <span\n            class=\"sc-jOxwkF kAkwFh\"\n          >\n            $4.2B\n          </span>\n        </div>\n        <div\n          class=\"sc-ZOvtA eXrXsJ\"\n        >\n          Active Tranches: \n          <span\n            class=\"sc-jOxwkF kAkwFh\"\n          >\n            142\n          </span>\n        </div>\n      </div>\n      <div\n        class=\"sc-hmjqIC cbZpMj\"\n      >\n        <a\n          class=\"sc-dlVwtM eIFiwu\"\n          href=\"#\"\n        >\n          Network Status\n        </a>\n        <a\n          class=\"sc-dlVwtM eIFiwu\"\n          href=\"#\"\n        >\n          Risk Feed\n        </a>\n        <a\n          class=\"sc-dlVwtM eIFiwu\"\n          href=\"#\"\n        >\n          Documentation\n        </a>\n      </div>\n    </footer>\n  </div>\n</div>",
+          "stack": "TestingLibraryElementError: Found multiple elements with the role \"heading\" and name \"Deal Locations\"\n\nHere are the matching elements:\n\nIgnored nodes: comments, script, style\n<h2\n  class=\"sc-cidDfp kyiQGL\"\n>\n  Deal Locations\n</h2>\n\nIgnored nodes: comments, script, style\n<h3\n  style=\"margin: 0px; color: var(--xds-text-primary, #F6F0E8);\"\n>\n  Deal Locations\n</h3>\n\n(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <div\n    class=\"sc-pVUti pkM\"\n  >\n    <main\n      class=\"sc-iqsgXZ dZHfzu\"\n    >\n      <section\n        class=\"sc-hBUSYK dwvsQE\"\n      >\n        <div\n          class=\"sc-fotPuT ccOcES\"\n        >\n          <div\n            class=\"sc-cbTzWS\"\n          >\n            <div\n              class=\"sc-hjHbEU homVdI\"\n            >\n              Total Open Capacity\n            </div>\n            <div\n              class=\"sc-gUQxCx eJOeGL\"\n            >\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                $\n              </span>\n              750.0\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                K\n              </span>\n            </div>\n            <div\n              class=\"sc-gyEkUA fcunto\"\n            >\n              <span\n                class=\"sc-fFelbd cOuYaf\"\n              >\n                <span\n                  class=\"material-symbols-outlined\"\n                >\n                  trending_up\n                </span>\n                Live Pending Funding Capacity\n              </span>\n            </div>\n          </div>\n        </div>\n        <div\n          class=\"sc-fotPuT gjtooH\"\n        >\n          <div\n            class=\"sc-cbTzWS\"\n          >\n            <div\n              class=\"sc-hjHbEU homVdI\"\n            >\n              Total Funded\n            </div>\n            <div\n              class=\"sc-gUQxCx eJOeGL\"\n            >\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                $\n              </span>\n              250.0\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                K\n              </span>\n            </div>\n            <div\n              class=\"sc-gyEkUA dmJmEJ\"\n            >\n              <span\n                class=\"sc-fFelbd cOuYaf\"\n              >\n                <span\n                  class=\"material-symbols-outlined\"\n                >\n                  history\n                </span>\n                Reconciled cash evidence\n              </span>\n            </div>\n          </div>\n        </div>\n        <div\n          class=\"sc-fotPuT hHToOP\"\n        >\n          <div\n            class=\"sc-cbTzWS\"\n          >\n            <div\n              class=\"sc-hjHbEU homVdI\"\n            >\n              Active Deals\n            </div>\n            <div\n              class=\"sc-gUQxCx eJOeGL\"\n            >\n              1\n              <span\n                class=\"sc-fXeXnG dZXbUD\"\n              >\n                Deals\n              </span>\n            </div>\n            <div\n              class=\"sc-gyEkUA dhpfZb\"\n            >\n              <span\n                class=\"sc-fFelbd cOuYaf\"\n              >\n                <span\n                  class=\"material-symbols-outlined\"\n                >\n                  emergency_home\n                </span>\n                Active Opportunities Pending Funding\n              </span>\n            </div>\n          </div>\n        </div>\n      </section>\n      <div\n        class=\"sc-cCcVtu fzVqDk\"\n      >\n        <h2\n          class=\"sc-cidDfp kyiQGL\"\n        >\n          Deal Locations\n        </h2>\n        <div\n          class=\"sc-caiMdP hxsDLx\"\n        >\n          <div\n            aria-label=\"Map or deals view\"\n            class=\"sc-eldhqJ qRDhU\"\n            role=\"group\"\n          >\n            <button\n              aria-pressed=\"true\"\n              class=\"sc-kiIydw hhRujS\"\n              type=\"button\"\n            >\n              Map\n            </button>\n            <button\n              aria-pressed=\"false\"\n              class=\"sc-kiIydw jwsAEr\"\n              type=\"button\"\n            >\n              Deals\n            </button>\n          </div>\n        </div>\n      </div>\n      <div\n        class=\"sc-hGPAwl dZwNwG\"\n      >\n        <div\n          style=\"border-radius: 12px; overflow: hidden; border: 1px solid var(--xds-outline-variant, #8E7866); background: var(--xds-surface-container-low, #402F26);\"\n        >\n          <div\n            style=\"display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 16px; border-bottom: 1px solid var(--xds-outline-variant, #8E7866); background: var(--xds-surface-container, #48372D); font-size: 12px;\"\n          >\n            <span\n              style=\"font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px; color: var(--xds-on-surface-variant, #DDCDBB);\"\n            >\n              Map layers\n            </span>\n            <div\n              style=\"display: flex; align-items: center; gap: 10px;\"\n            >\n              <label\n                style=\"display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                <input\n                  checked=\"\"\n                  class=\"sc-eCIkAO qBgVM\"\n                  type=\"checkbox\"\n                />\n                <span\n                  style=\"font-weight: 600;\"\n                >\n                  CRESTA Zones (2019)\n                </span>\n                <span\n                  style=\"color: var(--xds-on-surface-variant, #DDCDBB); font-size: 11px;\"\n                >\n                  · \n                  Loading…\n                </span>\n              </label>\n            </div>\n            <div\n              style=\"display: flex; align-items: center; gap: 10px;\"\n            >\n              <label\n                style=\"display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                <input\n                  class=\"sc-eCIkAO qBgVM\"\n                  type=\"checkbox\"\n                />\n                <span\n                  style=\"font-weight: 600;\"\n                >\n                  Active Events (live)\n                </span>\n                <span\n                  style=\"color: var(--xds-on-surface-variant, #DDCDBB); font-size: 11px;\"\n                >\n                  · \n                  Loading…\n                </span>\n              </label>\n            </div>\n            <div\n              style=\"display: flex; align-items: center; gap: 10px;\"\n            >\n              <label\n                style=\"display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                <input\n                  class=\"sc-eCIkAO qBgVM\"\n                  type=\"checkbox\"\n                />\n                <span\n                  style=\"font-weight: 600;\"\n                >\n                  Fault Lines (seismic)\n                </span>\n                <span\n                  style=\"color: var(--xds-on-surface-variant, #DDCDBB); font-size: 11px;\"\n                >\n                  · \n                  Loading…\n                </span>\n              </label>\n            </div>\n          </div>\n          <div\n            style=\"display: grid; grid-template-columns: 1fr 2fr;\"\n          >\n            <div\n              style=\"padding: 32px; border-right: 1px solid var(--xds-outline-variant, #8E7866); overflow-y: auto;\"\n            >\n              <h3\n                style=\"margin: 0px; color: var(--xds-text-primary, #F6F0E8);\"\n              >\n                Deal Locations\n              </h3>\n              <p\n                style=\"color: var(--xds-on-surface-variant, #DDCDBB); margin-top: 12px;\"\n              >\n                Oracles verify real-world events across the globe. Our ledger settles payouts within blocks of confirmed data arrival.\n              </p>\n              <div\n                style=\"margin-top: 12px;\"\n              >\n                <button\n                  class=\"sc-bdvwhi kzSoEN\"\n                  style=\"padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(0, 0, 0, 0.12); background: rgb(255, 255, 255); color: rgb(0, 0, 0); cursor: pointer;\"\n                >\n                  Flat Map (off)\n                </button>\n              </div>\n              <div\n                style=\"margin-top: 18px; display: flex; flex-direction: column; gap: 12px;\"\n              >\n                <div\n                  style=\"display: flex; gap: 12px; align-items: center;\"\n                >\n                  <div\n                    style=\"font-size: 20px; color: var(--xds-secondary, #F2DDBB);\"\n                  >\n                    ●\n                  </div>\n                  <div>\n                    <div\n                      style=\"font-size: 11px; color: var(--xds-on-surface-variant, #DDCDBB); font-family: ui-monospace, Menlo, monospace;\"\n                    >\n                      Deals\n                    </div>\n                    <div\n                      style=\"font-weight: 700; color: var(--xds-text-primary, #F6F0E8);\"\n                    >\n                      1\n                    </div>\n                  </div>\n                </div>\n                <div\n                  style=\"display: flex; gap: 12px; align-items: center;\"\n                >\n                  <div\n                    style=\"font-size: 20px; color: var(--xds-secondary, #F2DDBB);\"\n                  >\n                    ●\n                  </div>\n                  <div>\n                    <div\n                      style=\"font-size: 11px; color: var(--xds-on-surface-variant, #DDCDBB); font-family: ui-monospace, Menlo, monospace;\"\n                    >\n                      Open Capacity\n                    </div>\n                    <div\n                      style=\"font-weight: 700; color: var(--xds-text-primary, #F6F0E8);\"\n                    >\n                      $750.0K\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div\n              style=\"position: relative; height: clamp(360px, -320px + 100vh, 700px);\"\n            >\n              <div\n                style=\"width: 100%; height: 100%;\"\n              >\n                <div\n                  style=\"padding:16px;color:#ffffff;background:#38271F;\"\n                >\n                  No Mapbox token configured. Add VITE_MAPBOX_TOKEN in your .env and restart the dev server.\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </main>\n    <footer\n      class=\"sc-crHjOq kDLVwT\"\n    >\n      <div\n        class=\"sc-clIAoS cruUZd\"\n      >\n        <div\n          class=\"sc-faUoBp bIuGXV\"\n        >\n          <span\n            class=\"sc-GakyQ dCKeii\"\n          />\n          Monitoring global risk feed…\n        </div>\n        <div\n          class=\"sc-ZOvtA eXrXsJ\"\n        >\n          Global TVL: \n          <span\n            class=\"sc-jOxwkF kAkwFh\"\n          >\n            $4.2B\n          </span>\n        </div>\n        <div\n          class=\"sc-ZOvtA eXrXsJ\"\n        >\n          Active Tranches: \n          <span\n            class=\"sc-jOxwkF kAkwFh\"\n          >\n            142\n          </span>\n        </div>\n      </div>\n      <div\n        class=\"sc-hmjqIC cbZpMj\"\n      >\n        <a\n          class=\"sc-dlVwtM eIFiwu\"\n          href=\"#\"\n        >\n          Network Status\n        </a>\n        <a\n          class=\"sc-dlVwtM eIFiwu\"\n          href=\"#\"\n        >\n          Risk Feed\n        </a>\n        <a\n          class=\"sc-dlVwtM eIFiwu\"\n          href=\"#\"\n        >\n          Documentation\n        </a>\n      </div>\n    </footer>\n  </div>\n</div>\n    at Object.getElementError (http://127.0.0.1:51765/assets/index-BVN4dGpI.js:190:284)\n    at ka (http://127.0.0.1:51765/assets/index-BVN4dGpI.js:204:3474)\n    at La (http://127.0.0.1:51765/assets/index-BVN4dGpI.js:204:3519)\n    at http://127.0.0.1:51765/assets/index-BVN4dGpI.js:206:10\n    at http://127.0.0.1:51765/assets/index-BVN4dGpI.js:212:386\n    at play (http://127.0.0.1:51765/assets/Marketplace.stories-CC3xeYr6.js:3934:2206)\n    at async StoryRender.runPhase (http://127.0.0.1:51765/assets/iframe-BmrAAReJ.js:199:775)\n    at async StoryRender.render (http://127.0.0.1:51765/assets/iframe-BmrAAReJ.js:199:3757)"
+        }
+      },
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--browse",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--taxonomy-interaction",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--taxonomy-interaction",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--empty",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--empty",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--error",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--error",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--loading",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--loading",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--network-handoff",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--network-handoff",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--pinned-publication",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--pinned-publication",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--stale-publication",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--stale-publication",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-experience--unverified-funding",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--unverified-funding",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--confirm-pending",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--confirm-pending",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--lost-response-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--lost-response-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--denied",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--denied",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--stale",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--stale",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--error-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--error-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--loading",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--loading",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--validation",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--validation",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "marketplace-participation--reviewer",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-participation--reviewer",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

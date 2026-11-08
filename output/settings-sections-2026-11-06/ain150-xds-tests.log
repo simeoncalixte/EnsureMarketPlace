@@ -1,0 +1,491 @@
+✔ extracts inherited/nested JSON props and reports unsupported props without weakening unions (243.958542ms)
+✖ generates the XDS catalog without executing React and preserves reviewed validation (1318.098167ms)
+✖ shared source imports stay inside the package and contain no application environment/API dependencies (18.059167ms)
+✖ a packed artifact builds in a separate consumer with exported components, styles and declarations (1026.958584ms)
+✔ result states preserve zero and suppress stale metrics; shares and targets have valid accessible bounds (198.132084ms)
+✔ catastrophe and renewal sections keep actions explicit and suppress unavailable aggregates (78.006375ms)
+✔ pipeline sections preserve missing values and explicit totals without fabricating distributions (158.424875ms)
+✔ dashboard validators work without runtime code generation under a restrictive CSP (4.196167ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 5
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1829.138625
+
+✖ failing tests:
+
+test at test/component-manifest.test.mjs:104:1
+✖ generates the XDS catalog without executing React and preserves reviewed validation (1318.098167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      components: [
+        {
+          description: 'Single-line text or date',
+          excludedProps: [
+  ...
+              },
+  +           keepMounted: {
+  +             type: 'boolean'
+  +           },
+              tone: {
+                anyOf: [
+                  {
+                    const: 'default',
+                    type: 'string'
+  
+      at TestContext.<anonymous> (file:///Users/simeon/Projects/EnsureMarketPlace/EnsuredXDS/test/component-manifest.test.mjs:130:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: {
+      version: 1,
+      library: '@ensured/xds',
+      components: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      policyVersion: 1,
+      defaults: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ]
+    },
+    expected: {
+      version: 1,
+      library: '@ensured/xds',
+      components: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      policyVersion: 1,
+      defaults: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ]
+    },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/package.test.mjs:18:1
+✖ shared source imports stay inside the package and contain no application environment/API dependencies (18.059167ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /import\.meta\.env|\/api\/|useAuthMe/. Input:
+  
+  "import type React from 'react';\n" +
+    "import type { XdsBadgeVariant } from './Badge';\n" +
+    "import type { ProgressBarTone } from './ProgressBar';\n" +
+    '\n' +
+    "export type ResultState = 'ready' | 'loading' | 'empty' | 'unavailable' | 'error';\n" +
+    'export interface ResultsPanelProps {\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  state?: ResultState;\n' +
+    '  /** Explain missing evidence or a failed request in user-facing language. */\n' +
+    '  message?: string;\n' +
+    '  action?: React.ReactNode;\n' +
+    '  children?: React.ReactNode;\n' +
+    '  onRetry?: () => void;\n' +
+    '  className?: string;\n' +
+    '}\n' +
+    '\n' +
+    'export interface ResultsToolbarProps {\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  periodLabel: string;\n' +
+    '  matchedCount?: number;\n' +
+    '  activeFilterCount?: number;\n' +
+    '  loading?: boolean;\n' +
+    '  onOpenFilters: () => void;\n' +
+    '  onClearFilters?: () => void;\n' +
+    '  /** Optional period selector or export action built from existing XDS controls. */\n' +
+    '  actions?: React.ReactNode;\n' +
+    '}\n' +
+    '\n' +
+    'export interface ResultMetricCardProps {\n' +
+    '  label: string;\n' +
+    '  /** Already formatted, with currency or units. Null means unavailable; zero is valid. */\n' +
+    '  value: string | null;\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '  status?: { label: string; tone?: XdsBadgeVariant };\n' +
+    '  comparison?: {\n' +
+    '    label: string;\n' +
+    "    direction?: 'up' | 'down' | 'flat';\n" +
+    "    tone?: 'neutral' | 'success' | 'warning' | 'danger';\n" +
+    '  };\n' +
+    '  coverage?: { populated: number; total: number };\n' +
+    '  target?: { label: string; value: number; max: number };\n' +
+    '  /** Period, valuation basis, or revision information relevant to interpreting the result. */\n' +
+    '  basis?: string;\n' +
+    '  onRetry?: () => void;\n' +
+    '  className?: string;\n' +
+    '}\n' +
+    '\n' +
+    'export interface AllocationItem {\n' +
+    '  id: string;\n' +
+    '  label: string;\n' +
+    '  /** Explicit share of the stated denominator, in percent. Null means unknown. */\n' +
+    '  share: number | null;\n' +
+    '  formattedValue: string;\n' +
+    '  tone?: ProgressBarTone;\n' +
+    '  annotation?: { label: string; tone?: XdsBadgeVariant };\n' +
+    '}\n' +
+    'export interface AllocationListProps {\n' +
+    '  items: AllocationItem[];\n' +
+    '  /** Name the denominator and explain overlapping categories where applicable. */\n' +
+    '  basis: string;\n' +
+    '  emptyMessage?: string;\n' +
+    '}\n' +
+    '\n' +
+    'export interface AppetiteSegment {\n' +
+    '  id: string;\n' +
+    '  label: string;\n' +
+    '  percent: number | null;\n' +
+    "  tone?: 'success' | 'info' | 'warning' | 'danger' | 'neutral';\n" +
+    '}\n' +
+    'export interface AppetiteDistributionProps {\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  segments: AppetiteSegment[];\n' +
+    '  basis: string;\n' +
+    '  note?: string;\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '}\n' +
+    '\n' +
+    'export interface NatCatRiskBannerProps {\n' +
+    '  title: string;\n' +
+    '  grossExposure: string | null;\n' +
+    '  netRetained: string | null;\n' +
+    '  treatyCount?: number;\n' +
+    '  status?: { label: string; tone?: XdsBadgeVariant };\n' +
+    '  bufferLabel?: string;\n' +
+    '  /** Name valuation time, currency and scenario assumptions when available. */\n' +
+    '  basis?: string;\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '  onRetry?: () => void;\n' +
+    '  onViewHazard?: () => void;\n' +
+    '  onRunStressTest?: () => void;\n' +
+    '  stressTestRunning?: boolean;\n' +
+    '  stressTestError?: string;\n' +
+    '  details?: React.ReactNode;\n' +
+    '  expanded?: boolean;\n' +
+    '  defaultExpanded?: boolean;\n' +
+    '  onExpandedChange?: (expanded: boolean) => void;\n' +
+    '}\n' +
+    '\n' +
+    'export interface PipelineStageCardProps {\n' +
+    '  title: string;\n' +
+    '  count: number | null;\n' +
+    '  exposure: string | null;\n' +
+    '  exposureLabel?: string;\n' +
+    '  tone?: XdsBadgeVariant;\n' +
+    '  metric?: { label: string; value: string | null };\n' +
+    '  /** Explicit stage share or completion percentage, paired with its basis. */\n' +
+    '  progress?: { percent: number; label: string };\n' +
+    '  notes?: string[];\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '  onOpen?: () => void;\n' +
+    '}\n' +
+    '\n' +
+    'export interface PriorityQueueItem {\n' +
+    '  id: string;\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  status: { label: string; tone?: XdsBadgeVariant };\n' +
+    '  critical?: boolean;\n' +
+    '}\n' +
+    'export interface PriorityUnderwriterQueueProps {\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  items: PriorityQueueItem[];\n' +
+    '  escalationNote?: string;\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '  onRetry?: () => void;\n' +
+    '  onOpenSubmission?: (id: string) => void;\n' +
+    '}\n' +
+    '\n' +
+    'export interface SlaVelocityPanelProps {\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  cycleTime: string | null;\n' +
+    '  clearanceEfficiency: string | null;\n' +
+    '  onTime?: { label: string; tone?: XdsBadgeVariant };\n' +
+    '  comparison?: {\n' +
+    '    label: string;\n' +
+    "    direction?: 'up' | 'down' | 'flat';\n" +
+    "    tone?: 'neutral' | 'success' | 'warning' | 'danger';\n" +
+    '  };\n' +
+    '  basis: string;\n' +
+    '  queueNote?: string;\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '  onRetry?: () => void;\n' +
+    '}\n' +
+    '\n' +
+    "export interface PipelineStage extends Omit<PipelineStageCardProps, 'onOpen'> {\n" +
+    '  id: string;\n' +
+    '}\n' +
+    'export interface SubmissionPipelineOverviewProps {\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  stages: PipelineStage[];\n' +
+    '  /** Authoritative total; stages may overlap, so counts are never automatically summed. */\n' +
+    '  activeCount?: number | null;\n' +
+    '  capacity?: string | null;\n' +
+    '  basis?: string;\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '  onRetry?: () => void;\n' +
+    '  onOpenStage?: (id: string) => void;\n' +
+    '  /** Compose AppetiteDistribution, SlaVelocityPanel and PriorityUnderwriterQueue here. */\n' +
+    '  children?: React.ReactNode;\n' +
+    '}\n' +
+    '\n' +
+    'export interface TreatyRenewalCardProps {\n' +
+    '  title: string;\n' +
+    '  broker?: string | null;\n' +
+    '  treatyReference: string;\n' +
+    '  status: { label: string; tone?: XdsBadgeVariant };\n' +
+    '  targetLimit: string | null;\n' +
+    '  indicativeRate: string | null;\n' +
+    '  /** ISO calendar date; display label remains supplied by the application. */\n' +
+    '  expiryDate?: string | null;\n' +
+    '  expiryLabel: string | null;\n' +
+    '  participation: string | null;\n' +
+    "  rateChange?: { label: string; tone?: 'neutral' | 'success' | 'warning' | 'danger' };\n" +
+    "  terms?: { label: string; tone?: 'neutral' | 'success' | 'warning' | 'danger' };\n" +
+    '  onOpen?: () => void;\n' +
+    '}\n' +
+    '\n' +
+    "export interface TreatyRenewalItem extends Omit<TreatyRenewalCardProps, 'onOpen'> {\n" +
+    '  id: string;\n' +
+    '  critical?: boolean;\n' +
+    '}\n' +
+    'export interface TreatyRenewalWatchlistProps {\n' +
+    '  title: string;\n' +
+    '  description?: string;\n' +
+    '  items: TreatyRenewalItem[];\n' +
+    '  /** Supplied aggregate with currency. Never sum display strings or mixed currencies. */\n' +
+    '  totalRenewingLimit?: string | null;\n' +
+    '  /** Explain the population/valuation underlying the supplied total. */\n' +
+    '  basis?: string;\n' +
+    '  state?: ResultState;\n' +
+    '  message?: string;\n' +
+    '  onRetry?: () => void;\n' +
+    '  onOpenTreaty?: (id: string) => void;\n' +
+    '}\n' +
+    '\n' +
+    'export interface LineSeries {\n' +
+    '  key: string;\n' +
+    '  label: string;\n' +
+    '  color: string;\n' +
+    '  format?: (v: number) => string;\n' +
+    '  dashed?: boolean;\n' +
+    '}\n' +
+    '\n' +
+    'export interface MultiLineChartProps {\n' +
+    '  data: Record<string, unknown>[];\n' +
+    '  xKey: string;\n' +
+    '  series: LineSeries[];\n' +
+    '  xFormatter?: (v: unknown) => string;\n' +
+    '  yFormatter?: (v: number) => string;\n' +
+    '  /** Draw a horizontal reference line at this Y value (e.g. 1.0 = 100% combined ratio) */\n' +
+    '  refLine?: number;\n' +
+    '  refLineLabel?: string;\n' +
+    '  height?: number;\n' +
+    '  /** Optional detailed tooltip for domain-specific evidence. */\n' +
+    '  tooltipContent?: React.ReactElement;\n' +
+    '}\n' +
+    '\n' +
+    '/** Current preview selection. An empty list selects all business lines. */\n' +
+    'export interface DashboardFilters {\n' +
+    '  businessLines: string[];\n' +
+    '}\n' +
+    '\n' +
+    "/** Monthly as-of snapshot. Monetary values are in the trajectory's currency.\n" +
+    ' * Ratios are fractions (0.65 = 65%), uncapped; null means no valid denominator.\n' +
+    ' * Counts and amounts describe each snapshot and must not be summed over time.\n' +
+    ' */\n' +
+    'export interface LossRatioTrajectoryPoint {\n' +
+    '  month: string;\n' +
+    '  incomingCount: number;\n' +
+    '  boundCount: number;\n' +
+    '  proposedPremium: number;\n' +
+    '  boundPremium: number;\n' +
+    '  earnedPremium: number;\n' +
+    '  incomingLoss: number;\n' +
+    '  boundLoss: number;\n' +
+    '  paid: number;\n' +
+    '  caseReserves: number;\n' +
+    '  ibnr: number;\n' +
+    '  incomingRatio: number | null;\n' +
+    '  boundRatio: number | null;\n' +
+    '  claimsRatio: number | null;\n' +
+    '}\n' +
+    '\n' +
+    'export interface LossRatioTrajectoryData {\n' +
+    '  points: LossRatioTrajectoryPoint[];\n' +
+    '  currency: string;\n' +
+    "  reinsuranceBasis: 'gross' | 'net';\n" +
+    '  /** ISO calendar date of the latest snapshot. */\n' +
+    '  valuationDate: string;\n' +
+    "  actuarialMethod: 'bornhuetter-ferguson';\n" +
+    '  /** Fraction, not percent; null means no selected target. */\n' +
+    '  targetLossRatio: number | null;\n' +
+    '  state: ResultState;\n' +
+    '  illustrative: boolean;\n' +
+    '}\n' +
+    '\n' +
+    '/** Current dashboard presentation contract, reusing existing component types.\n' +
+    ' * This is a view model, not a backend API schema. Event handlers remain in the UI.\n' +
+    ' */\n' +
+    'export interface UnderwritingDashboardData {\n' +
+    '  toolbar: Pick<\n' +
+    '    ResultsToolbarProps,\n' +
+    "    'title' | 'description' | 'periodLabel' | 'matchedCount' | 'activeFilterCount'\n" +
+    '  >;\n' +
+    "  metrics: Omit<ResultMetricCardProps, 'onRetry' | 'className'>[];\n" +
+    '  lossTrajectory: LossRatioTrajectoryData;\n' +
+    '  allocation: AllocationListProps;\n' +
+    '  catastrophe: Omit<\n' +
+    '    NatCatRiskBannerProps,\n' +
+    "    'onRetry' | 'onViewHazard' | 'onRunStressTest' | 'onExpandedChange'\n" +
+    '  >;\n' +
+    "  renewals: Omit<TreatyRenewalWatchlistProps, 'onRetry' | 'onOpenTreaty'>;\n" +
+    "  pipeline: Omit<SubmissionPipelineOverviewProps, 'onRetry' | 'onOpenStage'>;\n" +
+    '}\n' +
+    '\n' +
+    'export interface UnderwritingDashboardPreviewProps {\n' +
+    '  unavailable?: boolean;\n' +
+    '}\n' +
+    '\n' +
+    "/** Shared props for the dashboard's trajectory panel and custom chart tooltip. */\n" +
+    'export interface LossRatioTrajectoryProps {\n' +
+    '  data: LossRatioTrajectoryData;\n' +
+    '  selectionLabel: string;\n' +
+    '  title?: string;\n' +
+    '  message?: string;\n' +
+    '  onRetry?: () => void;\n' +
+    '}\n' +
+    'export interface LossRatioTooltipProps {\n' +
+    '  currency?: string;\n' +
+    '  active?: boolean;\n' +
+    '  payload?: ReadonlyArray<{ payload?: LossRatioTrajectoryPoint }>;\n' +
+    '}\n' +
+    '\n' +
+    '/** Approved components for the configurable insurer workspace. */\n' +
+    'export interface DashboardComponentPropsMap {\n' +
+    "  'xds.result-metric-card': ResultMetricCardProps;\n" +
+    "  'xds.loss-ratio-trajectory': LossRatioTrajectoryProps;\n" +
+    "  'xds.allocation-list': AllocationListProps;\n" +
+    "  'xds.nat-cat-risk-banner': NatCatRiskBannerProps;\n" +
+    "  'xds.treaty-renewal-watchlist': TreatyRenewalWatchlistProps;\n" +
+    "  'xds.submission-pipeline-overview': SubmissionPipelineOverviewProps;\n" +
+    "  'xds.appetite-distribution': AppetiteDistributionProps;\n" +
+    "  'xds.sla-velocity-panel': SlaVelocityPanelProps;\n" +
+    "  'xds.priority-underwriter-queue': PriorityUnderwriterQueueProps;\n" +
+    '}\n' +
+    'export type DashboardComponentId = keyof DashboardComponentPropsMap;\n' +
+    '\n' +
+    '/** JSON configuration contains no callbacks, expressions or module paths. */\n' +
+    'export type DashboardJsonValue =\n' +
+    '  string | number | boolean | null | DashboardJsonValue[] | { [k'... 592 more characters
+  
+      at walk (file:///Users/simeon/Projects/EnsureMarketPlace/EnsuredXDS/test/package.test.mjs:25:16)
+      at walk (file:///Users/simeon/Projects/EnsureMarketPlace/EnsuredXDS/test/package.test.mjs:22:31)
+      at TestContext.<anonymous> (file:///Users/simeon/Projects/EnsureMarketPlace/EnsuredXDS/test/package.test.mjs:32:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.start (node:internal/test_runner/test:1257:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "import type React from 'react';\nimport type { XdsBadgeVariant } from './Badge';\nimport type { ProgressBarTone } from './ProgressBar';\n\nexport type ResultState = 'ready' | 'loading' | 'empty' | 'unavailable' | 'error';\nexport interface ResultsPanelProps {\n  title: string;\n  description?: string;\n  state?: ResultState;\n  /** Explain missing evidence or a failed request in user-facing language. */\n  message?: string;\n  action?: React.ReactNode;\n  children?: React.ReactNode;\n  onRetry?: () => void;\n  className?: string;\n}\n\nexport interface ResultsToolbarProps {\n  title: string;\n  description?: string;\n  periodLabel: string;\n  matchedCount?: number;\n  activeFilterCount?: number;\n  loading?: boolean;\n  onOpenFilters: () => void;\n  onClearFilters?: () => void;\n  /** Optional period selector or export action built from existing XDS controls. */\n  actions?: React.ReactNode;\n}\n\nexport interface ResultMetricCardProps {\n  label: string;\n  /** Already formatted, with currency or units. Null means unavailable; zero is valid. */\n  value: string | null;\n  state?: ResultState;\n  message?: string;\n  status?: { label: string; tone?: XdsBadgeVariant };\n  comparison?: {\n    label: string;\n    direction?: 'up' | 'down' | 'flat';\n    tone?: 'neutral' | 'success' | 'warning' | 'danger';\n  };\n  coverage?: { populated: number; total: number };\n  target?: { label: string; value: number; max: number };\n  /** Period, valuation basis, or revision information relevant to interpreting the result. */\n  basis?: string;\n  onRetry?: () => void;\n  className?: string;\n}\n\nexport interface AllocationItem {\n  id: string;\n  label: string;\n  /** Explicit share of the stated denominator, in percent. Null means unknown. */\n  share: number | null;\n  formattedValue: string;\n  tone?: ProgressBarTone;\n  annotation?: { label: string; tone?: XdsBadgeVariant };\n}\nexport interface AllocationListProps {\n  items: AllocationItem[];\n  /** Name the denominator and explain overlapping categories where applicable. */\n  basis: string;\n  emptyMessage?: string;\n}\n\nexport interface AppetiteSegment {\n  id: string;\n  label: string;\n  percent: number | null;\n  tone?: 'success' | 'info' | 'warning' | 'danger' | 'neutral';\n}\nexport interface AppetiteDistributionProps {\n  title: string;\n  description?: string;\n  segments: AppetiteSegment[];\n  basis: string;\n  note?: string;\n  state?: ResultState;\n  message?: string;\n}\n\nexport interface NatCatRiskBannerProps {\n  title: string;\n  grossExposure: string | null;\n  netRetained: string | null;\n  treatyCount?: number;\n  status?: { label: string; tone?: XdsBadgeVariant };\n  bufferLabel?: string;\n  /** Name valuation time, currency and scenario assumptions when available. */\n  basis?: string;\n  state?: ResultState;\n  message?: string;\n  onRetry?: () => void;\n  onViewHazard?: () => void;\n  onRunStressTest?: () => void;\n  stressTestRunning?: boolean;\n  stressTestError?: string;\n  details?: React.ReactNode;\n  expanded?: boolean;\n  defaultExpanded?: boolean;\n  onExpandedChange?: (expanded: boolean) => void;\n}\n\nexport interface PipelineStageCardProps {\n  title: string;\n  count: number | null;\n  exposure: string | null;\n  exposureLabel?: string;\n  tone?: XdsBadgeVariant;\n  metric?: { label: string; value: string | null };\n  /** Explicit stage share or completion percentage, paired with its basis. */\n  progress?: { percent: number; label: string };\n  notes?: string[];\n  state?: ResultState;\n  message?: string;\n  onOpen?: () => void;\n}\n\nexport interface PriorityQueueItem {\n  id: string;\n  title: string;\n  description?: string;\n  status: { label: string; tone?: XdsBadgeVariant };\n  critical?: boolean;\n}\nexport interface PriorityUnderwriterQueueProps {\n  title: string;\n  description?: string;\n  items: PriorityQueueItem[];\n  escalationNote?: string;\n  state?: ResultState;\n  message?: string;\n  onRetry?: () => void;\n  onOpenSubmission?: (id: string) => void;\n}\n\nexport interface SlaVelocityPanelProps {\n  title: string;\n  description?: string;\n  cycleTime: string | null;\n  clearanceEfficiency: string | null;\n  onTime?: { label: string; tone?: XdsBadgeVariant };\n  comparison?: {\n    label: string;\n    direction?: 'up' | 'down' | 'flat';\n    tone?: 'neutral' | 'success' | 'warning' | 'danger';\n  };\n  basis: string;\n  queueNote?: string;\n  state?: ResultState;\n  message?: string;\n  onRetry?: () => void;\n}\n\nexport interface PipelineStage extends Omit<PipelineStageCardProps, 'onOpen'> {\n  id: string;\n}\nexport interface SubmissionPipelineOverviewProps {\n  title: string;\n  description?: string;\n  stages: PipelineStage[];\n  /** Authoritative total; stages may overlap, so counts are never automatically summed. */\n  activeCount?: number | null;\n  capacity?: string | null;\n  basis?: string;\n  state?: ResultState;\n  message?: string;\n  onRetry?: () => void;\n  onOpenStage?: (id: string) => void;\n  /** Compose AppetiteDistribution, SlaVelocityPanel and PriorityUnderwriterQueue here. */\n  children?: React.ReactNode;\n}\n\nexport interface TreatyRenewalCardProps {\n  title: string;\n  broker?: string | null;\n  treatyReference: string;\n  status: { label: string; tone?: XdsBadgeVariant };\n  targetLimit: string | null;\n  indicativeRate: string | null;\n  /** ISO calendar date; display label remains supplied by the application. */\n  expiryDate?: string | null;\n  expiryLabel: string | null;\n  participation: string | null;\n  rateChange?: { label: string; tone?: 'neutral' | 'success' | 'warning' | 'danger' };\n  terms?: { label: string; tone?: 'neutral' | 'success' | 'warning' | 'danger' };\n  onOpen?: () => void;\n}\n\nexport interface TreatyRenewalItem extends Omit<TreatyRenewalCardProps, 'onOpen'> {\n  id: string;\n  critical?: boolean;\n}\nexport interface TreatyRenewalWatchlistProps {\n  title: string;\n  description?: string;\n  items: TreatyRenewalItem[];\n  /** Supplied aggregate with currency. Never sum display strings or mixed currencies. */\n  totalRenewingLimit?: string | null;\n  /** Explain the population/valuation underlying the supplied total. */\n  basis?: string;\n  state?: ResultState;\n  message?: string;\n  onRetry?: () => void;\n  onOpenTreaty?: (id: string) => void;\n}\n\nexport interface LineSeries {\n  key: string;\n  label: string;\n  color: string;\n  format?: (v: number) => string;\n  dashed?: boolean;\n}\n\nexport interface MultiLineChartProps {\n  data: Record<string, unknown>[];\n  xKey: string;\n  series: LineSeries[];\n  xFormatter?: (v: unknown) => string;\n  yFormatter?: (v: number) => string;\n  /** Draw a horizontal reference line at this Y value (e.g. 1.0 = 100% combined ratio) */\n  refLine?: number;\n  refLineLabel?: string;\n  height?: number;\n  /** Optional detailed tooltip for domain-specific evidence. */\n  tooltipContent?: React.ReactElement;\n}\n\n/** Current preview selection. An empty list selects all business lines. */\nexport interface DashboardFilters {\n  businessLines: string[];\n}\n\n/** Monthly as-of snapshot. Monetary values are in the trajectory's currency.\n * Ratios are fractions (0.65 = 65%), uncapped; null means no valid denominator.\n * Counts and amounts describe each snapshot and must not be summed over time.\n */\nexport interface LossRatioTrajectoryPoint {\n  month: string;\n  incomingCount: number;\n  boundCount: number;\n  proposedPremium: number;\n  boundPremium: number;\n  earnedPremium: number;\n  incomingLoss: number;\n  boundLoss: number;\n  paid: number;\n  caseReserves: number;\n  ibnr: number;\n  incomingRatio: number | null;\n  boundRatio: number | null;\n  claimsRatio: number | null;\n}\n\nexport interface LossRatioTrajectoryData {\n  points: LossRatioTrajectoryPoint[];\n  currency: string;\n  reinsuranceBasis: 'gross' | 'net';\n  /** ISO calendar date of the latest snapshot. */\n  valuationDate: string;\n  actuarialMethod: 'bornhuetter-ferguson';\n  /** Fraction, not percent; null means no selected target. */\n  targetLossRatio: number | null;\n  state: ResultState;\n  illustrative: boolean;\n}\n\n/** Current dashboard presentation contract, reusing existing component types.\n * This is a view model, not a backend API schema. Event handlers remain in the UI.\n */\nexport interface UnderwritingDashboardData {\n  toolbar: Pick<\n    ResultsToolbarProps,\n    'title' | 'description' | 'periodLabel' | 'matchedCount' | 'activeFilterCount'\n  >;\n  metrics: Omit<ResultMetricCardProps, 'onRetry' | 'className'>[];\n  lossTrajectory: LossRatioTrajectoryData;\n  allocation: AllocationListProps;\n  catastrophe: Omit<\n    NatCatRiskBannerProps,\n    'onRetry' | 'onViewHazard' | 'onRunStressTest' | 'onExpandedChange'\n  >;\n  renewals: Omit<TreatyRenewalWatchlistProps, 'onRetry' | 'onOpenTreaty'>;\n  pipeline: Omit<SubmissionPipelineOverviewProps, 'onRetry' | 'onOpenStage'>;\n}\n\nexport interface UnderwritingDashboardPreviewProps {\n  unavailable?: boolean;\n}\n\n/** Shared props for the dashboard's trajectory panel and custom chart tooltip. */\nexport interface LossRatioTrajectoryProps {\n  data: LossRatioTrajectoryData;\n  selectionLabel: string;\n  title?: string;\n  message?: string;\n  onRetry?: () => void;\n}\nexport interface LossRatioTooltipProps {\n  currency?: string;\n  active?: boolean;\n  payload?: ReadonlyArray<{ payload?: LossRatioTrajectoryPoint }>;\n}\n\n/** Approved components for the configurable insurer workspace. */\nexport interface DashboardComponentPropsMap {\n  'xds.result-metric-card': ResultMetricCardProps;\n  'xds.loss-ratio-trajectory': LossRatioTrajectoryProps;\n  'xds.allocation-list': AllocationListProps;\n  'xds.nat-cat-risk-banner': NatCatRiskBannerProps;\n  'xds.treaty-renewal-watchlist': TreatyRenewalWatchlistProps;\n  'xds.submission-pipeline-overview': SubmissionPipelineOverviewProps;\n  'xds.appetite-distribution': AppetiteDistributionProps;\n  'xds.sla-velocity-panel': SlaVelocityPanelProps;\n  'xds.priority-underwriter-queue': PriorityUnderwriterQueueProps;\n}\nexport type DashboardComponentId = keyof DashboardComponentPropsMap;\n\n/** JSON configuration contains no callbacks, expressions or module paths. */\nexport type DashboardJsonValue =\n  string | number | boolean | null | DashboardJsonValue[] | { [k"... 592 more characters,
+    expected: /import\.meta\.env|\/api\/|useAuthMe/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test/package.test.mjs:35:1
+✖ a packed artifact builds in a separate consumer with exported components, styles and declarations (1026.958584ms)
+  Error: Command failed: npm install --offline --ignore-scripts --no-audit --no-fund
+  npm error code ERESOLVE
+  npm error ERESOLVE unable to resolve dependency tree
+  npm error
+  npm error While resolving: undefined@undefined
+  npm error Found: react@undefined
+  npm error node_modules/react
+  npm error   react@"19.2.8" from the root project
+  npm error
+  npm error Could not resolve dependency:
+  npm error peer react@"^19.0.0" from @ensured/xds@0.1.0
+  npm error node_modules/@ensured/xds
+  npm error   @ensured/xds@"file:/private/var/folders/8h/hv7p8nks0fz852jnlp9f6tpw0000gn/T/ensured-xds-consumer-QzKViW/simeoncalixte-ensured-xds-0.1.0.tgz" from the root project
+  npm error
+  npm error Fix the upstream dependency conflict, or retry this command with --force or --legacy-peer-deps to accept an incorrect (and potentially broken) dependency resolution.
+  npm error
+  npm error
+  npm error For a full report see:
+  npm error /tmp/ain150-npm-cache/_logs/2026-11-06T14_15_16_170Z-eresolve-report.txt
+  npm error A complete log of this run can be found in: /tmp/ain150-npm-cache/_logs/2026-11-06T14_15_16_170Z-debug-0.log
+  
+      at genericNodeError (node:internal/errors:986:15)
+      at wrappedFn (node:internal/errors:540:14)
+      at checkExecSyncError (node:child_process:942:11)
+      at execFileSync (node:child_process:978:15)
+      at TestContext.<anonymous> (file:///Users/simeon/Projects/EnsureMarketPlace/EnsuredXDS/test/package.test.mjs:66:5)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12) {
+    status: 1,
+    signal: null,
+    output: [ null, <Buffer >, <Buffer 6e 70 6d 20 65 72 72 6f 72 20 63 6f 64 65 20 45 52 45 53 4f 4c 56 45 0a 6e 70 6d 20 65 72 72 6f 72 20 45 52 45 53 4f 4c 56 45 20 75 6e 61 62 6c 65 20 ... 952 more bytes> ],
+    pid: 46082,
+    stdout: <Buffer >,
+    stderr: <Buffer 6e 70 6d 20 65 72 72 6f 72 20 63 6f 64 65 20 45 52 45 53 4f 4c 56 45 0a 6e 70 6d 20 65 72 72 6f 72 20 45 52 45 53 4f 4c 56 45 20 75 6e 61 62 6c 65 20 ... 952 more bytes>
+  }

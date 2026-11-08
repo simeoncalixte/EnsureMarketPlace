@@ -1,0 +1,31 @@
+import {readFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {chromium} from '../EnsuredNetwork/node_modules/playwright/index.mjs';
+import {expect} from '../EnsuredNetwork/node_modules/@playwright/test/index.mjs';
+const credentials=JSON.parse(await readFile('output/network-seed/v1/credentials.json','utf8'));
+const report=JSON.parse(await readFile('output/network-seed/v1/report.json','utf8'));
+const browser=await chromium.launch({headless:true});
+try{
+ const context=await browser.newContext({viewport:{width:1440,height:1100},permissions:['clipboard-read','clipboard-write']}),page=await context.newPage();
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const account=credentials.accounts.find(a=>a.key==='cedent');
+ expect((await context.request.post('http://localhost:3000/identity/sign-in/email',{headers:{Origin:'http://localhost:3000'},data:{email:account.email,password:account.password}})).ok()).toBe(true);
+ const url=report.links.find(l=>l.name==='Active facility').url;
+ const parts=new URL(url).pathname.split('/');
+ const endpoint=`http://localhost:3000/api/relationships/${parts[3]}/facilities/${parts[4]}/activity`;
+ const response=await context.request.get(endpoint);expect(response.ok()).toBe(true);const history=await response.json();expect(history.data.length).toBeGreaterThan(0);
+ await page.goto(url+'?tab=activity');await expect(page.getByRole('region',{name:'Activity audit workspace'})).toBeVisible();
+ await page.getByLabel('Audit date range').selectOption('all');await expect(page.locator('.ca-event')).toHaveCount(history.data.length);
+ const event=history.data[history.data.length-1];await page.getByLabel('Filter audit trail').fill(event.id);await expect(page.locator('.ca-event')).toHaveCount(1);
+ await expect(page.locator('.ca-json pre')).toHaveText(JSON.stringify(event,null,2));
+ await expect(page.locator('.ca-hash code')).toHaveText(createHash('sha256').update(JSON.stringify(event,null,2)).digest('hex'));
+ await page.getByRole('button',{name:'Copy Raw JSON'}).click();expect(await page.evaluate(()=>navigator.clipboard.readText())).toBe(JSON.stringify(event,null,2));
+ const pending=page.waitForEvent('download');await page.getByRole('button',{name:/Export Audit Bundle/}).click();const downloaded=await pending;const data=JSON.parse(await readFile(await downloaded.path(),'utf8'));expect(data.events.map(e=>e.id)).toEqual([event.id]);
+ await page.getByLabel('Filter audit trail').fill('not-found-zz');await expect(page.getByRole('heading',{name:'No matching audit events'})).toBeVisible();await expect(page.locator('.ca-json')).toHaveCount(0);
+ await page.getByLabel('Filter audit trail').fill('');await page.getByRole('button',{name:'Security & Access',exact:true}).click();await expect(page.locator('.ca-event')).toHaveCount(history.data.filter(e=>/access|download/.test(e.kind)).length);
+ await page.getByRole('button',{name:'All events',exact:true}).click();await page.locator('.ca-event').last().click();await expect(page.locator('.ca-json pre')).toHaveText(JSON.stringify(event,null,2));
+ await page.locator('.ca-stats').scrollIntoViewIfNeeded();
+ await mkdir('output/facility-activity',{recursive:true});await page.screenshot({path:'output/facility-activity/desktop.png',fullPage:true});
+ await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:'output/facility-activity/mobile.png',fullPage:true});
+ expect(errors).toEqual([]);console.log('Passed live activity records, selection, search, category/date controls, payload SHA-256, clipboard, audit export, empty state, and mobile overflow checks.');
+}finally{await browser.close();}

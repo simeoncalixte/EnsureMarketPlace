@@ -1,0 +1,17 @@
+[
+  {
+    "id": "xds-palette-workflow--theme-and-form",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "xds-palette-workflow--theme-and-form",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

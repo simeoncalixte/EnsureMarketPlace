@@ -1,0 +1,90 @@
+{
+  "environment": "local development",
+  "sources": [
+    {
+      "path": "EnsuredAPI/src/models/settings.ts",
+      "sha256": "2db7f7af0798052d60782922be0a5fa3a528461ffb12396e6c8ad20203d7e910",
+      "container": "ensured-api",
+      "matches": true
+    },
+    {
+      "path": "EnsuredAPI/src/models/chat.ts",
+      "sha256": "cf008a29f7be5123820f8daad5049d2115fb1dc64cc4a98bd361ea121636f3a9",
+      "container": "ensured-api",
+      "matches": true
+    },
+    {
+      "path": "EnsuredAPI/src/db/migrations/20261105020000-ai-chat.ts",
+      "sha256": "2872550c967f92672a8bf47afa9bc92b27fa3c69c3b826c9e770480616d24589",
+      "container": "ensured-api",
+      "matches": true
+    },
+    {
+      "path": "EnsuredAPI/src/routes/aiChat.ts",
+      "sha256": "f6ad0e38135b1f0a725d06d5e6c27c13e9c332eea5bae3f1233fb8a0c553f1e1",
+      "container": "ensured-api",
+      "matches": true
+    },
+    {
+      "path": "EnsuredAPI/src/routes/modelSettings.ts",
+      "sha256": "72e6e3fc9d9a32992f2e7ec5fec8ba7eeb35c5807a50f2689491d9d7a8de36f5",
+      "container": "ensured-api",
+      "matches": true
+    },
+    {
+      "path": "EnsuredAPI/src/auth/gateway.ts",
+      "sha256": "2a97a19b24ced83fcb07f50181f64cb6aca6d29c060d8bc64af6ad71fa514eb6",
+      "container": "ensured-api",
+      "matches": true
+    },
+    {
+      "path": "EnsuredAPI/src/app.ts",
+      "sha256": "c866a8c6259683715479266f10b6b12657f1d15e56d1ee102e23755109353cf6",
+      "container": "ensured-api",
+      "matches": true
+    },
+    {
+      "path": "EnsuredUI/src/components/marketplace/AIChatContext.tsx",
+      "sha256": "00afda015f137328ed0285f6b09571fefa200425fd8a3979602bd1f6aeb71303",
+      "container": "ensured-ui",
+      "matches": true
+    },
+    {
+      "path": "EnsuredUI/src/components/marketplace/Chatbot.tsx",
+      "sha256": "d321ae8a18df52874bc2ad7a2c9341e6b1ce8b72e436147238888cbfa130f375",
+      "container": "ensured-ui",
+      "matches": true
+    },
+    {
+      "path": "EnsuredUI/src/components/marketplace/ConnectedChatbot.tsx",
+      "sha256": "6af6276ba0166e994010624186a3a02625a47c22d04edee8cd3a846717101ab2",
+      "container": "ensured-ui",
+      "matches": true
+    },
+    {
+      "path": "EnsuredUI/src/components/marketplace/withChatbot.tsx",
+      "sha256": "cfb8a8892c7d67e8c4f239a27a86c3517f73fd3e3376c32d67ccf740e49388b2",
+      "container": "ensured-ui",
+      "matches": true
+    },
+    {
+      "path": "EnsuredUI/src/Pages/InsurerDashboard/ModelSettings.tsx",
+      "sha256": "a3665459302ca90c6a5a8be9893c2f69ae04a2eed181513784704e4998aee280",
+      "container": "ensured-ui",
+      "matches": true
+    },
+    {
+      "path": "EnsuredUI/src/AppRoutes.tsx",
+      "sha256": "ee2e15a746e0da20ba0abc5aa46141dd2551d6b89f12ac53670fead3e96d3cfe",
+      "container": "ensured-ui",
+      "matches": true
+    },
+    {
+      "path": "EnsuredUI/src/App.tsx",
+      "sha256": "523175eaa754f3c7e8f604e88f8a10d51eb8cfd8da8d6defc4dd6f58d0239af3",
+      "container": "ensured-ui",
+      "matches": true
+    }
+  ],
+  "production": false
+}

@@ -1,0 +1,234 @@
+[
+  {
+    "path": "EnsuredConstants",
+    "repo": "simeoncalixte/EnsuredConstants",
+    "url": "https://github.com/simeoncalixte/EnsuredConstants/pull/4",
+    "title": "Define shared form component policy and catalog contracts",
+    "head": "bef65a0fca72e4ce45e6b297815fcc1ac99328ea",
+    "jira": [
+      "AIN-87",
+      "AIN-13"
+    ]
+  },
+  {
+    "path": "EnsuredXDS",
+    "repo": "simeoncalixte/EnsuredXDS",
+    "url": "https://github.com/simeoncalixte/EnsuredXDS/pull/8",
+    "title": "Add Digital Vermilion palette and shared control refinements",
+    "head": "85845d155e21cbf550c3a57903fa0be3987bb432",
+    "jira": [
+      "AIN-159",
+      "AIN-160",
+      "AIN-150",
+      "AIN-151"
+    ]
+  },
+  {
+    "path": "EnsuredPipelineShared",
+    "repo": "simeoncalixte/EnsuredPipelineShared",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineShared/pull/5",
+    "title": "Add financial model contracts and scoped model providers",
+    "head": "aeb9462a1e8b4dc9ceee2f50b15e772f13fccf5e",
+    "jira": [
+      "AIN-35",
+      "AIN-52",
+      "AIN-137",
+      "AIN-138"
+    ]
+  },
+  {
+    "path": "EnsuredPipelineRiskCompute",
+    "repo": "simeoncalixte/EnsuredPipelineRiskCompute",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/pull/3",
+    "title": "Make pricing publication atomic and retry safe",
+    "head": "e012ec5f5c835bd78e416967c7d6e2ef488dd81e",
+    "jira": [
+      "AIN-21"
+    ]
+  },
+  {
+    "path": "EnsuredPipelineSchemaGeneration",
+    "repo": "simeoncalixte/EnsuredPipelineSchemaGeneration",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/5",
+    "title": "Preserve schema evidence, section plans and record identity",
+    "head": "a5c748f393dfce9604aa69e376f91ee82fef9d7f",
+    "jira": [
+      "AIN-87",
+      "AIN-50"
+    ]
+  },
+  {
+    "path": "EnsuredAPI",
+    "repo": "simeoncalixte/EnsuredAPI",
+    "url": "https://github.com/simeoncalixte/EnsuredAPI/pull/17",
+    "title": "Add commercial finance, participation and scoped AI workflows",
+    "head": "76c43ae9cfd1876dc60fe7ea8263c7a6e79d9673",
+    "jira": [
+      "AIN-21",
+      "AIN-34",
+      "AIN-35",
+      "AIN-48",
+      "AIN-52",
+      "AIN-70",
+      "AIN-71",
+      "AIN-72",
+      "AIN-87",
+      "AIN-137",
+      "AIN-138",
+      "AIN-143"
+    ]
+  },
+  {
+    "path": "EnsuredAuth",
+    "repo": "simeoncalixte/EnsuredAuth",
+    "url": "https://github.com/simeoncalixte/EnsuredAuth/pull/19",
+    "title": "Extend gateway authorization and shared-theme delivery",
+    "head": "8a7c492f030d78290370fc264e22f52797895b30",
+    "jira": [
+      "AIN-70",
+      "AIN-72",
+      "AIN-83",
+      "AIN-159"
+    ]
+  },
+  {
+    "path": "EnsuredKYC",
+    "repo": "simeoncalixte/EnsuredKYC",
+    "url": "https://github.com/simeoncalixte/EnsuredKYC/pull/3",
+    "title": "Load KYC configuration from its own environment file",
+    "head": "869e57c28d25c5ff2e21737a78ab08145785bd25",
+    "jira": [
+      "AIN-1"
+    ]
+  },
+  {
+    "path": "EnsuredServices",
+    "repo": "simeoncalixte/EnsuredServices",
+    "url": "https://github.com/simeoncalixte/EnsuredServices/pull/10",
+    "title": "Use service-local configuration and serve shared theme assets",
+    "head": "3a63a20a28d51ba1b7cc991a7d45b0495513fe06",
+    "jira": [
+      "AIN-1",
+      "AIN-159"
+    ]
+  },
+  {
+    "path": "EnsuredEmail",
+    "repo": "simeoncalixte/EnsuredEmail",
+    "url": "https://github.com/simeoncalixte/EnsuredEmail/pull/5",
+    "title": "Use service-local environment for email startup",
+    "head": "2991e6f268f6d9242dd19b09a03c633acb50d805",
+    "jira": [
+      "AIN-1"
+    ]
+  },
+  {
+    "path": "EnsuredSubmissionFeedback",
+    "repo": "simeoncalixte/EnsuredSubmissionFeedback",
+    "url": "https://github.com/simeoncalixte/EnsuredSubmissionFeedback/pull/2",
+    "title": "Preserve feedback metadata and shared picklist contracts",
+    "head": "1f5e7fa3c9c27831fe1f7ed2c40099cedeed3c29",
+    "jira": [
+      "AIN-87",
+      "AIN-50"
+    ]
+  },
+  {
+    "path": "EnsuredAuthUI",
+    "repo": "simeoncalixte/EnsuredAuthUI",
+    "url": "https://github.com/simeoncalixte/EnsuredAuthUI/pull/4",
+    "title": "Refine registration routing, access states and shared theme usage",
+    "head": "19239232170ff1210f838f1cc3c88e011349b22b",
+    "jira": [
+      "AIN-2",
+      "AIN-159"
+    ]
+  },
+  {
+    "path": "EnsuredMarketplace",
+    "repo": "simeoncalixte/EnsuredMarketplace",
+    "url": "https://github.com/simeoncalixte/EnsuredMarketplace/pull/3",
+    "title": "Add reviewed marketplace participation and palette integration",
+    "head": "fd2d04bad6fc1eec7e66f99ee7b23d6efd8b31d0",
+    "jira": [
+      "AIN-72",
+      "AIN-78",
+      "AIN-33",
+      "AIN-159"
+    ]
+  },
+  {
+    "path": "EnsuredNetwork",
+    "repo": "simeoncalixte/EnsuredNetwork",
+    "url": "https://github.com/simeoncalixte/EnsuredNetwork/pull/5",
+    "title": "Connect network identities, publications and participation journeys",
+    "head": "449b3bfd3bad9120f0b270c35f56aa09978bad2f",
+    "jira": [
+      "AIN-70",
+      "AIN-71",
+      "AIN-72",
+      "AIN-73",
+      "AIN-74",
+      "AIN-77",
+      "AIN-78",
+      "AIN-159"
+    ]
+  },
+  {
+    "path": "EnsuredLogistics",
+    "repo": "simeoncalixte/EnsuredLogistics",
+    "url": "https://github.com/simeoncalixte/EnsuredLogistics/pull/3",
+    "title": "Adopt shared palette and refine logistics interaction fixtures",
+    "head": "8eb7997732cb5b907ee2a42f186769ed746bbec4",
+    "jira": [
+      "AIN-159"
+    ]
+  },
+  {
+    "path": "SubmissionUI",
+    "repo": "simeoncalixte/SubmissionUI",
+    "url": "https://github.com/simeoncalixte/SubmissionUI/pull/3",
+    "title": "Integrate shared theme and repair standalone dependency loading",
+    "head": "dd002383b4185f5d936e54f05857ccd91eb6ae3a",
+    "jira": [
+      "AIN-159",
+      "AIN-160"
+    ]
+  },
+  {
+    "path": "EnsuredUI",
+    "repo": "simeoncalixte/EnsuredUI",
+    "url": "https://github.com/simeoncalixte/EnsuredUI/pull/15",
+    "title": "Add commercial workspaces, scoped AI settings and Vermilion UI",
+    "head": "34e6cb279f0ecdba9f6c7283457db5473e5ccb3c",
+    "jira": [
+      "AIN-34",
+      "AIN-70",
+      "AIN-71",
+      "AIN-72",
+      "AIN-87",
+      "AIN-138",
+      "AIN-143",
+      "AIN-150",
+      "AIN-159",
+      "AIN-160"
+    ]
+  },
+  {
+    "path": "docs",
+    "repo": "simeoncalixte/EnsureMarketPlace-docs",
+    "url": "https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/2",
+    "title": "Document finance, party, network and schema delivery contracts",
+    "head": "43987cf2c08e53998859a8a9f4e63ffffe6bc922",
+    "jira": [
+      "AIN-48",
+      "AIN-35",
+      "AIN-34",
+      "AIN-52",
+      "AIN-70",
+      "AIN-71",
+      "AIN-72",
+      "AIN-87"
+    ]
+  }
+]

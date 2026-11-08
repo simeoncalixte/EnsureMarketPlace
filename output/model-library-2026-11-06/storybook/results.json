@@ -1,0 +1,228 @@
+[
+  {
+    "id": "pages-settings-model-library--saved-records-only",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--saved-records-only",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--add-without-default",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--add-without-default",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--select-default",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--select-default",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--edit-keeps-credential",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--edit-keeps-credential",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--test-connection",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--test-connection",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--failure-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--failure-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--search-pagination",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--search-pagination",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--inherit-keeps-library",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--inherit-keeps-library",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--permissions",
+    "passed": false,
+    "outcome": [
+      {
+        "event": "playFunctionThrewException",
+        "payload": {
+          "name": "TestingLibraryElementError",
+          "message": "Value \"organization\" not found in options\n\nIgnored nodes: comments, script, style\n<select\n  aria-label=\"Settings for\"\n  disabled=\"\"\n>\n  <option\n    value=\"personal\"\n  >\n    My account\n  </option>\n</select>",
+          "stack": "TestingLibraryElementError: Value \"organization\" not found in options\n\nIgnored nodes: comments, script, style\n<select\n  aria-label=\"Settings for\"\n  disabled=\"\"\n>\n  <option\n    value=\"personal\"\n  >\n    My account\n  </option>\n</select>\n    at Object.getElementError (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:190:284)\n    at http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:11425\n    at Array.map (<anonymous>)\n    at Object.uy (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:11300)\n    at Object.tI [as selectOptions] (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:10957)\n    at http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:15743\n    at Object.asyncWrapper (http://127.0.0.1:59884/assets/entry-preview-D6DjJmg5.js:2:29153)\n    at iI (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:14945)\n    at Object.r [as selectOptions] (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:15734)\n    at Object.CI [as selectOptions] (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:17050)"
+        }
+      },
+      {
+        "event": "storyThrewException",
+        "payload": {
+          "name": "TestingLibraryElementError",
+          "message": "Value \"organization\" not found in options\n\nIgnored nodes: comments, script, style\n<select\n  aria-label=\"Settings for\"\n  disabled=\"\"\n>\n  <option\n    value=\"personal\"\n  >\n    My account\n  </option>\n</select>",
+          "stack": "TestingLibraryElementError: Value \"organization\" not found in options\n\nIgnored nodes: comments, script, style\n<select\n  aria-label=\"Settings for\"\n  disabled=\"\"\n>\n  <option\n    value=\"personal\"\n  >\n    My account\n  </option>\n</select>\n    at Object.getElementError (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:190:284)\n    at http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:11425\n    at Array.map (<anonymous>)\n    at Object.uy (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:11300)\n    at Object.tI [as selectOptions] (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:10957)\n    at http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:15743\n    at Object.asyncWrapper (http://127.0.0.1:59884/assets/entry-preview-D6DjJmg5.js:2:29153)\n    at iI (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:14945)\n    at Object.r [as selectOptions] (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:15734)\n    at Object.CI [as selectOptions] (http://127.0.0.1:59884/assets/index-DgAF9SIF.js:232:17050)"
+        }
+      },
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--permissions",
+          "status": "error",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--validation-and-cancel",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--validation-and-cancel",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--save-failure-retains-draft",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--save-failure-retains-draft",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--load-failure-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--load-failure-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--loading",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--loading",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-settings-model-library--keyboard-and-expired-proof",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-settings-model-library--keyboard-and-expired-proof",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

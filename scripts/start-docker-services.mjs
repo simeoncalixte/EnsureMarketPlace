@@ -1,10 +1,11 @@
+import { packageEnvironment, dockerDatabaseEnvironment } from './database-config.mjs';
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { parseEnv } from 'node:util';
 import { randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 process.chdir(fileURLToPath(new URL('../', import.meta.url)));
-const envPath = 'EnsuredAPI/.env';
+const envPath = 'EnsuredServices/.env';
 let catalogEnv = existsSync(envPath) ? readFileSync(envPath, 'utf8') : '';
 let catalog = parseEnv(catalogEnv);
 if (!catalog.SERVICES_READ_TOKEN) {
@@ -12,7 +13,15 @@ if (!catalog.SERVICES_READ_TOKEN) {
   writeFileSync(envPath, catalogEnv, { mode: 0o600 });
   catalog = parseEnv(catalogEnv);
 }
-const env = { ...process.env, DOCKER_SERVICES_READ_TOKEN: catalog.SERVICES_READ_TOKEN };
+const auth = dockerDatabaseEnvironment(packageEnvironment('EnsuredAuth'));
+const kyc = dockerDatabaseEnvironment(packageEnvironment('EnsuredKYC'));
+const network = dockerDatabaseEnvironment(packageEnvironment('EnsuredNetwork'));
+const env = { ...process.env,
+  DOCKER_SERVICES_READ_TOKEN: process.env.SERVICES_READ_TOKEN || catalog.SERVICES_READ_TOKEN,
+  DOCKER_AUTH_DATABASE_URL: auth.AUTH_DATABASE_URL,
+  DOCKER_KYC_DATABASE_URL: kyc.KYC_DATABASE_URL,
+  DOCKER_NETWORK_DATABASE_URL: network.NETWORK_DATABASE_URL,
+};
 function docker(args, capture = false) {
   const result = spawnSync('docker', args, { env, encoding: 'utf8', stdio: capture ? 'pipe' : 'inherit' });
   if (result.status !== 0) throw new Error(`Docker ${args[0]} failed${capture ? ': ' + result.stderr : ''}`);

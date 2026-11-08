@@ -1,0 +1,81 @@
+[
+  {
+    "name": "host",
+    "url": "http://localhost:3000/",
+    "requestedTheme": "dark",
+    "status": 200,
+    "state": {
+      "theme": "dark",
+      "background": "#38271F",
+      "primary": "#EEA17F",
+      "heading": "Where primary tail risk converts into sovereign liquidity."
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "name": "host",
+    "url": "http://localhost:3000/",
+    "requestedTheme": "light",
+    "status": 200,
+    "state": {
+      "theme": "light",
+      "background": "#F6F0E8",
+      "primary": "#914321",
+      "heading": "Where primary tail risk converts into sovereign liquidity."
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "name": "submission",
+    "url": "http://localhost:30025/",
+    "requestedTheme": "dark",
+    "status": 200,
+    "state": {
+      "theme": "dark",
+      "background": "#38271F",
+      "primary": "#EEA17F",
+      "heading": "Build, shape, and publish submission payloads against the marketplace stack."
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "name": "submission",
+    "url": "http://localhost:30025/",
+    "requestedTheme": "light",
+    "status": 200,
+    "state": {
+      "theme": "light",
+      "background": "#F6F0E8",
+      "primary": "#914321",
+      "heading": "Build, shape, and publish submission payloads against the marketplace stack."
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "name": "services",
+    "url": "http://localhost:3010/",
+    "requestedTheme": "dark",
+    "status": 200,
+    "state": {
+      "background": "#38271F",
+      "primary": "#EEA17F",
+      "heading": "Service catalog"
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "name": "services-css",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "name": "auth-css",
+    "status": 200,
+    "passed": true
+  }
+]

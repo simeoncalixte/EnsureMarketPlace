@@ -1,0 +1,32 @@
+✔ return destinations stay inside the marketplace and avoid account loops (0.608334ms)
+✔ verified-account return links can resume known registration steps (0.08325ms)
+✔ registered non-admin users needing KYC are routed to the forms even before approval (14.102959ms)
+✔ admin and platform admin bypass KYC using server authorization (0.22ms)
+✔ guests and submitted applicants retain their destination (0.628916ms)
+✔ unverified users reach the email checkpoint without requesting KYC (0.11225ms)
+✔ service failures do not silently skip KYC (0.345708ms)
+✔ email sign-in supplies the requested destination to the host (13.29975ms)
+✔ standalone email sign-in carries returnTo to the account callback (0.429291ms)
+✔ approved OAuth callback automatically returns; normal account visits stay put (4.224959ms)
+✔ pending or unverified accounts do not auto-enter the marketplace (0.846583ms)
+✔ verified registration resumes without marketplace membership; guests retain destination (0.813333ms)
+✔ provider, email verification, and recovery callbacks retain the originating app host (2.163667ms)
+✔ returning registered applicants are shown KYC without needing a registration return link (0.596459ms)
+✔ discovers healthy identity and gateway for live mode (0.652125ms)
+✔ missing or unhealthy identity uses mocks and reports the reason (0.311625ms)
+✔ unreachable registry produces visible mock fallback (0.128625ms)
+✔ discovery authorization errors must not be disguised as passing mocks (0.812917ms)
+✔ bridge keeps discovery token and browser cookies out of live requests; propagates failures (12.523792ms)
+✔ maps only the discovered gateway origin and probes the actual target (0.568416ms)
+✔ unreachable discovered gateway selects an explained mock fallback before live writes (0.171458ms)
+✔ live sign-in requires services and credentials without falling back to fixtures (0.732333ms)
+✔ live sign-in forwards credentials and preserves its isolated server session (1.483834ms)
+✔ full application API forwarding is opt-in and retains upstream authorization failures (0.726375ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 70.190625

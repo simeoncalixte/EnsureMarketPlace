@@ -1,0 +1,511 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10461",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+  "key": "AIN-138",
+  "fields": {
+    "summary": "[AI settings] Configure organization models and individual inheritance",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "As an organization administrator, I want to configure my organization\u2019s AI provider, model and credentials so that members and background processing can use our chosen model. As an individual, I want to inherit my current organization\u2019s configuration or use my own provider/model/credentials so that I control the model used for my work."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "User-approved scope expansion 2026-11-05: build self-service organization and individual settings, initially Gemini, Ollama, Qwen and Muse. Provider adapters are extensible; arbitrary model IDs supported by a configured adapter do not require per-model code. AIN-137 Muse support remains required and retains all original criteria. The user will help test their own account; do not infer their identity or copy personal credentials to organization scope."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance: authenticated Settings page shows effective source/provider/model and personal inheritance choice. Current organization administrators alone may change organization settings; active members may view redacted metadata and inherit. Any active individual, with or without an organization, may configure personal settings. Scope/actor derive from live identity membership, never caller-supplied tenant IDs; impersonation cannot change or test credentials. Cross-tenant reads/writes and revoked membership fail."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance: deterministic precedence is explicit personal override > current organization > existing platform configuration when no saved override exists. Choosing inherit removes personal override including its stored credential. Missing/invalid selected configuration fails visibly; no silent provider/model fallback. Organization automated work uses organization configuration; personal work uses the selected individual configuration. Effective provider/model provenance is recorded per execution; concurrent users cannot leak configuration via process.env."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance: existing providers plus Muse can be selected with configurable model IDs and relevant endpoint/timeout. Credentials are write-only, encrypted at rest with an operator-managed key, omitted from responses/logs/artifact snapshots, and replaceable/removable without returning existing values. Personal overrides never implicitly copy organization secrets. Protected endpoint policy prevents arbitrary user-controlled SSRF; operator-approved custom endpoints enable local Ollama and compatible services."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance: save/reload, inheritance/override/return-to-inheritance, organization member/admin permissions, explicit synthetic connection test, configuration validation, loading/empty/error/retry and revocation are implemented. Test action reports actual selected provider/model and failure without disclosing secrets. Do not run real document processing or change live credentials without the user choosing the action."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Verification: isolated synthetic Storybook transports block real writes and assert exact submitted payloads, observable results, permissions, keyboard/narrow layout and retry states; database/API integration tests prove durable encrypted state, current membership, authorization, concurrency isolation, and effective settings applied to pipeline consumers. Record ticket/component/story IDs/commands/results mapping. Configured provider and integrated staging evidence remain required; mocked stories cannot prove real Muse access. No pagination needed for a single settings record and a bounded provider list; model ID remains free text."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Dependencies: AIN-137 provides Muse adapter. Existing generated-form user outcome AIN-87 and release gate AIN-13 are related and retain broader obligations. Parent AIN-2 remains open until all original outcomes pass. Exclude pricing/capital financial model tickets, training/hosting new models, all other providers without an implemented adapter, and unrelated settings permissions repair. No sprint commitments or assignees invented."
+            }
+          ]
+        }
+      ]
+    },
+    "parent": {
+      "id": "10231",
+      "key": "AIN-2",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10231",
+      "fields": {
+        "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10036",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "priority": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "issuetype": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+          "id": "10035",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+          "hierarchyLevel": 1
+        }
+      }
+    },
+    "issuelinks": [
+      {
+        "id": "10359",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10359",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "inwardIssue": {
+          "id": "10460",
+          "key": "AIN-137",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10460",
+          "fields": {
+            "summary": "[Pipeline] Support Muse provider with configurable model selection like Qwen",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10360",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10360",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10410",
+          "key": "AIN-87",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10410",
+          "fields": {
+            "summary": "[Persona] Review document-generated forms with complete evidence and safe extensions",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10361",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10361",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "inwardIssue": {
+          "id": "10464",
+          "key": "AIN-141",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10464",
+          "fields": {
+            "summary": "[Local UI] Apply package metadata mounts so model settings can render",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10037",
+              "id": "10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+              "name": "Bug",
+              "subtask": false,
+              "avatarId": 10303,
+              "entityId": "61221f88-600f-4dc2-987d-6c7c77a94ee4",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10363",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10363",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "outwardIssue": {
+          "id": "10466",
+          "key": "AIN-143",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+          "fields": {
+            "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10365",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10365",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10473",
+          "key": "AIN-150",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10473",
+          "fields": {
+            "summary": "[Settings] Organize settings into XDS collapsible subsections",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      }
+    ],
+    "subtasks": [
+      {
+        "id": "10462",
+        "key": "AIN-139",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10462",
+        "fields": {
+          "summary": "Implement scoped encrypted model configuration and pipeline resolution",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+            "id": "10034",
+            "description": "Subtasks track small pieces of work that are part of a larger task.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+            "name": "Subtask",
+            "subtask": true,
+            "avatarId": 10316,
+            "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+            "hierarchyLevel": -1
+          }
+        }
+      },
+      {
+        "id": "10463",
+        "key": "AIN-140",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10463",
+        "fields": {
+          "summary": "Implement model settings UI and executable interaction evidence",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+            "id": "10034",
+            "description": "Subtasks track small pieces of work that are part of a larger task.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+            "name": "Subtask",
+            "subtask": true,
+            "avatarId": 10316,
+            "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+            "hierarchyLevel": -1
+          }
+        }
+      },
+      {
+        "id": "10465",
+        "key": "AIN-142",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10465",
+        "fields": {
+          "summary": "[Bug] Preserve requesting actor for queued model selection",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10037",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+            "id": "10034",
+            "description": "Subtasks track small pieces of work that are part of a larger task.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+            "name": "Subtask",
+            "subtask": true,
+            "avatarId": 10316,
+            "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+            "hierarchyLevel": -1
+          }
+        }
+      }
+    ],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+      "description": "This work item is being actively worked on at the moment by the assignee.",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+      "name": "In Progress",
+      "id": "3",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+        "id": 4,
+        "key": "indeterminate",
+        "colorName": "yellow",
+        "name": "In Progress"
+      }
+    }
+  }
+}

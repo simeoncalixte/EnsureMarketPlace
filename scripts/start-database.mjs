@@ -1,10 +1,12 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { discoverDatabases, provisioningSql } from './database-config.mjs';
 import { fileURLToPath } from 'node:url';
 process.chdir(fileURLToPath(new URL('../', import.meta.url)));
+const plan = discoverDatabases(process.cwd());
+for (const source of plan.skipped) console.info(`Skipping non-shared database: ${source}`);
 function docker(args, input) {
   const result = spawnSync('docker', args, {
-    input, stdio: input ? ['pipe', 'inherit', 'inherit'] : 'inherit',
+    input, stdio: input ? 'pipe' : 'inherit',
   });
   if (result.status !== 0) throw new Error(`Docker ${args[0]} failed`);
 }
@@ -21,4 +23,5 @@ docker(['compose', '-f', 'docker-compose.database.yml', 'up', '-d', '--wait', 'p
 // PostgreSQL entrypoint init scripts only run on empty volumes.
 // Provision missing databases on existing marketplace volumes as well.
 docker(['exec', '-i', 'ensured-api-postgres', 'psql', '-U', 'postgres', '-d', 'postgres', '-v', 'ON_ERROR_STOP=1'],
-  readFileSync('docker/postgres/init-databases.sql'));
+  provisioningSql(plan.databases));
+console.info(`Shared database setup complete: ${plan.databases.length} configured databases (existing data and credentials preserved).`);

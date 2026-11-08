@@ -3,7 +3,7 @@
 services:
   email:
     build: ./EnsuredEmail
-    env_file: ./EnsuredAPI/.env
+    env_file: ./EnsuredEmail/.env
     environment:
       EMAIL_HOST: 0.0.0.0
     ports: ['127.0.0.1:3013:3013']

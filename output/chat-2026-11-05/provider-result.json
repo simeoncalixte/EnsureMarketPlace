@@ -1,0 +1,8 @@
+{
+  "provider": "qwen",
+  "model": "deepseek-v4-pro-0813",
+  "synthetic": true,
+  "startedAt": "2026-11-06T02:19:11.770Z",
+  "ok": false,
+  "error": "Configured provider connection verification failed"
+}

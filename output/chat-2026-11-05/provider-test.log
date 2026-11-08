@@ -1,0 +1,44 @@
+
+> test:finance:docker
+> node scripts/test-finance-docker.mjs --runTestsByPath test/relationships/aiChatProvider.db.test.ts
+
+ Network ensured-finance-test-a4cfa63f518b_default Creating 
+ Network ensured-finance-test-a4cfa63f518b_default Creating 
+ Network ensured-finance-test-a4cfa63f518b_default Created 
+ Network ensured-finance-test-a4cfa63f518b_default Created 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Creating 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Created 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Starting 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Started 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Waiting 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Healthy 
+FAIL test/relationships/aiChatProvider.db.test.ts
+  AIN-143 configured provider conversation through real scoped API
+    ✕ verifies a synthetic account configuration and receives a real model reply (1779 ms)
+
+  ● AIN-143 configured provider conversation through real scoped API › verifies a synthetic account configuration and receives a real model reply
+
+    Configured provider connection verification failed
+
+      42 |    if(response.statusCode!==200||!response.json().reply?.includes('SYNTHETIC CHAT READY'))throw Error('Configured provider conversation failed synthetic response validation');
+      43 |    evidence.replyValidated=true;evidence.usage=response.json().usage;evidence.ok=true;
+    > 44 |   }catch(error){evidence.ok=false;evidence.error=error instanceof Error?error.message:'Live provider check failed';throw Error(String(evidence.error));}
+         |                                                                                                                          ^
+      45 |   finally{await app?.close();await db?.close();await admin.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);await admin.close();writeFileSync(path.resolve(__dirname,'../../../output/chat-2026-11-05/provider-result.json'),JSON.stringify(evidence,null,2));}
+      46 |  },90000);
+      47 | });
+
+      at Object.<anonymous> (test/relationships/aiChatProvider.db.test.ts:44:122)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        4.327 s
+Ran all test suites within paths "test/relationships/aiChatProvider.db.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Stopping 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Stopped 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Removing 
+ Container ensured-finance-test-a4cfa63f518b-postgres-1 Removed 
+ Network ensured-finance-test-a4cfa63f518b_default Removing 
+ Network ensured-finance-test-a4cfa63f518b_default Removed 

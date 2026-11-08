@@ -1,0 +1,1894 @@
+{
+  "issues": [
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10474",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10474",
+      "key": "AIN-151",
+      "fields": {
+        "summary": "[XDS] Resolve existing dashboard API route in shared-package boundary test",
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Discovered while verifying AIN-150. Existing XDS package boundary test fails on committed src/components/UnderwritingDashboard.types.ts:338: DashboardConfiguration.filters.optionsPath hard-codes /api/underwriting/submissions/search. Confirmed the same line exists in HEAD; AIN-150 did not introduce it. Test: node --test test/package.test.mjs from EnsuredXDS. The shared-source guard disallows application API dependencies."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Acceptance: resolve ownership of the dashboard endpoint contract; remove the application-specific route from the shared component contract or document and implement a narrowly justified boundary rule without weakening runtime import/API isolation. Add regression evidence, preserve current dashboard behavior and pass the source-boundary test, manifest checks and packed-consumer build."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Related only, not a blocker for AIN-150: its CollapsibleSection change has independent executable regressions and makes no application API calls. Do not close broader dashboard/release outcomes from this bug fix."
+                }
+              ]
+            }
+          ]
+        },
+        "parent": {
+          "id": "10230",
+          "key": "AIN-1",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10230",
+          "fields": {
+            "summary": "[Ensured] Establish a reproducible, operable platform release",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+              "id": "10035",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "issuelinks": [
+          {
+            "id": "10367",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10367",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10473",
+              "key": "AIN-150",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10473",
+              "fields": {
+                "summary": "[Settings] Organize settings with XDS horizontal subnavigation",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "Done",
+                  "id": "10037",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                    "id": 3,
+                    "key": "done",
+                    "colorName": "green",
+                    "name": "Done"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                  "id": "10038",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
+        "subtasks": [],
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10036",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        }
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10473",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10473",
+      "key": "AIN-150",
+      "fields": {
+        "summary": "[Settings] Organize settings with XDS horizontal subnavigation",
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "USER-APPROVED CORRECTION (2026-11-06): horizontal XDS SubNavigation replaces the earlier collapsible-section requirement. As a settings user, I want to switch between AI Models, Organization capabilities and Submission contract references using the standard horizontal navigation, so I can focus on one settings area while preserving unsaved work. Acceptance: AI Models initially active; exactly one visible panel; lazy initial loading; retain drafts, scope, selected model and notices after navigating away/back; keyboard and mobile support; actual records and explicit defaults only; existing permissions/payloads unchanged; executable fixture and API-backed regression evidence. Earlier accordion-specific criteria are superseded."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "User request (2026-11-06): separate Settings into subsections using the standard XDS section component."
+                }
+              ],
+              "attrs": {
+                "localId": "8e3ecc77f7d2"
+              }
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "User story: As an individual or organization administrator, I want clearly labeled, independently expandable settings subsections so I can find and manage the relevant configuration without scrolling through unrelated forms. Reuse the existing settings workflows and AIN-138 user story; this task supplements AIN-140 and does not replace its broader obligations."
+                }
+              ],
+              "attrs": {
+                "localId": "f138216bb603"
+              }
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Scope / source map: EnsuredUI/src/Pages/InsurerDashboard/Settings.tsx currently renders ModelLibrary, OrganizationCapabilitiesSettings and SubmissionReferenceSettings consecutively. Reuse the exported XDS CollapsibleSection from EnsuredXDS/src/components/CollapsibleSection.tsx (already used in SubjectInsuranceSection and SubjectTemplateFields). Use XDS tokens and its controlled collapsed/onToggle API; do not build a parallel custom accordion. SectionHeader is a heading primitive, not a substitute for the standard section container."
+                }
+              ],
+              "attrs": {
+                "localId": "594242ec8c00"
+              }
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Acceptance criteria:"
+                }
+              ],
+              "attrs": {
+                "localId": "b784c876f6db"
+              }
+            },
+            {
+              "type": "orderedList",
+              "attrs": {
+                "order": 1,
+                "localId": "a988ae7e73af"
+              },
+              "content": [
+                {
+                  "type": "listItem",
+                  "attrs": {
+                    "localId": "48c64cf878b2"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Settings has three clearly labeled subsections: AI Models, Organization capabilities, and Submission contract references. Each uses the standard XDS CollapsibleSection with concise descriptive text and consistent spacing, headings and responsive styling."
+                        }
+                      ],
+                      "attrs": {
+                        "localId": "9cacebcdb76e"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "attrs": {
+                    "localId": "3baccd731a8b"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Sections expand/collapse independently via pointer and keyboard, expose correct aria-expanded state, and have visible focus. Avoid duplicate page-level titles or nested action buttons inside the section toggle. Keep all existing workflows reachable."
+                        }
+                      ],
+                      "attrs": {
+                        "localId": "72fd81307fb3"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "attrs": {
+                    "localId": "c30ed1e30bde"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Collapse/reopen preserves unsaved drafts, selected records, scope and relevant status. Current CollapsibleSection unmounts children when collapsed: explicitly solve state preservation by lifting state or a backward-compatible shared component enhancement; do not lose API keys being entered or trigger accidental saves/tests. Initial open/closed state is deliberate and covered by tests."
+                        }
+                      ],
+                      "attrs": {
+                        "localId": "2ef49cacda49"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "attrs": {
+                    "localId": "70d828624592"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Preserve permissions and all current save/test/default/inheritance/removal behavior. Show only actual saved model records; do not seed providers or choose unknown defaults. No backend configuration, credential, authorization or data-model changes required for presentation regrouping."
+                        }
+                      ],
+                      "attrs": {
+                        "localId": "816997948569"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "attrs": {
+                    "localId": "ab0d3723d3f6"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Executable Storybook play stories cover section toggling, independent state, keyboard/focus, draft preservation, observable save results and exact submitted payloads; include loading, empty, error/retry, permission and narrow-screen states. Use synthetic transports and block accidental application writes. Retain existing component and API/database regressions. If XDS changes, add shared-component regressions."
+                        }
+                      ],
+                      "attrs": {
+                        "localId": "3ef10ef5ad8c"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "attrs": {
+                    "localId": "5459b55830c9"
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Verify the integrated Settings page at desktop and 375px without horizontal overflow; record ticket -> component -> story IDs -> commands/results in Jira and TASK_HANDOFF.md before Done."
+                        }
+                      ],
+                      "attrs": {
+                        "localId": "08edb07b1ec5"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Related work: AIN-138 / AIN-140 own model settings behavior; AIN-143 chat connection behavior must not regress. Existing provider-access/staging gates remain open and are not prerequisites for arranging the settings sections. Exclude new providers, financial workflows, unrelated settings features and production rollout."
+                }
+              ],
+              "attrs": {
+                "localId": "55fe2ea0f6ba"
+              }
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Implementation and local verification complete on 2026-11-06; see completion evidence comment. Broader linked outcomes remain open."
+                }
+              ],
+              "attrs": {
+                "localId": "398368537f15"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "10231",
+          "key": "AIN-2",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10231",
+          "fields": {
+            "summary": "[Ensured] Complete production ingestion, orchestration and searchable artifacts",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+              "id": "10035",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "issuelinks": [
+          {
+            "id": "10365",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10365",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10461",
+              "key": "AIN-138",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+              "fields": {
+                "summary": "[AI settings] Configure organization models and individual inheritance",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                  "name": "In Progress",
+                  "id": "3",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10366",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10366",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10463",
+              "key": "AIN-140",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10463",
+              "fields": {
+                "summary": "Implement model settings UI and executable interaction evidence",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                  "name": "In Progress",
+                  "id": "3",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+                  "id": "10034",
+                  "description": "Subtasks track small pieces of work that are part of a larger task.",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+                  "name": "Subtask",
+                  "subtask": true,
+                  "avatarId": 10316,
+                  "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+                  "hierarchyLevel": -1
+                }
+              }
+            }
+          },
+          {
+            "id": "10367",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10367",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10474",
+              "key": "AIN-151",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10474",
+              "fields": {
+                "summary": "[XDS] Resolve existing dashboard API route in shared-package boundary test",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10037",
+                  "id": "10037",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+                  "name": "Bug",
+                  "subtask": false,
+                  "avatarId": 10303,
+                  "entityId": "61221f88-600f-4dc2-987d-6c7c77a94ee4",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
+        "subtasks": [
+          {
+            "id": "10475",
+            "key": "AIN-152",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10475",
+            "fields": {
+              "summary": "[Settings] Keep reference controls readable without external icon fonts",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "Done",
+                "id": "10037",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+                "id": "10034",
+                "description": "Subtasks track small pieces of work that are part of a larger task.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+                "name": "Subtask",
+                "subtask": true,
+                "avatarId": 10316,
+                "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+                "hierarchyLevel": -1
+              }
+            }
+          }
+        ],
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10037",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        }
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10410",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10410",
+      "key": "AIN-87",
+      "fields": {
+        "summary": "[Persona] Review document-generated forms with complete evidence and safe extensions",
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "User story"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "As a underwriter, broker or reinsurer, I want to review structured forms generated by the LLM from supplied documentation so that unfamiliar risks remain reviewable without invented facts or a rigid universal form."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Feedback coverage"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Original feedback: I5, B2, B3, R1, R2. I = insurer; B = broker; R = reinsurer; numbering follows the 20 points per persona in the user conversation."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Scope and existing implementation"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Extend current services, generated-form workbench, commercial records and tests. These are outcome/verification gaps, not an assertion that every underlying capability is absent. Preserve existing working functionality and all broader parent obligations."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Existing implementation owners: AIN-15, AIN-16, AIN-50. Existing tasks retain their original scope and hierarchy. Completed tasks are reuse evidence, not proof that this broader story is Done."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Acceptance criteria"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "1. Generate sections and repeated entities from the documented evidence; preserve unknown extensions rather than discard fields outside a fixed template."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "2. Each populated field exposes document/version/page or table-cell anchors, semantic binding, entity identity, unit/currency and unresolved/conflicting state; missing facts are not zero."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "3. Validate candidate schemas and component references deterministically against the approved XDS registry; unsupported components render safely with visible diagnostics and cannot execute generated code."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "4. Treat documents as data, including embedded instructions; invalid output, provider timeout or partial generation leaves the current effective form intact and offers bounded retry."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Required dependencies"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Required predecessor outcomes: No new-story predecessor; use the existing implementation contracts/tasks listed above.; final Jira key mapping follows below."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Story-specific verification"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Run scanned-document, table, sparse, conflicting, unfamiliar-class, repeated-entity and hostile-instruction cases; assert retained facts and exact submitted semantic payloads. Record a configured-provider evaluation separately from deterministic fixtures."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Definition of Done"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "1. All acceptance criteria and the story-specific verification scenario pass; link implementation tasks/PRs and record the reviewed source/package versions. A partial component or newly created ticket does not satisfy this story."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "2. Every changed UI workflow has executable Storybook play functions asserting user actions, observable results and exact submitted payloads, including success, validation, failure/retry, empty/loading, pagination and permission/revocation states where applicable. Document a reason for any nonapplicable state. Include keyboard and narrow-screen checks."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "3. Fixture stories use isolated synthetic transports with accidental application writes blocked. Also run authenticated real-service journeys against isolated Docker databases/services for authorization, durable state, concurrency, idempotency and relevant money invariants. Backend-only work uses integration evidence linked to this story, not artificial UI."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "4. Attach ticket \u2192 component \u2192 Storybook story IDs \u2192 command/results mapping, regression evidence, API/database checks and known coverage gaps to Jira and TASK_HANDOFF.md. New failures have linked bug tickets and regressions; no unresolved failure of an acceptance criterion permits Done."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "5. Reconcile all required dependencies and subtasks. Record migration/backfill compatibility and rollback results when schemas change. Demonstrate the workflow in the integrated staging environment, identifying deployed build and service versions; local checks alone are not staging evidence. Production deployment remains a separate release gate under AIN-1/12."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "6. For external-system or monetary settlement claims, attach configured vendor/provider-sandbox evidence and matched reconciliation; simulated events or manually recorded receipts cannot establish external delivery or settled cash."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Generated-form gate: preserve document-driven extensibility, evidence anchors, stable semantic/entity IDs, missing/conflicting states and human corrections; pin schema/catalog/generator versions, reject unsafe generated structures and prove regeneration/replay behavior. LLM output never independently grants authority, approves coverage, sets eligibility or posts money."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Completion boundary"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Backlog planning only on 2026-11-04. No implementation, test execution, migration or deployment is claimed. Assignee, estimates and dates remain for delivery planning."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Resolved delivery map \u2014 persona feedback 2026-11-04"
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Implementation ownership"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Required implementation tasks/slices: AIN-15, AIN-16, AIN-50. Reuse existing completed work, implement and verify the remaining acceptance criteria in this story. Relates links identify shared ownership; Blocks links identify ordered predecessor outcomes."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Predecessor stories"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "No additional predecessor stories."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Verification mapping"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Before Done, replace the pending evidence with actual component paths, Storybook story IDs, execution commands/results, Docker integration evidence and staging build IDs. Evidence is currently NOT RUN; no synthetic result is claimed."
+                }
+              ]
+            },
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Single-developer sprint sequence \u2014 2026-11-04"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Target candidate: AIN S10 | Document-generated review forms (Jira sprint 45)."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Sprint outcome: Deliver reviewable LLM-generated structured forms on pinned evidence and validated component contracts."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Exit evidence: Sparse/conflicting/unfamiliar/repeated/hostile-document corpus passes; extensions and evidence survive; unsafe output and provider failures cannot replace the active form."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Planning envelope: 6 implementation days + 2 integrated verification days + 1 review/refinement day + 1 contingency day; not measured velocity. One primary outcome in progress; at most two closely related workflow slices. Story/task pairs share effort, not double-counted work."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Existing active sprint remains active with original dates; only its goal/name and unfinished membership are reorganized. Every new sprint is future and undated. No fabricated story-point/time estimates or assignees. The ordered slots are a provisional work breakdown, not a fixed delivery forecast. Before activation, split any candidate exceeding six implementation days and verify reviewer/provider readiness; preserve all parent acceptance criteria."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Scheduling is not implementation: original AC/DoD and parent scope are unchanged. Related story/task/subtask effort is one delivery slice, not additive capacity. Required domain slices can be delivered earlier than the broader owner completion sprint; no broader item is Done until all original requirements pass."
+                }
+              ]
+            }
+          ]
+        },
+        "parent": {
+          "id": "10232",
+          "key": "AIN-3",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10232",
+          "fields": {
+            "summary": "[Ensured] Finish effective submission revisions and scalable board queries",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+              "id": "10035",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "issuelinks": [
+          {
+            "id": "10183",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10183",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10244",
+              "key": "AIN-15",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10244",
+              "fields": {
+                "summary": "[Gap][Finance] Preserve party, currency and valuation evidence from financial documents",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                  "id": "10038",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10184",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10184",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10245",
+              "key": "AIN-16",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10245",
+              "fields": {
+                "summary": "[Gap][Finance] Implement tenant-scoped search for financial evidence",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                  "id": "10038",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10185",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10185",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "outwardIssue": {
+              "id": "10279",
+              "key": "AIN-50",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10279",
+              "fields": {
+                "summary": "[Data model] Version and validate flexible JSON schemas without losing relational integrity",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                  "id": "10038",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10189",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10189",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10418",
+              "key": "AIN-95",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10418",
+              "fields": {
+                "summary": "[Persona] Review material changes and preserve corrections when forms regenerate",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10192",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10192",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10421",
+              "key": "AIN-98",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10421",
+              "fields": {
+                "summary": "[Persona] Resolve submission readiness issues before market or underwriting decisions",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10203",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10203",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10419",
+              "key": "AIN-96",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10419",
+              "fields": {
+                "summary": "[Persona] Review reconciled exposure and loss experience for pricing",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10233",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10233",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10425",
+              "key": "AIN-102",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10425",
+              "fields": {
+                "summary": "[Persona] Preview and authorize recipient-specific submission disclosure packages",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10235",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10235",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10426",
+              "key": "AIN-103",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10426",
+              "fields": {
+                "summary": "[Persona] Compare market quotations and negotiated wording on equivalent terms",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10244",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10244",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10437",
+              "key": "AIN-114",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10437",
+              "fields": {
+                "summary": "[Persona] Manage actual claims from intake through adjudication and reserves",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10260",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10260",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10427",
+              "key": "AIN-104",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10427",
+              "fields": {
+                "summary": "[Persona] Validate bordereaux and track contractual reporting obligations",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10276",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10276",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10428",
+              "key": "AIN-105",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10428",
+              "fields": {
+                "summary": "[Persona] Review document-derived facultative and treaty terms as executable contracts",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10309",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10309",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "outwardIssue": {
+              "id": "10444",
+              "key": "AIN-121",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10444",
+              "fields": {
+                "summary": "[Persona] Demonstrate persona workflows and measure operational value in staging",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10332",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10332",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10454",
+              "key": "AIN-131",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10454",
+              "fields": {
+                "summary": "[Sprint slice] Verify intake worker resilience and artifact lineage",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                  "id": "10038",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10347",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10347",
+            "type": {
+              "id": "10000",
+              "name": "Blocks",
+              "inward": "is blocked by",
+              "outward": "blocks",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+            },
+            "inwardIssue": {
+              "id": "10454",
+              "key": "AIN-131",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10454",
+              "fields": {
+                "summary": "[Sprint slice] Verify intake worker resilience and artifact lineage",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                  "name": "To Do",
+                  "id": "10036",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                  "id": "10038",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10358",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10358",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10460",
+              "key": "AIN-137",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10460",
+              "fields": {
+                "summary": "[Pipeline] Support Muse provider with configurable model selection like Qwen",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                  "name": "In Progress",
+                  "id": "3",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+                  "id": "10038",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+                  "name": "Task",
+                  "subtask": false,
+                  "avatarId": 10318,
+                  "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          },
+          {
+            "id": "10360",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10360",
+            "type": {
+              "id": "10003",
+              "name": "Relates",
+              "inward": "relates to",
+              "outward": "relates to",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+            },
+            "inwardIssue": {
+              "id": "10461",
+              "key": "AIN-138",
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+              "fields": {
+                "summary": "[AI settings] Configure organization models and individual inheritance",
+                "status": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                  "description": "This work item is being actively worked on at the moment by the assignee.",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                  "name": "In Progress",
+                  "id": "3",
+                  "statusCategory": {
+                    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                    "id": 4,
+                    "key": "indeterminate",
+                    "colorName": "yellow",
+                    "name": "In Progress"
+                  }
+                },
+                "priority": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                  "name": "Medium",
+                  "id": "3"
+                },
+                "issuetype": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                  "id": "10036",
+                  "description": "",
+                  "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10315,
+                  "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
+        "subtasks": [],
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10036",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        }
+      }
+    }
+  ],
+  "isLast": true
+}

@@ -1,0 +1,274 @@
+[
+  {
+    "slug": "parity",
+    "key": "AIN-13",
+    "epic": "AIN-1",
+    "kind": "Bug",
+    "title": "Repair the failing pipeline parity gate before financial releases",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-13"
+  },
+  {
+    "slug": "restore",
+    "key": "AIN-14",
+    "epic": "AIN-1",
+    "kind": "Gap",
+    "title": "Prove consistent financial backups and cross-service recovery",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-14"
+  },
+  {
+    "slug": "money-extraction",
+    "key": "AIN-15",
+    "epic": "AIN-2",
+    "kind": "Gap",
+    "title": "Preserve party, currency and valuation evidence from financial documents",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-15"
+  },
+  {
+    "slug": "artifact-search",
+    "key": "AIN-16",
+    "epic": "AIN-2",
+    "kind": "Gap",
+    "title": "Implement tenant-scoped search for financial evidence",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-16"
+  },
+  {
+    "slug": "board-currency",
+    "key": "AIN-17",
+    "epic": "AIN-3",
+    "kind": "Bug",
+    "title": "Stop combining different currencies in legacy board premium totals",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-17"
+  },
+  {
+    "slug": "financial-lineage",
+    "key": "AIN-18",
+    "epic": "AIN-3",
+    "kind": "Gap",
+    "title": "Pin a common financial revision across workbench, pricing, quotes and servicing",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-18"
+  },
+  {
+    "slug": "exposure-basis",
+    "key": "AIN-19",
+    "epic": "AIN-4",
+    "kind": "Bug",
+    "title": "Select exposure by the declared rating basis instead of always preferring TIV",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-19"
+  },
+  {
+    "slug": "null-premium",
+    "key": "AIN-20",
+    "epic": "AIN-4",
+    "kind": "Bug",
+    "title": "Preserve unavailable model premium instead of persisting numeric zero",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-20"
+  },
+  {
+    "slug": "compute-atomic",
+    "key": "AIN-21",
+    "epic": "AIN-4",
+    "kind": "Bug",
+    "title": "Make model and pricing-version persistence atomic and concurrency safe",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-21"
+  },
+  {
+    "slug": "experience",
+    "key": "AIN-22",
+    "epic": "AIN-4",
+    "kind": "Gap",
+    "title": "Feed validated party loss experience into credibility-weighted pricing",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-22"
+  },
+  {
+    "slug": "model-register",
+    "key": "AIN-23",
+    "epic": "AIN-4",
+    "kind": "Gap",
+    "title": "Publish a financial model inventory and independent validation suite",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-23"
+  },
+  {
+    "slug": "capacity-ledger",
+    "key": "AIN-24",
+    "epic": "AIN-5",
+    "kind": "Gap",
+    "title": "Use committed facility balances for underwriting capacity decisions",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-24"
+  },
+  {
+    "slug": "unknown-capacity",
+    "key": "AIN-25",
+    "epic": "AIN-5",
+    "kind": "Gap",
+    "title": "Define and enforce unknown-capacity and currency policy",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-25"
+  },
+  {
+    "slug": "binding-bundle",
+    "key": "AIN-26",
+    "epic": "AIN-6",
+    "kind": "Gap",
+    "title": "Link existing bindings to authoritative pricing, capacity and party obligations",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-26"
+  },
+  {
+    "slug": "binding-policy",
+    "key": "AIN-27",
+    "epic": "AIN-6",
+    "kind": "Gap",
+    "title": "Specify financial completeness and exception policy for all binding paths",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-27"
+  },
+  {
+    "slug": "transaction-screening",
+    "key": "AIN-28",
+    "epic": "AIN-7",
+    "kind": "Gap",
+    "title": "Apply versioned eligibility checks to parties incurring financial obligations",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-28"
+  },
+  {
+    "slug": "beneficiary-controls",
+    "key": "AIN-29",
+    "epic": "AIN-7",
+    "kind": "Gap",
+    "title": "Verify beneficiary mandates and separate payment approval duties",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-29"
+  },
+  {
+    "slug": "funded-vs-committed",
+    "key": "AIN-30",
+    "epic": "AIN-8",
+    "kind": "Bug",
+    "title": "Do not report pending commitments as funded or invested capital",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-30"
+  },
+  {
+    "slug": "portfolio-return",
+    "key": "AIN-31",
+    "epic": "AIN-8",
+    "kind": "Bug",
+    "title": "Exclude unowned opportunities from portfolio return and stop calling weighted yield IRR",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-31"
+  },
+  {
+    "slug": "illustrative-tvl",
+    "key": "AIN-32",
+    "epic": "AIN-8",
+    "kind": "Bug",
+    "title": "Remove hardcoded financial totals from the live marketplace",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-32"
+  },
+  {
+    "slug": "allocation-workflow",
+    "key": "AIN-33",
+    "epic": "AIN-8",
+    "kind": "Gap",
+    "title": "Connect marketplace actions to authorized financial workflows",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-33"
+  },
+  {
+    "slug": "party-subledger",
+    "key": "AIN-34",
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "title": "Add explicit payer/payee financial accounts and a reconciled party subledger",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-34"
+  },
+  {
+    "slug": "currency-contract",
+    "key": "AIN-35",
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "title": "Define currency and minor-unit rules across all financial models",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-35"
+  },
+  {
+    "slug": "settlement-reconciliation",
+    "key": "AIN-36",
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "title": "Implement funded-capital and collateral reconciliation beyond seeded records",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-36"
+  },
+  {
+    "slug": "commissions-fees",
+    "key": "AIN-37",
+    "epic": "AIN-9",
+    "kind": "Gap",
+    "title": "Model gross-to-net premium, commissions, taxes and platform fees per party",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-37"
+  },
+  {
+    "slug": "claim-economics",
+    "key": "AIN-38",
+    "epic": "AIN-10",
+    "kind": "Gap",
+    "title": "Calculate gross, ceded and retained claims using approved treaty terms",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-38"
+  },
+  {
+    "slug": "servicing-reversals",
+    "key": "AIN-39",
+    "epic": "AIN-10",
+    "kind": "Gap",
+    "title": "Support auditable payment reversals and financial adjustments",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-39"
+  },
+  {
+    "slug": "payout-waterfall",
+    "key": "AIN-40",
+    "epic": "AIN-10",
+    "kind": "Gap",
+    "title": "Implement party-specific recoveries and investor distribution waterfalls",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-40"
+  },
+  {
+    "slug": "production-simulation",
+    "key": "AIN-41",
+    "epic": "AIN-11",
+    "kind": "Bug",
+    "title": "Reject paid subscription simulation in production when Stripe is unconfigured",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-41"
+  },
+  {
+    "slug": "free-admin-plan",
+    "key": "AIN-42",
+    "epic": "AIN-11",
+    "kind": "Bug",
+    "title": "Restrict checkout plans to the authenticated participant eligibility",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-42"
+  },
+  {
+    "slug": "checkout-idempotency",
+    "key": "AIN-43",
+    "epic": "AIN-11",
+    "kind": "Bug",
+    "title": "Prevent duplicate external subscriptions on concurrent checkout or retry",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-43"
+  },
+  {
+    "slug": "billing-lifecycle",
+    "key": "AIN-44",
+    "epic": "AIN-11",
+    "kind": "Gap",
+    "title": "Reconcile subscription lifecycle, invoices and usage into platform receivables",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-44"
+  },
+  {
+    "slug": "financial-test-matrix",
+    "key": "AIN-45",
+    "epic": "AIN-12",
+    "kind": "Gap",
+    "title": "Create a cross-party financial invariant and failure-injection suite",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-45"
+  },
+  {
+    "slug": "audit-coverage",
+    "key": "AIN-46",
+    "epic": "AIN-12",
+    "kind": "Gap",
+    "title": "Maintain a finance model/coverage register and investigate untested risks",
+    "url": "https://simeoncalixte1990.atlassian.net/browse/AIN-46"
+  }
+]
