@@ -32,4 +32,4 @@ if (!command.length || command[0] === 'up' || command[0] === 'start') {
   const result = spawnSync(process.execPath, ['scripts/start-database.mjs'], { env, stdio: 'inherit' });
   if (result.status !== 0) throw new Error('Shared database startup failed');
 }
-docker(['compose', '-p', 'ensured-services', '-f', 'docker-compose.services.yml', ...(command.length ? command : ['up', '-d', '--build', '--wait'])]);
+docker(['compose', '-p', 'ensured-services', '-f', 'docker-compose.services.yml', ...(command.length ? command : ['up', '--build', '--watch'])]);

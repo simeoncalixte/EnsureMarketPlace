@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Schema-on-Read Observatory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03050c; --ink:#dbe8ff; --mute:#6f83a8; --line:rgba(120,200,255,.14);
+  --cyan:#39e6ff; --violet:#b46bff; --amber:#ffb547; --mint:#34ffc8; --red:#ff4d6d;
+  --glass:rgba(7,13,28,.58);
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px;
+  --radius-sm:4px; --radius-panel:10px; --duration-ui:180ms;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --font-code:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif}
+canvas#gl{position:fixed;inset:0;width:100vw;height:100vh;display:block}
+.scan{position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+#labels{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;color:var(--cyan);will-change:transform,opacity;transition:opacity .25s}
+.lbl i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor}
+.lbl .t{position:absolute;left:12px;bottom:8px;white-space:nowrap;padding:4px 9px 4px 8px;border-left:1px solid currentColor;
+  background:linear-gradient(90deg,rgba(6,18,36,.75),rgba(6,18,36,0));font-family:'JetBrains Mono',monospace}
+.lbl .t b{display:block;font-size:10.5px;letter-spacing:.14em;font-weight:700}
+.lbl .t span{display:block;font-size:9.5px;color:var(--mute);letter-spacing:.04em;margin-top:1px}
+.lbl.chip .t{bottom:-9px;border:1px solid currentColor;border-radius:3px;padding:2px 7px;background:rgba(6,14,30,.7)}
+.lbl.chip .t b{font-size:9.5px;letter-spacing:.06em;font-weight:500}
+.lbl.chip i{display:none}
+
+.hud{position:fixed;inset:0;pointer-events:none;font-family:'JetBrains Mono',monospace}
+header{position:absolute;top:18px;left:22px;right:22px;display:flex;justify-content:space-between;align-items:flex-start}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:34px;height:34px;position:relative}
+.logo::before,.logo::after{content:"";position:absolute;inset:0;border:1.5px solid var(--cyan);transform:rotate(45deg);border-radius:4px;box-shadow:0 0 14px rgba(57,230,255,.5)}
+.logo::after{inset:8px;border-color:var(--violet);animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(405deg)}}
+.brand h1{font-family:'Space Grotesk';font-weight:700;font-size:17px;letter-spacing:.28em}
+.brand h1 em{font-style:normal;color:var(--cyan)}
+.brand p{font-size:10px;color:var(--mute);letter-spacing:.12em;margin-top:3px}
+.status{display:flex;gap:18px;font-size:10.5px;color:var(--mute);letter-spacing:.1em;align-items:center}
+.status b{color:var(--ink);font-weight:500}
+.rec{display:flex;align-items:center;gap:7px;color:var(--red)}
+.rec::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+
+.col{position:absolute;top:78px;bottom:96px;display:flex;flex-direction:column;gap:12px}
+.col.l{left:22px;width:340px}
+.col.r{right:22px;width:304px}
+.panel{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius-panel);padding:var(--space-3) 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  position:relative;transition:border-color .4s,box-shadow .4s;overflow:hidden}
+.panel::before{content:"";position:absolute;left:0;top:0;height:1px;width:40%;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity .4s}
+.panel.hot{border-color:rgba(57,230,255,.45);box-shadow:0 0 0 1px rgba(57,230,255,.08),0 0 30px rgba(57,230,255,.12) inset}
+.panel.hot::before{opacity:1;animation:sweep 1.6s linear infinite}
+@keyframes sweep{from{left:-40%}to{left:100%}}
+.ph{display:flex;justify-content:space-between;align-items:center;font-size:9.5px;letter-spacing:.16em;color:var(--mute);margin-bottom:8px}
+.ph b{color:var(--ink);font-weight:500}
+.ph .tag{color:var(--cyan);border:1px solid rgba(57,230,255,.35);padding:1px 6px;border-radius:3px;letter-spacing:.08em}
+pre{font-family:'JetBrains Mono',monospace;font-size:10.8px;line-height:1.55;white-space:pre;color:#9fb3d6;min-height:40px}
+pre .k{color:var(--cyan)} pre .s{color:#ffd28a} pre .n{color:var(--mint)} pre .w{color:var(--violet);font-weight:700} pre .c{color:#4f6286}
+.cursor{display:inline-block;width:6px;height:12px;background:var(--cyan);vertical-align:-2px;animation:blink .8s steps(2) infinite;margin-left:1px}
+table{width:100%;border-collapse:collapse;font-size:10.3px}
+td{padding:3.5px 0;border-bottom:1px dashed rgba(120,200,255,.08);color:#5d6f92;transition:color .3s}
+td:last-child{text-align:right}
+tr.on td{color:#c9d8f5}
+tr.on td:first-child{color:var(--cyan)}
+.badge{font-size:9px;padding:1px 6px;border-radius:3px;border:1px solid currentColor;letter-spacing:.06em}
+.ok{color:var(--mint)} .bad{color:var(--red)} .ali{color:var(--amber)} .core{color:var(--mute)}
+tr.flash td{color:var(--red)!important;text-shadow:0 0 10px rgba(255,77,109,.7)}
+
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--glass);border:1px solid var(--line);border-radius:10px;padding:10px 12px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.kpi small{display:block;font-size:9px;letter-spacing:.16em;color:var(--mute)}
+.kpi strong{display:block;font-family:'Space Grotesk';font-weight:500;font-size:22px;margin-top:4px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi span{font-size:9.5px;color:var(--mute)}
+.kpi span.up{color:var(--mint)}
+canvas.mini{width:100%;display:block}
+.donutwrap{display:flex;gap:12px;align-items:center}
+.legend{font-size:10px;display:flex;flex-direction:column;gap:6px;flex:1}
+.legend div{display:flex;justify-content:space-between;align-items:center}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:7px}
+
+.stack{position:relative;flex:1;min-height:190px}
+.pc{position:absolute;inset:12px 14px;opacity:0;transform:translateY(8px) scale(.98);transition:opacity .45s,transform .45s}
+.pc.on{opacity:1;transform:none}
+.big{font-family:'Space Grotesk';font-size:40px;font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.big em{font-style:normal;font-size:13px;color:var(--mute);margin-left:6px;letter-spacing:.04em}
+.docv{display:inline-block;margin-bottom:8px}
+.morph{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:6px 0 10px}
+.morph pre{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:6px;padding:7px 8px;min-height:0;font-size:10px}
+.arrow{color:var(--violet);font-size:16px;text-shadow:0 0 12px var(--violet)}
+.bar{height:6px;background:rgba(120,200,255,.08);border-radius:3px;overflow:hidden;margin-top:5px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 0 10px var(--cyan)}
+.row{display:flex;justify-content:space-between;font-size:10px;color:var(--mute);margin-top:9px}
+.row b{color:var(--ink);font-weight:500}
+.lat{margin-top:6px}
+.lat .bar{height:14px;border-radius:4px}
+.lat .bar.slow i{background:linear-gradient(90deg,#ff4d6d,#ffb547);box-shadow:0 0 12px rgba(255,77,109,.6)}
+.explain{font-size:9.5px;color:#4f6286;margin-top:10px;line-height:1.5}
+
+.caption{position:absolute;left:50%;top:74px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.caption .n{font-size:10px;letter-spacing:.5em;color:var(--cyan)}
+.caption .x{font-family:'Space Grotesk';font-weight:300;font-size:26px;letter-spacing:.02em;margin-top:6px;text-shadow:0 0 24px rgba(57,230,255,.35)}
+.caption.go .n{animation:none;opacity:1}
+.caption.go .x{animation:none;opacity:1}
+@keyframes capn{0%{opacity:0;letter-spacing:1.4em}18%{opacity:1;letter-spacing:.5em}80%{opacity:1}100%{opacity:.0}}
+@keyframes capx{0%{opacity:0;filter:blur(12px);transform:translateY(10px)}20%{opacity:1;filter:blur(0);transform:none}80%{opacity:1}100%{opacity:0;filter:blur(6px)}}
+
+footer{position:absolute;left:22px;right:22px;bottom:22px}
+.tl{display:flex;gap:4px;position:relative}
+.seg{flex:1}
+.seg .lab{display:flex;flex-wrap:wrap;gap:4px;justify-content:space-between;font-size:9.5px;letter-spacing:.16em;color:var(--mute);margin-bottom:7px;transition:color .3s}
+.seg.on .lab{color:var(--ink)}
+.seg .lab b{color:var(--cyan);font-weight:500;opacity:.5}
+.seg.on .lab b{opacity:1}
+.track{height:3px;background:rgba(120,200,255,.12);border-radius:2px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 0 8px var(--cyan)}
+.playhead{position:absolute;bottom:-4px;width:1px;height:11px;background:#fff;box-shadow:0 0 8px #fff}
+.foot2{display:flex;gap:16px;justify-content:space-between;font-size:9.5px;color:#4f6286;letter-spacing:.1em;margin-top:9px}
+
+.schema-panel{overflow:auto;min-height:160px}.col.l{overflow:auto;pointer-events:auto}.tl{overflow-x:auto}.seg{min-width:85px}.seg .lab{font-size:8px}.caption .x{white-space:normal;max-width:520px}.caption{width:40%;padding:12px;background:#03050cdd;border:1px solid var(--line);border-radius:10px}
+.caption.review-state .n,.caption.review-state .x{animation:none;opacity:1}.caption.review-state .x{font-size:22px}.caption.review-state{padding:12px;background:#03050cdd;border:1px solid var(--line);border-radius:10px}
+/* Detailed node cards expand with camera focus and fold during handoffs. */
+.lbl.node-card .t{width:190px;white-space:normal;background:rgba(5,12,25,.94);border:1px solid var(--line);border-left:2px solid currentColor;border-radius:8px;padding:10px 12px;transition:width .5s ease,background .5s ease,box-shadow .5s ease;}
+.lbl.node-card .t b{font-size:11px;line-height:1.4;letter-spacing:.08em}
+.lbl.node-card .node-details{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .5s ease,opacity .4s ease;}
+.lbl.node-card .node-details>div{overflow:hidden;min-height:0}
+.lbl.node-card .node-details p{font:12px/1.6 var(--font-display);color:var(--ink);padding-top:10px}
+.lbl.node-card .node-details .node-action{color:var(--cyan);font-weight:500}
+.lbl.node-card.expanded{z-index:5}
+.lbl.node-card.expanded .t{width:300px;background:rgba(5,12,25,.98);box-shadow:0 12px 36px #0008}
+.lbl.node-card.expanded .node-details{grid-template-rows:1fr;opacity:1}
+@media(max-width:760px){.lbl.node-card.expanded .t{width:min(270px,calc(100vw - 48px))}}
+@media(prefers-reduced-motion:reduce){.lbl.node-card .t,.lbl.node-card .node-details{transition:none}}
+
+.camera-controls{position:fixed;bottom:94px;left:50%;transform:translateX(-50%);z-index:10;max-width:calc(100vw - 32px);padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:#050c19ed;text-align:center;font:10px/1.7 var(--font-code);color:var(--ink)}
+.camera-controls button{background:#10213b;border:1px solid var(--cyan);border-radius:4px;color:var(--ink);padding:5px 9px;font:inherit;cursor:pointer;margin-left:8px}
+.camera-controls button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.camera-controls p{color:#a7b8d5;margin-top:4px}
+/* Observatory / predefined design system */
+.ds-trigger{pointer-events:auto;border:1px solid var(--line);border-radius:var(--radius-sm);padding:7px 10px;background:#0b1426;color:var(--ink);font:10px var(--font-code);cursor:pointer}
+.ds-trigger:hover{border-color:var(--cyan)}
+.ds-trigger:focus-visible,.ds-close:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+.ds-dialog{position:fixed;inset:0;margin:auto;width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 40px);overflow:auto;background:#0b1222;color:var(--ink);border:1px solid var(--line);border-radius:var(--radius-panel);padding:var(--space-6);box-shadow:0 24px 100px #0009;font-family:var(--font-display)}
+.ds-dialog::backdrop{background:#03050ccc;backdrop-filter:blur(8px)}
+.ds-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.ds-eyebrow{font:10px var(--font-code);letter-spacing:.12em;color:var(--cyan);margin-bottom:8px}
+.ds-dialog h2{font-size:26px;letter-spacing:-.02em}
+.ds-dialog h3{font-size:14px;margin:24px 0 12px}
+.ds-dialog p{font-size:13px;line-height:1.6;color:#a7b8d5;margin-top:8px}
+.ds-close{background:transparent;border:1px solid var(--line);border-radius:4px;color:var(--ink);padding:8px 12px;cursor:pointer;font:11px var(--font-code)}
+.ds-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.ds-swatch{border:1px solid var(--line);padding:10px;border-radius:4px;font:10px var(--font-code);line-height:1.6}
+.ds-swatch i{display:block;height:24px;background:var(--swatch);border-radius:3px;margin-bottom:8px}
+.ds-swatch span{display:block;color:#a7b8d5}
+.ds-rules{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ds-rule{border:1px solid var(--line);border-radius:4px;padding:12px}
+.ds-rule b{font-size:12px}
+.ds-process{padding-left:20px;font-size:13px;line-height:1.6;color:#a7b8d5}
+.ds-process li{padding:5px 0}.ds-process strong{color:var(--ink)}
+@media(max-width:560px){.ds-swatches{grid-template-columns:repeat(2,1fr)}.ds-rules{grid-template-columns:1fr}.ds-dialog{padding:16px}.status{gap:8px}.brand h1{font-size:12px}.brand p{font-size:8px}.logo{display:none}.status>span{display:none}}
+
+@media (max-width:1100px){.col.r{display:none}.caption{left:calc(384px + (100% - 384px)/2)}.caption .x{font-size:20px}}
+@media (max-width:760px){.col.l{display:none}.caption .x{font-size:18px}.status .hide{display:none}header{left:16px;right:16px}footer{left:16px;right:16px}}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div class="scan"></div>
+<div id="labels"></div>
+
+<div class="hud">
+  <header>
+    <div class="brand"><div class="logo"></div>
+      <div><h1>SCHEMA<em>·</em>ON<em>·</em>READ</h1><p>DYNAMIC QUERY OBSERVATORY — MOCK DATA</p></div></div>
+    <div class="status">
+      <span class="hide">CLUSTER <b>pg-jsonb-01</b></span>
+      <span class="hide">ENTITY <b>product</b></span>
+      <span>T+ <b id="clock">00.00</b>s</span>
+      <span class="rec">LOOP 107s</span>
+      <button class="ds-trigger" id="designSystemOpen" aria-haspopup="dialog">Design system</button>
+    </div>
+  </header>
+
+  <div class="caption" id="caption"><div class="n" id="capn">01 / INGESTION</div><div class="x" id="capx">Capture incoming files and source metadata</div></div>
+
+  <div class="col l">
+    <div class="panel" data-ph="2">
+      <div class="ph"><span><b id="workflowName">INGESTION</b></span><span class="tag" id="workflowStep">01 / 14</span></div>
+      <p id="workflowDetail" style="font:12px/1.6 var(--font-display);color:var(--ink)">Receive incoming files and source metadata.</p>
+      <div class="row"><span style="color:var(--cyan)">CAMERA · NODE FOCUS</span><b id="cameraRoute">Ingestion → OCR</b></div>
+      <div class="row"><span id="workflowStatus">Processing mock document</span><b id="submissionLabel">SUB-0001 · XLSX</b></div>
+      <div class="row"><span>ORIGIN</span><b id="submissionOrigin">Excel upload</b></div>
+      <p id="ingressStatus" style="font:10px/1.6 var(--font-code);color:var(--cyan);margin-top:8px">Incoming XLSX → Ingestion</p>
+      <div class="row"><span>WAITING SUBMISSIONS</span><b id="ingressQueue">0</b></div>
+      <div class="ph" style="margin-top:12px"><span>SCHEMA-ON-READ QUERY EXAMPLE</span></div>
+      <pre id="payload"></pre>
+    </div>
+    <div class="panel" data-ph="2">
+      <div class="ph"><span><b>COMPILED SQL</b> · knex → pg</span><span class="tag">PARAMETERISED</span></div>
+      <pre id="sql"></pre>
+    </div>
+    <div class="panel schema-panel" data-ph="1">
+      <div class="ph"><span><b>EVOLVING SCHEMA</b> · document record</span><span class="tag" id="regtag">v0</span></div>
+      <table id="reg"></table>
+    </div>
+  </div>
+
+  <div class="col r">
+    <div class="kpis">
+      <div class="kpi"><small>DOCUMENTS</small><strong id="kDocs">0</strong><span class="up" id="kDocsS">+0 /s</span></div>
+      <div class="kpi"><small>P95 LATENCY</small><strong id="kLat">840ms</strong><span id="kLatS">seq scan</span></div>
+      <div class="kpi"><small>MATCHES</small><strong id="kMat">—</strong><span id="kMatS">awaiting query</span></div>
+      <div class="kpi"><small>ALTER TABLE</small><strong>0</strong><span class="up">since v1 · 412 days</span></div>
+    </div>
+    <div class="panel" data-ph="0">
+      <div class="ph"><span><b>INGEST THROUGHPUT</b></span><span id="tput">docs/s</span></div>
+      <canvas class="mini" id="spark" height="56"></canvas>
+    </div>
+    <div class="panel" data-ph="3">
+      <div class="ph"><span><b>SCHEMA VERSIONS</b> · as read</span><span class="tag" id="vtag">RAW</span></div>
+      <div class="donutwrap"><canvas id="donut" width="84" height="84" style="width:84px;height:84px"></canvas>
+        <div class="legend">
+          <div><span><i style="background:var(--amber)"></i>v1 · cost</span><b id="lv1">38%</b></div>
+          <div><span><i style="background:var(--violet)"></i>v2 · price</span><b id="lv2">32%</b></div>
+          <div><span><i style="background:var(--cyan)"></i>v3 · price+meta</span><b id="lv3">30%</b></div>
+        </div></div>
+    </div>
+    <div class="panel stack" data-ph="-1" id="stackp">
+      <div class="pc" data-p="0">
+        <div class="ph"><span><b>INCOMING DOCUMENT</b></span><span class="tag" id="docv">v3</span></div>
+        <pre id="docpre"></pre>
+        <div class="row"><span>shape varies per row</span><b>no migration</b></div>
+      </div>
+      <div class="pc" data-p="1">
+        <div class="ph"><span><b>REGISTRY CHECK</b></span><span class="tag">GUARDRAIL</span></div>
+        <div class="big" id="vOk">0<em>fields approved</em></div>
+        <div class="row"><span class="bad">✕ discount_pct</span><b class="bad">unknown → blocked</b></div>
+        <div class="row"><span>invalid queries stopped</span><b id="vBlk">0</b></div>
+      </div>
+      <div class="pc" data-p="2">
+        <div class="ph"><span><b>RESULT SET</b></span><span class="tag">price ≥ 150 ∧ blue ∧ Acme</span></div>
+        <div class="big" id="qBig">0<em>rows</em></div>
+        <div class="bar"><i id="qBar" style="width:0"></i></div>
+        <div class="row"><span>selectivity</span><b id="qSel">0.0%</b></div>
+        <div class="row"><span>relationship</span><b>product → supplier · many:1</b></div>
+        <div class="row"><span>lookup</span><b>supplier_id → supplier.id</b></div>
+        <div class="explain">Mock plan: supplier.name = Acme.<br>Missing reference → no match; EXISTS avoids duplicate products.</div>
+      </div>
+      <div class="pc" data-p="3">
+        <div class="ph"><span><b>TRANSFORM ON READ</b></span><span class="tag">v1 → v2</span></div>
+        <div class="morph"><pre id="mL"></pre><span class="arrow">➜</span><pre id="mR"></pre></div>
+        <div class="bar"><i id="eBar" style="width:0"></i></div>
+        <div class="row"><span>rows normalised</span><b id="eCnt">0</b></div>
+        <div class="row"><span>rows rewritten on disk</span><b class="ok">0</b></div>
+      </div>
+      <div class="pc" data-p="4">
+        <div class="ph"><span><b>DATABASE PERSISTENCE</b></span><span class="tag">JSONB</span></div>
+        <div class="big" id="persistCount">0<em>stage updates</em></div>
+        <div class="explain">Processing stages store results, review corrections, and delivery status. RAG Retrieval reads vector context without modifying the document record.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="tl" id="tl"></div>
+    <div class="foot2"><span>DOCUMENT → PROCESS → REVIEW → DECISION → EXPORT · RAG RETRIEVAL READS VECTORS · PROCESS RESULTS UPDATE JSONB</span><span>SPACE · pause</span></div>
+  </footer>
+</div>
+
+<div class="camera-controls" aria-label="Camera controls">
+  <span id="cameraMode" aria-live="polite">Auto follow</span><button id="cameraToggle" type="button">Take control · C</button>
+  <p>WASD move · R/F up/down · ↑/↓ pitch · ←/→ yaw · Q/E roll · Shift faster · Space pause</p>
+</div>
+<dialog class="ds-dialog" id="designSystem" aria-labelledby="designSystemTitle">
+  <div class="ds-head"><div><div class="ds-eyebrow">PREDEFINED SYSTEM · V1.0</div><h2 id="designSystemTitle">Observatory</h2></div><button class="ds-close" id="designSystemClose" autofocus>Close</button></div>
+  <p>A shared visual language for the schema-on-read process. Use these tokens and component rules before building each stage.</p>
+  <h3>Semantic palette</h3>
+  <div class="ds-swatches">
+    <div class="ds-swatch" style="--swatch:var(--cyan)"><i></i>Flow<span>#39E6FF · queries</span></div>
+    <div class="ds-swatch" style="--swatch:var(--violet)"><i></i>Evolution<span>#B46BFF · transforms</span></div>
+    <div class="ds-swatch" style="--swatch:var(--amber)"><i></i>Legacy<span>#FFB547 · aliases</span></div>
+    <div class="ds-swatch" style="--swatch:var(--mint)"><i></i>Success<span>#34FFC8 · approved</span></div>
+    <div class="ds-swatch" style="--swatch:var(--red)"><i></i>Blocked<span>#FF4D6D · errors</span></div>
+  </div>
+  <h3>Foundations &amp; components</h3>
+  <div class="ds-rules">
+    <div class="ds-rule"><b>Typography</b><p>Space Grotesk for titles and metrics; JetBrains Mono for code, labels, and data. Use 26px titles, 13px explanatory text, and 10–11px compact HUD labels.</p></div>
+    <div class="ds-rule"><b>Spacing &amp; surfaces</b><p>4px base grid: 4 / 8 / 12 / 16 / 24px. Panels use a 10px radius, 12px padding, a subtle border, and a dark glass surface over #03050C.</p></div>
+    <div class="ds-rule"><b>Component contract</b><p>Panel: label, status, content. KPI: label, value, context. Badge: explicit status text with semantic color. Relationship: labeled source → target and cardinality. Lookup: reference key → target key, with resolved or missing status. Timeline: numbered stage, name, and progress.</p></div>
+    <div class="ds-rule"><b>Interaction &amp; accessibility</b><p>Use 180ms for control feedback and a visible cyan focus ring. Pair color with text. Space pauses the simulation; Escape closes this guide. Keep reading surfaces still.</p></div>
+  </div>
+  <h3>Document processing workflow</h3>
+  <p>Ingestion → OCR → Classification → Routing / Orchestration → Fact Finding → Evidence &amp; Confidence Scoring → Normalization → Validation → Vector Processing → RAG Retrieval → UI Generation → Human Review → Approval / Decision → Export / Integration.</p>
+  <p>Processing stages persist results to the central database, evolving the document schema from v1 to v13. RAG Retrieval is a read-only operation at the API tier; it returns context without a database write. Relationship parsing and lookup support Fact Finding. A red rejection pause precedes a slower retry loop that follows Human Review → Normalization → Validation → Vector Processing → RAG Retrieval → UI Generation → Human Review. Approval records a separate decision; Export delivers approved data. All actions are animated mock examples.</p>
+  <h3>Submission origins</h3>
+  <p>External Excel, DOCX, email, webhook, PDF, scanned image, CSV, XML, web form, cloud storage, SFTP, database export, event stream, and chat sources send a labeled submission into Ingestion every 20 seconds of animation time. Arrivals rotate through all 14 source types, distinguishing file format from delivery channel. New submissions queue while the current record completes its pipeline; its source ID and format remain attached throughout processing. Space pauses both the pipeline and incoming traffic. These are simulated inputs.</p>
+  <h3>RAG processing of the submission</h3>
+  <p>Validated content becomes chunks and embeddings in the Vector Store. Retrieval supplies relevant chunks and citations to UI Generation. Chunk metadata carries submission ID, current version, source evidence, and access scope. Corrections repeat vector processing and retrieval so superseded chunks are excluded. Vector values remain in the vector store; the document database keeps chunk references and the generated UI’s citations; retrieval itself adds no stored data. This is a visual simulation.</p>
+  <h3>Connected API infrastructure</h3>
+  <p>Two API servers connect to PostgreSQL above the database. Human Review sits beside the web client in the client tier. Generated UI data travels through API Server 01 → Web Client → Human Review. Rejected edits travel Human Review → Web Client → API Server 01 → retry processing; revised UI data returns through the API and web client. Review database writes and the decision handoff also pass through the API. Web, mobile, and integration clients connect to the API tier; animated traffic shows the client → API → database paths. These are illustrative connections.</p>
+  <h3>Schema-on-read supporting components</h3>
+  <ol class="ds-process">
+    <li><strong>Ingest:</strong> accept raw JSON from APIs or events at the cyan DATA INGESTION node. Animate documents into JSONB storage; apply schema and relationship rules on read. Show labeled document versions and throughput with units.</li>
+    <li><strong>Validate:</strong> use the registry table and explicit APPROVED, ALIAS, or BLOCKED badges.</li>
+    <li><strong>Relationship parser:</strong> resolve an approved path such as supplier.name into a target entity, reference key, and cardinality (product → supplier, many-to-one). Reject unknown paths and unsupported traversals before compilation.</li>
+    <li><strong>Lookup:</strong> resolve product.supplier_id against supplier.id, constrain the target entity type, and filter its name. A missing reference produces no match. Use EXISTS for related filters to avoid duplicate product rows.</li>
+    <li><strong>Query:</strong> compile the validated relationship plan and scalar filters into parameterized SQL. Present payload, lookup keys, SQL, result count, and selectivity together. Values shown here are illustrative mock data.</li>
+    <li><strong>Evolve:</strong> use paired before-and-after code blocks, a violet transform cue, and normalization progress.</li>
+  </ol>
+</dialog>
+<script>
+const designSystemDialog=document.getElementById('designSystem');
+document.getElementById('designSystemOpen').addEventListener('click',()=>designSystemDialog.showModal());
+document.getElementById('designSystemClose').addEventListener('click',()=>designSystemDialog.close());
+designSystemDialog.addEventListener('keydown',event=>event.stopPropagation());
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script>window.CALL_GRAPH={"title":"Request workflow","nodes":[{"id":"fn0","label":"receiveRequest","description":"src/workflow.ts:1"},{"id":"fn1","label":"authenticate","description":"src/workflow.ts:9"},{"id":"fn2","label":"validateInput","description":"src/workflow.ts:17"},{"id":"fn3","label":"routeRequest","description":"src/workflow.ts:25"},{"id":"fn4","label":"loadAccount","description":"src/workflow.ts:33"},{"id":"fn5","label":"checkPermissions","description":"src/workflow.ts:41"},{"id":"fn6","label":"normalizeData","description":"src/workflow.ts:49"},{"id":"fn7","label":"applyRules","description":"src/workflow.ts:57"},{"id":"fn8","label":"saveRecord","description":"src/workflow.ts:65"},{"id":"fn9","label":"publishEvent","description":"src/workflow.ts:73"},{"id":"fn10","label":"renderResponse","description":"src/workflow.ts:81"},{"id":"fn11","label":"auditRequest","description":"src/workflow.ts:89"},{"id":"fn12","label":"handleError","description":"src/workflow.ts:97"},{"id":"fn13","label":"sendResponse","description":"src/workflow.ts:105"}],"edges":[{"source":"fn0","target":"fn1"},{"source":"fn1","target":"fn2"},{"source":"fn2","target":"fn3"},{"source":"fn3","target":"fn4"},{"source":"fn4","target":"fn5"},{"source":"fn5","target":"fn6"},{"source":"fn6","target":"fn7"},{"source":"fn7","target":"fn8"},{"source":"fn8","target":"fn9"},{"source":"fn9","target":"fn10"},{"source":"fn10","target":"fn11"},{"source":"fn11","target":"fn12"},{"source":"fn12","target":"fn13"}]};</script>
+<script>(()=>{
+const graph=window.CALL_GRAPH, $=id=>document.getElementById(id);
+const text=(id,value)=>{const el=$(id);if(el)el.textContent=value;};
+document.title=graph.title||'Call Graph Observatory';
+document.querySelector('.brand h1').textContent='CALL · GRAPH';
+document.querySelector('.brand p').textContent='JAVASCRIPT / TYPESCRIPT · STATIC ANALYSIS';
+document.querySelector('.status').replaceChildren($('designSystemOpen')); const status=document.createElement('span');status.textContent='STATIC ANALYSIS';document.querySelector('.status').prepend(status);
+text('workflowName','CALL GRAPH');text('workflowDetail','Select a node to inspect its incoming and outgoing calls.');text('workflowStep',graph.nodes.length+' NODES');
+text('cameraRoute','Auto orbit');text('workflowStatus','Static graph · animated calls');text('submissionLabel','SOURCE ANALYSIS');text('submissionOrigin','JavaScript / TypeScript');text('ingressStatus','Unresolved calls are shown explicitly');text('ingressQueue','—');
+text('kDocs',graph.nodes.length);text('kDocsS','functions / external targets');text('kLat','—');text('kLatS','static analysis');text('kMat',graph.edges.length);text('kMatS','call sites');
+document.querySelectorAll('.kpi small').forEach((el,i)=>el.textContent=['NODES','RUNTIME','CALLS','MIGRATIONS'][i]);
+
+text('capn','CALL GRAPH / OBSERVATORY');text('capx',graph.title||'Source call graph');
+text('payload',JSON.stringify({nodes:graph.nodes.length,calls:graph.edges.length},null,2));text('sql','Select a function to inspect its calls.');
+const table=$('reg');table.replaceChildren();graph.nodes.forEach(n=>{const tr=document.createElement('tr');tr.className='on';const a=document.createElement('td'),b=document.createElement('td');a.textContent=n.label||n.id;b.textContent=n.external?'UNRESOLVED':'FUNCTION';tr.append(a,b);table.append(tr);});
+document.querySelector('.schema-panel .ph b').textContent='FUNCTION REGISTRY';text('regtag','STATIC');
+
+const panels=document.querySelectorAll('.col.l .panel');panels[0].style.minHeight='340px';panels[1].style.minHeight='150px';
+panels[0].querySelectorAll('.ph')[1].textContent='FUNCTION METADATA';panels[1].querySelector('.ph').textContent='CALL SITES · SOURCE → TARGET';
+document.querySelector('.schema-panel .ph').firstElementChild.textContent='FUNCTION REGISTRY · source symbols';
+text('kLat',graph.nodes.filter(n=>n.external).length);text('kLatS','unresolved targets');text('kDocsS','source symbols + targets');
+document.querySelectorAll('.kpi small')[1].textContent='UNRESOLVED';document.querySelectorAll('.kpi small')[3].textContent='RESOLVED';document.querySelectorAll('.kpi strong')[3].textContent=graph.edges.filter(e=>!e.target.startsWith('unresolved:')).length;document.querySelectorAll('.kpi span')[3].textContent='static call sites';
+document.querySelector('.col.r .panel .ph').textContent='CALL DISTRIBUTION · STATIC';
+const spark=$('spark').getContext('2d');spark.strokeStyle='#39e6ff';spark.shadowBlur=10;spark.shadowColor='#39e6ff';spark.beginPath();for(let i=0;i<40;i++){const n=graph.nodes[i%graph.nodes.length];const count=graph.edges.filter(e=>e.source===n.id).length;spark.lineTo(i*7.5,50-Math.min(44,count*5));}spark.stroke();
+const donut=$('donut').getContext('2d');let from=-Math.PI/2;const groups=[graph.nodes.filter(n=>!n.external).length,graph.nodes.filter(n=>n.external).length];groups.forEach((count,i)=>{donut.beginPath();donut.strokeStyle=['#39e6ff','#b46bff'][i];donut.lineWidth=9;const to=from+count/graph.nodes.length*Math.PI*2;donut.arc(42,42,32,from,to);donut.stroke();from=to;});
+document.querySelectorAll('.col.r .panel')[1].querySelector('.ph').textContent='TARGET RESOLUTION';document.querySelector('.legend').replaceChildren();groups.forEach((count,i)=>{const row=document.createElement('div');row.textContent=(i?'Unresolved':'Source symbols')+' · '+count;document.querySelector('.legend').append(row);});
+document.querySelectorAll('.pc').forEach((el,i)=>el.classList.toggle('on',i===0));document.querySelector('.pc .ph').textContent='SELECTED FUNCTION';text('docpre','Awaiting node focus');document.querySelector('.pc .row').textContent='Static analysis · source locations retained';
+const timeline=document.querySelector('.tl');timeline.replaceChildren();graph.nodes.slice(0,14).forEach((n,i)=>{const seg=document.createElement('div');seg.className='seg';const lab=document.createElement('div');lab.className='lab';lab.textContent=String(i+1).padStart(2,'0')+' '+(n.label||n.id).slice(0,24);const track=document.createElement('div');track.className='track';track.append(document.createElement('i'));seg.append(lab,track);timeline.append(seg);});document.querySelector('.foot2').textContent='SOURCE → CALL → TARGET · STATIC ANALYSIS · ANIMATED HANDOFFS';
+
+const renderer=new THREE.WebGLRenderer({canvas:$('gl'),antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x03050c);scene.fog=new THREE.FogExp2(0x03050c,.007);
+const camera=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,.1,1000);
+const composer=new THREE.EffectComposer(renderer);composer.addPass(new THREE.RenderPass(scene,camera));composer.addPass(new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.85,.6,.32));
+scene.add(new THREE.AmbientLight(0x2a3a66,.5));
+const TAU=Math.PI*2;const rnd=Math.random;
+/* glow texture */
+const glowTex=(()=>{const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');
+  const gr=g.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.18,'rgba(255,255,255,.65)');
+  gr.addColorStop(.45,'rgba(255,255,255,.14)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,128,128);
+  return new THREE.CanvasTexture(c);})();
+const mkGlow=(color,s,op=1)=>{const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex,color,transparent:true,opacity:op,
+  blending:THREE.AdditiveBlending,depthWrite:false}));sp.scale.setScalar(s);return sp;};
+
+/* ---------- floor (shader grid with pulse ring) ---------- */
+const floorMat=new THREE.ShaderMaterial({
+  extensions:{derivatives:true},
+  uniforms:{uRing:{value:-10},uRingA:{value:0},uRingC:{value:new THREE.Color(0x39e6ff)},uT:{value:0}},
+  vertexShader:`varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+  fragmentShader:`varying vec3 vW;uniform float uRing,uRingA,uT;uniform vec3 uRingC;
+    float grid(vec2 p,float s){vec2 q=p/s;vec2 g=abs(fract(q-.5)-.5)/fwidth(q);return 1.-min(min(g.x,g.y),1.);}
+    void main(){vec2 p=vW.xz;float d=length(p);
+      float l1=grid(p,1.15),l2=grid(p,5.75);
+      float fade=exp(-d*.05);
+      float ring=exp(-pow((d-uRing)*.8,2.))*uRingA;
+      float scanl=.5+.5*sin(d*.9-uT*6.2831/15.*8.);
+      vec3 c=vec3(.03,.06,.12)*fade+vec3(.10,.32,.55)*l1*.35*fade+vec3(.2,.6,1.)*l2*.45*fade*(.7+.3*scanl);
+      c+=uRingC*ring*(.25+l1*1.6)*fade*1.5;
+      gl_FragColor=vec4(c+vec3(.012,.02,.047)*(1.-fade),1.);}`
+});
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(260,260),floorMat);
+floor.rotation.x=-Math.PI/2; floor.position.y=-2.6; scene.add(floor);
+
+/* ---------- stars ---------- */
+{const n=1800,pos=new Float32Array(n*3);for(let i=0;i<n;i++){const r=70+rnd()*120,a=rnd()*TAU,b=Math.acos(rnd()*1.6-.6);
+  pos[i*3]=Math.sin(b)*Math.cos(a)*r;pos[i*3+1]=Math.cos(b)*r;pos[i*3+2]=Math.sin(b)*Math.sin(a)*r;}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+ var stars=new THREE.Points(g,new THREE.PointsMaterial({color:0x7fa8ff,size:.5,transparent:true,opacity:.7,fog:false}));scene.add(stars);}
+
+/* ---------- platform (entities table) ---------- */
+const COLS=16,ROWS=12,N=COLS*ROWS,SP=1.15;
+const PW=COLS*SP+1.2,PD=ROWS*SP+1.2;
+const platform=new THREE.Mesh(new THREE.BoxGeometry(PW,.16,PD),new THREE.MeshStandardMaterial({color:0x0a1426,metalness:.6,roughness:.35,transparent:true,opacity:.82}));
+platform.position.y=-.1; scene.add(platform);
+const platEdge=new THREE.LineSegments(new THREE.EdgesGeometry(platform.geometry),new THREE.LineBasicMaterial({color:0x39e6ff,transparent:true,opacity:.7}));
+platEdge.position.copy(platform.position); scene.add(platEdge);
+const underGlow=mkGlow(0x2a7cff,30,.35); underGlow.position.y=-1.2; scene.add(underGlow);
+
+/* radar rings */
+const rings=[];
+[[13.5,0x39e6ff,.5,1],[15,0xb46bff,.35,-1],[16.6,0x39e6ff,.18,1]].forEach(([r,c,o,dir],k)=>{
+  const pts=[];for(let i=0;i<=256;i++){const a=i/256*TAU;pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r));}
+  const g=new THREE.BufferGeometry().setFromPoints(pts);
+  const line=new THREE.Line(g,new THREE.LineDashedMaterial({color:c,dashSize:k==1?.25:1.2,gapSize:k==1?.5:.6,transparent:true,opacity:o}));
+  line.computeLineDistances();line.position.y=-.2;line.userData.dir=dir;scene.add(line);rings.push(line);
+  // ticks
+  if(k==0){const tp=[];for(let i=0;i<72;i++){const a=i/72*TAU,l=i%6==0?1.1:.45;tp.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r),new THREE.Vector3(Math.cos(a)*(r+l),0,Math.sin(a)*(r+l)));}
+    const tk=new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(tp),new THREE.LineBasicMaterial({color:c,transparent:true,opacity:.45}));
+    tk.position.y=-.2;tk.userData.dir=dir;scene.add(tk);rings.push(tk);}
+});
+
+
+const palette=['#39e6ff','#b46bff','#ffb547','#34ffc8'];const map=new Map(),objects=[];
+const radius=Math.max(13,Math.sqrt(graph.nodes.length)*2);
+function select(n){text('docpre',JSON.stringify({function:n.label||n.id,location:n.description||'',resolution:n.external?'unresolved':'source'},null,2));text('capx',n.label||n.id);text('workflowDetail',n.description||n.id);text('payload',JSON.stringify(n,null,2));text('sql',graph.edges.filter(e=>e.source===n.id||e.target===n.id).map(e=>e.source+' → '+e.target).join('\n')||'No recorded calls');}
+graph.nodes.forEach((n,i)=>{const a=i/graph.nodes.length*Math.PI*2,color=n.color||palette[i%4],p=new THREE.Vector3(Math.cos(a)*radius,3+Math.sin(a*2)*3,Math.sin(a)*radius);
+const mesh=new THREE.Mesh(new THREE.OctahedronGeometry(1.1),new THREE.MeshBasicMaterial({color,wireframe:true}));mesh.position.copy(p);mesh.userData.node=n;scene.add(mesh);objects.push(mesh);const glow=mkGlow(color,5,.7);mesh.add(glow);const core=mkGlow(color,1.3,1);mesh.add(core);const ring=new THREE.Mesh(new THREE.TorusGeometry(1.8,.015,8,64),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.5}));ring.rotation.x=Math.PI/2;mesh.add(ring);
+const label=document.createElement('div');label.className='lbl node-card';label.style.color=color;label.style.pointerEvents='auto';const box=document.createElement('button');box.className='t';box.style.cssText='color:inherit;cursor:pointer;text-align:left;font-family:var(--font-code)' ;const title=document.createElement('b');title.textContent=(n.label||n.id).replace(/\s+/g,' ').slice(0,64);title.title=n.label||n.id;const sub=document.createElement('span');sub.textContent=n.external?'unresolved / external':n.description||'function';box.append(title,sub);box.onclick=()=>select(n);label.append(box);$('labels').append(label);map.set(n.id,{p,mesh,label});});
+const routes=graph.edges.map(e=>{const a=map.get(e.source).p,b=map.get(e.target).p;const mid=a.clone().add(b).multiplyScalar(.5);mid.y+=e.source===e.target?9:5;const end=b.clone();if(e.source===e.target)end.x+=.8;const curve=new THREE.QuadraticBezierCurve3(a,mid,end);scene.add(new THREE.Mesh(new THREE.TubeGeometry(curve,40,.035,5,false),new THREE.MeshBasicMaterial({color:0x39e6ff,transparent:true,opacity:.25})));const packet=mkGlow(0xafffff,1.4,1);scene.add(packet);return {curve,packet};});
+let paused=false,elapsed=0,last=0,angle=0,activeIndex=-1;document.querySelectorAll('.camera-controls').forEach(el=>el.remove());const controls=document.createElement('div');controls.className='camera-controls';const btn=document.createElement('button');btn.textContent='Pause';btn.onclick=()=>{paused=!paused;btn.textContent=paused?'Resume':'Pause';};controls.append('ANIMATED CALL DIRECTION · SOURCE → TARGET',btn);document.body.append(controls);
+function resize(){renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}addEventListener('resize',resize);resize();
+function frame(now){requestAnimationFrame(frame);const dt=last?Math.min(.1,(now-last)/1000):0;last=now;if(!paused){elapsed+=dt;angle+=dt*.06;}const focusIndex=Math.floor(elapsed/7)%graph.nodes.length;const focus=map.get(graph.nodes[focusIndex].id).p;const destination=focus.clone().add(new THREE.Vector3(4,15,25));camera.position.lerp(destination,.035);camera.lookAt(focus);floorMat.uniforms.uT.value=elapsed; if(focusIndex!==activeIndex){activeIndex=focusIndex;select(graph.nodes[focusIndex]);text('workflowStep',String(focusIndex+1).padStart(2,'0')+' / '+graph.nodes.length);document.querySelectorAll('.seg').forEach((el,i)=>el.classList.toggle('on',i===focusIndex%14));}document.querySelectorAll('.track i').forEach((el,i)=>el.style.width=(i<focusIndex%14?100:i===focusIndex%14?(elapsed%7)/7*100:0)+'%');routes.forEach((r,i)=>r.packet.position.copy(r.curve.getPoint((elapsed*.25+i*.17)%1)));map.forEach(({p,mesh,label})=>{mesh.rotation.y=elapsed*.4;const v=p.clone().project(camera);label.style.transform=`translate(${(v.x*.5+.5)*innerWidth}px,${(-v.y*.5+.5)*innerHeight}px)`;const visible=p.distanceTo(focus)<18&&v.z<1&&Math.abs(v.x)<.8&&Math.abs(v.y)<.8;label.style.opacity=visible?'1':'0';label.style.pointerEvents=visible?'auto':'none';label.classList.toggle('expanded',p===focus);});composer.render();}requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
