@@ -1,6 +1,6 @@
 // Release parity: compare freshly built owners with the artifacts consumers resolve.
 // The one-time pre-extraction body audit is scripts/audit-pipeline-extraction.mjs.
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync, lstatSync, realpathSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
 import { spawnSync } from 'node:child_process';
@@ -77,6 +77,10 @@ export function verifyRelease(base = root) {
         }
         const require = createRequire(consumerPath);
         const installedPath = require.resolve(`${pkg.name}/package.json`);
+        const declaredLocation = path.join(base, consumer, 'node_modules', pkg.name);
+        if (!existsSync(declaredLocation) || lstatSync(declaredLocation).isSymbolicLink() || !realpathSync(installedPath).startsWith(realpathSync(path.join(base, consumer, 'node_modules')) + path.sep)) {
+          errors.push(`${consumer}: local package override or inherited installation for ${pkg.name}`);
+        }
         const installed = json(installedPath);
         if (installed.version !== pkg.version) errors.push(`${consumer}: resolves ${pkg.name}@${installed.version}, expected ${pkg.version}`);
         const actual = artifactInventory(path.join(path.dirname(installedPath), 'dist'));

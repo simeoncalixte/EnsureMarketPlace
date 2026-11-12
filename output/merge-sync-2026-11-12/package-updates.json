@@ -1,0 +1,14 @@
+[
+  {
+    "component": "EnsuredAuthUI",
+    "url": "https://github.com/simeoncalixte/EnsuredAuthUI/pull/6",
+    "head": "a4d91f9cb1caaa6f768b7b5e87166a181bdd07a6",
+    "version": "0.1.3",
+    "publicationRun": 43215678105
+  },
+  {
+    "component": "SubmissionUI",
+    "url": "https://github.com/simeoncalixte/SubmissionUI/pull/5",
+    "head": "ec6cae3b162358e80388aa6297cd82c30b335828"
+  }
+]

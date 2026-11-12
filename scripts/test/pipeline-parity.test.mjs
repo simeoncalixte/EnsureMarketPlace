@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync, renameSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { artifactInventory, compareArtifacts, verifyOwnership, verifyPin } from '../verify-pipeline-parity.mjs';
@@ -72,6 +72,13 @@ test('release gate resolves consumer artifacts and rejects a stale package at th
     }
     write(path.join(dir,'EnsuredAPI/package-lock.json'),lock);
     assert.deepEqual(verifyRelease(dir),[]);
+    const installed = path.join(dir,'EnsuredAPI/node_modules/@fixture/riskCompute');
+    const linked = path.join(dir,'local-risk-compute');
+    renameSync(installed, linked);
+    symlinkSync(linked, installed, 'dir');
+    assert.match(verifyRelease(dir).join('\n'), /local package override/);
+    rmSync(installed);
+    renameSync(linked, installed);
     write(path.join(dir,'EnsuredAPI/node_modules/@fixture/riskCompute/dist/index.js'),'exports.value = 0;');
     assert.match(verifyRelease(dir).join('\n'),/stale @fixture\/riskCompute@1.0.0/);
   } finally { rmSync(dir,{recursive:true,force:true}); }

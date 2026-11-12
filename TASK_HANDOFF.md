@@ -1,3 +1,126 @@
+# Merge, package update and main sync — 2026-11-12
+
+User requested merging the draft PRs, updating packages, and syncing parent to main. All 30 original component PRs are now merged through normal GitHub merges; local component main branches match origin/main. Exact merge receipts and final pins: `output/merge-sync-2026-11-12/components-merged.json` and `main-pins.json`. Original parent PR #76 is the remaining integration merge at this checkpoint.
+
+Registry audit covered 25 internal packages and 57 declarations. Updated the two stale XDS 0.1.1 references to 0.1.2: AuthUI PR #6 and SubmissionUI PR #5. AuthUI 0.1.3 published through successful Actions run 43215678105; host consumes that exact registry release through the PR recorded in `host-update.json`. Other internal package versions are current. No unnecessary package republishing or third-party major upgrades. Publication integrity and package PR links are in the concise receipts in the same folder.
+
+Verification: AuthUI build and 24 tests; SubmissionUI and host production builds; host dashboard tests; five package-override/parity regressions; installed registry provenance; theme ownership; full local pipeline artifact parity and component-policy checks pass. Raw verification logs stay local. Historical screenshot/story mappings below remain intact; this session adds dependency updates, no new workflow. No manual deployment or database migration; merge-triggered automation may run independently.
+
+Jira remains unavailable, so no ticket-status refresh or update is claimed. AIN-161 package context and AIN-162–173 completed UI context remain the required integration map. AIN-1 broader release, AIN-13 remote CI credentials, AIN-79 inventory filtering and historical finance work remain independent incomplete obligations. Known remote CI failures: parent private-checkout credential, Logistics registry E401, UI Vercel and Auth Cloudflare. No protection bypass or secret uploads. Main will be established from merged parent, preserving master; final sync receipt will be recorded below.
+
+---
+
+# PR delivery — 2026-11-11
+
+Completed: 31 open draft PRs (30 components/packages plus [parent #76](https://github.com/simeoncalixte/EnsureMarketPlace/pull/76)). GitHub read-back confirms all are mergeable and every component head matches its parent gitlink. Compact receipt: `output/pr-delivery-2026-11-11/pr-status.json`. Current failed checks: parent release-parity, Logistics validate (private XDS npm download E401), host Vercel and Auth Cloudflare. No CI bypass, merge or deployment. PR creation is complete; CI/release work remains incomplete.
+
+User explicitly requested PRs for all repositories and package changes. All changed components and committed package releases are included; unchanged repositories need no PR. Component PRs target their current default branches; the parent targets master. Exact heads and links: `output/pr-delivery-2026-11-11/components.json`. Merge shared packages/contracts first, consumers next, then parent.
+
+Raw historical screenshots/logs and detailed Jira snapshots remain local after automatic approval review rejected publishing the bulk evidence bundle; concise README/verification/attachment indexes are included. Full local paths below remain navigation references, not claims that every artifact is in the PR.
+
+Fresh verification: five override/parity regressions pass; installed package provenance and manifest/lockfile checks pass; theme generation/color ownership pass. Results/logs: `output/pr-delivery-2026-11-11/verification.json`. API commit hook typecheck/lint passed after a behavior-preserving unnecessary regex escape correction in `EnsuredAPI/src/services/submissionReferences.ts`. One host trailing-whitespace cleanup was also made. Historical Storybook/database/build and Before/After attachment evidence below is preserved, not claimed rerun today.
+
+Jira connector unavailable: ticket states and attachment accessibility could not be freshly reconciled, and no Jira updates or transitions were made. Scope map remains AIN-161 registry delivery, AIN-162–167 shared panels, AIN-168–173 placement. AIN-1 broader release, AIN-13 remote parity, AIN-79 inventory filtering and historical finance obligations are excluded from this PR-preparation request, not completed by it. No deployment, migration or package publication performed. The broader release objective remains incomplete; next step is CI/review and coordinated merges, plus resolving the existing release gates.
+
+- [EnsuredAPI](https://github.com/simeoncalixte/EnsuredAPI/pull/18) — `28c514d810ac`
+- [EnsuredAuth](https://github.com/simeoncalixte/EnsuredAuth/pull/20) — `632b3e9b58d1`
+- [EnsuredUI](https://github.com/simeoncalixte/EnsuredUI/pull/16) — `850bf7510847`
+- [SubmissionUI](https://github.com/simeoncalixte/SubmissionUI/pull/4) — `2d5dc43f1486`
+- [docs](https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/3) — `2f554f6877b0`
+- [EnsuredXDS](https://github.com/simeoncalixte/EnsuredXDS/pull/9) — `1c6694aa1e0e`
+- [EnsuredServices](https://github.com/simeoncalixte/EnsuredServices/pull/12) — `ca49bff45993`
+- [EnsuredMarketplace](https://github.com/simeoncalixte/EnsuredMarketplace/pull/4) — `88aaa8559a25`
+- [EnsuredAuthUI](https://github.com/simeoncalixte/EnsuredAuthUI/pull/5) — `853b430fbf55`
+- [EnsuredNetwork](https://github.com/simeoncalixte/EnsuredNetwork/pull/6) — `1845573c1b77`
+- [EnsuredLogistics](https://github.com/simeoncalixte/EnsuredLogistics/pull/4) — `536aa67993fc`
+- [EnsuredPipelineShared](https://github.com/simeoncalixte/EnsuredPipelineShared/pull/6) — `bd8946d2ff34`
+- [EnsuredPipelineIngestionAmqp](https://github.com/simeoncalixte/EnsuredPipelineIngestionAmqp/pull/3) — `a2e0cbda9da1`
+- [EnsuredPipelineIngestion](https://github.com/simeoncalixte/EnsuredPipelineIngestion/pull/3) — `ef746b0174ac`
+- [EnsuredPipelineOcr](https://github.com/simeoncalixte/EnsuredPipelineOcr/pull/3) — `3add51cfbe84`
+- [EnsuredPipelineClassification](https://github.com/simeoncalixte/EnsuredPipelineClassification/pull/4) — `2f78d3f1dfd0`
+- [EnsuredPipelineExtraction](https://github.com/simeoncalixte/EnsuredPipelineExtraction/pull/3) — `fbdae8bbf490`
+- [EnsuredPipelineLocationDiscovery](https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery/pull/4) — `4565e5987853`
+- [EnsuredPipelineNormalization](https://github.com/simeoncalixte/EnsuredPipelineNormalization/pull/4) — `ab19d435e39f`
+- [EnsuredPipelineValidation](https://github.com/simeoncalixte/EnsuredPipelineValidation/pull/4) — `ff97da4f5cea`
+- [EnsuredPipelineSchemaGeneration](https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/6) — `a2f3c82f5857`
+- [EnsuredPipelinePreRating](https://github.com/simeoncalixte/EnsuredPipelinePreRating/pull/3) — `e32bd14f9294`
+- [EnsuredPipelineCapacity](https://github.com/simeoncalixte/EnsuredPipelineCapacity/pull/4) — `59c5b6b995d7`
+- [EnsuredPipelineOracleAttestation](https://github.com/simeoncalixte/EnsuredPipelineOracleAttestation/pull/3) — `0430ddc53095`
+- [EnsuredPipelineWorkflow](https://github.com/simeoncalixte/EnsuredPipelineWorkflow/pull/3) — `fce08f47bc11`
+- [EnsuredPipelineRiskCompute](https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/pull/4) — `1ee705c5240e`
+- [EnsuredPipelineStorageSearch](https://github.com/simeoncalixte/EnsuredPipelineStorageSearch/pull/3) — `c8b90468dbbd`
+- [EnsuredConstants](https://github.com/simeoncalixte/EnsuredConstants/pull/5) — `c130431287a5`
+- [EnsuredPipelineFinancialDiscovery](https://github.com/simeoncalixte/EnsuredPipelineFinancialDiscovery/pull/3) — `eee91d5bb2ba`
+- [EnsuredPipelineSubjectDiscovery](https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery/pull/4) — `abb2378fab77`
+
+---
+
+# AIN-168 filter-toolbar delivery — completed locally 2026-11-09
+
+Original objective: complete AIN-168. Fresh Jira reconciliation confirms AIN-168 and all required sequential subtasks AIN-169 Marketplace → AIN-170 Network → AIN-171 commercial → AIN-172 party directories → AIN-173 Logistics **Done**. Receipt: `output/filter-button-delivery-2026-11-09/jira-final.json`. No child omitted or silently deferred. AIN-162 is related completed panel work; AIN-79 effective inventory filtering and AIN-1 broader staging/release remain To Do, excluded from this placement request. No backend prerequisite or schema change.
+
+Implementation: compact right-aligned filter actions across eleven surfaces, deliberate 375px wrapping, minimum 44px target, retained shared right-hand panel. Marketplace obsolete sidebar removed and map access added; Network categories grouped with filters; commercial section headings/actions normalized; party filters beside Refresh; Logistics filter beside load count. Shared host layout and fixture helper: `EnsuredUI/src/components/SectionToolbar`. Exact ticket → component → story → command/result map: `output/filter-button-delivery-2026-11-09/README.md`. A request retry regression caught in final review was fixed under AIN-171; Refresh remains available during failed inbox load, with executable desktop/narrow regression.
+
+Verification: all 22 placement runs at 1440×1000/375×1000 pass. Marketplace 17 interaction tests; Network 14 fixture tests plus exact discovery-query story; host commercial 11, Parties 33, four excluded-placement regressions; Logistics six interaction/WebMCP tests pass. Package builds, Marketplace/Logistics typechecks and final host production build pass. Runtime script `scripts/verify-filter-toolbar-runtime.mjs` passes 20 read-only checks across ten hosted surfaces/two widths, using existing synthetic demo accounts with browser mutations blocked. Full host TypeScript cleanup remains outside this change. Machine-readable results and durable logs are in the delivery folder.
+
+Visual evidence: all 44 original Before images retained; 44 matching After images attached, visually reviewed and downloaded/SHA-256 verified. After IDs AIN-169 10044–10047; AIN-170 10048–10051; AIN-171 10052–10075; AIN-172 10076–10083; AIN-173 10084–10087. Exact names, IDs and hashes: `all-attachments-readback.json`. Capture metadata/bounds: `captures.json`. Chromium dark theme, 100% zoom, scale 1, same stories/roles, scroll 0,0; closed full-page and open viewport. Dynamic audit timestamps/digests and generated Logistics references are disclosed differences. Final request screenshots match attached PNGs byte-for-byte; Network test-only follow-up visually matches. Synthetic fixture captures, not production images.
+
+Published Marketplace 0.1.4 (`88aaa85`, successful Actions 42681658369) and Network 0.1.4 (`377d006`, 42681915799); release branches/tags pushed. Network exact-query test follow-up `1845573` pushed. Host consumes exact registry versions/integrities, no local overrides; rebuilt/rerun frontend confirms installed versions and health HTTP 200. Local source snapshot `15f85c7cb12f876bb1cb5835d34c5685ccba7afe039a665a70ad691d0fffac2b`; file hashes/heads in `source-provenance.json`. Host/Logistics source and root evidence/handoff remain local among preserved pre-existing changes.
+
+Deployment: local frontend only, using existing `EnsuredAPI/docker-compose.yml` plus `output/model-settings-2026-11-05/internal-database.yml`; database volumes/other services retained. No migration, staging or production deployment. Standalone Logistics remains source/fixture verified, not deployed, as allowed by AIN-173. No blocker or unfinished step for AIN-168. Broader AIN-1/AIN-79 and historical financial obligations below remain independent and incomplete.
+
+---
+
+# Filter-button placement review — 2026-11-09
+
+User requested reviewing filter-button placement, creating tickets with Before images, attaching After images when completed, and adding this workflow to AGENTS.md. Review/ticket creation and agent-policy update are complete. Placement implementation remains incomplete and is explicitly queued; no After images, package release or deployment is claimed for this review.
+
+Fresh Jira reconciliation: AIN-168 story under AIN-1, with required sequential subtasks AIN-169 Marketplace → AIN-170 Network → AIN-171 commercial → AIN-172 party directories → AIN-173 Logistics, all To Do. AIN-162 completed panel migration is related, not replaced. AIN-79 effective filtering remains independent and open; AIN-1 broader staging/release criteria remain unchanged. No backend dependency is required for placement. Reviewed exclusions: email, submission/facility documents and model-library buttons already reside in their local action areas; dashboard ResultsToolbar is the alignment reference. Form controls, sorting and navigation search are excluded.
+
+Confirmed defects: Marketplace trigger stretches down the old sidebar; commercial/directory triggers are detached or stretch across desktop content; Network and Logistics triggers are isolated from section controls. Tickets specify compact right-aligned section action groups, intentional mobile wrapping, 44px touch targets, shared panel preservation, executable geometry/interaction assertions and registry/local Docker integration where applicable.
+
+Evidence: output/filter-button-review-2026-11-09/README.md contains component/story/command mapping; captures.json has 30 successful synthetic fixture play runs across 15 surfaces at 1440×1000 and 375×1000, 60 closed/open Before screenshots and measured trigger geometry. Current Storybooks rebuilt in all four owners. All 44 Before images for affected surfaces were uploaded to owning Jira subtasks, downloaded back and SHA-256 verified; tickets.json records attachment IDs/names/hashes, jira-final.json confirms To Do and accessible attachment metadata. Remaining 16 images document reviewed exclusions locally. source-provenance.json records heads/dirty paths. Fixtures are synthetic, dark theme, 100% zoom; they are not production captures. scripts/review-filter-button-positions.mjs reproduces capture; party stories navigate back to directories after play. Existing play passes do not establish placement correctness.
+
+AGENTS.md now requires Before captures when creating UI review tickets; matching After captures and a build/test comparison after implementation; Jira attachment readback; and no Done transition before screenshot plus executable evidence. No product source changed this review; existing changes preserved. No migration/deployment occurred. Next unfinished step: implement AIN-169 with closed-trigger layout regressions, verify and attach matching After images, then continue the required sequence. No concrete blocker.
+
+---
+
+# Application-wide right-hand filter panels — completed locally 2026-11-09
+
+User objective: each filter section in the standard right-hand panel; explicitly confirmed all application filter sections. User approved verified package commits/pushes/publication. Fresh Jira read-back: AIN-162 story and sequential AIN-163 shared panel / AIN-164 consumer migration / AIN-165 registry and local Docker verification all Done; discovered AIN-166 email fixture typo and AIN-167 local watcher configuration defect also Done. `output/filter-panels-2026-11-09/jira-final.json` is the final receipt.
+
+Shared implementation: `EnsuredXDS/src/components/RightHandPanel.tsx`, shared surface reused by `EnsuredUI/src/Pages/InsurerDashboard/SubmissionSidebar.tsx`. Filters migrated across submissions/dashboard, commercial facilities/documents/approvals/requests/audit/treaties/discovery, party directories, email, models, submission documents, Marketplace, Network discovery and Logistics. Full ticket → component → Storybook mapping, commands and exclusions: `output/filter-panels-2026-11-09/README.md`. Entity selectors inside authoring forms, navigation search, table sorting and active-filter summary chips are not separate filter sections. Existing AIN-79 effective Marketplace filtering remains To Do; relocating its controls does not implement that separate obligation. AIN-1 broader platform release remains To Do.
+
+Verification: XDS package tests 13/13, lint/format; 97 distinct passing executable Storybook stories across recorded suites; final mobile host 18/18, Network 11/11, Marketplace 9/9, models 15/15, Logistics 5/5. Shared panel interaction passes at 375px/1440px; 16 migrated panel journeys pass mobile right-edge/viewport checks. Initial host typo failure is superseded by AIN-166's passing final result. Synthetic transports and external-network blocking; original backend semantics unchanged. Final registry host build, owning Marketplace/Network builds, Logistics typecheck and installed-registry provenance check pass. Isolated candidate testing used `/tmp/ensured-filter-check`; no application local dependency overrides.
+
+Published and installed: XDS 0.1.2 (`1c6694a`, successful Actions 42644306810); Marketplace 0.1.3 (`40558a1`, 42644944740); Network 0.1.3 (`edb20d8`, 42644950734). Release branches/tags pushed. Host/Logistics source, consumer locks, evidence and handoff changes remain local; unrelated changes preserved. Local frontend Docker rebuilt and exact versions verified. Firefox signed-in gateway confirms real Marketplace taxonomy and Network discovery filters in the shared panel; Escape restores trigger focus. API/gateway/UI/KYC/Network HTTP checks all 200. Integrity, versions and runtime receipt: `output/filter-panels-2026-11-09/runtime-release.json`.
+
+Runtime repair AIN-167: existing API/UI watcher omitted the internal-only database override, recreating stopped dependencies with a conflicting host port during dependency updates. Restored the existing database volume and services, then restarted `docker compose --env-file EnsuredAPI/.env -f EnsuredAPI/docker-compose.yml -f output/model-settings-2026-11-05/internal-database.yml watch --no-up api frontend`. Watch log `/tmp/ensuredapi-filter-watch.log`. Retain both Compose files on future restarts; another project's PostgreSQL owns host port 5432. No volume deletion or other-project change. No production deployment or manual schema migration; normal application startup migrators remain. Logistics standalone source and fixtures verified, not separately deployed. No remaining work for this bounded local filter-panel request; broader release/financial obligations below remain independent and incomplete.
+
+---
+
+# Local Docker rebuild — 2026-11-09
+
+User requested rebuilding and rerunning the application with current settings. Rebuilt all nine application images across `ensuredapi` and `ensured-services`, then ran `up -d --force-recreate --wait --wait-timeout 180` for both projects. API Compose used `--env-file EnsuredAPI/.env` and the existing `output/model-settings-2026-11-05/internal-database.yml` override; service database URLs used `scripts/database-config.mjs` translation and package environment files. Both commands completed successfully. All configured health checks passed, including the previously unstarted KYC service. Gateway, UI, KYC health, Network readiness, SubmissionUI and relay returned HTTP 200; direct unauthenticated API returned 401. Existing database/data volumes retained; unrelated Docker project untouched. Normal startup migrations ran through existing application commands. Local Docker only; no production deployment. No source changes or ticket completion claimed; Jira connector unavailable in this session. Broader ticket obligations below remain unchanged.
+
+---
+
+# Registry-only package delivery — AIN-161 (2026-11-08)
+
+Objective: remove all local dependency overrides; user expanded scope to update/publish necessary packages and consume the updated releases. Bounded package delivery is complete locally. Fresh Jira read-back: AIN-161 and AIN-151 Done; AIN-13 In Progress; AIN-1 To Do. Required map: AIN-161 under AIN-1, related AIN-13; AIN-151 XDS source-boundary repair was necessary for publication. AIN-13 local artifact parity is verified, but its remote CI remains open. AIN-55 database CI and AIN-1's staging/rollback/provider outcomes are excluded from this package request and remain independent obligations. No new user-facing workflow; package regression/provenance and real PostgreSQL integration evidence apply instead of artificial UI stories.
+
+All 24 releases are published and registry-integrity verified: Constants/XDS and all 18 pipeline packages 0.1.1; AuthUI/Marketplace/Network 0.1.2; Services SDK 0.1.0. Exact heads, Actions runs and integrity values: `output/registry-only-2026-11-08/published.json`. Release branches/tags are pushed (Services PR #11 merged to register its new workflow). Consumer/configuration edits and this handoff remain local working-tree changes, not merged into default branches.
+
+Removed API sibling builds/linking/watch paths, frontend dependency mounts/Vite aliases, file dependencies, vendored Services tarball and finance staging scripts. All consumer manifests/locks/installations now use published artifacts. Root UI setup/build uses the host's registry dependencies; theme sync reads installed XDS. npm can retain old link/tarball lock entries even after manifest edits: these were explicitly removed, then clean installs performed. `scripts/check-package-overrides.mjs` now rejects missing registry URLs/integrity, local resolutions, source links, missing installations and version mismatches. Financial parity also rejects inherited/source-linked installations.
+
+Verification: workspace installed provenance passes; API typecheck passes; host UI build and 52 unit tests pass; SubmissionUI build and Logistics typecheck pass; AuthUI/Marketplace/Network builds pass; override/parity regression tests 5/5; isolated PostgreSQL pricing tests 10/10 using published RiskCompute/Shared; pipeline artifact parity/component policy and theme ownership pass. XDS build, 13 tests including source-boundary/packed-consumer checks, lint and format pass. Evidence/commands: `output/registry-only-2026-11-08/README.md` and `verification.json`.
+
+Local API/UI/SubmissionUI/relay containers rebuilt and refreshed. Runtime verifies 19 API packages, 5 UI packages and XDS in SubmissionUI/relay are registry artifacts with no dependency mounts/source links. API/UI/SubmissionUI HTTP 200; both SubmissionUI containers healthy. Restored the existing workspace PostgreSQL volume using the already documented `output/model-settings-2026-11-05/internal-database.yml` (no host port binding); other project's PostgreSQL untouched. No production deployment or manual migration; API startup retains its normal automatic migrator. Existing data volumes preserved.
+
+Credential blocker resolved: user configured dedicated PACKAGES_READ_TOKEN on all 21 dependency-consuming package repositories, and their releases succeeded. No existing broad GitHub credential was uploaded. AIN-13 remote parent CI still needs ENSURED_READ_TOKEN for private recursive checkout; parent secret inventory is empty. Do not equate local/package completion with AIN-1's full platform release. Next broader work: review/commit consumer/configuration changes, integrate release source branches, configure separate parent CI checkout access and run remote parity; staging/rollback/provider gates remain outside this bounded task.
+
+---
+
 # New PR merge delivery — 2026-11-08
 
 User explicitly authorized merging all 19 newly created PRs, superseding the prior create-only instruction. Scope: the 18 component PRs listed below and parent #75. All component PRs were marked ready, merged through normal GitHub merge commits in dependency order, and read back as MERGED into main at their expected heads. Parent #75 is the final integration merge into the previously approved master branch; its GitHub merged state is the authoritative final receipt: https://github.com/simeoncalixte/EnsureMarketPlace/pull/75. The parent preserves all 18 reviewed submodule commits, now reachable from component main histories. No admin bypass, force push, source modification, branch deletion, manual migration or manual deployment.
