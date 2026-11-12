@@ -9,6 +9,7 @@
 
 ## Deliver and verify
 
+- Before merging code, run and pass typechecking, ESLint, and Prettier checks in every affected Node/TypeScript package, along with the tests required for the change. Run them against the final changes; do not treat a previous run as evidence for later edits. If a package lacks a check, add the appropriate configuration or explicitly record the gap; do not silently skip it or claim merge readiness. For EnsuredAPI, use `npm run check` (typecheck, ESLint, and Prettier); use `npm run format` to apply source formatting before checking.
 - Work through required tickets and subtasks sequentially, respecting dependencies. Move each through its actual Jira workflow as work starts and finishes.
 - Mark an item Done only when its acceptance criteria are implemented and supported by appropriate verification. Record the changes, verification results, and any material limitations in the ticket.
 - Check child subtasks and required dependencies before closing a parent. Do not equate completion of a component with completion of the broader outcome.
