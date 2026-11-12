@@ -3,7 +3,7 @@
   "requiredChild": "AIN-178",
   "apiBase": "dcb76ff63a7c3a51114ed082c827f2ad5e4dd24d",
   "branch": "refactor/ain-177-explicit-types",
-  "state": "API and parent companion PRs open for review; not merged or deployed",
+  "state": "API merged and synchronized; parent integration recorded by PR #79 (receipt prepared before parent merge)",
   "recordedAt": "2026-11-12T16:39:43.193218+00:00",
   "check": {
     "command": "npm --prefix EnsuredAPI run check",
@@ -436,5 +436,8 @@
     "head": "cf1c73e4b45256fb99a015acbb94dd45fd9665d6",
     "status": "failed",
     "reason": "actions/checkout: Input required and not supplied: token; application checks did not run"
-  }
+  },
+  "apiMergeCommit": "26f87248aa7daed8d065e06c22e74b852710304f",
+  "apiMergedAt": "2026-11-12T16:49:21Z",
+  "apiMergeTreeMatchesVerifiedHead": true
 }
