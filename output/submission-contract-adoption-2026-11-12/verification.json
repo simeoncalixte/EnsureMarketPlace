@@ -1,0 +1,61 @@
+{
+  "ticket": "AIN-180",
+  "api": {
+    "pr": "https://github.com/simeoncalixte/EnsuredAPI/pull/22",
+    "verifiedHead": "77bd0186c6c587150e46a8cf3b73594ac4393e77",
+    "checks": "typecheck, zero assertions, generated contracts, ESLint, Prettier passed",
+    "manualTests": 78,
+    "dbTests": 4,
+    "dbFailures": 0,
+    "database": "disposable random Docker compose project, removed",
+    "savedFormSchemaParity": "expanded schemas identical",
+    "workingTreePreservation": "all pre-sync existing files byte-identical after mixed main sync",
+    "mergeCommit": "0d0a847dffc3ee6aad632f003f91f4d413687dc3",
+    "status": "merged"
+  },
+  "uiPrerequisite": {
+    "ticket": "AIN-181",
+    "verifiedHead": "3c34bf8",
+    "baselineTypeErrors": 217,
+    "finalTypeErrors": 0,
+    "checks": "typecheck (src, Storybook, Vite), ESLint, Prettier pass",
+    "componentTests": 3,
+    "nodeTests": 52,
+    "productionBuild": "passed",
+    "pr": "https://github.com/simeoncalixte/EnsuredUI/pull/18",
+    "ciRun": "https://github.com/simeoncalixte/EnsuredUI/actions/runs/43285270299",
+    "packageAccess": "User approved Read access for EnsuredUI Actions on ensured-pipeline-shared; settings confirmed Role: Read and CI installs now pass.",
+    "deployment": "Vercel preview failed; main also has failing Vercel deployment status. Outside local check repair; no deployment success claimed.",
+    "mergeCommit": "2d64f4ff4aa6f380c2dc38512e39fe5cb8acaa0d",
+    "ciResult": "success including production container smoke",
+    "regression": "Generated XDS JSON formatting corrected in merged UI PR19; generator parity and final checks pass."
+  },
+  "deployment": "none",
+  "remaining": "No component work remaining; parent merge/sync receipt on PR80 and AIN-180. Broader service refactor recommendations remain separate.",
+  "uiAdoption": {
+    "checks": "typecheck/ESLint/Prettier pass",
+    "componentTests": 4,
+    "nodeTests": 52,
+    "build": "passed",
+    "contracts": "form fields, conditions, template sections, and workbench ManualTemplate derive from published Constants 0.1.2",
+    "pr": "https://github.com/simeoncalixte/EnsuredUI/pull/19",
+    "verifiedHead": "1f45752a0c63ecdf512b5118f6030a3ee4680683",
+    "ciRun": "https://github.com/simeoncalixte/EnsuredUI/actions/runs/43316373596",
+    "mergeCommit": "6f51532def88a7686ec83dcdf5aa8f261d18186e",
+    "ciResult": "success including production container smoke",
+    "status": "merged"
+  },
+  "parentVerification": {
+    "command": "npm run pipeline:verify",
+    "result": "passed after generated-registry correction",
+    "regressionTests": 5,
+    "checksScope": "Parent changes only gitlinks, handoff and receipts; no root Node/TypeScript implementation changes."
+  },
+  "parentDelivery": {
+    "pr": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/80",
+    "ciRun": 43317129422,
+    "ciResult": "failure during checkout: Input required and not supplied: token; no remote application checks executed",
+    "localVerification": "passed",
+    "protectionOverride": false
+  }
+}

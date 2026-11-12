@@ -1,0 +1,23 @@
+{
+  "ticket": "AIN-179",
+  "version": "0.1.2",
+  "commit": "51cd9dc1770196f71d9c68fed2105eb260add48a",
+  "checks": {
+    "npm run check": "passed: CommonJS and ESM typecheck, ESLint, Prettier",
+    "npm test": "9 passed",
+    "runtimeTemplateParity": "deepEqual against main: passed",
+    "packedConsumer": "CJS/ESM root and subpath passed; declarations passed Node10, NodeNext and bundler"
+  },
+  "scope": "Constants-first additive release; API/UI source adoption and service refactors remain separate",
+  "deployment": "no application deployment or migration",
+  "pr": "https://github.com/simeoncalixte/EnsuredConstants/pull/6",
+  "mergeCommit": "7a0b1318051df13b8f35b38c8285fc6abc0374c2",
+  "release": "v0.1.2",
+  "publicationRun": "https://github.com/simeoncalixte/EnsuredConstants/actions/runs/43282348934",
+  "registry": {
+    "version": "0.1.2",
+    "dist.integrity": "sha512-3MraZKTMZ3MHGBlq5DOQILRr9mcFHPdx9KRaCM9679K1utGCUzQLkX2oJTHFJAaHf9ZUfzaIUDj85kgUsm8HAg=="
+  },
+  "registryVerification": "API name and UI alias install/imports passed; NodeNext declarations passed; all published dist files byte-identical to fresh local build",
+  "status": "published and verified"
+}
