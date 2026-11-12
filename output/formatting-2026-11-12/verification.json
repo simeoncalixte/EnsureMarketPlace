@@ -1,0 +1,26 @@
+{
+  "ticket": "AIN-176",
+  "apiPR": "https://github.com/simeoncalixte/EnsuredAPI/pull/20",
+  "apiBase": "121b922d01370132dcba2617af3f09013daead1c",
+  "verifiedHead": "37092576463d29327a6a309b92fc07f8e47651ff",
+  "apiMerge": "dcb76ff63a7c3a51114ed082c827f2ad5e4dd24d",
+  "sourceFilesFormatted": 271,
+  "checks": {
+    "npm --prefix EnsuredAPI run check": "passed: typecheck, ESLint zero warnings, Prettier",
+    "npm --prefix EnsuredAPI run test:auth": "11 suites, 124 tests passed",
+    "node --test scripts/test/package-overrides.test.mjs scripts/test/pipeline-parity.test.mjs": "5 tests passed",
+    "git diff --check": "passed in API and parent"
+  },
+  "sourceComparison": {
+    "filesCompared": 271,
+    "structuralDifferences": [],
+    "normalization": "AST node kinds, child structure and literal values; ignore source positions, comments, quote style and redundant parentheses"
+  },
+  "scopeLimitations": [
+    "Existing typecheck excludes migrations and tests",
+    "Source lint/format excludes standalone test/ and scripts/",
+    "No full database/provider integration rerun for formatting-only changes",
+    "No UI change, migration execution or deployment",
+    "Type-safety refactor remains separate and not started"
+  ]
+}
