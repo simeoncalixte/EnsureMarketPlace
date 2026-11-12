@@ -3,7 +3,7 @@
   "requiredChild": "AIN-178",
   "apiBase": "dcb76ff63a7c3a51114ed082c827f2ad5e4dd24d",
   "branch": "refactor/ain-177-explicit-types",
-  "state": "API committed and published for review; not merged or deployed",
+  "state": "API and parent companion PRs open for review; not merged or deployed",
   "recordedAt": "2026-11-12T16:39:43.193218+00:00",
   "check": {
     "command": "npm --prefix EnsuredAPI run check",
@@ -429,5 +429,12 @@
   },
   "apiCommit": "12bc6927b6e33be8b741dd6ca04db5a2cc4133f0",
   "apiPullRequest": "https://github.com/simeoncalixte/EnsuredAPI/pull/21",
-  "preCommitCheck": "passed: typechecks, zero-escape gate, generated-contract freshness, ESLint and Prettier"
+  "preCommitCheck": "passed: typechecks, zero-escape gate, generated-contract freshness, ESLint and Prettier",
+  "parentPullRequest": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/79",
+  "parentCI": {
+    "url": "https://github.com/simeoncalixte/EnsureMarketPlace/actions/runs/43262519547",
+    "head": "cf1c73e4b45256fb99a015acbb94dd45fd9665d6",
+    "status": "failed",
+    "reason": "actions/checkout: Input required and not supplied: token; application checks did not run"
+  }
 }
