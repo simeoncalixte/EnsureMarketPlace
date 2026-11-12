@@ -1,0 +1,290 @@
+[
+  {
+    "repository": ".",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "0248038736bf29c29851662cb4494fdfeff6db03",
+    "head": "0248038736bf29c29851662cb4494fdfeff6db03",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredAPI",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "8194dffd639a16809642b26716a19b2cefd41e50",
+    "head": "8194dffd639a16809642b26716a19b2cefd41e50",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredAuth",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "71a907d9ec58129ee231bfb1d0badc69afd3f9f2",
+    "head": "71a907d9ec58129ee231bfb1d0badc69afd3f9f2",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredKYC",
+    "previousBranch": "codex/workspace-changes-2026-11-08",
+    "branch": "main",
+    "before": "869e57c28d25c5ff2e21737a78ab08145785bd25",
+    "head": "d2f0ddb5fe5ac9adfd8227826c640877997bb47b",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredUI",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "e55eeb3034dcc241bac64d5babfceb5996cc7f40",
+    "head": "e55eeb3034dcc241bac64d5babfceb5996cc7f40",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "SubmissionUI",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "ec6cae3b162358e80388aa6297cd82c30b335828",
+    "head": "ec6cae3b162358e80388aa6297cd82c30b335828",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "docs",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "5803f716c550889ffa46ef9547ae58e2627bd4de",
+    "head": "5803f716c550889ffa46ef9547ae58e2627bd4de",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "pdfs",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "47d1d38f244f7bf0cedd8d72c9ae4c7db72a3311",
+    "head": "47d1d38f244f7bf0cedd8d72c9ae4c7db72a3311",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredXDS",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "d0bfc2b36cd98487f8f1740e88562b265b1031d4",
+    "head": "d0bfc2b36cd98487f8f1740e88562b265b1031d4",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredServices",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "3444e6bc0f731d81647563e4d0db8f0a3add656d",
+    "head": "3444e6bc0f731d81647563e4d0db8f0a3add656d",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredMarketplace",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "f39eb49fc71448d2a90d834d7798a4cba1d69928",
+    "head": "f39eb49fc71448d2a90d834d7798a4cba1d69928",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredAuthUI",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "a4d91f9cb1caaa6f768b7b5e87166a181bdd07a6",
+    "head": "a4d91f9cb1caaa6f768b7b5e87166a181bdd07a6",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredNetwork",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "453434496f4df4af9f5e2e4bf2689afcc4241cf5",
+    "head": "453434496f4df4af9f5e2e4bf2689afcc4241cf5",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredLogistics",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "8b0338240f7cf7c063b67a0a6f01b7f01b912f4a",
+    "head": "8b0338240f7cf7c063b67a0a6f01b7f01b912f4a",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredEmail",
+    "previousBranch": "codex/workspace-changes-2026-11-08",
+    "branch": "main",
+    "before": "2991e6f268f6d9242dd19b09a03c633acb50d805",
+    "head": "d9bb1416126dc042987584d21135c78a0d9bbbd5",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineShared",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "804e65cfc0ccbe249d95350ae79fd46547db15c0",
+    "head": "804e65cfc0ccbe249d95350ae79fd46547db15c0",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineIngestionAmqp",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "7ee472700f7ec53d967617e60f96297ac6a9b7c6",
+    "head": "7ee472700f7ec53d967617e60f96297ac6a9b7c6",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineIngestion",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "ad9048cb42b2d9aa4ad65bcd3a004d36d93544f1",
+    "head": "ad9048cb42b2d9aa4ad65bcd3a004d36d93544f1",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineOcr",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "7973cfe531bdebe1669b93597a6571706c5cf65d",
+    "head": "7973cfe531bdebe1669b93597a6571706c5cf65d",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineClassification",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "8c8edd53a09e2cf09705530831d3aea4966f963e",
+    "head": "8c8edd53a09e2cf09705530831d3aea4966f963e",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineExtraction",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "fa78f0fad581d4d7a93a986afe402cc0033fe60f",
+    "head": "fa78f0fad581d4d7a93a986afe402cc0033fe60f",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineLocationDiscovery",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "b2f99fb16074213dffd56a3aa9538142878ab0fb",
+    "head": "b2f99fb16074213dffd56a3aa9538142878ab0fb",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineNormalization",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "0c34860dbee345a45b5d3563d7bb71d5ed36f5b8",
+    "head": "0c34860dbee345a45b5d3563d7bb71d5ed36f5b8",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineValidation",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "a9f6649a7b3b13f719f2a92de5ccab30a8ccdb8c",
+    "head": "a9f6649a7b3b13f719f2a92de5ccab30a8ccdb8c",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineSchemaGeneration",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "29e88204a61a1ea3fc8c4a2ad0ff6419073f1df7",
+    "head": "29e88204a61a1ea3fc8c4a2ad0ff6419073f1df7",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelinePreRating",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "79a348226181e2a4803f7106c4b4a27b8c99ced3",
+    "head": "79a348226181e2a4803f7106c4b4a27b8c99ced3",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineCapacity",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "9d1367257f75a182db1da24657771a60247e6247",
+    "head": "9d1367257f75a182db1da24657771a60247e6247",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineOracleAttestation",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "9596a8908c1052692936dc97ce5c6376811cf9f6",
+    "head": "9596a8908c1052692936dc97ce5c6376811cf9f6",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineWorkflow",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "1db4954125374a14a0babc3c781c430034367a20",
+    "head": "1db4954125374a14a0babc3c781c430034367a20",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineRiskCompute",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "c65f2ac74a9b5df1457328afdb92b777967fee83",
+    "head": "c65f2ac74a9b5df1457328afdb92b777967fee83",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineStorageSearch",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "f3fef8c9032a5b332c2ded169204fa2a9c10da4d",
+    "head": "f3fef8c9032a5b332c2ded169204fa2a9c10da4d",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredSubmissionFeedback",
+    "previousBranch": "codex/workspace-changes-2026-11-08",
+    "branch": "main",
+    "before": "1f5e7fa3c9c27831fe1f7ed2c40099cedeed3c29",
+    "head": "6cbba426038e7e7aad086311a9428ae4f4d9e24a",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredConstants",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "89be81c991e5d4f579089884ea762dde9bc18ba0",
+    "head": "89be81c991e5d4f579089884ea762dde9bc18ba0",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineFinancialDiscovery",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "23c72b50ed8fa0185fd705910eac1b7812361a4e",
+    "head": "23c72b50ed8fa0185fd705910eac1b7812361a4e",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredPipelineSubjectDiscovery",
+    "previousBranch": "main",
+    "branch": "main",
+    "before": "2e320a9dbd7d0ee38a9685ca8560f9848341a5ab",
+    "head": "2e320a9dbd7d0ee38a9685ca8560f9848341a5ab",
+    "upstream": "origin/main"
+  },
+  {
+    "repository": "EnsuredCallGraph",
+    "previousBranch": "codex/pending-changes-2026-10-12",
+    "branch": "main",
+    "before": "a2b5e707d92b8521f1dbe0e488e00c7299d72d90",
+    "head": "16dc18c7dd8a6f4fe48350c10dcabec006fc802d",
+    "upstream": "origin/main"
+  }
+]

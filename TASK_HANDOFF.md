@@ -1,3 +1,11 @@
+# Branch synchronization — 2026-11-12
+
+User requested the parent and all subrepositories use the correct branch. Refreshed every remote default branch: parent plus all 35 submodules use `main`. Each local `main` was fast-forwarded to `origin/main`, upstream tracking and origin/HEAD set explicitly. KYC, Email, SubmissionFeedback and CallGraph moved from old work branches to their existing main merge commits; source trees are identical. Updated those four parent gitlinks and added explicit `branch = main` for 21 submodules that lacked it. No product source change, deployment or migration; no test rerun needed for identical source trees. Git diff whitespace checks pass.
+
+Repository-by-repository receipt before the final parent checkpoint commit: `output/branch-sync-2026-11-12/repositories.json`. All prior work branches and local untracked evidence are retained. Branch synchronization is complete; broader CI/Jira limitations below remain unchanged.
+
+---
+
 # Merge, package update and main sync — 2026-11-12
 
 User requested merging the draft PRs, updating packages, and syncing parent to main. All 30 original component PRs are now merged through normal GitHub merges; local component main branches match origin/main. Exact merge receipts and final pins: `output/merge-sync-2026-11-12/components-merged.json` and `main-pins.json`. Parent PR #76 is merged at `83a440a93875c5d2bee2ce01de7eb7f502a41ad9`. All 34 PRs (31 original plus three package follow-ups) are verified MERGED; `final-receipt.json` records the read-back.
