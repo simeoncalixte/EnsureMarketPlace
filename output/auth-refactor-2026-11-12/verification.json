@@ -1,0 +1,44 @@
+{
+  "ticket": "AIN-174",
+  "regression": "AIN-175",
+  "apiBaseCommit": "8194dffd639a16809642b26716a19b2cefd41e50",
+  "baselineGatewaySHA256": "e6878f12916a5998a7b1a1d7c25666bccf7cf98d579c22a1a064ddbe2cbe041c",
+  "auth": {
+    "suites": 11,
+    "passed": 124
+  },
+  "baselineCompatibilityMatrix": {
+    "passed": 68,
+    "skippedNewBehaviorTests": 16
+  },
+  "postgresIntegration": {
+    "passed": 8,
+    "disposableProjectRemoved": true
+  },
+  "typecheck": "passed",
+  "lint": "passed",
+  "diffWhitespace": "passed",
+  "accountLinkCLI": "byte-identical after move",
+  "migration": "none",
+  "deployment": "none",
+  "filesSHA256": {
+    "package.json": "08eda5dcd48a02abb416503270e0a61ca6384811774d9424c5d632f0d9ff57e8",
+    "src/app.ts": "1075dbd2dec59e5b7bd5025fc6c08a8d52e0ac631722d38ccfde24f589d46bcb",
+    "src/auth/gateway.ts": "8b8333bcb72dd14d7886c9814e64e61c480cae4caed0cb6596debd0313918008",
+    "src/relationships/policy.ts": "612adb8a3813f7b8a53e9ebc2655a678e66d9bca0935128c1f0471b5b71a4495",
+    "test/auth/gateway.test.ts": "7c00b2ecb142ff41c9efe65f035888d8c53704e8f5f84df2d1d590b2e316f039",
+    "scripts/link-account.ts": "1195c38313319b56bbec9b3f664a615fe6d82cc680deb4242296172712f05e4e",
+    "src/auth/README.md": "6f42a19fd606ceb5a383eedce2ae7cd122468b0d627d0b407e2cb86c33000f4b",
+    "src/auth/access-policy.ts": "e45115025ac30264a8c26bc246379b2a35e7954b44d717bcba621f66a8731b75",
+    "src/auth/account-resolution.ts": "fd2dafdd98ab6c7f26ea0136f5be66142af405070715d970af9cd96a5de8ec5f",
+    "src/auth/assertions.ts": "a812b731c27d85cd42c588847b6a0d0fd56d84cf6b111fa93736d71e695596ad",
+    "src/auth/errors.ts": "6899e5ee898174ff78703ad6c5f1fbd583f20f1ad704ac134328a1ed24e2249b",
+    "src/auth/hook.ts": "51ed1280687e63a418d1a621a055233d02d291908e87d1f2f2483a93e2f075db",
+    "src/auth/participant-scope.ts": "1877dc793638fb29978239180c65fcad1cbfaddcb12393b82ebac3ce0879aed9",
+    "src/auth/types.ts": "7aeb52e98e1cbd543b1b4bf7eb5dcb34fbf662be3ea0fcd6813c77fa4bef4d60",
+    "src/relationships/gateway-scope.ts": "9944984c1c25a0af1442850008a580ff21e780907aeffc111d474f62401fe5d9",
+    "test/auth/accessMatrix.test.ts": "003bcef1d970f9898631f0fb0fcb2eef58e6bba5fb2bceb8b7bd16450483dd88"
+  },
+  "apiPR": "https://github.com/simeoncalixte/EnsuredAPI/pull/19",
+  "apiMergeCommit": "121b922d01370132dcba2617af3f09013daead1c"
+}
