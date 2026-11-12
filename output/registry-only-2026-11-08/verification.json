@@ -1,0 +1,29 @@
+{
+  "objective": "Remove local package overrides; publish and consume compatible registry packages",
+  "publishedPackages": 24,
+  "verification": {
+    "privateDependencyManifestsLocksAndInstallations": "passed across workspace",
+    "apiTypecheck": "passed",
+    "uiBuild": "passed",
+    "uiUnitTests": 52,
+    "overrideParityRegressions": 5,
+    "pricingDatabaseIntegrationTests": 10,
+    "financialArtifactParityAndComponentPolicy": "passed",
+    "themeOwnership": "passed",
+    "submissionUiBuild": "passed",
+    "logisticsTypecheck": "passed",
+    "frontendOwnerBuilds": "passed",
+    "runtimeHttp": {
+      "api": 200,
+      "ui": 200,
+      "submissionUi": 200
+    },
+    "runtimeProvenance": "19 API, 5 host UI and 1 each SubmissionUI/relay private registry packages; no source links or dependency mounts"
+  },
+  "deployment": "Local API/UI/SubmissionUI/relay refreshed; existing database volume restored using documented internal-only configuration. No production deployment.",
+  "limitations": [
+    "Consumer/configuration changes remain in working trees; release commits/tags are pushed.",
+    "AIN-13 remote parent CI still requires ENSURED_READ_TOKEN; parent has no Actions secrets.",
+    "Broader AIN-1 staging, rollback and provider obligations remain open."
+  ]
+}

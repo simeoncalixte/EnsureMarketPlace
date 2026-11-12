@@ -1,0 +1,288 @@
+[
+  {
+    "directory": "EnsuredConstants",
+    "name": "@simeoncalixte/ensured-constants",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "c130431287a5ad4d7e6a486ed89bd5bcd11af8be",
+    "workflowRun": 42515968611,
+    "integrity": "sha512-iM1nN79vrsgG54hHQUfArMZgSkCTy7RBZFcoH15urm5rQ20XYOCfw1nz3asGlTAf0jrm+dfBpSe79z9bXix5WQ=="
+  },
+  {
+    "directory": "EnsuredServices",
+    "name": "@simeoncalixte/ensured-services",
+    "old": "0.1.0",
+    "version": "0.1.0",
+    "published": [],
+    "integrity": "sha512-ZyQ8nXLDL/587FlCSZNFhdnV9kPDEvtJngO6LwlBSFqxFFErrHYq764xf66KpuUam9CFnJ+v7sLnhdyfCbO6tQ==",
+    "workflowRun": 42516607399,
+    "head": "81e4f8315e337429de0fda08bbdcdd32514a3738"
+  },
+  {
+    "directory": "EnsuredXDS",
+    "name": "@simeoncalixte/ensured-xds",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "0d8ad967b8c7c5265d7a94306ab31814ad8995de",
+    "workflowRun": 42516879312,
+    "integrity": "sha512-AkCbpeuOrjzhEyMCSlL4WkVVcOTgFnnVdT1RK+J5whhkRoK3InSpOorNg1fWVg9xssgUbPKX2AKaIREGA+Ol6g=="
+  },
+  {
+    "directory": "EnsuredPipelineShared",
+    "name": "@simeoncalixte/ensured-pipeline-shared",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "bd8946d2ff3405463ad3d8bf5b55199f429bc00f",
+    "workflowRun": 42516076253,
+    "integrity": "sha512-IFAs+W9Fn1MvtkobNDjJY8i0dvh5T0J/UdUMaIPItrkY/IKmTLguQtMrFyEV3aYR+jVrXieBOCNmSywvgPsbZg=="
+  },
+  {
+    "directory": "EnsuredAuthUI",
+    "name": "@simeoncalixte/ensured-auth-ui",
+    "old": "0.1.1",
+    "version": "0.1.2",
+    "published": [
+      "0.1.1"
+    ],
+    "head": "853b430fbf556fe70ebdb3ad9ecf4d7b8134844b",
+    "workflowRun": 42559906855,
+    "integrity": "sha512-bNeCpb2+Ipe+vF+84vmUUvghqUWohDSi+jE19wP0JRG77u5+JDOd5FSsAb7byXMoPBruXdO7iBMs5U38j7WCxA=="
+  },
+  {
+    "directory": "EnsuredMarketplace",
+    "name": "@simeoncalixte/ensured-marketplace",
+    "old": "0.1.1",
+    "version": "0.1.2",
+    "published": [
+      "0.1.1"
+    ],
+    "head": "c3a523a1be32c332b98be3fa640146f8b0fe9dc1",
+    "workflowRun": 42559912510,
+    "integrity": "sha512-dj9P8gBEJWJTxfN0MYUM/krP2TjcXaF1XisACNMRELq9OmOm+eeHXFfGnvzsedhkUGjGVs8fGbWvUqUoSGfs5Q=="
+  },
+  {
+    "directory": "EnsuredPipelineIngestionAmqp",
+    "name": "@simeoncalixte/ensured-pipeline-ingestion-amqp",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "a2e0cbda9da16d88830d7698cebc68cc12485c1c",
+    "workflowRun": 42559955910,
+    "integrity": "sha512-uc0y/uOiMZXSEgw7/DiMfLct8kmUoQEbJCDa3mY4L/QZQEZSJTviZtVioJPV+f0KuJJtWETLDFfXpC6c6wDobg=="
+  },
+  {
+    "directory": "EnsuredPipelineOcr",
+    "name": "@simeoncalixte/ensured-pipeline-ocr",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "3add51cfbe8486bb502f3769d6f2a39cbc82ecdd",
+    "workflowRun": 42559999811,
+    "integrity": "sha512-s1vbOmPoKTJUb4bZPe9zZ2gswUpG3rePTlajs/2nOFtXG4zdmORJfGfCuM0a3fi3jv+2qMi9VjZleMWyIyDmBw=="
+  },
+  {
+    "directory": "EnsuredPipelineClassification",
+    "name": "@simeoncalixte/ensured-pipeline-classification",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "2f78d3f1dfd05e845c94045ee9c231677f3257c1",
+    "workflowRun": 42560005685,
+    "integrity": "sha512-HMy799R9gvra4sbH1huh7z12hFzif/8SGJDMl3iaWdShEuUaN0tMxfOydf67IUjb2Y7rtbuEwM7cwn+YDF9T4Q=="
+  },
+  {
+    "directory": "EnsuredPipelineIngestion",
+    "name": "@simeoncalixte/ensured-pipeline-ingestion",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "ef746b0174ac628841e19b515b045d154c5de037",
+    "workflowRun": 42560014773,
+    "integrity": "sha512-wqPDt0TritZOHmvlW31uR/g/DjvDvZ+Mn9UmdKO91ibzdv7+QsHh4GThv++TJE9Ffmh6PbUzEqIOQrO2LthdpQ=="
+  },
+  {
+    "directory": "EnsuredPipelineExtraction",
+    "name": "@simeoncalixte/ensured-pipeline-extraction",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "fbdae8bbf490eb7a26380eccdf6f63fd4585f51c",
+    "workflowRun": 42560048740,
+    "integrity": "sha512-iunIxfBv3nQuG2doB/eHAriCEA0ZPrqqfjKC3f/4Ixa34jdi/WTPqDsuRw3XJ4goJL+k3qdSmM1nVjTX6tr7/A=="
+  },
+  {
+    "directory": "EnsuredPipelineSubjectDiscovery",
+    "name": "@simeoncalixte/ensured-pipeline-subject-discovery",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "abb2378fab7721e6f659ea99481a020e07f921af",
+    "workflowRun": 42560057194,
+    "integrity": "sha512-lbCSAnOa6V1kKp8QsKvXY1mlsnO7P3nkc25dsT7UEojhFsR1SYn0soNOmOyR3ElUg5MEFTBueXN6+ky9/FQl8g=="
+  },
+  {
+    "directory": "EnsuredPipelineNormalization",
+    "name": "@simeoncalixte/ensured-pipeline-normalization",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "ab19d435e39f03bf00e8fd60193cd673424022f3",
+    "workflowRun": 42560073875,
+    "integrity": "sha512-AYBzUxdEqq/WaZQEm3qzqFnHNBomFoE7VHBt++4g0yaNhMcS/8ruMFvnLNGlFb+Dpq/N2MdZ5uUKScZhfaXFBw=="
+  },
+  {
+    "directory": "EnsuredPipelineLocationDiscovery",
+    "name": "@simeoncalixte/ensured-pipeline-location-discovery",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "4565e5987853e352f83abf89e442428e2c4b8253",
+    "workflowRun": 42560136204,
+    "integrity": "sha512-D9Sj+PpfypbwHKduaGf0Zj5K/Y3C6qS6xsZEOQu4r5RwmeGMTFrp1lAOPaMm8qBOLQFAt6qHO89Vc4+AENOOWQ=="
+  },
+  {
+    "directory": "EnsuredPipelineSchemaGeneration",
+    "name": "@simeoncalixte/ensured-pipeline-schema-generation",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "a2f3c82f5857d1e75a69f95734f1917bedddfffa",
+    "workflowRun": 42560124628,
+    "integrity": "sha512-PHM451psO+8G5iZEdE4m1auvgus1nmfoSjRT2MR3gO8hEzNESrn3960PFK7YAJBvc8e/cu7uBIT1S13b0AaMZA=="
+  },
+  {
+    "directory": "EnsuredPipelineFinancialDiscovery",
+    "name": "@simeoncalixte/ensured-pipeline-financial-discovery",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "eee91d5bb2bafa6ed51c50dd85b4b1341ab20246",
+    "workflowRun": 42560132891,
+    "integrity": "sha512-9coFXLOnpBcVtcKMtAp6HUmSvrJtAtirc4YjZ8GfRrUq/ZYWs49djAQq3cLB3Ei2f2zgOoZvG4R8D37jhsJ9vw=="
+  },
+  {
+    "directory": "EnsuredPipelineValidation",
+    "name": "@simeoncalixte/ensured-pipeline-validation",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "ff97da4f5cea2f5fcde7200913172a3312bdc961",
+    "workflowRun": 42560194806,
+    "integrity": "sha512-2eEG1c88LuBzH3tvFX6e9dIARYnTUH1qegCTTWyqwOijynuEAKBBcWT2wLntbbqd1wINDNMy/i2tqyvFCZfRBw=="
+  },
+  {
+    "directory": "EnsuredPipelineOracleAttestation",
+    "name": "@simeoncalixte/ensured-pipeline-oracle-attestation",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "0430ddc53095f5daff0b3e185ca03aa2de55b2c0",
+    "workflowRun": 42560219167,
+    "integrity": "sha512-yg3Wjhz2yGBOkm4EheSCKD0BF67+JzkztSXzqPTiq3HQpK10M6ImzyEM4Ghb7QbpVmXYWFF+iX7p80O7oSDvBw=="
+  },
+  {
+    "directory": "EnsuredPipelinePreRating",
+    "name": "@simeoncalixte/ensured-pipeline-pre-rating",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "e32bd14f92944e27ad65a8c5f47ff6c313820e2c",
+    "workflowRun": 42560219802,
+    "integrity": "sha512-YkZ5FGfTZ/52wl/GX+rZdtrOQifehMK5CAMeY5l083fnkjdBXk1WJdmcGQ+RJZnsdU1/4Jk+gP4q3M0Nx1svlA=="
+  },
+  {
+    "directory": "EnsuredPipelineCapacity",
+    "name": "@simeoncalixte/ensured-pipeline-capacity",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "59c5b6b995d7d56f0aa71f1da688d5dd4491c4a3",
+    "workflowRun": 42560255759,
+    "integrity": "sha512-0ajQTAey5IZrDYlzxFk6gZj08KYu9B5GU6U9hLBlh+B8TK2IcNUi3Fdvd7CgLdgYZwD91PxYQ9pCKnH6whArWQ=="
+  },
+  {
+    "directory": "EnsuredPipelineWorkflow",
+    "name": "@simeoncalixte/ensured-pipeline-workflow",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "fce08f47bc1145388450dd727ac2beeb3a2dd454",
+    "workflowRun": 42560283805,
+    "integrity": "sha512-1aalB8K2gfTo1WDvot3QZKut48UttGXmFSzaNKLq8v/bqJO80UB+kyjYVLtfMsdHempyO05nU4//HIhvkfQmEw=="
+  },
+  {
+    "directory": "EnsuredPipelineRiskCompute",
+    "name": "@simeoncalixte/ensured-pipeline-risk-compute",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "1ee705c5240e9958d80d8445148c570db2e91304",
+    "workflowRun": 42560286354,
+    "integrity": "sha512-U6MJEtlA5/9iYlz/t32gUBf7OpYBSM992v39scLb+9tDRh/RxP393wVcT+mG23Cx0SyNJkx4ukNvywAT9osONA=="
+  },
+  {
+    "directory": "EnsuredPipelineStorageSearch",
+    "name": "@simeoncalixte/ensured-pipeline-storage-search",
+    "old": "0.1.0",
+    "version": "0.1.1",
+    "published": [
+      "0.1.0"
+    ],
+    "head": "c8b90468dbbd208b9162440f66d04c1988cddbbe",
+    "workflowRun": 42560309869,
+    "integrity": "sha512-sHJ870DlMi1Dh7gUv00RmKuxImcy4kt2YplKLYwTZ7UWwStSAxmrVWpKOO39I0UVEmC46Bg0aQHpPCOqVts0UA=="
+  },
+  {
+    "directory": "EnsuredNetwork/frontend",
+    "name": "@simeoncalixte/ensured-network",
+    "old": "0.1.1",
+    "version": "0.1.2",
+    "published": [
+      "0.1.1"
+    ],
+    "head": "fb2b086bf427396778661ec3e26573ee025b84e9",
+    "workflowRun": 42560337387,
+    "integrity": "sha512-63hR7qqnAP4A545mjtB4H/TDjlnhvWaDCAqLBEWE/sSOzZPrO0nH5K/qbsRq67+uRThJws/muCzx7MwZCIrR3w=="
+  }
+]

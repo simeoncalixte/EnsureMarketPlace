@@ -37,6 +37,15 @@
 - Use isolated synthetic transports for Storybook and block accidental application writes. Mocked stories prove UI behavior; retain API/database integration tests for authorization, durable state, accounting and concurrency. Backend-only changes require integration evidence and links to affected user stories, not artificial UI components.
 - Carry story IDs, execution commands, coverage gaps and test evidence into Jira and TASK_HANDOFF.md across sessions.
 
+## Before-and-after visual evidence
+
+- For every UI placement, layout, styling or interaction change, capture the existing behavior before editing and attach clearly labeled **Before** screenshots to its Jira issue. Review requests must include this evidence when creating tickets, not defer it until implementation.
+- Record the route or Storybook story ID, viewport dimensions, theme, browser zoom, scroll position, fixture/account role and relevant UI state for each capture. Include desktop and narrow-screen views when responsive behavior is affected. Prefer synthetic data; never upload credentials or private account, customer or financial details.
+- Define the intended visual outcome and measurable acceptance criteria in the ticket. Keep the original Before attachments throughout the work. Screenshots of an open panel alone do not prove that its closed-state trigger is correctly positioned: capture both states when relevant.
+- After implementation and verification, capture matching **After** screenshots using the same route/story, viewport, theme, zoom, scroll position and comparable data/state. Attach them to the same issue and add a short Before → After comparison, identifying the build/commit and verification results. Record unavoidable differences explicitly; never present mockups, old captures or another environment as proof of a completed change.
+- Verify the Before and After attachments are readable and accessible from Jira, and carry attachment names/IDs plus the evidence mapping into TASK_HANDOFF.md. A local image path alone does not satisfy the attachment requirement.
+- Do not mark a UI ticket or its parent Done until the required matching screenshots and executable interaction evidence are attached and reviewed. Planning-only tickets remain To Do with Before evidence and an explicit After-evidence requirement. If capture or upload is blocked, record the concrete gap and keep implementation completion unclaimed.
+
 ## Network and marketplace discovery
 
 - For Social Network or marketplace planning/discovery, inspect **both EnsuredNetwork and EnsuredMarketplace**, plus their EnsuredUI host, EnsuredAPI projections and EnsuredAuth gateway boundaries. Include existing fixture stories and real-service journeys.

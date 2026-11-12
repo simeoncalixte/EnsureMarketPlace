@@ -1,0 +1,14 @@
+[
+  {
+    "command": "node --test scripts/test/package-overrides.test.mjs scripts/test/pipeline-parity.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "command": "npm run packages:check -- --installed",
+    "exitCode": 0
+  },
+  {
+    "command": "npm run theme:check",
+    "exitCode": 0
+  }
+]

@@ -163,7 +163,10 @@ services:
           path: ./EnsuredServices/Dockerfile
 
   submission-ui:
-    build: ./SubmissionUI
+    build:
+      context: ./SubmissionUI
+      secrets:
+        - node_auth_token
     container_name: ensured-submission-ui
     command: ['npm', 'run', 'frontend']
     ports: ['127.0.0.1:30025:30025']
@@ -188,7 +191,10 @@ services:
           path: ./SubmissionUI/Dockerfile
 
   submission-relay:
-    build: ./SubmissionUI
+    build:
+      context: ./SubmissionUI
+      secrets:
+        - node_auth_token
     container_name: ensured-submission-relay
     env_file:
       - path: ./SubmissionUI/.env

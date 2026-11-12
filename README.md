@@ -41,7 +41,7 @@ The reusable account interface lives in [EnsuredAuthUI](EnsuredAuthUI/README.md)
 
 ## Shared UI library
 
-[EnsuredXDS](EnsuredXDS/README.md) provides `@ensured/xds`, consumed by EnsuredUI as a sibling package. After initializing submodules, run `npm run setup:ui`, then `npm run start`. Use `npm run build:ui` to build the accounts microfrontend, design system and marketplace, or `npm run storybook:xds` for the shared component catalogue.
+[EnsuredXDS](EnsuredXDS/README.md) provides `@ensured/xds`, consumed through its pinned private-registry npm alias. After initializing submodules, run `npm run setup:ui`, then `npm run start`. Use `npm run build:ui` to build the host using its published dependencies, or `npm run storybook:xds` for the shared component catalogue.
 
 ## Service discovery and catalog
 

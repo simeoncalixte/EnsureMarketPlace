@@ -2,7 +2,7 @@
 
 `npm run pipeline:verify` validates package metadata, current source ownership,
 fresh builds of Shared/Capacity/RiskCompute, the exact financial package versions
-and integrity entries in the API lockfile, and byte parity of the artifacts actually
+and integrity entries in the API lockfile, rejects installed source links/inherited installations, and checks byte parity of the artifacts actually
 resolved by API and financial-package consumers. It compares the complete `dist`
 file inventory, including JavaScript, declarations and JSON; missing and extra files
 fail. It then runs the existing component-policy checks. Install dependencies first.
@@ -17,8 +17,8 @@ without staging source builds into its dependencies.
 `.github/workflows/pipeline-parity.yml` uses Node 22.14.0, a recursive checkout and
 locked installs. Configure `ENSURED_READ_TOKEN` with read access to the private
 submodule repositories and GitHub Packages. Both npm token variable names are set
-because existing repository `.npmrc` files differ. Capacity and RiskCompute have
-no lockfiles; CI compiles them against the API's locked dependency installation.
+because existing repository `.npmrc` files differ. Capacity and RiskCompute now have
+their own registry lockfiles; CI installs each independently without shared node_modules links.
 Shared and Constants use their own lockfiles. The uploaded gate log contains package
 versions, artifact file counts, SHA-256 inventory digests and mismatch diagnostics.
 Never put credentials in the report. The workflow is prepared but has not run remotely.

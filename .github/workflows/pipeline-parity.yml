@@ -2,7 +2,7 @@ name: Pipeline release parity
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
 permissions:
   contents: read
@@ -32,11 +32,10 @@ jobs:
           npm --prefix EnsuredAPI ci --ignore-scripts
           npm --prefix EnsuredPipelineShared ci --ignore-scripts
           npm --prefix EnsuredConstants ci --ignore-scripts
-          # These two libraries have no lockfiles. Compile against the exact
-          # API release dependency graph, not a fresh floating npm install.
-          ln -s ../EnsuredAPI/node_modules EnsuredPipelineCapacity/node_modules
-          ln -s ../EnsuredAPI/node_modules EnsuredPipelineRiskCompute/node_modules
+          npm --prefix EnsuredPipelineCapacity ci --ignore-scripts
+          npm --prefix EnsuredPipelineRiskCompute ci --ignore-scripts
           npm --prefix EnsuredConstants run build
+      - run: npm run packages:check -- --installed EnsuredAPI EnsuredPipelineShared EnsuredPipelineCapacity EnsuredPipelineRiskCompute
       - run: npm run pipeline:test-gate
       - name: Verify source ownership and actual financial artifacts
         run: |
