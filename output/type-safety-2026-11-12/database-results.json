@@ -1,0 +1,85 @@
+{
+  "suites": [
+    {
+      "file": "test/relationships/commercial.db.test.ts",
+      "status": "passed",
+      "passedTests": 27,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/subledger.db.test.ts",
+      "status": "passed",
+      "passedTests": 15,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/reinsurance.db.test.ts",
+      "status": "passed",
+      "passedTests": 5,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/opportunities.db.test.ts",
+      "status": "passed",
+      "passedTests": 11,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/modelSettings.db.test.ts",
+      "status": "passed",
+      "passedTests": 9,
+      "failedTests": 0
+    },
+    {
+      "file": "test/signing/store.integration.test.ts",
+      "status": "passed",
+      "passedTests": 8,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/relationships.db.test.ts",
+      "status": "passed",
+      "passedTests": 8,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/modelLibrary.db.test.ts",
+      "status": "passed",
+      "passedTests": 11,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/marketplaceParticipation.db.test.ts",
+      "status": "passed",
+      "passedTests": 6,
+      "failedTests": 0
+    },
+    {
+      "file": "test/manual/manualSubmission.integration.test.ts",
+      "status": "passed",
+      "passedTests": 4,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/financialEvents.db.test.ts",
+      "status": "passed",
+      "passedTests": 4,
+      "failedTests": 0
+    },
+    {
+      "file": "test/manual/documentType.db.test.ts",
+      "status": "passed",
+      "passedTests": 3,
+      "failedTests": 0
+    },
+    {
+      "file": "test/relationships/opportunityUpgrade.db.test.ts",
+      "status": "passed",
+      "passedTests": 1,
+      "failedTests": 0
+    }
+  ],
+  "passedTests": 112,
+  "isolatedPostgres": true,
+  "disposableResourcesRemoved": true
+}

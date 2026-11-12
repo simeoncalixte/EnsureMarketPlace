@@ -1,0 +1,215 @@
+[
+  {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10500",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10500",
+    "key": "AIN-177",
+    "fields": {
+      "summary": "[API] Remove type assertions and establish explicit validated object contracts",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Original objective: correct EnsuredAPI type assertions, make object types explicit and catch invalid inputs/state before use. Formatting prerequisite AIN-176 freshly verified Done. Work covers authored EnsuredAPI TypeScript source, migrations, tests and scripts; inventory tracks casts, const assertions, non-null assertions and explicit any separately. Shared-package model/contract corrections are included when required by API consumption; unrelated application/UI work is excluded."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: remove type assertions and non-null assertions throughout that scope, using explicit contracts, validated unknown inputs, accurate Sequelize model/query types and control-flow narrowing. Replace literal const assertions with checked explicit declarations where needed. Do not substitute any, ts-ignore, unchecked generic cast helpers or weakened compiler settings for removed assertions. Preserve existing supported behavior, ownership, authorization, financial transactions and API responses; add regression coverage for invalid-boundary behavior discovered."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Inspect existing ORM models and raw-query projections. Use existing typed Sequelize models for appropriate persistence operations; retain necessary SQL for locking, aggregates, financial atomicity and projections with named row contracts and validation where database/JSON/provider values enter application logic. No blanket SQL-to-ORM rewrite or schema migration without a demonstrated requirement."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Work order: inventory and enforceable regression check; authentication/request/AI-model boundaries; commercial/relationships/finance/signing/marketplace; remaining ingestion/underwriting/pipeline/provider/persistence/seed boundaries; test fixtures/scripts/migrations and full verification. These are all required work, not separate alternatives. Record progress and assertion counts in TASK_HANDOFF.md; do not close after a subset."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Verification: final typecheck, ESLint, Prettier, zero-assertion scan, affected API/auth regression suites and isolated PostgreSQL integration suites for authorization and transactional flows. Extend typecheck coverage deliberately and record any existing test/migration compile gaps without suppressing them. No user-facing UI changes planned; Storybook/screenshots not applicable unless workflow behavior changes. No deployment required by this maintenance request."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Scope map: AIN-176 is completed formatting prerequisite. AIN-174/175 are completed auth regression context. Affected user-story context includes AIN-73/74/84 and AIN-138/143; their existing UI/provider/staging obligations remain separate. Broader release/CI setup and unrelated Network/Marketplace functionality are excluded because no dependency requires them. Existing finance output changes must be preserved."
+              }
+            ]
+          }
+        ]
+      },
+      "issuelinks": [],
+      "subtasks": [
+        {
+          "id": "10501",
+          "key": "AIN-178",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10501",
+          "fields": {
+            "summary": "[API typing] Correct documentation plugin compatibility hidden by casts",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      ],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10501",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10501",
+    "key": "AIN-178",
+    "fields": {
+      "summary": "[API typing] Correct documentation plugin compatibility hidden by casts",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The assertion inventory found swagger.ts registering @fastify/swagger 9 and swagger-ui 5 using as any against Fastify 4. Installed plugin metadata requires Fastify 5. The main app currently imports but does not register this wrapper, so do not describe this as a running-service outage."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance: align the documentation plugins with the existing Fastify 4 application, remove the casts and obsolete options, and verify isolated registration plus generated OpenAPI output. Preserve current production route registration; do not activate or redesign documentation UI. Run typecheck, ESLint, Prettier and a registration regression test. This is a required AIN-177 dependency, not a replacement for the overall assertion-removal scope. No UI workflow change, screenshot requirement, schema migration or deployment."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10500",
+        "key": "AIN-177",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10500",
+        "fields": {
+          "summary": "[API] Remove type assertions and establish explicit validated object contracts",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+            "id": "10038",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+            "name": "Task",
+            "subtask": false,
+            "avatarId": 10318,
+            "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  }
+]
