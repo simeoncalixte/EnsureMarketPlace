@@ -1,3 +1,15 @@
+# Merge, package update and main sync — 2026-11-12
+
+User requested merging the draft PRs, updating packages, and syncing parent to main. All 30 original component PRs are now merged through normal GitHub merges; local component main branches match origin/main. Exact merge receipts and final pins: `output/merge-sync-2026-11-12/components-merged.json` and `main-pins.json`. Original parent PR #76 is the remaining integration merge at this checkpoint.
+
+Registry audit covered 25 internal packages and 57 declarations. Updated the two stale XDS 0.1.1 references to 0.1.2: AuthUI PR #6 and SubmissionUI PR #5. AuthUI 0.1.3 published through successful Actions run 43215678105; host consumes that exact registry release through the PR recorded in `host-update.json`. Other internal package versions are current. No unnecessary package republishing or third-party major upgrades. Publication integrity and package PR links are in the concise receipts in the same folder.
+
+Verification: AuthUI build and 24 tests; SubmissionUI and host production builds; host dashboard tests; five package-override/parity regressions; installed registry provenance; theme ownership; full local pipeline artifact parity and component-policy checks pass. Raw verification logs stay local. Historical screenshot/story mappings below remain intact; this session adds dependency updates, no new workflow. No manual deployment or database migration; merge-triggered automation may run independently.
+
+Jira remains unavailable, so no ticket-status refresh or update is claimed. AIN-161 package context and AIN-162–173 completed UI context remain the required integration map. AIN-1 broader release, AIN-13 remote CI credentials, AIN-79 inventory filtering and historical finance work remain independent incomplete obligations. Known remote CI failures: parent private-checkout credential, Logistics registry E401, UI Vercel and Auth Cloudflare. No protection bypass or secret uploads. Main will be established from merged parent, preserving master; final sync receipt will be recorded below.
+
+---
+
 # PR delivery — 2026-11-11
 
 Completed: 31 open draft PRs (30 components/packages plus [parent #76](https://github.com/simeoncalixte/EnsureMarketPlace/pull/76)). GitHub read-back confirms all are mergeable and every component head matches its parent gitlink. Compact receipt: `output/pr-delivery-2026-11-11/pr-status.json`. Current failed checks: parent release-parity, Logistics validate (private XDS npm download E401), host Vercel and Auth Cloudflare. No CI bypass, merge or deployment. PR creation is complete; CI/release work remains incomplete.
