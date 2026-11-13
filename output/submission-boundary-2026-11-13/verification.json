@@ -1,0 +1,33 @@
+{
+  "manual_documents": {
+    "success": true,
+    "numPassedTests": 111,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numPassedTestSuites": 10
+  },
+  "signing": {
+    "success": true,
+    "numPassedTests": 86,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numPassedTestSuites": 10
+  },
+  "administration": {
+    "success": true,
+    "numPassedTests": 45,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numPassedTestSuites": 3
+  },
+  "ticket": "AIN-183",
+  "checks": "npm run format; npm run check: PASS",
+  "auth": {
+    "passed": 163
+  },
+  "pipeline_catalog": {
+    "passed": 175
+  },
+  "deployment": "None; no migration or package release",
+  "database": "Disposable PostgreSQL; resources removed"
+}
