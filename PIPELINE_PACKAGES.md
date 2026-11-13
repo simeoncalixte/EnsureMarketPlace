@@ -73,14 +73,13 @@ The workflow publishes its own package with `GITHUB_TOKEN`.
 
 Publish dependencies before their dependents. Increment versions for subsequent
 releases; GitHub Packages cannot overwrite an existing version. Commit and push
-each package repository separately, then update the superproject submodule refs.
+each package repository separately, then update application dependency versions and lockfiles.
 
 ## Development
 
 For a single package checkout, set `NODE_AUTH_TOKEN`, run `npm run bootstrap`,
 then `npm test`. No sibling source checkout is required for building the package.
-From the superproject, `npm run pipeline:setup` installs and builds all packages,
-and `npm run pipeline:test` runs their tests. Cross-package integration tests may
+For coordinated library development, run `PACKAGE_SOURCE_ROOT=/path/to/package-checkouts node scripts/pipeline-packages.mjs setup` or `test`. The application workspace does not initialize these repositories. Cross-package integration tests may
 require the other released pipeline packages as test dependencies; they no longer
 resolve source from sibling folders.
 
@@ -90,12 +89,11 @@ standard metadata files are packed. Configuration comes from the host process or
 
 ## Render API service
 
-After publishing and resolving the API's existing TypeScript build errors:
+After publishing and verifying application checks:
 
 - For the superproject, root directory: `EnsuredAPI`. For the standalone EnsuredAPI
   repository, leave the root blank.
-- Build command: `npm install --include=dev && npm run build` (use `npm ci` after
-  committing the regenerated registry lockfile).
+- Build command: `npm ci --include=dev && npm run build`.
 - Start command: `npm start`.
 - Set `NODE_AUTH_TOKEN` with `read:packages` and the API's runtime environment variables.
 
@@ -109,7 +107,7 @@ The API deployment downloads compiled pipeline packages and does not build them.
 - The API retains authorization, board/job orchestration, authenticated schema-generation routes, migrations, and application/database/UI integration tests. Compatibility exports keep old module paths available.
 - Canonicalization belongs to normalization. Pricing engines, catastrophe/casualty/parametric strategies and benchmark priors belong to risk computation.
 - No package imports EnsuredAPI source. Packages continue to share the existing database schema; this is a package extraction, not independent service deployment or a database split.
-- `pipeline-packages.json` records source ownership and dependency order. `pipeline-parity.json` records the migration's normalized runtime-body hashes. `pipeline:verify` checks the dependency layout and runtime-body preservation. Intentional future logic changes require reviewing and updating that migration audit.
+- `pipeline-packages.json` records source ownership and dependency order. `pipeline-parity.json` records the migration's normalized runtime-body hashes. `pipeline:verify` checks current installed registry artifacts and component-policy compatibility. The historical runtime-body audit is an explicit external-source-workspace tool, not a current application gate. Intentional library logic changes belong in the owning repository tests and release review.
 
 ## Validation
 

@@ -72,5 +72,11 @@
     "containers": "all 10 application images built with library source directories absent"
   },
   "deployment": "none; live tests used isolated disposable services, cleaned up",
-  "remaining": "parent PR delivery and final Jira reconciliation"
+  "remaining": "Final parent merge/sync receipt recorded on PR81 and AIN-182; no implementation work remains.",
+  "parent": {
+    "pr": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/81",
+    "ciRun": 43499625654,
+    "ciResult": "failed at checkout: Input required and not supplied: token; application checks never started",
+    "protectionOverride": false
+  }
 }

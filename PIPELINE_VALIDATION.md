@@ -1,3 +1,5 @@
+> Historical extraction evidence. Current application-only verification is documented in README.md and output/application-only-2026-11-13/verification.json; library-source build commands below are historical, not root setup requirements.
+
 # Pipeline migration validation
 
 Validation date: 2026-09-16. TypeScript was retained to preserve the working-tree implementation, including existing uncommitted pipeline changes.
