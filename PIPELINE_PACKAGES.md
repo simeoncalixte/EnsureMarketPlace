@@ -1,5 +1,7 @@
 # Pipeline packages
 
+Library repositories are separate from the application root. Package publishing and source tests run in those independent checkouts. Historical ownership metadata in `pipeline-packages.json` remains audit context, not a requirement to clone libraries into this root.
+
 The pipeline now consists of 18 packages. Each package has a private GitHub repository, a TypeScript build, and its own test command. Existing API URLs, operation keys, database schema, and job execution semantics are preserved.
 
 ## Repositories
@@ -27,7 +29,7 @@ The pipeline now consists of 18 packages. Each package has a private GitHub repo
 
 ## Install published packages
 
-Packages use the `@simeoncalixte/ensured-pipeline-*` scope and version `0.1.0`.
+Packages use the `@simeoncalixte/ensured-pipeline-*` scope. Exact versions are recorded in each consumer manifest and lockfile.
 Both the API and pipeline packages declare exact registry versions. They do not
 use npm workspaces or `file:` dependencies. Source checkouts are needed only when
 editing the pipeline itself.
@@ -39,15 +41,12 @@ and access to the private packages. Never commit the token.
 After the initial releases have been published:
 
 ```sh
-npm --prefix EnsuredAPI install --include=dev
+npm --prefix EnsuredAPI ci --include=dev
 npm --prefix EnsuredAPI run build
 npm --prefix EnsuredAPI start
 ```
 
-Legacy lockfiles containing local links have been removed. The first registry
-install creates replacement lockfiles; commit them and then use `npm ci` for
-reproducible deployment installs. The API build currently has pre-existing
-TypeScript errors that must be resolved before deployment.
+Committed lockfiles resolve private-registry artifacts with integrity hashes. Use `npm ci` for reproducible installs. `npm run pipeline:verify` verifies installed API/UI artifacts against those archives, without library source checkouts.
 
 ## Publishing
 
@@ -56,14 +55,14 @@ Set `NODE_AUTH_TOKEN` to a token with `read:packages` and `write:packages` acces
 then run:
 
 ```sh
-npm run pipeline:publish
+PACKAGE_SOURCE_ROOT=/path/to/package-checkouts node scripts/pipeline-packages.mjs publish
 npm --prefix EnsuredAPI install --package-lock-only --ignore-scripts
 ```
 
 The publishing command installs released dependencies, regenerates lockfiles,
 performs a clean TypeScript build through `prepack`, and publishes to GitHub
 Packages. Shared is published first. Schema Generation also requires the existing
-`@simeoncalixte/ensured-constants@0.1.0` package to be accessible.
+the Constants version pinned in its own manifest package to be accessible.
 
 Each package repository includes `.github/workflows/packages.yml`. A `v*` tag
 matching its package version or a manual dispatch builds and publishes the

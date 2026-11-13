@@ -1,4 +1,4 @@
-name: Pipeline release parity
+name: Application package verification
 on:
   pull_request:
   push:
@@ -30,14 +30,15 @@ jobs:
         run: |
           npm ci --ignore-scripts
           npm --prefix EnsuredAPI ci --ignore-scripts
-          npm --prefix EnsuredPipelineShared ci --ignore-scripts
-          npm --prefix EnsuredConstants ci --ignore-scripts
-          npm --prefix EnsuredPipelineCapacity ci --ignore-scripts
-          npm --prefix EnsuredPipelineRiskCompute ci --ignore-scripts
-          npm --prefix EnsuredConstants run build
-      - run: npm run packages:check -- --installed EnsuredAPI EnsuredPipelineShared EnsuredPipelineCapacity EnsuredPipelineRiskCompute
+          npm --prefix EnsuredUI ci --ignore-scripts
+          npm --prefix EnsuredNetwork/frontend ci --ignore-scripts
+      - run: npm run packages:check -- --installed EnsuredAPI EnsuredUI
+      - run: npm run workspace:check
       - run: npm run pipeline:test-gate
-      - name: Verify source ownership and actual financial artifacts
+      - name: Verify installed artifacts against locked registry archives
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ENSURED_READ_TOKEN }}
+          NPM_TOKEN: ${{ secrets.ENSURED_READ_TOKEN }}
         run: |
           set -o pipefail
           npm run pipeline:verify 2>&1 | tee pipeline-parity-evidence.log

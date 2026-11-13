@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "@ensured/constants/componentPolicy": [
+        "EnsuredUI/node_modules/@ensured/constants/dist/componentPolicy.d.ts"
+      ],
+      "@ensured/xds/schema/component-registry.json": [
+        "EnsuredUI/node_modules/@ensured/xds/schema/component-registry.json"
+      ]
+    }
+  },
+  "include": [
+    "scripts/audit-pipeline-extraction.mjs",
+    "scripts/check-component-capabilities.mjs",
+    "scripts/check-xds-color-ownership.mjs",
+    "scripts/inventory-data-models.cjs",
+    "scripts/pipeline-packages.mjs",
+    "scripts/review-filter-button-positions.mjs",
+    "scripts/verify-filter-panels.mjs",
+    "scripts/verify-palette-stories.mjs",
+    "scripts/verify-pipeline-parity.mjs",
+    "scripts/verify-settings-section-stories.mjs",
+    "scripts/verify-installed-artifacts.mjs",
+    "scripts/test/installed-artifacts.test.mjs",
+    "scripts/workspace-globals.d.ts"
+  ]
+}
