@@ -26,21 +26,9 @@
 	path = pdfs
 	url = https://github.com/simeoncalixte/EnsureMarketPlace-pdfs.git
 	branch = main
-[submodule "EnsuredXDS"]
-	path = EnsuredXDS
-	url = https://github.com/simeoncalixte/EnsuredXDS.git
-	branch = main
 [submodule "EnsuredServices"]
 	path = EnsuredServices
 	url = https://github.com/simeoncalixte/EnsuredServices.git
-	branch = main
-[submodule "EnsuredMarketplace"]
-	path = EnsuredMarketplace
-	url = https://github.com/simeoncalixte/EnsuredMarketplace.git
-	branch = main
-[submodule "EnsuredAuthUI"]
-	path = EnsuredAuthUI
-	url = https://github.com/simeoncalixte/EnsuredAuthUI.git
 	branch = main
 [submodule "EnsuredNetwork"]
 	path = EnsuredNetwork
@@ -54,87 +42,7 @@
 	path = EnsuredEmail
 	url = https://github.com/simeoncalixte/EnsuredEmail.git
 	branch = main
-[submodule "EnsuredPipelineShared"]
-	path = EnsuredPipelineShared
-	url = https://github.com/simeoncalixte/EnsuredPipelineShared.git
-	branch = main
-[submodule "EnsuredPipelineIngestionAmqp"]
-	path = EnsuredPipelineIngestionAmqp
-	url = https://github.com/simeoncalixte/EnsuredPipelineIngestionAmqp.git
-	branch = main
-[submodule "EnsuredPipelineIngestion"]
-	path = EnsuredPipelineIngestion
-	url = https://github.com/simeoncalixte/EnsuredPipelineIngestion.git
-	branch = main
-[submodule "EnsuredPipelineOcr"]
-	path = EnsuredPipelineOcr
-	url = https://github.com/simeoncalixte/EnsuredPipelineOcr.git
-	branch = main
-[submodule "EnsuredPipelineClassification"]
-	path = EnsuredPipelineClassification
-	url = https://github.com/simeoncalixte/EnsuredPipelineClassification.git
-	branch = main
-[submodule "EnsuredPipelineExtraction"]
-	path = EnsuredPipelineExtraction
-	url = https://github.com/simeoncalixte/EnsuredPipelineExtraction.git
-	branch = main
-[submodule "EnsuredPipelineLocationDiscovery"]
-	path = EnsuredPipelineLocationDiscovery
-	url = https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery.git
-	branch = main
-[submodule "EnsuredPipelineNormalization"]
-	path = EnsuredPipelineNormalization
-	url = https://github.com/simeoncalixte/EnsuredPipelineNormalization.git
-	branch = main
-[submodule "EnsuredPipelineValidation"]
-	path = EnsuredPipelineValidation
-	url = https://github.com/simeoncalixte/EnsuredPipelineValidation.git
-	branch = main
-[submodule "EnsuredPipelineSchemaGeneration"]
-	path = EnsuredPipelineSchemaGeneration
-	url = https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration.git
-	branch = main
-[submodule "EnsuredPipelinePreRating"]
-	path = EnsuredPipelinePreRating
-	url = https://github.com/simeoncalixte/EnsuredPipelinePreRating.git
-	branch = main
-[submodule "EnsuredPipelineCapacity"]
-	path = EnsuredPipelineCapacity
-	url = https://github.com/simeoncalixte/EnsuredPipelineCapacity.git
-	branch = main
-[submodule "EnsuredPipelineOracleAttestation"]
-	path = EnsuredPipelineOracleAttestation
-	url = https://github.com/simeoncalixte/EnsuredPipelineOracleAttestation.git
-	branch = main
-[submodule "EnsuredPipelineWorkflow"]
-	path = EnsuredPipelineWorkflow
-	url = https://github.com/simeoncalixte/EnsuredPipelineWorkflow.git
-	branch = main
-[submodule "EnsuredPipelineRiskCompute"]
-	path = EnsuredPipelineRiskCompute
-	url = https://github.com/simeoncalixte/EnsuredPipelineRiskCompute.git
-	branch = main
-[submodule "EnsuredPipelineStorageSearch"]
-	path = EnsuredPipelineStorageSearch
-	url = https://github.com/simeoncalixte/EnsuredPipelineStorageSearch.git
-	branch = main
 [submodule "EnsuredSubmissionFeedback"]
 	path = EnsuredSubmissionFeedback
 	url = https://github.com/simeoncalixte/EnsuredSubmissionFeedback.git
-	branch = main
-[submodule "EnsuredConstants"]
-	path = EnsuredConstants
-	url = https://github.com/simeoncalixte/EnsuredConstants.git
-	branch = main
-[submodule "EnsuredPipelineFinancialDiscovery"]
-	path = EnsuredPipelineFinancialDiscovery
-	url = https://github.com/simeoncalixte/EnsuredPipelineFinancialDiscovery.git
-	branch = main
-[submodule "EnsuredPipelineSubjectDiscovery"]
-	path = EnsuredPipelineSubjectDiscovery
-	url = https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery.git
-	branch = main
-[submodule "EnsuredCallGraph"]
-	path = EnsuredCallGraph
-	url = https://github.com/simeoncalixte/EnsuredCallGraph.git
 	branch = main

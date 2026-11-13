@@ -1,0 +1,140 @@
+[
+  {
+    "repository": "EnsuredAuthUI",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredAuthUI",
+    "head": "a4d91f9cb1caaa6f768b7b5e87166a181bdd07a6",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredCallGraph",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredCallGraph",
+    "head": "16dc18c7dd8a6f4fe48350c10dcabec006fc802d",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredConstants",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredConstants",
+    "head": "7a0b1318051df13b8f35b38c8285fc6abc0374c2",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredMarketplace",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredMarketplace",
+    "head": "e113db9dba8a43826330699f80a12c37f7b44f28",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineCapacity",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineCapacity",
+    "head": "9d1367257f75a182db1da24657771a60247e6247",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineClassification",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineClassification",
+    "head": "8c8edd53a09e2cf09705530831d3aea4966f963e",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineExtraction",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineExtraction",
+    "head": "fa78f0fad581d4d7a93a986afe402cc0033fe60f",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineFinancialDiscovery",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineFinancialDiscovery",
+    "head": "23c72b50ed8fa0185fd705910eac1b7812361a4e",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineIngestion",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineIngestion",
+    "head": "ad9048cb42b2d9aa4ad65bcd3a004d36d93544f1",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineIngestionAmqp",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineIngestionAmqp",
+    "head": "7ee472700f7ec53d967617e60f96297ac6a9b7c6",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineLocationDiscovery",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineLocationDiscovery",
+    "head": "b2f99fb16074213dffd56a3aa9538142878ab0fb",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineNormalization",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineNormalization",
+    "head": "0c34860dbee345a45b5d3563d7bb71d5ed36f5b8",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineOcr",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineOcr",
+    "head": "7973cfe531bdebe1669b93597a6571706c5cf65d",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineOracleAttestation",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineOracleAttestation",
+    "head": "9596a8908c1052692936dc97ce5c6376811cf9f6",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelinePreRating",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelinePreRating",
+    "head": "79a348226181e2a4803f7106c4b4a27b8c99ced3",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineRiskCompute",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineRiskCompute",
+    "head": "c65f2ac74a9b5df1457328afdb92b777967fee83",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineSchemaGeneration",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineSchemaGeneration",
+    "head": "29e88204a61a1ea3fc8c4a2ad0ff6419073f1df7",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineShared",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineShared",
+    "head": "804e65cfc0ccbe249d95350ae79fd46547db15c0",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineStorageSearch",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineStorageSearch",
+    "head": "f3fef8c9032a5b332c2ded169204fa2a9c10da4d",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineSubjectDiscovery",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineSubjectDiscovery",
+    "head": "2e320a9dbd7d0ee38a9685ca8560f9848341a5ab",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineValidation",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineValidation",
+    "head": "a9f6649a7b3b13f719f2a92de5ccab30a8ccdb8c",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredPipelineWorkflow",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineWorkflow",
+    "head": "1db4954125374a14a0babc3c781c430034367a20",
+    "workingTreeStatus": ""
+  },
+  {
+    "repository": "EnsuredXDS",
+    "checkout": "/Users/simeon/Projects/EnsuredPackages/EnsuredXDS",
+    "head": "d0bfc2b36cd98487f8f1740e88562b265b1031d4",
+    "workingTreeStatus": ""
+  }
+]

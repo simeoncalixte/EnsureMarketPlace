@@ -3,9 +3,15 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+if (!process.env.PACKAGE_SOURCE_ROOT)
+  throw new Error('Set PACKAGE_SOURCE_ROOT to the separate package-development workspace.');
+const packageRoot = path.resolve(process.env.PACKAGE_SOURCE_ROOT);
 const manifest = JSON.parse(readFileSync(path.join(root, 'pipeline-packages.json'), 'utf8'));
 const command = process.argv[2] || 'verify';
-if (command === 'publish' && !process.env.NODE_AUTH_TOKEN) throw new Error('Set NODE_AUTH_TOKEN with read:packages and write:packages permissions before publishing.');
+if (command === 'publish' && !process.env.NODE_AUTH_TOKEN)
+  throw new Error(
+    'Set NODE_AUTH_TOKEN with read:packages and write:packages permissions before publishing.',
+  );
 const allowed = new Set(['verify', 'setup', 'build', 'test', 'publish']);
 if (!allowed.has(command)) throw new Error(`Unknown pipeline command: ${command}`);
 function run(args, cwd) {
@@ -14,9 +20,13 @@ function run(args, cwd) {
   if (result.status !== 0) throw new Error(`npm ${args.join(' ')} failed in ${cwd}`);
 }
 for (const pkg of manifest.packages) {
-  const directory = path.join(root, pkg.directory);
+  const directory = path.join(packageRoot, pkg.directory);
   const info = JSON.parse(readFileSync(path.join(directory, 'package.json'), 'utf8'));
-  if (info.name !== pkg.name || info.private || info.publishConfig?.registry !== 'https://npm.pkg.github.com') {
+  if (
+    info.name !== pkg.name ||
+    info.private ||
+    info.publishConfig?.registry !== 'https://npm.pkg.github.com'
+  ) {
     throw new Error(`Invalid publish configuration: ${pkg.directory}`);
   }
   for (const [name, version] of Object.entries(info.dependencies || {})) {

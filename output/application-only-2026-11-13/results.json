@@ -1,0 +1,17 @@
+[
+  {
+    "group": "api",
+    "step": "build",
+    "exitCode": 0
+  },
+  {
+    "group": "services",
+    "step": "build",
+    "exitCode": 0
+  },
+  {
+    "group": "email",
+    "step": "build",
+    "exitCode": 0
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "ticket": "AIN-182",
+  "removedLibraryRepositories": 23,
+  "remainingSubmodules": 12,
+  "sourceCheckoutLocation": "/Users/simeon/Projects/EnsuredPackages",
+  "marketplace": {
+    "pr": "https://github.com/simeoncalixte/EnsuredMarketplace/pull/5",
+    "version": "0.1.5",
+    "releaseRun": 43497867019,
+    "ci": "success",
+    "checks": "typecheck, ESLint, Prettier, build passed",
+    "interactionTests": 17
+  },
+  "api": {
+    "pr": "https://github.com/simeoncalixte/EnsuredAPI/pull/23",
+    "mergeCommit": "d9bf5fab897f53f75188cc6df5eec3bb16ed50c2",
+    "checks": "full check passes, including isolated delivered test-import change",
+    "manualTestsPassed": 78,
+    "manualDatabaseTestsSkipped": 7,
+    "pipelineUnitTestsPassed": 175,
+    "userChanges": "API relocation retained, working-file bytes verified unchanged during main synchronization"
+  },
+  "network": {
+    "pr": "https://github.com/simeoncalixte/EnsuredNetwork/pull/7",
+    "mergeCommit": "51b290ba23006af30fdbf22a932d286b93e353e9",
+    "ciRun": 43498982017,
+    "ci": "success",
+    "frontendChecks": "typecheck, ESLint, Prettier, package build, live Storybook build pass",
+    "fixtureInteractions": 14,
+    "isolatedBackendContracts": 4,
+    "liveJourney": "passed using published Marketplace package with library directories absent",
+    "liveChecks": [
+      "signed: unpublished and unbound blocked",
+      "One missing external signature blocks binding",
+      "All three signatures, binding, and reviewed listing permit standard publication",
+      "signed: visible in shared Network/Marketplace opportunity API",
+      "signed: cross-organization access blocked",
+      "admin_override: unpublished and unbound blocked",
+      "Admin binds and publishes with two audited reasons and no invented signatures",
+      "admin_override: visible in shared Network/Marketplace opportunity API",
+      "admin_override: cross-organization access blocked",
+      "AIN-78: stopped real KYC service hides terms and blocks confirmation; restart recovers the approved journey",
+      "AIN-77: owning-source withdrawal and changed listing hide the old link and deny terms; restoring source produces one listing",
+      "AIN-77: live Network handoff retains exact publication hash; stale hash returns no listing",
+      "AIN-84: live reviewer Storybook records participant-specific bound subject approval after real independent KYC review",
+      "AIN-78/33: host exact opportunity opens terms; live Storybook double-click creates one pending commitment",
+      "AIN-78: lost-response replay, conflicting retry, outsider, revocation and immutable database evidence",
+      "AIN-30 slice: pending commitments never report funded cash; listing funding is explicitly unverified",
+      "Live Network Storybook renders both real published opportunities through the gateway"
+    ],
+    "ordinaryBackendTests": {
+      "passed": 3,
+      "skipped": 1
+    }
+  },
+  "ui": {
+    "checks": "full check and production build passed",
+    "componentTests": 4,
+    "nodeTests": 52
+  },
+  "workspace": {
+    "check": "tsconfig.workspace typechecks changed tooling; ESLint and Prettier pass",
+    "scopeGap": "Unrelated historical root scripts are not newly covered by the workspace typecheck configuration.",
+    "registryVerification": {
+      "installedInstances": 30,
+      "uniqueArchives": 25,
+      "result": "all published files match integrity-checked registry archives"
+    },
+    "verifierTests": 7,
+    "componentPolicy": "published policy/registry and application catalogs agree; sync produces no changes",
+    "theme": "passed",
+    "containers": "all 10 application images built with library source directories absent"
+  },
+  "deployment": "none; live tests used isolated disposable services, cleaned up",
+  "remaining": "Final parent merge/sync receipt recorded on PR81 and AIN-182; no implementation work remains.",
+  "parent": {
+    "pr": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/81",
+    "ciRun": 43499625654,
+    "ciResult": "failed at checkout: Input required and not supplied: token; application checks never started",
+    "protectionOverride": false
+  }
+}

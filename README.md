@@ -1,3 +1,17 @@
+# Application workspace
+
+This root contains runnable applications and services. Reusable libraries are installed from pinned private-registry packages, not sibling source checkouts. Initialize the remaining submodules and install each application's lockfile with the configured package credential.
+
+Package source development belongs in separate checkouts (locally preserved under `/Users/simeon/Projects/EnsuredPackages`). The removed repositories are the 18 EnsuredPipeline packages, EnsuredConstants, EnsuredXDS, EnsuredAuthUI, EnsuredMarketplace and EnsuredCallGraph. Clone their independent GitHub repositories to change them, run their checks, publish a version, then update application manifests and lockfiles. Do not use npm links or file dependencies in application delivery.
+
+`npm run packages:verify` verifies installed API/UI/Network internal packages, including nested versions, against registry tarballs and lockfile integrity. It catches modified files, missing/extra files and source links. `npm run component-policy:check` compares published Constants/XDS policy and application catalogs/adapters. `npm run pipeline:verify` runs both. These checks require registry credentials and network/cache access; they do not claim to compare against unpublished library source. `npm run pipeline:test-gate` runs verifier regressions. `npm run component-policy:sync` regenerates application catalogs from the installed registry. Theme sync reads the installed XDS CSS.
+
+Application-owned services remain: EnsuredAPI, EnsuredUI, EnsuredAuth/gateway, EnsuredKYC, EnsuredNetwork (including its service-owned frontend), EnsuredServices, SubmissionUI/relay, EnsuredEmail, EnsuredLogistics and EnsuredSubmissionFeedback. Docs and PDF assets remain. Published UI libraries can be developed separately without being part of the application workspace.
+
+Historical source extraction tooling and fixtures remain for audit provenance. `scripts/pipeline-packages.mjs` and `scripts/audit-pipeline-extraction.mjs` require explicit `PACKAGE_SOURCE_ROOT`; they are not application build gates. Package-specific screenshot tools require an explicit external Storybook path. The historical source-parity test fixtures remain regression coverage for the comparison primitives.
+
+---
+
 # EnsureMarketPlace
 
 This repository coordinates eight independent private repositories through Git submodules. Each directory has its own commits and remote; `.claude` and shared project files remain here. The earlier monorepo history is preserved in this parent repository. Child repositories start from the code snapshot at the split.
@@ -7,7 +21,7 @@ This repository coordinates eight independent private repositories through Git s
 | `EnsuredAPI` | [EnsuredAPI](https://github.com/simeoncalixte/EnsuredAPI) |
 | `EnsuredAuth` | [EnsuredAuth](https://github.com/simeoncalixte/EnsuredAuth) |
 | `EnsuredKYC` | [EnsuredKYC](https://github.com/simeoncalixte/EnsuredKYC) |
-| `EnsuredXDS` | [EnsuredXDS](https://github.com/simeoncalixte/EnsuredXDS) |
+| Published XDS library | [Independent repository](https://github.com/simeoncalixte/EnsuredXDS) |
 | `EnsuredUI` | [EnsuredUI](https://github.com/simeoncalixte/EnsuredUI) |
 | `SubmissionUI` | [SubmissionUI](https://github.com/simeoncalixte/SubmissionUI) |
 | `docs` | [EnsureMarketPlace-docs](https://github.com/simeoncalixte/EnsureMarketPlace-docs) |
@@ -33,7 +47,7 @@ Each application manages its own dependencies. Local environment files, dependen
 
 ## Authentication
 
-The reusable account interface lives in [EnsuredAuthUI](EnsuredAuthUI/README.md) and is mounted inside EnsuredUI. [EnsuredAuth](EnsuredAuth/README.md) owns registration, email/password login, social sign-in and session verification. Start its gateway alongside the API and UI, and use `http://localhost:3002` as the public entry point. The API requires `AUTH_GATEWAY_SECRET`; legacy browser JWTs are no longer accepted. See the authentication guide for provider setup and linking existing marketplace users.
+The reusable account interface lives in [EnsuredAuthUI](https://github.com/simeoncalixte/EnsuredAuthUI) and is mounted inside EnsuredUI. [EnsuredAuth](EnsuredAuth/README.md) owns registration, email/password login, social sign-in and session verification. Start its gateway alongside the API and UI, and use `http://localhost:3002` as the public entry point. The API requires `AUTH_GATEWAY_SECRET`; legacy browser JWTs are no longer accepted. See the authentication guide for provider setup and linking existing marketplace users.
 
 ## KYC
 
@@ -41,7 +55,7 @@ The reusable account interface lives in [EnsuredAuthUI](EnsuredAuthUI/README.md)
 
 ## Shared UI library
 
-[EnsuredXDS](EnsuredXDS/README.md) provides `@ensured/xds`, consumed through its pinned private-registry npm alias. After initializing submodules, run `npm run setup:ui`, then `npm run start`. Use `npm run build:ui` to build the host using its published dependencies, or `npm run storybook:xds` for the shared component catalogue.
+[EnsuredXDS](https://github.com/simeoncalixte/EnsuredXDS) provides `@ensured/xds`, consumed through its pinned private-registry npm alias. After initializing submodules, run `npm run setup:ui`, then `npm run start`. Use `npm run build:ui` to build the host using its published dependencies, or run Storybook in the independent XDS checkout for the shared component catalogue.
 
 ## Service discovery and catalog
 
@@ -80,7 +94,7 @@ If you previously used `EnsuredAPI/docker-compose.auth.yml`, its former `identit
 
 ## Marketplace microfrontend
 
-[EnsuredMarketplace](EnsuredMarketplace/README.md) owns the TypeScript Marketplace view and shared investor map. EnsuredUI loads its built package and supplies authentication, theme, and Mapbox configuration. `npm run setup:ui` installs and builds the dependencies; `npm run build:ui` builds the host. Use `npm run marketplace:dev` for standalone development, `npm run storybook:marketplace` for stories, and `npm run test:marketplace` for TypeScript and browser interaction checks. See its [implementation review](EnsuredMarketplace/REVIEW.md) for existing product gaps.
+[EnsuredMarketplace](https://github.com/simeoncalixte/EnsuredMarketplace) owns the TypeScript Marketplace view and shared investor map. EnsuredUI loads its built package and supplies authentication, theme, and Mapbox configuration. `npm run setup:ui` installs and builds the dependencies; `npm run build:ui` builds the host. Run standalone development, stories and library interaction checks in the independent Marketplace checkout. See its [implementation review](https://github.com/simeoncalixte/EnsuredMarketplace/blob/main/REVIEW.md) for existing product gaps.
 
 ## Insurance professional network
 
@@ -92,7 +106,7 @@ If you previously used `EnsuredAPI/docker-compose.auth.yml`, its former `identit
 
 ## Standalone pipeline stage repositories
 
-The pipeline consists of 18 versioned npm packages configured for GitHub Packages, with shared persistence/provider support. Run `npm run pipeline:setup` to install and build them, and `npm run pipeline:test` for package tests. See [PIPELINE_PACKAGES.md](PIPELINE_PACKAGES.md) for repository links, standalone bootstrap instructions, and migration boundaries.
+The pipeline consists of 18 versioned npm packages configured for GitHub Packages, with shared persistence/provider support. Their source repositories are developed separately; application consumers install the published versions with `npm ci`. Run `npm run pipeline:verify` to check installed artifacts. See [PIPELINE_PACKAGES.md](PIPELINE_PACKAGES.md) for repository links, standalone bootstrap instructions, and migration boundaries.
 
 ### Package environments
 
