@@ -23,5 +23,9 @@
   "pipelineTests": 175,
   "deployment": "None; no migration",
   "coverageGap": "Legacy OAuth route suite typechecked, not executed; direct ingestion persistence/rollback covered in manual DB suite",
-  "finalVerification": "PASS: clean registry npm ci; API format/check; root workspace check; component policy; 30 installed package instances against 25 integrity-checked registry archives"
+  "finalVerification": "PASS: clean registry npm ci; API format/check; root workspace check; component policy; 30 installed package instances against 25 integrity-checked registry archives",
+  "parentCI": {
+    "run": 43606308330,
+    "result": "Failed at checkout: Input required and not supplied: token; existing configuration limitation"
+  }
 }
