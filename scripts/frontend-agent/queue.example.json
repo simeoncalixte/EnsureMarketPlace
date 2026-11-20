@@ -1,0 +1,22 @@
+{
+  "tickets": [
+    {
+      "key": "AIN-000",
+      "summary": "Synthetic example: empty state for the submissions queue",
+      "acceptanceCriteria": [
+        "When the queue has no submissions, an XDS empty state explains why and offers the next action",
+        "Storybook story EmptyQueue with a play function asserts the message and the action button"
+      ],
+      "status": "todo",
+      "attempts": 0,
+      "branch": null,
+      "notes": "",
+      "evidence": {
+        "storyResults": [],
+        "beforeShots": [],
+        "afterShots": [],
+        "storyMap": []
+      }
+    }
+  ]
+}

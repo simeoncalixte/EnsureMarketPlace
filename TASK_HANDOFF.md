@@ -5,6 +5,25 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## Frontend agent and UI skills (2026-11-20)
+
+Direct user request, not ticket-driven: build a long-running agent that works on EnsuredUI,
+commit the UI skills, and open PRs. No application source, dependency, migration or deployment
+changes.
+
+- EnsuredUI skills (`storybook`, `ui-engineer`): [EnsuredUI#22](https://github.com/simeoncalixte/EnsuredUI/pull/22)
+  (`1534852`). Its `npm run check` passed, and ESLint passed on the skill scripts.
+- Workspace: `.claude/agents/frontend-engineer.md` and `scripts/frontend-agent/` (runner,
+  Stop-hook gate, PreToolUse guard, scoped settings, queue example, README). Runtime state is in
+  the gitignored `/.frontend-agent/`. `gate.mjs` and `guard.mjs` are now covered by
+  `npm run workspace:check`, which passed.
+- Verified in isolation: guard allow/deny cases, the gate passes on EnsuredUI `main`, and the
+  Stop hook blocks a `done` ticket that has no evidence.
+- Not yet verified: a full `run.sh` session on a real ticket (it starts a paid session), and Jira
+  updates from headless sessions (they depend on a Jira tool being available).
+- Next step: merge EnsuredUI#22 and then the parent PR. Then populate `.frontend-agent/queue.json`
+  and run `scripts/frontend-agent/run.sh --once`.
+
 ## Agent skills delivery (2026-11-20)
 
 Direct user request: create PRs for all current changes, merge them, and sync the project.
