@@ -30,7 +30,11 @@ there are no application source, dependency, migration, or UI changes.
   - [EnsuredSubmissionFeedback#4](https://github.com/simeoncalixte/EnsuredSubmissionFeedback/pull/4) (`c08d58e`).
   - [EnsuredUI#21](https://github.com/simeoncalixte/EnsuredUI/pull/21) (`b8808c0`).
   - [SubmissionUI#6](https://github.com/simeoncalixte/SubmissionUI/pull/6) (`7621e38`).
-- Parent PR carries the workspace files and updated submodule references; merge and sync it to complete delivery.
+- Parent [EnsureMarketPlace#85](https://github.com/simeoncalixte/EnsureMarketPlace/pull/85) (`af6bdb2`) is merged
+  and synced. Reconciled afterwards: every submodule pointer matches its `main`, all eleven `.claude/skills`
+  entries are stored as symlinks to `../.agents/skills`, and the merged local branches were deleted.
+- No skills exist yet; only the READMEs. Agents started inside a submodule see only that repository's
+  skills (see `.agents/skills/README.md`).
 
 ## Current work: project context and documentation cleanup (2026-11-20)
 
