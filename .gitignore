@@ -49,3 +49,6 @@ simplemaps_worldcities_*
 /output/filter-button-review-2026-11-09/jira-final.json
 /output/publish-versioned-2026-11-14/jira-final.json
 /output/remove-canonical-2026-11-14/jira-final.json
+
+# Frontend agent runtime state (queue, logs, evidence)
+/.frontend-agent/

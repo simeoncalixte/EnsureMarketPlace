@@ -26,6 +26,8 @@
     "scripts/audit-pipeline-extraction.mjs",
     "scripts/check-component-capabilities.mjs",
     "scripts/check-xds-color-ownership.mjs",
+    "scripts/frontend-agent/gate.mjs",
+    "scripts/frontend-agent/guard.mjs",
     "scripts/inventory-data-models.cjs",
     "scripts/pipeline-packages.mjs",
     "scripts/review-filter-button-positions.mjs",
