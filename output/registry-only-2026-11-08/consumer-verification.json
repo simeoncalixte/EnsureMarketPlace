@@ -1,0 +1,19 @@
+{
+  "SubmissionUI": [
+    "npm ci --ignore-scripts",
+    "npm run build",
+    "installed override check passed"
+  ],
+  "EnsuredLogistics": [
+    "npm ci --ignore-scripts",
+    "npm run typecheck",
+    "installed override check passed"
+  ],
+  "frontendOwners": [
+    "EnsuredAuthUI",
+    "EnsuredMarketplace",
+    "EnsuredNetwork/frontend"
+  ],
+  "frontendResults": "clean registry installations, builds, installed override checks passed",
+  "pending": "21 dependent releases, full consumer lock reconciliation, API/UI integration and local container refresh"
+}

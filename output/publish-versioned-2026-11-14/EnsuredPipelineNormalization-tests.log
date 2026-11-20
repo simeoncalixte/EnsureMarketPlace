@@ -1,0 +1,16 @@
+
+> @simeoncalixte/ensured-pipeline-normalization@0.2.0 test
+> jest --runInBand --watchman=false --silent
+
+PASS src/pipeline/canonicalize/service.test.ts
+PASS src/pipeline/canonicalize/pin.test.ts
+PASS src/pipeline/normalization/service.slice3.test.ts
+PASS src/pipeline/canonicalize/deriveLob.test.ts
+PASS src/pipeline/normalization/service.test.ts
+PASS src/pipeline/normalization/service.error.test.ts
+PASS src/pipeline/normalization/subjectDiscovery.test.ts
+
+Test Suites: 7 passed, 7 total
+Tests:       35 passed, 35 total
+Snapshots:   0 total
+Time:        1.653 s

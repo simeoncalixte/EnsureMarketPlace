@@ -1,0 +1,776 @@
+[
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "authorizes every document operation before reading files or starting jobs",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "persists a document without starting processing and records the uploading actor",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "returns per-file document types scoped to the authorized submission",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "accepts Excel upload schedule.xlsx and preserves its bytes",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "accepts Excel upload schedule.XLS and preserves its bytes",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "cleans stored bytes if persistence fails and rejects malformed or unsupported files",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "scopes content by submission and refuses arbitrary remote references",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "prevents uploads during processing and removes the uncommitted bytes",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "submissionDocuments.test.ts",
+    "test": "starts processing only on request, rejects empty submissions and conflicting jobs",
+    "decision": "retained",
+    "reason": "Retain distinct document HTTP authorization, upload/content safety, cleanup or explicit processing/job-conflict contract."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "underwriting dashboard aggregations does not turn missing triage scores into urgent flags",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "underwriting dashboard aggregations does not count seeded or modeled pricing as an issued quote",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "underwriting dashboard aggregations preserves zero, deduplicates portfolios, and reports partial coverage",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "underwriting dashboard aggregations does not manufacture values for missing, invalid, mixed or conflicting evidence",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "underwriting dashboard aggregations counts overlapping business lines with the actual selection denominator",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "underwriting dashboard aggregations keeps configured empty stages and excludes completed work from active and priority counts",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "underwriting dashboard aggregations insured exposure uses only bound snapshots whose coverage is currently active",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "underwritingDashboard.test.ts",
+    "test": "aggregates actually issued quotes by currency without decimal precision loss, including explicit zero",
+    "decision": "retained",
+    "reason": "Retain distinct financial missing/zero/currency/precision, timing or aggregation semantics."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters preserves scalar and multi-value business lines without substituting peril",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters lets explicit empty workbench edits override stale canonical codes",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters keeps geography roles separate and does not coerce objects into labels",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters marks unavailable reviewed data incomplete instead of using an old value",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters discovers only explicitly typed and versioned extension capabilities",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters uses OR within a facet and AND across facets with self-excluding counts",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters filters inclusive UTC dates before pagination and retains selected zero-count options",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "submissionFilters.test.ts",
+    "test": "discovered submission filters rejects unsupported predicates and reversed dates, and changes snapshot identity on revision changes",
+    "decision": "retained",
+    "reason": "Retain distinct semantic filter, unknown/incomplete, facet/date/pagination or revision identity rule."
+  },
+  {
+    "file": "documentType.db.test.ts",
+    "test": "document type persistence classifies every file once, including later uploads, without submission automation",
+    "decision": "retained",
+    "reason": "Retain real database classification idempotency, row-lock concurrency or bounded retry."
+  },
+  {
+    "file": "documentType.db.test.ts",
+    "test": "document type persistence separate worker replicas skip locked files",
+    "decision": "retained",
+    "reason": "Retain real database classification idempotency, row-lock concurrency or bounded retry."
+  },
+  {
+    "file": "documentType.db.test.ts",
+    "test": "document type persistence retries failures after a delay and stops after three attempts",
+    "decision": "retained",
+    "reason": "Retain real database classification idempotency, row-lock concurrency or bounded retry."
+  },
+  {
+    "file": "documentProcessing.test.ts",
+    "test": "rebuilds through schema generation in configured order without automatically underwriting",
+    "decision": "retained",
+    "reason": "Retain configured graph execution/dependency/failure behavior for explicitly requested document processing."
+  },
+  {
+    "file": "documentProcessing.test.ts",
+    "test": "honors graph branches, runs all ancestors once and excludes unrelated stages",
+    "decision": "retained",
+    "reason": "Retain configured graph execution/dependency/failure behavior for explicitly requested document processing."
+  },
+  {
+    "file": "documentProcessing.test.ts",
+    "test": "stops at a failed stage and retains its error for the job status",
+    "decision": "retained",
+    "reason": "Retain configured graph execution/dependency/failure behavior for explicitly requested document processing."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence uses the same writer for ingestion and rolls back the envelope with its related event",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence reloads the baseline, appears on its tenant board, moves status, and stays hidden from other tenants",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence rolls back the envelope when durable input persistence fails",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence preserves immutable input across migration reruns and isolates tenant and personal reads",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence adds and reloads original documents, captures the processing actor, and blocks concurrent uploads",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence saves an incomplete draft through HTTP and opens its document list immediately",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence rolls back the submission when the workflow write fails in PostgreSQL",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence serializes concurrent transitions and preserves a single matching workflow row",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence uses tenant and legacy ownership for reads and transitions without admitting another tenant",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence rejects disabled statuses and absent organization scope without changing durable state",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence readable insurance-type examples: from manual entry to durable evidence Commercial property: two warehouses, two parties and primary/excess layers",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence readable insurance-type examples: from manual entry to durable evidence Cyber liability: claims-made dates and separate response/interruption coverages",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence readable insurance-type examples: from manual entry to durable evidence Mixed property/cyber: worldwide risks, USD terms and EUR settlement",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence readable insurance-type examples: from manual entry to durable evidence keeps property and cyber records separate when several insurance types are created",
+    "decision": "removed",
+    "reason": "Retained parameterized round trips share a database; concurrent creates check unique IDs and contents."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence readable insurance-type examples: from manual entry to durable evidence saves an incomplete mixed-coverage draft but rejects submission without settlement currency",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "manualSubmission.integration.test.ts",
+    "test": "manual submission persistence readable insurance-type examples: from manual entry to durable evidence rejects an unnamed coverage in the second warehouse without saving partial records",
+    "decision": "retained",
+    "reason": "Retain real database durability, ownership, concurrency, rollback, original-value round trip or explicit document/lifecycle boundary."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API requires explicit identity and scope for compute without invoking the provider",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API requires identity and organization scope",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API rejects malformed filters and caller organization overrides",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API scopes all facet discovery and returns empty results without synthetic values",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API restricts admin discovery to owned submissions",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API uses committed workbench values and reports revision identity",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API rejects unsupported semantic keys instead of ignoring them",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API enforces identity, organization and request validation for dashboard metrics/quoted-premium",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API enforces identity, organization and request validation for dashboard metrics/insured-exposure",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API enforces identity, organization and request validation for dashboard business-line-allocation",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API enforces identity, organization and request validation for dashboard pipeline",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API enforces identity, organization and request validation for dashboard priority-queue",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API returns the applied selection and matches shared XDS schemas for metrics/quoted-premium",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API returns the applied selection and matches shared XDS schemas for metrics/insured-exposure",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API returns the applied selection and matches shared XDS schemas for business-line-allocation",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API returns the applied selection and matches shared XDS schemas for pipeline",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API returns the applied selection and matches shared XDS schemas for priority-queue",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API aggregates all matched submissions without pagination and applies dates and facets",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API excludes stored pricing from quoted premium and unbound portfolios from insured exposure",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "submissionFilterRoute.test.ts",
+    "test": "submission search API counts issued quote records for exactly the shared filtered submission selection",
+    "decision": "retained",
+    "reason": "Retain route authentication/request validation and current scoped evidence integration, not covered by pure aggregation tests."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "uses shared defaults and preserves repeatable records, zero values and false flags",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "enforces conditional requirements and nested coverage requirements",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects missing section before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects unknown section before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects forged field before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects invalid choice before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects wrong number type before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects invalid date before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects reversed dates before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects empty coverages before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects invalid nested value before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects excessive repeats before writing anything",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "persists owned input in the envelope transaction without any pipeline evidence",
+    "decision": "removed",
+    "reason": "Real PostgreSQL example round trips and no-evidence counts plus SQL failure-injection transaction coverage supersede mocked persistence calls."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "propagates input persistence failure so the envelope transaction rolls back",
+    "decision": "removed",
+    "reason": "Real SQL failure injection verifies rollback; the fake transaction only propagated a mock rejection."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "saves an incomplete draft while preserving validation for supplied values",
+    "decision": "simplified",
+    "reason": "Retain distinct draft validation; remove mocked save assertions covered by PostgreSQL draft HTTP and mixed-coverage cases."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "requires authentication and organization membership",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "creates through HTTP using only the authenticated tenant and returns field errors",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "includes tenant-owned submissions without requiring an insurer profile and scopes legacy rows",
+    "decision": "removed",
+    "reason": "Real board/legacy isolation and action-specific access/search tests cover behavior without asserting duplicate ORM query structure."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "allows an administrator without an organization to save a user-owned submission",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "manualSubmission.test.ts",
+    "test": "rejects divergent browser policy versions before submission persistence",
+    "decision": "retained",
+    "reason": "Retain distinct manual value/conditional validation or authenticated HTTP policy/ownership boundary; real persistence has a separate suite."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin read",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin documents",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin sign",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin quote",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin bind",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin publish",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin pipeline",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin underwriting",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary keeps organization ownership for non-admin board",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary does not turn administrator read into a cross-tenant grant",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary does not turn administrator documents into a cross-tenant grant",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary does not turn administrator sign into a cross-tenant grant",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary does not turn administrator pipeline into a cross-tenant grant",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary preserves the explicit administrator exception for quote",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary preserves the explicit administrator exception for bind",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary preserves the explicit administrator exception for publish",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary requires an explicit administrator for organization-free underwriting access",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary rejects missing/invalid actor scope rather than querying all submissions",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary uses legacy profile ownership only for underwriting",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary returns a plain DTO without exposing mutation methods or associations",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "submissionService.test.ts",
+    "test": "submission application access boundary limits personal access to the submitter and rejects invalid IDs without querying",
+    "decision": "retained",
+    "reason": "Retain distinct action-scoped ownership/admin rule or DTO boundary."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary accepts every published manual section without changing its definitions",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"unsupported\"}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"select\"}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"multi-select\",\"options\":[1]}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"object-array\"}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"object-array\",\"itemSchema\":{\"amount\":{\"type\":\"object\",\"label\":\"Amount\"}}}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"object-array\",\"itemSchema\":{\"amount\":{\"type\":\"number\"}}}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"object-array\",\"itemSchema\":{\"amount\":{\"type\":\"number\",\"label\":\"Amount\",\"required\":\"yes\"}}}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"text\",\"dependsOn\":{\"fieldId\":\"active\",\"operator\":\"equals\"}}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"text\",\"dependsOn\":{\"fieldId\":\"lines\",\"operator\":\"contains\"}}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "manualSubmissionFields.test.ts",
+    "test": "shared manual submission template boundary rejects definitions outside the shared contract: {\"fieldType\":\"text\",\"validation\":{\"isRequired\":{\"fieldId\":\"lines\",\"operator\":\"unknown\"}}}",
+    "decision": "retained",
+    "reason": "Retain server template-definition contract validation; distinct from user-value validation."
+  },
+  {
+    "file": "retireCanonical.integration.test.ts",
+    "test": "canonical submission cutover refuses unresolved ownership without changing the original store",
+    "decision": "retained",
+    "reason": "Retain legacy migration preservation, isolation, repeatability or recovery behavior."
+  },
+  {
+    "file": "retireCanonical.integration.test.ts",
+    "test": "canonical submission cutover preserves every payload and pin, removes the table, and is repeatable",
+    "decision": "retained",
+    "reason": "Retain legacy migration preservation, isolation, repeatability or recovery behavior."
+  },
+  {
+    "file": "retireCanonical.integration.test.ts",
+    "test": "canonical submission cutover finalizes references from tenant-matched normalization and never changes them on later revisions",
+    "decision": "retained",
+    "reason": "Retain legacy migration preservation, isolation, repeatability or recovery behavior."
+  },
+  {
+    "file": "retireCanonical.integration.test.ts",
+    "test": "canonical submission cutover restores original legacy data and schema references for application recovery",
+    "decision": "retained",
+    "reason": "Retain legacy migration preservation, isolation, repeatability or recovery behavior."
+  },
+  {
+    "file": "submissionCreation.test.ts",
+    "test": "preserves explicit creation fields and caller transaction but excludes generated identifiers",
+    "decision": "retained",
+    "reason": "Retain explicit envelope field allowlist and caller-transaction forwarding."
+  },
+  {
+    "file": "submissionCreation.test.ts",
+    "test": "propagates write failure so the workflow can roll back",
+    "decision": "removed",
+    "reason": "Mirrors a one-call writer; real manual and ingestion rollback tests remain."
+  },
+  {
+    "file": "complexSubmissionExamples.test.ts",
+    "test": "unclaimed entity creation inputs accompanying complex insurance examples Commercial property: two warehouses, two parties and primary/excess layers: every party has a matching private email and explicit identity kind",
+    "decision": "retained",
+    "reason": "Retain synthetic fixture identity-kind mapping and unclaimed/no-authority boundaries for each insurance input."
+  },
+  {
+    "file": "complexSubmissionExamples.test.ts",
+    "test": "unclaimed entity creation inputs accompanying complex insurance examples Cyber liability: claims-made dates and separate response/interruption coverages: every party has a matching private email and explicit identity kind",
+    "decision": "retained",
+    "reason": "Retain synthetic fixture identity-kind mapping and unclaimed/no-authority boundaries for each insurance input."
+  },
+  {
+    "file": "complexSubmissionExamples.test.ts",
+    "test": "unclaimed entity creation inputs accompanying complex insurance examples Mixed property/cyber: worldwide risks, USD terms and EUR settlement: every party has a matching private email and explicit identity kind",
+    "decision": "retained",
+    "reason": "Retain synthetic fixture identity-kind mapping and unclaimed/no-authority boundaries for each insurance input."
+  },
+  {
+    "file": "complexSubmissionExamples.test.ts",
+    "test": "unclaimed entity creation inputs accompanying complex insurance examples includes an individual independently of organizations and keeps repeat contact assertions unclaimed",
+    "decision": "removed",
+    "reason": "Hard-coded fixture values and unclaimed flags duplicate retained per-party companion-contract coverage."
+  }
+]

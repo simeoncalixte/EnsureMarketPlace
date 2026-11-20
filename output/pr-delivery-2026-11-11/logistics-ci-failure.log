@@ -1,0 +1,10 @@
+validate	Run npm ci	﻿2026-11-12T01:11:26.7316589Z ##[group]Run npm ci
+validate	Run npm ci	2026-11-12T01:11:26.7316899Z ^[[36;1mnpm ci^[[0m
+validate	Run npm ci	2026-11-12T01:11:26.7379424Z shell: /usr/bin/bash -e {0}
+validate	Run npm ci	2026-11-12T01:11:26.7379724Z ##[endgroup]
+validate	Run npm ci	2026-11-12T01:11:31.7555818Z npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.hirok.io
+validate	Run npm ci	2026-11-12T01:11:31.9484597Z npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.hirok.io
+validate	Run npm ci	2026-11-12T01:12:04.8195326Z npm error code E401
+validate	Run npm ci	2026-11-12T01:12:04.8199695Z npm error 401 Unauthorized - GET https://npm.pkg.github.com/download/@simeoncalixte/ensured-xds/0.1.2/2693299d2596a1d3eb8054a7b72adb7556ce090b - unauthenticated: User cannot be authenticated with the token provided.
+validate	Run npm ci	2026-11-12T01:12:04.8219017Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-11-12T01_11_26_807Z-debug-0.log
+validate	Run npm ci	2026-11-12T01:12:04.9228667Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,140 @@
+✔ rejects a same-version source link even when its lock claims a registry artifact (6.220792ms)
+
+> @fixture/shared@1.0.0 build
+> node build.cjs
+
+
+> @fixture/capacity@1.0.0 build
+> node build.cjs
+
+
+> @fixture/riskCompute@1.0.0 build
+> node build.cjs
+
+{
+  "financialArtifacts": [
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/shared",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/capacity",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/riskCompute",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    }
+  ],
+  "errors": []
+}
+
+> @fixture/shared@1.0.0 build
+> node build.cjs
+
+
+> @fixture/capacity@1.0.0 build
+> node build.cjs
+
+
+> @fixture/riskCompute@1.0.0 build
+> node build.cjs
+
+{
+  "financialArtifacts": [
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/shared",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/capacity",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/riskCompute",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    }
+  ],
+  "errors": [
+    "EnsuredAPI: local package override or inherited installation for @fixture/riskCompute"
+  ]
+}
+
+> @fixture/shared@1.0.0 build
+> node build.cjs
+
+
+> @fixture/capacity@1.0.0 build
+> node build.cjs
+
+
+> @fixture/riskCompute@1.0.0 build
+> node build.cjs
+
+{
+  "financialArtifacts": [
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/shared",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/capacity",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "b33753b2336ea29616ce63b47b738ee12c0a6f7b9ec6633d8bc32cc284555dd7",
+      "matchesSourceBuild": true
+    },
+    {
+      "consumer": "EnsuredAPI",
+      "package": "@fixture/riskCompute",
+      "version": "1.0.0",
+      "files": 1,
+      "sha256": "a3283444192ab4bd1614ae9cd441163da9657d11e91c8fb741fed918d5845de5",
+      "matchesSourceBuild": false
+    }
+  ],
+  "errors": [
+    "EnsuredAPI: stale @fixture/riskCompute@1.0.0: 1 artifact differences (index.js)"
+  ]
+}
+✔ same-version stale JS, declarations, JSON, missing and extra files fail parity (13.188291ms)
+✔ missing owners and replacement files cannot be silently skipped (1.243084ms)
+✔ release consumers require exact version and registry integrity; links and ranges fail (0.143416ms)
+✔ release gate resolves consumer artifacts and rejects a stale package at the same version (1175.549583ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1251.230709

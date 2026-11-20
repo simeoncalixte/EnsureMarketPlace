@@ -1,0 +1,14 @@
+[
+  {
+    "package": "@simeoncalixte/ensured-xds",
+    "error": "/Users/simeon/Projects/EnsureMarketPlace/output/registry-only-2026-11-08/EnsuredXDS-test.log failed"
+  },
+  {
+    "package": "@simeoncalixte/ensured-pipeline-shared",
+    "error": "EnsuredPipelineShared workflow failed: 42516076253"
+  },
+  {
+    "package": "@simeoncalixte/ensured-services",
+    "error": "EnsuredServices workflow timeout"
+  }
+]

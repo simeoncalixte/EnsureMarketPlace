@@ -1,0 +1,35 @@
+
+> @simeoncalixte/ensured-xds@0.1.1 test
+> npm run build && node --test test/package.test.mjs test/component-manifest.test.mjs test/results.test.mjs test/palette.test.mjs
+
+
+> @simeoncalixte/ensured-xds@0.1.1 build
+> node scripts/clean.mjs && npm run generate:dashboard-validators && tsc -p tsconfig.build.json && node scripts/copy-css.mjs
+
+
+> @simeoncalixte/ensured-xds@0.1.1 generate:dashboard-validators
+> node scripts/generate-dashboard-validators.mjs
+
+Generated 9 standalone dashboard validators.
+✔ extracts inherited/nested JSON props and reports unsupported props without weakening unions (200.448916ms)
+✔ generates the XDS catalog without executing React and preserves reviewed validation (1122.399875ms)
+✔ shared source imports stay inside the package and contain no application environment/API dependencies (12.68225ms)
+../../../../../private/var/folders/8h/hv7p8nks0fz852jnlp9f6tpw0000gn/T/ensured-xds-consumer-6cmZyN/node_modules/react-router/dist/development/index.mjs (11:0): Module level directives cause errors when bundled, "use client" in "../../../../../private/var/folders/8h/hv7p8nks0fz852jnlp9f6tpw0000gn/T/ensured-xds-consumer-6cmZyN/node_modules/react-router/dist/development/index.mjs" was ignored.
+✔ a packed artifact builds in a separate consumer with exported components, styles and declarations (3941.540834ms)
+✔ approved palette remains exact (0.675167ms)
+✔ dark: readable text, actions and semantic states (0.842042ms)
+✔ dark: CSS contract includes all semantic tokens (2.042708ms)
+✔ light: readable text, actions and semantic states (0.143375ms)
+✔ light: CSS contract includes all semantic tokens (1.4925ms)
+✔ result states preserve zero and suppress stale metrics; shares and targets have valid accessible bounds (167.775583ms)
+✔ catastrophe and renewal sections keep actions explicit and suppress unavailable aggregates (71.598625ms)
+✔ pipeline sections preserve missing values and explicit totals without fabricating distributions (129.592166ms)
+✔ dashboard validators work without runtime code generation under a restrictive CSP (7.060459ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4140.089417

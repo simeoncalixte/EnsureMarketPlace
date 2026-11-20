@@ -1,0 +1,26 @@
+{
+  "scope": "AIN-204 fixture-only creation inputs; no account provisioning implemented",
+  "tests": {
+    "passed": 41,
+    "failed": 0,
+    "pending": 0,
+    "suites": 4
+  },
+  "commands": [
+    "npm --prefix EnsuredAPI run format",
+    "npm --prefix EnsuredAPI run check",
+    "node scripts/test-api.mjs --runTestsByPath EnsuredAPI/test/manual/complexSubmissionExamples.test.ts EnsuredAPI/test/manual/manualSubmission.integration.test.ts EnsuredAPI/test/manual/submissionCreation.test.ts EnsuredAPI/test/manual/manualSubmission.test.ts --json --outputFile output/party-claim-plan-2026-11-14/test-results.json"
+  ],
+  "checks": "passed: typecheck, type-safety, generated contracts, ESLint, Prettier, git diff --check",
+  "files": {
+    "EnsuredAPI/test/manual/complexSubmissionExamples.ts": "ce55ee8f21ab79341cfb138ed50fe13a219f432ea5b36ce9d5c5291e44529926",
+    "EnsuredAPI/test/manual/complexSubmissionExamples.test.ts": "fce23ccbeea16c59a3799545e0a5e03c4b6cdbdcc6b11c5137516ea69414a45e",
+    "EnsuredAPI/test/manual/README.md": "64b67cd58c3d5b080f604bde304c8614982124bcf08bc2b3fb597668457311d4"
+  },
+  "deployment": "none",
+  "limitations": [
+    "unlinkedAccounts is fixture companion data, not accepted/persisted by current manual form contract",
+    "UI/claim/invitation implementation remains To Do; no new account or invitation was created",
+    "Before images show existing synthetic reviewed-party forms, not new claim screens"
+  ]
+}

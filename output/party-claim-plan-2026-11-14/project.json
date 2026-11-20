@@ -1,0 +1,96 @@
+{
+  "expand": "description,lead,issueTypes,url,projectKeys,permissions,insight",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/project/10033",
+  "id": "10033",
+  "key": "AIN",
+  "description": "",
+  "lead": {
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/user?accountId=712020:2f61dfa1-9703-4791-841d-5fe8ffd8fc47",
+    "accountId": "712020:2f61dfa1-9703-4791-841d-5fe8ffd8fc47",
+    "avatarUrls": {
+      "48x48": "https://secure.gravatar.com/avatar/0764c3f1f09b088a28ab453ec2bed660?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FCS-2.png",
+      "24x24": "https://secure.gravatar.com/avatar/0764c3f1f09b088a28ab453ec2bed660?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FCS-2.png",
+      "16x16": "https://secure.gravatar.com/avatar/0764c3f1f09b088a28ab453ec2bed660?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FCS-2.png",
+      "32x32": "https://secure.gravatar.com/avatar/0764c3f1f09b088a28ab453ec2bed660?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FCS-2.png"
+    },
+    "displayName": "calixte simeon",
+    "active": true
+  },
+  "components": [],
+  "issueTypes": [
+    {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+      "id": "10034",
+      "description": "Subtasks track small pieces of work that are part of a larger task.",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+      "name": "Subtask",
+      "subtask": true,
+      "avatarId": 10316,
+      "hierarchyLevel": -1
+    },
+    {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+      "id": "10035",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+      "name": "Epic",
+      "subtask": false,
+      "avatarId": 10307,
+      "hierarchyLevel": 1
+    },
+    {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+      "id": "10036",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+      "name": "Story",
+      "subtask": false,
+      "avatarId": 10315,
+      "hierarchyLevel": 0
+    },
+    {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10037",
+      "id": "10037",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+      "name": "Bug",
+      "subtask": false,
+      "avatarId": 10303,
+      "hierarchyLevel": 0
+    },
+    {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+      "id": "10038",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+      "name": "Task",
+      "subtask": false,
+      "avatarId": 10318,
+      "hierarchyLevel": 0
+    }
+  ],
+  "assigneeType": "UNASSIGNED",
+  "versions": [],
+  "name": "AinsuranceMaket",
+  "roles": {
+    "atlassian-addons-project-access": "https://simeoncalixte1990.atlassian.net/rest/api/3/project/10033/role/10041",
+    "Administrator": "https://simeoncalixte1990.atlassian.net/rest/api/3/project/10033/role/10037",
+    "jira-guest-member": "https://simeoncalixte1990.atlassian.net/rest/api/3/project/10033/role/10040",
+    "Viewer": "https://simeoncalixte1990.atlassian.net/rest/api/3/project/10033/role/10039",
+    "Member": "https://simeoncalixte1990.atlassian.net/rest/api/3/project/10033/role/10038"
+  },
+  "avatarUrls": {
+    "48x48": "https://simeoncalixte1990.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416",
+    "24x24": "https://simeoncalixte1990.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=small",
+    "16x16": "https://simeoncalixte1990.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=xsmall",
+    "32x32": "https://simeoncalixte1990.atlassian.net/rest/api/3/universal_avatar/view/type/project/avatar/10416?size=medium"
+  },
+  "projectTypeKey": "software",
+  "simplified": true,
+  "style": "next-gen",
+  "isPrivate": false,
+  "properties": {},
+  "entityId": "272fdd22-9aaa-4181-a862-724c2a6b276d",
+  "uuid": "272fdd22-9aaa-4181-a862-724c2a6b276d",
+  "isLiveTemplate": false
+}

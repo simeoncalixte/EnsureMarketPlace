@@ -1,0 +1,211 @@
+{
+  "AIN-211": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10534",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10534",
+    "key": "AIN-211",
+    "fields": {
+      "subtasks": [],
+      "parent": {
+        "id": "10232",
+        "key": "AIN-3",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10232",
+        "fields": {
+          "summary": "[Ensured] Finish effective submission revisions and scalable board queries",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-210": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10533",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10533",
+    "key": "AIN-210",
+    "fields": {
+      "subtasks": [],
+      "parent": {
+        "id": "10232",
+        "key": "AIN-3",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10232",
+        "fields": {
+          "summary": "[Ensured] Finish effective submission revisions and scalable board queries",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "To Do",
+        "id": "10036",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "AIN-3": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10232",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10232",
+    "key": "AIN-3",
+    "fields": {
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "To Do",
+        "id": "10036",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "AIN-95": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10418",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10418",
+    "key": "AIN-95",
+    "fields": {
+      "subtasks": [],
+      "parent": {
+        "id": "10232",
+        "key": "AIN-3",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10232",
+        "fields": {
+          "summary": "[Ensured] Finish effective submission revisions and scalable board queries",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "To Do",
+        "id": "10036",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  }
+}

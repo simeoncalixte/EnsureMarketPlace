@@ -1,0 +1,81 @@
+{
+  "ticket": "AIN-208",
+  "tests": {
+    "passed": 12,
+    "failed": 0,
+    "suites": 2,
+    "command": "RELATIONSHIPS_DB_TEST=1 node scripts/test-api.mjs --runTestsByPath EnsuredAPI/test/relationships/submissionLineage.db.test.ts EnsuredAPI/test/relationships/reinsurance.db.test.ts"
+  },
+  "checks": {
+    "format": "pass",
+    "typecheck": "pass",
+    "type-safety": "pass",
+    "generated-contracts": "pass",
+    "eslint": "pass",
+    "prettier": "pass",
+    "command": "npm --prefix EnsuredAPI run format && npm --prefix EnsuredAPI run check"
+  },
+  "local": {
+    "migrations": [
+      {
+        "name": "20261116000000-document-submission-lineage.ts"
+      },
+      {
+        "name": "20261116010000-capacity-submission-lineage.ts"
+      },
+      {
+        "name": "20261116020000-reconcile-capacity-lineage-ownership.ts"
+      }
+    ],
+    "constraints": [
+      {
+        "conname": "capacity_source_placement_fk",
+        "convalidated": true
+      },
+      {
+        "conname": "documents_submission_lineage_fk",
+        "convalidated": true
+      },
+      {
+        "conname": "placement_submission_owner_fk",
+        "convalidated": true
+      }
+    ],
+    "pending": [],
+    "repeatRunExecuted": 0,
+    "lineage": [
+      {
+        "source_kind": "external_or_unresolved",
+        "count": 8
+      }
+    ],
+    "counts": {
+      "documents": 1,
+      "commercial_capacity_entries": 8,
+      "submissions": 1,
+      "reinsurance_placements": 0
+    },
+    "apiHealth": "ok",
+    "preservationEvidence": "Original-field equality established in disposable legacy migration tests. Local migrations auto-applied by API development watcher before a pre-migration fingerprint could be captured; local document and capacity row counts remain 1 and 8."
+  },
+  "productionDeployment": false,
+  "uiChanges": false,
+  "storybook": "Not applicable: backend-only schema integrity; existing authenticated reinsurance API/DB tests exercised. Synthetic workbench input, not full feedback-service certification.",
+  "broaderOpenObligations": [
+    "AIN-47",
+    "AIN-48",
+    "AIN-49",
+    "AIN-54",
+    "AIN-108",
+    "AIN-95",
+    "AIN-18"
+  ],
+  "sourceSha256": {
+    "EnsuredAPI/src/db/migrations/20261116000000-document-submission-lineage.ts": "8ed4214ef69d184dbccd2edc077cd00402dbebcb75e84c297cf5b68624a2e769",
+    "EnsuredAPI/src/db/migrations/20261116010000-capacity-submission-lineage.ts": "de08924398a6d6c589f8c5ec7c324b432d993d2f27678b4cf737a82fae1692c4",
+    "EnsuredAPI/src/db/migrations/20261116020000-reconcile-capacity-lineage-ownership.ts": "d030b2ecabdda7ae087e9d214eebdc90a72c0b08a5191db3c60814139de78a4a",
+    "EnsuredAPI/test/relationships/submissionLineage.db.test.ts": "912777b429102bd73152d88630e95c3b320732319247d247275fe059d71c6890",
+    "EnsuredAPI/test/relationships/reinsurance.db.test.ts": "4b7533658bbd84314e2b14afc8858d3dfd4f105a19f3f18fe0a8b641b5bf7c14",
+    "docs/data-models/submission-lineage.md": "3951873794f8eab11c364fabd421a8ea91a0ae1d0410204298c93d82e4df7f21"
+  }
+}

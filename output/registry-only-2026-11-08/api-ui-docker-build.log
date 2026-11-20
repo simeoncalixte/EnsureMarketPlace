@@ -1,0 +1,128 @@
+ Image ensuredapi-api Building 
+ Image ensuredapi-frontend Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.43kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 426B done
+#2 DONE 0.0s
+
+#3 [frontend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 945B done
+#3 DONE 0.0s
+
+#4 [frontend] resolve image config for docker-image://docker.io/docker/dockerfile:1
+#4 DONE 0.2s
+
+#5 [frontend] docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#5 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e done
+#5 CACHED
+
+#6 [frontend internal] load metadata for docker.io/library/node:22-alpine
+#6 DONE 0.1s
+
+#7 [api internal] load .dockerignore
+#7 transferring context: 221B done
+#7 DONE 0.0s
+
+#8 [frontend development 1/6] FROM docker.io/library/node:22-alpine@sha256:0e1754758c2df4cfa3e68d59e2e1b7374bb7fd9ea6328eaaacf15cc934af8202
+#8 resolve docker.io/library/node:22-alpine@sha256:0e1754758c2df4cfa3e68d59e2e1b7374bb7fd9ea6328eaaacf15cc934af8202 0.0s done
+#8 DONE 0.0s
+
+#9 [frontend internal] load build context
+#9 transferring context: 225.21kB 0.0s done
+#9 DONE 0.0s
+
+#10 [api internal] load build context
+#10 transferring context: 55.60kB 0.0s done
+#10 DONE 0.0s
+
+#11 [api stage-0 2/6] WORKDIR /workspace/EnsuredAPI
+#11 CACHED
+
+#12 [api stage-0 3/6] COPY EnsuredAPI/package.json EnsuredAPI/package-lock.json EnsuredAPI/.npmrc ./
+#12 CACHED
+
+#13 [api stage-0 4/6] COPY EnsuredAPI/scripts/install-git-hooks.cjs ./scripts/install-git-hooks.cjs
+#13 CACHED
+
+#14 [api stage-0 5/6] RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN,required=true npm ci --no-audit --no-fund
+#14 CACHED
+
+#15 [api stage-0 6/6] COPY EnsuredAPI/ ./
+#15 CACHED
+
+#16 [frontend development 2/6] WORKDIR /app
+#16 CACHED
+
+#17 [frontend development 3/6] COPY package.json package-lock.json .npmrc ./
+#17 DONE 0.0s
+
+#18 [api] exporting to image
+#18 exporting layers done
+#18 exporting manifest sha256:12b2aea4cb70c125132bc7cc7a9edb800c1bc89ac5e011419a0a8c581787b6ec done
+#18 exporting config sha256:856a78d06f4b89bed80808164af1e32579dd37dfae154afc60d81bafd8fbcfa0 done
+#18 exporting attestation manifest sha256:66e042cfd7eec9f11f3ad959acdada2ba48b4d615ea4c6d2e8411815e33cd20e 0.0s done
+#18 exporting manifest list sha256:7ba736ce6ff3d90c2b406b96c85bf180ad5f05a33dd0a965d4a7590746b8836c done
+#18 naming to docker.io/library/ensuredapi-api:latest
+#18 naming to docker.io/library/ensuredapi-api:latest done
+#18 unpacking to docker.io/library/ensuredapi-api:latest done
+#18 DONE 0.1s
+
+#19 [api] resolving provenance for metadata file
+#19 DONE 0.0s
+
+#20 [frontend development 4/6] RUN --mount=type=secret,id=npm_token,required=true     NODE_AUTH_TOKEN="$(cat /run/secrets/npm_token)" npm ci --no-audit --no-fund
+#20 0.839 npm warn ERESOLVE overriding peer dependency
+#20 0.840 npm warn While resolving: react-inspector@6.0.2
+#20 0.840 npm warn Found: react@19.3.0
+#20 0.840 npm warn node_modules/react
+#20 0.840 npm warn   react@"latest" from the root project
+#20 0.840 npm warn   18 more (@ensured/marketplace, @ensured/network, @ensured/xds, ...)
+#20 0.840 npm warn
+#20 0.840 npm warn Could not resolve dependency:
+#20 0.840 npm warn peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+#20 0.840 npm warn node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+#20 0.840 npm warn   react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+#20 0.840 npm warn   node_modules/storybook-addon-remix-react-router
+#20 0.840 npm warn
+#20 0.840 npm warn Conflicting peer dependency: react@18.3.1
+#20 0.840 npm warn node_modules/react
+#20 0.840 npm warn   peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+#20 0.840 npm warn   node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+#20 0.840 npm warn     react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+#20 0.840 npm warn     node_modules/storybook-addon-remix-react-router
+#20 2.921 npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+#20 3.093 npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+#20 6.271 
+#20 6.271 added 332 packages in 6s
+#20 6.272 npm notice
+#20 6.272 npm notice New major version of npm available! 10.9.9 -> 12.2.2
+#20 6.272 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+#20 6.272 npm notice To update run: npm install -g npm@12.2.2
+#20 6.272 npm notice
+#20 DONE 6.7s
+
+#21 [frontend development 5/6] COPY . .
+#21 DONE 0.2s
+
+#22 [frontend development 6/6] RUN chown -R node:node /app
+#22 DONE 25.3s
+
+#23 [frontend] exporting to image
+#23 exporting layers
+#23 exporting layers 12.4s done
+#23 exporting manifest sha256:6a594b6a844165322b18c75a2b7ce651805271cf50bde2b48ec795f5816bcdb9 done
+#23 exporting config sha256:307d0a438c11b12f0017feec80f781066d1c467ab84ae560761373a07831910e done
+#23 exporting attestation manifest sha256:b0304f86850144a24459c618b41edb3bd5cd077e89e86bdb4c1757d0e961309b done
+#23 exporting manifest list sha256:71710600d067c1c0cb4f182a40ff2f1fed8bb1583196739695f37f13f67deb20 done
+#23 naming to docker.io/library/ensuredapi-frontend:latest done
+#23 unpacking to docker.io/library/ensuredapi-frontend:latest
+#23 unpacking to docker.io/library/ensuredapi-frontend:latest 5.0s done
+#23 DONE 17.5s
+
+#24 [frontend] resolving provenance for metadata file
+#24 DONE 0.0s
+ Image ensuredapi-frontend Built 
+ Image ensuredapi-api Built 

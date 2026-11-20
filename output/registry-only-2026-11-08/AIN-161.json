@@ -1,0 +1,157 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10484",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10484",
+  "key": "AIN-161",
+  "fields": {
+    "summary": "[Packages] Remove local dependency overrides and consume registry artifacts",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "User request: remove all local package overrides. Consumers must resolve declared versioned registry packages rather than sibling source/builds."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Scope: API Docker linking/build setup; frontend bind mounts and aliases; local XDS dependency declarations/locks; staging scripts; installed sibling links and copied private-package artifacts; regression checks and documentation. Inspect existing vendored Services client separately: do not invent a registry package or silently replace its contract."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance: no private dependency resolves to a sibling checkout through configuration, installation links, or injected dist; Docker installs from consumer locks without source linking; supported clean registry install and runtime provenance checks fail explicitly on missing/old releases; preserve application data and record any authentication/publication blockers. Remove legacy staging command. No new user workflow, so package provenance and configuration integration evidence replaces UI stories."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "AIN-13 remains related release parity work and is not replaced or closed. Parent AIN-1 and related AIN-55 broader CI/database requirements remain outside this bounded removal. No publication or production deployment is requested."
+            }
+          ]
+        }
+      ]
+    },
+    "parent": {
+      "id": "10230",
+      "key": "AIN-1",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10230",
+      "fields": {
+        "summary": "[Ensured] Establish a reproducible, operable platform release",
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10036",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "priority": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "issuetype": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+          "id": "10035",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+          "hierarchyLevel": 1
+        }
+      }
+    },
+    "issuelinks": [
+      {
+        "id": "10368",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10368",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10242",
+          "key": "AIN-13",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10242",
+          "fields": {
+            "summary": "[Bug][Finance] Repair the failing pipeline parity gate before financial releases",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+              "description": "This work item is being actively worked on at the moment by the assignee.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+              "name": "In Progress",
+              "id": "3",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                "id": 4,
+                "key": "indeterminate",
+                "colorName": "yellow",
+                "name": "In Progress"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10037",
+              "id": "10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+              "name": "Bug",
+              "subtask": false,
+              "avatarId": 10303,
+              "entityId": "61221f88-600f-4dc2-987d-6c7c77a94ee4",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      }
+    ],
+    "subtasks": [],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+      "description": "This work item is being actively worked on at the moment by the assignee.",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+      "name": "In Progress",
+      "id": "3",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+        "id": 4,
+        "key": "indeterminate",
+        "colorName": "yellow",
+        "name": "In Progress"
+      }
+    }
+  }
+}

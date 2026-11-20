@@ -1,0 +1,4 @@
+
+> @simeoncalixte/ensured-pipeline-financial-discovery@0.1.1 build
+> node scripts/build.mjs
+

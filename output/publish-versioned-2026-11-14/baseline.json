@@ -1,0 +1,265 @@
+[
+  {
+    "directory": "EnsuredPipelineShared",
+    "name": "@simeoncalixte/ensured-pipeline-shared",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@langchain/core": "^1.1.48",
+      "@langchain/google-genai": "^2.1.31",
+      "ajv": "^8.18.0",
+      "amqplib": "^0.10.3",
+      "dotenv": "^16.4.5",
+      "mammoth": "^1.12.0",
+      "pdfjs-dist": "^2.16.105",
+      "sequelize": "^6.37.5",
+      "tesseract.js": "^7.0.0",
+      "@aws-sdk/client-s3": "^3.0.0",
+      "ssh2-sftp-client": "^11.0.0",
+      "pg": "^8.13.1",
+      "pg-hstore": "^2.3.4",
+      "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
+      "@simeoncalixte/ensured-constants": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineIngestionAmqp",
+    "name": "@simeoncalixte/ensured-pipeline-ingestion-amqp",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineIngestion",
+    "name": "@simeoncalixte/ensured-pipeline-ingestion",
+    "current": "0.2.0",
+    "published": [
+      "0.1.0",
+      "0.1.1",
+      "0.2.0"
+    ],
+    "dependencies": {
+      "@simeoncalixte/ensured-pipeline-ingestion-amqp": "0.1.1",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1",
+      "fastify": "^4.28.1",
+      "sequelize": "^6.37.5"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineOcr",
+    "name": "@simeoncalixte/ensured-pipeline-ocr",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "fastify": "^4.28.1",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineClassification",
+    "name": "@simeoncalixte/ensured-pipeline-classification",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@langchain/google-genai": "^2.1.31",
+      "fastify": "^4.28.1",
+      "sequelize": "^6.37.5",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineExtraction",
+    "name": "@simeoncalixte/ensured-pipeline-extraction",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@langchain/google-genai": "^2.1.31",
+      "fastify": "^4.28.1",
+      "sequelize": "^6.37.5",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineSubjectDiscovery",
+    "name": "@simeoncalixte/ensured-pipeline-subject-discovery",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "sequelize": "^6.37.5",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1",
+      "fastify": "^4.28.1",
+      "@simeoncalixte/ensured-pipeline-classification": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineFinancialDiscovery",
+    "name": "@simeoncalixte/ensured-pipeline-financial-discovery",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "sequelize": "^6.37.5",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1",
+      "fastify": "^4.28.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineLocationDiscovery",
+    "name": "@simeoncalixte/ensured-pipeline-location-discovery",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "sequelize": "^6.37.5",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1",
+      "fastify": "^4.28.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineNormalization",
+    "name": "@simeoncalixte/ensured-pipeline-normalization",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "fastify": "^4.28.1",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineValidation",
+    "name": "@simeoncalixte/ensured-pipeline-validation",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@langchain/google-genai": "^2.1.31",
+      "fastify": "^4.28.1",
+      "@simeoncalixte/ensured-pipeline-normalization": "0.1.1",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineSchemaGeneration",
+    "name": "@simeoncalixte/ensured-pipeline-schema-generation",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@simeoncalixte/ensured-constants": "0.1.1",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1",
+      "@langchain/google-genai": "^2.1.31",
+      "@typesafe-ai/sdk": "^0.6.0",
+      "ajv": "^8.18.0",
+      "sequelize": "^6.37.5"
+    }
+  },
+  {
+    "directory": "EnsuredPipelinePreRating",
+    "name": "@simeoncalixte/ensured-pipeline-pre-rating",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineCapacity",
+    "name": "@simeoncalixte/ensured-pipeline-capacity",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1",
+      "@simeoncalixte/ensured-pipeline-validation": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineOracleAttestation",
+    "name": "@simeoncalixte/ensured-pipeline-oracle-attestation",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineWorkflow",
+    "name": "@simeoncalixte/ensured-pipeline-workflow",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "@langchain/google-genai": "^2.1.31",
+      "fastify": "^4.28.1",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1",
+      "@simeoncalixte/ensured-pipeline-validation": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineRiskCompute",
+    "name": "@simeoncalixte/ensured-pipeline-risk-compute",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "sequelize": "^6.37.5",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  },
+  {
+    "directory": "EnsuredPipelineStorageSearch",
+    "name": "@simeoncalixte/ensured-pipeline-storage-search",
+    "current": "0.1.1",
+    "published": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "dependencies": {
+      "fastify": "^4.28.1",
+      "@simeoncalixte/ensured-pipeline-shared": "0.1.1"
+    }
+  }
+]

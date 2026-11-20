@@ -1,0 +1,4 @@
+services:
+  submission-feedback:
+    environment:
+      FEEDBACK_DATABASE_URL: ${LOCAL_FEEDBACK_DATABASE_URL:?Set local feedback database URL}

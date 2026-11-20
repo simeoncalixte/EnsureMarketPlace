@@ -1,0 +1,4 @@
+
+> @simeoncalixte/ensured-pipeline-schema-generation@0.1.1 build
+> node scripts/build.mjs
+

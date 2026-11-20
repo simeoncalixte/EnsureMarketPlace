@@ -1,0 +1,22 @@
+[
+  {
+    "name": "EnsuredPipelineShared-lock",
+    "code": 0,
+    "log": "/Users/simeon/Projects/EnsureMarketPlace/output/publish-versioned-2026-11-14/EnsuredPipelineShared-lock.log"
+  },
+  {
+    "name": "EnsuredPipelineShared-install",
+    "code": 0,
+    "log": "/Users/simeon/Projects/EnsureMarketPlace/output/publish-versioned-2026-11-14/EnsuredPipelineShared-install.log"
+  },
+  {
+    "name": "EnsuredPipelineShared-tests",
+    "code": 0,
+    "log": "/Users/simeon/Projects/EnsureMarketPlace/output/publish-versioned-2026-11-14/EnsuredPipelineShared-tests.log"
+  },
+  {
+    "name": "EnsuredPipelineShared-publish",
+    "code": 1,
+    "log": "/Users/simeon/Projects/EnsureMarketPlace/output/publish-versioned-2026-11-14/EnsuredPipelineShared-publish.log"
+  }
+]

@@ -1,0 +1,115 @@
+{
+  "ticket": "AIN-209",
+  "scope": "Local implementation: manual creation saves input without pipeline execution; retain reads and edits",
+  "apiTests": {
+    "passed": 97,
+    "suites": 9,
+    "failed": 0
+  },
+  "uiUnitTests": 4,
+  "feedbackIntegration": {
+    "passed": true,
+    "feedbackTestSummary": [
+      "\u2139 tests 29",
+      "\u2139 pass 29",
+      "\u2139 fail 0",
+      "\u2139 skipped 0"
+    ],
+    "checks": [
+      "feedback full suite with real durable history",
+      "manual API creation/read/edit/restore with zero pipeline evidence",
+      "model removed",
+      "separate API and feedback databases",
+      "actual authenticated HTTP revision read",
+      "edited financial inputs",
+      "no stale normalization fallback",
+      "restore creates new revision/hash",
+      "append-only history",
+      "tenant isolation",
+      "outage fails closed"
+    ]
+  },
+  "stories": [
+    {
+      "id": "pages-insurer-dashboard-manual-input--saved-without-pipeline",
+      "passed": true
+    },
+    {
+      "id": "pages-insurer-dashboard-manual-input--edit-without-pipeline",
+      "passed": true
+    },
+    {
+      "id": "pages-insurer-dashboard-manual-input--save-failure-retry",
+      "passed": true
+    },
+    {
+      "id": "pages-insurer-dashboard-manual-input--permission-denied",
+      "passed": true
+    },
+    {
+      "id": "pages-insurer-dashboard-manual-input--incomplete-draft",
+      "passed": true
+    },
+    {
+      "id": "pages-insurer-dashboard-manual-input--loading-input",
+      "passed": true
+    }
+  ],
+  "checks": {
+    "api": "npm --prefix EnsuredAPI run format; npm --prefix EnsuredAPI run check PASS",
+    "ui": "npm --prefix EnsuredUI run check PASS",
+    "feedback": "npm --prefix EnsuredSubmissionFeedback run build PASS; migration syntax check PASS; static package gate gap AIN-210",
+    "root": "npm run workspace:check PASS; changed integration runner syntax/ESLint/Prettier PASS"
+  },
+  "screenshots": {
+    "story": "pages-insurer-dashboard-manual-input--saved-without-pipeline",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "theme": "dark",
+    "zoom": "100%",
+    "windowScroll": [
+      0,
+      0
+    ],
+    "formScroll": [
+      0,
+      0
+    ],
+    "fixture": "Synthetic manual submission 9902; General Information tab; no execution identity",
+    "build": "local working source, hashes below; no commit or deployment",
+    "before": "before.png; feedback control absent; open editor unavailable",
+    "after": "after.png; manual label and edit trigger; after-edit-open.png supplemental open editor",
+    "responsive": "No placement or responsive style changes. Desktop matching captures; no narrow-screen claim."
+  },
+  "migration": "API additive manual_input column and feedback nullable base_execution_id required before rollout; tested in disposable databases only; no deployment requested/performed",
+  "limitations": [
+    "AIN-210 tracks pre-existing missing feedback package typecheck/ESLint/Prettier gates; no blanket merge-readiness claim",
+    "New manual saves deliberately do not validate pipeline schemas or certify normalization/pricing readiness",
+    "No production/staging deployment; broader AIN-3/95/48/50/51/54 remain incomplete"
+  ],
+  "sourceHashes": {
+    "EnsuredAPI/src/services/submissions/manualSubmission.ts": "7d4d409836c16a7a5145ec8e101d8987026973275b787d01264ec6ead689cbf2",
+    "EnsuredAPI/src/services/submissions/manualInput.ts": "dc7641bdc0d709f95612290fa6e1d552145462ad3ba22545fad6b1fd67f885e2",
+    "EnsuredAPI/src/services/submissions/dashboard/submissionBoardQuery.ts": "71018514f24cd838773ff02ce8541d1ba0c92db721a309d0af8951851d56f4fc",
+    "EnsuredAPI/src/pipeline/canonicalize/manualNormalization.ts": "475048484ebf498e391a45804e126ac8f041fda5f861acc69390bba9b1976890",
+    "EnsuredAPI/src/db/backfill-manual-submissions.ts": "55c204ed8df3e513fed1f106718a588b7e0557356b44ee6e98f519ebcf29f290",
+    "EnsuredAPI/src/db/migrations/20261117000000-manual-submission-input.ts": "89786ebdfa406eda835ef9e71038753c126bca9f08fbd881f38b20d74b582694",
+    "EnsuredAPI/src/pipeline/schemaGeneration/service.ts": "06f8e667cae17a289db3520d969b3c14dc7a4a4f9a19f56592bc97d4210c0782",
+    "EnsuredAPI/src/pipeline/schemaGeneration/route.ts": "6a67efa2015a7a172b943892eee8df672d07c4cb5c5bfbc9aece14eb2ec78532",
+    "EnsuredAPI/src/pipeline/schemaGeneration/service.test.ts": "4ca57c24822899d37698015ecfe75c981ca3e1a4a01767aae69847051ee6cbd2",
+    "EnsuredAPI/test/manual/manualSubmission.test.ts": "8e4a2712e2a66533356d07771aba6d622179c8435a8826e297828e6e0231711d",
+    "EnsuredAPI/test/manual/manualSubmission.integration.test.ts": "2d59c53b95f6b7a81ccfe660328b182040c6bf9140b6866dc9d9b80d96b99904",
+    "EnsuredUI/src/Pages/InsurerDashboard/InsurerDashboard.tsx": "c1c2553e43a0e45bbad4ff23976a742cbd221d920083f735c47f4b251994ad64",
+    "EnsuredUI/src/Pages/InsurerDashboard/SubmissionVersionHistory.tsx": "b731f49191a2599e2749919259a0707246c0d90f9d28222975eb40e93460c992",
+    "EnsuredUI/src/Pages/InsurerDashboard/ManualInput.stories.tsx": "6e82532d9eca6a5a72f6fea7068347bb0d5549430888f94eaa08273cb5a0147c",
+    "EnsuredSubmissionFeedback/src/store.js": "fa2a5660d7ed531b675691b6cec5a73e892770b37637479fe86a0d8e5ae7ae4f",
+    "EnsuredSubmissionFeedback/src/migrate.js": "09b6df15d6b5fbf98c0b95067b04c51e470fc37582c6585dec61fb6685383c47",
+    "EnsuredSubmissionFeedback/src/app.js": "1339b332e964130af53cba3d5ee97bfc6e1982cef15c2274f47e29da05f893e2",
+    "EnsuredSubmissionFeedback/test/store.test.js": "fcb5e88dba17caf201aeee101f0bf412c29e576ec1da8522818532163d5eaf7b",
+    "scripts/verify-versioned-submissions.cjs": "8b9cebac51b43defa50112d692fb3ec18161c3f8a087fc6672ea2fad0cf8e6d1",
+    "scripts/verify-manual-input-stories.cjs": "634dd5352765802791536be3619e45901408c5265203b5aa824391d6a6adeb52"
+  },
+  "storyCommand": "Start npm --prefix EnsuredUI run storybook -- --ci --no-open -p 6017, then node scripts/verify-manual-input-stories.cjs (STORYBOOK_URL optional)"
+}

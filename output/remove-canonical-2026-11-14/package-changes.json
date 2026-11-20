@@ -1,0 +1,26 @@
+{
+  "EnsuredPipelineShared": [
+    "src/pipeline/deriveLob.ts",
+    "src/pipeline/submissionData.test.ts",
+    "src/pipeline/submissionData.ts",
+    "src/db/models/ingestion.models.ts",
+    "src/db/models/index.ts",
+    "src/pipeline/schema/compile.ts"
+  ],
+  "EnsuredPipelineNormalization": [
+    "src/pipeline/normalization/service.error.test.ts",
+    "src/pipeline/normalization/service.slice3.test.ts",
+    "src/pipeline/normalization/service.ts",
+    "src/pipeline/canonicalize/deriveLob.ts",
+    "src/pipeline/canonicalize/service.test.ts",
+    "src/pipeline/canonicalize/service.ts"
+  ],
+  "EnsuredPipelineRiskCompute": [
+    "src/pipeline/compute/service.ts",
+    "src/pipeline/catastrophe/service.ts",
+    "src/pipeline/parametric/definition.ts"
+  ],
+  "EnsuredPipelineSchemaGeneration": [
+    "src/pipeline/test/schemaFieldPersistence.test.ts"
+  ]
+}

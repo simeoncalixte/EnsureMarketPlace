@@ -1,0 +1,4 @@
+
+> @ensured/submission-feedback@0.1.0 build
+> node --check src/server.js && node --check src/app.js && node --check src/store.js && node --check src/feedback.js
+

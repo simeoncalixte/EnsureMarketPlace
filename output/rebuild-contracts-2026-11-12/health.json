@@ -1,0 +1,72 @@
+[
+  {
+    "service": "frontend",
+    "url": "http://localhost:3000/",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "api",
+    "url": "http://localhost:3001/health",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "gateway",
+    "url": "http://localhost:3002/health",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "auth",
+    "url": "http://localhost:3003/health",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "kyc",
+    "url": "http://localhost:3004/health",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "catalog",
+    "url": "http://localhost:3010/health",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "network",
+    "url": "http://localhost:3011/ready",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "email",
+    "url": "http://localhost:3013/health",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "submission-ui",
+    "url": "http://localhost:30025/",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  },
+  {
+    "service": "submission-relay",
+    "url": "http://localhost:30026/health",
+    "status": 200,
+    "expected": 200,
+    "passed": true
+  }
+]

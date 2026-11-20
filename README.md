@@ -10,6 +10,33 @@ Application-owned services remain: EnsuredAPI, EnsuredUI, EnsuredAuth/gateway, E
 
 Historical source extraction tooling and fixtures remain for audit provenance. `scripts/pipeline-packages.mjs` and `scripts/audit-pipeline-extraction.mjs` require explicit `PACKAGE_SOURCE_ROOT`; they are not application build gates. Package-specific screenshot tools require an explicit external Storybook path. The historical source-parity test fixtures remain regression coverage for the comparison primitives.
 
+## Tests from the repository root
+
+Install root and API dependencies with `npm ci` and `npm --prefix EnsuredAPI ci`.
+`npm test` runs the tooling regressions and then the API Jest suite. Jest flags
+are forwarded, for example `npm test -- --listTests` for discovery without database
+access, or `npm test -- --runTestsByPath EnsuredAPI/test/example.test.ts` for a
+specific existing test. The root `jest.config.cjs` reuses the API configuration
+and compiler settings. For VS Code, open this repository root and install the
+recommended Jest extension (`orta.vscode-jest`). Committed `.vscode/settings.json`
+uses the same disposable-database runner as `npm test`, with on-demand execution.
+After updating an already-open window, run **Developer: Reload Window** from the
+Command Palette, then refresh the Testing panel. Discovery does not require a
+database or Docker. These settings cover the default API suite.
+
+Start Docker Desktop before running tests. `scripts/test-api.mjs` starts PostgreSQL
+on an automatically assigned loopback port with a generated password, passes its
+connection settings to Jest, and removes the container after success, failure or
+test-process interruption. Each invocation has its own isolated Compose project.
+No database password needs to be stored in VS Code, and the runner does not use
+the existing database on port 5432. It enables `MANUAL_SUBMISSION_DB_TESTS=1`
+inside that isolated run so manual-submission integration tests execute in VS Code.
+Other optional suites retain their own opt-in requirements.
+Direct commands inside `EnsuredAPI` bypass
+this wrapper and still require explicitly configured test database credentials.
+Other services retain their explicit root scripts, such as `test:auth` and
+`network:test`; the default command does not run every service's tests.
+
 ---
 
 # EnsureMarketPlace
@@ -106,7 +133,7 @@ If you previously used `EnsuredAPI/docker-compose.auth.yml`, its former `identit
 
 ## Standalone pipeline stage repositories
 
-The pipeline consists of 18 versioned npm packages configured for GitHub Packages, with shared persistence/provider support. Their source repositories are developed separately; application consumers install the published versions with `npm ci`. Run `npm run pipeline:verify` to check installed artifacts. See [PIPELINE_PACKAGES.md](PIPELINE_PACKAGES.md) for repository links, standalone bootstrap instructions, and migration boundaries.
+The pipeline consists of 18 versioned npm packages configured for GitHub Packages, with shared persistence/provider support. Their source repositories are developed separately; application consumers install the published versions with `npm ci`. Run `npm run pipeline:verify` to check installed artifacts. Package names and directories are listed in `pipeline-packages.json`; package source development is described at the top of this README.
 
 ### Package environments
 

@@ -1,0 +1,98 @@
+ Image ensuredapi-api Building 
+ Image ensuredapi-frontend Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.43kB done
+#1 DONE 0.0s
+
+#2 [frontend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 945B done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 426B done
+#3 DONE 0.0s
+
+#4 [api] resolve image config for docker-image://docker.io/docker/dockerfile:1
+#4 DONE 0.6s
+
+#5 [frontend] docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#5 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e done
+#5 CACHED
+
+#6 [api internal] load metadata for docker.io/library/node:22-alpine
+#6 DONE 0.3s
+
+#7 [api internal] load .dockerignore
+#7 transferring context: 221B done
+#7 DONE 0.0s
+
+#8 [api development 1/6] FROM docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#8 resolve docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a 0.0s done
+#8 DONE 0.0s
+
+#9 [frontend internal] load build context
+#9 transferring context: 26.11kB 0.0s done
+#9 DONE 0.0s
+
+#10 [frontend development 3/6] COPY package.json package-lock.json .npmrc ./
+#10 CACHED
+
+#11 [frontend development 2/6] WORKDIR /app
+#11 CACHED
+
+#12 [frontend development 5/6] COPY . .
+#12 CACHED
+
+#13 [frontend development 4/6] RUN --mount=type=secret,id=npm_token,required=true     NODE_AUTH_TOKEN="$(cat /run/secrets/npm_token)" npm ci --no-audit --no-fund
+#13 CACHED
+
+#14 [frontend development 6/6] RUN chown -R node:node /app
+#14 CACHED
+
+#15 [api internal] load build context
+#15 transferring context: 105.92kB 0.0s done
+#15 DONE 0.1s
+
+#16 [api stage-0 3/6] COPY EnsuredAPI/package.json EnsuredAPI/package-lock.json EnsuredAPI/.npmrc ./
+#16 CACHED
+
+#17 [api stage-0 2/6] WORKDIR /workspace/EnsuredAPI
+#17 CACHED
+
+#18 [api stage-0 4/6] COPY EnsuredAPI/scripts/install-git-hooks.cjs ./scripts/install-git-hooks.cjs
+#18 CACHED
+
+#19 [api stage-0 5/6] RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN,required=true npm ci --no-audit --no-fund
+#19 CACHED
+
+#20 [frontend] exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:3ac6c9daa14343e6175ee9feca5e0ac5aa41d634d9d0d0406d31a6540550f263 done
+#20 exporting config sha256:f93fd018b664a344f1d6e7c263a7f96bcdbb33a4b1212afb9c3d1ce8ca91b61f done
+#20 exporting attestation manifest sha256:764f55cab00e7f83b7e349d90ccf433ae8e7c88848cfbbe3963ad7a7b51aa0e6 done
+#20 exporting manifest list sha256:e25df98c81fdc912f0b2190ae4ee58c336de94265ec56982ec3865fb463e151f
+#20 exporting manifest list sha256:e25df98c81fdc912f0b2190ae4ee58c336de94265ec56982ec3865fb463e151f done
+#20 naming to docker.io/library/ensuredapi-frontend:latest done
+#20 unpacking to docker.io/library/ensuredapi-frontend:latest done
+#20 DONE 0.1s
+
+#21 [frontend] resolving provenance for metadata file
+#21 DONE 0.0s
+
+#22 [api stage-0 6/6] COPY EnsuredAPI/ ./
+#22 DONE 0.3s
+
+#23 [api] exporting to image
+#23 exporting layers 0.2s done
+#23 exporting manifest sha256:f4954b208f50dab99d4614e0b202fe8aaf8c821a7f87c6d5d06ebd10bd90ac5c done
+#23 exporting config sha256:440825fa0b3ea523262fbe21baf231c1dcbc5b0d15078283089ef9e98f86c07a done
+#23 exporting attestation manifest sha256:a22d8fcbd4c2046d237ea5be00883baa3d2a098df1a09304d16b3905f477d2b5 done
+#23 exporting manifest list sha256:b4810e4e933cfa4e114df8816f78b376a3d3a331029d3d2b0a23e1f2906b9da7 done
+#23 naming to docker.io/library/ensuredapi-api:latest done
+#23 unpacking to docker.io/library/ensuredapi-api:latest 0.1s done
+#23 DONE 0.3s
+
+#24 [api] resolving provenance for metadata file
+#24 DONE 0.0s
+ Image ensuredapi-api Built 
+ Image ensuredapi-frontend Built 

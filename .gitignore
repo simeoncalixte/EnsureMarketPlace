@@ -1,6 +1,10 @@
 **/node_modules
 **/dist
 **/.vscode
+!/.vscode/
+/.vscode/*
+!/.vscode/settings.json
+!/.vscode/extensions.json
 **/channels
 
 # Large geographic source datasets (loaded via `npm run import:worldcities`, not committed)
@@ -38,3 +42,10 @@ simplemaps_worldcities_*
 # Local Python execution caches
 **/__pycache__/
 **/*.pyc
+
+# Jira exports containing personal account email addresses; never commit (public repository)
+/output/filter-button-delivery-2026-11-09/jira-baseline.json
+/output/filter-button-delivery-2026-11-09/jira-final.json
+/output/filter-button-review-2026-11-09/jira-final.json
+/output/publish-versioned-2026-11-14/jira-final.json
+/output/remove-canonical-2026-11-14/jira-final.json

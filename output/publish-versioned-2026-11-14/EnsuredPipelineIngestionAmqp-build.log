@@ -1,0 +1,4 @@
+
+> @simeoncalixte/ensured-pipeline-ingestion-amqp@0.2.0 build
+> node scripts/build.mjs
+

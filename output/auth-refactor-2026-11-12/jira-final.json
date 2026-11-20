@@ -1,0 +1,475 @@
+{
+  "task": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10497",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10497",
+    "key": "AIN-174",
+    "fields": {
+      "summary": "[API Auth] Separate authentication orchestration, assertion validation and access policies",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Refactor EnsuredAPI/src/auth/authenticationHook after source review: separate signed assertion verification, account resolution/provisioning, shared route policies and domain scope validation. Keep a short orchestration hook and existing gateway exports for compatibility."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Acceptance criteria:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "1. Preserve supported public/guest/service/gateway access, exact raw URL and method binding, status/error codes and authorization check ordering. Unknown routes remain organization-restricted. No broadened organization or impersonation exceptions."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "2. Explicit dependency options and initialization-time integration configuration; discriminated verified identities; runtime validation for custom claims before attaching request context. Malformed signed scopes fail with existing denial codes; unexpected database errors remain server errors. No token/secret logging."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "3. Replace the large negative organization condition with named, reviewable policies; keep relationship scope validation with its domain. Attach request context only after authorization succeeds. Separate administrator provisioning and move account-link CLI under scripts, preserving npm auth:link."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "4. Regression matrix covers method/path/query boundaries, public versus invitation-authenticated endpoints, independent members, disabled/missing accounts, impersonation, relationship/participant scopes, service assertions and error precedence. Existing auth tests, typecheck and lint pass. Run isolated PostgreSQL authorization integration tests; record results and limitations."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "5. Document structure, compatibility, ticket/test mapping and deployment status in repository and TASK_HANDOFF.md. This task is local backend implementation and verification; no UI workflow, schema migration or deployment is requested."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Scope map: this task is required. AIN-73/74 (identity consent/projection), AIN-84 (participation), AIN-138/143 (independent-member model/chat access) are affected-story traceability, not prerequisite deliveries. Their existing criteria, children and broader release obligations remain unchanged. No UI changes, so Storybook/screenshots are not applicable; use API/database evidence. Exclude AIN-1/12/13 releases, AIN-48/59 data-model expansion, AIN-79 filters and provider/staging delivery under AIN-137/138/143 because this structural refactor neither changes those workflows nor delivers their outcomes."
+              }
+            ]
+          }
+        ]
+      },
+      "issuelinks": [
+        {
+          "id": "10372",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10372",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10344",
+            "key": "AIN-73",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10344",
+            "fields": {
+              "summary": "[Network] Link my profile to reviewed party identities",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "Done",
+                "id": "10037",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10373",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10373",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10345",
+            "key": "AIN-74",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10345",
+            "fields": {
+              "summary": "[Network] View only authorized participation on a party profile",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "Done",
+                "id": "10037",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10374",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10374",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10386",
+            "key": "AIN-84",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10386",
+            "fields": {
+              "summary": "[Marketplace] Review participant eligibility and terms for exact insured subjects",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+                "name": "Done",
+                "id": "10037",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                  "id": 3,
+                  "key": "done",
+                  "colorName": "green",
+                  "name": "Done"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10375",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10375",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10461",
+            "key": "AIN-138",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10461",
+            "fields": {
+              "summary": "[AI settings] Configure organization models and individual inheritance",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        },
+        {
+          "id": "10376",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10376",
+          "type": {
+            "id": "10003",
+            "name": "Relates",
+            "inward": "relates to",
+            "outward": "relates to",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+          },
+          "outwardIssue": {
+            "id": "10466",
+            "key": "AIN-143",
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10466",
+            "fields": {
+              "summary": "[AI chat] Show existing chat wrapper after verified model connection",
+              "status": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+                "description": "This work item is being actively worked on at the moment by the assignee.",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+                "name": "In Progress",
+                "id": "3",
+                "statusCategory": {
+                  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+                  "id": 4,
+                  "key": "indeterminate",
+                  "colorName": "yellow",
+                  "name": "In Progress"
+                }
+              },
+              "priority": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+                "id": "10036",
+                "description": "",
+                "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+                "name": "Story",
+                "subtask": false,
+                "avatarId": 10315,
+                "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+                "hierarchyLevel": 0
+              }
+            }
+          }
+        }
+      ],
+      "subtasks": [
+        {
+          "id": "10498",
+          "key": "AIN-175",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10498",
+          "fields": {
+            "summary": "[Auth tests] Account for consolidated editor aliases in administrator navigation assertion",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      ],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "regression": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10498",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10498",
+    "key": "AIN-175",
+    "fields": {
+      "summary": "[Auth tests] Account for consolidated editor aliases in administrator navigation assertion",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Baseline gateway.test.ts failed before the auth refactor: it compared the consolidated administrator menu to every raw catalog entry, including editor aliases intentionally removed by consolidateInsurerWorkspace. Verified EnsuredUI/src/AppRoutes.tsx maps those risk/coverage aliases to the same InsurerDashboard component. Acceptance: compare effective persona destinations using explicit verified alias mappings, assert aliases stay consolidated, preserve navigation behavior, and pass the gateway suite. No product/UI changes; screenshots and Storybook not applicable. This is a test defect discovered while executing AIN-174."
+              }
+            ]
+          }
+        ]
+      },
+      "parent": {
+        "id": "10497",
+        "key": "AIN-174",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10497",
+        "fields": {
+          "summary": "[API Auth] Separate authentication orchestration, assertion validation and access policies",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+            "description": "This work item is being actively worked on at the moment by the assignee.",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+            "name": "In Progress",
+            "id": "3",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+              "id": 4,
+              "key": "indeterminate",
+              "colorName": "yellow",
+              "name": "In Progress"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+            "id": "10038",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+            "name": "Task",
+            "subtask": false,
+            "avatarId": 10318,
+            "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "issuelinks": [],
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "api": {
+    "pr": 19,
+    "state": "MERGED",
+    "commit": "121b922d01370132dcba2617af3f09013daead1c"
+  },
+  "parent": {
+    "pr": 77,
+    "state": "MERGED",
+    "commit": "b98dd778e05041521ce0451d090aa8163e6ec8c4"
+  },
+  "ciLimitation": "Missing checkout token; application checks not run remotely",
+  "manualDeployment": false
+}

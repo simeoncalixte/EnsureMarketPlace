@@ -1,0 +1,1020 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10431",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10431",
+  "key": "AIN-108",
+  "fields": {
+    "summary": "[Persona] Trace requested coverage through quote binding and servicing handoff",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "User story"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "As a insurer or broker, I want to follow one authoritative coverage chain so that accepted coverage and financial obligations agree."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Feedback coverage"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Original feedback: I10, B11. I = insurer; B = broker; R = reinsurer; numbering follows the 20 points per persona in the user conversation."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Scope and existing implementation"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Extend current services, generated-form workbench, commercial records and tests. These are outcome/verification gaps, not an assertion that every underlying capability is absent. Preserve existing working functionality and all broader parent obligations."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Existing implementation owners: AIN-26, AIN-27, AIN-18. Existing tasks retain their original scope and hierarchy. Completed tasks are reuse evidence, not proof that this broader story is Done."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance criteria"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "1. Compare requested, quoted and bound coverage using semantic/entity IDs and exact versions, including deviations and unresolved conditions."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "2. Binding requires current authority, eligibility, approved terms and capacity evidence; a snapshot signature alone never binds."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "3. Persist one contract, capacity consumption and durable financial/servicing handoff per idempotent command."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "4. Display pending or failed handoffs explicitly and allow authorized recovery without duplicate obligations."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Required dependencies"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Required predecessor outcomes: AIN-99, AIN-88, AIN-100; final Jira key mapping follows below."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Story-specific verification"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Bind an approved quote, simulate failure after persistence and retry; verify one contract, one capacity effect and exact document/servicing lineage."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Definition of Done"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "1. All acceptance criteria and the story-specific verification scenario pass; link implementation tasks/PRs and record the reviewed source/package versions. A partial component or newly created ticket does not satisfy this story."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "2. Every changed UI workflow has executable Storybook play functions asserting user actions, observable results and exact submitted payloads, including success, validation, failure/retry, empty/loading, pagination and permission/revocation states where applicable. Document a reason for any nonapplicable state. Include keyboard and narrow-screen checks."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "3. Fixture stories use isolated synthetic transports with accidental application writes blocked. Also run authenticated real-service journeys against isolated Docker databases/services for authorization, durable state, concurrency, idempotency and relevant money invariants. Backend-only work uses integration evidence linked to this story, not artificial UI."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "4. Attach ticket \u2192 component \u2192 Storybook story IDs \u2192 command/results mapping, regression evidence, API/database checks and known coverage gaps to Jira and TASK_HANDOFF.md. New failures have linked bug tickets and regressions; no unresolved failure of an acceptance criterion permits Done."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "5. Reconcile all required dependencies and subtasks. Record migration/backfill compatibility and rollback results when schemas change. Demonstrate the workflow in the integrated staging environment, identifying deployed build and service versions; local checks alone are not staging evidence. Production deployment remains a separate release gate under AIN-1/12."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "6. For external-system or monetary settlement claims, attach configured vendor/provider-sandbox evidence and matched reconciliation; simulated events or manually recorded receipts cannot establish external delivery or settled cash."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Generated-form gate: preserve document-driven extensibility, evidence anchors, stable semantic/entity IDs, missing/conflicting states and human corrections; pin schema/catalog/generator versions, reject unsafe generated structures and prove regeneration/replay behavior. LLM output never independently grants authority, approves coverage, sets eligibility or posts money."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Completion boundary"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Backlog planning only on 2026-11-04. No implementation, test execution, migration or deployment is claimed. Assignee, estimates and dates remain for delivery planning."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Resolved delivery map \u2014 persona feedback 2026-11-04"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Implementation ownership"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Required implementation tasks/slices: AIN-26, AIN-27, AIN-18. Reuse existing completed work, implement and verify the remaining acceptance criteria in this story. Relates links identify shared ownership; Blocks links identify ordered predecessor outcomes."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Predecessor stories"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "AIN-99, AIN-88, AIN-100"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Verification mapping"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Before Done, replace the pending evidence with actual component paths, Storybook story IDs, execution commands/results, Docker integration evidence and staging build IDs. Evidence is currently NOT RUN; no synthetic result is claimed."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Single-developer sprint sequence \u2014 2026-11-04"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Target candidate: AIN S26 | Quote-to-bind handoff (Jira sprint 61)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Sprint outcome: Bind the exact approved terms and consume capacity with a durable financial/servicing handoff."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Exit evidence: One idempotent bind produces one contract/capacity effect and recoverable obligations; stale approval/signature alone cannot bind."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Planning envelope: 6 implementation days + 2 integrated verification days + 1 review/refinement day + 1 contingency day; not measured velocity. One primary outcome in progress; at most two closely related workflow slices. Story/task pairs share effort, not double-counted work."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Existing active sprint remains active with original dates; only its goal/name and unfinished membership are reorganized. Every new sprint is future and undated. No fabricated story-point/time estimates or assignees. The ordered slots are a provisional work breakdown, not a fixed delivery forecast. Before activation, split any candidate exceeding six implementation days and verify reviewer/provider readiness; preserve all parent acceptance criteria."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Scheduling is not implementation: original AC/DoD and parent scope are unchanged. Related story/task/subtask effort is one delivery slice, not additive capacity. Required domain slices can be delivered earlier than the broader owner completion sprint; no broader item is Done until all original requirements pass."
+            }
+          ]
+        }
+      ]
+    },
+    "parent": {
+      "id": "10235",
+      "key": "AIN-6",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10235",
+      "fields": {
+        "summary": "[Ensured] Complete quote approval, binding and contract handoff",
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10036",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "priority": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "issuetype": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+          "id": "10035",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+          "hierarchyLevel": 1
+        }
+      }
+    },
+    "issuelinks": [
+      {
+        "id": "10222",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10222",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10255",
+          "key": "AIN-26",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10255",
+          "fields": {
+            "summary": "[Gap][Finance] Link existing bindings to authoritative pricing, capacity and party obligations",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10223",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10223",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10256",
+          "key": "AIN-27",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10256",
+          "fields": {
+            "summary": "[Gap][Finance] Specify financial completeness and exception policy for all binding paths",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10224",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10224",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10247",
+          "key": "AIN-18",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10247",
+          "fields": {
+            "summary": "[Gap][Finance] Pin a common financial revision across workbench, pricing, quotes and servicing",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10225",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10225",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "inwardIssue": {
+          "id": "10422",
+          "key": "AIN-99",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10422",
+          "fields": {
+            "summary": "[Persona] Approve underwriting decisions and exceptions within current authority",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10226",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10226",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "inwardIssue": {
+          "id": "10411",
+          "key": "AIN-88",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10411",
+          "fields": {
+            "summary": "[Persona] Reserve commit expire and release capacity consistently",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10227",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10227",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "inwardIssue": {
+          "id": "10423",
+          "key": "AIN-100",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10423",
+          "fields": {
+            "summary": "[Persona] Inspect reproducible pricing model assumptions and approved overrides",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10231",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10231",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "outwardIssue": {
+          "id": "10435",
+          "key": "AIN-112",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10435",
+          "fields": {
+            "summary": "[Persona] Process endorsements and cancellations with downstream adjustments",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10242",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10242",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "outwardIssue": {
+          "id": "10436",
+          "key": "AIN-113",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10436",
+          "fields": {
+            "summary": "[Persona] Retrieve and deliver authoritative bound documents",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10245",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10245",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "outwardIssue": {
+          "id": "10437",
+          "key": "AIN-114",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10437",
+          "fields": {
+            "summary": "[Persona] Manage actual claims from intake through adjudication and reserves",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10295",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10295",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "outwardIssue": {
+          "id": "10442",
+          "key": "AIN-119",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10442",
+          "fields": {
+            "summary": "[Persona] Synchronize policy claims and accounting records with recoverable handoffs",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10310",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10310",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10000"
+        },
+        "outwardIssue": {
+          "id": "10444",
+          "key": "AIN-121",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10444",
+          "fields": {
+            "summary": "[Persona] Demonstrate persona workflows and measure operational value in staging",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      }
+    ],
+    "subtasks": [],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+      "name": "To Do",
+      "id": "10036",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+        "id": 2,
+        "key": "new",
+        "colorName": "blue-gray",
+        "name": "To Do"
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{"level":30,"time":1794692992624,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-1","req":{"method":"POST","url":"/api/seed/reinsurance","hostname":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1794692992926,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-1","res":{"statusCode":201},"responseTime":301.59733295440674,"msg":"request completed"}
+{"level":30,"time":1794692992927,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-2","req":{"method":"POST","url":"/api/seed/ingestion-channels","hostname":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1794692994344,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-2","res":{"statusCode":201},"responseTime":1417.2922496795654,"msg":"request completed"}
+{"level":30,"time":1794692994366,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-3","req":{"method":"POST","url":"/api/seed/purge-submissions","hostname":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+(node:67774) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"level":30,"time":1794692994466,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-3","res":{"statusCode":200},"responseTime":100.11916732788086,"msg":"request completed"}
+{"level":30,"time":1794692996460,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-4","req":{"method":"POST","url":"/api/seed/reinsurance","hostname":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1794692996753,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-4","res":{"statusCode":201},"responseTime":292.22679233551025,"msg":"request completed"}
+{"level":30,"time":1794692996754,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-5","req":{"method":"POST","url":"/api/seed/ingestion-channels","hostname":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+PASS EnsuredAPI/test/routes/purgeSubmissions.test.ts (16.237 s)
+{"level":30,"time":1794692998179,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-5","res":{"statusCode":201},"responseTime":1425.1696252822876,"msg":"request completed"}
+{"level":30,"time":1794692998183,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-6","req":{"method":"POST","url":"/api/seed/purge-submissions","hostname":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1794692998188,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-6","res":{"statusCode":400},"responseTime":5.206915855407715,"msg":"request completed"}
+PASS EnsuredAPI/test/signing/store.integration.test.ts
+PASS EnsuredAPI/test/integration/riskClassSpine.db.test.ts
+PASS EnsuredAPI/test/integration/riskComputePipeline.db.test.ts
+  ● Console
+
+    console.error
+      pipeline stage "riskCompute" failed: Error: submission_not_found
+          at computeForSubmission (/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/node_modules/@simeoncalixte/ensured-pipeline-risk-compute/dist/pipeline/compute/service.js:103:15)
+          at processTicksAndRejections (node:internal/process/task_queues:104:5)
+          at async RiskComputeService.runRiskCompute (/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/node_modules/@simeoncalixte/ensured-pipeline-risk-compute/dist/pipeline/riskCompute/service.js:54:133)
+          at async runStage (/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/node_modules/@simeoncalixte/ensured-pipeline-shared/dist/pipeline/stageResult.js:35:16)
+          at async Object.<anonymous> (/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/integration/riskComputePipeline.db.test.ts:226:19)
+
+      224 |     expect(noId.code).toBe('NO_SUBMISSION');
+      225 |
+    > 226 |     const badId = await new RiskComputeService().process({ submission: { id: 99_999_999 } });
+          |                   ^
+      227 |
+      228 |     expect(badId.ok).toBe(false); // submission_not_found, caught by runStage
+      229 |     expect(badId.service).toBe('riskCompute');
+
+      at runStage (node_modules/@simeoncalixte/ensured-pipeline-shared/dist/pipeline/stageResult.js:39:17)
+      at async Object.<anonymous> (test/integration/riskComputePipeline.db.test.ts:226:19)
+
+{"level":30,"time":1794693005254,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-1","req":{"method":"GET","url":"/api/underwriting/submissions","hostname":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1794693005302,"pid":67774,"hostname":"simeons-MacBook-Pro.local","reqId":"req-1","res":{"statusCode":200},"responseTime":48.65095901489258,"msg":"request completed"}
+PASS EnsuredAPI/test/manual/manualSubmission.integration.test.ts
+PASS EnsuredAPI/test/integration/parametricCompute.db.test.ts
+PASS EnsuredAPI/test/manual/submissionFilterRoute.test.ts
+PASS EnsuredAPI/test/integration/catComputeSpine.db.test.ts
+PASS EnsuredAPI/test/integration/casualtyIlfCompute.db.test.ts
+PASS EnsuredAPI/test/integration/riskComputeSpine.db.test.ts
+PASS EnsuredAPI/test/relationships/pricingAtomicity.db.test.ts
+PASS EnsuredAPI/test/manual/retireCanonical.integration.test.ts
+PASS EnsuredAPI/test/manual/manualSubmission.test.ts
+PASS EnsuredAPI/test/signing/submissionBinding.test.ts
+PASS EnsuredAPI/test/services/submissionReferences.test.ts
+PASS EnsuredAPI/test/signing/submissionQuotes.test.ts
+
+Test Suites: 16 passed, 16 total
+Tests:       137 passed, 137 total
+Snapshots:   0 total
+Time:        33.277 s
+Ran all test suites within paths "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/signing/store.integration.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/routes/purgeSubmissions.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/signing/submissionQuotes.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/integration/riskComputePipeline.db.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual/manualSubmission.integration.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual/submissionFilterRoute.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/integration/riskComputeSpine.db.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/integration/riskClassSpine.db.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/integration/catComputeSpine.db.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/relationships/pricingAtomicity.db.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/integration/casualtyIlfCompute.db.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/integration/parametricCompute.db.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual/manualSubmission.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/signing/submissionBinding.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/services/submissionReferences.test.ts", "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual/retireCanonical.integration.test.ts".
+Test results written to: output/publish-versioned-2026-11-14/api-regression.json
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

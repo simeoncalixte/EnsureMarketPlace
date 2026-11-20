@@ -1,0 +1,38 @@
+[
+  {
+    "group": "api",
+    "step": "build",
+    "exitCode": 0,
+    "log": "/tmp/rebuild-20261114-api-build.log"
+  },
+  {
+    "group": "services",
+    "step": "build",
+    "exitCode": 0,
+    "log": "/tmp/rebuild-20261114-services-build.log"
+  },
+  {
+    "group": "email",
+    "step": "build",
+    "exitCode": 0,
+    "log": "/tmp/rebuild-20261114-email-build.log"
+  },
+  {
+    "group": "api",
+    "step": "up",
+    "exitCode": 0,
+    "log": "/tmp/rebuild-20261114-api-up.log"
+  },
+  {
+    "group": "services",
+    "step": "up",
+    "exitCode": 0,
+    "log": "/tmp/rebuild-20261114-services-up.log"
+  },
+  {
+    "group": "email",
+    "step": "up",
+    "exitCode": 0,
+    "log": "/tmp/rebuild-20261114-email-up.log"
+  }
+]

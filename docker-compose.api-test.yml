@@ -1,0 +1,19 @@
+# Per-run test database; never connects to the development database or its volumes.
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ensured_marketplace_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${API_TEST_PASSWORD:?Set by scripts/test-api.mjs}
+    ports:
+      - target: 5432
+        published: '0'
+        host_ip: 127.0.0.1
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U postgres -d ensured_marketplace_test']
+      interval: 1s
+      timeout: 3s
+      retries: 30

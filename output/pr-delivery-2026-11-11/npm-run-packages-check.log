@@ -1,0 +1,5 @@
+
+> packages:check
+> node scripts/check-package-overrides.mjs --installed
+
+Package override check passed (installed packages and manifests).

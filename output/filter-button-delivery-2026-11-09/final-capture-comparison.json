@@ -1,0 +1,35 @@
+[
+  {
+    "file": "after-network-1440x1000-closed.png",
+    "matchesAttachedAfter": false,
+    "visualReview": "Same visible content, toolbar geometry and focus state; test-only query assertion change, PNG raster bytes differ."
+  },
+  {
+    "file": "after-network-375x1000-closed.png",
+    "matchesAttachedAfter": true
+  },
+  {
+    "file": "after-requests-1440x1000-closed.png",
+    "matchesAttachedAfter": true
+  },
+  {
+    "file": "after-requests-1440x1000-open.png",
+    "matchesAttachedAfter": true
+  },
+  {
+    "file": "after-network-375x1000-open.png",
+    "matchesAttachedAfter": true
+  },
+  {
+    "file": "after-requests-375x1000-open.png",
+    "matchesAttachedAfter": true
+  },
+  {
+    "file": "after-requests-375x1000-closed.png",
+    "matchesAttachedAfter": true
+  },
+  {
+    "file": "after-network-1440x1000-open.png",
+    "matchesAttachedAfter": true
+  }
+]

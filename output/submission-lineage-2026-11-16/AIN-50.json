@@ -1,0 +1,597 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10279",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10279",
+  "key": "AIN-50",
+  "fields": {
+    "summary": "[Data model] Version and validate flexible JSON schemas without losing relational integrity",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Parent owns shared data-model implementation. Planning priority: foundational. Preserve existing behavior through additive changes."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Current state"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Org-editable risk-class schemas and snapshots rely on JSONB. Structured core facts and versioned organization extensions must remain compatible; replacing flexible schemas with rigid line-specific columns would violate the platform architecture."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Deliverables and acceptance criteria"
+            }
+          ]
+        },
+        {
+          "type": "bulletList",
+          "content": [
+            {
+              "type": "listItem",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Define which identities, money facts and lifecycle references require typed fields versus versioned JSONB extensions."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Persist schema/version/hash references and validate at write boundaries; distinguish missing, unknown, conflicting and deliberately zero values."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Add old/new schema compatibility cases and prove old submissions/quotes/bindings remain readable after organization schema edits."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Related domain work"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "AIN-18, AIN-20, AIN-15. Coordinate contracts with these tickets; do not reimplement their business workflows."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Single-developer sprint sequence \u2014 2026-11-04"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Target candidate: AIN S04 | Flexible schema and revision contracts (Jira sprint 39)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Sprint outcome: Specify and validate stable typed core facts plus versioned JSON extensions and immutable temporal references."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Exit evidence: Old/new schemas remain readable; missing/conflicting/zero are distinct; effective/recorded/valuation times and revision links are tested."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Planning envelope: 6 implementation days + 2 integrated verification days + 1 review/refinement day + 1 contingency day; not measured velocity. One primary outcome in progress; at most two closely related workflow slices. Story/task pairs share effort, not double-counted work."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Existing active sprint remains active with original dates; only its goal/name and unfinished membership are reorganized. Every new sprint is future and undated. No fabricated story-point/time estimates or assignees. The ordered slots are a provisional work breakdown, not a fixed delivery forecast. Before activation, split any candidate exceeding six implementation days and verify reviewer/provider readiness; preserve all parent acceptance criteria."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Scheduling is not implementation: original AC/DoD and parent scope are unchanged. Related story/task/subtask effort is one delivery slice, not additive capacity. Required domain slices can be delivered earlier than the broader owner completion sprint; no broader item is Done until all original requirements pass."
+            }
+          ]
+        }
+      ]
+    },
+    "parent": {
+      "id": "10276",
+      "key": "AIN-47",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10276",
+      "fields": {
+        "summary": "[Ensured] Strengthen canonical data models and database integrity",
+        "status": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/3",
+          "description": "This work item is being actively worked on at the moment by the assignee.",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/inprogress.png",
+          "name": "In Progress",
+          "id": "3",
+          "statusCategory": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        },
+        "priority": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "issuetype": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+          "id": "10035",
+          "description": "",
+          "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+          "hierarchyLevel": 1
+        }
+      }
+    },
+    "issuelinks": [
+      {
+        "id": "10062",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10062",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10247",
+          "key": "AIN-18",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10247",
+          "fields": {
+            "summary": "[Gap][Finance] Pin a common financial revision across workbench, pricing, quotes and servicing",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10063",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10063",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10249",
+          "key": "AIN-20",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10249",
+          "fields": {
+            "summary": "[Bug][Finance] Preserve unavailable model premium instead of persisting numeric zero",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10037",
+              "id": "10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10303?size=medium",
+              "name": "Bug",
+              "subtask": false,
+              "avatarId": 10303,
+              "entityId": "61221f88-600f-4dc2-987d-6c7c77a94ee4",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10064",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10064",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10244",
+          "key": "AIN-15",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10244",
+          "fields": {
+            "summary": "[Gap][Finance] Preserve party, currency and valuation evidence from financial documents",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10185",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10185",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10410",
+          "key": "AIN-87",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10410",
+          "fields": {
+            "summary": "[Persona] Review document-generated forms with complete evidence and safe extensions",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10187",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10187",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10418",
+          "key": "AIN-95",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10418",
+          "fields": {
+            "summary": "[Persona] Review material changes and preserve corrections when forms regenerate",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10274",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10274",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10428",
+          "key": "AIN-105",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10428",
+          "fields": {
+            "summary": "[Persona] Review document-derived facultative and treaty terms as executable contracts",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10036",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+              "id": "10036",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+              "name": "Story",
+              "subtask": false,
+              "avatarId": 10315,
+              "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      },
+      {
+        "id": "10406",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10406",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "inwardIssue": {
+          "id": "10528",
+          "key": "AIN-205",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10528",
+          "fields": {
+            "summary": "Remove canonical submissions in favor of versioned submission evidence",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10038",
+              "id": "10038",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318,
+              "entityId": "763a3c4e-8d79-4c4e-b441-c91baacb3905",
+              "hierarchyLevel": 0
+            }
+          }
+        }
+      }
+    ],
+    "subtasks": [],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+      "name": "To Do",
+      "id": "10036",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+        "id": 2,
+        "key": "new",
+        "colorName": "blue-gray",
+        "name": "To Do"
+      }
+    }
+  }
+}

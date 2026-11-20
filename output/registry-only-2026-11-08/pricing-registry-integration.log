@@ -1,0 +1,35 @@
+ Network ensured-finance-test-772ba695c889_default Creating 
+ Network ensured-finance-test-772ba695c889_default Creating 
+ Network ensured-finance-test-772ba695c889_default Created 
+ Network ensured-finance-test-772ba695c889_default Created 
+ Container ensured-finance-test-772ba695c889-postgres-1 Creating 
+ Container ensured-finance-test-772ba695c889-postgres-1 Created 
+ Container ensured-finance-test-772ba695c889-postgres-1 Starting 
+ Container ensured-finance-test-772ba695c889-postgres-1 Started 
+ Container ensured-finance-test-772ba695c889-postgres-1 Waiting 
+ Container ensured-finance-test-772ba695c889-postgres-1 Healthy 
+PASS test/relationships/pricingAtomicity.db.test.ts
+  pricing publication is atomic, serialized and replayable
+    ✓ concurrent runs allocate monotonic versions and duplicate commands replay once (80 ms)
+    ✓ failure after model write rolls back every published row (68 ms)
+    ✓ failure after pricing write rolls back every published row (21 ms)
+    ✓ failure after version write rolls back every published row (27 ms)
+    ✓ failure after pointer write rolls back every published row (23 ms)
+    ✓ failure after metric write rolls back every published row (23 ms)
+    ✓ operation receipt failure rolls back all prior writes; another actor cannot reuse a key (32 ms)
+    ✓ failure after catastrophe metric 2 rolls back the entire publication (17 ms)
+    ✓ failure after catastrophe metric 3 rolls back the entire publication (19 ms)
+    ✓ committed replay does not recompute changed or unavailable sources (12 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        2.785 s
+Ran all test suites within paths "test/relationships/pricingAtomicity.db.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-772ba695c889-postgres-1 Stopping 
+ Container ensured-finance-test-772ba695c889-postgres-1 Stopped 
+ Container ensured-finance-test-772ba695c889-postgres-1 Removing 
+ Container ensured-finance-test-772ba695c889-postgres-1 Removed 
+ Network ensured-finance-test-772ba695c889_default Removing 
+ Network ensured-finance-test-772ba695c889_default Removed 

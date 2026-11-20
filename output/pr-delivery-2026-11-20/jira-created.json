@@ -1,0 +1,26 @@
+[
+  {
+    "key": "AIN-212",
+    "summary": "[Bug][API tests] Default API suite does not provide gateway authentication to buildApp-based route tests",
+    "status": "To Do",
+    "type": "Bug"
+  },
+  {
+    "key": "AIN-213",
+    "summary": "[Bug][API tests] Pipeline job DB suites bypass the disposable test database",
+    "status": "To Do",
+    "type": "Bug"
+  },
+  {
+    "key": "AIN-214",
+    "summary": "[Bug][API tests] Stale expectations in marketplace, navigation, form catalog and pipeline order tests",
+    "status": "To Do",
+    "type": "Bug"
+  },
+  {
+    "key": "AIN-215",
+    "summary": "[Bug][UI CI] Vercel deployment check fails on EnsuredUI main and every PR",
+    "status": "To Do",
+    "type": "Bug"
+  }
+]

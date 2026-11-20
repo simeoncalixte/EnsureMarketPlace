@@ -1,0 +1,95 @@
+
+> ensured-api@0.1.0 test:auth
+> jest --config jest.auth.config.cjs --runInBand --runTestsByPath test/auth/accessMatrix.before.test.ts --testNamePattern=independent member boundary|assertion bypass is exact|denial precedence
+
+PASS test/auth/accessMatrix.before.test.ts
+  ✓ independent member boundary GET /api/private → 403 (18 ms)
+  ✓ independent member boundary GET /api/auth/me → 200 (2 ms)
+  ✓ independent member boundary GET /api/navigation → 200 (2 ms)
+  ✓ independent member boundary GET /api/kyc/status → 200 (1 ms)
+  ✓ independent member boundary GET /api/auth/me/extra → 403 (1 ms)
+  ✓ independent member boundary GET /api/email-accounts → 200 (1 ms)
+  ✓ independent member boundary POST /api/email-accounts/1 → 200 (1 ms)
+  ✓ independent member boundary GET /api/email-accounts-other → 403
+  ✓ independent member boundary GET /api/model-settings → 200 (1 ms)
+  ✓ independent member boundary POST /api/model-library/connection → 200 (2 ms)
+  ✓ independent member boundary POST /api/ai-chat/send → 200 (1 ms)
+  ✓ independent member boundary GET /api/pipeline/processes/board → 200 (1 ms)
+  ✓ independent member boundary GET /api/pipeline/processes/settings → 200
+  ✓ independent member boundary GET /api/pipeline/processes/automation → 200 (1 ms)
+  ✓ independent member boundary POST /api/pipeline/processes/submissions/1/advance → 200 (1 ms)
+  ✓ independent member boundary POST /api/pipeline/processes/submissions/1/rerun → 200
+  ✓ independent member boundary GET /api/pipeline/processes/submissions/1/runs → 200 (1 ms)
+  ✓ independent member boundary GET /api/pipeline/processes/submissions/1/jobs/2 → 200
+  ✓ independent member boundary GET /api/pipeline/processes/artifacts/1 → 200
+  ✓ independent member boundary GET /api/pipeline/processes/board/extra → 403 (1 ms)
+  ✓ independent member boundary GET /api/geography/search?q=Boston → 200 (1 ms)
+  ✓ independent member boundary GET /api/geography/reverse → 200
+  ✓ independent member boundary POST /api/geography/search → 403 (1 ms)
+  ✓ independent member boundary HEAD /api/geography/search → 403 (1 ms)
+  ✓ independent member boundary GET /api/marketplace/line-of-business-taxonomy → 200
+  ✓ independent member boundary GET /api/me/appetite → 200 (1 ms)
+  ✓ independent member boundary PUT /api/me/appetite/rules/1 → 200
+  ✓ independent member boundary PUT /api/me/appetite/rules/0 → 403 (1 ms)
+  ✓ independent member boundary GET /api/marketplace/participant-appetite/person/member-7 → 200 (1 ms)
+  ✓ independent member boundary GET /api/marketplace/participant-appetite/organization/org_1 → 200
+  ✓ independent member boundary GET /api/marketplace/tranches/1/participation → 200 (1 ms)
+  ✓ independent member boundary POST /api/marketplace/tranches/1/commitments → 200
+  ✓ independent member boundary GET /api/marketplace/tranches/1/commitments → 403 (1 ms)
+  ✓ independent member boundary POST /api/marketplace/tranches/1/participation-review → 403 (1 ms)
+  ✓ independent member boundary GET /api/marketplace/tranches/0/participation → 403
+  ✓ independent member boundary GET /api/network-party-links → 200 (1 ms)
+  ✓ independent member boundary POST /api/network-party-links/11111111-1111-1111-1111-111111111111/decision → 200 (1 ms)
+  ✓ independent member boundary POST /api/network-party-links → 403
+  ✓ independent member boundary GET /api/model-settings-other → 403 (1 ms)
+  ✓ independent member boundary GET /API/AUTH/ME → 200 (1 ms)
+  ✓ assertion bypass is exact: GET /health
+  ✓ assertion bypass is exact: HEAD /health (1 ms)
+  ✓ assertion bypass is exact: POST /health
+  ✓ assertion bypass is exact: GET /health/extra (1 ms)
+  ✓ assertion bypass is exact: GET /HEALTH
+  ✓ assertion bypass is exact: GET /api/subscriptions/plans?currency=USD (1 ms)
+  ✓ assertion bypass is exact: HEAD /api/subscriptions/plans (1 ms)
+  ✓ assertion bypass is exact: POST /api/subscriptions/plans
+  ✓ assertion bypass is exact: POST /api/signature-requests/guest/packet (1 ms)
+  ✓ assertion bypass is exact: POST /api/signature-requests/guest/written
+  ✓ assertion bypass is exact: POST /api/signature-requests/guest/register/options (1 ms)
+  ✓ assertion bypass is exact: POST /api/signature-requests/guest/register/verify
+  ✓ assertion bypass is exact: POST /api/signature-requests/guest/sign/options
+  ✓ assertion bypass is exact: POST /api/signature-requests/guest/sign/verify (1 ms)
+  ✓ assertion bypass is exact: POST /api/quote-requests/guest/packet (1 ms)
+  ✓ assertion bypass is exact: POST /api/quote-requests/guest/respond (1 ms)
+  ✓ assertion bypass is exact: GET /api/signature-requests/guest/packet
+  ✓ assertion bypass is exact: POST /api/signature-requests/guest/sign/verify/extra (1 ms)
+  ✓ assertion bypass is exact: GET /api/quote-requests/guest/respond
+  ✓ assertion bypass is exact: POST /api/quote-requests/guest/approve (7 ms)
+  ✓ denial precedence POST /api/registration/complete {} (2 ms)
+  ✓ denial precedence GET /api/admin/users {} (1 ms)
+  ✓ denial precedence POST /api/organizations {} (1 ms)
+  ✓ denial precedence GET /api/relationships {} (1 ms)
+  ✓ denial precedence GET /api/relationships {"participantScope":{"actor":7}}
+  ✓ denial precedence POST /api/registration/complete {"participantScope":{"actor":7}} (1 ms)
+  ✓ denial precedence GET /api/private {"actor":{"sub":"member-7"},"impersonationId":"audit"} (1 ms)
+  ✓ denial precedence GET /api/private {"actor":{"sub":"operator"},"impersonationId":"audit-1","platformAdmin":true}
+  ○ skipped impersonation forbidden for /api/email-accounts
+  ○ skipped impersonation forbidden for /api/marketplace/tranches/1/participation
+  ○ skipped impersonation forbidden for /api/network-party-links
+  ○ skipped impersonation forbidden for /api/relationships
+  ○ skipped scopes and identity are attached together only on success
+  ○ skipped malformed relationship scope is rejected: {}
+  ○ skipped malformed relationship scope is rejected: {"userId":8,"organizationId":10,"permission":"list","relationshipId":null}
+  ○ skipped malformed relationship scope is rejected: {"userId":7,"organizationId":11,"permission":"list","relationshipId":null}
+  ○ skipped malformed relationship scope is rejected: {"userId":7,"organizationId":10,"permission":"invented","relationshipId":null}
+  ○ skipped malformed relationship scope is rejected: {"userId":7,"organizationId":10,"permission":"list","relationshipId":null,"recordId":7}
+  ○ skipped malformed relationship scope is rejected: {"userId":7,"organizationId":10,"permission":"list","relationshipId":null,"recordKind":"invented"}
+  ○ skipped malformed relationship scope is rejected: {"userId":7,"organizationId":10,"permission":"list","relationshipId":7}
+  ○ skipped service identity cannot be substituted with a gateway identity or used for writes
+  ○ skipped integration configuration is captured when the compatibility hook is created
+  ○ skipped short integration secrets disable service access without disabling gateway access
+  ○ skipped database failures remain server errors and attach no accepted identity
+
+Test Suites: 1 passed, 1 total
+Tests:       16 skipped, 68 passed, 84 total
+Snapshots:   0 total
+Time:        2.722 s
+Ran all test suites within paths "test/auth/accessMatrix.before.test.ts".

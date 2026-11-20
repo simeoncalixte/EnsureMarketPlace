@@ -1,0 +1,5 @@
+{
+  "jest.jestCommandLine": "node scripts/test-api.mjs",
+  "jest.rootPath": ".",
+  "jest.runMode": "on-demand"
+}

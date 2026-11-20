@@ -1,0 +1,98 @@
+[
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/deriveLob.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineShared/src/pipeline/deriveLob.ts",
+    "before": null,
+    "after": "ff39f26f53a59af54ffdeff6e99dfe415ca4e736cd8b4b52e1a1f2724c29cd3a"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/submissionData.test.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineShared/src/pipeline/submissionData.test.ts",
+    "before": null,
+    "after": "9b2979d3e56ab6829921a06771ef0aa2106ce21a7ecb69603243d9cad586bc47"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/submissionData.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineShared/src/pipeline/submissionData.ts",
+    "before": null,
+    "after": "64b55007f04bca8a53523f28a32e81ca4950291bd327d69608fa556adba3153a"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineShared/src/db/models/ingestion.models.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineShared/src/db/models/ingestion.models.ts",
+    "before": "130e3c88355614bfbac94493c0758bbc297648e7c74a48368e3300cd55915063",
+    "after": "2ac56265471e5ec4e4bfe1a2bf7762b5adddd775d424ac72e7e2f501e280a786"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineShared/src/db/models/index.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineShared/src/db/models/index.ts",
+    "before": "f88a46a2929050584379277dd5f2fb44d0cbc12bce667a9a95df2d76ba3c7c1f",
+    "after": "41ca19c1d8ef74e2d696bf20b8954012a17fded9b3d3f808b91697753310e452"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/schema/compile.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineShared/src/pipeline/schema/compile.ts",
+    "before": "b3291d840c9c882c58bd3ff2fc545b212531e76256aed4e3e0a7df2d4ec543e8",
+    "after": "22d74317fb3111874478c9d00863888fd8575c688026b8c5edbc137b7622e5c6"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/normalization/service.error.test.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineNormalization/src/pipeline/normalization/service.error.test.ts",
+    "before": "8112044d6928fdffa67c97d13c3729058dc436e3a022d6d6690e96f46c2af829",
+    "after": "0aa3069cb5382fc1653df0dd0887b6471ce44f2e795ec5927959d8900e19453d"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/normalization/service.slice3.test.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineNormalization/src/pipeline/normalization/service.slice3.test.ts",
+    "before": "3501988fc68ca46ac91fc1b2cfbfe7bb552d5eeb7588a235e09bfc17e7854e0f",
+    "after": "7cc9257a4d1737fe2939d3eaf21ed967c3040eb5f074ebf6aad65c6125dbed4e"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/normalization/service.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineNormalization/src/pipeline/normalization/service.ts",
+    "before": "7eaf1a56580b99338ebb1163f337d12f242ac97f81a90a7815d3e0c76f1e5d17",
+    "after": "d593b291416758b547929b97f555707da846ec77fb7464c5b292e8fbffa9abf8"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/canonicalize/deriveLob.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineNormalization/src/pipeline/canonicalize/deriveLob.ts",
+    "before": "02f8c70b710d3a87ac280baefc653bb7206b554c63dd55d2f07481cb1adce1fb",
+    "after": "7144296e7cc48a18c68f6d5c960ecc249831627a630dc20f331ba47341e0deeb"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/canonicalize/service.test.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineNormalization/src/pipeline/canonicalize/service.test.ts",
+    "before": "4e33a76eb57cdcfe335e03c1a3c683df5284f23aebc7d99a61f757f2120195e7",
+    "after": "d736f9ce908e10f887ce9477ae7c5a6610b33451af90fa1c358e94cd1e174036"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/canonicalize/service.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineNormalization/src/pipeline/canonicalize/service.ts",
+    "before": "fdfbee3591e7a02451a48aad77fe644fdaa6bf044d3ee1d5d6b82febd808e7df",
+    "after": "e563921e1c9dc0db052f5f740e8dcecc47c9f6684ddd11fcf7b8170c0a89d6f2"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineRiskCompute/src/pipeline/compute/service.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineRiskCompute/src/pipeline/compute/service.ts",
+    "before": "94d0cce7b20413bb148b2360842f7c7f09f5cbb679e81504df6fd4ae5157f978",
+    "after": "d61d96a0a738014f744152c7f15df833f47eb9bde2163f9b3185fdc45bb001e9"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineRiskCompute/src/pipeline/catastrophe/service.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineRiskCompute/src/pipeline/catastrophe/service.ts",
+    "before": "efa6718e1114fb98fa9b6547d6be35592c42b2cd0b2530a227f8009175ed3ee8",
+    "after": "bbe4d1963c5f8484b73b122fa6c9ade24688d2381435b4a69b25d36c95101ede"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineRiskCompute/src/pipeline/parametric/definition.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineRiskCompute/src/pipeline/parametric/definition.ts",
+    "before": "3632518d883a2782893ff2028e0bb19a204cc77096f47c7e8ab758be41f08cbe",
+    "after": "b9c3ee8a41727e1e88e0ffc9f507e817ef87dc6ecb6c734ac75de3fd1ac61ce7"
+  },
+  {
+    "source": "/tmp/canonical-removal/EnsuredPipelineSchemaGeneration/src/pipeline/test/schemaFieldPersistence.test.ts",
+    "destination": "/Users/simeon/Projects/EnsuredPackages/EnsuredPipelineSchemaGeneration/src/pipeline/test/schemaFieldPersistence.test.ts",
+    "before": "832b1bd38296fd29f8ac7eae8ca024c04bb2891152337c105334452971ce0b6c",
+    "after": "870d3a87e31390f9dc8d3c48280f2737854c9ea7ea8a972f9c555a83d18f5f26"
+  }
+]

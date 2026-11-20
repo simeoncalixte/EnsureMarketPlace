@@ -1,0 +1,828 @@
+[
+  {
+    "id": "pages-commercial-palette-regression--overview",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--overview",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-commercial-palette-regression--terms",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--terms",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-commercial-palette-regression--documents",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--documents",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-commercial-palette-regression--document-permission",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--document-permission",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-commercial-palette-regression--approvals",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--approvals",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-commercial-palette-regression--activity",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--activity",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-commercial-palette-regression--listing",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--listing",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-commercial-palette-regression--requests",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--requests",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-email-inbox--read-message",
+    "passed": false,
+    "outcome": [
+      {
+        "event": "playFunctionThrewException",
+        "payload": {
+          "name": "TestingLibraryElementError",
+          "message": "Unable to find an element with the text: Added to pipeline · Submission var(--xds-danger). This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <section\n    aria-busy=\"false\"\n    aria-label=\"Stored inbox\"\n    class=\"sc-pVUti bAuliJ\"\n  >\n    <nav\n      aria-label=\"Inbox navigation\"\n      class=\"sc-jrQAon ksoFyY\"\n    >\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        ← Back to email accounts\n      </button>\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        Back to inbox\n      </button>\n    </nav>\n    <h1\n      tabindex=\"-1\"\n    >\n      Insurance documents\n    </h1>\n    <article\n      class=\"sc-hGPAwl brONka\"\n    >\n      <div\n        class=\"sc-dlVwtM sc-kfPsKX jxsHGc bGTTIi\"\n      >\n        <p\n          role=\"status\"\n        >\n          Added to pipeline · Submission #\n          501\n          <small>\n            Reprocess this email and its attachments as a new submission.\n          </small>\n        </p>\n        <div\n          class=\"sc-dlVwtM jxsHGc\"\n        >\n          <a\n            href=\"/insurer/pipeline-processes\"\n          >\n            Open pipeline\n          </a>\n          <button\n            class=\"sc-bdvwhi dBtOpW\"\n          >\n            Reprocess email\n          </button>\n        </div>\n      </div>\n      <p>\n        <strong>\n          From:\n        </strong>\n         \n        broker@example.test\n      </p>\n      <p>\n        <strong>\n          To:\n        </strong>\n         \n        owner@example.test\n      </p>\n      <p>\n        9/11/2026, 8:00:00 AM\n      </p>\n      <pre\n        class=\"sc-bBHAhJ ePFmvw\"\n      >\n        Please review the attached documents.\n      </pre>\n      <h2>\n        Attachments\n      </h2>\n      <ul\n        class=\"sc-fKVoIy gDvIWX\"\n      >\n        <li>\n          <button\n            class=\"sc-bdvwhi jPFqmh\"\n          >\n            Download \n            risk.pdf\n          </button>\n        </li>\n      </ul>\n    </article>\n  </section>\n</div>\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <section\n    aria-busy=\"false\"\n    aria-label=\"Stored inbox\"\n    class=\"sc-pVUti bAuliJ\"\n  >\n    <nav\n      aria-label=\"Inbox navigation\"\n      class=\"sc-jrQAon ksoFyY\"\n    >\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        ← Back to email accounts\n      </button>\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        Back to inbox\n      </button>\n    </nav>\n    <h1\n      tabindex=\"-1\"\n    >\n      Insurance documents\n    </h1>\n    <article\n      class=\"sc-hGPAwl brONka\"\n    >\n      <div\n        class=\"sc-dlVwtM sc-kfPsKX jxsHGc bGTTIi\"\n      >\n        <p\n          role=\"status\"\n        >\n          Added to pipeline · Submission #\n          501\n          <small>\n            Reprocess this email and its attachments as a new submission.\n          </small>\n        </p>\n        <div\n          class=\"sc-dlVwtM jxsHGc\"\n        >\n          <a\n            href=\"/insurer/pipeline-processes\"\n          >\n            Open pipeline\n          </a>\n          <button\n            class=\"sc-bdvwhi dBtOpW\"\n          >\n            Reprocess email\n          </button>\n        </div>\n      </div>\n      <p>\n        <strong>\n          From:\n        </strong>\n         \n        broker@example.test\n      </p>\n      <p>\n        <strong>\n          To:\n        </strong>\n         \n        owner@example.test\n      </p>\n      <p>\n        9/11/2026, 8:00:00 AM\n      </p>\n      <pre\n        class=\"sc-bBHAhJ ePFmvw\"\n      >\n        Please review the attached documents.\n      </pre>\n      <h2>\n        Attachments\n      </h2>\n      <ul\n        class=\"sc-fKVoIy gDvIWX\"\n      >\n        <li>\n          <button\n            class=\"sc-bdvwhi jPFqmh\"\n          >\n            Download \n            risk.pdf\n          </button>\n        </li>\n      </ul>\n    </article>\n  </section>\n</div>",
+          "stack": "Error: Unable to find an element with the text: Added to pipeline · Submission var(--xds-danger). This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <section\n    aria-busy=\"false\"\n    aria-label=\"Stored inbox\"\n    class=\"sc-pVUti bAuliJ\"\n  >\n    <nav\n      aria-label=\"Inbox navigation\"\n      class=\"sc-jrQAon ksoFyY\"\n    >\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        ← Back to email accounts\n      </button>\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        Back to inbox\n      </button>\n    </nav>\n    <h1\n      tabindex=\"-1\"\n    >\n      Insurance documents\n    </h1>\n    <article\n      class=\"sc-hGPAwl brONka\"\n    >\n      <div\n        class=\"sc-dlVwtM sc-kfPsKX jxsHGc bGTTIi\"\n      >\n        <p\n          role=\"status\"\n        >\n          Added to pipeline · Submission #\n          501\n          <small>\n            Reprocess this email and its attachments as a new submission.\n          </small>\n        </p>\n        <div\n          class=\"sc-dlVwtM jxsHGc\"\n        >\n          <a\n            href=\"/insurer/pipeline-processes\"\n          >\n            Open pipeline\n          </a>\n          <button\n            class=\"sc-bdvwhi dBtOpW\"\n          >\n            Reprocess email\n          </button>\n        </div>\n      </div>\n      <p>\n        <strong>\n          From:\n        </strong>\n         \n        broker@example.test\n      </p>\n      <p>\n        <strong>\n          To:\n        </strong>\n         \n        owner@example.test\n      </p>\n      <p>\n        9/11/2026, 8:00:00 AM\n      </p>\n      <pre\n        class=\"sc-bBHAhJ ePFmvw\"\n      >\n        Please review the attached documents.\n      </pre>\n      <h2>\n        Attachments\n      </h2>\n      <ul\n        class=\"sc-fKVoIy gDvIWX\"\n      >\n        <li>\n          <button\n            class=\"sc-bdvwhi jPFqmh\"\n          >\n            Download \n            risk.pdf\n          </button>\n        </li>\n      </ul>\n    </article>\n  </section>\n</div>\n    at Rs (http://127.0.0.1:60149/assets/index-DeN4tkzB.js:204:3353)\n    at http://127.0.0.1:60149/assets/index-DeN4tkzB.js:212:234\n    at play (http://127.0.0.1:60149/assets/EmailInbox.stories-xenF4Rde.js:1:1871)\n    at async StoryRender.runPhase (http://127.0.0.1:60149/assets/iframe-Cfl8XQ0z.js:199:775)\n    at async StoryRender.render (http://127.0.0.1:60149/assets/iframe-Cfl8XQ0z.js:199:3757)"
+        }
+      },
+      {
+        "event": "storyThrewException",
+        "payload": {
+          "name": "TestingLibraryElementError",
+          "message": "Unable to find an element with the text: Added to pipeline · Submission var(--xds-danger). This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <section\n    aria-busy=\"false\"\n    aria-label=\"Stored inbox\"\n    class=\"sc-pVUti bAuliJ\"\n  >\n    <nav\n      aria-label=\"Inbox navigation\"\n      class=\"sc-jrQAon ksoFyY\"\n    >\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        ← Back to email accounts\n      </button>\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        Back to inbox\n      </button>\n    </nav>\n    <h1\n      tabindex=\"-1\"\n    >\n      Insurance documents\n    </h1>\n    <article\n      class=\"sc-hGPAwl brONka\"\n    >\n      <div\n        class=\"sc-dlVwtM sc-kfPsKX jxsHGc bGTTIi\"\n      >\n        <p\n          role=\"status\"\n        >\n          Added to pipeline · Submission #\n          501\n          <small>\n            Reprocess this email and its attachments as a new submission.\n          </small>\n        </p>\n        <div\n          class=\"sc-dlVwtM jxsHGc\"\n        >\n          <a\n            href=\"/insurer/pipeline-processes\"\n          >\n            Open pipeline\n          </a>\n          <button\n            class=\"sc-bdvwhi dBtOpW\"\n          >\n            Reprocess email\n          </button>\n        </div>\n      </div>\n      <p>\n        <strong>\n          From:\n        </strong>\n         \n        broker@example.test\n      </p>\n      <p>\n        <strong>\n          To:\n        </strong>\n         \n        owner@example.test\n      </p>\n      <p>\n        9/11/2026, 8:00:00 AM\n      </p>\n      <pre\n        class=\"sc-bBHAhJ ePFmvw\"\n      >\n        Please review the attached documents.\n      </pre>\n      <h2>\n        Attachments\n      </h2>\n      <ul\n        class=\"sc-fKVoIy gDvIWX\"\n      >\n        <li>\n          <button\n            class=\"sc-bdvwhi jPFqmh\"\n          >\n            Download \n            risk.pdf\n          </button>\n        </li>\n      </ul>\n    </article>\n  </section>\n</div>\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <section\n    aria-busy=\"false\"\n    aria-label=\"Stored inbox\"\n    class=\"sc-pVUti bAuliJ\"\n  >\n    <nav\n      aria-label=\"Inbox navigation\"\n      class=\"sc-jrQAon ksoFyY\"\n    >\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        ← Back to email accounts\n      </button>\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        Back to inbox\n      </button>\n    </nav>\n    <h1\n      tabindex=\"-1\"\n    >\n      Insurance documents\n    </h1>\n    <article\n      class=\"sc-hGPAwl brONka\"\n    >\n      <div\n        class=\"sc-dlVwtM sc-kfPsKX jxsHGc bGTTIi\"\n      >\n        <p\n          role=\"status\"\n        >\n          Added to pipeline · Submission #\n          501\n          <small>\n            Reprocess this email and its attachments as a new submission.\n          </small>\n        </p>\n        <div\n          class=\"sc-dlVwtM jxsHGc\"\n        >\n          <a\n            href=\"/insurer/pipeline-processes\"\n          >\n            Open pipeline\n          </a>\n          <button\n            class=\"sc-bdvwhi dBtOpW\"\n          >\n            Reprocess email\n          </button>\n        </div>\n      </div>\n      <p>\n        <strong>\n          From:\n        </strong>\n         \n        broker@example.test\n      </p>\n      <p>\n        <strong>\n          To:\n        </strong>\n         \n        owner@example.test\n      </p>\n      <p>\n        9/11/2026, 8:00:00 AM\n      </p>\n      <pre\n        class=\"sc-bBHAhJ ePFmvw\"\n      >\n        Please review the attached documents.\n      </pre>\n      <h2>\n        Attachments\n      </h2>\n      <ul\n        class=\"sc-fKVoIy gDvIWX\"\n      >\n        <li>\n          <button\n            class=\"sc-bdvwhi jPFqmh\"\n          >\n            Download \n            risk.pdf\n          </button>\n        </li>\n      </ul>\n    </article>\n  </section>\n</div>",
+          "stack": "Error: Unable to find an element with the text: Added to pipeline · Submission var(--xds-danger). This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.\n\nIgnored nodes: comments, script, style\n<div\n  id=\"storybook-root\"\n>\n  <section\n    aria-busy=\"false\"\n    aria-label=\"Stored inbox\"\n    class=\"sc-pVUti bAuliJ\"\n  >\n    <nav\n      aria-label=\"Inbox navigation\"\n      class=\"sc-jrQAon ksoFyY\"\n    >\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        ← Back to email accounts\n      </button>\n      <button\n        class=\"sc-bdvwhi dBtOpW sc-kDTkBQ sc-iqsgXZ cfJmYx AMXwd\"\n      >\n        Back to inbox\n      </button>\n    </nav>\n    <h1\n      tabindex=\"-1\"\n    >\n      Insurance documents\n    </h1>\n    <article\n      class=\"sc-hGPAwl brONka\"\n    >\n      <div\n        class=\"sc-dlVwtM sc-kfPsKX jxsHGc bGTTIi\"\n      >\n        <p\n          role=\"status\"\n        >\n          Added to pipeline · Submission #\n          501\n          <small>\n            Reprocess this email and its attachments as a new submission.\n          </small>\n        </p>\n        <div\n          class=\"sc-dlVwtM jxsHGc\"\n        >\n          <a\n            href=\"/insurer/pipeline-processes\"\n          >\n            Open pipeline\n          </a>\n          <button\n            class=\"sc-bdvwhi dBtOpW\"\n          >\n            Reprocess email\n          </button>\n        </div>\n      </div>\n      <p>\n        <strong>\n          From:\n        </strong>\n         \n        broker@example.test\n      </p>\n      <p>\n        <strong>\n          To:\n        </strong>\n         \n        owner@example.test\n      </p>\n      <p>\n        9/11/2026, 8:00:00 AM\n      </p>\n      <pre\n        class=\"sc-bBHAhJ ePFmvw\"\n      >\n        Please review the attached documents.\n      </pre>\n      <h2>\n        Attachments\n      </h2>\n      <ul\n        class=\"sc-fKVoIy gDvIWX\"\n      >\n        <li>\n          <button\n            class=\"sc-bdvwhi jPFqmh\"\n          >\n            Download \n            risk.pdf\n          </button>\n        </li>\n      </ul>\n    </article>\n  </section>\n</div>\n    at Rs (http://127.0.0.1:60149/assets/index-DeN4tkzB.js:204:3353)\n    at http://127.0.0.1:60149/assets/index-DeN4tkzB.js:212:234\n    at play (http://127.0.0.1:60149/assets/EmailInbox.stories-xenF4Rde.js:1:1871)\n    at async StoryRender.runPhase (http://127.0.0.1:60149/assets/iframe-Cfl8XQ0z.js:199:775)\n    at async StoryRender.render (http://127.0.0.1:60149/assets/iframe-Cfl8XQ0z.js:199:3757)"
+        }
+      },
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-email-inbox--read-message",
+          "status": "error",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-email-inbox--inbox-layout",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-email-inbox--inbox-layout",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-submission-documents--empty",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-submission-documents--empty",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-submission-documents--multiple-documents",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-submission-documents--multiple-documents",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-submission-documents--add-and-process",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-submission-documents--add-and-process",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-submission-documents--classified-documents",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-submission-documents--classified-documents",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-submission-documents--add-to-new-draft",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-submission-documents--add-to-new-draft",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-filters-submissions--apply-and-reset",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-filters-submissions--apply-and-reset",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-filters-submissions--validation",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-filters-submissions--validation",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-filters-submissions--failure-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-filters-submissions--failure-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-filters-submissions--empty",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-filters-submissions--empty",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-filters-submissions--loading",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-filters-submissions--loading",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-filters-submissions--permission-denied",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-filters-submissions--permission-denied",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--directory-search",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--directory-search",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--participation-evidence",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--participation-evidence",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--restricted-participation",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--restricted-participation",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--register-identity",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-identity",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--register-organization",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-organization",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--register-individual",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-individual",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--register-spv",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-spv",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--identity-rejected",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--identity-rejected",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--attribute-servicing",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--attribute-servicing",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--attribution-conflict",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--attribution-conflict",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--post-obligation",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--post-obligation",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--retry-posting",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--retry-posting",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--posting-rejected",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--posting-rejected",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--settle-obligation",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--settle-obligation",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--reduce-obligation",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--reduce-obligation",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--reverse-journal",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--reverse-journal",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--reconciliation-coverage",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--reconciliation-coverage",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--financial-directory",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--financial-directory",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--statement-trace",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--statement-trace",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--statement-pagination",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--statement-pagination",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--statement-revoked",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--statement-revoked",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--empty-statement",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--empty-statement",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--grant-mandate",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--grant-mandate",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--revoke-mandate",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--revoke-mandate",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--mandate-denied",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--mandate-denied",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--loading-statement",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--loading-statement",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--statement-unavailable",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--statement-unavailable",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--empty-financial-directory",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--empty-financial-directory",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--scope-changed-pagination",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--scope-changed-pagination",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--invite-network-identity",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--invite-network-identity",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--revoke-network-identity",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--revoke-network-identity",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--network-identity-review-denied",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--network-identity-review-denied",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  },
+  {
+    "id": "pages-parties-workflows--unresolved-network-identity-review",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--unresolved-network-identity-review",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

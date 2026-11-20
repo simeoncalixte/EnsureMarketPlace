@@ -1,0 +1,146 @@
+[
+  {
+    "file": "Before-directory-search-1440x1000.png",
+    "story": "pages-parties-workflows--directory-search",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "XDS dark theme (browser prefers light)",
+    "zoom": "100%",
+    "scroll": "top",
+    "fixture": "synthetic normal; authorized contract operator",
+    "state": "after existing play function; no application network permitted",
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--directory-search",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "uiCommit": "6f51532def88a7686ec83dcdf5aa8f261d18186e"
+  },
+  {
+    "file": "Before-directory-search-390x844.png",
+    "story": "pages-parties-workflows--directory-search",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "theme": "XDS dark theme (browser prefers light)",
+    "zoom": "100%",
+    "scroll": "top",
+    "fixture": "synthetic normal; authorized contract operator",
+    "state": "after existing play function; no application network permitted",
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--directory-search",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "uiCommit": "6f51532def88a7686ec83dcdf5aa8f261d18186e"
+  },
+  {
+    "file": "Before-register-organization-1440x1000.png",
+    "story": "pages-parties-workflows--register-organization",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "XDS dark theme (browser prefers light)",
+    "zoom": "100%",
+    "scroll": "top",
+    "fixture": "synthetic normal; authorized contract operator",
+    "state": "after existing play function; no application network permitted",
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-organization",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "uiCommit": "6f51532def88a7686ec83dcdf5aa8f261d18186e"
+  },
+  {
+    "file": "Before-register-organization-390x844.png",
+    "story": "pages-parties-workflows--register-organization",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "theme": "XDS dark theme (browser prefers light)",
+    "zoom": "100%",
+    "scroll": "top",
+    "fixture": "synthetic normal; authorized contract operator",
+    "state": "after existing play function; no application network permitted",
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-organization",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "uiCommit": "6f51532def88a7686ec83dcdf5aa8f261d18186e"
+  },
+  {
+    "file": "Before-register-individual-1440x1000.png",
+    "story": "pages-parties-workflows--register-individual",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "XDS dark theme (browser prefers light)",
+    "zoom": "100%",
+    "scroll": "top",
+    "fixture": "synthetic normal; authorized contract operator",
+    "state": "after existing play function; no application network permitted",
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-individual",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "uiCommit": "6f51532def88a7686ec83dcdf5aa8f261d18186e"
+  },
+  {
+    "file": "Before-register-individual-390x844.png",
+    "story": "pages-parties-workflows--register-individual",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "theme": "XDS dark theme (browser prefers light)",
+    "zoom": "100%",
+    "scroll": "top",
+    "fixture": "synthetic normal; authorized contract operator",
+    "state": "after existing play function; no application network permitted",
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-parties-workflows--register-individual",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "uiCommit": "6f51532def88a7686ec83dcdf5aa8f261d18186e"
+  }
+]

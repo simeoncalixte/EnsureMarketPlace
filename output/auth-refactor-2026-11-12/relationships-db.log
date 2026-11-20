@@ -1,0 +1,33 @@
+ Network ensured-finance-test-3ef52c36e083_default Creating 
+ Network ensured-finance-test-3ef52c36e083_default Creating 
+ Network ensured-finance-test-3ef52c36e083_default Created 
+ Network ensured-finance-test-3ef52c36e083_default Created 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Creating 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Created 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Starting 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Started 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Waiting 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Healthy 
+PASS test/relationships/relationships.db.test.ts
+  relationships with gateway assertions and isolated PostgreSQL persistence
+    ✓ requires a gateway-issued scope and a private resolver assertion bound to method and URL (27 ms)
+    ✓ invites counterparties without granting unrelated organizations or ordinary teammates access (47 ms)
+    ✓ delegates only to active teammates, distinguishes manager and reader access, and hides private events from counterparties (115 ms)
+    ✓ revalidates membership and grants inside the mutation transaction (79 ms)
+    ✓ requires each party to qualify and activate and clears grants on withdrawal and reinvitation (157 ms)
+    ✓ serializes simultaneous updates, rolls back failures, and preserves immutable audit history (39 ms)
+    ✓ declared capabilities preserve organization types and directory projections exclude account contacts (14 ms)
+    ✓ paginates history without disclosing another organization’s private access changes (47 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        3.731 s
+Ran all test suites within paths "test/relationships/relationships.db.test.ts".
+Test results written to: ../output/finance-tests/results.json
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Stopping 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Stopped 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Removing 
+ Container ensured-finance-test-3ef52c36e083-postgres-1 Removed 
+ Network ensured-finance-test-3ef52c36e083_default Removing 
+ Network ensured-finance-test-3ef52c36e083_default Removed 

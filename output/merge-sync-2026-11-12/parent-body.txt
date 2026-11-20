@@ -1,0 +1,42 @@
+Integrate registry-only dependencies and shared filter workflows, then synchronize all 30 component pointers to their merged main commits.
+
+All original component PRs are merged. Update remaining XDS consumers to 0.1.2, publish AuthUI 0.1.3, and consume it in the host. AuthUI release run 43215678105 succeeded. Parent main will be established from this merged result while preserving master.
+
+Validation: local pipeline artifact parity, component policy, installed registry provenance, theme ownership, five parity/override regressions, AuthUI 24 tests, and affected production builds pass. Full historical UI/DB suites were not rerun; their evidence mappings remain in TASK_HANDOFF.md.
+
+Known remote failures remain separate: parent missing checkout token, Logistics private registry E401, host Vercel and Auth Cloudflare. No branch protection bypass, manual deployment, migration, or credential upload. Jira unavailable; no status transitions claimed. Broader AIN-1/AIN-13/AIN-79 and financial outcomes remain incomplete.
+
+Merged components:
+
+- [EnsuredAPI](https://github.com/simeoncalixte/EnsuredAPI/pull/18)
+- [EnsuredAuth](https://github.com/simeoncalixte/EnsuredAuth/pull/20)
+- [EnsuredUI](https://github.com/simeoncalixte/EnsuredUI/pull/16)
+- [SubmissionUI](https://github.com/simeoncalixte/SubmissionUI/pull/4)
+- [docs](https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/3)
+- [EnsuredXDS](https://github.com/simeoncalixte/EnsuredXDS/pull/9)
+- [EnsuredServices](https://github.com/simeoncalixte/EnsuredServices/pull/12)
+- [EnsuredMarketplace](https://github.com/simeoncalixte/EnsuredMarketplace/pull/4)
+- [EnsuredAuthUI](https://github.com/simeoncalixte/EnsuredAuthUI/pull/5)
+- [EnsuredNetwork](https://github.com/simeoncalixte/EnsuredNetwork/pull/6)
+- [EnsuredLogistics](https://github.com/simeoncalixte/EnsuredLogistics/pull/4)
+- [EnsuredPipelineShared](https://github.com/simeoncalixte/EnsuredPipelineShared/pull/6)
+- [EnsuredPipelineIngestionAmqp](https://github.com/simeoncalixte/EnsuredPipelineIngestionAmqp/pull/3)
+- [EnsuredPipelineIngestion](https://github.com/simeoncalixte/EnsuredPipelineIngestion/pull/3)
+- [EnsuredPipelineOcr](https://github.com/simeoncalixte/EnsuredPipelineOcr/pull/3)
+- [EnsuredPipelineClassification](https://github.com/simeoncalixte/EnsuredPipelineClassification/pull/4)
+- [EnsuredPipelineExtraction](https://github.com/simeoncalixte/EnsuredPipelineExtraction/pull/3)
+- [EnsuredPipelineLocationDiscovery](https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery/pull/4)
+- [EnsuredPipelineNormalization](https://github.com/simeoncalixte/EnsuredPipelineNormalization/pull/4)
+- [EnsuredPipelineValidation](https://github.com/simeoncalixte/EnsuredPipelineValidation/pull/4)
+- [EnsuredPipelineSchemaGeneration](https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/6)
+- [EnsuredPipelinePreRating](https://github.com/simeoncalixte/EnsuredPipelinePreRating/pull/3)
+- [EnsuredPipelineCapacity](https://github.com/simeoncalixte/EnsuredPipelineCapacity/pull/4)
+- [EnsuredPipelineOracleAttestation](https://github.com/simeoncalixte/EnsuredPipelineOracleAttestation/pull/3)
+- [EnsuredPipelineWorkflow](https://github.com/simeoncalixte/EnsuredPipelineWorkflow/pull/3)
+- [EnsuredPipelineRiskCompute](https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/pull/4)
+- [EnsuredPipelineStorageSearch](https://github.com/simeoncalixte/EnsuredPipelineStorageSearch/pull/3)
+- [EnsuredConstants](https://github.com/simeoncalixte/EnsuredConstants/pull/5)
+- [EnsuredPipelineFinancialDiscovery](https://github.com/simeoncalixte/EnsuredPipelineFinancialDiscovery/pull/3)
+- [EnsuredPipelineSubjectDiscovery](https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery/pull/4)
+
+Follow-up package updates: [AuthUI #6](https://github.com/simeoncalixte/EnsuredAuthUI/pull/6), [SubmissionUI #5](https://github.com/simeoncalixte/SubmissionUI/pull/5). Exact final host PR and pins are recorded in output/merge-sync-2026-11-12/. Raw historical screenshots/logs remain local; concise evidence and attachment indexes are committed.

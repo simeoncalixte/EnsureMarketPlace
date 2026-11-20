@@ -1,0 +1,17 @@
+[
+  {
+    "id": "logistics-collaboration--search-and-filter",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "logistics-collaboration--search-and-filter",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

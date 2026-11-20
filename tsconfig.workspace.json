@@ -2,6 +2,8 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
+    "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
     "noEmit": true,
     "skipLibCheck": true,
     "target": "ES2022",
@@ -20,6 +22,7 @@
     }
   },
   "include": [
+    "jest.config.cjs",
     "scripts/audit-pipeline-extraction.mjs",
     "scripts/check-component-capabilities.mjs",
     "scripts/check-xds-color-ownership.mjs",
@@ -32,6 +35,7 @@
     "scripts/verify-settings-section-stories.mjs",
     "scripts/verify-installed-artifacts.mjs",
     "scripts/test/installed-artifacts.test.mjs",
-    "scripts/workspace-globals.d.ts"
+    "scripts/workspace-globals.d.ts",
+    "scripts/test-api.mjs"
   ]
 }

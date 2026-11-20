@@ -1,0 +1,169 @@
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: react-inspector@6.0.2
+npm warn Found: react@19.3.0
+npm warn node_modules/react
+npm warn   react@"latest" from the root project
+npm warn   18 more (@mdx-js/react, @reduxjs/toolkit, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+npm warn node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+npm warn   react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+npm warn   node_modules/storybook-addon-remix-react-router
+npm warn
+npm warn Conflicting peer dependency: react@18.3.1
+npm warn node_modules/react
+npm warn   peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+npm warn   node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+npm warn     react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+npm warn     node_modules/storybook-addon-remix-react-router
+
+up to date, audited 333 packages in 5s
+
+92 packages are looking for funding
+  run `npm fund` for details
+
+12 vulnerabilities (8 moderate, 2 high, 2 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: react-inspector@6.0.2
+npm warn Found: react@19.3.0
+npm warn node_modules/react
+npm warn   react@"latest" from the root project
+npm warn   18 more (@ensured/marketplace, @ensured/network, @ensured/xds, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+npm warn node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+npm warn   react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+npm warn   node_modules/storybook-addon-remix-react-router
+npm warn
+npm warn Conflicting peer dependency: react@18.3.1
+npm warn node_modules/react
+npm warn   peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+npm warn   node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+npm warn     react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+npm warn     node_modules/storybook-addon-remix-react-router
+npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+
+added 332 packages, and audited 333 packages in 12s
+
+92 packages are looking for funding
+  run `npm fund` for details
+
+12 vulnerabilities (8 moderate, 2 high, 2 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+npm warn install-scripts 4 packages have install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+npm warn install-scripts   fsevents@2.3.3 (install: (install scripts present))
+npm warn install-scripts   storybook-addon-remix-react-router@4.0.1 (preinstall: npx only-allow pnpm)
+npm warn install-scripts   esbuild@0.21.5 (postinstall: node install.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+
+> build:ui
+> npm run theme:sync && npm --prefix EnsuredUI run build
+
+
+> theme:sync
+> node scripts/sync-xds-theme-assets.mjs
+
+XDS theme assets synced: 4
+
+> ensured-ui@0.1.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 988 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.85 kB │ gzip:     0.48 kB
+dist/assets/index-Bw25Mwlq.css                 174.60 kB │ gzip:    24.63 kB
+dist/assets/index-CUUyBGf2.js                   29.12 kB │ gzip:     8.25 kB
+dist/assets/network-CDYmn9pk.js                 55.32 kB │ gzip:    15.90 kB
+dist/assets/registration-B0x8bhVR.js           365.11 kB │ gzip:   114.67 kB
+dist/assets/PipelineObservatory-ri4NbKQk.js    658.26 kB │ gzip:   167.11 kB
+dist/assets/marketplace-CQeZg-_r.js          1,943.01 kB │ gzip:   547.58 kB
+dist/assets/index-Dl31zUtp.js                3,955.44 kB │ gzip: 1,085.17 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 8.13s
+✔ validates configurable origins and prevents deployment loops (1.390584ms)
+✔ routes identity, gateway APIs and docs remotely while keeping account pages local (0.299958ms)
+✔ resolves approved XDS components and rejects unknown versions and incompatible controls (0.525542ms)
+✔ dependent lists follow the parent and remain scoped to each subject (0.15125ms)
+✔ changing a parent clears invalid descendants and preserves unrelated values (0.22025ms)
+✔ workspace config covers every approved dashboard component and rejects unsafe sources (1.139458ms)
+✔ shared filters are propagated unchanged and equivalent orderings share a key (9.238917ms)
+✔ matching count reuses the existing filtered submissions search (0.284708ms)
+✔ missing routes, invalid JSON, and mismatched scope fail explicitly (0.550917ms)
+✔ shared prop schemas reject incomplete nested data and preserve zero (1.128166ms)
+✔ saving from the coverage draft carries entered financial, subject and coverage values (0.817666ms)
+✔ blank numeric inputs remain missing rather than becoming invented zero values (0.073708ms)
+✔ new drafts have the same fields, component mappings and section grouping as persisted drafts (1.736208ms)
+✔ edits and repeated records survive saving without copying field definitions into the request (0.419291ms)
+✔ the application template renders the same complete form before and after its first save (4.477875ms)
+✔ coverage edits retain declared extra values without posting component prop aliases (0.125875ms)
+✔ latest recorded attempt wins, including a failed rerun after success (1.363625ms)
+✔ open runs do not imply active execution, nor do missing job confirmations (0.109458ms)
+✔ seeded and stale data remain distinguishable from live observations (0.084833ms)
+✔ duration is only reported from recorded timing (0.0765ms)
+✔ branches share a column and join waits for every prerequisite (6.673583ms)
+✔ older catalogs remain sequential (0.124791ms)
+✔ invalid dependencies fail explicitly (0.312708ms)
+✔ subprocess groups reserve space without overlapping parallel parents (0.185833ms)
+✔ moves in either direction without losing hidden stages (2.8015ms)
+✔ rewires graph connections to the chosen order and retains new stages (0.15825ms)
+✔ polling the same stage preserves an in-flight journey (0.727584ms)
+✔ rapid updates queue every observed hop, including retries (0.108084ms)
+✔ pause preserves progress and reduced motion snaps to the latest stage (0.075625ms)
+✔ occupancy increases stage size with a bounded maximum (0.089333ms)
+✔ no generated schema leaves the platform empty (0.739542ms)
+✔ schema fields, sections and repeatable records change the geometry (0.266292ms)
+✔ large schemas fit the platform and component sections retain a presence (5.108125ms)
+✔ actual pipeline envelope maps nested fields and repeated records without duplicating them (0.495958ms)
+✔ hides disabled stages and connects active stages across disabled branches (1.088792ms)
+✔ handles disabled roots, chains, legacy order and every stage disabled (0.110209ms)
+✔ retains disabled metadata when users show all processes (0.064125ms)
+✔ first document can save incomplete details while using server field definitions (0.828875ms)
+✔ validation failures show the fields that need attention before upload (0.26875ms)
+✔ existing and new subject-section contracts resolve to the subject editor (0.470542ms)
+✔ template and generated aliases edit the same nested value without losing source data (0.436083ms)
+✔ template changes retain custom values and do not replace a cleared value with a default (0.171375ms)
+✔ adding and removing items serializes only the current subject list with stable IDs (0.091ms)
+✔ mixed-line subjects retain their own classifications and unknown subjects remain unclassified (0.079458ms)
+✔ coverage edits persist under their subject with typed parameters and explicit deselection (6.92325ms)
+✔ suggested fields follow the individual subject and preserve extracted field values (6.7695ms)
+✔ agent-managed subjects use the agent field list without adding hardcoded property suggestions (3.644125ms)
+✔ unexpected generated sections precede review and signing, with complete labels (0.859958ms)
+✔ unknown saved sections keep their original data keys and cannot collide with workflow IDs (0.189417ms)
+✔ schema refreshes add and remove navigation entries without duplicating built-in IDs (0.117041ms)
+✔ saved views omit absent data sections while retaining workflow navigation (0.069167ms)
+✔ descriptors exclusively order and label content while workflow stays application owned (0.121833ms)
+ℹ tests 52
+ℹ suites 0
+ℹ pass 52
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 463.434208

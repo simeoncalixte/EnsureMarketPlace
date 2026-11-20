@@ -6,8 +6,8 @@
     "submission:build": "npm --prefix SubmissionUI run build",
     "submission:preview": "npm --prefix SubmissionUI run preview",
     "start:api": "npm --prefix EnsuredAPI run dev",
-    "test": "npm run pipeline:test-gate && npm --prefix EnsuredAPI test",
-    "test:api": "npm --prefix EnsuredAPI test",
+    "test": "npm run pipeline:test-gate && node scripts/test-api.mjs",
+    "test:api": "node scripts/test-api.mjs",
     "test:channels": "npm --prefix channels test",
     "test:all": "npm run test && npm run test:channels",
     "start:auth": "npm --prefix EnsuredAuth run dev",
@@ -45,7 +45,7 @@
     "theme:check": "node scripts/sync-xds-theme-assets.mjs --check && node scripts/check-xds-color-ownership.mjs",
     "packages:check": "node scripts/check-package-overrides.mjs",
     "packages:verify": "node scripts/verify-installed-artifacts.mjs",
-    "workspace:check": "tsc -p tsconfig.workspace.json && eslint --config eslint.workspace.config.mjs scripts/audit-pipeline-extraction.mjs scripts/check-component-capabilities.mjs scripts/check-xds-color-ownership.mjs scripts/inventory-data-models.cjs scripts/pipeline-packages.mjs scripts/review-filter-button-positions.mjs scripts/verify-filter-panels.mjs scripts/verify-palette-stories.mjs scripts/verify-pipeline-parity.mjs scripts/verify-settings-section-stories.mjs scripts/verify-installed-artifacts.mjs scripts/test/installed-artifacts.test.mjs scripts/workspace-globals.d.ts && prettier --check scripts/audit-pipeline-extraction.mjs scripts/check-component-capabilities.mjs scripts/check-xds-color-ownership.mjs scripts/inventory-data-models.cjs scripts/pipeline-packages.mjs scripts/review-filter-button-positions.mjs scripts/verify-filter-panels.mjs scripts/verify-palette-stories.mjs scripts/verify-pipeline-parity.mjs scripts/verify-settings-section-stories.mjs scripts/verify-installed-artifacts.mjs scripts/test/installed-artifacts.test.mjs scripts/workspace-globals.d.ts package.json tsconfig.workspace.json eslint.workspace.config.mjs .github/workflows/pipeline-parity.yml",
+    "workspace:check": "tsc -p tsconfig.workspace.json && eslint --config eslint.workspace.config.mjs jest.config.cjs scripts/test-api.mjs scripts/audit-pipeline-extraction.mjs scripts/check-component-capabilities.mjs scripts/check-xds-color-ownership.mjs scripts/inventory-data-models.cjs scripts/pipeline-packages.mjs scripts/review-filter-button-positions.mjs scripts/verify-filter-panels.mjs scripts/verify-palette-stories.mjs scripts/verify-pipeline-parity.mjs scripts/verify-settings-section-stories.mjs scripts/verify-installed-artifacts.mjs scripts/test/installed-artifacts.test.mjs scripts/workspace-globals.d.ts && prettier --check jest.config.cjs scripts/test-api.mjs scripts/audit-pipeline-extraction.mjs scripts/check-component-capabilities.mjs scripts/check-xds-color-ownership.mjs scripts/inventory-data-models.cjs scripts/pipeline-packages.mjs scripts/review-filter-button-positions.mjs scripts/verify-filter-panels.mjs scripts/verify-palette-stories.mjs scripts/verify-pipeline-parity.mjs scripts/verify-settings-section-stories.mjs scripts/verify-installed-artifacts.mjs scripts/test/installed-artifacts.test.mjs scripts/workspace-globals.d.ts package.json tsconfig.workspace.json eslint.workspace.config.mjs .github/workflows/pipeline-parity.yml",
     "component-policy:sync": "node scripts/check-component-capabilities.mjs --write"
   },
   "dependencies": {

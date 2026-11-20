@@ -1,0 +1,97 @@
+npm notice
+npm notice 📦  @simeoncalixte/ensured-constants@0.1.1
+npm notice Tarball Contents
+npm notice 1.4kB README.md
+npm notice 3.4kB dist/componentPolicy.d.ts
+npm notice 914B dist/componentPolicy.generated.d.ts
+npm notice 5.7kB dist/componentPolicy.generated.js
+npm notice 8.9kB dist/componentPolicy.js
+npm notice 3.4kB dist/esm/componentPolicy.d.ts
+npm notice 914B dist/esm/componentPolicy.generated.d.ts
+npm notice 5.6kB dist/esm/componentPolicy.generated.js
+npm notice 8.4kB dist/esm/componentPolicy.js
+npm notice 226B dist/esm/FormStructure/documents.d.ts
+npm notice 451B dist/esm/FormStructure/documents.js
+npm notice 4.5kB dist/esm/FormStructure/financials.d.ts
+npm notice 7.6kB dist/esm/FormStructure/financials.js
+npm notice 5.5kB dist/esm/FormStructure/generalInformation.d.ts
+npm notice 8.2kB dist/esm/FormStructure/generalInformation.js
+npm notice 604B dist/esm/FormStructure/index.d.ts
+npm notice 1.2kB dist/esm/FormStructure/index.js
+npm notice 1.9kB dist/esm/FormStructure/layers.d.ts
+npm notice 7.6kB dist/esm/FormStructure/layers.js
+npm notice 1.2kB dist/esm/FormStructure/parties.d.ts
+npm notice 6.9kB dist/esm/FormStructure/parties.js
+npm notice 224B dist/esm/FormStructure/signing.d.ts
+npm notice 443B dist/esm/FormStructure/signing.js
+npm notice 2.5kB dist/esm/FormStructure/subjects.d.ts
+npm notice 12.3kB dist/esm/FormStructure/subjects.js
+npm notice 227B dist/esm/FormStructure/submission.d.ts
+npm notice 455B dist/esm/FormStructure/submission.js
+npm notice 1.6kB dist/esm/FormStructure/tranches.d.ts
+npm notice 7.8kB dist/esm/FormStructure/tranches.js
+npm notice 234B dist/esm/FormStructure/underwritingRisks.d.ts
+npm notice 480B dist/esm/FormStructure/underwritingRisks.js
+npm notice 227B dist/esm/FormStructure/validation.d.ts
+npm notice 455B dist/esm/FormStructure/validation.js
+npm notice 552B dist/esm/index.d.ts
+npm notice 261B dist/esm/index.js
+npm notice 655B dist/esm/insurerDashboard.d.ts
+npm notice 1.7kB dist/esm/insurerDashboard.js
+npm notice 18B dist/esm/package.json
+npm notice 2.1kB dist/esm/submissionQuotes.d.ts
+npm notice 354B dist/esm/submissionQuotes.js
+npm notice 835B dist/esm/submissionQuoteSummary.d.ts
+npm notice 4.2kB dist/esm/submissionQuoteSummary.js
+npm notice 952B dist/esm/types.d.ts
+npm notice 2.6kB dist/esm/types.js
+npm notice 226B dist/FormStructure/documents.d.ts
+npm notice 546B dist/FormStructure/documents.js
+npm notice 4.5kB dist/FormStructure/financials.d.ts
+npm notice 7.7kB dist/FormStructure/financials.js
+npm notice 5.5kB dist/FormStructure/generalInformation.d.ts
+npm notice 8.3kB dist/FormStructure/generalInformation.js
+npm notice 604B dist/FormStructure/index.d.ts
+npm notice 1.4kB dist/FormStructure/index.js
+npm notice 1.9kB dist/FormStructure/layers.d.ts
+npm notice 7.7kB dist/FormStructure/layers.js
+npm notice 1.2kB dist/FormStructure/parties.d.ts
+npm notice 7.0kB dist/FormStructure/parties.js
+npm notice 224B dist/FormStructure/signing.d.ts
+npm notice 536B dist/FormStructure/signing.js
+npm notice 2.5kB dist/FormStructure/subjects.d.ts
+npm notice 12.4kB dist/FormStructure/subjects.js
+npm notice 227B dist/FormStructure/submission.d.ts
+npm notice 551B dist/FormStructure/submission.js
+npm notice 1.6kB dist/FormStructure/tranches.d.ts
+npm notice 7.9kB dist/FormStructure/tranches.js
+npm notice 234B dist/FormStructure/underwritingRisks.d.ts
+npm notice 583B dist/FormStructure/underwritingRisks.js
+npm notice 227B dist/FormStructure/validation.d.ts
+npm notice 551B dist/FormStructure/validation.js
+npm notice 552B dist/index.d.ts
+npm notice 1.2kB dist/index.js
+npm notice 655B dist/insurerDashboard.d.ts
+npm notice 1.9kB dist/insurerDashboard.js
+npm notice 2.1kB dist/submissionQuotes.d.ts
+npm notice 460B dist/submissionQuotes.js
+npm notice 835B dist/submissionQuoteSummary.d.ts
+npm notice 4.4kB dist/submissionQuoteSummary.js
+npm notice 952B dist/types.d.ts
+npm notice 2.8kB dist/types.js
+npm notice 1.5kB package.json
+npm notice Tarball Details
+npm notice name: @simeoncalixte/ensured-constants
+npm notice version: 0.1.1
+npm notice filename: simeoncalixte-ensured-constants-0.1.1.tgz
+npm notice package size: 25.7 kB
+npm notice unpacked size: 216.8 kB
+npm notice shasum: 03282a71817279c6e2299208b21402bf765534da
+npm notice integrity: sha512-jVmSAT89cHZOS[...]WxD62K1pgVS8A==
+npm notice total files: 79
+npm notice
+npm notice Publishing to https://npm.pkg.github.com with tag latest and restricted access
+npm error code E403
+npm error 403 403 Forbidden - PUT https://npm.pkg.github.com/@simeoncalixte%2fensured-constants - Permission permission_denied: The token provided does not match expected scopes.
+npm error 403 In most cases, you or one of your dependencies are requesting a package version that is forbidden by your security policy, or on a server you do not have access to.
+npm error A complete log of this run can be found in: /Users/simeon/.npm/_logs/2026-11-08T19_36_06_213Z-debug-0.log

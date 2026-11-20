@@ -1,0 +1,17 @@
+
+> ensured-ui@0.1.0 test:dashboard
+> node --test test/insurerDashboardConfig.test.mjs
+
+✔ workspace config covers every approved dashboard component and rejects unsafe sources (2.633959ms)
+✔ shared filters are propagated unchanged and equivalent orderings share a key (10.354792ms)
+✔ matching count reuses the existing filtered submissions search (0.229625ms)
+✔ missing routes, invalid JSON, and mismatched scope fail explicitly (0.532083ms)
+✔ shared prop schemas reject incomplete nested data and preserve zero (1.144625ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 399.868

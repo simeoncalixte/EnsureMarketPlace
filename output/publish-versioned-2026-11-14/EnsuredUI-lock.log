@@ -1,0 +1,21 @@
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: react-inspector@6.0.2
+npm warn Found: react@19.3.0
+npm warn node_modules/react
+npm warn   react@"latest" from the root project
+npm warn   18 more (@ensured/marketplace, @ensured/network, @ensured/xds, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+npm warn node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+npm warn   react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+npm warn   node_modules/storybook-addon-remix-react-router
+npm warn
+npm warn Conflicting peer dependency: react@18.3.1
+npm warn node_modules/react
+npm warn   peer react@"^16.8.4 || ^17.0.0 || ^18.0.0" from react-inspector@6.0.2
+npm warn   node_modules/storybook-addon-remix-react-router/node_modules/react-inspector
+npm warn     react-inspector@"6.0.2" from storybook-addon-remix-react-router@4.0.1
+npm warn     node_modules/storybook-addon-remix-react-router
+
+up to date in 1s

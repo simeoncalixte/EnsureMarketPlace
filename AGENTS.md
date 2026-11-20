@@ -1,3 +1,18 @@
+# Product purpose (read first)
+
+AInsured is an AI-powered insurance, reinsurance, risk-participation and capital marketplace that connects institutional insurance participants with independent capital providers. Repositories and code use the `Ensured*` prefix. [PRODUCT.md](PRODUCT.md) is the authoritative vision. Read it before planning product, domain-model or UI work, and build toward it.
+
+- **Two first-class user categories.** Institutional participants (insurers, reinsurers, brokers, MGAs/MGUs, funds) act through organization accounts with explicit roles and authority. Independent public participants act without any organization membership. Never require one.
+- **Two experiences, one infrastructure.** The Institutional experience covers networking, underwriting, placements, facilities, capacity and servicing. The Public Capital Marketplace covers discovery, opportunity details, capital commitment and portfolio. They differ in permissions and eligibility, not in duplicated systems.
+- **Separate relationships.** Keep identity, investor eligibility, investment ownership, financial contribution, risk assumption and capacity allocation as distinct relationships. An investment commitment never creates a policy or reinsurance agreement. The legal vehicle, not the investor, enters risk-bearing contracts.
+- **Financial integrity.** Keep separate ledgers for cash, commitments, collateral and risk-bearing capacity. Never double-count pooled capital or allow commitments beyond available eligible capital. Make operations atomic and idempotent, and keep complete audit trails.
+- **Compliance is first-class.** Enforce KYC/AML, sanctions, investor eligibility and geographic restrictions. Keep public opportunity data separate from confidential underwriting data. Use regulated partners where the law requires them.
+- **Honest numbers.** Never present projected returns as guaranteed. Model losses, lockups, liquidity limits and distribution waterfalls explicitly. Every price, loss or score must trace to a documented method.
+- **Risk-class agnostic.** A line of business is configuration, never a code branch ([roadmap](docs/product/roadmap.md)).
+- **Extend, don't duplicate.** Before adding the domain concepts named in PRODUCT.md, map them onto existing models and documents (for example investor profiles, `capitalCommitments`, `trancheSubscriptions`, [docs/data-models/](docs/data-models/)). Keep changes additive and backward-compatible.
+
+Supporting context: [docs/README.md](docs/README.md) indexes all documentation by intent (product, architecture, features, data models, proposals, history) and marks each document current, proposed or historical. Treat proposals and history as background, not as requirements. The [roadmap](docs/product/roadmap.md) sequences delivery, with the insurer-side underwriting pipeline in Wave 1 and the capital bridge in Wave 2. Its audit table predates Wave 1 completion; see the [Wave 1 build summary](docs/history/wave-1-build-summary.md). The [stablecoin network design](docs/proposals/network-consensus-v0.1.md) is not part of the stated vision. Treat it as unconfirmed and do not build on it without owner direction.
+
 # Ticket-driven delivery and session continuity
 
 ## Establish the complete scope

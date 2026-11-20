@@ -1,0 +1,156 @@
+[
+  {
+    "key": "AIN-185",
+    "status": "To Do",
+    "summary": "[Parties] Capture off-platform entities and associate them with submissions",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-186",
+    "status": "To Do",
+    "summary": "[Identity] Claim entities and verify organizational representation end-to-end",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-187",
+    "status": "To Do",
+    "summary": "[Party onboarding] Define versioned unclaimed-party and claim contracts",
+    "parent": "AIN-185",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-188",
+    "status": "To Do",
+    "summary": "[Submission parties] Capture required identity and contact details",
+    "parent": "AIN-185",
+    "subtasks": [
+      "AIN-189"
+    ]
+  },
+  {
+    "key": "AIN-189",
+    "status": "To Do",
+    "summary": "Implement and verify: Capture required identity and contact details",
+    "parent": "AIN-188",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-190",
+    "status": "To Do",
+    "summary": "[Party registry] Create unclaimed entities and durable submission associations safely",
+    "parent": "AIN-185",
+    "subtasks": [
+      "AIN-191"
+    ]
+  },
+  {
+    "key": "AIN-191",
+    "status": "To Do",
+    "summary": "Implement and verify: Create unclaimed entities and durable submission associations safely",
+    "parent": "AIN-190",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-192",
+    "status": "To Do",
+    "summary": "[Party onboarding] Send explicit invitations and verify contact possession",
+    "parent": "AIN-185",
+    "subtasks": [
+      "AIN-193"
+    ]
+  },
+  {
+    "key": "AIN-193",
+    "status": "To Do",
+    "summary": "Implement and verify: Send explicit invitations and verify contact possession",
+    "parent": "AIN-192",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-194",
+    "status": "To Do",
+    "summary": "[Organization claim] Request verified representation with scoped evidence",
+    "parent": "AIN-186",
+    "subtasks": [
+      "AIN-195"
+    ]
+  },
+  {
+    "key": "AIN-195",
+    "status": "To Do",
+    "summary": "Implement and verify: Request verified representation with scoped evidence",
+    "parent": "AIN-194",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-196",
+    "status": "To Do",
+    "summary": "[Organization review] Approve or reject authority without granting financial powers",
+    "parent": "AIN-186",
+    "subtasks": [
+      "AIN-197"
+    ]
+  },
+  {
+    "key": "AIN-197",
+    "status": "To Do",
+    "summary": "Implement and verify: Approve or reject authority without granting financial powers",
+    "parent": "AIN-196",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-198",
+    "status": "To Do",
+    "summary": "[Individual claim] Link a person to their own unclaimed identity",
+    "parent": "AIN-186",
+    "subtasks": [
+      "AIN-199"
+    ]
+  },
+  {
+    "key": "AIN-199",
+    "status": "To Do",
+    "summary": "Implement and verify: Link a person to their own unclaimed identity",
+    "parent": "AIN-198",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-200",
+    "status": "To Do",
+    "summary": "[Organization access] Manage verified administrators, revocation and recovery",
+    "parent": "AIN-186",
+    "subtasks": [
+      "AIN-201"
+    ]
+  },
+  {
+    "key": "AIN-201",
+    "status": "To Do",
+    "summary": "Implement and verify: Manage verified administrators, revocation and recovery",
+    "parent": "AIN-200",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-202",
+    "status": "To Do",
+    "summary": "[Party onboarding] Verify migration and end-to-end claims before rollout",
+    "parent": "AIN-186",
+    "subtasks": [
+      "AIN-203"
+    ]
+  },
+  {
+    "key": "AIN-203",
+    "status": "To Do",
+    "summary": "Implement and verify: Verify migration and end-to-end claims before rollout",
+    "parent": "AIN-202",
+    "subtasks": []
+  },
+  {
+    "key": "AIN-204",
+    "status": "Done",
+    "summary": "[Submission examples] Add typed unclaimed organization and individual contact fixtures",
+    "parent": "AIN-185",
+    "subtasks": []
+  }
+]

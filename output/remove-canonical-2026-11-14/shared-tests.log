@@ -1,0 +1,10 @@
+
+> @simeoncalixte/ensured-pipeline-shared@0.1.1 test
+> jest --runInBand --watchman=false --runTestsByPath src/pipeline/submissionData.test.ts --silent
+
+PASS src/pipeline/submissionData.test.ts
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        1.696 s, estimated 2 s

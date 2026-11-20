@@ -1,0 +1,98 @@
+[
+  {
+    "path": "SubmissionUI",
+    "command": "npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 0.4
+  },
+  {
+    "path": "EnsuredLogistics",
+    "command": "npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 0.4
+  },
+  {
+    "path": "EnsuredPipelineCapacity",
+    "command": "npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 9.8
+  },
+  {
+    "path": "EnsuredPipelineRiskCompute",
+    "command": "npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 2.4
+  },
+  {
+    "path": ".",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 8.1
+  },
+  {
+    "path": "EnsuredAPI",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 20.6
+  },
+  {
+    "path": "EnsuredUI",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 15.4
+  },
+  {
+    "path": "SubmissionUI",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 5.9
+  },
+  {
+    "path": "EnsuredAuth",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 11.5
+  },
+  {
+    "path": "EnsuredMarketplace",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 13.7
+  },
+  {
+    "path": "EnsuredAuthUI",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 12.6
+  },
+  {
+    "path": "EnsuredNetwork/frontend",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 17.4
+  },
+  {
+    "path": "EnsuredLogistics",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 26.8
+  },
+  {
+    "path": "EnsuredPipelineShared",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 20.3
+  },
+  {
+    "path": "EnsuredPipelineCapacity",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 14.5
+  },
+  {
+    "path": "EnsuredPipelineRiskCompute",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "exitCode": 0,
+    "seconds": 10.1
+  }
+]

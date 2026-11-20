@@ -1,0 +1,86 @@
+[
+  {
+    "story": "saved-without-pipeline",
+    "pass": true,
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-manual-input--saved-without-pipeline",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ]
+  },
+  {
+    "story": "edit-without-pipeline",
+    "pass": true,
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-manual-input--edit-without-pipeline",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ]
+  },
+  {
+    "story": "save-failure-retry",
+    "pass": true,
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-manual-input--save-failure-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ]
+  },
+  {
+    "story": "permission-denied",
+    "pass": true,
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-manual-input--permission-denied",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ]
+  },
+  {
+    "story": "incomplete-draft",
+    "pass": true,
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-manual-input--incomplete-draft",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ]
+  },
+  {
+    "story": "loading-input",
+    "pass": true,
+    "events": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-insurer-dashboard-manual-input--loading-input",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ]
+  }
+]

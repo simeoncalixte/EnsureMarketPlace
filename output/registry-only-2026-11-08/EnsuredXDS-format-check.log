@@ -1,0 +1,6 @@
+
+> @simeoncalixte/ensured-xds@0.1.1 format:check
+> prettier . --check
+
+Checking formatting...
+All matched files use Prettier code style!

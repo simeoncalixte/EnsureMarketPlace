@@ -1,0 +1,992 @@
+[
+  {
+    "surface": "marketplace",
+    "storyId": "marketplace-experience--taxonomy-interaction",
+    "source": "EnsuredMarketplace/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-marketplace-1440x1000-closed.png",
+    "openBefore": "before-marketplace-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Marketplace filters",
+        "rect": {
+          "x": 0,
+          "y": 251.8125,
+          "width": 149.328125,
+          "height": 521.359375
+        },
+        "parent": "DIV",
+        "parentClass": "sc-kfPsKX kVQcop"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "marketplace",
+    "storyId": "marketplace-experience--taxonomy-interaction",
+    "source": "EnsuredMarketplace/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-marketplace-375x1000-closed.png",
+    "openBefore": "before-marketplace-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Marketplace filters",
+        "rect": {
+          "x": 0,
+          "y": 531.8125,
+          "width": 375,
+          "height": 32
+        },
+        "parent": "DIV",
+        "parentClass": "sc-kfPsKX kVQcop"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "network",
+    "storyId": "network-fixtures--discovery-filters",
+    "source": "EnsuredNetwork/frontend/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-network-1440x1000-closed.png",
+    "openBefore": "before-network-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Discovery filters",
+        "rect": {
+          "x": 248,
+          "y": 292.75,
+          "width": 138.25,
+          "height": 44
+        },
+        "parent": "DIV",
+        "parentClass": "en-discovery"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "network",
+    "storyId": "network-fixtures--discovery-filters",
+    "source": "EnsuredNetwork/frontend/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-network-375x1000-closed.png",
+    "openBefore": "before-network-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Discovery filters",
+        "rect": {
+          "x": 16,
+          "y": 833.625,
+          "width": 138.25,
+          "height": 44
+        },
+        "parent": "DIV",
+        "parentClass": "en-discovery"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "logistics",
+    "storyId": "logistics-collaboration--search-and-filter",
+    "source": "EnsuredLogistics/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-logistics-1440x1000-closed.png",
+    "openBefore": "before-logistics-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Load filters",
+        "rect": {
+          "x": 72,
+          "y": 565.59375,
+          "width": 112.90625,
+          "height": 40
+        },
+        "parent": "MAIN",
+        "parentClass": "workspace"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "logistics",
+    "storyId": "logistics-collaboration--search-and-filter",
+    "source": "EnsuredLogistics/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-logistics-375x1000-closed.png",
+    "openBefore": "before-logistics-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Load filters",
+        "rect": {
+          "x": 18.75,
+          "y": 649.6875,
+          "width": 112.90625,
+          "height": 40
+        },
+        "parent": "MAIN",
+        "parentClass": "workspace"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "facilities",
+    "storyId": "pages-commercial-palette-regression--listing",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-facilities-1440x1000-closed.png",
+    "openBefore": "before-facilities-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Facility filters",
+        "rect": {
+          "x": 44,
+          "y": 300,
+          "width": 117.34375,
+          "height": 40
+        },
+        "parent": "SECTION",
+        "parentClass": "facilities-page"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "facilities",
+    "storyId": "pages-commercial-palette-regression--listing",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-facilities-375x1000-closed.png",
+    "openBefore": "before-facilities-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Facility filters",
+        "rect": {
+          "x": 32,
+          "y": 550,
+          "width": 117.34375,
+          "height": 40
+        },
+        "parent": "SECTION",
+        "parentClass": "facilities-page"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "facility-documents",
+    "storyId": "pages-commercial-palette-regression--documents",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-facility-documents-1440x1000-closed.png",
+    "openBefore": "before-facility-documents-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Document filters",
+        "rect": {
+          "x": 52,
+          "y": 133,
+          "width": 124.359375,
+          "height": 36
+        },
+        "parent": "DIV",
+        "parentClass": "fd-toolbar"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "facility-documents",
+    "storyId": "pages-commercial-palette-regression--documents",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-facility-documents-375x1000-closed.png",
+    "openBefore": "before-facility-documents-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Document filters",
+        "rect": {
+          "x": 48,
+          "y": 215,
+          "width": 124.359375,
+          "height": 36
+        },
+        "parent": "DIV",
+        "parentClass": "fd-toolbar"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "approvals",
+    "storyId": "pages-commercial-palette-regression--approvals",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-approvals-1440x1000-closed.png",
+    "openBefore": "before-approvals-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Approval filters",
+        "rect": {
+          "x": 52,
+          "y": 281.5,
+          "width": 884.515625,
+          "height": 32
+        },
+        "parent": "DIV",
+        "parentClass": "fa-main"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "approvals",
+    "storyId": "pages-commercial-palette-regression--approvals",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-approvals-375x1000-closed.png",
+    "openBefore": "before-approvals-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Approval filters",
+        "rect": {
+          "x": 46,
+          "y": 580,
+          "width": 283,
+          "height": 32
+        },
+        "parent": "DIV",
+        "parentClass": "fa-main"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "activity",
+    "storyId": "pages-commercial-palette-regression--activity",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-activity-1440x1000-closed.png",
+    "openBefore": "before-activity-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Audit filters",
+        "rect": {
+          "x": 44,
+          "y": 222,
+          "width": 93.078125,
+          "height": 31
+        },
+        "parent": "SECTION",
+        "parentClass": "commercial-activity"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "activity",
+    "storyId": "pages-commercial-palette-regression--activity",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-activity-375x1000-closed.png",
+    "openBefore": "before-activity-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Audit filters",
+        "rect": {
+          "x": 44,
+          "y": 395.5,
+          "width": 93.078125,
+          "height": 31
+        },
+        "parent": "SECTION",
+        "parentClass": "commercial-activity"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "requests",
+    "storyId": "pages-commercial-palette-regression--requests",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-requests-1440x1000-closed.png",
+    "openBefore": "before-requests-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Request filters",
+        "rect": {
+          "x": 32,
+          "y": 99,
+          "width": 111.53125,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "facility-approvals facility-requests"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "requests",
+    "storyId": "pages-commercial-palette-regression--requests",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-requests-375x1000-closed.png",
+    "openBefore": "before-requests-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Request filters",
+        "rect": {
+          "x": 26,
+          "y": 120,
+          "width": 111.53125,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "facility-approvals facility-requests"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "treaties",
+    "storyId": "pages-filters-commercial--treaty-search",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-treaties-1440x1000-closed.png",
+    "openBefore": "before-treaties-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Treaty filters",
+        "rect": {
+          "x": 24,
+          "y": 367.765625,
+          "width": 1392,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-ksdwth bzupCN"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "treaties",
+    "storyId": "pages-filters-commercial--treaty-search",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-treaties-375x1000-closed.png",
+    "openBefore": "before-treaties-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Treaty filters",
+        "rect": {
+          "x": 16,
+          "y": 817.1875,
+          "width": 343,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-ksdwth bzupCN"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "facility-discovery",
+    "storyId": "pages-filters-commercial--shared-facility-search",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-facility-discovery-1440x1000-closed.png",
+    "openBefore": "before-facility-discovery-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Shared facility filters",
+        "rect": {
+          "x": 80,
+          "y": 115.59375,
+          "width": 1280,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-eggkz khfrBO"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "facility-discovery",
+    "storyId": "pages-filters-commercial--shared-facility-search",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-facility-discovery-375x1000-closed.png",
+    "openBefore": "before-facility-discovery-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Shared facility filters",
+        "rect": {
+          "x": 16,
+          "y": 179.1875,
+          "width": 343,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-eggkz khfrBO"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "email",
+    "storyId": "pages-insurer-dashboard-email-inbox--inbox-layout",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-email-1440x1000-closed.png",
+    "openBefore": "before-email-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Email filters",
+        "rect": {
+          "x": 161.203125,
+          "y": 170.984375,
+          "width": 104.15625,
+          "height": 32
+        },
+        "parent": "DIV",
+        "parentClass": "sc-eggkz kinuXG"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "email",
+    "storyId": "pages-insurer-dashboard-email-inbox--inbox-layout",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-email-375x1000-closed.png",
+    "openBefore": "before-email-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Email filters",
+        "rect": {
+          "x": 119.609375,
+          "y": 190.171875,
+          "width": 104.15625,
+          "height": 32
+        },
+        "parent": "DIV",
+        "parentClass": "sc-eggkz kinuXG"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "submission-documents",
+    "storyId": "pages-insurer-dashboard-submission-documents--multiple-documents",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-submission-documents-1440x1000-closed.png",
+    "openBefore": "before-submission-documents-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Document filters",
+        "rect": {
+          "x": 77,
+          "y": 251.5,
+          "width": 135.78125,
+          "height": 29.328125
+        },
+        "parent": "DIV",
+        "parentClass": "toolbar"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "submission-documents",
+    "storyId": "pages-insurer-dashboard-submission-documents--multiple-documents",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-submission-documents-375x1000-closed.png",
+    "openBefore": "before-submission-documents-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Document filters",
+        "rect": {
+          "x": 49,
+          "y": 375.734375,
+          "width": 135.78125,
+          "height": 29.328125
+        },
+        "parent": "DIV",
+        "parentClass": "toolbar"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "models",
+    "storyId": "pages-settings-model-library--search-pagination",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-models-1440x1000-closed.png",
+    "openBefore": "before-models-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Model filters",
+        "rect": {
+          "x": 716.96875,
+          "y": 370.578125,
+          "width": 125.828125,
+          "height": 42
+        },
+        "parent": "DIV",
+        "parentClass": "list-heading"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "models",
+    "storyId": "pages-settings-model-library--search-pagination",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot.",
+    "before": "before-models-375x1000-closed.png",
+    "openBefore": "before-models-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Model filters",
+        "rect": {
+          "x": 28,
+          "y": 604.96875,
+          "width": 319,
+          "height": 42
+        },
+        "parent": "DIV",
+        "parentClass": "list-heading"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "parties",
+    "storyId": "pages-parties-workflows--directory-search",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot. Navigate back from detail with All parties / All financial parties before capture.",
+    "before": "before-parties-1440x1000-closed.png",
+    "openBefore": "before-parties-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Party filters",
+        "rect": {
+          "x": 24,
+          "y": 185.1875,
+          "width": 1392,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-jrQAon sc-eggkz erkGGP jqUlqO"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "parties",
+    "storyId": "pages-parties-workflows--directory-search",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot. Navigate back from detail with All parties / All financial parties before capture.",
+    "before": "before-parties-375x1000-closed.png",
+    "openBefore": "before-parties-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Party filters",
+        "rect": {
+          "x": 16,
+          "y": 274.375,
+          "width": 343,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-jrQAon sc-eggkz erkGGP jqUlqO"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "financial-parties",
+    "storyId": "pages-parties-workflows--financial-directory",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot. Navigate back from detail with All parties / All financial parties before capture.",
+    "before": "before-financial-parties-1440x1000-closed.png",
+    "openBefore": "before-financial-parties-1440x1000-open.png",
+    "triggers": [
+      {
+        "label": "Financial party filters",
+        "rect": {
+          "x": 24,
+          "y": 171.1875,
+          "width": 1392,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-jrQAon sc-eggkz erkGGP jqUlqO"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "surface": "financial-parties",
+    "storyId": "pages-parties-workflows--financial-directory",
+    "source": "EnsuredUI/storybook-static",
+    "viewport": {
+      "width": 375,
+      "height": 1000
+    },
+    "theme": "dark",
+    "zoom": "100%",
+    "deviceScaleFactor": 1,
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "state": "Synthetic fixture after its play function; panel dismissed with Escape for closed view. Full-page closed screenshot; viewport open screenshot. Navigate back from detail with All parties / All financial parties before capture.",
+    "before": "before-financial-parties-375x1000-closed.png",
+    "openBefore": "before-financial-parties-375x1000-open.png",
+    "triggers": [
+      {
+        "label": "Financial party filters",
+        "rect": {
+          "x": 16,
+          "y": 271.96875,
+          "width": 343,
+          "height": 32
+        },
+        "parent": "SECTION",
+        "parentClass": "sc-jrQAon sc-eggkz erkGGP jqUlqO"
+      }
+    ],
+    "errors": []
+  }
+]

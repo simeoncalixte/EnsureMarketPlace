@@ -1,0 +1,54 @@
+Integrate registry-only package consumption and shared filter panels with compact, responsive toolbar placement across the application. Pin all component and package release commits, remove local dependency staging, strengthen package provenance/parity checks, and preserve before/after screenshots and executable interaction evidence.
+
+Root changes include Docker build-secret wiring for SubmissionUI, registry-based theme synchronization, package-override regressions, pipeline CI installation updates, and the UI evidence requirements in AGENTS.md.
+
+Component PRs (merge shared contracts/packages first, consumers next, then this parent):
+
+- [EnsuredAPI](https://github.com/simeoncalixte/EnsuredAPI/pull/18) — `28c514d810ac`
+- [EnsuredAuth](https://github.com/simeoncalixte/EnsuredAuth/pull/20) — `632b3e9b58d1`
+- [EnsuredUI](https://github.com/simeoncalixte/EnsuredUI/pull/16) — `850bf7510847`
+- [SubmissionUI](https://github.com/simeoncalixte/SubmissionUI/pull/4) — `2d5dc43f1486`
+- [docs](https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/3) — `2f554f6877b0`
+- [EnsuredXDS](https://github.com/simeoncalixte/EnsuredXDS/pull/9) — `1c6694aa1e0e`
+- [EnsuredServices](https://github.com/simeoncalixte/EnsuredServices/pull/12) — `ca49bff45993`
+- [EnsuredMarketplace](https://github.com/simeoncalixte/EnsuredMarketplace/pull/4) — `88aaa8559a25`
+- [EnsuredAuthUI](https://github.com/simeoncalixte/EnsuredAuthUI/pull/5) — `853b430fbf55`
+- [EnsuredNetwork](https://github.com/simeoncalixte/EnsuredNetwork/pull/6) — `1845573c1b77`
+- [EnsuredLogistics](https://github.com/simeoncalixte/EnsuredLogistics/pull/4) — `536aa67993fc`
+- [EnsuredPipelineShared](https://github.com/simeoncalixte/EnsuredPipelineShared/pull/6) — `bd8946d2ff34`
+- [EnsuredPipelineIngestionAmqp](https://github.com/simeoncalixte/EnsuredPipelineIngestionAmqp/pull/3) — `a2e0cbda9da1`
+- [EnsuredPipelineIngestion](https://github.com/simeoncalixte/EnsuredPipelineIngestion/pull/3) — `ef746b0174ac`
+- [EnsuredPipelineOcr](https://github.com/simeoncalixte/EnsuredPipelineOcr/pull/3) — `3add51cfbe84`
+- [EnsuredPipelineClassification](https://github.com/simeoncalixte/EnsuredPipelineClassification/pull/4) — `2f78d3f1dfd0`
+- [EnsuredPipelineExtraction](https://github.com/simeoncalixte/EnsuredPipelineExtraction/pull/3) — `fbdae8bbf490`
+- [EnsuredPipelineLocationDiscovery](https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery/pull/4) — `4565e5987853`
+- [EnsuredPipelineNormalization](https://github.com/simeoncalixte/EnsuredPipelineNormalization/pull/4) — `ab19d435e39f`
+- [EnsuredPipelineValidation](https://github.com/simeoncalixte/EnsuredPipelineValidation/pull/4) — `ff97da4f5cea`
+- [EnsuredPipelineSchemaGeneration](https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/pull/6) — `a2f3c82f5857`
+- [EnsuredPipelinePreRating](https://github.com/simeoncalixte/EnsuredPipelinePreRating/pull/3) — `e32bd14f9294`
+- [EnsuredPipelineCapacity](https://github.com/simeoncalixte/EnsuredPipelineCapacity/pull/4) — `59c5b6b995d7`
+- [EnsuredPipelineOracleAttestation](https://github.com/simeoncalixte/EnsuredPipelineOracleAttestation/pull/3) — `0430ddc53095`
+- [EnsuredPipelineWorkflow](https://github.com/simeoncalixte/EnsuredPipelineWorkflow/pull/3) — `fce08f47bc11`
+- [EnsuredPipelineRiskCompute](https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/pull/4) — `1ee705c5240e`
+- [EnsuredPipelineStorageSearch](https://github.com/simeoncalixte/EnsuredPipelineStorageSearch/pull/3) — `c8b90468dbbd`
+- [EnsuredConstants](https://github.com/simeoncalixte/EnsuredConstants/pull/5) — `c130431287a5`
+- [EnsuredPipelineFinancialDiscovery](https://github.com/simeoncalixte/EnsuredPipelineFinancialDiscovery/pull/3) — `eee91d5bb2ba`
+- [EnsuredPipelineSubjectDiscovery](https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery/pull/4) — `abb2378fab77`
+
+Verification during PR preparation:
+
+- Five package-override and pipeline-parity regression tests pass.
+- Installed-package provenance and manifest/lockfile checks pass.
+- Theme generation and color ownership checks pass.
+- API commit hook typecheck/lint passes after removing an unnecessary regex escape; accepted reference-formula characters are unchanged.
+- Existing Storybook/build/PostgreSQL and before/after Jira attachment evidence is preserved under output/filter-button-delivery-2026-11-09, output/filter-button-review-2026-11-09, output/filter-panels-2026-11-09, and output/registry-only-2026-11-08. Full historical suites were not rerun for PR preparation.
+
+Scope: AIN-161 registry packages; AIN-162–167 shared panels; AIN-168–173 toolbar placement. TASK_HANDOFF.md retains exact ticket/component/story/verification and attachment mappings. Jira is unavailable this session; no fresh Jira status verification or transition is claimed. AIN-1 broader deployment/release, AIN-13 remote parity configuration, and AIN-79 effective inventory filtering remain independent outstanding work. This PR does not close those obligations.
+
+No deployment, migration, package publication, or merge performed in this session. Draft pending CI and coordinated review; CI configuration and existing host TypeScript limitations remain documented in the handoff.
+
+Artifact scope: concise evidence indexes and attachment references are committed. Raw screenshots, logs, and detailed Jira snapshots remain local; automatic approval review rejected uploading the bulk historical bundle.
+
+Current CI failures: Logistics npm ci returns E401 for the private XDS package; Auth Cloudflare and host UI Vercel checks report failure. No checks bypassed.
+
+Final read-back: all 31 PRs are OPEN/draft and mergeable; all 30 parent gitlinks match component PR heads. Parent release-parity also currently fails. See output/pr-delivery-2026-11-11/pr-status.json.

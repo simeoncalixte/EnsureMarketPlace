@@ -1,0 +1,4 @@
+
+> @simeoncalixte/ensured-xds@0.1.1 lint
+> eslint . --max-warnings=0
+

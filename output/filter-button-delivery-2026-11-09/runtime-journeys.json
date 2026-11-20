@@ -1,0 +1,248 @@
+[
+  {
+    "route": "/marketplace",
+    "label": "Marketplace filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1286.671875,
+      "y": 364.71875,
+      "width": 149.328125,
+      "height": 44
+    }
+  },
+  {
+    "route": "/marketplace",
+    "label": "Marketplace filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 221.671875,
+      "y": 849.40625,
+      "width": 149.328125,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/explore",
+    "label": "Discovery filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1269.75,
+      "y": 368.5,
+      "width": 138.25,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/explore",
+    "label": "Discovery filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 216.75,
+      "y": 603.40625,
+      "width": 138.25,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities",
+    "label": "Facility filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1290.65625,
+      "y": 369,
+      "width": 117.34375,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities",
+    "label": "Facility filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 237.65625,
+      "y": 673.78125,
+      "width": 117.34375,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/retrocession",
+    "label": "Treaty filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1308.09375,
+      "y": 452.765625,
+      "width": 103.90625,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/retrocession",
+    "label": "Treaty filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 251.09375,
+      "y": 955.96875,
+      "width": 103.90625,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facility-discovery",
+    "label": "Shared facility filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1249.71875,
+      "y": 200.59375,
+      "width": 162.28125,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facility-discovery",
+    "label": "Shared facility filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 192.71875,
+      "y": 362.5625,
+      "width": 162.28125,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/parties",
+    "label": "Party filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1312.3125,
+      "y": 134.59375,
+      "width": 103.6875,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/parties",
+    "label": "Party filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 255.3125,
+      "y": 336.15625,
+      "width": 103.6875,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/parties/finance",
+    "label": "Financial party filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1251.53125,
+      "y": 225.78125,
+      "width": 164.46875,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/parties/finance",
+    "label": "Financial party filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 194.53125,
+      "y": 403.75,
+      "width": 164.46875,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities/[relationship]/[record]",
+    "tab": "Approvals",
+    "label": "Approval filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 910.421875,
+      "y": 618.1875,
+      "width": 115.40625,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities/[relationship]/[record]",
+    "tab": "Approvals",
+    "label": "Approval filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 229.59375,
+      "y": 554.65625,
+      "width": 115.40625,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities/[relationship]/[record]",
+    "tab": "Activity",
+    "label": "Audit filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1310.921875,
+      "y": 579.59375,
+      "width": 93.078125,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities/[relationship]/[record]",
+    "tab": "Activity",
+    "label": "Audit filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 253.921875,
+      "y": 554.84375,
+      "width": 93.078125,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities/[relationship]/[record]",
+    "tab": "Requests",
+    "label": "Request filters",
+    "width": 1440,
+    "passed": true,
+    "trigger": {
+      "x": 1284.46875,
+      "y": 460.59375,
+      "width": 111.53125,
+      "height": 44
+    }
+  },
+  {
+    "route": "/network/facilities/[relationship]/[record]",
+    "tab": "Requests",
+    "label": "Request filters",
+    "width": 375,
+    "passed": true,
+    "trigger": {
+      "x": 233.46875,
+      "y": 872.28125,
+      "width": 111.53125,
+      "height": 44
+    }
+  }
+]

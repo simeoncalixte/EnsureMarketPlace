@@ -1,0 +1,79 @@
+ Image ensured-services-submission-ui Building 
+ Image ensured-services-submission-relay Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.30kB done
+#1 DONE 0.0s
+
+#2 [submission-relay internal] load build definition from Dockerfile
+#2 DONE 0.0s
+
+#2 [submission-ui internal] load build definition from Dockerfile
+#2 transferring dockerfile: 335B done
+#2 DONE 0.0s
+
+#3 [submission-relay] resolve image config for docker-image://docker.io/docker/dockerfile:1
+#3 DONE 0.4s
+
+#4 [submission-relay] docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#4 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e done
+#4 CACHED
+
+#5 [submission-relay internal] load metadata for docker.io/library/node:24-alpine
+#5 DONE 0.2s
+
+#6 [submission-ui internal] load .dockerignore
+#6 transferring context: 81B done
+#6 DONE 0.0s
+
+#7 [submission-ui stage-0 1/6] FROM docker.io/library/node:24-alpine@sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8
+#7 resolve docker.io/library/node:24-alpine@sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8 done
+#7 DONE 0.0s
+
+#8 [submission-ui internal] load build context
+#8 transferring context: 8.64kB done
+#8 DONE 0.0s
+
+#9 [submission-ui stage-0 3/6] COPY package.json package-lock.json .npmrc ./
+#9 CACHED
+
+#10 [submission-ui stage-0 2/6] WORKDIR /app
+#10 CACHED
+
+#11 [submission-ui stage-0 4/6] RUN --mount=type=secret,id=node_auth_token,env=NPM_TOKEN,required=true npm ci
+#11 CACHED
+
+#12 [submission-relay stage-0 5/6] COPY --chown=node:node . .
+#12 DONE 0.0s
+
+#13 [submission-relay stage-0 6/6] RUN chown -R node:node /app
+#13 DONE 9.4s
+
+#14 [submission-relay] exporting to image
+#14 exporting layers
+#14 exporting layers 2.8s done
+#14 exporting manifest sha256:dfa70e6ec2f1ac4e172e75c7d98cc4361cc23f1b20c0e6a73b7d03061ee81d3d done
+#14 exporting config sha256:8644c5d8750a6d3be346d00c0555e7b56d094fc2a0bcb05a95e9dde5f5397ad3 done
+#14 exporting attestation manifest sha256:267e323976401711816df493866858db3a5189394692513a0eb8031d816a66ec 0.0s done
+#14 exporting manifest list sha256:20e9f0c0f3012a263e1d86bf2f5289e299787dbdcec276f7956e8fba6464177b done
+#14 naming to docker.io/library/ensured-services-submission-relay:latest done
+#14 unpacking to docker.io/library/ensured-services-submission-relay:latest
+#14 unpacking to docker.io/library/ensured-services-submission-relay:latest 1.0s done
+#14 DONE 3.9s
+
+#15 [submission-ui] exporting to image
+#15 exporting layers 2.8s done
+#15 exporting manifest sha256:0114f6219e82e2e069fb2732eef2ac190cf52eaa9e1269c1064e5114a6883ca6 0.0s done
+#15 exporting config sha256:0942344f83f9f89ea5199ecc93cb206663f23784e74c36e39651e681888d2c07 done
+#15 exporting attestation manifest sha256:d017631278ccbd5171c5355b9b24cc591689a1672ac92ae1e6a81384007b2f33 0.0s done
+#15 exporting manifest list sha256:3a5f4d91645936f60a4056eb177b57799e6cc57a466d1d2aaf83229bad2a0db7 done
+#15 naming to docker.io/library/ensured-services-submission-ui:latest done
+#15 unpacking to docker.io/library/ensured-services-submission-ui:latest 1.0s done
+#15 DONE 3.9s
+
+#16 [submission-ui] resolving provenance for metadata file
+#16 DONE 0.0s
+
+#17 [submission-relay] resolving provenance for metadata file
+#17 DONE 0.0s
+ Image ensured-services-submission-ui Built 
+ Image ensured-services-submission-relay Built 

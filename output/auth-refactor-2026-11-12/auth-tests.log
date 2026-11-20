@@ -1,0 +1,22 @@
+
+> ensured-api@0.1.0 test:auth
+> jest --config jest.auth.config.cjs --runInBand --json --outputFile=../output/auth-refactor-2026-11-12/auth-results.json
+
+PASS test/auth/gateway.test.ts
+PASS test/auth/accessMatrix.test.ts
+PASS test/auth/targetedSeedRoutes.test.ts
+PASS test/auth/personalAppetite.test.ts
+PASS test/auth/geography.test.ts
+PASS test/auth/participantAppetite.test.ts
+PASS test/auth/seedTarget.test.ts
+PASS test/auth/seedIdentity.test.ts
+PASS test/auth/targetedReinsuranceSeed.test.ts
+PASS test/auth/kycStatus.test.ts
+PASS test/auth/userSeed.test.ts
+
+Test Suites: 11 passed, 11 total
+Tests:       124 passed, 124 total
+Snapshots:   0 total
+Time:        6.879 s
+Ran all test suites.
+Test results written to: ../output/auth-refactor-2026-11-12/auth-results.json

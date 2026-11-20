@@ -1,0 +1,125 @@
+{
+  "summary": "Published all 18 compatible pipeline packages through existing GitHub Actions workflows: 0.2.0 except Ingestion 0.3.0. Release branches/tags and exact commits/run URLs are in ci-receipts.json; no main merges or production deployment.\nAPI/UI exact pins and lockfiles updated, clean registry npm ci and integrity verification passed (30 installed instances / 25 archives). API/UI full checks, UI build, 137 API tests, 4 UI submission tests and live authenticated revision integration with 28 feedback tests passed.\nAll 11 application images rebuilt and services restarted; all 11 HTTP health checks returned 200. Running API uses normal ensuredapi-api image without local source overlay. Installed Shared/Normalization/RiskCompute 0.2.0 and Ingestion 0.3.0 verified; CanonicalSubmission export and canonical table absent. Existing data/volumes preserved.\nRuntime reader module loads, but no eligible existing saved revision or completed baseline was available for a live-data reader invocation. Separate disposable-database authenticated revision integration passed; this limitation is explicit in runtime.json. Before rollout, live DB already recorded the retirement migration, with no canonical table and 77 feedback versions; cutover was not replayed.\nRequested publication/local rebuild scope complete. Existing package-wide static-check gaps remain AIN-206; broader AIN-3/95 and financial tickets remain incomplete. No blanket merge-readiness claim.",
+  "checks": [
+    {
+      "name": "registry",
+      "code": 0
+    },
+    {
+      "name": "overrides",
+      "code": 0
+    },
+    {
+      "name": "api-check",
+      "code": 0
+    },
+    {
+      "name": "ui-check",
+      "code": 0
+    },
+    {
+      "name": "ui-build",
+      "code": 0
+    }
+  ],
+  "regressions": [
+    {
+      "name": "api-regression",
+      "code": 0
+    },
+    {
+      "name": "ui-submissions",
+      "code": 0
+    },
+    {
+      "name": "live-revisions",
+      "code": 0
+    }
+  ],
+  "runtime": {
+    "versions": {
+      "shared": "0.2.0",
+      "normalization": "0.2.0",
+      "risk-compute": "0.2.0",
+      "ingestion": "0.3.0"
+    },
+    "canonicalExport": false,
+    "database": {
+      "canonical_table": null,
+      "feedback_versions": 77
+    },
+    "reader": {
+      "passed": null,
+      "reason": "No existing saved revision"
+    }
+  },
+  "health": [
+    {
+      "service": "feedback",
+      "url": "http://127.0.0.1:3014/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "frontend",
+      "url": "http://127.0.0.1:3000/",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "api",
+      "url": "http://127.0.0.1:3001/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "gateway",
+      "url": "http://127.0.0.1:3002/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "auth",
+      "url": "http://127.0.0.1:3003/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "kyc",
+      "url": "http://127.0.0.1:3004/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "catalog",
+      "url": "http://127.0.0.1:3010/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "network",
+      "url": "http://127.0.0.1:3011/ready",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "email",
+      "url": "http://127.0.0.1:3013/health",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "submission-ui",
+      "url": "http://127.0.0.1:30025/",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "service": "submission-relay",
+      "url": "http://127.0.0.1:30026/health",
+      "status": 200,
+      "passed": true
+    }
+  ],
+  "releaseReceipts": "ci-receipts.json"
+}
