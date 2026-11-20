@@ -13,6 +13,8 @@ AInsured is an AI-powered insurance, reinsurance, risk-participation and capital
 
 Supporting context: [docs/README.md](docs/README.md) indexes all documentation by intent (product, architecture, features, data models, proposals, history) and marks each document current, proposed or historical. Treat proposals and history as background, not as requirements. The [roadmap](docs/product/roadmap.md) sequences delivery, with the insurer-side underwriting pipeline in Wave 1 and the capital bridge in Wave 2. Its audit table predates Wave 1 completion; see the [Wave 1 build summary](docs/history/wave-1-build-summary.md). The [stablecoin network design](docs/proposals/network-consensus-v0.1.md) is not part of the stated vision. Treat it as unconfirmed and do not build on it without owner direction.
 
+Agent skills: project skills live only in [.agents/skills/](.agents/skills/README.md), shared by every provider. `.claude/skills` is a symlink to it. Add or edit skills there, keep them provider-neutral, and follow the portability rules in its README.
+
 # Ticket-driven delivery and session continuity
 
 ## Establish the complete scope
