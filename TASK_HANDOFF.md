@@ -5,6 +5,33 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## Agent skills delivery (2026-11-20)
+
+Direct user request: create PRs for all current changes, merge them, and sync the project.
+Scope is documentation and skill-directory symlinks in the parent and ten code submodules;
+there are no application source, dependency, migration, or UI changes.
+
+- Shared workspace skills: `.agents/skills/README.md`; `.claude/skills` links to it.
+- Each code submodule has the corresponding repository skills README and local symlink.
+- `AGENTS.md` points to the shared skills conventions.
+- Validation: all eleven symlinks resolve to their local skills directory; whitespace checks
+  passed; root `npm run workspace:check` passed (typecheck, ESLint, Prettier). The API commit
+  hook also passed `npm run check`. Application suites were not rerun for these documentation
+  and symlink changes; this is not evidence of application release readiness.
+- No migrations or deployment were performed as part of this request.
+- All ten service PRs are merged and local service `main` branches synced:
+  - [EnsuredAPI#27](https://github.com/simeoncalixte/EnsuredAPI/pull/27) (`6ebda57`).
+  - [EnsuredAuth#21](https://github.com/simeoncalixte/EnsuredAuth/pull/21) (`0125c44`).
+  - [EnsuredEmail#6](https://github.com/simeoncalixte/EnsuredEmail/pull/6) (`ec69815`).
+  - [EnsuredKYC#4](https://github.com/simeoncalixte/EnsuredKYC/pull/4) (`e2b2080`).
+  - [EnsuredLogistics#5](https://github.com/simeoncalixte/EnsuredLogistics/pull/5) (`9346efc`).
+  - [EnsuredNetwork#8](https://github.com/simeoncalixte/EnsuredNetwork/pull/8) (`4a77a30`).
+  - [EnsuredServices#13](https://github.com/simeoncalixte/EnsuredServices/pull/13) (`6e6c71d`).
+  - [EnsuredSubmissionFeedback#4](https://github.com/simeoncalixte/EnsuredSubmissionFeedback/pull/4) (`c08d58e`).
+  - [EnsuredUI#21](https://github.com/simeoncalixte/EnsuredUI/pull/21) (`b8808c0`).
+  - [SubmissionUI#6](https://github.com/simeoncalixte/SubmissionUI/pull/6) (`7621e38`).
+- Parent PR carries the workspace files and updated submodule references; merge and sync it to complete delivery.
+
 ## Current work: project context and documentation cleanup (2026-11-20)
 
 Direct user request, not ticket-driven: make the project's purpose the default context for agents, and
