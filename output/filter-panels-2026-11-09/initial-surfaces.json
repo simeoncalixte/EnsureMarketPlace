@@ -1,0 +1,38 @@
+[
+  {
+    "file": "EnsuredUI/src/Pages/Commercial/FacilitiesPage.tsx",
+    "title": "Facility filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/Commercial/FacilityDocuments.tsx",
+    "title": "Document filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/Commercial/FacilityApprovals.tsx",
+    "title": "Approval filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/Commercial/FacilityRequests.tsx",
+    "title": "Request filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/Parties/PartiesPage.tsx",
+    "title": "Party filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/InsurerDashboard/EmailInbox.tsx",
+    "title": "Email filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+    "title": "Document filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/InsurerDashboard/ModelLibrary.tsx",
+    "title": "Model filters"
+  },
+  {
+    "file": "EnsuredUI/src/Pages/Commercial/CommercialActivity.tsx",
+    "title": "Audit filters"
+  }
+]

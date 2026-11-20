@@ -1,0 +1,1 @@
+{"versions":{"shared":"0.2.0","normalization":"0.2.0","risk-compute":"0.2.0","ingestion":"0.3.0"},"canonicalExport":false,"database":{"canonical_table":null,"feedback_versions":77},"reader":{"passed":null,"reason":"No existing saved revision"}}

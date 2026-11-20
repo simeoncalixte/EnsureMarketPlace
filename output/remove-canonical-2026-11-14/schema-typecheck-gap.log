@@ -1,0 +1,40 @@
+src/pipeline/schemaGeneration/uiRefiner.test.ts(38,44): error TS2532: Object is possibly 'undefined'.
+src/pipeline/schemaGeneration/uiRefiner.test.ts(54,9): error TS2532: Object is possibly 'undefined'.
+src/pipeline/schemaGeneration/uiRefiner.test.ts(64,9): error TS18048: 'result.applicationState.componentRef' is possibly 'undefined'.
+src/pipeline/schemaGeneration/uiRefiner.test.ts(82,40): error TS18048: 'f.componentRef' is possibly 'undefined'.
+src/pipeline/test/SchemaGenerationService.test.ts(83,45): error TS2345: Argument of type '{ applicationState: ({ fieldId: string; label: string; fieldType: string; description: string; validation: { isRequired: boolean; }; uiConfig: { colSpan: number; }; value: string; placeholder?: undefined; } | { ...; } | { ...; } | { ...; } | { ...; })[]; ... 5 more ...; thresholds: { ...; }; }' is not assignable to parameter of type 'SchemaReviewerDependencies<JsonValue>'.
+  Types of property 'applicationState' are incompatible.
+    Type '({ fieldId: string; label: string; fieldType: string; description: string; validation: { isRequired: boolean; }; uiConfig: { colSpan: number; }; value: string; placeholder?: undefined; } | { fieldId: string; ... 6 more ...; placeholder?: undefined; } | { ...; } | { ...; } | { ...; })[]' is not assignable to type 'JsonValue'.
+      Type '({ fieldId: string; label: string; fieldType: string; description: string; validation: { isRequired: boolean; }; uiConfig: { colSpan: number; }; value: string; placeholder?: undefined; } | { fieldId: string; ... 6 more ...; placeholder?: undefined; } | { ...; } | { ...; } | { ...; })[]' is not assignable to type 'JsonValue[]'.
+        Type '{ fieldId: string; label: string; fieldType: string; description: string; validation: { isRequired: boolean; }; uiConfig: { colSpan: number; }; value: string; placeholder?: undefined; } | { fieldId: string; ... 6 more ...; placeholder?: undefined; } | { ...; } | { ...; } | { ...; }' is not assignable to type 'JsonValue'.
+          Type '{ fieldId: string; label: string; fieldType: string; description: string; validation: { isRequired: boolean; }; uiConfig: { colSpan: number; }; value: string; placeholder?: undefined; }' is not assignable to type 'JsonValue'.
+            Type '{ fieldId: string; label: string; fieldType: string; description: string; validation: { isRequired: boolean; }; uiConfig: { colSpan: number; }; value: string; placeholder?: undefined; }' is not assignable to type '{ [key: string]: JsonValue; }'.
+              Property '"placeholder"' is incompatible with index signature.
+                Type 'undefined' is not assignable to type 'JsonValue'.
+src/pipeline/test/SchemaGenerationService.test.ts(119,38): error TS18047: 'applicationState' is possibly 'null'.
+src/pipeline/test/SchemaGenerationService.test.ts(119,55): error TS2339: Property 'entries' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'entries' does not exist on type 'string'.
+src/pipeline/test/SchemaGenerationService.test.ts(142,25): error TS18047: 'applicationState' is possibly 'null'.
+src/pipeline/test/SchemaGenerationService.test.ts(142,42): error TS2339: Property 'length' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'length' does not exist on type 'number'.
+src/pipeline/test/SchemaGenerationService.test.ts(143,21): error TS18047: 'applicationState' is possibly 'null'.
+src/pipeline/test/SchemaGenerationService.test.ts(143,38): error TS2339: Property 'filter' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'filter' does not exist on type 'string'.
+src/pipeline/test/SchemaGenerationService.test.ts(143,48): error TS7031: Binding element 'review' implicitly has an 'any' type.
+src/pipeline/test/SchemaGenerationService.test.ts(144,23): error TS18047: 'applicationState' is possibly 'null'.
+src/pipeline/test/SchemaGenerationService.test.ts(144,40): error TS2339: Property 'filter' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'filter' does not exist on type 'string'.
+src/pipeline/test/SchemaGenerationService.test.ts(144,50): error TS7031: Binding element 'review' implicitly has an 'any' type.
+src/pipeline/test/SchemaGenerationService.test.ts(145,21): error TS18047: 'applicationState' is possibly 'null'.
+src/pipeline/test/SchemaGenerationService.test.ts(145,38): error TS2339: Property 'filter' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'filter' does not exist on type 'string'.
+src/pipeline/test/SchemaGenerationService.test.ts(145,48): error TS7031: Binding element 'review' implicitly has an 'any' type.
+src/pipeline/test/SchemaGenerationService.test.ts(148,13): error TS18047: 'applicationState' is possibly 'null'.
+src/pipeline/test/SchemaGenerationService.test.ts(148,30): error TS2339: Property 'reduce' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'reduce' does not exist on type 'string'.
+src/pipeline/test/SchemaGenerationService.test.ts(148,38): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/pipeline/test/SchemaGenerationService.test.ts(148,43): error TS7006: Parameter 'field' implicitly has an 'any' type.
+src/pipeline/test/SchemaGenerationService.test.ts(148,89): error TS18047: 'applicationState' is possibly 'null'.
+src/pipeline/test/SchemaGenerationService.test.ts(148,106): error TS2339: Property 'length' does not exist on type 'string | number | boolean | JsonValue[] | { [key: string]: JsonValue; }'.
+  Property 'length' does not exist on type 'number'.
+test/helpers/dealPartySubmission.ts(5,31): error TS2307: Cannot find module '../../src/pipeline/schemaGeneration/logic' or its corresponding type declarations.

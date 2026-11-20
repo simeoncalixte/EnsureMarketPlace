@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-20",
+  "api": {
+    "format": "pass",
+    "check": "pass (typecheck, type-safety, contracts, ESLint, Prettier)",
+    "testSubmissions": "118/118 tests, 11/11 suites; API/feedback journey pass; feedback 29/29",
+    "rootNpmTest": "140 suites: 21 failed, 17 skipped, 102 passed; 998 tests: 80 failed, 144 skipped, 774 passed",
+    "baselineComparison": {
+      "method": "same 21 failing suites via scripts/test-api.mjs on unmodified EnsuredAPI origin/main vs branch",
+      "main": {
+        "suites": 21,
+        "failedSuites": 21,
+        "failedTests": 80,
+        "passedTests": 30,
+        "failing": [
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/marketplace.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/src/pipeline/base.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/pipelineBoard.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/pipelineSubmissionSeed.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/src/pipeline/jobs/automation.db.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/subscriptions.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/pipelineProcesses.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/navigation.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/underwritingSubmissions.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/ingestionChannelsOauth.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/pipelinePlayback.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/userSeed.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/src/pipeline/jobs/service.db.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/ingestionChannels.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/organizationSeed.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/formCatalog/route.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/auth.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/routes/organizations.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/integration/pipelineOrder.db.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/buildApp.test.ts",
+          "/private/tmp/claude-501/-Users-simeon-Projects-EnsureMarketPlace/d8dfd8ee-f8ba-486a-b222-46c8ace37726/scratchpad/api-main/test/app.test.ts"
+        ]
+      },
+      "branch": {
+        "suites": 21,
+        "failedSuites": 21,
+        "failedTests": 80,
+        "passedTests": 30,
+        "failing": [
+          "test/routes/marketplace.test.ts",
+          "src/pipeline/jobs/service.db.test.ts",
+          "src/pipeline/base.test.ts",
+          "test/routes/navigation.test.ts",
+          "test/routes/subscriptions.test.ts",
+          "test/routes/organizationSeed.test.ts",
+          "test/routes/ingestionChannels.test.ts",
+          "test/routes/pipelineBoard.test.ts",
+          "test/routes/userSeed.test.ts",
+          "test/routes/organizations.test.ts",
+          "test/routes/ingestionChannelsOauth.test.ts",
+          "test/routes/pipelineProcesses.test.ts",
+          "test/routes/pipelinePlayback.test.ts",
+          "test/routes/pipelineSubmissionSeed.test.ts",
+          "test/routes/underwritingSubmissions.test.ts",
+          "test/routes/auth.test.ts",
+          "test/app.test.ts",
+          "test/buildApp.test.ts",
+          "test/formCatalog/route.test.ts",
+          "test/integration/pipelineOrder.db.test.ts",
+          "src/pipeline/jobs/automation.db.test.ts"
+        ]
+      },
+      "newFailures": 0,
+      "tickets": [
+        "AIN-212",
+        "AIN-213",
+        "AIN-214"
+      ]
+    }
+  },
+  "ui": {
+    "check": "pass",
+    "testDashboard": "pass",
+    "testSubmissions": "4/4",
+    "stories": "6/6 manual-input interaction stories (1440x1000 dark)",
+    "ciBuild": "pass",
+    "vercel": "fail on main and PR (AIN-215)"
+  },
+  "feedback": {
+    "test": "pass",
+    "build": "pass",
+    "staticGates": "absent (AIN-210)"
+  },
+  "root": {
+    "workspaceCheck": "pass",
+    "docsPrettier": "pass",
+    "links": "17 broken, all pre-existing links to code in separate package repos"
+  },
+  "prs": {
+    "EnsureMarketPlace-docs#4": "d5a0d39",
+    "EnsuredAPI#26": "1ac47ca",
+    "EnsuredUI#20": "1c6ec05",
+    "EnsuredSubmissionFeedback#3": "7c956c1"
+  }
+}

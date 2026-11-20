@@ -1,0 +1,4 @@
+
+> @simeoncalixte/ensured-pipeline-ingestion@0.3.0 build
+> node scripts/build.mjs
+

@@ -1,0 +1,67 @@
+release-parity	UNKNOWN STEP	﻿2026-11-12T01:14:51.4371861Z Current runner version: '2.338.2'
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4406588Z ##[group]Runner Image Provisioner
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4408043Z Hosted Compute Agent
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4409060Z Version: 20261028.624
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4410247Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4411751Z Build Date: 2026-10-28T21:51:42Z
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4413010Z Worker ID: {bcdbce07-7c8c-46f8-aa42-44dda3f5e4c8}
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4414388Z Region: eastus
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4415335Z Cloud: Azure
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4416311Z ##[endgroup]
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4419209Z ##[group]Operating System
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4420552Z Ubuntu
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4421660Z 26.04.1
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4422507Z LTS
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4423581Z ##[endgroup]
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4424547Z ##[group]Runner Image
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4425706Z Image: ubuntu-26.04
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4426707Z Version: 20261101.186.1
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4428946Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261101.186/images/ubuntu/Ubuntu2604-Readme.md
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4431894Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261101.186
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4433761Z ##[endgroup]
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4435891Z ##[group]GITHUB_TOKEN Permissions
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4438853Z Contents: read
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4439955Z Metadata: read
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4441433Z Packages: read
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4442367Z ##[endgroup]
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4445486Z Secret source: Actions
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4446951Z Cache mode: write
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4448542Z Prepare workflow directory
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.4943526Z Prepare all required actions
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.5017182Z Getting action download info
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.6821797Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.7969032Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+release-parity	UNKNOWN STEP	2026-11-12T01:14:51.8607783Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.0463107Z Complete job name: release-parity
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1423021Z ##[group]Run actions/checkout@v4
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1423923Z with:
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1424361Z   submodules: recursive
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1424852Z   persist-credentials: false
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1425428Z   repository: simeoncalixte/EnsureMarketPlace
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1426022Z   ssh-strict: true
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1426461Z   ssh-user: git
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1426878Z   clean: true
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1427317Z   sparse-checkout-cone-mode: true
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1427832Z   fetch-depth: 1
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1428262Z   fetch-tags: false
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1428698Z   show-progress: true
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1429143Z   lfs: false
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1429563Z   set-safe-directory: true
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1430064Z   allow-unsafe-pr-checkout: false
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.1430962Z ##[endgroup]
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.3867674Z ##[error]Input required and not supplied: token
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4129906Z ##[group]Run actions/upload-artifact@v4
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4130780Z with:
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4131259Z   name: pipeline-parity-evidence
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4131846Z   path: pipeline-parity-evidence.log
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4132432Z   if-no-files-found: warn
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4132947Z   compression-level: 6
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4133442Z   overwrite: false
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4133917Z   include-hidden-files: false
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.4134446Z ##[endgroup]
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.6015017Z (node:2306) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.6016566Z (Use `node --trace-deprecation ...` to show where the warning was created)
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.6062079Z ##[warning]No files were found with the provided path: pipeline-parity-evidence.log. No artifacts will be uploaded.
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.6405578Z Post job cleanup.
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.7349730Z Cleaning up orphan processes
+release-parity	UNKNOWN STEP	2026-11-12T01:14:52.7834931Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

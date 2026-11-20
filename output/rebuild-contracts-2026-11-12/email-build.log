@@ -1,0 +1,107 @@
+ Image ensured-email-email Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 566B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 445B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 75B done
+#4 DONE 0.0s
+
+#5 [build 1/7] FROM docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#5 resolve docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a done
+#5 DONE 0.0s
+
+#6 [build 2/7] WORKDIR /app
+#6 CACHED
+
+#7 [internal] load build context
+#7 transferring context: 223.53kB done
+#7 DONE 0.0s
+
+#8 [build 3/7] COPY package.json package-lock.json ./
+#8 DONE 0.0s
+
+#9 [build 4/7] RUN npm ci
+#9 1.644 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+#9 1.689 npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+#9 3.205 
+#9 3.205 added 327 packages, and audited 328 packages in 3s
+#9 3.205 
+#9 3.205 38 packages are looking for funding
+#9 3.205   run `npm fund` for details
+#9 3.218 
+#9 3.218 13 vulnerabilities (7 low, 1 moderate, 3 high, 2 critical)
+#9 3.218 
+#9 3.218 To address issues that do not require attention, run:
+#9 3.218   npm audit fix
+#9 3.218 
+#9 3.218 To address all issues (including breaking changes), run:
+#9 3.218   npm audit fix --force
+#9 3.218 
+#9 3.218 Run `npm audit` for details.
+#9 3.219 npm notice
+#9 3.219 npm notice New major version of npm available! 10.9.9 -> 12.2.2
+#9 3.219 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+#9 3.219 npm notice To update run: npm install -g npm@12.2.2
+#9 3.219 npm notice
+#9 DONE 3.5s
+
+#10 [build 5/7] COPY tsconfig.json ./
+#10 DONE 0.1s
+
+#11 [build 6/7] COPY src ./src
+#11 DONE 0.0s
+
+#12 [build 7/7] RUN npm run build && npm prune --omit=dev
+#12 0.204 
+#12 0.204 > @simeoncalixte/ensured-email@0.1.0 build
+#12 0.204 > tsc -p tsconfig.json
+#12 0.204 
+#12 3.630 
+#12 3.630 up to date, audited 50 packages in 2s
+#12 3.630 
+#12 3.630 4 packages are looking for funding
+#12 3.630   run `npm fund` for details
+#12 3.639 
+#12 3.639 4 vulnerabilities (1 moderate, 2 high, 1 critical)
+#12 3.639 
+#12 3.639 To address issues that do not require attention, run:
+#12 3.639   npm audit fix
+#12 3.639 
+#12 3.639 To address all issues (including breaking changes), run:
+#12 3.639   npm audit fix --force
+#12 3.639 
+#12 3.639 Run `npm audit` for details.
+#12 DONE 3.7s
+
+#13 [stage-1 3/5] COPY --from=build /app/package.json ./
+#13 DONE 0.0s
+
+#14 [stage-1 4/5] COPY --from=build /app/node_modules ./node_modules
+#14 DONE 0.3s
+
+#15 [stage-1 5/5] COPY --from=build /app/dist ./dist
+#15 DONE 0.0s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.3s done
+#16 exporting manifest sha256:7724acf25584007b1b7ef83bbd0277815dd4133d14760afd36497251530afce8 done
+#16 exporting config sha256:5ea06b22448ea6788a8bd43f3d7242840c91debb7da186b46ddf7ebbea308cae done
+#16 exporting attestation manifest sha256:388363e136237f6ddd264a5eeba0c95c4b9c955abcc94c0aac78b1c478f4722e done
+#16 exporting manifest list sha256:e3cdf4e486d68f62a8345d861fc0b8693198215c4b1805b0385c9759d061ffbc done
+#16 naming to docker.io/library/ensured-email-email:latest done
+#16 unpacking to docker.io/library/ensured-email-email:latest
+#16 unpacking to docker.io/library/ensured-email-email:latest 0.2s done
+#16 DONE 0.5s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image ensured-email-email Built 

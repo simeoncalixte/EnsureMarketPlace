@@ -1,0 +1,13 @@
+
+> @simeoncalixte/ensured-pipeline-ingestion@0.3.0 test
+> jest --runInBand --watchman=false --silent
+
+PASS src/pipeline/ingestion/ingestion.email.test.ts
+PASS src/pipeline/ingestion/ingestion.amqp.test.ts
+PASS src/pipeline/ingestion/creation.test.ts
+PASS src/pipeline/ingestion/service.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       19 passed, 19 total
+Snapshots:   0 total
+Time:        1.805 s

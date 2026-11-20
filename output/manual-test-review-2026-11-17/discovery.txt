@@ -1,0 +1,13 @@
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/manualSubmission.integration.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/submissionFilterRoute.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/manualSubmission.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/submissionDocuments.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/underwritingDashboard.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/submissionFilters.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/retireCanonical.integration.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/submissionService.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/documentType.db.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/documentProcessing.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/submissionCreation.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/complexSubmissionExamples.test.ts
+/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/test/manual-submissions/manualSubmissionFields.test.ts

@@ -1,0 +1,20 @@
+{
+  "@simeoncalixte/ensured-pipeline-shared": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-ingestion-amqp": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-ingestion": "0.3.0",
+  "@simeoncalixte/ensured-pipeline-ocr": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-classification": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-extraction": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-subject-discovery": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-financial-discovery": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-location-discovery": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-normalization": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-validation": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-schema-generation": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-pre-rating": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-capacity": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-oracle-attestation": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-workflow": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-risk-compute": "0.2.0",
+  "@simeoncalixte/ensured-pipeline-storage-search": "0.2.0"
+}

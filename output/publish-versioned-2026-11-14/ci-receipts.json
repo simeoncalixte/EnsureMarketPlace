@@ -1,0 +1,200 @@
+[
+  {
+    "name": "@simeoncalixte/ensured-pipeline-shared",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineShared",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "9ffc91cdb9254c53963d91bc596d964028a49363",
+    "conclusion": "success",
+    "databaseId": 43644220785,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineShared/actions/runs/43644220785"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-ingestion-amqp",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineIngestionAmqp",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "7abe4dff7c2a76ed7fc26ca27b70c75b1313113a",
+    "conclusion": "success",
+    "databaseId": 43644291747,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineIngestionAmqp/actions/runs/43644291747"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-classification",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineClassification",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "b3c687e077ec204b9011d7a0f513db2b50585e84",
+    "conclusion": "success",
+    "databaseId": 43644372841,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineClassification/actions/runs/43644372841"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-extraction",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineExtraction",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "570bf98a9df37b8ec586c8b45460dc878bf78537",
+    "conclusion": "success",
+    "databaseId": 43644384568,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineExtraction/actions/runs/43644384568"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-ocr",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineOcr",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "a7d96c436cb941aeb94225544dbe17f3398a5e7f",
+    "conclusion": "success",
+    "databaseId": 43644362723,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineOcr/actions/runs/43644362723"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-normalization",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineNormalization",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "27dc02960f6152e6d3e0710fb4efeff16579f685",
+    "conclusion": "success",
+    "databaseId": 43644399728,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineNormalization/actions/runs/43644399728"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-pre-rating",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelinePreRating",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "e4e2013d562573806863947481b54852a2190e26",
+    "conclusion": "success",
+    "databaseId": 43644429025,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelinePreRating/actions/runs/43644429025"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-risk-compute",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineRiskCompute",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "5f323b7c8a96cb5eda6b403f8f401e2f40c9a677",
+    "conclusion": "success",
+    "databaseId": 43644462882,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineRiskCompute/actions/runs/43644462882"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-oracle-attestation",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineOracleAttestation",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "5f1bb88bef96c67b47d98ed01a8d5f30fb0dcc9d",
+    "conclusion": "success",
+    "databaseId": 43644440125,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineOracleAttestation/actions/runs/43644440125"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-schema-generation",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineSchemaGeneration",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "ae0acaaf4929cdc4602c764c40a1a0661e3dabc7",
+    "conclusion": "success",
+    "databaseId": 43644417027,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineSchemaGeneration/actions/runs/43644417027"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-storage-search",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineStorageSearch",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "8930616591d5e3871e2e3349264b8b0b61bef431",
+    "conclusion": "success",
+    "databaseId": 43644476040,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineStorageSearch/actions/runs/43644476040"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-subject-discovery",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineSubjectDiscovery",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "964a96ebf556a0f45b24eeb8014620835ee17e38",
+    "conclusion": "success",
+    "databaseId": 43644524561,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineSubjectDiscovery/actions/runs/43644524561"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-validation",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineValidation",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "635a2ae8a440d10c70726118d05e4476145f1735",
+    "conclusion": "success",
+    "databaseId": 43644543039,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineValidation/actions/runs/43644543039"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-ingestion",
+    "version": "0.3.0",
+    "repository": "simeoncalixte/EnsuredPipelineIngestion",
+    "branch": "release/versioned-submissions-0.3.0",
+    "sha": "e75e7714d71cc43e05b1e1e316d8b206a06c9b71",
+    "conclusion": "success",
+    "databaseId": 43644508677,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineIngestion/actions/runs/43644508677"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-capacity",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineCapacity",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "a9b437d54296504ba3b90f698ed1cae94440477c",
+    "conclusion": "success",
+    "databaseId": 43644601286,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineCapacity/actions/runs/43644601286"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-workflow",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineWorkflow",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "7b9fbce6680f79d566c1fb949dad749ddac995ec",
+    "conclusion": "success",
+    "databaseId": 43644612095,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineWorkflow/actions/runs/43644612095"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-location-discovery",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineLocationDiscovery",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "2acb6b9fcd0ec13e9def836efe2046702fcff8b7",
+    "conclusion": "success",
+    "databaseId": 43644696505,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineLocationDiscovery/actions/runs/43644696505"
+  },
+  {
+    "name": "@simeoncalixte/ensured-pipeline-financial-discovery",
+    "version": "0.2.0",
+    "repository": "simeoncalixte/EnsuredPipelineFinancialDiscovery",
+    "branch": "release/versioned-submissions-0.2.0",
+    "sha": "2fd0f797fce631d1c8bf7113efb74a7284f91498",
+    "conclusion": "success",
+    "databaseId": 43644684616,
+    "status": "completed",
+    "url": "https://github.com/simeoncalixte/EnsuredPipelineFinancialDiscovery/actions/runs/43644684616"
+  }
+]

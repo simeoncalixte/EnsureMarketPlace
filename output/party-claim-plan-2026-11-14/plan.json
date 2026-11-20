@@ -1,0 +1,323 @@
+[
+  {
+    "id": "entities",
+    "type": "Epic",
+    "summary": "[Parties] Capture off-platform entities and associate them with submissions",
+    "paragraphs": [
+      "Outcome: a submitter can name an organization or individual not yet on the platform, provide required contact details, and preserve a durable unclaimed party and submission-role association without granting access.",
+      "End-to-end scope: required entity-kind/email contract -> safe persistence and candidate matching -> submission UI -> explicit invitation. Reuse authoritative organization/person/financial identity models; define adapters rather than creating a competing identity store. Definition of complete: all child acceptance criteria and staging evidence pass, no unresolved migration or privacy gaps.",
+      "Required contract slice under AIN-48 and unresolved-party boundary under AIN-59 are relevant but their broader finance work is not replaced. AIN-56/62/70/73/74 are existing reuse context, not proof of this new outcome. AIN-28/29/34/36/40/92 remain separate eligibility/financial mandates and settlement obligations.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": null,
+    "depends": [],
+    "ui": false
+  },
+  {
+    "id": "claims",
+    "type": "Epic",
+    "summary": "[Identity] Claim entities and verify organizational representation end-to-end",
+    "paragraphs": [
+      "Outcome: verified people can claim an unclaimed organization or their own individual record, prove appropriate authority, receive explicitly scoped membership, and later transfer/revoke access with an audit trail.",
+      "Lifecycle: invitation/contact verification -> claim -> evidence -> pending review -> approved/rejected/disputed/expired -> scoped membership -> revocation/recovery. First administrator requires independent authority assessment; established organizations use current authorized administrator approval. Domain control and inbox access are supporting evidence only. Financial signatures, payments, private documents and Network publishing remain separately authorized.",
+      "Reuse EnsuredAuth accounts/email verification/gateway assertions, EnsuredAPI authoritative membership/party associations, EnsuredKYC private evidence where appropriate, EnsuredEmail delivery, EnsuredUI host and existing Network projections. Do not replace completed AIN-70/73/74 reviewed-link flows.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": null,
+    "depends": [],
+    "ui": false
+  },
+  {
+    "id": "contract",
+    "type": "Task",
+    "summary": "[Party onboarding] Define versioned unclaimed-party and claim contracts",
+    "paragraphs": [
+      "Acceptance: document authoritative writers, organization vs individual discriminator, legal/full name, required contactEmail, country, stable internal party ID, claimant user ID, source/provenance and submission-role link. Contact verification and authority verification are separate states; no login account or fake organization for individuals.",
+      "Define required email syntax, trim/domain normalization and privacy rules without assuming local-part equivalence; invalid/missing email blocks submitted creation while incomplete drafts remain explicit and unsent. Define legacy unresolved contact handling without invented addresses.",
+      "Define scoped uniqueness and idempotency, candidate matching with explicit review, no implicit cross-tenant existence disclosure/merge, organization registries/domains as evidence not sole authority. Define claim transitions, token expiry/replay rules, audit retention and redaction. Publish shared Constants contracts before API/UI adoption. Coordinate only the required model-ownership slice with AIN-48/59; preserve their broader obligations.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": "entities",
+    "depends": [],
+    "ui": false
+  },
+  {
+    "id": "capture",
+    "type": "Story",
+    "summary": "[Submission parties] Capture required identity and contact details",
+    "paragraphs": [
+      "As a submitter, I want to identify each organization or individual and provide a contact email so that off-platform parties can be associated and later invited accurately.",
+      "Acceptance: each repeatable party row has organization/person selection, legal organization name or individual full name, required contact email, country and submission role. Validate missing/invalid email and party-kind-specific names; preserve mixed-party rows, draft data and errors on retry. Email is private contact data, not an ownership or authorization grant. Show existing authorized association vs unresolved/unclaimed state; ambiguous candidates require explicit review.",
+      "Update published Constants schema, API runtime validators/generated contracts and host forms together; preserve old saved records via versioned compatibility. Add typed property/cyber/mixed fixtures with organizations and an individual. Do not fabricate evidence that the current three-field party form already provisions accounts.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "entities",
+    "depends": [
+      "persist"
+    ],
+    "ui": true
+  },
+  {
+    "id": "captureimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Capture required identity and contact details",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "capture",
+    "depends": [],
+    "ui": true
+  },
+  {
+    "id": "persist",
+    "type": "Story",
+    "summary": "[Party registry] Create unclaimed entities and durable submission associations safely",
+    "paragraphs": [
+      "As a submitter, I want unknown parties recorded durably without creating access so that submissions remain traceable before their representatives join.",
+      "Acceptance: atomically persist submission, unclaimed organization or individual identity, private contact/source assertion and role association. Reuse only authorized stable IDs with verified linkage; name/email/domain candidates never silently merge. Use existing owning models/adapters; individuals have no fabricated organization. Concurrent/retried requests create one intended association using scoped idempotency; conflicts and downstream failures roll back; source record survives later verified claim.",
+      "No automatic User, membership, organization-admin grant, Network discovery, financial account/mandate or outbound invitation. Test same email on distinct entities, one organization with multiple contacts, cross-tenant ambiguity, mixed organizations/individuals, draft promotion and persistence rollback.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": "entities",
+    "depends": [
+      "contract"
+    ],
+    "ui": false
+  },
+  {
+    "id": "persistimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Create unclaimed entities and durable submission associations safely",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": "persist",
+    "depends": [],
+    "ui": false
+  },
+  {
+    "id": "invite",
+    "type": "Story",
+    "summary": "[Party onboarding] Send explicit invitations and verify contact possession",
+    "paragraphs": [
+      "As a permitted submitter, I want to invite an unclaimed party contact so that its representative can begin onboarding without receiving private submission data.",
+      "Acceptance: explicit authorized send/resend/revoke action, minimal email content, delivery failure/retry, rate limits and recipient correction with audit. Existing authenticated users can sign in; new users verify email through EnsuredAuth. Single-use scoped expiring token is protected at rest, replay/race/expiry rejected, no user/organization enumeration. Resend invalidates old token according to the reviewed policy.",
+      "Verifying an email establishes inbox possession only, not organizational authority or access to submissions. Consentful invitations are separate from automatic party capture; allow recipients to decline/report incorrect attribution.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "entities",
+    "depends": [
+      "persist"
+    ],
+    "ui": true
+  },
+  {
+    "id": "inviteimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Send explicit invitations and verify contact possession",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "invite",
+    "depends": [],
+    "ui": true
+  },
+  {
+    "id": "orgclaim",
+    "type": "Story",
+    "summary": "[Organization claim] Request verified representation with scoped evidence",
+    "paragraphs": [
+      "As an organization representative, I want to claim an existing unclaimed organization and supply evidence so that I can request legitimate administrative authority.",
+      "Acceptance: require an authenticated email-verified person; bind the claim to an existing stable organization ID. Show the claim purpose and current state without leaking other tenants. For organizations with a verified administrator, request current administrator approval; for first administrator or recovery, collect independent evidence of authority and refer to review.",
+      "Business-domain mailbox or DNS control is supporting evidence, not sufficient by itself. Handle public email providers, subsidiaries, shared domains, contractors, duplicate claims, inaccessible domain and disputed ownership through review. Evidence documents remain private; no applicant can self-approve or approve through another unverified membership. Track pending/needs-information/rejected/expired status and appeal/resubmission.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "claims",
+    "depends": [
+      "invite"
+    ],
+    "ui": true
+  },
+  {
+    "id": "orgclaimimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Request verified representation with scoped evidence",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "orgclaim",
+    "depends": [],
+    "ui": true
+  },
+  {
+    "id": "review",
+    "type": "Story",
+    "summary": "[Organization review] Approve or reject authority without granting financial powers",
+    "paragraphs": [
+      "As an authorized reviewer or current organization administrator, I want to assess a representation claim independently so that legitimate members receive only the approved authority.",
+      "Acceptance: reviewer permission checked live, conflict-of-interest/self-approval rejected, evidence source/verification/expiry captured. First-admin decisions require independent authority confirmation, not email or domain alone. Approval atomically creates a scoped membership/admin grant on the existing organization; rejection/expiry creates none. Concurrent decisions are versioned/idempotent, audit is immutable and sensitive evidence is access-controlled.",
+      "Approved representative is not a declaration of beneficial/legal ownership. No automatic signing/payment permissions, KYC clearance, statement mandates, access to every submission naming the entity or Network publishing grant. Disputes freeze further claims as policy specifies without rewriting past records; allow redacted reasons and explicit appeal path.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "claims",
+    "depends": [
+      "orgclaim"
+    ],
+    "ui": true
+  },
+  {
+    "id": "reviewimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Approve or reject authority without granting financial powers",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "review",
+    "depends": [],
+    "ui": true
+  },
+  {
+    "id": "individual",
+    "type": "Story",
+    "summary": "[Individual claim] Link a person to their own unclaimed identity",
+    "paragraphs": [
+      "As an individual named on a submission, I want to claim my own party record so that I can participate without creating an organization.",
+      "Acceptance: authenticated email-verified account plus reviewed identity linkage; an email match is a candidate and cannot silently merge people or grant access. Handle changed/shared mailbox, duplicate names and conflicting claims without revealing private records. Separate self-identity verification from representing another person; representation requires its own delegated evidence.",
+      "Preserve independent Network membership, consent and private submission associations. Approval links the stable individual party to the verified account; no fabricated organization, admin role, financial mandate or public profile. Decline/revoke and disputed identity remain auditable.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "claims",
+    "depends": [
+      "invite"
+    ],
+    "ui": true
+  },
+  {
+    "id": "individualimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Link a person to their own unclaimed identity",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "individual",
+    "depends": [],
+    "ui": true
+  },
+  {
+    "id": "govern",
+    "type": "Story",
+    "summary": "[Organization access] Manage verified administrators, revocation and recovery",
+    "paragraphs": [
+      "As a verified organization administrator, I want to invite/manage representatives and revoke or transfer authority so that organization access remains current when people leave.",
+      "Acceptance: explicit roles, current-authority checks and audit; invitation does not confer membership until acceptance and required approval. Protect last administrator removal with reviewed transfer/recovery; prevent takeover through expired evidence or changed domains. Support rejection, suspension, dispute, re-verification and reviewed recovery without deleting historical associations.",
+      "Revoked membership invalidates gateway/API authorization and cached Network/Marketplace projections promptly. Public Network visibility/publishing requires existing explicit consent/grant; retain private record-level access, signing permissions and financial mandates as separate grants. Membership alone never exposes submissions merely naming the organization.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "claims",
+    "depends": [
+      "review",
+      "individual"
+    ],
+    "ui": true
+  },
+  {
+    "id": "governimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Manage verified administrators, revocation and recovery",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action.",
+      "Before baseline: fresh current-source EnsuredUI Storybook build at 6f51532def88a7686ec83dcdf5aa8f261d18186e, Pages/Parties/Workflows directory-search, register-organization and register-individual; 1440x1000 and 390x844; XDS dark theme (browser prefers light), zoom 100%, scroll top, synthetic authorized contract operator, after existing successful play. These show existing reviewed financial registration, NOT a currently implemented organization claim screen. New claim/invite/admin screens do not exist; preserve these baseline attachments and capture matching After plus the new workflow states during implementation. Visual target: clearly distinguish unclaimed/contact-verified/authority-pending/verified/disputed/revoked, show email and entity-kind labels, no horizontal overflow at 390px, keyboard-operable controls, actionable validation and 44px interaction targets."
+    ],
+    "parent": "govern",
+    "depends": [],
+    "ui": true
+  },
+  {
+    "id": "release",
+    "type": "Story",
+    "summary": "[Party onboarding] Verify migration and end-to-end claims before rollout",
+    "paragraphs": [
+      "As a platform operator, I want a verified migration and integrated onboarding journey so that existing submissions remain usable while new parties are claimed safely.",
+      "Acceptance: additive migration, legacy parties without email remain unresolved/readable and never receive guessed contacts; backfill only evidenced links, compatible old/new published packages and tested rollback. Rehearse property/cyber/mixed submissions -> unclaimed identities -> explicit invitation -> verified account -> org/person claim -> independent approval -> authorized association -> revocation.",
+      "Run gateway/Auth/API/Email/UI and Network/Marketplace permission journeys using disposable services, plus staging with exact versions. Verify no contact leakage, no automatic financial mandate, duplicate/replay/concurrent approval safety and last-admin recovery. Existing external-provider settlement or wider financial identity criteria are not satisfied by this release.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": "claims",
+    "depends": [
+      "capture",
+      "govern"
+    ],
+    "ui": false
+  },
+  {
+    "id": "releaseimpl",
+    "type": "Subtask",
+    "summary": "Implement and verify: Verify migration and end-to-end claims before rollout",
+    "paragraphs": [
+      "Implement every acceptance criterion of the parent story; parent is the authoritative user outcome. Owning components and integration contracts must remain explicit.",
+      "Deliver API/database behavior and, where the parent has a UI, matching host/Storybook play stories plus Before/After Jira attachments. Record migrations/package releases, tests and remaining staging gaps. No Done based on mocks alone.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": "release",
+    "depends": [],
+    "ui": false
+  },
+  {
+    "id": "fixtures",
+    "type": "Task",
+    "summary": "[Submission examples] Add typed unclaimed organization and individual contact fixtures",
+    "paragraphs": [
+      "Current authorized code scope: extend complexSubmissionExamples with private contact email, organization/person discriminator, legal/full name, country and stable fixture-local party-row association. Include an individual in cyber and mixed coverage. Preserve existing submission API compatibility by storing proposed identity inputs alongside the current sections until the versioned production contract is implemented.",
+      "Acceptance: every example party has exactly one matching proposed unclaimed input, organization and individual shapes are explicit and required email is typed/tested, synthetic .example.test contacts only, repeatable rows are not mismatched. Existing PostgreSQL complex-submission tests still pass; new tests check fixture-to-party identity mapping and no default membership/verification/financial authority. Documentation clearly states these are creation-ready inputs, not proof of persisted account creation. Run API format/check and affected tests.",
+      "Planning only: keep To Do until implemented and verified. Do not send invitations or create production accounts during planning. Unclaimed entity records are not authenticated users, verified representation, beneficial ownership, KYC clearance or financial mandates. Preserve tenant-scoped associations, independent Network members, explicit opt-in public visibility and current domain authorization. Never merge by name, contact email or shared domain alone.",
+      "Verification: API/PostgreSQL integration covers authorization, tenant isolation, durable writes, idempotency/concurrency, retries and transaction rollback. Every new or changed UI has isolated synthetic Storybook play functions asserting actions, visible results and exact payloads; cover validation, loading/empty, failure/retry, permission/revocation, keyboard/narrow views and pagination when applicable. Block application writes from fixture stories. Record ticket -> component -> story ID -> command/results mapping. Matching Before/After evidence must identify build, route/story, viewport, theme, zoom, scroll, fixture/role and state. Review readable Jira attachments before Done. Integrated staging journey and migration compatibility/rollback evidence are required before either epic closes; local fixtures alone are insufficient. Production deployment is a separate approval/release action."
+    ],
+    "parent": "entities",
+    "depends": [],
+    "ui": false
+  }
+]

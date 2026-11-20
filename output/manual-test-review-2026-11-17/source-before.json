@@ -1,0 +1,17 @@
+{
+  "EnsuredAPI/test/manual/underwritingDashboard.test.ts": "9def7f5e95d9e4e2e3d767df57cddac8979103c4f94be007e498646749791739",
+  "EnsuredAPI/test/manual/submissionFilters.test.ts": "ee1c9d9233830b2186a3499fe491d35e2126db0de1ad86a2d2c28b39e9e6df14",
+  "EnsuredAPI/test/manual/submissionFilterRoute.test.ts": "31a57e3d42b61c820fb57f967a8e62336454707a250a1cf6c0370ca8aefd966b",
+  "EnsuredAPI/test/manual/manualSubmissionFields.test.ts": "86471bb70b741062f7a7cc03525f3bb86ad929f6bd389fe2f183793047ca25cf",
+  "EnsuredAPI/test/manual/complexSubmissionExamples.test.ts": "fce23ccbeea16c59a3799545e0a5e03c4b6cdbdcc6b11c5137516ea69414a45e",
+  "EnsuredAPI/test/manual/submissionService.test.ts": "046e1af0abcb5198bbbec39cc2bacdf14c81151dbe247149d833da09c70b2761",
+  "EnsuredAPI/test/manual/manualSubmission.integration.test.ts": "2d59c53b95f6b7a81ccfe660328b182040c6bf9140b6866dc9d9b80d96b99904",
+  "EnsuredAPI/test/manual/documentProcessing.test.ts": "cce5c314e58dd377e9d3c7b15417ebe417bc35563ba1065651c9c4490d9a676c",
+  "EnsuredAPI/test/manual/README.md": "a67738c1af60cdb820daa276d5185eb23741c4ab2c59913927ea1597a655e801",
+  "EnsuredAPI/test/manual/complexSubmissionExamples.ts": "ce55ee8f21ab79341cfb138ed50fe13a219f432ea5b36ce9d5c5291e44529926",
+  "EnsuredAPI/test/manual/manualSubmission.test.ts": "8e4a2712e2a66533356d07771aba6d622179c8435a8826e297828e6e0231711d",
+  "EnsuredAPI/test/manual/retireCanonical.integration.test.ts": "94f892d8a47ecee8a8709b4c9058fb384a0f01adf00bb44a75c48e278200b3d7",
+  "EnsuredAPI/test/manual/submissionCreation.test.ts": "133b66f656f26a5f34454026f0254e8c97e6c44ea0931573e83ee858d4194f57",
+  "EnsuredAPI/test/manual/documentType.db.test.ts": "0df1c71767d9aa2d1e1ff7b0ab6631ec26dcfa0721fc1f54a8651d5f248d7a66",
+  "EnsuredAPI/test/manual/submissionDocuments.test.ts": "67e782161e5b3a40e0e9b5bc4132e0a6a1c0226a3a069733a058ed6d7d5ad903"
+}

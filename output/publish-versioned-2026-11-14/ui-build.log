@@ -1,0 +1,23 @@
+
+> ensured-ui@0.1.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 991 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.85 kB │ gzip:     0.48 kB
+dist/assets/index-CEtOLGDj.css                 174.97 kB │ gzip:    24.69 kB
+dist/assets/index-CVOrGQhg.js                   29.12 kB │ gzip:     8.25 kB
+dist/assets/network-DSlmskpt.js                 55.57 kB │ gzip:    15.96 kB
+dist/assets/registration-B0x8bhVR.js           365.11 kB │ gzip:   114.67 kB
+dist/assets/PipelineObservatory-Cxu0yHp6.js    663.84 kB │ gzip:   167.31 kB
+dist/assets/marketplace-BvYNOMqE.js          1,943.18 kB │ gzip:   547.62 kB
+dist/assets/index-CHb3pTL2.js                3,974.84 kB │ gzip: 1,085.62 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 14.53s

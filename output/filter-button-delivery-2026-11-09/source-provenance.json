@@ -1,0 +1,88 @@
+{
+  "heads": {
+    "EnsuredUI": "34e6cb279f0ecdba9f6c7283457db5473e5ccb3c",
+    "EnsuredLogistics": "8eb7997732cb5b907ee2a42f186769ed746bbec4",
+    "EnsuredMarketplace": "88aaa8559a2516a078f3497dcea39f248d34803f",
+    "EnsuredNetwork": "1845573c1b7707e1f214cfcc9165af25ab142ff2"
+  },
+  "files": [
+    {
+      "path": "EnsuredUI/src/components/SectionToolbar/index.tsx",
+      "sha256": "e8c045fc4deab97d10dbbcdcd3f5f8706c1951affc61ef60230f15681d4c8c32"
+    },
+    {
+      "path": "EnsuredUI/src/components/SectionToolbar/interaction.ts",
+      "sha256": "516369177611a9c93aaae7b8201bfa498977bdd7012b42cf8f2fbb85e35cee76"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/FacilitiesPage.tsx",
+      "sha256": "ede2eef3a800cbda6f216fa26173fe9ed4f8489e7c1484cb6110bf40057582b8"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/FacilityApprovals.tsx",
+      "sha256": "ed0b1c2c52e4e8f7cf2d200e5b90c4fe91b0b77c464d35a478c8b52e08865f93"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/FacilityRequests.tsx",
+      "sha256": "168e5fe8c9ecb9491ce32233c16f31dfadccb8a996a7dc2c881817e7d47b4a4f"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/CommercialActivity.tsx",
+      "sha256": "6bc3ab3c256e204da4aa3be5cb0fe2a329ad5b96ba32d99da913f36d96751952"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/RetrocessionDashboard.tsx",
+      "sha256": "b91501ea133e27e7406cfbb17e34e634930306f2b82adb8714b29e9a14c001cb"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/CommercialWorkspace.tsx",
+      "sha256": "d338adfa57b3ed63766d566e57209581b30304a0356f15dffbb371aa6a34badc"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/CommercialPalette.stories.tsx",
+      "sha256": "597926661cffb0684d1750e31c1017a2264236506dc930e7b349fec132e87f0d"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Commercial/FilterPanels.stories.tsx",
+      "sha256": "104eab06d6605d165fba616a0ea363c1b9128f1d5c62177a9064823f76d06e68"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Parties/PartiesPage.tsx",
+      "sha256": "df121a2fa0c40af73a9ad41c33869227c7c2ad39b4a581f7faf81a52363928d9"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Parties/FinancialPartiesPage.tsx",
+      "sha256": "d321af1bd4bc5768bb9c5d92baf5c23439a966e6370ac2430ecf2246dcd8b008"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Parties/Parties.stories.tsx",
+      "sha256": "5aca36c9775e1e915c68c7291d42dc9b18fe58113930b810aba56436b40fa031"
+    },
+    {
+      "path": "EnsuredUI/src/Pages/Parties/partyStoryFixture.ts",
+      "sha256": "fc983b131583c64c6a57cebf991ca427b36ed81761585718eabec56fde4b6fd6"
+    },
+    {
+      "path": "EnsuredUI/package.json",
+      "sha256": "1e0ffe331f1343eb559c25f1cc9ede405ca8b04841d9b60dae39f015e1ce5319"
+    },
+    {
+      "path": "EnsuredUI/package-lock.json",
+      "sha256": "44502d3f017fb66bf863a5345c5930ce84c1b97b81a031e8860b634d445282d4"
+    },
+    {
+      "path": "EnsuredLogistics/app/logistics/LogisticsApp.tsx",
+      "sha256": "a2c1b6803b92a224594303e07db7e96d45c05fec796aac640204397cc83fe086"
+    },
+    {
+      "path": "EnsuredLogistics/app/logistics/Logistics.stories.tsx",
+      "sha256": "cef40b3853303e95d701941362497cf3e69f06ef599e7a80aaf053203675a83b"
+    },
+    {
+      "path": "EnsuredLogistics/app/globals.css",
+      "sha256": "891b41877a4e00f9c25455c802ce8951288920e78762a203477c4d8cb89c0df0"
+    }
+  ],
+  "note": "Host and Logistics source changes remain local among pre-existing changes; hashes identify verified files. Package source release commits pushed.",
+  "snapshotId": "15f85c7cb12f876bb1cb5835d34c5685ccba7afe039a665a70ad691d0fffac2b"
+}

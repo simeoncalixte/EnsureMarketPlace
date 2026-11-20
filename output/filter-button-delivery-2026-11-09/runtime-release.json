@@ -1,0 +1,40 @@
+{
+  "packages": {
+    "marketplace": {
+      "version": "0.1.4",
+      "linked": false
+    },
+    "network": {
+      "version": "0.1.4",
+      "linked": false
+    },
+    "xds": {
+      "version": "0.1.2",
+      "linked": false
+    }
+  },
+  "endpoints": {
+    "http://localhost:3002/health": 200,
+    "http://localhost:3000": 200,
+    "http://localhost:3002/marketplace": 200,
+    "http://localhost:3011/ready": 200
+  },
+  "frontendState": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 69585,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-11-09T19:31:18.081150382Z",
+    "FinishedAt": "0001-01-01T00:00:00Z"
+  },
+  "localOnly": true,
+  "migrations": "none",
+  "standaloneLogistics": "source/fixtures verified; not deployed",
+  "routeChecks": 20,
+  "sourceSnapshot": "15f85c7cb12f876bb1cb5835d34c5685ccba7afe039a665a70ad691d0fffac2b"
+}

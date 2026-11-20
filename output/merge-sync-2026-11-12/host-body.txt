@@ -1,0 +1,3 @@
+Pin the published AuthUI 0.1.3 release, built with XDS 0.1.2, and update registry integrity in the lockfile.
+
+Verification: production build and dashboard unit tests pass. Package installation uses the registry without source overrides. Part of the requested package update and parent-main sync; no new workflow or deployment.

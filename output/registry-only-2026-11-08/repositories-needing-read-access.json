@@ -1,0 +1,157 @@
+[
+  {
+    "repository": "simeoncalixte/EnsuredPipelineShared",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-constants"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineIngestionAmqp",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineIngestion",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared",
+      "@simeoncalixte/ensured-pipeline-ingestion-amqp"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineOcr",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineClassification",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineExtraction",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineSubjectDiscovery",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared",
+      "@simeoncalixte/ensured-pipeline-classification"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineFinancialDiscovery",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared",
+      "@simeoncalixte/ensured-pipeline-subject-discovery"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineLocationDiscovery",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared",
+      "@simeoncalixte/ensured-pipeline-subject-discovery"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineNormalization",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineValidation",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-normalization",
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineSchemaGeneration",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-constants",
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelinePreRating",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineCapacity",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared",
+      "@simeoncalixte/ensured-pipeline-validation"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineOracleAttestation",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineWorkflow",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared",
+      "@simeoncalixte/ensured-pipeline-validation"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineRiskCompute",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredPipelineStorageSearch",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-pipeline-shared"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredAuthUI",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-xds"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredMarketplace",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-xds"
+    ]
+  },
+  {
+    "repository": "simeoncalixte/EnsuredNetwork",
+    "secret": "PACKAGES_READ_TOKEN",
+    "needsReadAccessTo": [
+      "@simeoncalixte/ensured-xds"
+    ]
+  }
+]

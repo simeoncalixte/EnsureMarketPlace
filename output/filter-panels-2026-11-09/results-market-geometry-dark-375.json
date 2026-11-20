@@ -1,0 +1,17 @@
+[
+  {
+    "id": "marketplace-experience--taxonomy-interaction",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "marketplace-experience--taxonomy-interaction",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

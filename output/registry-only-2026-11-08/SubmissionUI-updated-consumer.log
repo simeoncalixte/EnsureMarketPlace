@@ -1,0 +1,43 @@
+
+up to date, audited 132 packages in 2s
+
+12 packages are looking for funding
+  run `npm fund` for details
+
+9 vulnerabilities (1 low, 3 moderate, 5 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+added 131 packages, and audited 132 packages in 6s
+
+12 packages are looking for funding
+  run `npm fund` for details
+
+9 vulnerabilities (1 low, 3 moderate, 5 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> submission-ui@0.1.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 55 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-DKT0IqsA.css   15.83 kB │ gzip:  3.57 kB
+dist/assets/index-W79yNd8o.js   261.60 kB │ gzip: 82.64 kB
+✓ built in 951ms

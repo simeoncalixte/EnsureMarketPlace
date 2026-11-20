@@ -1,0 +1,26 @@
+[
+  {
+    "id": "10000",
+    "filename": "before-marketplace-1440x1000-closed.png",
+    "bytes": 100314,
+    "matchesLocal": true
+  },
+  {
+    "id": "10001",
+    "filename": "before-marketplace-1440x1000-open.png",
+    "bytes": 111041,
+    "matchesLocal": true
+  },
+  {
+    "id": "10002",
+    "filename": "before-marketplace-375x1000-closed.png",
+    "bytes": 93369,
+    "matchesLocal": true
+  },
+  {
+    "id": "10003",
+    "filename": "before-marketplace-375x1000-open.png",
+    "bytes": 47703,
+    "matchesLocal": true
+  }
+]

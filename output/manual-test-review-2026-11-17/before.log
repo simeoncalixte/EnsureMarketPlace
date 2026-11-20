@@ -1,0 +1,21 @@
+PASS EnsuredAPI/test/manual/submissionDocuments.test.ts
+PASS EnsuredAPI/test/manual/underwritingDashboard.test.ts
+PASS EnsuredAPI/test/manual/submissionFilters.test.ts
+PASS EnsuredAPI/test/manual/documentType.db.test.ts
+PASS EnsuredAPI/test/manual/documentProcessing.test.ts
+PASS EnsuredAPI/test/manual/manualSubmission.integration.test.ts
+PASS EnsuredAPI/test/manual/submissionFilterRoute.test.ts
+PASS EnsuredAPI/test/manual/manualSubmission.test.ts
+PASS EnsuredAPI/test/manual/submissionService.test.ts
+PASS EnsuredAPI/test/manual/manualSubmissionFields.test.ts
+PASS EnsuredAPI/test/manual/retireCanonical.integration.test.ts
+PASS EnsuredAPI/test/manual/submissionCreation.test.ts
+PASS EnsuredAPI/test/manual/complexSubmissionExamples.test.ts
+
+Test Suites: 13 passed, 13 total
+Tests:       129 passed, 129 total
+Snapshots:   0 total
+Time:        5.852 s
+Ran all test suites matching /\/test\/manual\//i.
+Test results written to: output/manual-test-review-2026-11-17/before.json
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

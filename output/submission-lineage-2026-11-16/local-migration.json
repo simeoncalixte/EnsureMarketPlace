@@ -1,0 +1,76 @@
+{
+  "executed": [],
+  "before": {
+    "documents": {
+      "count": 1,
+      "digest": "e6fc6b26fd8cd1c0d7f0b0e3f9c56984"
+    },
+    "commercial_capacity_entries": {
+      "count": 8,
+      "digest": "ee0cb13779761761bb3ae7b7d683974d"
+    },
+    "submissions": {
+      "count": 1,
+      "digest": "23eb1a6c16b11596254fddfced1c2544"
+    },
+    "reinsurance_placements": {
+      "count": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+  },
+  "after": {
+    "documents": {
+      "count": 1,
+      "digest": "e6fc6b26fd8cd1c0d7f0b0e3f9c56984"
+    },
+    "commercial_capacity_entries": {
+      "count": 8,
+      "digest": "ee0cb13779761761bb3ae7b7d683974d"
+    },
+    "submissions": {
+      "count": 1,
+      "digest": "23eb1a6c16b11596254fddfced1c2544"
+    },
+    "reinsurance_placements": {
+      "count": 0,
+      "digest": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+  },
+  "unchangedDuringVerification": true,
+  "preservationEvidence": "Original-field equality established in disposable legacy migration tests. Local migrations auto-applied by API development watcher before a pre-migration fingerprint could be captured; local document and capacity row counts remain 1 and 8.",
+  "constraints": [
+    {
+      "conname": "capacity_source_placement_fk",
+      "convalidated": true
+    },
+    {
+      "conname": "documents_submission_lineage_fk",
+      "convalidated": true
+    },
+    {
+      "conname": "placement_submission_owner_fk",
+      "convalidated": true
+    }
+  ],
+  "recorded": [
+    {
+      "name": "20261116000000-document-submission-lineage.ts"
+    },
+    {
+      "name": "20261116010000-capacity-submission-lineage.ts"
+    },
+    {
+      "name": "20261116020000-reconcile-capacity-lineage-ownership.ts"
+    }
+  ],
+  "remaining": [],
+  "repeatedCount": 0,
+  "lineage": [
+    {
+      "source_kind": "external_or_unresolved",
+      "count": 8
+    }
+  ],
+  "environment": "local localhost:5432/ensured_marketplace",
+  "productionDeployment": false
+}

@@ -1,0 +1,49 @@
+{
+  "scope": "Local implementation only; user explicitly deferred publishing",
+  "ticket": "AIN-205",
+  "api": {
+    "check": "npm --prefix EnsuredAPI run format && npm --prefix EnsuredAPI run check",
+    "passed": true,
+    "tests": 137,
+    "suites": 16,
+    "skipped": 0,
+    "result": "final-api-regression.json"
+  },
+  "packages": {
+    "source_builds": [
+      "Shared",
+      "Normalization",
+      "RiskCompute",
+      "SchemaGeneration"
+    ],
+    "tests": {
+      "Shared reader": 4,
+      "Normalization": 35,
+      "RiskCompute": 219,
+      "SchemaGeneration persistence": 2
+    },
+    "changed_source_eslint": "passed; typescript-eslint recommended with legacy-package allowances",
+    "changed_source_prettier": "passed",
+    "gaps": [
+      "Shared and SchemaGeneration test-inclusive typechecks fail identically before and after this change",
+      "Libraries have no package-wide ESLint/Prettier scripts; changed-source checks run separately",
+      "Feedback has no lint/format/typecheck scripts; syntax build and all 28 tests including PostgreSQL history tested"
+    ]
+  },
+  "live": "live-revisions.json: separate disposable API and Feedback databases, real HTTP, edit/restore, tenant isolation, append-only history and outage fail-closed",
+  "root": "workspace:check passed; new verification script checked separately",
+  "source_hashes_verified": true,
+  "deployment": {
+    "registry_publish": "deferred by user",
+    "consumer_manifests_and_lockfiles": "unchanged pending registry release",
+    "application_database": "not migrated",
+    "production": "not deployed",
+    "commits_and_merges": "none"
+  },
+  "remaining": "Local source work complete. User-deferred release requires compatible package versions, consumer lockfiles, migration and application rollout. AIN-206 and broader parent criteria remain open.",
+  "jira": {
+    "local_task": "AIN-205 Done",
+    "existing_check_gap": "AIN-206 To Do",
+    "evidence_attachments": 6
+  }
+}

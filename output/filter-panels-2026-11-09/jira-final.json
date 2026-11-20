@@ -1,0 +1,585 @@
+{
+  "AIN-162": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10485",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10485",
+    "key": "AIN-162",
+    "fields": {
+      "summary": "[UI] Host all application filter sections in the standard right-hand panel",
+      "parent": {
+        "id": "10230",
+        "key": "AIN-1",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10230",
+        "fields": {
+          "summary": "[Ensured] Establish a reproducible, operable platform release",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "subtasks": [
+        {
+          "id": "10486",
+          "key": "AIN-163",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10486",
+          "fields": {
+            "summary": "[Filters] Extract reusable standard right-hand filter panel",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10487",
+          "key": "AIN-164",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10487",
+          "fields": {
+            "summary": "[Filters] Migrate every application filter section",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        },
+        {
+          "id": "10488",
+          "key": "AIN-165",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10488",
+          "fields": {
+            "summary": "[Filters] Verify and run shared filter panels in Docker",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10034",
+              "id": "10034",
+              "description": "Subtasks track small pieces of work that are part of a larger task.",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10316?size=medium",
+              "name": "Subtask",
+              "subtask": true,
+              "avatarId": 10316,
+              "entityId": "921d0e91-b959-448b-9add-8c49e6eb16ce",
+              "hierarchyLevel": -1
+            }
+          }
+        }
+      ],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-163": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10486",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10486",
+    "key": "AIN-163",
+    "fields": {
+      "summary": "[Filters] Extract reusable standard right-hand filter panel",
+      "parent": {
+        "id": "10485",
+        "key": "AIN-162",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10485",
+        "fields": {
+          "summary": "[UI] Host all application filter sections in the standard right-hand panel",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10037",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-164": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10487",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10487",
+    "key": "AIN-164",
+    "fields": {
+      "summary": "[Filters] Migrate every application filter section",
+      "parent": {
+        "id": "10485",
+        "key": "AIN-162",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10485",
+        "fields": {
+          "summary": "[UI] Host all application filter sections in the standard right-hand panel",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10037",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-165": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10488",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10488",
+    "key": "AIN-165",
+    "fields": {
+      "summary": "[Filters] Verify and run shared filter panels in Docker",
+      "parent": {
+        "id": "10485",
+        "key": "AIN-162",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10485",
+        "fields": {
+          "summary": "[UI] Host all application filter sections in the standard right-hand panel",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "Done",
+            "id": "10037",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+              "id": 3,
+              "key": "done",
+              "colorName": "green",
+              "name": "Done"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10036",
+            "id": "10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium",
+            "name": "Story",
+            "subtask": false,
+            "avatarId": 10315,
+            "entityId": "67a1573a-8a66-4727-992a-e35379f9ff21",
+            "hierarchyLevel": 0
+          }
+        }
+      },
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-166": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10489",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10489",
+    "key": "AIN-166",
+    "fields": {
+      "summary": "[Storybook] Restore email ingestion success assertion corrupted by palette substitution",
+      "parent": {
+        "id": "10230",
+        "key": "AIN-1",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10230",
+        "fields": {
+          "summary": "[Ensured] Establish a reproducible, operable platform release",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-167": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10490",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10490",
+    "key": "AIN-167",
+    "fields": {
+      "summary": "[Local Docker] Preserve internal-only PostgreSQL override in API/frontend watcher",
+      "parent": {
+        "id": "10230",
+        "key": "AIN-1",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10230",
+        "fields": {
+          "summary": "[Ensured] Establish a reproducible, operable platform release",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "Done",
+        "id": "10037",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      }
+    }
+  },
+  "AIN-79": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10350",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10350",
+    "key": "AIN-79",
+    "fields": {
+      "summary": "[Marketplace] Find opportunities using effective filters and sorting",
+      "parent": {
+        "id": "10237",
+        "key": "AIN-8",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10237",
+        "fields": {
+          "summary": "[Ensured] Make marketplace discovery and investment actions functional",
+          "status": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+            "name": "To Do",
+            "id": "10036",
+            "statusCategory": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+            "id": "10035",
+            "description": "",
+            "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+            "name": "Epic",
+            "subtask": false,
+            "avatarId": 10307,
+            "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+            "hierarchyLevel": 1
+          }
+        }
+      },
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "To Do",
+        "id": "10036",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  },
+  "AIN-1": {
+    "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+    "id": "10230",
+    "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10230",
+    "key": "AIN-1",
+    "fields": {
+      "summary": "[Ensured] Establish a reproducible, operable platform release",
+      "subtasks": [],
+      "status": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+        "description": "",
+        "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+        "name": "To Do",
+        "id": "10036",
+        "statusCategory": {
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "To Do"
+        }
+      }
+    }
+  }
+}

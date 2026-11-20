@@ -1,0 +1,34 @@
+
+> @simeoncalixte/ensured-marketplace@0.1.3 test:interactions
+> playwright test
+
+[WebServer] (node:63733) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:63764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 17 tests using 2 workers
+
+(node:63770) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:63771) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 test/participation.spec.ts:12:3 › AIN-78/84 interaction confirm-pending (478ms)
+  ✓   2 test/stories.spec.ts:3:3 › Storybook interaction: pinned-publication (557ms)
+  ✓   3 test/participation.spec.ts:12:3 › AIN-78/84 interaction lost-response-retry (444ms)
+  ✓   4 test/stories.spec.ts:3:3 › Storybook interaction: stale-publication (510ms)
+  ✓   5 test/participation.spec.ts:12:3 › AIN-78/84 interaction denied (182ms)
+  ✓   7 test/participation.spec.ts:12:3 › AIN-78/84 interaction stale (439ms)
+  ✓   6 test/stories.spec.ts:3:3 › Storybook interaction: unverified-funding (516ms)
+  ✓   8 test/participation.spec.ts:12:3 › AIN-78/84 interaction error-retry (193ms)
+  ✓  10 test/participation.spec.ts:12:3 › AIN-78/84 interaction loading (194ms)
+  ✓   9 test/stories.spec.ts:3:3 › Storybook interaction: network-handoff (517ms)
+  ✓  11 test/participation.spec.ts:12:3 › AIN-78/84 interaction validation (430ms)
+  ✓  12 test/stories.spec.ts:3:3 › Storybook interaction: browse (689ms)
+  ✓  13 test/participation.spec.ts:12:3 › AIN-78/84 interaction reviewer (951ms)
+  ✓  14 test/stories.spec.ts:3:3 › Storybook interaction: taxonomy-interaction (2.0s)
+  ✓  15 test/stories.spec.ts:3:3 › Storybook interaction: empty (519ms)
+  ✓  16 test/stories.spec.ts:3:3 › Storybook interaction: error (508ms)
+  ✓  17 test/stories.spec.ts:3:3 › Storybook interaction: loading (515ms)
+
+  17 passed (7.7s)

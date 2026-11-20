@@ -1,0 +1,322 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10350",
+  "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10350",
+  "key": "AIN-79",
+  "fields": {
+    "summary": "[Marketplace] Find opportunities using effective filters and sorting",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "As a marketplace visitor, I want supported filters and sorting to change the authorized inventory consistently so I can find relevant opportunities."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance: inspect currently rendered map/deals/table paths, then connect every supported taxonomy/duration/yield/sort control to results; preserve Network deal/tranche context; consistent empty/loading/error states across views; malformed/nullable payload fields do not produce misleading map positions or counts; keyboard and narrow-screen behavior are verified."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Interaction coverage: extend current Browse, TaxonomyInteraction, Empty, Error, Loading and NetworkHandoff stories with actual result assertions, plus API contract fixtures. Source REVIEW.md is a lead to validate, not proof that every old finding is still user-visible."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Discovery scope: EnsuredNetwork backend/frontend/contracts and EnsuredMarketplace package, plus EnsuredUI host, EnsuredAPI projections/commercial workflows and EnsuredAuth gateway. Source review is recorded in docs/data-models/network-marketplace-discovery.md. Existing profiles, social interactions, publication adapters and deal/tranche deep links must be reused. Their presence is code-reviewed, not fresh proof of end-to-end acceptance."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Definition of Done: every child story has actor/intent/benefit and acceptance evidence; all required dependencies and subtasks are reconciled before epic closure. Extend existing Storybook play stories with success, validation, denied/revoked, empty/loading/error and retry cases as relevant. Maintain ticket-to-story mapping. Mocked UI evidence must be accompanied by isolated real-service tests for persistence, identity, tenant isolation and authorization. Record test commands/results and deployment status. No production writes are part of this planning task."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Persona feedback reconciliation \u2014 2026-11-04"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Feedback coverage"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "B4, B5; numbering follows the user conversation."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "For market-suitability discovery, show the declared matching criteria, source and last-reviewed/as-of date. Unknown or stale appetite cannot be represented as confirmed willingness to quote. Preserve private appetite and distinguish marketplace opportunity discovery from reinsurer approach decisions."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Definition of Done for this story"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "All acceptance criteria and the story-specific verification scenario pass; link implementation tasks/PRs and record the reviewed source/package versions. A partial component or newly created ticket does not satisfy this story."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Every changed UI workflow has executable Storybook play functions asserting user actions, observable results and exact submitted payloads, including success, validation, failure/retry, empty/loading, pagination and permission/revocation states where applicable. Document a reason for any nonapplicable state. Include keyboard and narrow-screen checks."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Fixture stories use isolated synthetic transports with accidental application writes blocked. Also run authenticated real-service journeys against isolated Docker databases/services for authorization, durable state, concurrency, idempotency and relevant money invariants. Backend-only work uses integration evidence linked to this story, not artificial UI."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Attach ticket \u2192 component \u2192 Storybook story IDs \u2192 command/results mapping, regression evidence, API/database checks and known coverage gaps to Jira and TASK_HANDOFF.md. New failures have linked bug tickets and regressions; no unresolved failure of an acceptance criterion permits Done."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Reconcile all required dependencies and subtasks. Record migration/backfill compatibility and rollback results when schemas change. Demonstrate the workflow in the integrated staging environment, identifying deployed build and service versions; local checks alone are not staging evidence. Production deployment remains a separate release gate under AIN-1/12."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "For external-system or monetary settlement claims, attach configured vendor/provider-sandbox evidence and matched reconciliation; simulated events or manually recorded receipts cannot establish external delivery or settled cash."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Scope"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Preserve the original acceptance criteria and implementation ownership. This update adds clarity, not a Done transition."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": {
+            "level": 2
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Single-developer sprint sequence \u2014 2026-11-04"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Target candidate: AIN S34 | Effective market discovery (Jira sprint 69)."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Sprint outcome: Make supported Marketplace filtering/sorting effective and explain source freshness for matching."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Exit evidence: Map/list/table inventory agrees under filters; unknown/stale appetite is not represented as willingness to quote; permissions and exact source links hold."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Planning envelope: 6 implementation days + 2 integrated verification days + 1 review/refinement day + 1 contingency day; not measured velocity. One primary outcome in progress; at most two closely related workflow slices. Story/task pairs share effort, not double-counted work."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Existing active sprint remains active with original dates; only its goal/name and unfinished membership are reorganized. Every new sprint is future and undated. No fabricated story-point/time estimates or assignees. The ordered slots are a provisional work breakdown, not a fixed delivery forecast. Before activation, split any candidate exceeding six implementation days and verify reviewer/provider readiness; preserve all parent acceptance criteria."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Scheduling is not implementation: original AC/DoD and parent scope are unchanged. Related story/task/subtask effort is one delivery slice, not additive capacity. Required domain slices can be delivered earlier than the broader owner completion sprint; no broader item is Done until all original requirements pass."
+            }
+          ]
+        }
+      ]
+    },
+    "issuelinks": [
+      {
+        "id": "10151",
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLink/10151",
+        "type": {
+          "id": "10003",
+          "name": "Relates",
+          "inward": "relates to",
+          "outward": "relates to",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issueLinkType/10003"
+        },
+        "outwardIssue": {
+          "id": "10343",
+          "key": "AIN-72",
+          "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10343",
+          "fields": {
+            "summary": "[Network / Marketplace] Complete published-opportunity participation journeys",
+            "status": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10037",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+              "name": "Done",
+              "id": "10037",
+              "statusCategory": {
+                "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issuetype/10035",
+              "id": "10035",
+              "description": "",
+              "iconUrl": "https://simeoncalixte1990.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "2982b803-febe-496e-b316-54e41b016f8b",
+              "hierarchyLevel": 1
+            }
+          }
+        }
+      }
+    ],
+    "subtasks": [],
+    "status": {
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/status/10036",
+      "description": "",
+      "iconUrl": "https://simeoncalixte1990.atlassian.net/images/icons/statuses/generic.png",
+      "name": "To Do",
+      "id": "10036",
+      "statusCategory": {
+        "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/statuscategory/2",
+        "id": 2,
+        "key": "new",
+        "colorName": "blue-gray",
+        "name": "To Do"
+      }
+    }
+  }
+}

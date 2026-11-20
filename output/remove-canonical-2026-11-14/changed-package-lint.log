@@ -1,0 +1,51 @@
+
+/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/canonicalize/deriveLob.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/canonicalize/service.test.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/canonicalize/service.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/normalization/service.error.test.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/normalization/service.slice3.test.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineNormalization/src/pipeline/normalization/service.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineRiskCompute/src/pipeline/catastrophe/service.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineRiskCompute/src/pipeline/compute/service.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineRiskCompute/src/pipeline/parametric/definition.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineSchemaGeneration/src/pipeline/test/schemaFieldPersistence.test.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineShared/src/db/models/index.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineShared/src/db/models/ingestion.models.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/deriveLob.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/schema/compile.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/submissionData.test.ts
+  0:0  warning  File ignored because outside of base path
+
+/tmp/canonical-removal/EnsuredPipelineShared/src/pipeline/submissionData.ts
+  0:0  warning  File ignored because outside of base path
+
+✖ 16 problems (0 errors, 16 warnings)
+

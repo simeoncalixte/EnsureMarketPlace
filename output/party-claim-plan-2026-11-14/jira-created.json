@@ -1,0 +1,612 @@
+{
+  "issues": {
+    "entities": {
+      "id": "10508",
+      "key": "AIN-185",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10508",
+      "summary": "[Parties] Capture off-platform entities and associate them with submissions"
+    },
+    "claims": {
+      "id": "10509",
+      "key": "AIN-186",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10509",
+      "summary": "[Identity] Claim entities and verify organizational representation end-to-end"
+    },
+    "contract": {
+      "id": "10510",
+      "key": "AIN-187",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10510",
+      "summary": "[Party onboarding] Define versioned unclaimed-party and claim contracts"
+    },
+    "capture": {
+      "id": "10511",
+      "key": "AIN-188",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10511",
+      "summary": "[Submission parties] Capture required identity and contact details"
+    },
+    "captureimpl": {
+      "id": "10512",
+      "key": "AIN-189",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10512",
+      "summary": "Implement and verify: Capture required identity and contact details"
+    },
+    "persist": {
+      "id": "10513",
+      "key": "AIN-190",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10513",
+      "summary": "[Party registry] Create unclaimed entities and durable submission associations safely"
+    },
+    "persistimpl": {
+      "id": "10514",
+      "key": "AIN-191",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10514",
+      "summary": "Implement and verify: Create unclaimed entities and durable submission associations safely"
+    },
+    "invite": {
+      "id": "10515",
+      "key": "AIN-192",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10515",
+      "summary": "[Party onboarding] Send explicit invitations and verify contact possession"
+    },
+    "inviteimpl": {
+      "id": "10516",
+      "key": "AIN-193",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10516",
+      "summary": "Implement and verify: Send explicit invitations and verify contact possession"
+    },
+    "orgclaim": {
+      "id": "10517",
+      "key": "AIN-194",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10517",
+      "summary": "[Organization claim] Request verified representation with scoped evidence"
+    },
+    "orgclaimimpl": {
+      "id": "10518",
+      "key": "AIN-195",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10518",
+      "summary": "Implement and verify: Request verified representation with scoped evidence"
+    },
+    "review": {
+      "id": "10519",
+      "key": "AIN-196",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10519",
+      "summary": "[Organization review] Approve or reject authority without granting financial powers"
+    },
+    "reviewimpl": {
+      "id": "10520",
+      "key": "AIN-197",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10520",
+      "summary": "Implement and verify: Approve or reject authority without granting financial powers"
+    },
+    "individual": {
+      "id": "10521",
+      "key": "AIN-198",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10521",
+      "summary": "[Individual claim] Link a person to their own unclaimed identity"
+    },
+    "individualimpl": {
+      "id": "10522",
+      "key": "AIN-199",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10522",
+      "summary": "Implement and verify: Link a person to their own unclaimed identity"
+    },
+    "govern": {
+      "id": "10523",
+      "key": "AIN-200",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10523",
+      "summary": "[Organization access] Manage verified administrators, revocation and recovery"
+    },
+    "governimpl": {
+      "id": "10524",
+      "key": "AIN-201",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10524",
+      "summary": "Implement and verify: Manage verified administrators, revocation and recovery"
+    },
+    "release": {
+      "id": "10525",
+      "key": "AIN-202",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10525",
+      "summary": "[Party onboarding] Verify migration and end-to-end claims before rollout"
+    },
+    "releaseimpl": {
+      "id": "10526",
+      "key": "AIN-203",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10526",
+      "summary": "Implement and verify: Verify migration and end-to-end claims before rollout"
+    },
+    "fixtures": {
+      "id": "10527",
+      "key": "AIN-204",
+      "self": "https://simeoncalixte1990.atlassian.net/rest/api/3/issue/10527",
+      "summary": "[Submission examples] Add typed unclaimed organization and individual contact fixtures"
+    }
+  },
+  "links": [
+    "AIN-190 Blocks AIN-188",
+    "AIN-187 Blocks AIN-190",
+    "AIN-190 Blocks AIN-192",
+    "AIN-192 Blocks AIN-194",
+    "AIN-194 Blocks AIN-196",
+    "AIN-192 Blocks AIN-198",
+    "AIN-196 Blocks AIN-200",
+    "AIN-198 Blocks AIN-200",
+    "AIN-188 Blocks AIN-202",
+    "AIN-200 Blocks AIN-202",
+    "AIN-185 Relates AIN-59",
+    "AIN-185 Relates AIN-56",
+    "AIN-187 Relates AIN-48",
+    "AIN-187 Relates AIN-59",
+    "AIN-186 Relates AIN-70",
+    "AIN-186 Relates AIN-73",
+    "AIN-186 Relates AIN-74",
+    "AIN-196 Relates AIN-92",
+    "AIN-196 Relates AIN-29",
+    "AIN-204 Relates AIN-184",
+    "AIN-185 Relates AIN-186",
+    "AIN-204 Relates AIN-188"
+  ],
+  "attachments": {
+    "AIN-185": [
+      {
+        "id": "10088",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10088",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10089",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10089",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10090",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10090",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10091",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10091",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-186": [
+      {
+        "id": "10092",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10092",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10093",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10093",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10094",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10094",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10095",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10095",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-188": [
+      {
+        "id": "10096",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10096",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10097",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10097",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10098",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10098",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10099",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10099",
+        "size": 401612,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10100",
+        "filename": "Before-register-individual-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10100",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10101",
+        "filename": "Before-register-individual-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10101",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-189": [
+      {
+        "id": "10102",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10102",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10103",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10103",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10104",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10104",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10105",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10105",
+        "size": 401612,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10106",
+        "filename": "Before-register-individual-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10106",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10107",
+        "filename": "Before-register-individual-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10107",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-192": [
+      {
+        "id": "10108",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10108",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10109",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10109",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10110",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10110",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10111",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10111",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-193": [
+      {
+        "id": "10112",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10112",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10113",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10113",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10114",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10114",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10115",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10115",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-194": [
+      {
+        "id": "10116",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10116",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10117",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10117",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10118",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10118",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10119",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10119",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-195": [
+      {
+        "id": "10120",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10120",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10121",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10121",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10122",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10122",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10123",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10123",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-196": [
+      {
+        "id": "10124",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10124",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10125",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10125",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10126",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10126",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10127",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10127",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-197": [
+      {
+        "id": "10128",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10128",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10129",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10129",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10130",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10130",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10131",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10131",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-198": [
+      {
+        "id": "10132",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10132",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10133",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10133",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10134",
+        "filename": "Before-register-individual-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10134",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10135",
+        "filename": "Before-register-individual-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10135",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-199": [
+      {
+        "id": "10136",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10136",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10137",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10137",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10138",
+        "filename": "Before-register-individual-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10138",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10139",
+        "filename": "Before-register-individual-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10139",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-200": [
+      {
+        "id": "10140",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10140",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10141",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10141",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10142",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10142",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10143",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10143",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-201": [
+      {
+        "id": "10144",
+        "filename": "Before-directory-search-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10144",
+        "size": 256123,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10145",
+        "filename": "Before-directory-search-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10145",
+        "size": 247669,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10146",
+        "filename": "Before-register-organization-1440x1000.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10146",
+        "size": 426201,
+        "verifiedAccessible": true
+      },
+      {
+        "id": "10147",
+        "filename": "Before-register-organization-390x844.png",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10147",
+        "size": 401612,
+        "verifiedAccessible": true
+      }
+    ],
+    "AIN-204": [
+      {
+        "id": "10148",
+        "filename": "verification.json",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10148",
+        "size": 1445
+      },
+      {
+        "id": "10149",
+        "filename": "test-results.json",
+        "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10149",
+        "size": 18001
+      }
+    ]
+  }
+}

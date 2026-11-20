@@ -1,0 +1,27 @@
+
+> ensured-api@0.1.0 check
+> npm run typecheck && npm run check:type-safety && npm run check:contracts && npm run lint && npm run format:check
+
+
+> ensured-api@0.1.0 typecheck
+> tsc -p tsconfig.typecheck.json --noEmit && tsc -p tsconfig.all.json
+
+
+> ensured-api@0.1.0 check:type-safety
+> node scripts/check-type-safety.cjs
+
+EnsuredAPI source, migrations, tests, and scripts: { casts: 0, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+
+> ensured-api@0.1.0 check:contracts
+> node scripts/generate-form-schema.cjs --check && node scripts/generate-test-contracts.cjs --check && node scripts/generate-seed-contracts.cjs --check
+
+
+> ensured-api@0.1.0 lint
+> eslint "src/**/*.ts" "test/**/*.ts" "scripts/**/*.ts" "scripts/*.cjs" "*.cjs" --max-warnings 0
+
+
+> ensured-api@0.1.0 format:check
+> prettier --check "src/**/*.ts" "test/**/*.ts" "scripts/**/*.ts" "scripts/*.cjs" "*.cjs" package.json eslint.config.mjs .prettierrc.json
+
+Checking formatting...
+All matched files use Prettier code style!

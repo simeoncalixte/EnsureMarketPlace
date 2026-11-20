@@ -1,0 +1,17 @@
+[
+  {
+    "id": "network-fixtures--discovery-filters",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "network-fixtures--discovery-filters",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

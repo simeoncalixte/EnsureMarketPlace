@@ -1,0 +1,17 @@
+PASS EnsuredAPI/src/pipeline/schemaGeneration/service.test.ts
+PASS EnsuredAPI/src/pipeline/schemaGeneration/route.access.test.ts
+PASS EnsuredAPI/src/pipeline/schemaGeneration/versions.test.ts
+PASS EnsuredAPI/test/manual/manualSubmissionFields.test.ts
+PASS EnsuredAPI/test/manual/manualSubmission.integration.test.ts
+PASS EnsuredAPI/test/manual/submissionService.test.ts
+PASS EnsuredAPI/test/manual/complexSubmissionExamples.test.ts
+PASS EnsuredAPI/test/manual/manualSubmission.test.ts
+PASS EnsuredAPI/test/manual/submissionCreation.test.ts
+
+Test Suites: 9 passed, 9 total
+Tests:       97 passed, 97 total
+Snapshots:   0 total
+Time:        6.398 s, estimated 8 s
+Ran all test suites within paths "EnsuredAPI/test/manual/manualSubmission.test.ts", "EnsuredAPI/test/manual/manualSubmission.integration.test.ts", "EnsuredAPI/test/manual/submissionCreation.test.ts", "EnsuredAPI/test/manual/manualSubmissionFields.test.ts", "EnsuredAPI/test/manual/complexSubmissionExamples.test.ts", "EnsuredAPI/test/manual/submissionService.test.ts", "EnsuredAPI/src/pipeline/schemaGeneration/service.test.ts", "EnsuredAPI/src/pipeline/schemaGeneration/route.access.test.ts", "EnsuredAPI/src/pipeline/schemaGeneration/versions.test.ts".
+Test results written to: output/manual-input-2026-11-17/tests.json
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

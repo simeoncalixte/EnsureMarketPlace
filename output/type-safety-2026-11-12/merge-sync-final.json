@@ -1,0 +1,44 @@
+{
+  "recordedAt": "2026-11-12T16:51:39.155660+00:00",
+  "api": {
+    "mergeCommit": {
+      "oid": "26f87248aa7daed8d065e06c22e74b852710304f"
+    },
+    "mergedAt": "2026-11-12T16:49:21Z",
+    "state": "MERGED",
+    "url": "https://github.com/simeoncalixte/EnsuredAPI/pull/21"
+  },
+  "parent": {
+    "mergeCommit": {
+      "oid": "0a5b0f4f12b65663a2ff12665c7b4e760e5eb208"
+    },
+    "mergedAt": "2026-11-12T16:50:57Z",
+    "state": "MERGED",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-12T16:50:40Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/simeoncalixte/EnsureMarketPlace/actions/runs/43263042802/job/131339124267",
+        "name": "release-parity",
+        "startedAt": "2026-11-12T16:50:36Z",
+        "status": "COMPLETED",
+        "workflowName": "Pipeline release parity"
+      }
+    ],
+    "url": "https://github.com/simeoncalixte/EnsureMarketPlace/pull/79"
+  },
+  "local": {
+    "parentBranch": "main",
+    "apiBranch": "main",
+    "aheadBehind": "0/0 for both",
+    "allSubmodulesOnMain": true,
+    "submodulesMatchPins": true,
+    "submoduleCount": 35,
+    "apiClean": true,
+    "verifiedApiFileHashesMatch": true,
+    "unrelatedFinanceResultsPreserved": true
+  },
+  "deployment": "No runtime rebuild or deployment performed",
+  "ci": "Parent release-parity failed at checkout; missing token. Normal merges, no protection override."
+}

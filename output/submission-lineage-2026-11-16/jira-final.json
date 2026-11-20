@@ -1,0 +1,13 @@
+{
+  "key": "AIN-208",
+  "status": "Done",
+  "attachments": [
+    {
+      "id": "10160",
+      "filename": "AIN-208-lineage-verification.json",
+      "content": "https://simeoncalixte1990.atlassian.net/rest/api/3/attachment/content/10160",
+      "readbackVerified": true
+    }
+  ],
+  "subtasks": []
+}

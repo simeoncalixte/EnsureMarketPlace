@@ -1,0 +1,19 @@
+publish	Run npm ci --include=dev --ignore-scripts	﻿2026-11-08T19:38:58.3863292Z ##[group]Run npm ci --include=dev --ignore-scripts
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:38:58.3864873Z ^[[36;1mnpm ci --include=dev --ignore-scripts^[[0m
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:38:58.3919147Z shell: /usr/bin/bash -e {0}
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:38:58.3920344Z env:
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:38:58.3921426Z   NPM_CONFIG_USERCONFIG: /home/runner/work/_temp/.npmrc
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:38:58.3932276Z   NODE_AUTH_TOKEN: ***
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:38:58.3933250Z ##[endgroup]
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:01.3904916Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:01.5141107Z npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:01.6451741Z npm warn deprecated dottie@2.0.7: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:02.2422781Z npm warn deprecated dommatrix@1.0.3: dommatrix is no longer maintained. Please use @thednp/dommatrix.
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:03.1743058Z npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:10.1340950Z npm error code E403
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:10.1352286Z npm error 403 403 Forbidden - GET https://npm.pkg.github.com/download/@simeoncalixte/ensured-constants/0.1.1/fa5a49b0006b29213939dc8bba199c24b71ee0cf - Permission permission_denied: read_package
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:10.1360533Z npm error 403 In most cases, you or one of your dependencies are requesting
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:10.1380479Z npm error 403 a package version that is forbidden by your security policy, or
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:10.1381643Z npm error 403 on a server you do not have access to.
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:10.1400892Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-11-08T19_38_58_458Z-debug-0.log
+publish	Run npm ci --include=dev --ignore-scripts	2026-11-08T19:39:10.2262235Z ##[error]Process completed with exit code 1.

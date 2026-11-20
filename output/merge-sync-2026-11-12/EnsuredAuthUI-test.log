@@ -1,0 +1,40 @@
+
+> @simeoncalixte/ensured-auth-ui@0.1.3 test
+> npm run build && node --test test/*.test.mjs
+
+
+> @simeoncalixte/ensured-auth-ui@0.1.3 build
+> node scripts/build.mjs
+
+✔ return destinations stay inside the marketplace and avoid account loops (2.010625ms)
+✔ verified-account return links can resume known registration steps (0.112333ms)
+✔ registered non-admin users needing KYC are routed to the forms even before approval (23.440792ms)
+✔ admin and platform admin bypass KYC using server authorization (0.303917ms)
+✔ guests and submitted applicants retain their destination (1.140459ms)
+✔ unverified users reach the email checkpoint without requesting KYC (0.629792ms)
+✔ service failures do not silently skip KYC (0.469084ms)
+✔ email sign-in supplies the requested destination to the host (18.296042ms)
+✔ standalone email sign-in carries returnTo to the account callback (0.457917ms)
+✔ approved OAuth callback automatically returns; normal account visits stay put (4.802084ms)
+✔ pending or unverified accounts do not auto-enter the marketplace (1.653458ms)
+✔ verified registration resumes without marketplace membership; guests retain destination (1.6755ms)
+✔ provider, email verification, and recovery callbacks retain the originating app host (2.755959ms)
+✔ returning registered applicants are shown KYC without needing a registration return link (0.600666ms)
+✔ discovers healthy identity and gateway for live mode (0.572958ms)
+✔ missing or unhealthy identity uses mocks and reports the reason (0.281958ms)
+✔ unreachable registry produces visible mock fallback (0.846708ms)
+✔ discovery authorization errors must not be disguised as passing mocks (0.436375ms)
+✔ bridge keeps discovery token and browser cookies out of live requests; propagates failures (14.505959ms)
+✔ maps only the discovered gateway origin and probes the actual target (0.534417ms)
+✔ unreachable discovered gateway selects an explained mock fallback before live writes (0.152333ms)
+✔ live sign-in requires services and credentials without falling back to fixtures (0.70875ms)
+✔ live sign-in forwards credentials and preserves its isolated server session (1.476833ms)
+✔ full application API forwarding is opt-in and retains upstream authorization failures (1.386875ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 95.1955

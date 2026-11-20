@@ -1,0 +1,19 @@
+
+> @ensured/logistics@0.1.0 test:interactions
+> playwright test
+
+[WebServer] (node:75335) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:75337) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 test/stories.spec.ts:9:3 › Logistics interaction: partner-journey (2.5s)
+  ✓  2 test/stories.spec.ts:9:3 › Logistics interaction: post-load (1.0s)
+  ✓  3 test/stories.spec.ts:9:3 › Logistics interaction: search-and-filter (520ms)
+  ✓  4 test/stories.spec.ts:9:3 › Logistics interaction: error-state (491ms)
+  ✓  5 test/stories.spec.ts:9:3 › Logistics interaction: loading-state (508ms)
+  ✓  6 test/stories.spec.ts:43:1 › WebMCP search contract updates the visible board and rejects invalid input (556ms)
+
+  6 passed (6.4s)

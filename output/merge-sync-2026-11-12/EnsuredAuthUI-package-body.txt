@@ -1,0 +1,5 @@
+Update the pinned XDS registry dependency from 0.1.1 to 0.1.2 and refresh its lockfile integrity. Version AuthUI 0.1.3 to publish the rebuilt registration bundle.
+
+Validation: production build passes. AuthUI unit tests pass.
+
+Part of the user-requested package update and parent-main sync. Existing AIN-161 package delivery context; no new UI workflow or ticket completion claimed.

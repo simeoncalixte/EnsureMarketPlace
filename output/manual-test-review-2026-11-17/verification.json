@@ -1,0 +1,65 @@
+{
+  "ticket": "AIN-211",
+  "baseline": {
+    "tests": 129,
+    "suites": 13,
+    "passed": true
+  },
+  "reviewed": 129,
+  "removed": 6,
+  "retained": 123,
+  "suites": 13,
+  "skipped": 0,
+  "testCommand": "npm --prefix EnsuredAPI run test:manual-submissions",
+  "discovery": "node scripts/test-api.mjs --listTests --testPathPattern /test/manual-submissions/; 13 suites, old directory absent",
+  "integration": {
+    "passed": true,
+    "feedbackTestSummary": [
+      "\u2139 tests 29",
+      "\u2139 pass 29",
+      "\u2139 fail 0",
+      "\u2139 skipped 0"
+    ],
+    "checks": [
+      "feedback full suite with real durable history",
+      "manual API creation/read/edit/restore with zero pipeline evidence",
+      "model removed",
+      "separate API and feedback databases",
+      "actual authenticated HTTP revision read",
+      "edited financial inputs",
+      "no stale normalization fallback",
+      "restore creates new revision/hash",
+      "append-only history",
+      "tenant isolation",
+      "outage fails closed"
+    ]
+  },
+  "checks": {
+    "api": "npm run format then npm run check PASS",
+    "root": "npm run workspace:check PASS; integration runner syntax, ESLint and Prettier PASS"
+  },
+  "scope": "Test-only moves, redundancy cleanup, typechecked manual journey extraction, runner/docs updates. UI/feedback package-owned tests remain linked from common README. No production logic, migrations, deployment or merge.",
+  "sourceHashes": {
+    "EnsuredAPI/test/manual-submissions/underwritingDashboard.test.ts": "9def7f5e95d9e4e2e3d767df57cddac8979103c4f94be007e498646749791739",
+    "EnsuredAPI/test/manual-submissions/submissionFilters.test.ts": "ee1c9d9233830b2186a3499fe491d35e2126db0de1ad86a2d2c28b39e9e6df14",
+    "EnsuredAPI/test/manual-submissions/submissionFilterRoute.test.ts": "31a57e3d42b61c820fb57f967a8e62336454707a250a1cf6c0370ca8aefd966b",
+    "EnsuredAPI/test/manual-submissions/TEST_REVIEW.md": "32b7b303472c62a29bf99e7a46de10978445496f3f1cc5f4bbd49609337fafde",
+    "EnsuredAPI/test/manual-submissions/manualSubmissionFields.test.ts": "86471bb70b741062f7a7cc03525f3bb86ad929f6bd389fe2f183793047ca25cf",
+    "EnsuredAPI/test/manual-submissions/complexSubmissionExamples.test.ts": "19a798db927e1dac40e2c14f3b2524f06d515828b97c8b7c2149ebcc84da6338",
+    "EnsuredAPI/test/manual-submissions/submissionService.test.ts": "046e1af0abcb5198bbbec39cc2bacdf14c81151dbe247149d833da09c70b2761",
+    "EnsuredAPI/test/manual-submissions/manualSubmission.integration.test.ts": "28758b82ec3b9dd1011fbd026429fe68fd18ee096578214d825662192d90d88b",
+    "EnsuredAPI/test/manual-submissions/documentProcessing.test.ts": "cce5c314e58dd377e9d3c7b15417ebe417bc35563ba1065651c9c4490d9a676c",
+    "EnsuredAPI/test/manual-submissions/README.md": "6856c88407ce82505192725c33da7a4e2ab4aca91a78e1e7882dde8803e44961",
+    "EnsuredAPI/test/manual-submissions/complexSubmissionExamples.ts": "ce55ee8f21ab79341cfb138ed50fe13a219f432ea5b36ce9d5c5291e44529926",
+    "EnsuredAPI/test/manual-submissions/manualSubmission.journey.ts": "a8ed09f167c721b003d61cdfce070cecc20c6ba739f232fa61f1563e1c330574",
+    "EnsuredAPI/test/manual-submissions/manualSubmission.test.ts": "603331ece24d60d0d9791c5bf2af99eb558c28c155b325600e75f514136ebee1",
+    "EnsuredAPI/test/manual-submissions/retireCanonical.integration.test.ts": "94f892d8a47ecee8a8709b4c9058fb384a0f01adf00bb44a75c48e278200b3d7",
+    "EnsuredAPI/test/manual-submissions/submissionCreation.test.ts": "4a93db40048ca1186667734fca37874fe56fe12bb4d5b124e5adcad5f622d58c",
+    "EnsuredAPI/test/manual-submissions/documentType.db.test.ts": "0df1c71767d9aa2d1e1ff7b0ab6631ec26dcfa0721fc1f54a8651d5f248d7a66",
+    "EnsuredAPI/test/manual-submissions/submissionDocuments.test.ts": "67e782161e5b3a40e0e9b5bc4132e0a6a1c0226a3a069733a058ed6d7d5ad903",
+    "EnsuredAPI/package.json": "cfc3d423e942767e2d2fbbdc04682ac9148bf078376449e1a23daa57a4185702",
+    "EnsuredAPI/jest.manual.config.cjs": "8f502bf8c09d38d7aec82b80bb6a1046b66370f555a3b44f67dd3ff3700391a2",
+    "scripts/test-api.mjs": "5c9a877262c38104441f9425a84b30fbe1224f845a86a2289ae7d01dbb200086",
+    "scripts/verify-versioned-submissions.cjs": "6e17943220c0da480a17b566e3e59d1d0128b320c462120c10ac9f6ca2d8ffdd"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "api": {
+    "mountTargets": [
+      "/tmp/ensured-ingest",
+      "/var/lib/ensured/submission-documents"
+    ],
+    "watchPaths": [
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI",
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/package.json",
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/package-lock.json",
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredAPI/Dockerfile"
+    ]
+  },
+  "frontend": {
+    "mountTargets": [],
+    "watchPaths": [
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredUI",
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredUI/package.json",
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredUI/package-lock.json",
+      "/Users/simeon/Projects/EnsureMarketPlace/EnsuredUI/Dockerfile"
+    ]
+  }
+}

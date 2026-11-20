@@ -1,0 +1,17 @@
+[
+  {
+    "id": "layout-righthandpanel--apply-reset-and-keyboard",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "layout-righthandpanel--apply-reset-and-keyboard",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

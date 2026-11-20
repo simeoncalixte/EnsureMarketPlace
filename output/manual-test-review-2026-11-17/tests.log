@@ -1,0 +1,25 @@
+
+> ensured-api@0.1.0 test:manual-submissions
+> node ../scripts/test-api.mjs --testPathPattern /test/manual-submissions/ && node ../scripts/verify-versioned-submissions.cjs
+
+PASS EnsuredAPI/test/manual-submissions/manualSubmission.integration.test.ts
+PASS EnsuredAPI/test/manual-submissions/submissionFilterRoute.test.ts
+PASS EnsuredAPI/test/manual-submissions/manualSubmission.test.ts
+PASS EnsuredAPI/test/manual-submissions/submissionDocuments.test.ts
+PASS EnsuredAPI/test/manual-submissions/underwritingDashboard.test.ts
+PASS EnsuredAPI/test/manual-submissions/submissionFilters.test.ts
+PASS EnsuredAPI/test/manual-submissions/retireCanonical.integration.test.ts
+PASS EnsuredAPI/test/manual-submissions/submissionService.test.ts
+PASS EnsuredAPI/test/manual-submissions/documentType.db.test.ts
+PASS EnsuredAPI/test/manual-submissions/documentProcessing.test.ts
+PASS EnsuredAPI/test/manual-submissions/submissionCreation.test.ts
+PASS EnsuredAPI/test/manual-submissions/complexSubmissionExamples.test.ts
+PASS EnsuredAPI/test/manual-submissions/manualSubmissionFields.test.ts
+
+Test Suites: 13 passed, 13 total
+Tests:       123 passed, 123 total
+Snapshots:   0 total
+Time:        7.603 s
+Ran all test suites matching /\/test\/manual-submissions\//i.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
+{"passed":true,"feedbackTestSummary":["ℹ tests 29","ℹ pass 29","ℹ fail 0","ℹ skipped 0"],"checks":["feedback full suite with real durable history","manual API creation/read/edit/restore with zero pipeline evidence","model removed","separate API and feedback databases","actual authenticated HTTP revision read","edited financial inputs","no stale normalization fallback","restore creates new revision/hash","append-only history","tenant isolation","outage fails closed"]}

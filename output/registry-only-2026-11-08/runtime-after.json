@@ -1,0 +1,227 @@
+[
+  {
+    "container": "ensured-api",
+    "image": "sha256:7ba736ce6ff3d90c2b406b96c85bf180ad5f05a33dd0a965d4a7590746b8836c",
+    "packages": [
+      {
+        "name": "@simeoncalixte/ensured-constants",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-constants/0.1.1/fa5a49b0006b29213939dc8bba199c24b71ee0cf",
+        "integrity": "sha512-iM1nN79vrsgG54hHQUfArMZgSkCTy7RBZFcoH15urm5rQ20XYOCfw1nz3asGlTAf0jrm+dfBpSe79z9bXix5WQ=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-capacity",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-capacity/0.1.1/f92c256ecf7bcbc5b45b4cbac3356cd7d8607f3f",
+        "integrity": "sha512-0ajQTAey5IZrDYlzxFk6gZj08KYu9B5GU6U9hLBlh+B8TK2IcNUi3Fdvd7CgLdgYZwD91PxYQ9pCKnH6whArWQ=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-classification",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-classification/0.1.1/0bcb0b7627a2f1f5d3b6935a3435f83339eb87f5",
+        "integrity": "sha512-HMy799R9gvra4sbH1huh7z12hFzif/8SGJDMl3iaWdShEuUaN0tMxfOydf67IUjb2Y7rtbuEwM7cwn+YDF9T4Q=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-extraction",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-extraction/0.1.1/a6d35bc98c9d3da02e01b6619cfc43aacb1b50c0",
+        "integrity": "sha512-iunIxfBv3nQuG2doB/eHAriCEA0ZPrqqfjKC3f/4Ixa34jdi/WTPqDsuRw3XJ4goJL+k3qdSmM1nVjTX6tr7/A=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-financial-discovery",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-financial-discovery/0.1.1/992429509f751dd16180e1aefa8c7a4bd1e40ae7",
+        "integrity": "sha512-9coFXLOnpBcVtcKMtAp6HUmSvrJtAtirc4YjZ8GfRrUq/ZYWs49djAQq3cLB3Ei2f2zgOoZvG4R8D37jhsJ9vw=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-ingestion",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-ingestion/0.1.1/cdab2c5d677ac312e835d392b63945001b54d2af",
+        "integrity": "sha512-wqPDt0TritZOHmvlW31uR/g/DjvDvZ+Mn9UmdKO91ibzdv7+QsHh4GThv++TJE9Ffmh6PbUzEqIOQrO2LthdpQ=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-ingestion-amqp",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-ingestion-amqp/0.1.1/a8b2ebc04ab13a505027f4468dacbc7d396b3ebd",
+        "integrity": "sha512-uc0y/uOiMZXSEgw7/DiMfLct8kmUoQEbJCDa3mY4L/QZQEZSJTviZtVioJPV+f0KuJJtWETLDFfXpC6c6wDobg=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-location-discovery",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-location-discovery/0.1.1/62f4e3187503c1268678a39c1a64bc864687762f",
+        "integrity": "sha512-D9Sj+PpfypbwHKduaGf0Zj5K/Y3C6qS6xsZEOQu4r5RwmeGMTFrp1lAOPaMm8qBOLQFAt6qHO89Vc4+AENOOWQ=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-normalization",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-normalization/0.1.1/0ccc68f2e6633b05f6a4d7ec0ce5e458ac4e2d29",
+        "integrity": "sha512-AYBzUxdEqq/WaZQEm3qzqFnHNBomFoE7VHBt++4g0yaNhMcS/8ruMFvnLNGlFb+Dpq/N2MdZ5uUKScZhfaXFBw=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-ocr",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-ocr/0.1.1/da32f37e9eb2d55532cda97e1c8b8c2502b65854",
+        "integrity": "sha512-s1vbOmPoKTJUb4bZPe9zZ2gswUpG3rePTlajs/2nOFtXG4zdmORJfGfCuM0a3fi3jv+2qMi9VjZleMWyIyDmBw=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-oracle-attestation",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-oracle-attestation/0.1.1/884dcab39d14e3917bdef94057b2e41a8ecb6ac7",
+        "integrity": "sha512-yg3Wjhz2yGBOkm4EheSCKD0BF67+JzkztSXzqPTiq3HQpK10M6ImzyEM4Ghb7QbpVmXYWFF+iX7p80O7oSDvBw=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-pre-rating",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-pre-rating/0.1.1/f6c893404f7ec32c3d4256f311f26f88caa87325",
+        "integrity": "sha512-YkZ5FGfTZ/52wl/GX+rZdtrOQifehMK5CAMeY5l083fnkjdBXk1WJdmcGQ+RJZnsdU1/4Jk+gP4q3M0Nx1svlA=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-risk-compute",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-risk-compute/0.1.1/5b293c409410e9cd6c9754a43ac02abaad203b82",
+        "integrity": "sha512-U6MJEtlA5/9iYlz/t32gUBf7OpYBSM992v39scLb+9tDRh/RxP393wVcT+mG23Cx0SyNJkx4ukNvywAT9osONA=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-schema-generation",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-schema-generation/0.1.1/fc8b4180191f37f38982dfc7b2e0acea961afeb3",
+        "integrity": "sha512-PHM451psO+8G5iZEdE4m1auvgus1nmfoSjRT2MR3gO8hEzNESrn3960PFK7YAJBvc8e/cu7uBIT1S13b0AaMZA=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-shared",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-shared/0.1.1/3a48fccb8aad5e40a6b95fa410dc557552ada87d",
+        "integrity": "sha512-IFAs+W9Fn1MvtkobNDjJY8i0dvh5T0J/UdUMaIPItrkY/IKmTLguQtMrFyEV3aYR+jVrXieBOCNmSywvgPsbZg=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-storage-search",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-storage-search/0.1.1/bb1d027bd7db9753061ee8b8761c32bdc313eed1",
+        "integrity": "sha512-sHJ870DlMi1Dh7gUv00RmKuxImcy4kt2YplKLYwTZ7UWwStSAxmrVWpKOO39I0UVEmC46Bg0aQHpPCOqVts0UA=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-subject-discovery",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-subject-discovery/0.1.1/28dcda3c8a22c1d33449b4dd1e09d971ed35c214",
+        "integrity": "sha512-lbCSAnOa6V1kKp8QsKvXY1mlsnO7P3nkc25dsT7UEojhFsR1SYn0soNOmOyR3ElUg5MEFTBueXN6+ky9/FQl8g=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-validation",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-validation/0.1.1/7347dae01611d8a6892ba8445be4e563b027aff8",
+        "integrity": "sha512-2eEG1c88LuBzH3tvFX6e9dIARYnTUH1qegCTTWyqwOijynuEAKBBcWT2wLntbbqd1wINDNMy/i2tqyvFCZfRBw=="
+      },
+      {
+        "name": "@simeoncalixte/ensured-pipeline-workflow",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-pipeline-workflow/0.1.1/339287761d534619cc7969f15081de9b269815d1",
+        "integrity": "sha512-1aalB8K2gfTo1WDvot3QZKut48UttGXmFSzaNKLq8v/bqJO80UB+kyjYVLtfMsdHempyO05nU4//HIhvkfQmEw=="
+      }
+    ],
+    "mounts": [
+      {
+        "Type": "volume",
+        "Name": "ensuredapi_ingestion_files",
+        "Source": "/var/lib/docker/volumes/ensuredapi_ingestion_files/_data",
+        "Destination": "/tmp/ensured-ingest",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      },
+      {
+        "Type": "volume",
+        "Name": "ensuredapi_submission_documents",
+        "Source": "/var/lib/docker/volumes/ensuredapi_submission_documents/_data",
+        "Destination": "/var/lib/ensured/submission-documents",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      }
+    ],
+    "state": "running",
+    "health": null
+  },
+  {
+    "container": "ensured-ui",
+    "image": "sha256:71710600d067c1c0cb4f182a40ff2f1fed8bb1583196739695f37f13f67deb20",
+    "packages": [
+      {
+        "name": "@ensured/constants",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-constants/0.1.1/fa5a49b0006b29213939dc8bba199c24b71ee0cf",
+        "integrity": "sha512-iM1nN79vrsgG54hHQUfArMZgSkCTy7RBZFcoH15urm5rQ20XYOCfw1nz3asGlTAf0jrm+dfBpSe79z9bXix5WQ=="
+      },
+      {
+        "name": "@ensured/xds",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-xds/0.1.1/893d2a234c09e9cea29ed9c2f16cab2c8429adce",
+        "integrity": "sha512-AkCbpeuOrjzhEyMCSlL4WkVVcOTgFnnVdT1RK+J5whhkRoK3InSpOorNg1fWVg9xssgUbPKX2AKaIREGA+Ol6g=="
+      },
+      {
+        "name": "@ensured/auth-ui",
+        "version": "0.1.2",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-auth-ui/0.1.2/d9ed3d2a2cc1a11f647e4531954142c2e69ef8dd",
+        "integrity": "sha512-bNeCpb2+Ipe+vF+84vmUUvghqUWohDSi+jE19wP0JRG77u5+JDOd5FSsAb7byXMoPBruXdO7iBMs5U38j7WCxA=="
+      },
+      {
+        "name": "@ensured/marketplace",
+        "version": "0.1.2",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-marketplace/0.1.2/1e9c6b01408f59b4368e4dce886b52c19b14ca00",
+        "integrity": "sha512-dj9P8gBEJWJTxfN0MYUM/krP2TjcXaF1XisACNMRELq9OmOm+eeHXFfGnvzsedhkUGjGVs8fGbWvUqUoSGfs5Q=="
+      },
+      {
+        "name": "@ensured/network",
+        "version": "0.1.2",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-network/0.1.2/e235b9a97c825ce5dafee9009c84ef11451d6882",
+        "integrity": "sha512-63hR7qqnAP4A545mjtB4H/TDjlnhvWaDCAqLBEWE/sSOzZPrO0nH5K/qbsRq67+uRThJws/muCzx7MwZCIrR3w=="
+      }
+    ],
+    "mounts": [],
+    "state": "running",
+    "health": null
+  },
+  {
+    "container": "ensured-submission-ui",
+    "image": "sha256:3a5f4d91645936f60a4056eb177b57799e6cc57a466d1d2aaf83229bad2a0db7",
+    "packages": [
+      {
+        "name": "@ensured/xds",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-xds/0.1.1/893d2a234c09e9cea29ed9c2f16cab2c8429adce",
+        "integrity": "sha512-AkCbpeuOrjzhEyMCSlL4WkVVcOTgFnnVdT1RK+J5whhkRoK3InSpOorNg1fWVg9xssgUbPKX2AKaIREGA+Ol6g=="
+      }
+    ],
+    "mounts": [],
+    "state": "running",
+    "health": "healthy"
+  },
+  {
+    "container": "ensured-submission-relay",
+    "image": "sha256:20e9f0c0f3012a263e1d86bf2f5289e299787dbdcec276f7956e8fba6464177b",
+    "packages": [
+      {
+        "name": "@ensured/xds",
+        "version": "0.1.1",
+        "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-xds/0.1.1/893d2a234c09e9cea29ed9c2f16cab2c8429adce",
+        "integrity": "sha512-AkCbpeuOrjzhEyMCSlL4WkVVcOTgFnnVdT1RK+J5whhkRoK3InSpOorNg1fWVg9xssgUbPKX2AKaIREGA+Ol6g=="
+      }
+    ],
+    "mounts": [],
+    "state": "running",
+    "health": "healthy"
+  },
+  {
+    "endpoint": "api",
+    "status": 200
+  },
+  {
+    "endpoint": "ui",
+    "status": 200
+  },
+  {
+    "endpoint": "submission-ui",
+    "status": 200
+  }
+]

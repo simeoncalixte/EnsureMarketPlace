@@ -1,0 +1,8 @@
+src/pipeline/agents/llm.test.ts(3,39): error TS2307: Cannot find module '@simeoncalixte/ensured-pipeline-extraction/pipeline/extraction/GeminiExtractionProvider' or its corresponding type declarations.
+src/pipeline/agents/llm.test.ts(4,37): error TS2307: Cannot find module '@simeoncalixte/ensured-pipeline-workflow/pipeline/workflow/GeminiWorkflowProvider' or its corresponding type declarations.
+src/pipeline/agents/llm.test.ts(5,43): error TS2307: Cannot find module '@simeoncalixte/ensured-pipeline-classification/pipeline/classification/GeminiClassificationProvider' or its corresponding type declarations.
+src/pipeline/agents/llm.test.ts(6,37): error TS2307: Cannot find module '@simeoncalixte/ensured-pipeline-validation/pipeline/validation/semanticAdapter' or its corresponding type declarations.
+src/pipeline/connectors/ocr/LocalDocumentOcrProvider.test.ts(12,88): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+src/pipeline/connectors/ocr/TesseractOcrProvider.test.ts(8,87): error TS2556: A spread argument must either have a tuple type or be passed to a rest parameter.
+src/pipeline/registry/resolve.test.ts(11,8): error TS2307: Cannot find module '@simeoncalixte/ensured-pipeline-risk-compute/pipeline/registry/strategy' or its corresponding type declarations.
+src/pipeline/registry/resolve.test.ts(12,38): error TS2307: Cannot find module '@simeoncalixte/ensured-pipeline-risk-compute/pipeline/registry/upsert' or its corresponding type declarations.

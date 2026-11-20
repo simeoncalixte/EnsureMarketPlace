@@ -1,0 +1,12 @@
+Integrate committed registry release changes and package contracts, preserving published versions and lockfile provenance. Includes shared filter-panel and responsive toolbar implementation and interaction stories.
+
+Included commits:
+- fix: align marketplace filter trigger with results actions (AIN-169)
+- feat: host marketplace filters in shared right-hand panel (AIN-164)
+- Release 0.1.2 with registry-only dependencies
+
+Related scope: AIN-161 registry delivery; AIN-162–167 shared panels; AIN-168–173 filter toolbar placement, as applicable. Jira is unavailable during PR preparation; historical statuses are not freshly verified and no ticket is closed by this PR.
+
+Verification: root package-policy and theme ownership checks pass, plus 5 package-override/parity regressions during PR preparation. Prior component builds, Storybook interactions, PostgreSQL checks, and before/after attachment receipts are preserved in the coordinating EnsureMarketPlace repository under output/registry-only-2026-11-08, output/filter-panels-2026-11-09, and output/filter-button-delivery-2026-11-09. Full suites were not rerun for PR preparation. TASK_HANDOFF.md records exact ticket/component/story/command mappings.
+
+No deployment or migration performed during PR preparation. Broader AIN-1/AIN-13 release gates and AIN-79 inventory filtering remain independent outstanding work. Draft pending CI and coordinated review.

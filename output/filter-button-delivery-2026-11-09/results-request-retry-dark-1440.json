@@ -1,0 +1,17 @@
+[
+  {
+    "id": "pages-commercial-palette-regression--requests-failure-retry",
+    "passed": true,
+    "outcome": [
+      {
+        "event": "storyFinished",
+        "payload": {
+          "storyId": "pages-commercial-palette-regression--requests-failure-retry",
+          "status": "success",
+          "reporters": []
+        }
+      }
+    ],
+    "errors": []
+  }
+]

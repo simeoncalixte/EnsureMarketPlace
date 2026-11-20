@@ -1,0 +1,64 @@
+ Image ensured-email-email Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 566B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 445B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 75B done
+#4 DONE 0.0s
+
+#5 [build 1/7] FROM docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a
+#5 resolve docker.io/library/node:22-alpine@sha256:1314fb30ec37592d5845e5a160d522c0e680972aa534549940b8d73bde88481a 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 733B done
+#6 DONE 0.0s
+
+#7 [build 7/7] RUN npm run build && npm prune --omit=dev
+#7 CACHED
+
+#8 [build 2/7] WORKDIR /app
+#8 CACHED
+
+#9 [build 3/7] COPY package.json package-lock.json ./
+#9 CACHED
+
+#10 [build 6/7] COPY src ./src
+#10 CACHED
+
+#11 [build 4/7] RUN npm ci
+#11 CACHED
+
+#12 [build 5/7] COPY tsconfig.json ./
+#12 CACHED
+
+#13 [stage-1 3/5] COPY --from=build /app/package.json ./
+#13 CACHED
+
+#14 [stage-1 4/5] COPY --from=build /app/node_modules ./node_modules
+#14 CACHED
+
+#15 [stage-1 5/5] COPY --from=build /app/dist ./dist
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:7724acf25584007b1b7ef83bbd0277815dd4133d14760afd36497251530afce8 done
+#16 exporting config sha256:5ea06b22448ea6788a8bd43f3d7242840c91debb7da186b46ddf7ebbea308cae done
+#16 exporting attestation manifest sha256:a195e4a0ebdf6576801903e39effcf6e862175d627be1a02a9015541c4b5ca63 done
+#16 exporting manifest list sha256:ccdcb6964d35499c759d04f876ce3f15b583242afa634790b9fab7be8d513526 done
+#16 naming to docker.io/library/ensured-email-email:latest done
+#16 unpacking to docker.io/library/ensured-email-email:latest done
+#16 DONE 0.0s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image ensured-email-email Built 

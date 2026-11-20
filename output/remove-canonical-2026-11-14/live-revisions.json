@@ -1,0 +1,1 @@
+{"passed":true,"checks":["feedback full suite with real durable history","model removed","separate API and feedback databases","actual authenticated HTTP revision read","edited financial inputs","no stale normalization fallback","restore creates new revision/hash","append-only history","tenant isolation","outage fails closed"]}

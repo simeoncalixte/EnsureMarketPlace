@@ -1,0 +1,17 @@
+{
+  "marketplace": {
+    "version": "0.1.4",
+    "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-marketplace/0.1.4/848a53f9bee27408f3dba2d3e29aac2cce022432",
+    "integrity": "sha512-IhpVr+P0N66TIE+niKNJk159IOjQGFECgywLErq3xzxdzn9VTx/IA6oP+LKA7E4LL+zsCuvHJbiW4V0IBzQuyw=="
+  },
+  "network": {
+    "version": "0.1.4",
+    "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-network/0.1.4/5358be440a1cd82f6b5c582ac0a4fa9d48f77c24",
+    "integrity": "sha512-T6UMPWGm/9+Gd9eV16e7sik9B3LS1pJAeMu9OlCTrePUPfiIGC2Neu8K1ymaecAaPOxry/aU981xpPI/LKhU7w=="
+  },
+  "xds": {
+    "version": "0.1.2",
+    "resolved": "https://npm.pkg.github.com/download/@simeoncalixte/ensured-xds/0.1.2/2693299d2596a1d3eb8054a7b72adb7556ce090b",
+    "integrity": "sha512-JX1IPq8OWHexnaaBVyJogyp5t6NUSoNPRxwSOm8c0MXRuh2DsWl2EpoWyMzFGZUND4RoyRzoM24yvCmv/CKoLA=="
+  }
+}

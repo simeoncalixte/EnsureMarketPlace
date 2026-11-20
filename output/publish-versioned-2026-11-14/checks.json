@@ -1,0 +1,22 @@
+[
+  {
+    "name": "registry",
+    "code": 0
+  },
+  {
+    "name": "overrides",
+    "code": 0
+  },
+  {
+    "name": "api-check",
+    "code": 0
+  },
+  {
+    "name": "ui-check",
+    "code": 0
+  },
+  {
+    "name": "ui-build",
+    "code": 0
+  }
+]

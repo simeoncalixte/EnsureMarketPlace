@@ -1,0 +1,286 @@
+ Image ensured-services-auth Building 
+ Image ensured-services-kyc Building 
+ Image ensured-services-gateway Building 
+ Image ensured-services-network Building 
+ Image ensured-services-catalog Building 
+ Image ensured-services-submission-ui Building 
+ Image ensured-services-submission-relay Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.91kB done
+#1 DONE 0.0s
+
+#2 [gateway internal] load build definition from Dockerfile
+#2 transferring dockerfile: 391B done
+#2 DONE 0.0s
+
+#3 [catalog internal] load build definition from Dockerfile
+#3 transferring dockerfile: 529B done
+#3 DONE 0.0s
+
+#4 [submission-relay internal] load build definition from Dockerfile
+#4 transferring dockerfile: 335B done
+#4 DONE 0.0s
+
+#5 [network internal] load build definition from Dockerfile
+#5 transferring dockerfile: 322B done
+#5 DONE 0.0s
+
+#6 [kyc internal] load build definition from Dockerfile
+#6 transferring dockerfile: 248B done
+#6 DONE 0.0s
+
+#7 [submission-ui] resolve image config for docker-image://docker.io/docker/dockerfile:1
+#7 DONE 0.2s
+
+#8 [catalog internal] load .dockerignore
+#8 transferring context: 123B done
+#8 DONE 0.0s
+
+#9 [network internal] load .dockerignore
+#9 transferring context: 97B done
+#9 DONE 0.0s
+
+#10 [kyc internal] load .dockerignore
+#10 transferring context: 70B done
+#10 DONE 0.0s
+
+#11 [auth] docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#11 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+#11 CACHED
+
+#12 [network 1/7] FROM docker.io/library/node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5
+#12 resolve docker.io/library/node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 0.0s done
+#12 DONE 0.0s
+
+#13 [catalog internal] load build context
+#13 transferring context: 61.02kB 0.0s done
+#13 DONE 0.0s
+
+#14 [catalog 2/7] WORKDIR /app
+#14 CACHED
+
+#15 [catalog 5/7] COPY --chown=node:node src ./src
+#15 CACHED
+
+#16 [catalog 6/7] COPY --chown=node:node migrations ./migrations
+#16 CACHED
+
+#17 [catalog 4/7] RUN npm ci --omit=dev --ignore-scripts
+#17 CACHED
+
+#18 [catalog 3/7] COPY --chown=node:node package.json package-lock.json catalog.json ./
+#18 CACHED
+
+#19 [catalog 7/7] COPY --chown=node:node public ./public
+#19 CACHED
+
+#20 [catalog] exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:dba8a5dc4746b551b055e8c5183566a5136240a633b9c00af0c6690a6de38689 done
+#20 exporting config sha256:ac1cd5677cbc8c4fa5d85448c66a8f961c892b24828847304fd97af86a9877ee done
+#20 exporting attestation manifest sha256:f9ba62f593a9ec2e4e076e9da18b6490066fbfdbed1cdee54ac406c83c51ad91 0.0s done
+#20 exporting manifest list sha256:7e699bf59d776b021a4605a4b936d6a2bef1ce5c47db653a6d9975dc34d2a403 0.0s done
+#20 naming to docker.io/library/ensured-services-catalog:latest done
+#20 unpacking to docker.io/library/ensured-services-catalog:latest 0.0s done
+#20 DONE 0.1s
+
+#21 [network internal] load build context
+#21 transferring context: 245.14kB 0.0s done
+#21 DONE 0.0s
+
+#22 [kyc internal] load build context
+#22 transferring context: 114.87kB 0.0s done
+#22 DONE 0.0s
+
+#23 [network 4/8] RUN npm ci --omit=dev --ignore-scripts
+#23 CACHED
+
+#24 [network 3/8] COPY package.json package-lock.json ./
+#24 CACHED
+
+#25 [network 5/8] COPY backend ./backend
+#25 CACHED
+
+#26 [network 6/8] COPY contracts ./contracts
+#26 CACHED
+
+#27 [network 7/8] COPY scripts ./scripts
+#27 CACHED
+
+#28 [network 8/8] RUN chown -R node:node /app
+#28 CACHED
+
+#29 [kyc 3/8] COPY package.json package-lock.json ./
+#29 CACHED
+
+#30 [kyc 6/8] COPY src ./src
+#30 CACHED
+
+#14 [kyc 2/7] WORKDIR /app
+#14 CACHED
+
+#31 [kyc 7/8] RUN npm run build
+#31 CACHED
+
+#32 [kyc 5/8] COPY tsconfig.json ./
+#32 CACHED
+
+#33 [kyc 4/8] RUN npm ci
+#33 CACHED
+
+#34 [kyc 8/8] RUN chown -R node:node /app
+#34 CACHED
+
+#35 [kyc] exporting to image
+#35 exporting layers done
+#35 exporting manifest sha256:42400683b7c17d8982509e2b13d80f430451bf163f19bd3033bcef4d909c859a done
+#35 exporting config sha256:ac2831090f7d0a907010ed9f5f8558720b132844da0c8572a2bb3b41d5b9de16 done
+#35 exporting attestation manifest sha256:9d2e58affe6d98af6a0e86aa0056fd207e1fe194ef448673cd8de1c05023b22b 0.0s done
+#35 exporting manifest list sha256:e91c4bfd05bcfc482704dd8a1813674506d0c4ddeb2d638e74b95c868a39bc30 0.0s done
+#35 naming to docker.io/library/ensured-services-kyc:latest done
+#35 unpacking to docker.io/library/ensured-services-kyc:latest 0.0s done
+#35 DONE 0.1s
+
+#36 [gateway internal] load metadata for docker.io/library/node:24-alpine
+#36 DONE 0.3s
+
+#37 [network] exporting to image
+#37 exporting layers done
+#37 exporting manifest sha256:7e3c7d08810487ec35f9e3e3b6df68c4c5e80b847fdbdccb42e10b44e6d28215 done
+#37 exporting config sha256:ec83a7eeb46fdd45f79dbcb1dbd02262fa8e1ff2eb6d8db8eea2b24f1081d4ad done
+#37 exporting attestation manifest sha256:617c8cff68b2db71648b8f78ce1fc8b322f298340b3f9218f3a3d277424ca2b5 0.0s done
+#37 exporting manifest list sha256:7e69b40e1db998cf466834d99767c995b4e451604f367416a420e133478e3f36 0.0s done
+#37 naming to docker.io/library/ensured-services-network:latest done
+#37 unpacking to docker.io/library/ensured-services-network:latest 0.0s done
+#37 DONE 0.1s
+
+#38 [submission-relay internal] load .dockerignore
+#38 transferring context: 81B done
+#38 DONE 0.0s
+
+#39 [auth internal] load .dockerignore
+#39 transferring context: 76B done
+#39 DONE 0.0s
+
+#40 [catalog] resolving provenance for metadata file
+#40 DONE 0.0s
+
+#12 [submission-ui 1/7] FROM docker.io/library/node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5
+#12 resolve docker.io/library/node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 0.0s done
+#12 DONE 0.0s
+
+#41 [submission-relay internal] load build context
+#41 transferring context: 160.18kB 0.0s done
+#41 DONE 0.1s
+
+#42 [network] resolving provenance for metadata file
+#42 DONE 0.0s
+
+#43 [kyc] resolving provenance for metadata file
+#43 DONE 0.0s
+
+#44 [submission-relay stage-0 3/6] COPY package.json package-lock.json .npmrc ./
+#44 CACHED
+
+#45 [submission-relay stage-0 5/6] COPY --chown=node:node . .
+#45 CACHED
+
+#46 [submission-relay stage-0 4/6] RUN --mount=type=secret,id=node_auth_token,env=NPM_TOKEN,required=true npm ci
+#46 CACHED
+
+#47 [submission-relay stage-0 6/6] RUN chown -R node:node /app
+#47 CACHED
+
+#48 [auth internal] load build context
+#48 transferring context: 213.97kB 0.0s done
+#48 DONE 0.1s
+
+#49 [gateway stage-0  9/10] RUN npm run build
+#49 CACHED
+
+#14 [gateway 2/7] WORKDIR /app
+#14 CACHED
+
+#50 [gateway stage-0  6/10] COPY tsconfig.json ./
+#50 CACHED
+
+#51 [gateway stage-0  5/10] RUN --mount=type=secret,id=node_auth_token,env=NODE_AUTH_TOKEN,required=true npm ci
+#51 CACHED
+
+#52 [gateway stage-0  8/10] COPY public ./public
+#52 CACHED
+
+#53 [gateway stage-0  3/10] COPY package.json package-lock.json ./
+#53 CACHED
+
+#54 [gateway stage-0  7/10] COPY src ./src
+#54 CACHED
+
+#55 [gateway stage-0  4/10] COPY .npmrc ./
+#55 CACHED
+
+#56 [gateway stage-0 10/10] RUN chown -R node:node /app
+#56 CACHED
+
+#57 [auth] exporting to image
+#57 exporting layers done
+#57 exporting manifest sha256:a06ab2cd4a19bf4e324e0b9248b35d2d104d88d74be493767603900340faefc8 done
+#57 exporting config sha256:5828d4ab3119ddbbab1c26685659d85a63e2344029cea5290ec95a4dbbe72e1e
+#57 ...
+
+#58 [submission-ui] exporting to image
+#58 exporting layers done
+#58 exporting manifest sha256:ed74694c75a9fed8bb39a70a1def2066957d6649c0eefb3e8390715b641142a8 done
+#58 exporting config sha256:b446e03d7b42d72829354f6064ce99d27525344b33732936b1f13567b5980c98 done
+#58 exporting attestation manifest sha256:b4bac7e774bede5f1fb3a5e1203cb6ee853327c9dbdd52ea03e949e20c7727a1 0.0s done
+#58 exporting manifest list sha256:452d702cad61778f9d93592363ace531fc7b1dbef1aa0b2e0b30eb85391cad75 0.0s done
+#58 naming to docker.io/library/ensured-services-submission-ui:latest done
+#58 unpacking to docker.io/library/ensured-services-submission-ui:latest 0.0s done
+#58 DONE 0.1s
+
+#59 [submission-relay] exporting to image
+#59 exporting layers done
+#59 exporting manifest sha256:d9d90a8bd067eeb8cea94bf0cbfc5099ce6b2d3789d5e01b4e621bf75ae04fea done
+#59 exporting config sha256:cb30f6fb5a13753567c98c1435c4e3168dc5228a77be11de096d5eaaee01dca4 done
+#59 exporting attestation manifest sha256:43ad1d625f0d0205b93aa67a6e2e802d05a19f2eabf0871f0c68de4eaf3c486a 0.0s done
+#59 exporting manifest list sha256:425af4b9f7ecd323aab2a8cc9bfd30cdd73af66cf5f724ba39934ce8f9224297 0.0s done
+#59 naming to docker.io/library/ensured-services-submission-relay:latest done
+#59 unpacking to docker.io/library/ensured-services-submission-relay:latest done
+#59 DONE 0.1s
+
+#60 [gateway] exporting to image
+#60 exporting layers done
+#60 exporting manifest sha256:3fd257a49187159b95b73c9a6eb205ae706f34251dea1380447c9a2793e23ead done
+#60 exporting config sha256:2702e9a0ac3d1d9880d59f77217823f1a1e8ab0166bcfb8a287ac2a9ade41d45 done
+#60 exporting attestation manifest sha256:ac2e676a5a4257a65dd4877865bfe54849d97b306ede721fcb72bbda8ed565fd 0.0s done
+#60 exporting manifest list sha256:2ad3b2cea4e84a1d5238cf10f3360d5ab657209624fa328a150dda77799d594c 0.0s done
+#60 naming to docker.io/library/ensured-services-gateway:latest done
+#60 unpacking to docker.io/library/ensured-services-gateway:latest done
+#60 DONE 0.1s
+
+#57 [auth] exporting to image
+#57 exporting config sha256:5828d4ab3119ddbbab1c26685659d85a63e2344029cea5290ec95a4dbbe72e1e done
+#57 exporting attestation manifest sha256:112338c72070e141f41011220f3ab8c2a80d30ee5371cc37b7e6f5ed443afa91 0.0s done
+#57 exporting manifest list sha256:5000d2a690263459b2ba08b8815d5612ac721490bf6d8e6aaf60fb8651245093 0.0s done
+#57 naming to docker.io/library/ensured-services-auth:latest done
+#57 unpacking to docker.io/library/ensured-services-auth:latest done
+#57 DONE 0.1s
+
+#61 [submission-ui] resolving provenance for metadata file
+#61 DONE 0.0s
+
+#62 [submission-relay] resolving provenance for metadata file
+#62 DONE 0.0s
+
+#63 [gateway] resolving provenance for metadata file
+#63 DONE 0.0s
+
+#64 [auth] resolving provenance for metadata file
+#64 DONE 0.0s
+ Image ensured-services-submission-ui Built 
+ Image ensured-services-submission-relay Built 
+ Image ensured-services-auth Built 
+ Image ensured-services-kyc Built 
+ Image ensured-services-gateway Built 
+ Image ensured-services-network Built 
+ Image ensured-services-catalog Built 

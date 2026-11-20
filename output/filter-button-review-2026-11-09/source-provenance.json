@@ -1,0 +1,57 @@
+{
+  "EnsuredUI": {
+    "head": "34e6cb279f0ecdba9f6c7283457db5473e5ccb3c",
+    "workingTree": [
+      " M package-lock.json",
+      " M package.json",
+      " M src/Pages/Commercial/CommercialActivity.tsx",
+      " M src/Pages/Commercial/CommercialPalette.stories.tsx",
+      " M src/Pages/Commercial/CommercialWorkspace.tsx",
+      " M src/Pages/Commercial/FacilitiesPage.tsx",
+      " M src/Pages/Commercial/FacilityApprovals.tsx",
+      " M src/Pages/Commercial/FacilityDocuments.tsx",
+      " M src/Pages/Commercial/FacilityRequests.tsx",
+      " M src/Pages/Commercial/RetrocessionDashboard.tsx",
+      " M src/Pages/InsurerDashboard/EmailInbox.stories.tsx",
+      " M src/Pages/InsurerDashboard/EmailInbox.tsx",
+      " M src/Pages/InsurerDashboard/ModelLibrary.stories.tsx",
+      " M src/Pages/InsurerDashboard/ModelLibrary.tsx",
+      " M src/Pages/InsurerDashboard/SubmissionDocuments.stories.tsx",
+      " M src/Pages/InsurerDashboard/SubmissionDocuments.tsx",
+      " M src/Pages/InsurerDashboard/SubmissionFilterDrawer.tsx",
+      " M src/Pages/InsurerDashboard/SubmissionSidebar.tsx",
+      " M src/Pages/Parties/FinancialPartiesPage.tsx",
+      " M src/Pages/Parties/Parties.stories.tsx",
+      " M src/Pages/Parties/PartiesPage.tsx",
+      " M test/manualWorkbench.test.mjs",
+      " M vite.config.ts",
+      "?? src/Pages/Commercial/FilterPanels.stories.tsx",
+      "?? src/Pages/InsurerDashboard/SubmissionFilterDrawer.stories.tsx"
+    ]
+  },
+  "EnsuredMarketplace": {
+    "head": "40558a174446b6e733a472578776565498e0c9e6",
+    "workingTree": []
+  },
+  "EnsuredNetwork": {
+    "head": "edb20d8c54e5916e55908a8db678335d3125bc38",
+    "workingTree": []
+  },
+  "EnsuredLogistics": {
+    "head": "8eb7997732cb5b907ee2a42f186769ed746bbec4",
+    "workingTree": [
+      " M app/logistics/Logistics.stories.tsx",
+      " M app/logistics/LogisticsApp.tsx",
+      " M app/xds-colors.generated.css",
+      " M docs/shared-services.md",
+      " M package-lock.json",
+      " M package.json",
+      " D vendor/ensured-services-0.1.0.tgz",
+      "?? .npmrc"
+    ]
+  },
+  "EnsuredXDS": {
+    "head": "1c6694aa1e0e3d1e3089701880e648fcdb1f8c9f",
+    "workingTree": []
+  }
+}

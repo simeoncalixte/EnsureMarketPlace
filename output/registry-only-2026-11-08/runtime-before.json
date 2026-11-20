@@ -1,0 +1,106 @@
+[
+  {
+    "name": "/ensured-api",
+    "id": "63044ea229713e6d89d345479a2895f6cff7ec3ef3860b4a3b649f5bb063deae",
+    "image": "sha256:53f0b183ba025c1131785a436c1bb2aad1ea2b05db8d933c5b075798715c2bb5",
+    "mounts": [
+      {
+        "Type": "volume",
+        "Name": "ensuredapi_ingestion_files",
+        "Source": "/var/lib/docker/volumes/ensuredapi_ingestion_files/_data",
+        "Destination": "/tmp/ensured-ingest",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      },
+      {
+        "Type": "volume",
+        "Name": "ensuredapi_submission_documents",
+        "Source": "/var/lib/docker/volumes/ensuredapi_submission_documents/_data",
+        "Destination": "/var/lib/ensured/submission-documents",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      }
+    ],
+    "networks": [
+      "ensured-platform"
+    ],
+    "state": "running",
+    "health": null
+  },
+  {
+    "name": "/ensured-ui",
+    "id": "4a29838057e1f0e1597967a1df1c911c1fb85d20f0e33421b3588c5409f8bbab",
+    "image": "sha256:789f2f31b578c5500edb79fa2f9e91bd960ad465e9938b093c1ac02f39738351",
+    "mounts": [
+      {
+        "Type": "bind",
+        "Source": "/Users/simeon/Projects/EnsureMarketPlace/EnsuredXDS/dist",
+        "Destination": "/app/node_modules/@ensured/xds/dist",
+        "Mode": "ro",
+        "RW": false,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "bind",
+        "Source": "/Users/simeon/Projects/EnsureMarketPlace/EnsuredConstants/dist",
+        "Destination": "/app/node_modules/@ensured/constants/dist",
+        "Mode": "ro",
+        "RW": false,
+        "Propagation": "rprivate"
+      }
+    ],
+    "networks": [
+      "ensured-platform"
+    ],
+    "state": "running",
+    "health": null
+  },
+  {
+    "name": "/ensured-submission-ui",
+    "id": "9d182732a3a322b6742aac8cdcbadb5c18efe7ab175986d9796b3f5ac41676f8",
+    "image": "sha256:510719c3143a2a31ff463ac7d7dbbc4fa88d9aa84dd352620567e08e4a945a14",
+    "mounts": [],
+    "networks": [
+      "ensured-platform"
+    ],
+    "state": "running",
+    "health": "healthy"
+  },
+  {
+    "name": "/ensured-submission-relay",
+    "id": "11125b538148dc4f0754f395e0f188e4b3b38b253781c5efb1c3686c73ab05be",
+    "image": "sha256:555c49a3957d5dad73745847cc32528a2552723c45a4c3621b8ca984d1c589da",
+    "mounts": [],
+    "networks": [
+      "ensured-platform"
+    ],
+    "state": "running",
+    "health": "healthy"
+  },
+  {
+    "name": "/ensured-api-postgres",
+    "id": "4d8e38a0ab7139d1b73ae6ef2ece746ade1455a25b81a108ff3df8d72c4035e1",
+    "image": "sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685",
+    "mounts": [
+      {
+        "Type": "volume",
+        "Name": "ensuredapi_postgres_data",
+        "Source": "/var/lib/docker/volumes/ensuredapi_postgres_data/_data",
+        "Destination": "/var/lib/postgresql/data",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      }
+    ],
+    "networks": [
+      "ensured-platform"
+    ],
+    "state": "created",
+    "health": null
+  }
+]

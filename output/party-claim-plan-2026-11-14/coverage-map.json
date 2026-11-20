@@ -1,0 +1,251 @@
+[
+  {
+    "ticket": "AIN-188",
+    "component": "EnsuredUI UnclaimedPartyForm + Constants/API manual form contract",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [
+      "pages-party-onboarding--capture-organization",
+      "pages-party-onboarding--capture-individual",
+      "pages-party-onboarding--capture-mixed-rows",
+      "pages-party-onboarding--capture-missing-email",
+      "pages-party-onboarding--capture-invalid-email",
+      "pages-party-onboarding--capture-draft",
+      "pages-party-onboarding--capture-ambiguous-match",
+      "pages-party-onboarding--capture-loading",
+      "pages-party-onboarding--capture-retry",
+      "pages-party-onboarding--capture-denied"
+    ],
+    "verificationScenarios": [
+      "organization",
+      "individual",
+      "mixed-rows",
+      "missing-email",
+      "invalid-email",
+      "draft",
+      "ambiguous-match",
+      "loading",
+      "retry",
+      "denied"
+    ],
+    "note": "Bounded repeatable input; list pagination not applicable",
+    "beforeStories": [
+      "pages-parties-workflows--directory-search",
+      "pages-parties-workflows--register-organization",
+      "pages-parties-workflows--register-individual"
+    ]
+  },
+  {
+    "ticket": "AIN-190",
+    "component": "EnsuredAPI authoritative party registry/submission association service",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [],
+    "verificationScenarios": [
+      "atomic-persist",
+      "rollback",
+      "duplicate-retry",
+      "concurrent-create",
+      "same-email-distinct-entities",
+      "cross-tenant-nondisclosure"
+    ],
+    "note": "Backend only; PostgreSQL integration, no artificial Storybook UI",
+    "beforeStories": []
+  },
+  {
+    "ticket": "AIN-192",
+    "component": "EnsuredUI PartyInvitationPanel + EnsuredEmail + EnsuredAuth",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [
+      "pages-party-onboarding--invitation-send",
+      "pages-party-onboarding--invitation-resend",
+      "pages-party-onboarding--invitation-revoke",
+      "pages-party-onboarding--invitation-decline",
+      "pages-party-onboarding--invitation-expired",
+      "pages-party-onboarding--invitation-replayed",
+      "pages-party-onboarding--invitation-delivery-failed-retry",
+      "pages-party-onboarding--invitation-denied",
+      "pages-party-onboarding--invitation-loading-empty"
+    ],
+    "verificationScenarios": [
+      "send",
+      "resend",
+      "revoke",
+      "decline",
+      "expired",
+      "replayed",
+      "delivery-failed-retry",
+      "denied",
+      "loading-empty"
+    ],
+    "note": "Single recipient action; no pagination unless invitation list is introduced",
+    "beforeStories": [
+      "pages-parties-workflows--directory-search",
+      "pages-parties-workflows--register-organization",
+      "pages-parties-workflows--register-individual"
+    ]
+  },
+  {
+    "ticket": "AIN-194",
+    "component": "EnsuredUI OrganizationClaimForm + Auth/API claim evidence boundary",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [
+      "pages-party-onboarding--organization-claim-first-admin",
+      "pages-party-onboarding--organization-claim-existing-admin",
+      "pages-party-onboarding--organization-claim-public-email",
+      "pages-party-onboarding--organization-claim-domain-insufficient",
+      "pages-party-onboarding--organization-claim-needs-information",
+      "pages-party-onboarding--organization-claim-expired",
+      "pages-party-onboarding--organization-claim-disputed",
+      "pages-party-onboarding--organization-claim-failure-retry",
+      "pages-party-onboarding--organization-claim-denied"
+    ],
+    "verificationScenarios": [
+      "first-admin",
+      "existing-admin",
+      "public-email",
+      "domain-insufficient",
+      "needs-information",
+      "expired",
+      "disputed",
+      "failure-retry",
+      "denied"
+    ],
+    "note": "Single claim form; no pagination",
+    "beforeStories": [
+      "pages-parties-workflows--directory-search",
+      "pages-parties-workflows--register-organization",
+      "pages-parties-workflows--register-individual"
+    ]
+  },
+  {
+    "ticket": "AIN-196",
+    "component": "EnsuredUI ClaimReviewQueue + API authority review",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [
+      "pages-party-onboarding--claim-review-approve",
+      "pages-party-onboarding--claim-review-reject",
+      "pages-party-onboarding--claim-review-self-approval-denied",
+      "pages-party-onboarding--claim-review-stale-decision",
+      "pages-party-onboarding--claim-review-concurrent-review",
+      "pages-party-onboarding--claim-review-empty-loading",
+      "pages-party-onboarding--claim-review-pagination",
+      "pages-party-onboarding--claim-review-retry",
+      "pages-party-onboarding--claim-review-revoked-reviewer"
+    ],
+    "verificationScenarios": [
+      "approve",
+      "reject",
+      "self-approval-denied",
+      "stale-decision",
+      "concurrent-review",
+      "empty-loading",
+      "pagination",
+      "retry",
+      "revoked-reviewer"
+    ],
+    "note": "Review queue pagination required",
+    "beforeStories": [
+      "pages-parties-workflows--directory-search",
+      "pages-parties-workflows--register-organization",
+      "pages-parties-workflows--register-individual"
+    ]
+  },
+  {
+    "ticket": "AIN-198",
+    "component": "EnsuredUI IndividualClaimForm + Auth/API person linkage",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [
+      "pages-party-onboarding--individual-claim-claim",
+      "pages-party-onboarding--individual-claim-shared-email-conflict",
+      "pages-party-onboarding--individual-claim-changed-email",
+      "pages-party-onboarding--individual-claim-independent-member",
+      "pages-party-onboarding--individual-claim-decline",
+      "pages-party-onboarding--individual-claim-revoke",
+      "pages-party-onboarding--individual-claim-loading",
+      "pages-party-onboarding--individual-claim-retry",
+      "pages-party-onboarding--individual-claim-denied"
+    ],
+    "verificationScenarios": [
+      "claim",
+      "shared-email-conflict",
+      "changed-email",
+      "independent-member",
+      "decline",
+      "revoke",
+      "loading",
+      "retry",
+      "denied"
+    ],
+    "note": "Single claim form; no pagination",
+    "beforeStories": [
+      "pages-parties-workflows--directory-search",
+      "pages-parties-workflows--register-organization",
+      "pages-parties-workflows--register-individual"
+    ]
+  },
+  {
+    "ticket": "AIN-200",
+    "component": "EnsuredUI OrganizationAccessSettings + API/Auth membership + Network projections",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [
+      "pages-party-onboarding--organization-access-invite-member",
+      "pages-party-onboarding--organization-access-transfer",
+      "pages-party-onboarding--organization-access-revoke",
+      "pages-party-onboarding--organization-access-last-admin",
+      "pages-party-onboarding--organization-access-recovery",
+      "pages-party-onboarding--organization-access-dispute",
+      "pages-party-onboarding--organization-access-empty-loading",
+      "pages-party-onboarding--organization-access-pagination",
+      "pages-party-onboarding--organization-access-retry",
+      "pages-party-onboarding--organization-access-permission-revoked"
+    ],
+    "verificationScenarios": [
+      "invite-member",
+      "transfer",
+      "revoke",
+      "last-admin",
+      "recovery",
+      "dispute",
+      "empty-loading",
+      "pagination",
+      "retry",
+      "permission-revoked"
+    ],
+    "note": "Membership/claim lists require pagination",
+    "beforeStories": [
+      "pages-parties-workflows--directory-search",
+      "pages-parties-workflows--register-organization",
+      "pages-parties-workflows--register-individual"
+    ]
+  },
+  {
+    "ticket": "AIN-202",
+    "component": "Isolated Auth/API/Email/UI/Network/Marketplace journey and migration harness",
+    "status": "planned, not implemented",
+    "proposedStoryIds": [],
+    "verificationScenarios": [
+      "legacy-unresolved",
+      "mixed-version-contract",
+      "rollback",
+      "full-org-journey",
+      "individual-journey",
+      "revocation-no-leaks"
+    ],
+    "note": "Reuse child story UI evidence; own real-service and staging evidence",
+    "beforeStories": []
+  },
+  {
+    "ticket": "AIN-204",
+    "component": "EnsuredAPI/test/manual/complexSubmissionExamples.ts + complexSubmissionExamples.test.ts",
+    "status": "verified fixture evidence",
+    "proposedStoryIds": [],
+    "verificationScenarios": [
+      "typed-required-email",
+      "party-row-mapping",
+      "organization-individual-discriminator",
+      "unclaimed-no-grants",
+      "existing-postgresql-roundtrip"
+    ],
+    "note": "Implemented fixture-only scope; 41 tests pass, no account creation claim",
+    "beforeStories": []
+  }
+]

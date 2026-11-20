@@ -1,0 +1,23 @@
+
+> @simeoncalixte/ensured-services@0.1.0 test
+> node --test test/*.test.js
+
+✔ catalog.json registers email separately from Network and declares the API dependency (5.311334ms)
+✔ catalog.docker.json registers email separately from Network and declares the API dependency (1.033416ms)
+✔ PostgreSQL is required by default; serverless rejects memory storage and missing read auth (29.394ms)
+﹣ PostgreSQL registrations across replicas and Netlify invocations (0.163083ms) # SKIP
+✔ catalog and SDK discover only healthy instances, preserve static discovery, authenticate writes (101.545208ms)
+✔ leases expire, heartbeat renews, and static records cannot be overwritten (0.571833ms)
+✔ authenticated self-registration discovers a new origin with no static instances (19.795084ms)
+✔ registration accepts new origins and rejects unknown services and malformed origins (0.4135ms)
+✔ Consul registration, heartbeat, filtering, environment isolation and removal use its HTTP contract (11.073041ms)
+✔ a broken unrelated service does not block discovery of a healthy one (4.224209ms)
+✔ stopping a maintained registration waits for an in-flight renewal before removing it (1.825041ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 252.493292

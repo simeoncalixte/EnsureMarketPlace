@@ -1,0 +1,21 @@
+
+> @simeoncalixte/ensured-pipeline-risk-compute@0.1.1 test
+> jest --runInBand --watchman=false --silent
+
+PASS src/pipeline/compute/compute.test.ts
+PASS src/pipeline/catastrophe/strategies.test.ts
+PASS src/pipeline/parametric/definition.test.ts
+PASS src/pipeline/catastrophe/epEngine.test.ts
+PASS src/pipeline/benchmarkPriors/coverage.test.ts
+PASS src/pipeline/parametric/formula.test.ts
+PASS src/pipeline/riskCompute/service.test.ts
+PASS src/pipeline/casualty/strategies.test.ts
+PASS src/pipeline/catastrophe/eventLoss.test.ts
+PASS src/pipeline/catastrophe/damageCurves.test.ts
+PASS src/pipeline/parametric/strategies.test.ts
+PASS src/pipeline/catastrophe/accumulation.test.ts
+
+Test Suites: 12 passed, 12 total
+Tests:       219 passed, 219 total
+Snapshots:   0 total
+Time:        1.732 s, estimated 4 s
