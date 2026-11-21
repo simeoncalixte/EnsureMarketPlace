@@ -5,7 +5,7 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
-## AIN-240: submission envelope (2026-11-21, Jira In Progress; PRs open)
+## AIN-240: submission envelope (2026-11-21, Jira Human Review; PRs open)
 
 Objective (user): work on AIN-240 (blocks AIN-234, 235, 238). Parent base branch `sprint-2`.
 User decisions: status rule = **lookup table**; ORM fix = **publish shared 0.2.1 only + npm override
@@ -19,8 +19,12 @@ in EnsuredAPI** (17 pipeline packages pin shared@0.2.0).
 - **Design:** see [docs/data-models/submission-envelope.md](docs/data-models/submission-envelope.md),
   which covers the registry, the derived shared/quoted/bound view, the indexes, the recorded plans
   and rollback.
-- **Verified:** API `npm run check` passes. `test:submissions` passes 133/133 (15 new real-PostgreSQL
-  tests) plus the verifier. Root `npm test` has 21 failing suites and 80 failing tests, a set
+- **AI review** (owner's new lanes: AI Review, then Human Review; only the owner moves tickets to Done)
+  found a bug. Legacy insurer-profile submissions (tenant_id NULL) could not use their
+  organization's board statuses. Fixed in EnsuredAPI `669931c` with `submission_owner_organization()`;
+  the whitespace rule now matches `trim()`, and `collectAllowedStatuses` filters the same way.
+- **Verified:** API `npm run check` passes. `test:submissions` passes 136/136 (13 suites) plus the
+  verifier, and the compiled-migration loader test passes. Root `npm test` has 21 failing suites and 80 failing tests, a set
   identical to the 11-20 baseline. `check-package-overrides --installed` passes.
 - **Not done:** the migration is not applied to any shared or deployed database. Apply it before
   deploying an API on 0.2.1. Nothing is deployed.
