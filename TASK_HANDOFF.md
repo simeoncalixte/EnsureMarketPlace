@@ -5,6 +5,39 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## Sprint assignment update (2026-11-21)
+
+User requested AIN-239–243 in Sprint 2. Verified live Jira: AIN-239–242 were already in
+`AIN S02: Submission CRUD` (sprint 37). Moved AIN-243 from S03 (38) to S02 and
+read back all five assignments successfully. All remain To Do. Scope was sprint assignment
+only; linked issues, implementation, sprint goals and workflow statuses were unchanged.
+This scheduling request is complete; implementation remains outstanding.
+
+## Sprint AIN S02 (Submission CRUD): AIN-237 review (2026-11-20)
+
+Objective (user): start AIN-237 and work out how submission CRUD can meet the sprint goal while
+submissions take different shapes for different lines of business. Then update the tickets and
+sprint with the findings. This was a read-only review: no code, migration or deployment changes.
+
+- **AIN-237 Done.** The findings comment (id 10438) holds the ER diagram, delete behaviour, gaps,
+  canonical leftovers and the recommended model.
+- **Model:** a shared envelope on `submissions` + a risk-class/schema-version pin + versions.
+  Initial input stays in `manual_input`; edits stay in `submission_feedback.versions`.
+- **New tickets, all To Do, under AIN-3:**
+  - AIN-239 (Highest, S02): purge route open to any authenticated user; truncation bypasses
+    immutability triggers. Blocks AIN-235.
+  - AIN-240 (S02): archive, lifecycle and list indexes. Blocks AIN-234, 235, 238.
+  - AIN-241 (S02): risk-class schema pin with a generic default. Blocks AIN-234; relates to 238.
+  - AIN-242 (S02): draft hard delete across services. Blocks AIN-235.
+  - AIN-243 (S02): protect the legacy canonical archive and remove leftovers.
+- **Story comments:** scope-update comments added to AIN-234, 235 and 238.
+- **Sprint goal:** sprint 37's goal now names the prerequisites; name and dates unchanged.
+- **Not verified:** live database state; the `extracted_fields` FK re-add; the purge behaviour is
+  inferred from PostgreSQL semantics and not yet reproduced (AIN-239 AC4).
+- **Next:** AIN-239, then AIN-240 → AIN-241 → AIN-242. After those, AIN-238, AIN-234, AIN-235,
+  then AIN-236 (end to end).
+- **Open question:** the record-retention rule in AIN-235 still needs an owner decision.
+
 ## Frontend agent and UI skills (2026-11-20)
 
 Direct user request, not ticket-driven: build a long-running agent that works on EnsuredUI,
