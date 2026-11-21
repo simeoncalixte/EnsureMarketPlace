@@ -5,6 +5,29 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## AIN-240: submission envelope (2026-11-21, In Review)
+
+Objective (user): work on AIN-240 (blocks AIN-234, 235, 238). Parent base branch `sprint-2`.
+User decisions: status rule = **lookup table**; ORM fix = **publish shared 0.2.1 only + npm override
+in EnsuredAPI** (17 pipeline packages pin shared@0.2.0).
+
+- PRs (open, not merged): [EnsuredPipelineShared#7](https://github.com/simeoncalixte/EnsuredPipelineShared/pull/7),
+  [EnsuredAPI#28](https://github.com/simeoncalixte/EnsuredAPI/pull/28),
+  [EnsureMarketPlace-docs#5](https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/5), and the parent PR into `sprint-2`.
+- **Published:** `@simeoncalixte/ensured-pipeline-shared@0.2.1` (GitHub Packages, from `b762bc6`). The PR's
+  first commit also records the previously uncommitted source of the published 0.2.0.
+- **Design:** see [docs/data-models/submission-envelope.md](docs/data-models/submission-envelope.md),
+  which covers the registry, the derived shared/quoted/bound view, the indexes, the recorded plans
+  and rollback.
+- **Verified:** API `npm run check` passes. `test:submissions` passes 133/133 (15 new real-PostgreSQL
+  tests) plus the verifier. Root `npm test` has 21 failing suites and 80 failing tests, a set
+  identical to the 11-20 baseline. `check-package-overrides --installed` passes.
+- **Not done:** the migration is not applied to any shared or deployed database. Apply it before
+  deploying an API on 0.2.1. Nothing is deployed.
+- **Next:** review and merge the PRs, then mark AIN-240 Done. Then AIN-239, AIN-241 and AIN-242.
+  AIN-238 should list using the documented `ORDER BY ... NULLS LAST, id DESC` to hit the indexes.
+  AIN-235/242 should use `submission_external_activity` for the hard-delete rule.
+
 ## Sprint assignment update (2026-11-21)
 
 User requested AIN-239–243 in Sprint 2. Verified live Jira: AIN-239–242 were already in
