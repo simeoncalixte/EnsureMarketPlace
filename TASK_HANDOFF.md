@@ -5,7 +5,7 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
-## AIN-240: submission envelope (2026-11-21, In Review)
+## AIN-240: submission envelope (2026-11-21, Jira In Progress; PRs open)
 
 Objective (user): work on AIN-240 (blocks AIN-234, 235, 238). Parent base branch `sprint-2`.
 User decisions: status rule = **lookup table**; ORM fix = **publish shared 0.2.1 only + npm override
