@@ -5,6 +5,34 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## AIN-240: submission envelope (2026-11-21, Jira Done; PRs merged)
+
+Objective (user): work on AIN-240 (blocks AIN-234, 235, 238). Parent base branch `sprint-2`.
+User decisions: status rule = **lookup table**; ORM fix = **publish shared 0.2.1 only + npm override
+in EnsuredAPI** (17 pipeline packages pin shared@0.2.0).
+
+- PRs merged on the owner's instruction: [EnsuredPipelineShared#7](https://github.com/simeoncalixte/EnsuredPipelineShared/pull/7) (`46d0356`),
+  [EnsuredAPI#28](https://github.com/simeoncalixte/EnsuredAPI/pull/28) (`cf62f85`),
+  [EnsureMarketPlace-docs#5](https://github.com/simeoncalixte/EnsureMarketPlace-docs/pull/5) (`6191650`), and parent #89 into `sprint-2`.
+  Parent `release-parity` CI fails on every branch, `main` included: checkout has no submodule token secret.
+- **Published:** `@simeoncalixte/ensured-pipeline-shared@0.2.1` (GitHub Packages, from `b762bc6`). The PR's
+  first commit also records the previously uncommitted source of the published 0.2.0.
+- **Design:** see [docs/data-models/submission-envelope.md](docs/data-models/submission-envelope.md),
+  which covers the registry, the derived shared/quoted/bound view, the indexes, the recorded plans
+  and rollback.
+- **AI review** (owner's new lanes: AI Review, then Human Review; only the owner moves tickets to Done)
+  found a bug. Legacy insurer-profile submissions (tenant_id NULL) could not use their
+  organization's board statuses. Fixed in EnsuredAPI `669931c` with `submission_owner_organization()`;
+  the whitespace rule now matches `trim()`, and `collectAllowedStatuses` filters the same way.
+- **Verified:** API `npm run check` passes. `test:submissions` passes 136/136 (13 suites) plus the
+  verifier, and the compiled-migration loader test passes. Root `npm test` has 21 failing suites and 80 failing tests, a set
+  identical to the 11-20 baseline. `check-package-overrides --installed` passes.
+- **Not done:** the migration is not applied to any shared or deployed database. Apply it before
+  deploying an API on 0.2.1. Nothing is deployed.
+- **Next:** AIN-239, AIN-241 and AIN-242.
+  AIN-238 should list using the documented `ORDER BY ... NULLS LAST, id DESC` to hit the indexes.
+  AIN-235/242 should use `submission_external_activity` for the hard-delete rule.
+
 ## Sprint assignment update (2026-11-21)
 
 User requested AIN-239–243 in Sprint 2. Verified live Jira: AIN-239–242 were already in
