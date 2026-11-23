@@ -1,0 +1,14 @@
+[
+  {
+    "command": "npm run check:type-safety",
+    "exitCode": 1
+  },
+  {
+    "command": "npm run lint",
+    "exitCode": 1
+  },
+  {
+    "command": "npm run format:check",
+    "exitCode": 1
+  }
+]

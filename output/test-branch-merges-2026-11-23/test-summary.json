@@ -1,0 +1,180 @@
+{
+  "AIN-238": {
+    "passed": 2,
+    "failed": 95,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-238/listView.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-238/insuredName.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-238/listView.contract.test.ts",
+        "status": "failed"
+      }
+    ]
+  },
+  "AIN-242": {
+    "passed": 1,
+    "failed": 33,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-242/draftDeletion.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-242/draftDeletion.contract.test.ts",
+        "status": "failed"
+      }
+    ]
+  },
+  "AIN-235": {
+    "passed": 0,
+    "failed": 45,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-235/archiveDelete.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-235/archive.contract.test.ts",
+        "status": "failed"
+      }
+    ]
+  },
+  "AIN-282": {
+    "passed": 0,
+    "failed": 40,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-282/editability.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-282/editability.contract.test.ts",
+        "status": "failed"
+      }
+    ]
+  },
+  "AIN-269": {
+    "passed": 8,
+    "failed": 7,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-269/agentArchived.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-269/agentArchived.contract.test.ts",
+        "status": "failed"
+      }
+    ]
+  },
+  "AIN-239": {
+    "passed": 18,
+    "failed": 0,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-239/purgeIntegrity.db.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/acceptance/AIN-239/purgeAuthorization.test.ts",
+        "status": "passed"
+      }
+    ]
+  },
+  "AIN-279": {
+    "passed": 7,
+    "failed": 11,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-279/purgeFeedbackGuard.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-279/purgeGate.test.ts",
+        "status": "passed"
+      }
+    ]
+  },
+  "AIN-243": {
+    "passed": 4,
+    "failed": 7,
+    "suites": [
+      {
+        "file": "test/acceptance/AIN-243/legacyArtifacts.db.test.ts",
+        "status": "failed"
+      },
+      {
+        "file": "test/acceptance/AIN-243/staleReferences.test.ts",
+        "status": "failed"
+      }
+    ]
+  },
+  "existing submissions": {
+    "passed": 141,
+    "failed": 0,
+    "suites": [
+      {
+        "file": "test/submissions/crud/submissionCrud.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/migrations/envelopeLifecycle.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/search/routes.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/migrations/schemaPin.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/documents/attachments.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/documents/classification.db.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/forms/inputValidation.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/dashboard/boardConfig.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/search/filters.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/forms/templateDefinitions.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/dashboard/aggregations.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/documents/processing.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/access/submissionAccess.test.ts",
+        "status": "passed"
+      },
+      {
+        "file": "test/submissions/forms/insuranceExamples.test.ts",
+        "status": "passed"
+      }
+    ]
+  }
+}

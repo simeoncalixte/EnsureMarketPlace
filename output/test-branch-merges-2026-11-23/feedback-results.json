@@ -1,0 +1,6 @@
+{
+  "command": "node --test --test-concurrency=1 EnsuredSubmissionFeedback/test/baselineRefresh.test.js EnsuredSubmissionFeedback/test/publication.test.js EnsuredSubmissionFeedback/test/sharedPicklists.test.js EnsuredSubmissionFeedback/test/readContext.test.js EnsuredSubmissionFeedback/test/store.test.js EnsuredSubmissionFeedback/test/feedback.test.js EnsuredSubmissionFeedback/test/acceptance/AIN-279/versionsExist.db.test.js EnsuredSubmissionFeedback/test/acceptance/AIN-279/versionsExist.test.js",
+  "exitCode": 1,
+  "buildExitCode": 0,
+  "note": "TCP readiness checked; serial files avoid migration setup races"
+}

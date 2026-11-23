@@ -5,6 +5,50 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## Test-branch merges and dependency update (2026-11-23)
+
+Objective: push and merge the nine named test branches, update required packages and workspace
+submodule references. Owner clarified **existing feature branches only**, then explicitly approved
+merging test-first branches with known failing tests/typechecks as an exception to the pre-merge
+check rule. Implementation tickets remain open; this is not acceptance or release completion.
+
+- API target: `feat/ain-241-234-submission-edit`, `f7ec273`, pushed to [PR #30](https://github.com/simeoncalixte/EnsuredAPI/pull/30).
+  Merged `tests/AIN-239`, `279`, `242`, `235`, `243`, `238`, `269`, `282` in that order.
+  AIN-279's ancestry includes the AIN-239 purge-lockdown implementation (`fca88b7`).
+- Feedback target: `feat/ain-234-edit-versions`, `a6fbc8a`, pushed to [PR #5](https://github.com/simeoncalixte/EnsuredSubmissionFeedback/pull/5).
+  Merged `tests/AIN-279`. A verified stale branch lock was moved to a temporary backup to finish the merge.
+- Dependency: published `@simeoncalixte/ensured-pipeline-shared@0.3.0` is available; shared PR #8 is merged.
+  API lockfile updated from 0.2.1 to 0.3.0 in `cac5171`; replaced the stale local copied build with
+  the registry artifact. No unrelated dependency upgrades. API PR #29 remains open/draft.
+- Ticket map: all eight API tickets and the feedback half of AIN-279 are required for this merge request.
+  AIN-239 precedes 279; AIN-242 precedes 235; AIN-238 precedes 282; 238/269/282 inherit the
+  existing AIN-234/241 feature code. AIN-240 is already merged. Live parent AIN-3 and AIN-234/241
+  criteria/subtasks were reviewed. No implementation completion inferred from their current statuses.
+  Excluded: additional implementation on local `feature/AIN-242-draft-hard-delete`, UI AIN-280,
+  referrals AIN-106, search AIN-283, broader shape subtasks, and open feature PR merges to main;
+  these are outside the approved test-branch merge scope. AIN-210 records the existing feedback static-gate gap.
+- Before adding test-first branches: API `npm run format`, `npm run check`, `npm run test:submissions`
+  passed (141/141 plus API/feedback journey and 30/30 feedback tests) with the published dependency.
+- Final merged API: `npm run check` fails on missing AIN-238/242/282 exports/modules.
+  Separate checks: type-safety finds 88 casts, ESLint reports 117 errors, Prettier reports 10 files.
+  Authored acceptance tests retained unchanged. `node scripts/test-api.mjs --testPathPattern
+  '/test/(acceptance|submissions)/'` on disposable PostgreSQL: 17 suites passed, 14 failed;
+  181 tests passed, 238 failed. Existing submissions remain 141/141 passing; AIN-239 is 18/18.
+- Final feedback: `node --test --test-concurrency=1 test/*.test.js test/acceptance/AIN-279/*.test.js`
+  with a disposable `FEEDBACK_TEST_DATABASE_URL`: 40 passed, 19 failed, zero skips. The new
+  versionsExist method/route are unimplemented. `npm run build` passes. Typecheck/ESLint/Prettier
+  scripts remain absent (AIN-210). Initial DB-startup failures were resolved by waiting for TCP readiness.
+- Evidence: `output/test-branch-merges-2026-11-23/` (test-summary.json, static-results.json,
+  feedback-results.json, Jira snapshots/comments, full local logs). Test mapping is each ticket's
+  `test/acceptance/AIN-*/` directory; this merge adds no UI workflow or Storybook requirement.
+- Jira comments 10582–10589 record results on all eight tickets; no status changed or ticket closed.
+  Root `npm run workspace:check` passes.
+- No main merge, deployment or shared-database migration. Root `sprint-2` references the two new
+  feature heads. Other submodule changes and prior uncommitted handoff content are preserved.
+- Merge/dependency request delivered by the root reference update. Broader implementation
+  remains incomplete: implement the failing contracts through their existing tickets, reconcile newer
+  AIN-269/282 criteria, then pass static gates and acceptance suites before release.
+
 ## AIN-240: submission envelope (2026-11-21, Jira Done; PRs merged)
 
 Objective (user): work on AIN-240 (blocks AIN-234, 235, 238). Parent base branch `sprint-2`.
