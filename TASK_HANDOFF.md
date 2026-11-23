@@ -14,6 +14,13 @@ Registry readback confirms `@simeoncalixte/ensured-xds@0.2.0` exists and `latest
 This supersedes the earlier unpublished notes. Consumer dependency pins were not changed by
 this publication request; application adoption remains separate.
 
+Jira release updates verified: AIN-252/265/270/274/280/281 comments 10616–10621 now record
+publication and supersede the earlier pending-release notes. Statuses are unchanged (AIN-274
+already Done; AIN-281 still In Progress for remaining table/badge work). AIN-270 already owns
+the consumer pin bump, so no duplicate ticket was created. EnsuredUI currently pins 0.1.3;
+publication blockers are cleared only for the shipped components. Readback evidence:
+`output/xds-publication-jira-2026-11-23/updates.json`.
+
 ## Merge all current PRs (2026-11-23)
 
 Objective: owner requested all current PRs merged, extending the prior feature-only scope.
