@@ -1,0 +1,292 @@
+{
+  "ranAt": "2026-11-23T20:16:35.940Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "filters": {
+    "title": [],
+    "id": [
+      "xds-pagination--first-page",
+      "xds-pagination--middle-page",
+      "xds-pagination--last-page",
+      "xds-pagination--single-page",
+      "xds-pagination--loading",
+      "xds-pagination--custom-reasons",
+      "xds-pagination--dark-1440",
+      "xds-pagination--light-1440",
+      "xds-key-value-list--submission-detail",
+      "xds-key-value-list--empty-values",
+      "xds-key-value-list--invalid-date-stays-visible",
+      "xds-key-value-list--loading",
+      "xds-key-value-list--no-items",
+      "xds-key-value-list--dark-1440",
+      "xds-key-value-list--light-1440",
+      "xds-unsupportedfield--scalar-value",
+      "xds-unsupportedfield--exact-decimal",
+      "xds-unsupportedfield--object-value",
+      "xds-unsupportedfield--array-of-records",
+      "xds-unsupportedfield--array-of-scalars",
+      "xds-unsupportedfield--empty-value",
+      "xds-unsupportedfield--long-value",
+      "xds-unsupportedfield--custom-reason"
+    ]
+  },
+  "passed": 23,
+  "failed": 0,
+  "results": [
+    {
+      "id": "xds-pagination--first-page",
+      "title": "Navigation/Pagination",
+      "name": "First Page",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--middle-page",
+      "title": "Navigation/Pagination",
+      "name": "Middle Page",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--last-page",
+      "title": "Navigation/Pagination",
+      "name": "Last Page",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--single-page",
+      "title": "Navigation/Pagination",
+      "name": "Single Page",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--loading",
+      "title": "Navigation/Pagination",
+      "name": "Loading",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--custom-reasons",
+      "title": "Navigation/Pagination",
+      "name": "Custom labels and reasons",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--dark-1440",
+      "title": "Navigation/Pagination",
+      "name": "Dark 1440",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--light-1440",
+      "title": "Navigation/Pagination",
+      "name": "Light 1440",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--submission-detail",
+      "title": "Data Display/KeyValueList",
+      "name": "Submission detail (3 columns)",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--empty-values",
+      "title": "Data Display/KeyValueList",
+      "name": "Empty values show —",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--invalid-date-stays-visible",
+      "title": "Data Display/KeyValueList",
+      "name": "Invalid date-only value stays visible",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--loading",
+      "title": "Data Display/KeyValueList",
+      "name": "Loading",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--no-items",
+      "title": "Data Display/KeyValueList",
+      "name": "Empty list",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--dark-1440",
+      "title": "Data Display/KeyValueList",
+      "name": "Dark 1440",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--light-1440",
+      "title": "Data Display/KeyValueList",
+      "name": "Light 1440",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--scalar-value",
+      "title": "Data Display/UnsupportedField",
+      "name": "Scalar Value",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--exact-decimal",
+      "title": "Data Display/UnsupportedField",
+      "name": "Exact Decimal",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--object-value",
+      "title": "Data Display/UnsupportedField",
+      "name": "Object Value",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--array-of-records",
+      "title": "Data Display/UnsupportedField",
+      "name": "Array Of Records",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--array-of-scalars",
+      "title": "Data Display/UnsupportedField",
+      "name": "Array Of Scalars",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--empty-value",
+      "title": "Data Display/UnsupportedField",
+      "name": "Empty Value",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--long-value",
+      "title": "Data Display/UnsupportedField",
+      "name": "Long Value",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-unsupportedfield--custom-reason",
+      "title": "Data Display/UnsupportedField",
+      "name": "Custom Reason",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    }
+  ]
+}

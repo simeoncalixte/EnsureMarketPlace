@@ -1,0 +1,205 @@
+{
+  "ranAt": "2026-11-23T20:10:40.953Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "filters": {
+    "title": [],
+    "id": [
+      "pages-insurer-dashboard-submission-workspace-edit--",
+      "pages-underwriting-new-submission--"
+    ]
+  },
+  "passed": 17,
+  "failed": 0,
+  "results": [
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--saved-manual-submission",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Saved Manual Submission",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--signing-tab-renders",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Signing Tab Renders",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-save-new-version",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Save New Version",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-validation-failure",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Validation Failure",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-version-conflict",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Version Conflict",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-shape-mismatch",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Shape Mismatch",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-archived-read-only",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Archived Read Only",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-not-permitted-read-only",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Not Permitted Read Only",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-unauthorised-403",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Unauthorised 403",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-attachments-keep-detach",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Attachments Keep Detach",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-other-section-and-cancel",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Other Section And Cancel",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-insurer-dashboard-submission-workspace-edit--edit-loading",
+      "title": "Pages/Insurer Dashboard/Submission Workspace Edit",
+      "name": "Edit Loading",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-underwriting-new-submission--template-loaded",
+      "title": "Pages/Underwriting/New Submission",
+      "name": "Template Loaded",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-underwriting-new-submission--create-happy-path",
+      "title": "Pages/Underwriting/New Submission",
+      "name": "Create Happy Path",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-underwriting-new-submission--create-validation-errors",
+      "title": "Pages/Underwriting/New Submission",
+      "name": "Create Validation Errors",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-underwriting-new-submission--create-shape-mismatch",
+      "title": "Pages/Underwriting/New Submission",
+      "name": "Create Shape Mismatch",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "pages-underwriting-new-submission--template-not-configured",
+      "title": "Pages/Underwriting/New Submission",
+      "name": "Template Not Configured",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "ranAt": "2026-11-23T20:16:38.034Z",
+  "viewport": {
+    "width": 768,
+    "height": 900
+  },
+  "filters": {
+    "title": [],
+    "id": [
+      "xds-pagination--dark-768",
+      "xds-pagination--light-768",
+      "xds-key-value-list--dark-768",
+      "xds-key-value-list--light-768"
+    ]
+  },
+  "passed": 4,
+  "failed": 0,
+  "results": [
+    {
+      "id": "xds-pagination--dark-768",
+      "title": "Navigation/Pagination",
+      "name": "Dark 768",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-pagination--light-768",
+      "title": "Navigation/Pagination",
+      "name": "Light 768",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--dark-768",
+      "title": "Data Display/KeyValueList",
+      "name": "Dark 768",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    },
+    {
+      "id": "xds-key-value-list--light-768",
+      "title": "Data Display/KeyValueList",
+      "name": "Light 768",
+      "passed": true,
+      "errors": [],
+      "blocked": [
+        "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap",
+        "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+      ]
+    }
+  ]
+}

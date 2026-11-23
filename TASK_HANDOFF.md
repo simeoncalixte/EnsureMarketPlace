@@ -5,6 +5,69 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## Merge all current PRs (2026-11-23)
+
+Objective: owner requested all current PRs merged, extending the prior feature-only scope.
+All **11 AInsured PRs** identified at the start are now merged; final search shows no remaining
+AInsured PRs. Unrelated ARClassRooms, MicroServiceAutoInventory and NextJSTypeScriptStoryBookSetup
+PRs were excluded because they are outside this workspace/product. No ticket was closed.
+
+- EnsuredAPI #29 `6d93491`, #31 `a85e40b`, #30 `4334821` → main.
+  Shared 0.3.0 was already published; brought its lockfile update into #29, verified it and removed
+  draft status. Merged #29 before retargeting #30 to main. Resolved duplicated purge implementations
+  using #31's impersonation refusal and placement-event guard, retaining the test stubs; replaced
+  source const assertions with explicit readonly arrays. #31 merged before #30.
+- EnsuredSubmissionFeedback #5 `1704ba6` → main.
+- EnsuredUI #25 `618d620`, #23 `f16c79e` → main. Integrated the already-published XDS 0.1.3 pin and
+  caret dependency ranges from current main; installed the exact merged lockfile.
+- EnsureMarketPlace-docs #6 `523907d` → main.
+- EnsuredXDS #13 `0281b84`, #15 `31befb1`, #16 `14932fb` integrated into release #14,
+  merged to main as `96c6908`. All four PRs read back MERGED. README conflicts preserve all
+  component sections; registries/manifests merge cleanly. Release is **0.2.0, not tagged/published**.
+  Original XDS working branch/untracked handoff files were preserved; integration used an isolated clone.
+- Four clean workspace submodules synced to merged main; root sprint-2 records their new pointers.
+
+Verification and limits:
+
+- API #29: final format/check pass; 136 submission tests plus 24 schema-authoring/converter tests pass.
+- API combined #30/#31: 183 passing, 238 failing tests across 32 suites; all existing 141 submission
+  tests pass. After the source type-style correction, final purge-only suite is 20/20. Later ancestry
+  reconciliation changed no files. Known test-first failures remain under the owner's explicit
+  exception: missing AIN-238/242/282 APIs, 117 ESLint errors and 10 formatting failures in acceptance
+  files. No failing assertion was weakened. Broader implementation remains incomplete.
+- Feedback unchanged from the verified prior turn: 40 pass, 19 fail, no skips on disposable PostgreSQL;
+  build passes. Missing versionsExist is AIN-279; missing static scripts remain AIN-210.
+- UI final npm run check, test:submissions and test:dashboard pass; static Storybook builds;
+  all 17 play-function stories pass at both 1440x900 and 390x900. IDs are in the results mapping.
+  Existing Vercel preview failure remains AIN-215; normal frontend CI passed before integration.
+- XDS combined ESLint, Prettier, TypeScript/package build pass; npm test 18 pass, one opt-in sibling
+  catalog check skipped. Static Storybook builds; all 32 new stories pass at their declared sizes:
+  23 at 1440, 5 at 375, 4 at 768. Initial generic desktop run did not apply viewport metadata;
+  final runs use real viewport sizes. Package tests required registry/cache access.
+- Found/fixed a missing React import in UnsupportedField's NarrowViewport story; it previously
+  rendered a router error page without a play function. Added ArrayOfRecords.play as a regression
+  assertion. Commit `5fe53b7`. Before → After on AIN-265: attachments **10187**
+  `Before-AIN-265-narrow-story-375.png` and **10188** `After-AIN-265-narrow-story-375.png`, both
+  fetched successfully and visually reviewed. Story `xds-unsupportedfield--narrow-viewport`,
+  Chromium 375x900, default dark, zoom 100%, scroll top, synthetic location schedule, no account;
+  Before `0ecfdea` error screen → After labelled read-only table, no page overflow. Original component
+  visual-evidence gaps remain with AIN-265/281; those tickets are not marked Done.
+- Root npm run workspace:check passes. Evidence in `output/all-pr-merges-2026-11-23/`:
+  pr-final.json, Jira comments, UI/XDS results.json mappings and local logs. Jira comments
+  10603–10612 record outcomes on AIN-234/239/241/244/245/247/265/268/281/285.
+
+Required ticket/PR map: AIN-244 design → 245/247 API authoring → 234/241 edits with feedback →
+268 UI; AIN-239 purge overlaps API edits; AIN-285 is the UI manifest-only maintenance PR.
+AIN-265 and 281 own the XDS additions; release #14 carries their commits. Live descriptions,
+subtasks and links were refreshed. Existing unfinished shape subtasks, AIN-235/238/242/243/269/279/282
+implementations and parent AIN-3 acceptance remain separate from this merge request; none is
+silently replaced or claimed delivered. No new UI workflow was invented for this task.
+
+No shared/deployed database migration or application deployment was manually initiated. The existing
+XDS main workflow can deploy Storybook Pages automatically. Apply API schema-change/schema-pin and
+feedback migrations before application deployment; XDS tag/publication and consumer upgrades are
+separate follow-up work. The requested PR merges are complete; release readiness is not claimed.
+
 ## Test-branch merges and dependency update (2026-11-23)
 
 Objective: push and merge the nine named test branches, update required packages and workspace
