@@ -5,6 +5,15 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## XDS 0.2.0 published (2026-11-23)
+
+Owner requested publication after the PR merges. Tag `v0.2.0` points to verified main commit
+`96c69084b38e1bf1c67f34eec2868c7410540d25`. The [release workflow](https://github.com/simeoncalixte/EnsuredXDS/actions/runs/45258730788)
+passed its install, lint, formatting, TypeScript build, version-match, pack and publish jobs.
+Registry readback confirms `@simeoncalixte/ensured-xds@0.2.0` exists and `latest` is `0.2.0`.
+This supersedes the earlier unpublished notes. Consumer dependency pins were not changed by
+this publication request; application adoption remains separate.
+
 ## Merge all current PRs (2026-11-23)
 
 Objective: owner requested all current PRs merged, extending the prior feature-only scope.
