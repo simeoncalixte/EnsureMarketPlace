@@ -1,0 +1,79 @@
+[
+  {
+    "id": "xds-banner--info",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--warning",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--neutral",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--body-only",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--with-action",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--dismissible",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--controlled-with-focus-return",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--light-theme",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--dark-theme",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--narrow-390",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-banner--narrow-390-light",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  }
+]

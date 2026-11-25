@@ -1,0 +1,10 @@
+PASS src/Pages/InsurerDashboard/sections/CoverageFeedbackControl.test.tsx
+  ✓ renders editable requested coverage controls and nested parameters (36 ms)
+  ✓ synchronizes aliases while preserving unknown nested parameters and zero/false (1 ms)
+  ✓ passes coverage and nested control changes back into the parent draft (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        0.775 s
+Ran all test suites.

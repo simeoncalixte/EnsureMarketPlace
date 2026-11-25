@@ -1,0 +1,177 @@
+
+> @simeoncalixte/ensured-xds@0.2.0 test
+> npm run build && node --test --test-concurrency=1 test/package.test.mjs test/component-manifest.test.mjs test/results.test.mjs test/palette.test.mjs test/financial-value.test.mjs test/date-only.test.mjs test/data-table.test.mjs
+
+
+> @simeoncalixte/ensured-xds@0.2.0 build
+> node scripts/clean.mjs && npm run generate:dashboard-validators && tsc -p tsconfig.build.json && node scripts/copy-css.mjs
+
+
+> @simeoncalixte/ensured-xds@0.2.0 generate:dashboard-validators
+> node scripts/generate-dashboard-validators.mjs
+
+Generated 9 standalone dashboard validators.
+TAP version 13
+# Subtest: extracts inherited/nested JSON props and reports unsupported props without weakening unions
+ok 1 - extracts inherited/nested JSON props and reports unsupported props without weakening unions
+  ---
+  duration_ms: 939.293388
+  type: 'test'
+  ...
+# Subtest: generates the XDS catalog without executing React and preserves reviewed validation
+ok 2 - generates the XDS catalog without executing React and preserves reviewed validation
+  ---
+  duration_ms: 4573.757461
+  type: 'test'
+  ...
+# Subtest: the sibling application catalog matches the published manifest
+ok 3 - the sibling application catalog matches the published manifest # SKIP Set XDS_CHECK_SIBLING_CATALOG=1 in the application checkout
+  ---
+  duration_ms: 0.15862
+  type: 'test'
+  ...
+# Subtest: DataTable fixed sort, link and two-line cells, muted rows and caption
+ok 4 - DataTable fixed sort, link and two-line cells, muted rows and caption
+  ---
+  duration_ms: 545.829222
+  type: 'test'
+  ...
+# Subtest: DataTable onSort renders a header button; captionRef makes the caption focusable
+ok 5 - DataTable onSort renders a header button; captionRef makes the caption focusable
+  ---
+  duration_ms: 258.725719
+  type: 'test'
+  ...
+# Subtest: DataTable skeleton, text loading and stacked layout
+ok 6 - DataTable skeleton, text loading and stacked layout
+  ---
+  duration_ms: 204.839647
+  type: 'test'
+  ...
+# Subtest: DataTable legacy rows API is unchanged
+ok 7 - DataTable legacy rows API is unchanged
+  ---
+  duration_ms: 163.767777
+  type: 'test'
+  ...
+# Subtest: muted row and secondary-line text meet 4.5:1 in light and dark themes
+ok 8 - muted row and secondary-line text meet 4.5:1 in light and dark themes
+  ---
+  duration_ms: 0.550052
+  type: 'test'
+  ...
+# Subtest: formatDateOnly shows the same calendar day in every time zone
+ok 9 - formatDateOnly shows the same calendar day in every time zone
+  ---
+  duration_ms: 221.703181
+  type: 'test'
+  ...
+# Subtest: formatDateOnly rejects values that are not a real YYYY-MM-DD day
+ok 10 - formatDateOnly rejects values that are not a real YYYY-MM-DD day
+  ---
+  duration_ms: 6.224205
+  type: 'test'
+  ...
+# Subtest: KeyValueList renders dl/dt/dd, date-only values, empty placeholders and a skeleton
+ok 11 - KeyValueList renders dl/dt/dd, date-only values, empty placeholders and a skeleton
+  ---
+  duration_ms: 689.305661
+  type: 'test'
+  ...
+# Subtest: FinancialValue renders each truthfulness state and never shows zero for unknown values
+ok 12 - FinancialValue renders each truthfulness state and never shows zero for unknown values
+  ---
+  duration_ms: 485.786442
+  type: 'test'
+  ...
+# Subtest: FinancialValue text and focus colors meet contrast in light and dark themes
+ok 13 - FinancialValue text and focus colors meet contrast in light and dark themes
+  ---
+  duration_ms: 0.719682
+  type: 'test'
+  ...
+# > @simeoncalixte/ensured-xds@0.2.0 prepare
+# > npm run build
+# > @simeoncalixte/ensured-xds@0.2.0 build
+# > node scripts/clean.mjs && npm run generate:dashboard-validators && tsc -p tsconfig.build.json && node scripts/copy-css.mjs
+# > @simeoncalixte/ensured-xds@0.2.0 generate:dashboard-validators
+# > node scripts/generate-dashboard-validators.mjs
+# Subtest: shared source imports stay inside the package and contain no application environment/API dependencies
+ok 14 - shared source imports stay inside the package and contain no application environment/API dependencies
+  ---
+  duration_ms: 17.837308
+  type: 'test'
+  ...
+# ../../../ensured-xds-consumer-ie8AUn/node_modules/react-router/dist/development/index.mjs (11:0): Module level directives cause errors when bundled, "use client" in "../../../ensured-xds-consumer-ie8AUn/node_modules/react-router/dist/development/index.mjs" was ignored.
+# Subtest: a packed artifact builds in a separate consumer with exported components, styles and declarations
+ok 15 - a packed artifact builds in a separate consumer with exported components, styles and declarations
+  ---
+  duration_ms: 27350.122084
+  type: 'test'
+  ...
+# Subtest: approved palette remains exact
+ok 16 - approved palette remains exact
+  ---
+  duration_ms: 1.103767
+  type: 'test'
+  ...
+# Subtest: dark: readable text, actions and semantic states
+ok 17 - dark: readable text, actions and semantic states
+  ---
+  duration_ms: 2.295576
+  type: 'test'
+  ...
+# Subtest: dark: CSS contract includes all semantic tokens
+ok 18 - dark: CSS contract includes all semantic tokens
+  ---
+  duration_ms: 7.148733
+  type: 'test'
+  ...
+# Subtest: light: readable text, actions and semantic states
+ok 19 - light: readable text, actions and semantic states
+  ---
+  duration_ms: 0.248201
+  type: 'test'
+  ...
+# Subtest: light: CSS contract includes all semantic tokens
+ok 20 - light: CSS contract includes all semantic tokens
+  ---
+  duration_ms: 5.019783
+  type: 'test'
+  ...
+# (!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+# Subtest: result states preserve zero and suppress stale metrics; shares and targets have valid accessible bounds
+ok 21 - result states preserve zero and suppress stale metrics; shares and targets have valid accessible bounds
+  ---
+  duration_ms: 420.122927
+  type: 'test'
+  ...
+# (!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+# Subtest: catastrophe and renewal sections keep actions explicit and suppress unavailable aggregates
+ok 22 - catastrophe and renewal sections keep actions explicit and suppress unavailable aggregates
+  ---
+  duration_ms: 251.716928
+  type: 'test'
+  ...
+# (!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+# Subtest: pipeline sections preserve missing values and explicit totals without fabricating distributions
+ok 23 - pipeline sections preserve missing values and explicit totals without fabricating distributions
+  ---
+  duration_ms: 198.40689
+  type: 'test'
+  ...
+# Subtest: dashboard validators work without runtime code generation under a restrictive CSP
+ok 24 - dashboard validators work without runtime code generation under a restrictive CSP
+  ---
+  duration_ms: 8.877903
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 39406.757956

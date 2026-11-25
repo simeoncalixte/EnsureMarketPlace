@@ -1,0 +1,30 @@
+[
+  {
+    "id": "pages-insurer-dashboard-active-coverage--interim-not-connected",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "pages-insurer-dashboard-active-coverage--interim-view",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "acceptance-ain-296--interim-state-on-direct-visit",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "acceptance-ain-296--insurer-navigation-hides-active-coverage",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  }
+]

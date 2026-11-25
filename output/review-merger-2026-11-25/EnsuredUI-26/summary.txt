@@ -1,0 +1,6 @@
+ci=0
+typecheck=0
+lint=0
+format=0
+test:submissions=0
+test:dashboard=0

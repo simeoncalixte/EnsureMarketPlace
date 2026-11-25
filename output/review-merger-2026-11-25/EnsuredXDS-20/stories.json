@@ -1,0 +1,65 @@
+[
+  {
+    "id": "xds-callout-panel--default",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--light-theme",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--dark-theme",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--heading-level-3",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--default-labels",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--empty-column",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--long-text",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--narrow-390-dark",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-callout-panel--narrow-390-light",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  }
+]
