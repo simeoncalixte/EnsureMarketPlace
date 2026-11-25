@@ -1,0 +1,8 @@
+PASS play | axe 0 | xds-badge--variants
+PASS play | axe 0 | xds-badge--tones
+PASS play | axe 0 | xds-badge--with-dot
+PASS play | axe 0 | xds-badge--interactive
+PASS play | axe 0 | xds-badge--submission-statuses-dark
+PASS play | axe 0 | xds-badge--submission-statuses-light
+PASS play | axe 0 | xds-badge--archived
+stories=7 playFail=0 axeFail=0

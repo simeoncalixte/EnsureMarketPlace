@@ -1,0 +1,260 @@
+
+> ensured-ui@0.1.0 build-storybook
+> storybook build -o /tmp/claude-0/-home-user/57415bfb-fd46-56a2-8888-2e055b60633a/scratchpad/sb-ui28
+
+@storybook/core v8.6.18
+
+info => Cleaning outputDir: ../sb-ui28
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+info => Loading presets
+info => Building manager..
+info => Manager built ([38;2;181;126;229m156 ms[39m)
+info => Building preview..
+info Using tsconfig paths for react-docgen
+vite v5.4.21 building for production...
+transforming...
+✓ 1250 modules transformed.
+node_modules/@storybook/core/dist/preview/runtime.js (3683:15): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+node_modules/@storybook/core/dist/preview/runtime.js (3685:16): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+rendering chunks...
+computing gzip size...
+../sb-ui28/iframe.html                                                    18.04 kB │ gzip:   5.17 kB
+../sb-ui28/assets/preview-Crg7wCr0.css                                    10.74 kB │ gzip:   2.44 kB
+../sb-ui28/assets/App-BroiMdxZ.css                                        34.45 kB │ gzip:   6.64 kB
+../sb-ui28/assets/CommercialWorkspace-B-HN1l8o.css                        48.88 kB │ gzip:   8.63 kB
+../sb-ui28/assets/style-CDjm9ImO.css                                      48.89 kB │ gzip:   5.84 kB
+../sb-ui28/assets/serviceTransport-DWesuZdb.js                             0.18 kB │ gzip:   0.15 kB
+../sb-ui28/assets/preview-CvbIS5ZJ.js                                      0.18 kB │ gzip:   0.16 kB
+../sb-ui28/assets/TopBarNav-z5w_hEEg.js                                    0.20 kB │ gzip:   0.19 kB
+../sb-ui28/assets/ValidationMessage-CX57gp6D.js                            0.32 kB │ gzip:   0.25 kB
+../sb-ui28/assets/seed-ChOf0tjH.js                                         0.35 kB │ gzip:   0.26 kB
+../sb-ui28/assets/index-CMA1Yv9H.js                                        0.42 kB │ gzip:   0.27 kB
+../sb-ui28/assets/withChatbot-R1C9AhEC.js                                  0.43 kB │ gzip:   0.29 kB
+../sb-ui28/assets/AdminTables.styles-CXAMk2zF.js                           0.45 kB │ gzip:   0.24 kB
+../sb-ui28/assets/NumberInput-BHekNIbz.js                                  0.48 kB │ gzip:   0.35 kB
+../sb-ui28/assets/useAuthMe-CqyeIl3h.js                                    0.59 kB │ gzip:   0.38 kB
+../sb-ui28/assets/createCoverageNavigation-DZjFHfF4.js                     0.60 kB │ gzip:   0.34 kB
+../sb-ui28/assets/jsx-runtime-BjG_zV1W.js                                  0.64 kB │ gzip:   0.42 kB
+../sb-ui28/assets/chunk-XP5HYGXS-BHXC9YeQ.js                               0.71 kB │ gzip:   0.40 kB
+../sb-ui28/assets/preview-DGUiP6tS.js                                      0.71 kB │ gzip:   0.50 kB
+../sb-ui28/assets/interaction-DGhGcf6r.js                                  0.74 kB │ gzip:   0.42 kB
+../sb-ui28/assets/preview-C3JntAaA.js                                      0.75 kB │ gzip:   0.49 kB
+../sb-ui28/assets/Textarea-DeKC6A5x.js                                     0.77 kB │ gzip:   0.45 kB
+../sb-ui28/assets/Checkbox-CTtOTyt-.js                                     0.79 kB │ gzip:   0.47 kB
+../sb-ui28/assets/index-Bhqu_tAV.js                                        0.79 kB │ gzip:   0.47 kB
+../sb-ui28/assets/Select-DOZDFnYP.js                                       0.80 kB │ gzip:   0.49 kB
+../sb-ui28/assets/Marketplace.stories-CECqALCn.js                          0.86 kB │ gzip:   0.51 kB
+../sb-ui28/assets/TopNavBar.stories-oxuiSKr_.js                            0.89 kB │ gzip:   0.54 kB
+../sb-ui28/assets/preview-CXPqw4QW.js                                      0.89 kB │ gzip:   0.57 kB
+../sb-ui28/assets/organizations-qT4CEzrx.js                                0.94 kB │ gzip:   0.48 kB
+../sb-ui28/assets/Typography-D6vuun4j.js                                   0.95 kB │ gzip:   0.48 kB
+../sb-ui28/assets/Investors.stories-aTsP6Jb1.js                            0.95 kB │ gzip:   0.56 kB
+../sb-ui28/assets/theme-BTMuaVHH.js                                        0.96 kB │ gzip:   0.57 kB
+../sb-ui28/assets/SectionHeader-D7BgKSVK.js                                0.99 kB │ gzip:   0.51 kB
+../sb-ui28/assets/test-utils-C04nzTzz.js                                   1.03 kB │ gzip:   0.65 kB
+../sb-ui28/assets/FormField-Cw6j4FDJ.js                                    1.10 kB │ gzip:   0.67 kB
+../sb-ui28/assets/StatCard-CC-ccwsU.js                                     1.10 kB │ gzip:   0.55 kB
+../sb-ui28/assets/SubmissionSection.stories-Bxchf3SH.js                    1.13 kB │ gzip:   0.61 kB
+../sb-ui28/assets/Breadcrumb-BPuRbtpv.js                                   1.15 kB │ gzip:   0.64 kB
+../sb-ui28/assets/ProgressBar-iDa-tX2s.js                                  1.16 kB │ gzip:   0.67 kB
+../sb-ui28/assets/SegmentedSwitch-Dt8ryVx1.js                              1.17 kB │ gzip:   0.67 kB
+../sb-ui28/assets/auth-Bd4Rs4Gg.js                                         1.17 kB │ gzip:   0.66 kB
+../sb-ui28/assets/Card-jeuboU0l.js                                         1.25 kB │ gzip:   0.72 kB
+../sb-ui28/assets/MaskedSecretInput-BGwLluJp.js                            1.26 kB │ gzip:   0.74 kB
+../sb-ui28/assets/WebhookConfig.stories-DkO-0vqo.js                        1.28 kB │ gzip:   0.71 kB
+../sb-ui28/assets/FinancialsSection.stories-BQZgaVcb.js                    1.28 kB │ gzip:   0.62 kB
+../sb-ui28/assets/AdminSeedPage.stories-BxM_tAIV.js                        1.30 kB │ gzip:   0.75 kB
+../sb-ui28/assets/PipelineIngestion.stories-DtwU9QO2.js                    1.31 kB │ gzip:   0.74 kB
+../sb-ui28/assets/OrganizationsSubpage.stories-NcpL66Pi.js                 1.31 kB │ gzip:   0.74 kB
+../sb-ui28/assets/SFTPConfig.stories-OtPoLfzN.js                           1.31 kB │ gzip:   0.73 kB
+../sb-ui28/assets/Reports-CEr6UZko.js                                      1.32 kB │ gzip:   0.67 kB
+../sb-ui28/assets/CloudStorageConfig.stories-B1MMFEOb.js                   1.33 kB │ gzip:   0.74 kB
+../sb-ui28/assets/ActiveCoverage-Cl38c1vf.js                               1.38 kB │ gzip:   0.69 kB
+../sb-ui28/assets/Range-C5T3WzDd.js                                        1.38 kB │ gzip:   0.64 kB
+../sb-ui28/assets/AuthenticationMicrofrontend-Baf7XoxS.js                  1.38 kB │ gzip:   0.85 kB
+../sb-ui28/assets/Reports.stories-0vPSuyAz.js                              1.41 kB │ gzip:   0.77 kB
+../sb-ui28/assets/QuotePanel.fixtures-DNDTRwQB.js                          1.42 kB │ gzip:   0.66 kB
+../sb-ui28/assets/SigningSection.stories-CGblkORE.js                       1.42 kB │ gzip:   0.72 kB
+../sb-ui28/assets/ingestionChannels-BkDyUFeh.js                            1.42 kB │ gzip:   0.46 kB
+../sb-ui28/assets/DealParametersSection.stories-Bz1a6OMQ.js                1.42 kB │ gzip:   0.68 kB
+../sb-ui28/assets/ActiveCoverage.stories-C1gz3l-D.js                       1.46 kB │ gzip:   0.79 kB
+../sb-ui28/assets/client-BlYOa-fp.js                                       1.47 kB │ gzip:   0.71 kB
+../sb-ui28/assets/ToggleSwitch-Uc0j4RNA.js                                 1.60 kB │ gzip:   0.84 kB
+../sb-ui28/assets/UsersSubpage-CF9CWkxC.js                                 1.61 kB │ gzip:   0.90 kB
+../sb-ui28/assets/QueueConfig.stories-DVDAl0vL.js                          1.69 kB │ gzip:   0.89 kB
+../sb-ui28/assets/ClaimsDashboard.stories-njKe_68u.js                      1.72 kB │ gzip:   0.91 kB
+../sb-ui28/assets/Badge-CCbOIUMo.js                                        1.73 kB │ gzip:   0.72 kB
+../sb-ui28/assets/OrgUsersSubpage.stories-hRpBwPRk.js                      1.75 kB │ gzip:   0.98 kB
+../sb-ui28/assets/ImpersonateUserButton-E6D9ecr8.js                        1.75 kB │ gzip:   0.93 kB
+../sb-ui28/assets/ValidationSection.stories-BbdbhxOY.js                    1.77 kB │ gzip:   0.82 kB
+../sb-ui28/assets/SubNavigation-DO6tpqvC.js                                1.78 kB │ gzip:   0.99 kB
+../sb-ui28/assets/UsersSubpage.stories-B9RFG6Gb.js                         1.80 kB │ gzip:   0.80 kB
+../sb-ui28/assets/OrganizationsSubpage-ovVBxlGH.js                         1.88 kB │ gzip:   0.94 kB
+../sb-ui28/assets/Button-BpoUjPuB.js                                       1.89 kB │ gzip:   0.74 kB
+../sb-ui28/assets/FileDropzone-CfeqM-vp.js                                 1.96 kB │ gzip:   0.95 kB
+../sb-ui28/assets/Input-C2CTNcr8.js                                        1.98 kB │ gzip:   0.91 kB
+../sb-ui28/assets/underwriting-BNzmhjgz.js                                 1.99 kB │ gzip:   0.85 kB
+../sb-ui28/assets/InsurerLayout-Cc1mYAhT.js                                2.07 kB │ gzip:   0.87 kB
+../sb-ui28/assets/OrgUsersSubpage-CjOZylOc.js                              2.08 kB │ gzip:   1.08 kB
+../sb-ui28/assets/CoverageRequestedSummary.stories-D-rbsIub.js             2.09 kB │ gzip:   0.92 kB
+../sb-ui28/assets/SubjectTemplateFields.stories-DOgGVW5b.js                2.10 kB │ gzip:   0.87 kB
+../sb-ui28/assets/ClaimsDashboard-DJvO1p4O.js                              2.16 kB │ gzip:   1.09 kB
+../sb-ui28/assets/TrancheStructureSection.stories-DD5U3A-O.js              2.16 kB │ gzip:   0.95 kB
+../sb-ui28/assets/LandingPage.stories-ClHRiTL1.js                          2.29 kB │ gzip:   1.24 kB
+../sb-ui28/assets/InfoCard-Dijufai3.js                                     2.30 kB │ gzip:   0.99 kB
+../sb-ui28/assets/settingsSectionFixture-DiTRleRP.js                       2.30 kB │ gzip:   1.09 kB
+../sb-ui28/assets/MetricCard-D8bJXFSr.js                                   2.35 kB │ gzip:   0.96 kB
+../sb-ui28/assets/FinancialsSection-BZJ6kR2j.js                            2.45 kB │ gzip:   0.79 kB
+../sb-ui28/assets/Navigation-Fya82Sdr.js                                   2.57 kB │ gzip:   1.22 kB
+../sb-ui28/assets/AppAuthenticationRegister.stories-XS3cbkyn.js            2.64 kB │ gzip:   1.06 kB
+../sb-ui28/assets/pipeline-Dm939VxF.js                                     2.70 kB │ gzip:   0.86 kB
+../sb-ui28/assets/DataTable-DQa_uiB-.js                                    2.71 kB │ gzip:   1.04 kB
+../sb-ui28/assets/EnvVars.stories-MjQT7RLe.js                              2.72 kB │ gzip:   0.97 kB
+../sb-ui28/assets/ActivityFeed-FhR_fLlf.js                                 2.92 kB │ gzip:   1.11 kB
+../sb-ui28/assets/ImpersonateUserButton.stories-DUzmJLpV.js                2.96 kB │ gzip:   1.13 kB
+../sb-ui28/assets/tokens-5IMPN99H.js                                       3.11 kB │ gzip:   1.43 kB
+../sb-ui28/assets/SubjectInsuranceCard.stories-BeDRI3CP.js                 3.14 kB │ gzip:   1.22 kB
+../sb-ui28/assets/AdminPage.stories-lNRKaucF.js                            3.21 kB │ gzip:   1.53 kB
+../sb-ui28/assets/SubjectCoverages-Bayrl9lV.js                             3.30 kB │ gzip:   1.41 kB
+../sb-ui28/assets/RabbitMQConfig.stories-DRtKJf-V.js                       3.32 kB │ gzip:   1.43 kB
+../sb-ui28/assets/marketplace-83yCSYUM.js                                  3.35 kB │ gzip:   0.93 kB
+../sb-ui28/assets/SubjectInsuranceSection.stories-Cl7__N4z.js              3.35 kB │ gzip:   1.29 kB
+../sb-ui28/assets/DealParametersSection-C1G8B2md.js                        3.39 kB │ gzip:   1.09 kB
+../sb-ui28/assets/SelectionCard-FJyAiNE_.js                                3.43 kB │ gzip:   1.37 kB
+../sb-ui28/assets/CreateCoveragePage.stories-BfYF0hip.js                   3.43 kB │ gzip:   1.63 kB
+../sb-ui28/assets/GuestQuotePage-CF0-Nz98.js                               3.47 kB │ gzip:   1.66 kB
+../sb-ui28/assets/preview-DD_OYowb.js                                      3.51 kB │ gzip:   1.69 kB
+../sb-ui28/assets/AnalyticsDashboard.stories-FOdNVceU.js                   3.53 kB │ gzip:   1.63 kB
+../sb-ui28/assets/SubmissionSection-C_DIiaZm.js                            3.60 kB │ gzip:   1.44 kB
+../sb-ui28/assets/PipelineGraphEditor.stories-Zj-o9Hdd.js                  3.68 kB │ gzip:   1.20 kB
+../sb-ui28/assets/ValidationSection-B8CuncUL.js                            3.72 kB │ gzip:   1.32 kB
+../sb-ui28/assets/RightHandPanel-DbZGx74d.js                               4.02 kB │ gzip:   1.82 kB
+../sb-ui28/assets/index-hHGLVoxj.js                                        4.14 kB │ gzip:   1.55 kB
+../sb-ui28/assets/Commercial.styles-Bwv3ta1i.js                            4.15 kB │ gzip:   1.21 kB
+../sb-ui28/assets/GuestQuotePage.stories-BkW4tG7H.js                       4.31 kB │ gzip:   1.50 kB
+../sb-ui28/assets/preview-B0GEC7uH.js                                      5.06 kB │ gzip:   1.88 kB
+../sb-ui28/assets/Signing.styles-VFnxW5Tf.js                               5.21 kB │ gzip:   1.86 kB
+../sb-ui28/assets/InsurerOnboarding.stories-DII4bKDw.js                    5.24 kB │ gzip:   1.87 kB
+../sb-ui28/assets/BusinessConstitution.stories-CkylA6oA.js                 5.39 kB │ gzip:   2.27 kB
+../sb-ui28/assets/ModelSettings.live.stories-DF70GYdu.js                   5.51 kB │ gzip:   1.59 kB
+../sb-ui28/assets/Marketplace-Dbs8Fu3c.js                                  5.54 kB │ gzip:   2.16 kB
+../sb-ui28/assets/AnalyticsDashboard-J_vN7RhT.js                           5.88 kB │ gzip:   2.49 kB
+../sb-ui28/assets/ConfiguredDashboard.stories-CCWm0Yj6.js                  5.92 kB │ gzip:   2.63 kB
+../sb-ui28/assets/palette-BZ9Jimj_.js                                      6.01 kB │ gzip:   1.56 kB
+../sb-ui28/assets/SideNavBar-8nAEWYA5.js                                   6.07 kB │ gzip:   1.79 kB
+../sb-ui28/assets/LineOfBusinessPage.stories-Ba6ahtFa.js                   6.11 kB │ gzip:   2.32 kB
+../sb-ui28/assets/FilterPanels.stories-Dv0ChzgF.js                         6.14 kB │ gzip:   2.06 kB
+../sb-ui28/assets/PipelineGraph.stories-EVRBa77c.js                        6.17 kB │ gzip:   2.00 kB
+../sb-ui28/assets/SubmissionFilterDrawer-CI2J3BYO.js                       6.48 kB │ gzip:   2.51 kB
+../sb-ui28/assets/SFTPConfig-Ca2ZxUhH.js                                   6.60 kB │ gzip:   2.74 kB
+../sb-ui28/assets/DynamicFormSection.stories-B4ZBtyJl.js                   6.85 kB │ gzip:   1.98 kB
+../sb-ui28/assets/PipelineExecutionSettings-JuWFoijj.js                    7.07 kB │ gzip:   2.56 kB
+../sb-ui28/assets/PipelineGraphEditor-BYMfQc0m.js                          7.25 kB │ gzip:   1.95 kB
+../sb-ui28/assets/EmailInbox.stories-CWvYDLVA.js                           7.37 kB │ gzip:   2.25 kB
+../sb-ui28/assets/QuotePanel.stories-lolIo6LT.js                           7.46 kB │ gzip:   2.41 kB
+../sb-ui28/assets/SubmissionFilterDrawer.stories-CdpXlgld.js               7.48 kB │ gzip:   2.06 kB
+../sb-ui28/assets/NewSubmission-CRxTeV7Z.js                                7.49 kB │ gzip:   2.49 kB
+../sb-ui28/assets/preview-CCCznEf4.js                                      7.62 kB │ gzip:   1.56 kB
+../sb-ui28/assets/AIChat.live.stories-_C_wdN9R.js                          7.67 kB │ gzip:   2.18 kB
+../sb-ui28/assets/QuotePanel-BC9g-WB6.js                                   7.76 kB │ gzip:   2.94 kB
+../sb-ui28/assets/LiveSummaryAside.stories-CYNphYTL.js                     7.82 kB │ gzip:   2.40 kB
+../sb-ui28/assets/InsurerOnboarding-AE2Kzf62.js                            7.98 kB │ gzip:   3.07 kB
+../sb-ui28/assets/WebhookConfig-DE7Pix0o.js                                8.03 kB │ gzip:   3.22 kB
+../sb-ui28/assets/RequestedCoverageEditor.stories-BJ04-H0U.js              8.05 kB │ gzip:   2.51 kB
+../sb-ui28/assets/InsurerDashboard.stories-Rt2vkEb9.js                     8.11 kB │ gzip:   2.61 kB
+../sb-ui28/assets/preview-BBWR9nbA.js                                      8.12 kB │ gzip:   3.10 kB
+../sb-ui28/assets/DynamicFormSection-C78i37z4.js                           8.25 kB │ gzip:   2.80 kB
+../sb-ui28/assets/RequestedCoverageEditor-DuDc2x5s.js                      8.45 kB │ gzip:   3.15 kB
+../sb-ui28/assets/CoverageRequestedSummary-CRpo8BM5.js                     8.60 kB │ gzip:   3.34 kB
+../sb-ui28/assets/index-v1M-TlC-.js                                        8.74 kB │ gzip:   3.39 kB
+../sb-ui28/assets/CloudStorageConfig-C5lcmygq.js                           9.03 kB │ gzip:   3.64 kB
+../sb-ui28/assets/index-BCE7Jb96.js                                        9.07 kB │ gzip:   3.58 kB
+../sb-ui28/assets/ModelLibrary.live.stories-CU8UqzJd.js                    9.25 kB │ gzip:   2.07 kB
+../sb-ui28/assets/BindingPanel.stories-CUyCQ2Mf.js                         9.27 kB │ gzip:   2.46 kB
+../sb-ui28/assets/AppAuthenticationSignIn.stories-CjLUIeUG.js              9.44 kB │ gzip:   3.20 kB
+../sb-ui28/assets/PipelineExecutionSettings.stories-DijiB5hM.js            9.53 kB │ gzip:   1.93 kB
+../sb-ui28/assets/PreferencePage.stories-U4yFDAD7.js                      10.44 kB │ gzip:   3.37 kB
+../sb-ui28/assets/AIChatContext-CMPc-drA.js                               10.56 kB │ gzip:   3.17 kB
+../sb-ui28/assets/TrancheStructureSection-BKIpX53n.js                     10.62 kB │ gzip:   2.47 kB
+../sb-ui28/assets/Investors-xe__t60R.js                                   10.62 kB │ gzip:   3.55 kB
+../sb-ui28/assets/NewSubmission.stories-DMnaSbv8.js                       10.84 kB │ gzip:   2.70 kB
+../sb-ui28/assets/EmailIngestConfig.stories-D2wjpxB1.js                   11.11 kB │ gzip:   2.45 kB
+../sb-ui28/assets/SubmissionDocuments.stories-pRzb8zwN.js                 11.17 kB │ gzip:   2.73 kB
+../sb-ui28/assets/BindingPanel-CmWOzvDR.js                                11.22 kB │ gzip:   3.98 kB
+../sb-ui28/assets/SubmissionActivity.stories-DJoFfPc2.js                  11.49 kB │ gzip:   2.97 kB
+../sb-ui28/assets/QueueConfig-BV_ekBVx.js                                 11.82 kB │ gzip:   4.36 kB
+../sb-ui28/assets/BasePageTemplate.stories-CP-Km3Tl.js                    11.88 kB │ gzip:   3.87 kB
+../sb-ui28/assets/InstitutionalAllocationStrategy.stories-fgApRIrD.js     11.88 kB │ gzip:   3.67 kB
+../sb-ui28/assets/ApplicationNavigation.stories-Da_xoXOd.js               12.07 kB │ gzip:   2.74 kB
+../sb-ui28/assets/InsurerMGAProfile.stories-C6IJfXGK.js                   12.31 kB │ gzip:   3.71 kB
+../sb-ui28/assets/InsurerDashboard.renderers-M67H5Rti.js                  13.05 kB │ gzip:   4.28 kB
+../sb-ui28/assets/EmailInbox-BZRa-yKL.js                                  13.08 kB │ gzip:   4.77 kB
+../sb-ui28/assets/AdminSeedPage-yN0ZKAd7.js                               13.12 kB │ gzip:   5.10 kB
+../sb-ui28/assets/ManualInput.stories-C3TeQd-w.js                         13.17 kB │ gzip:   3.47 kB
+../sb-ui28/assets/submissionForm.fixtures-CkcdhLPW.js                     13.22 kB │ gzip:   3.91 kB
+../sb-ui28/assets/SubjectInsuranceSection-BP-xsVJq.js                     13.83 kB │ gzip:   2.52 kB
+../sb-ui28/assets/PipelineIngestion-CpSxEbHt.js                           13.95 kB │ gzip:   5.16 kB
+../sb-ui28/assets/EmailIngestConfig-Deuh46oo.js                           14.71 kB │ gzip:   4.94 kB
+../sb-ui28/assets/ConnectedChatbot-Dz8qwe8n.js                            15.41 kB │ gzip:   4.90 kB
+../sb-ui28/assets/SubjectInsuranceCard-Dv38lIcZ.js                        15.50 kB │ gzip:   3.42 kB
+../sb-ui28/assets/AdminPage-BUlqAoHz.js                                   15.53 kB │ gzip:   6.31 kB
+../sb-ui28/assets/CommercialPalette.stories-BiAPie0M.js                   15.80 kB │ gzip:   4.08 kB
+../sb-ui28/assets/SubmissionReferenceSettings-Dmu-DifG.js                 15.81 kB │ gzip:   4.97 kB
+../sb-ui28/assets/users-BVSmiXiF.js                                       16.00 kB │ gzip:   3.23 kB
+../sb-ui28/assets/ModelSettings-GoyOOVWJ.js                               16.60 kB │ gzip:   3.85 kB
+../sb-ui28/assets/PipelineGraph-B15pZOiT.js                               16.84 kB │ gzip:   5.47 kB
+../sb-ui28/assets/SubmissionDocuments-B1fBrlEG.js                         19.53 kB │ gzip:   5.93 kB
+../sb-ui28/assets/SubmissionActivity-BZxGYXVQ.js                          19.74 kB │ gzip:   6.10 kB
+../sb-ui28/assets/LineOfBusinessPage-BgJVtFYH.js                          21.75 kB │ gzip:   6.61 kB
+../sb-ui28/assets/Settings.stories-BuXBRVkb.js                            22.11 kB │ gzip:   3.98 kB
+../sb-ui28/assets/ModelSettings.stories-0LHY-1n6.js                       22.24 kB │ gzip:   3.90 kB
+../sb-ui28/assets/SubmissionProblemNotice-zDYldI3o.js                     22.95 kB │ gzip:   6.97 kB
+../sb-ui28/assets/PipelineProcesses.stories-COSGxqOZ.js                   23.95 kB │ gzip:   5.98 kB
+../sb-ui28/assets/AllocateCapitalPage.stories-BwvGQk0r.js                 24.28 kB │ gzip:   7.44 kB
+../sb-ui28/assets/AIChat.stories-C_ulKSne.js                              24.67 kB │ gzip:   4.99 kB
+../sb-ui28/assets/TopNavBar-Bzkt8JZR.js                                   25.16 kB │ gzip:   6.88 kB
+../sb-ui28/assets/ModelLibrary.stories-DAVmaJjJ.js                        25.85 kB │ gzip:   4.78 kB
+../sb-ui28/assets/styled-components.browser.esm-gXwad4SM.js               27.82 kB │ gzip:  11.37 kB
+../sb-ui28/assets/SubmissionWorkspaceEdit.stories-5-zNQ6xU.js             28.36 kB │ gzip:   6.23 kB
+../sb-ui28/assets/index-DIpgMal0.js                                       29.14 kB │ gzip:   8.26 kB
+../sb-ui28/assets/Color-YHDXOIA2-CL-2sM96.js                              29.34 kB │ gzip:  11.05 kB
+../sb-ui28/assets/entry-preview-Q4XgHWqX.js                               29.75 kB │ gzip:   9.51 kB
+../sb-ui28/assets/Settings-lr1Pj89U.js                                    30.01 kB │ gzip:   3.81 kB
+../sb-ui28/assets/LandingPage-Cz1pdfHb.js                                 31.47 kB │ gzip:   8.14 kB
+../sb-ui28/assets/Parties.stories-CHOxi7tt.js                             40.46 kB │ gzip:   8.58 kB
+../sb-ui28/assets/QuoteTermsSummary-B7DxaLaX.js                           41.51 kB │ gzip:  11.53 kB
+../sb-ui28/assets/ModelLibrary-CZ_SoO08.js                                43.07 kB │ gzip:   8.21 kB
+../sb-ui28/assets/SigningSection-DcpzyLg4.js                              46.00 kB │ gzip:  11.15 kB
+../sb-ui28/assets/PipelineProcesses-BpNnazEQ.js                           52.25 kB │ gzip:  14.01 kB
+../sb-ui28/assets/InsurerDashboard.styles-vWiUKUZt.js                     52.38 kB │ gzip:   8.22 kB
+../sb-ui28/assets/PartiesPage-nvLbGSoj.js                                 54.31 kB │ gzip:  12.91 kB
+../sb-ui28/assets/index-_C1_vaFD.js                                       57.14 kB │ gzip:  16.28 kB
+../sb-ui28/assets/network-gzdSpijp.js                                     67.34 kB │ gzip:  19.60 kB
+../sb-ui28/assets/SubjectTemplateFields-CrxvG6iC.js                       76.75 kB │ gzip:  13.08 kB
+../sb-ui28/assets/chunk-OB3PAWPO-DeaWdZCg.js                              94.77 kB │ gzip:  32.00 kB
+../sb-ui28/assets/App.stories-o50myrSX.js                                161.80 kB │ gzip:  43.10 kB
+../sb-ui28/assets/react-18-BYKd5WGV.js                                   209.45 kB │ gzip:  65.51 kB
+../sb-ui28/assets/iframe-CRWU1s05.js                                     231.82 kB │ gzip:  78.12 kB
+../sb-ui28/assets/entry-preview-docs-DW7NE6_i.js                         244.67 kB │ gzip:  73.42 kB
+../sb-ui28/assets/registration-B0x8bhVR.js                               365.11 kB │ gzip: 114.67 kB
+../sb-ui28/assets/ConfiguredDashboard-ZE415TJK.js                        582.07 kB │ gzip: 134.22 kB
+../sb-ui28/assets/index-DeN4tkzB.js                                      662.40 kB │ gzip: 157.06 kB
+../sb-ui28/assets/PipelineObservatory-CEIRckFU.js                        683.57 kB │ gzip: 169.63 kB
+../sb-ui28/assets/CommercialWorkspace-CMV8oDaO.js                        693.96 kB │ gzip:  89.39 kB
+../sb-ui28/assets/DocsRenderer-CFRXHY34-DRb7OURz.js                      883.40 kB │ gzip: 275.60 kB
+../sb-ui28/assets/marketplace-DshpC-8v.js                              1,968.35 kB │ gzip: 554.56 kB
+../sb-ui28/assets/InsurerDashboard-B-VXActn.js                         2,056.33 kB │ gzip: 576.32 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 32.93s
+info => Preview built ([38;2;181;126;229m34 s[39m)
+info => Output directory: /tmp/claude-0/-home-user/57415bfb-fd46-56a2-8888-2e055b60633a/scratchpad/sb-ui28
+
+attention => Storybook now collects completely anonymous telemetry regarding usage.
+This information is used to shape Storybook's roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://storybook.js.org/telemetry
+

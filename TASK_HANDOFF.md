@@ -5,6 +5,43 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## review-merger run 2 (2026-11-25, scheduled, ~13:00 UTC)
+
+Scope: every non-draft open PR in the root repo and its submodules. That is the same 8 PRs as the
+earlier run today (draft EnsureMarketPlace#92 has that run's table and logs). All other open PRs are
+drafts: root #90, #91 and #93; EnsuredAPI #32 and #33; EnsuredUI #29, #31–#34; EnsuredXDS #21; docs #7–#10.
+
+Logs: `output/review-merger-2026-11-25b/<repo>-<pr>/`. The story runner (play functions + axe) is
+`output/review-merger-2026-11-25b/run-stories.cjs`.
+
+**One PR merged:** EnsuredXDS#17 → `main` `3d16d71`. Every pair of the four XDS PRs conflicts (the
+`package.json` test line, index exports, README), so only one could land this run.
+
+| PR                      | Head verified | Decision           | Failed gates                                                           | Jira subtasks      |
+| ----------------------- | ------------- | ------------------ | ---------------------------------------------------------------------- | ------------------ |
+| EnsuredXDS#17 (AIN-281) | 51d6918       | **merged** 3d16d71 | none                                                                   | n/a                |
+| EnsuredXDS#18 (AIN-281) | 73bd39d       | blocked            | 1 (conflicts with main after #17: package.json, README.md)             | AIN-324 (existing) |
+| EnsuredXDS#19 (AIN-278) | 0675651       | blocked            | 1 (conflicts with main after #17: package.json)                        | AIN-338 (new)      |
+| EnsuredXDS#20 (AIN-278) | a6ec930       | blocked            | 1 (conflicts with main after #17: package.json)                        | AIN-338 (new)      |
+| EnsuredUI#28 (AIN-298)  | 27f646d       | changes requested  | 4 (no Before/After on Jira; the story was added and passes 2/2, axe 0) | AIN-329 (existing) |
+| EnsuredUI#26 (AIN-289)  | 0888b8d       | changes requested  | 4 (unchanged head and evidence; the first run's review stands)         | AIN-327 (existing) |
+| EnsuredUI#27 (AIN-294)  | a5461c0       | changes requested  | 4 (unchanged; the first run's review stands)                           | AIN-328 (existing) |
+| EnsuredUI#30 (AIN-296)  | 6a35b2c       | changes requested  | 3 and 4 (unchanged; still blocked by AIN-278/281)                      | AIN-330, AIN-331   |
+
+- XDS#17 verification: `lint` 0, `format:check` 0, `npm test` 22 tests (21 pass, 0 fail, 1 skipped),
+  Storybook build ok, Badge play functions 7/7 with axe 0. Evidence: AIN-281 comment 10779.
+- UI#28 verification: `npm run check` 0, `test:submissions` 4/4, `test:dashboard` 5/5, stories 2/2 with axe 0.
+- AIN-281 stays In Progress, not Human Review, because #18 (scope item 1) is still open. AIN-323 is
+  satisfied by comments 10779 and 10799.
+- Reviews were posted as COMMENT, because GitHub refuses APPROVE or REQUEST_CHANGES on your own PR.
+
+Next:
+
+- Rebase XDS#18 (AIN-324), then #19 and #20 (AIN-338). Each one needs a fresh review on its new head.
+- Then the XDS 0.3.0 release, then EnsuredUI#30 (after AIN-331).
+- Attach Before/After evidence for EnsuredUI #26, #27 and #28.
+- No PR is unblocked for merge right now.
+
 ## Sprint assignment update (2026-11-21)
 
 User requested AIN-239–243 in Sprint 2. Verified live Jira: AIN-239–242 were already in
