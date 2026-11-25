@@ -16,18 +16,19 @@ runner (play functions + axe) is `output/review-merger-2026-11-25/run-stories.cj
 `npm ci` now works here because the proxy injects npm.pkg.github.com credentials, so local checks are
 no longer blocked.
 
-| PR | Head verified | Decision | Failed gates | Jira subtasks |
-| --- | --- | --- | --- | --- |
-| EnsuredXDS#17 (AIN-281) | 38527a6 | changes requested | 1 (2 unresolved threads), 4 (no Before/After on Jira) | AIN-323, AIN-324 |
-| EnsuredXDS#18 (AIN-281) | 73bd39d | changes requested | 1 (1 unresolved thread), 4 | AIN-323, AIN-324 |
-| EnsuredXDS#19 (AIN-278) | f200123 | changes requested | 1 (2 unresolved, non-outdated threads), 4 | AIN-325, AIN-326 |
-| EnsuredXDS#20 (AIN-278) | a6ec930 | changes requested | 4 (no After screenshots) | AIN-325 |
-| EnsuredUI#26 (AIN-289) | 0888b8d | changes requested | 4 (styling change, no Before/After) | AIN-327 |
-| EnsuredUI#27 (AIN-294) | a5461c0 | changes requested | 4 | AIN-328 |
-| EnsuredUI#28 (AIN-298) | 2853a59 | changes requested | 4 (also: no story renders the component) | AIN-329 |
-| EnsuredUI#30 (AIN-296) | 6a35b2c | changes requested | 3 (blocked by unmerged AIN-278/281; API nav catalog still lists Active Coverage), 4 | AIN-330, AIN-331 |
+| PR                      | Head verified | Decision          | Failed gates                                                                        | Jira subtasks    |
+| ----------------------- | ------------- | ----------------- | ----------------------------------------------------------------------------------- | ---------------- |
+| EnsuredXDS#17 (AIN-281) | 38527a6       | changes requested | 1 (2 unresolved threads), 4 (no Before/After on Jira)                               | AIN-323, AIN-324 |
+| EnsuredXDS#18 (AIN-281) | 73bd39d       | changes requested | 1 (1 unresolved thread), 4                                                          | AIN-323, AIN-324 |
+| EnsuredXDS#19 (AIN-278) | f200123       | changes requested | 1 (2 unresolved, non-outdated threads), 4                                           | AIN-325, AIN-326 |
+| EnsuredXDS#20 (AIN-278) | a6ec930       | changes requested | 4 (no After screenshots)                                                            | AIN-325          |
+| EnsuredUI#26 (AIN-289)  | 0888b8d       | changes requested | 4 (styling change, no Before/After)                                                 | AIN-327          |
+| EnsuredUI#27 (AIN-294)  | a5461c0       | changes requested | 4                                                                                   | AIN-328          |
+| EnsuredUI#28 (AIN-298)  | 2853a59       | changes requested | 4 (also: no story renders the component)                                            | AIN-329          |
+| EnsuredUI#30 (AIN-296)  | 6a35b2c       | changes requested | 3 (blocked by unmerged AIN-278/281; API nav catalog still lists Active Coverage), 4 | AIN-330, AIN-331 |
 
 Verified passing on every head:
+
 - XDS: lint, format, `npm test` (build + tsc), Storybook build, and play functions plus axe for the
   changed stories: Badge 7/7, DataTable 17/17, Banner 11/11, CalloutPanel 9/9.
   - DataTable `generic` and `interactive` show a minor axe `empty-table-header`. It already exists on
@@ -42,6 +43,7 @@ Tickets AIN-281, 289, 294, 296 and 298 moved from AI Review to In Progress. AIN-
 Progress.
 
 Next:
+
 - Attach the screenshot evidence and resolve the threads.
 - The XDS PRs conflict with each other: they share the `package.json` test line, the index exports
   and the manifest. Once the first one merges, the rest need a rebase and a regenerated manifest.
