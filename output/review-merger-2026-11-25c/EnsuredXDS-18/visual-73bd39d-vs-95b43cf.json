@@ -1,0 +1,26 @@
+[
+  {
+    "id": "xds-datatable--generic",
+    "identical": true
+  },
+  {
+    "id": "xds-datatable--submissions",
+    "identical": false
+  },
+  {
+    "id": "xds-datatable--submissions-light",
+    "identical": true
+  },
+  {
+    "id": "xds-datatable--sortable-header",
+    "identical": false
+  },
+  {
+    "id": "xds-datatable--skeleton",
+    "identical": true
+  },
+  {
+    "id": "xds-datatable--caption-focus",
+    "identical": false
+  }
+]

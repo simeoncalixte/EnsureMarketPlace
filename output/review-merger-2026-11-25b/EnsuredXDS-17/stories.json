@@ -1,0 +1,51 @@
+[
+  {
+    "id": "xds-badge--variants",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-badge--tones",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-badge--with-dot",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-badge--interactive",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-badge--submission-statuses-dark",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-badge--submission-statuses-light",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "xds-badge--archived",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  }
+]

@@ -1,0 +1,15 @@
+
+> ensured-ui@0.1.0 test:submissions
+> jest --config jest.submissions.config.cjs --runInBand
+
+PASS src/Pages/Underwriting/CreateSubmissionForm.test.tsx
+  ✓ initializes independent repeated entries without losing zero or false defaults (2 ms)
+  ✓ hides conditional fields until the controlling value matches (9 ms)
+  ✓ renders nested coverage inputs with their declared types and required rules (4 ms)
+  ✓ preserves strict matching and fails closed for unsupported runtime conditions
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        0.535 s
+Ran all test suites.

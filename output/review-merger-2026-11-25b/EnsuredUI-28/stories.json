@@ -1,0 +1,16 @@
+[
+  {
+    "id": "pages-admin-impersonate-user-button--administrator-required",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  },
+  {
+    "id": "pages-admin-impersonate-user-button--identity-not-linked",
+    "play": true,
+    "axeViolations": [],
+    "errors": [],
+    "pageErrors": []
+  }
+]
