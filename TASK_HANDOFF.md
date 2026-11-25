@@ -5,6 +5,49 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## review-merger run 3 (2026-11-25, scheduled, ~19:40 UTC)
+
+Scope: every non-draft open PR in the root repo and its submodules, plus EnsuredXDS. That is 11 PRs:
+root #94; EnsuredXDS #18, #19, #20, #22 and #23; EnsuredUI #26, #27, #28, #30 and #35. Every other open PR
+is a draft. This branch also carries run 2's handoff and logs (root #94), so it supersedes #94.
+
+Logs: `output/review-merger-2026-11-25c/<repo>-<pr>/`. Tools: `output/review-merger-2026-11-25c/tools/`. They are
+`run-stories.cjs` (play functions + axe; it needs `axe-core` installed next to it), `pixdiff.cjs` and `shot.cjs`.
+
+**One PR merged:** EnsuredXDS#18 → `main` `f32ec4b`. After that merge, #19, #20 and #23 conflict with `main` on
+the `package.json` test line.
+
+| PR                      | Head verified | Decision           | Failed gates                                                  | Jira subtasks      |
+| ----------------------- | ------------- | ------------------ | ------------------------------------------------------------- | ------------------ |
+| EnsuredXDS#18 (AIN-281) | 95b43cf       | **merged** f32ec4b | none                                                          | n/a                |
+| EnsuredXDS#19 (AIN-278) | c423837       | blocked            | 1 (conflicts with main after #18: package.json)               | AIN-338 (existing) |
+| EnsuredXDS#20 (AIN-278) | 273898a       | blocked            | 1 (conflicts with main after #18: package.json)               | AIN-338 (existing) |
+| EnsuredXDS#23 (AIN-315) | 72bc25c       | blocked            | 1 (conflicts with main after #18: package.json)               | AIN-339 (new)      |
+| EnsuredXDS#22 (release) | dce4c01       | changes requested  | 1 (behind main), 3 (no Jira key; stale "what ships")          | AIN-340 (new Task) |
+| EnsuredUI#26 (AIN-289)  | 0888b8d       | changes requested  | 4 (unchanged; no Jira attachments)                            | AIN-327 (existing) |
+| EnsuredUI#27 (AIN-294)  | a5461c0       | changes requested  | 4 (unchanged; no Jira attachments)                            | AIN-328 (existing) |
+| EnsuredUI#28 (AIN-298)  | 27f646d       | changes requested  | 4 (unchanged; no Jira attachments)                            | AIN-329 (existing) |
+| EnsuredUI#30 (AIN-296)  | 6a35b2c       | changes requested  | 3 (AIN-278 and the nav gap are open; XDS 0.3.0 unreleased), 4 | AIN-330, AIN-331   |
+| EnsuredUI#35 (AIN-317)  | 98fe4b8       | blocked            | 1 and 3 (stacked on draft #32 / AIN-290)                      | AIN-341 (new)      |
+| EnsureMarketPlace#94    | a0765ba       | superseded         | 3 (no Jira key; handoff-only docs)                            | none               |
+
+- **XDS#18 verification:**
+  - `lint` 0, `format:check` 0, `tsc --noEmit` 0.
+  - `npm test`: 27 tests (26 pass, 0 fail, 1 env-gated skip).
+  - Storybook build ok. DataTable play functions 17/17, axe 0.
+  - The 73bd39d Jira After captures still hold: in a pixel comparison of 73bd39d and 95b43cf, the DataTable rendering is unchanged. The only delta is the QUOTED badge colour, which comes from #17.
+- **Jira:** AIN-281, AIN-323 and AIN-324 → Human Review (AIN-281 comment 10819). AIN-317 went from AI Review back to In Progress. Nothing was moved to Done.
+- Reviews were posted as COMMENT, because GitHub refuses APPROVE or REQUEST_CHANGES on your own PR.
+
+Next:
+
+- Merge `main` into XDS #19, #20 and #23 (AIN-338, AIN-339), then re-review. #19 and #20 also conflict with each other.
+- Fix the release PR (AIN-340). The owner decides whether 0.3.0 waits for #19, #20 and #23, then tags `v0.3.0`.
+- After the release, EnsuredUI#30 can go ahead (it also needs AIN-331 and AIN-330).
+- Attach Before/After evidence for EnsuredUI #26, #27 and #28 (AIN-327, AIN-328, AIN-329).
+- Land EnsuredUI#32 (draft, AIN-290), then retarget #35 (AIN-341).
+- No PR is unblocked for merge right now. The owner can close root #94, because this branch supersedes it.
+
 ## review-merger run 2 (2026-11-25, scheduled, ~13:00 UTC)
 
 Scope: every non-draft open PR in the root repo and its submodules. That is the same 8 PRs as the
