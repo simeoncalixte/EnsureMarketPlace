@@ -1,0 +1,12 @@
+PASS play | axe 0 | xds-banner--info
+PASS play | axe 0 | xds-banner--warning
+PASS play | axe 0 | xds-banner--neutral
+PASS play | axe 0 | xds-banner--body-only
+PASS play | axe 0 | xds-banner--with-action
+PASS play | axe 0 | xds-banner--dismissible
+PASS play | axe 0 | xds-banner--controlled-with-focus-return
+PASS play | axe 0 | xds-banner--light-theme
+PASS play | axe 0 | xds-banner--dark-theme
+PASS play | axe 0 | xds-banner--narrow-390
+PASS play | axe 0 | xds-banner--narrow-390-light
+stories=11 playFail=0 axeFail=0

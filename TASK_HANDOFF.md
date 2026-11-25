@@ -5,6 +5,50 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## review-merger run (2026-11-25, scheduled)
+
+Scope: every non-draft open PR in the root repo and submodules. That is 8 PRs, all in EnsuredXDS
+and EnsuredUI. The 2 root PRs, the 2 EnsuredAPI PRs, the other 4 EnsuredUI PRs and the 4 docs PRs
+are drafts and were skipped. **Nothing was merged.** Every PR passed local verification, but each one
+failed at least one gate. Logs are in `output/review-merger-2026-11-25/<repo>-<pr>/`. The story
+runner (play functions + axe) is `output/review-merger-2026-11-25/run-stories.cjs`.
+
+`npm ci` now works here because the proxy injects npm.pkg.github.com credentials, so local checks are
+no longer blocked.
+
+| PR | Head verified | Decision | Failed gates | Jira subtasks |
+| --- | --- | --- | --- | --- |
+| EnsuredXDS#17 (AIN-281) | 38527a6 | changes requested | 1 (2 unresolved threads), 4 (no Before/After on Jira) | AIN-323, AIN-324 |
+| EnsuredXDS#18 (AIN-281) | 73bd39d | changes requested | 1 (1 unresolved thread), 4 | AIN-323, AIN-324 |
+| EnsuredXDS#19 (AIN-278) | f200123 | changes requested | 1 (2 unresolved, non-outdated threads), 4 | AIN-325, AIN-326 |
+| EnsuredXDS#20 (AIN-278) | a6ec930 | changes requested | 4 (no After screenshots) | AIN-325 |
+| EnsuredUI#26 (AIN-289) | 0888b8d | changes requested | 4 (styling change, no Before/After) | AIN-327 |
+| EnsuredUI#27 (AIN-294) | a5461c0 | changes requested | 4 | AIN-328 |
+| EnsuredUI#28 (AIN-298) | 2853a59 | changes requested | 4 (also: no story renders the component) | AIN-329 |
+| EnsuredUI#30 (AIN-296) | 6a35b2c | changes requested | 3 (blocked by unmerged AIN-278/281; API nav catalog still lists Active Coverage), 4 | AIN-330, AIN-331 |
+
+Verified passing on every head:
+- XDS: lint, format, `npm test` (build + tsc), Storybook build, and play functions plus axe for the
+  changed stories: Badge 7/7, DataTable 17/17, Banner 11/11, CalloutPanel 9/9.
+  - DataTable `generic` and `interactive` show a minor axe `empty-table-header`. It already exists on
+    main (`DataTable.tsx:209`).
+- UI: typecheck, lint, format, `test:submissions` and `test:dashboard`.
+  - #26 and #27: their component tests also pass (4/4 and 3/3).
+  - #30: AIN-296 acceptance 21/21; stories 4/4 with axe 0.
+
+Reviews were posted as COMMENT, because GitHub refuses REQUEST_CHANGES on your own PR.
+
+Tickets AIN-281, 289, 294, 296 and 298 moved from AI Review to In Progress. AIN-278 was already In
+Progress.
+
+Next:
+- Attach the screenshot evidence and resolve the threads.
+- The XDS PRs conflict with each other: they share the `package.json` test line, the index exports
+  and the manifest. Once the first one merges, the rest need a rebase and a regenerated manifest.
+- No PR is unblocked yet. When the evidence lands, merge in this order: XDS #17 → #18 → #19 → #20,
+  then the 0.3.0 release, then EnsuredUI #30 (after AIN-331). EnsuredUI #26, #27 and #28 are
+  independent.
+
 ## Sprint assignment update (2026-11-21)
 
 User requested AIN-239–243 in Sprint 2. Verified live Jira: AIN-239–242 were already in

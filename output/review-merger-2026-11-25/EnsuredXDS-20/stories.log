@@ -1,0 +1,10 @@
+PASS play | axe 0 | xds-callout-panel--default
+PASS play | axe 0 | xds-callout-panel--light-theme
+PASS play | axe 0 | xds-callout-panel--dark-theme
+PASS play | axe 0 | xds-callout-panel--heading-level-3
+PASS play | axe 0 | xds-callout-panel--default-labels
+PASS play | axe 0 | xds-callout-panel--empty-column
+PASS play | axe 0 | xds-callout-panel--long-text
+PASS play | axe 0 | xds-callout-panel--narrow-390-dark
+PASS play | axe 0 | xds-callout-panel--narrow-390-light
+stories=9 playFail=0 axeFail=0

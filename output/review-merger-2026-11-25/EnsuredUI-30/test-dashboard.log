@@ -1,0 +1,44 @@
+
+> ensured-ui@0.1.0 test:dashboard
+> node --test test/insurerDashboardConfig.test.mjs
+
+TAP version 13
+# Subtest: workspace config covers every approved dashboard component and rejects unsafe sources
+ok 1 - workspace config covers every approved dashboard component and rejects unsafe sources
+  ---
+  duration_ms: 1.599424
+  type: 'test'
+  ...
+# Subtest: shared filters are propagated unchanged and equivalent orderings share a key
+ok 2 - shared filters are propagated unchanged and equivalent orderings share a key
+  ---
+  duration_ms: 10.502049
+  type: 'test'
+  ...
+# Subtest: matching count reuses the existing filtered submissions search
+ok 3 - matching count reuses the existing filtered submissions search
+  ---
+  duration_ms: 1.712569
+  type: 'test'
+  ...
+# Subtest: missing routes, invalid JSON, and mismatched scope fail explicitly
+ok 4 - missing routes, invalid JSON, and mismatched scope fail explicitly
+  ---
+  duration_ms: 1.160054
+  type: 'test'
+  ...
+# Subtest: shared prop schemas reject incomplete nested data and preserve zero
+ok 5 - shared prop schemas reject incomplete nested data and preserve zero
+  ---
+  duration_ms: 1.814952
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 593.567168

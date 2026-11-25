@@ -1,0 +1,165 @@
+
+> @simeoncalixte/ensured-xds@0.2.0 test
+> npm run build && node --test --test-concurrency=1 test/package.test.mjs test/component-manifest.test.mjs test/results.test.mjs test/palette.test.mjs test/financial-value.test.mjs test/date-only.test.mjs test/badge.test.mjs
+
+
+> @simeoncalixte/ensured-xds@0.2.0 build
+> node scripts/clean.mjs && npm run generate:dashboard-validators && tsc -p tsconfig.build.json && node scripts/copy-css.mjs
+
+
+> @simeoncalixte/ensured-xds@0.2.0 generate:dashboard-validators
+> node scripts/generate-dashboard-validators.mjs
+
+Generated 9 standalone dashboard validators.
+TAP version 13
+# Subtest: statusTone maps every system submission status and falls back to surface
+ok 1 - statusTone maps every system submission status and falls back to surface
+  ---
+  duration_ms: 215.437538
+  type: 'test'
+  ...
+# Subtest: status and archived badge text meets 4.5:1 in light and dark themes
+ok 2 - status and archived badge text meets 4.5:1 in light and dark themes
+  ---
+  duration_ms: 1.065623
+  type: 'test'
+  ...
+# Subtest: Badge archived variant renders visible text and a hidden icon
+ok 3 - Badge archived variant renders visible text and a hidden icon
+  ---
+  duration_ms: 108.723298
+  type: 'test'
+  ...
+# Subtest: extracts inherited/nested JSON props and reports unsupported props without weakening unions
+ok 4 - extracts inherited/nested JSON props and reports unsupported props without weakening unions
+  ---
+  duration_ms: 400.046746
+  type: 'test'
+  ...
+# Subtest: generates the XDS catalog without executing React and preserves reviewed validation
+ok 5 - generates the XDS catalog without executing React and preserves reviewed validation
+  ---
+  duration_ms: 1833.338118
+  type: 'test'
+  ...
+# Subtest: the sibling application catalog matches the published manifest
+ok 6 - the sibling application catalog matches the published manifest # SKIP Set XDS_CHECK_SIBLING_CATALOG=1 in the application checkout
+  ---
+  duration_ms: 0.101301
+  type: 'test'
+  ...
+# Subtest: formatDateOnly shows the same calendar day in every time zone
+ok 7 - formatDateOnly shows the same calendar day in every time zone
+  ---
+  duration_ms: 126.75646
+  type: 'test'
+  ...
+# Subtest: formatDateOnly rejects values that are not a real YYYY-MM-DD day
+ok 8 - formatDateOnly rejects values that are not a real YYYY-MM-DD day
+  ---
+  duration_ms: 0.913172
+  type: 'test'
+  ...
+# Subtest: KeyValueList renders dl/dt/dd, date-only values, empty placeholders and a skeleton
+ok 9 - KeyValueList renders dl/dt/dd, date-only values, empty placeholders and a skeleton
+  ---
+  duration_ms: 211.853093
+  type: 'test'
+  ...
+# Subtest: FinancialValue renders each truthfulness state and never shows zero for unknown values
+ok 10 - FinancialValue renders each truthfulness state and never shows zero for unknown values
+  ---
+  duration_ms: 265.043186
+  type: 'test'
+  ...
+# Subtest: FinancialValue text and focus colors meet contrast in light and dark themes
+ok 11 - FinancialValue text and focus colors meet contrast in light and dark themes
+  ---
+  duration_ms: 0.783752
+  type: 'test'
+  ...
+# > @simeoncalixte/ensured-xds@0.2.0 prepare
+# > npm run build
+# > @simeoncalixte/ensured-xds@0.2.0 build
+# > node scripts/clean.mjs && npm run generate:dashboard-validators && tsc -p tsconfig.build.json && node scripts/copy-css.mjs
+# > @simeoncalixte/ensured-xds@0.2.0 generate:dashboard-validators
+# > node scripts/generate-dashboard-validators.mjs
+# Subtest: shared source imports stay inside the package and contain no application environment/API dependencies
+ok 12 - shared source imports stay inside the package and contain no application environment/API dependencies
+  ---
+  duration_ms: 5.826062
+  type: 'test'
+  ...
+# ../../../ensured-xds-consumer-g9qUXn/node_modules/react-router/dist/development/index.mjs (11:0): Module level directives cause errors when bundled, "use client" in "../../../ensured-xds-consumer-g9qUXn/node_modules/react-router/dist/development/index.mjs" was ignored.
+# Subtest: a packed artifact builds in a separate consumer with exported components, styles and declarations
+ok 13 - a packed artifact builds in a separate consumer with exported components, styles and declarations
+  ---
+  duration_ms: 14957.16102
+  type: 'test'
+  ...
+# Subtest: approved palette remains exact
+ok 14 - approved palette remains exact
+  ---
+  duration_ms: 1.740625
+  type: 'test'
+  ...
+# Subtest: dark: readable text, actions and semantic states
+ok 15 - dark: readable text, actions and semantic states
+  ---
+  duration_ms: 1.835108
+  type: 'test'
+  ...
+# Subtest: dark: CSS contract includes all semantic tokens
+ok 16 - dark: CSS contract includes all semantic tokens
+  ---
+  duration_ms: 2.711373
+  type: 'test'
+  ...
+# Subtest: light: readable text, actions and semantic states
+ok 17 - light: readable text, actions and semantic states
+  ---
+  duration_ms: 0.36999
+  type: 'test'
+  ...
+# Subtest: light: CSS contract includes all semantic tokens
+ok 18 - light: CSS contract includes all semantic tokens
+  ---
+  duration_ms: 1.231328
+  type: 'test'
+  ...
+# (!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+# Subtest: result states preserve zero and suppress stale metrics; shares and targets have valid accessible bounds
+ok 19 - result states preserve zero and suppress stale metrics; shares and targets have valid accessible bounds
+  ---
+  duration_ms: 256.239991
+  type: 'test'
+  ...
+# (!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+# Subtest: catastrophe and renewal sections keep actions explicit and suppress unavailable aggregates
+ok 20 - catastrophe and renewal sections keep actions explicit and suppress unavailable aggregates
+  ---
+  duration_ms: 113.049462
+  type: 'test'
+  ...
+# (!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+# Subtest: pipeline sections preserve missing values and explicit totals without fabricating distributions
+ok 21 - pipeline sections preserve missing values and explicit totals without fabricating distributions
+  ---
+  duration_ms: 107.779248
+  type: 'test'
+  ...
+# Subtest: dashboard validators work without runtime code generation under a restrictive CSP
+ok 22 - dashboard validators work without runtime code generation under a restrictive CSP
+  ---
+  duration_ms: 5.63216
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 21789.204518

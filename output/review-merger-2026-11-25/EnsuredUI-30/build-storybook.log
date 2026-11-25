@@ -1,0 +1,256 @@
+@storybook/core v8.6.18
+
+info => Cleaning outputDir: ../sb-ui30
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+info => Loading presets
+info => Building manager..
+info => Manager built ([38;2;181;126;229m153 ms[39m)
+info => Building preview..
+info Using tsconfig paths for react-docgen
+vite v5.4.21 building for production...
+transforming...
+✓ 1251 modules transformed.
+node_modules/@storybook/core/dist/preview/runtime.js (3683:15): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+node_modules/@storybook/core/dist/preview/runtime.js (3685:16): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+rendering chunks...
+computing gzip size...
+../sb-ui30/iframe.html                                                     18.27 kB │ gzip:   5.20 kB
+../sb-ui30/assets/preview-Crg7wCr0.css                                     10.74 kB │ gzip:   2.44 kB
+../sb-ui30/assets/App-BroiMdxZ.css                                         34.45 kB │ gzip:   6.64 kB
+../sb-ui30/assets/CommercialWorkspace-B-HN1l8o.css                         48.88 kB │ gzip:   8.63 kB
+../sb-ui30/assets/style-CDjm9ImO.css                                       48.89 kB │ gzip:   5.84 kB
+../sb-ui30/assets/serviceTransport-DWesuZdb.js                              0.18 kB │ gzip:   0.15 kB
+../sb-ui30/assets/preview-CvbIS5ZJ.js                                       0.18 kB │ gzip:   0.16 kB
+../sb-ui30/assets/TopBarNav-z5w_hEEg.js                                     0.20 kB │ gzip:   0.19 kB
+../sb-ui30/assets/ValidationMessage-CX57gp6D.js                             0.32 kB │ gzip:   0.25 kB
+../sb-ui30/assets/seed-ChOf0tjH.js                                          0.35 kB │ gzip:   0.26 kB
+../sb-ui30/assets/index-CMA1Yv9H.js                                         0.42 kB │ gzip:   0.27 kB
+../sb-ui30/assets/withChatbot-R1C9AhEC.js                                   0.43 kB │ gzip:   0.29 kB
+../sb-ui30/assets/NumberInput-BHekNIbz.js                                   0.48 kB │ gzip:   0.35 kB
+../sb-ui30/assets/useAuthMe-CqyeIl3h.js                                     0.59 kB │ gzip:   0.38 kB
+../sb-ui30/assets/createCoverageNavigation-DZjFHfF4.js                      0.60 kB │ gzip:   0.34 kB
+../sb-ui30/assets/jsx-runtime-BjG_zV1W.js                                   0.64 kB │ gzip:   0.42 kB
+../sb-ui30/assets/chunk-XP5HYGXS-BHXC9YeQ.js                                0.71 kB │ gzip:   0.40 kB
+../sb-ui30/assets/preview-DGUiP6tS.js                                       0.71 kB │ gzip:   0.50 kB
+../sb-ui30/assets/interaction-DGhGcf6r.js                                   0.74 kB │ gzip:   0.42 kB
+../sb-ui30/assets/preview-C3JntAaA.js                                       0.75 kB │ gzip:   0.49 kB
+../sb-ui30/assets/Textarea-DeKC6A5x.js                                      0.77 kB │ gzip:   0.45 kB
+../sb-ui30/assets/Checkbox-CTtOTyt-.js                                      0.79 kB │ gzip:   0.47 kB
+../sb-ui30/assets/index-Bhqu_tAV.js                                         0.79 kB │ gzip:   0.47 kB
+../sb-ui30/assets/Select-DOZDFnYP.js                                        0.80 kB │ gzip:   0.49 kB
+../sb-ui30/assets/Marketplace.stories-CG9JOoEh.js                           0.86 kB │ gzip:   0.51 kB
+../sb-ui30/assets/TopNavBar.stories-oxuiSKr_.js                             0.89 kB │ gzip:   0.54 kB
+../sb-ui30/assets/preview-CP1otglp.js                                       0.89 kB │ gzip:   0.57 kB
+../sb-ui30/assets/organizations-qT4CEzrx.js                                 0.94 kB │ gzip:   0.48 kB
+../sb-ui30/assets/Typography-DdMfrrwd.js                                    0.95 kB │ gzip:   0.48 kB
+../sb-ui30/assets/Investors.stories-B1LLtsZy.js                             0.95 kB │ gzip:   0.56 kB
+../sb-ui30/assets/theme-BTMuaVHH.js                                         0.96 kB │ gzip:   0.57 kB
+../sb-ui30/assets/SectionHeader-D7BgKSVK.js                                 0.99 kB │ gzip:   0.51 kB
+../sb-ui30/assets/test-utils-C04nzTzz.js                                    1.03 kB │ gzip:   0.65 kB
+../sb-ui30/assets/FormField-Cw6j4FDJ.js                                     1.10 kB │ gzip:   0.67 kB
+../sb-ui30/assets/StatCard-CC-ccwsU.js                                      1.10 kB │ gzip:   0.55 kB
+../sb-ui30/assets/SubmissionSection.stories-Cp_Kp9Lq.js                     1.13 kB │ gzip:   0.62 kB
+../sb-ui30/assets/Breadcrumb-BPuRbtpv.js                                    1.15 kB │ gzip:   0.64 kB
+../sb-ui30/assets/ProgressBar-iDa-tX2s.js                                   1.16 kB │ gzip:   0.67 kB
+../sb-ui30/assets/SegmentedSwitch-Dt8ryVx1.js                               1.17 kB │ gzip:   0.67 kB
+../sb-ui30/assets/auth-Bd4Rs4Gg.js                                          1.17 kB │ gzip:   0.66 kB
+../sb-ui30/assets/Card-jeuboU0l.js                                          1.25 kB │ gzip:   0.72 kB
+../sb-ui30/assets/MaskedSecretInput-BGwLluJp.js                             1.26 kB │ gzip:   0.74 kB
+../sb-ui30/assets/OrganizationsSubpage.stories-DkQRsSxP.js                  1.27 kB │ gzip:   0.73 kB
+../sb-ui30/assets/WebhookConfig.stories-C_d_c0pF.js                         1.28 kB │ gzip:   0.71 kB
+../sb-ui30/assets/FinancialsSection.stories-D4sgs3Cv.js                     1.28 kB │ gzip:   0.62 kB
+../sb-ui30/assets/AdminSeedPage.stories-BxM_tAIV.js                         1.30 kB │ gzip:   0.75 kB
+../sb-ui30/assets/PipelineIngestion.stories-DpYtfEPX.js                     1.31 kB │ gzip:   0.74 kB
+../sb-ui30/assets/SFTPConfig.stories-gSaA__yO.js                            1.31 kB │ gzip:   0.73 kB
+../sb-ui30/assets/Reports-JF5JFmws.js                                       1.32 kB │ gzip:   0.67 kB
+../sb-ui30/assets/CloudStorageConfig.stories-DpP9njVz.js                    1.33 kB │ gzip:   0.74 kB
+../sb-ui30/assets/Range-C5T3WzDd.js                                         1.38 kB │ gzip:   0.64 kB
+../sb-ui30/assets/AuthenticationMicrofrontend-CWBZ9ovY.js                   1.38 kB │ gzip:   0.85 kB
+../sb-ui30/assets/Reports.stories-Bw6DWRJB.js                               1.41 kB │ gzip:   0.77 kB
+../sb-ui30/assets/QuotePanel.fixtures-DNDTRwQB.js                           1.42 kB │ gzip:   0.66 kB
+../sb-ui30/assets/SigningSection.stories-Caoah011.js                        1.42 kB │ gzip:   0.72 kB
+../sb-ui30/assets/ingestionChannels-BkDyUFeh.js                             1.42 kB │ gzip:   0.46 kB
+../sb-ui30/assets/DealParametersSection.stories-BpLjkNL2.js                 1.42 kB │ gzip:   0.68 kB
+../sb-ui30/assets/client-BlYOa-fp.js                                        1.47 kB │ gzip:   0.71 kB
+../sb-ui30/assets/UsersSubpage-b56p6SHE.js                                  1.56 kB │ gzip:   0.88 kB
+../sb-ui30/assets/ToggleSwitch-Uc0j4RNA.js                                  1.60 kB │ gzip:   0.84 kB
+../sb-ui30/assets/QueueConfig.stories-XmarACi_.js                           1.69 kB │ gzip:   0.89 kB
+../sb-ui30/assets/OrgUsersSubpage.stories-QhvRSN1r.js                       1.71 kB │ gzip:   0.96 kB
+../sb-ui30/assets/ClaimsDashboard.stories-LO4R5urN.js                       1.72 kB │ gzip:   0.91 kB
+../sb-ui30/assets/Badge-CCbOIUMo.js                                         1.73 kB │ gzip:   0.72 kB
+../sb-ui30/assets/UsersSubpage.stories-DM8Qdz6t.js                          1.76 kB │ gzip:   0.78 kB
+../sb-ui30/assets/ValidationSection.stories-Z4hkrR71.js                     1.77 kB │ gzip:   0.83 kB
+../sb-ui30/assets/SubNavigation-DO6tpqvC.js                                 1.78 kB │ gzip:   0.99 kB
+../sb-ui30/assets/OrganizationsSubpage-C-B_KgVC.js                          1.88 kB │ gzip:   0.94 kB
+../sb-ui30/assets/Button-BpoUjPuB.js                                        1.89 kB │ gzip:   0.74 kB
+../sb-ui30/assets/FileDropzone-CfeqM-vp.js                                  1.96 kB │ gzip:   0.95 kB
+../sb-ui30/assets/Input-C2CTNcr8.js                                         1.98 kB │ gzip:   0.91 kB
+../sb-ui30/assets/underwriting-BNzmhjgz.js                                  1.99 kB │ gzip:   0.85 kB
+../sb-ui30/assets/InsurerLayout-Cr0Rbr6D.js                                 2.00 kB │ gzip:   0.85 kB
+../sb-ui30/assets/OrgUsersSubpage-CLg3Lc6_.js                               2.03 kB │ gzip:   1.06 kB
+../sb-ui30/assets/CoverageRequestedSummary.stories-D-rbsIub.js              2.09 kB │ gzip:   0.92 kB
+../sb-ui30/assets/SubjectTemplateFields.stories-Cyq0Uv_A.js                 2.10 kB │ gzip:   0.86 kB
+../sb-ui30/assets/ImpersonateUserButton-B9N4xWLk.js                         2.11 kB │ gzip:   1.06 kB
+../sb-ui30/assets/ClaimsDashboard-CGIctVxO.js                               2.16 kB │ gzip:   1.09 kB
+../sb-ui30/assets/TrancheStructureSection.stories-D7da1wCv.js               2.16 kB │ gzip:   0.95 kB
+../sb-ui30/assets/LandingPage.stories-ClHRiTL1.js                           2.29 kB │ gzip:   1.24 kB
+../sb-ui30/assets/InfoCard-Dijufai3.js                                      2.30 kB │ gzip:   0.99 kB
+../sb-ui30/assets/settingsSectionFixture-DiTRleRP.js                        2.30 kB │ gzip:   1.09 kB
+../sb-ui30/assets/MetricCard-D8bJXFSr.js                                    2.35 kB │ gzip:   0.96 kB
+../sb-ui30/assets/FinancialsSection-C8-yQytx.js                             2.45 kB │ gzip:   0.79 kB
+../sb-ui30/assets/Navigation-Fya82Sdr.js                                    2.57 kB │ gzip:   1.22 kB
+../sb-ui30/assets/AppAuthenticationRegister.stories-CPLdQ3Fn.js             2.64 kB │ gzip:   1.06 kB
+../sb-ui30/assets/pipeline-Dm939VxF.js                                      2.70 kB │ gzip:   0.86 kB
+../sb-ui30/assets/ActiveCoverage-Bzl-cW2D.js                                2.71 kB │ gzip:   1.16 kB
+../sb-ui30/assets/DataTable-DQa_uiB-.js                                     2.71 kB │ gzip:   1.04 kB
+../sb-ui30/assets/EnvVars.stories-MjQT7RLe.js                               2.72 kB │ gzip:   0.97 kB
+../sb-ui30/assets/ActivityFeed-FhR_fLlf.js                                  2.92 kB │ gzip:   1.11 kB
+../sb-ui30/assets/ActiveCoverage.stories-C0Yo7wbE.js                        3.09 kB │ gzip:   1.18 kB
+../sb-ui30/assets/tokens-5IMPN99H.js                                        3.11 kB │ gzip:   1.43 kB
+../sb-ui30/assets/SubjectInsuranceCard.stories-BDdCAqOn.js                  3.14 kB │ gzip:   1.22 kB
+../sb-ui30/assets/AdminPage.stories-BJ_l7O6I.js                             3.17 kB │ gzip:   1.52 kB
+../sb-ui30/assets/SubjectCoverages-pAa3Halc.js                              3.30 kB │ gzip:   1.41 kB
+../sb-ui30/assets/RabbitMQConfig.stories-3qJJsgOs.js                        3.32 kB │ gzip:   1.43 kB
+../sb-ui30/assets/marketplace-83yCSYUM.js                                   3.35 kB │ gzip:   0.93 kB
+../sb-ui30/assets/SubjectInsuranceSection.stories-DX8ZhMal.js               3.35 kB │ gzip:   1.29 kB
+../sb-ui30/assets/DealParametersSection-BvJ7i6Qj.js                         3.39 kB │ gzip:   1.09 kB
+../sb-ui30/assets/SelectionCard-FJyAiNE_.js                                 3.43 kB │ gzip:   1.37 kB
+../sb-ui30/assets/CreateCoveragePage.stories-CKaqJNi4.js                    3.43 kB │ gzip:   1.63 kB
+../sb-ui30/assets/GuestQuotePage-CF0-Nz98.js                                3.47 kB │ gzip:   1.66 kB
+../sb-ui30/assets/preview-DD_OYowb.js                                       3.51 kB │ gzip:   1.69 kB
+../sb-ui30/assets/AnalyticsDashboard.stories-CH13_pDh.js                    3.53 kB │ gzip:   1.63 kB
+../sb-ui30/assets/SubmissionSection-DYxKpDnA.js                             3.60 kB │ gzip:   1.44 kB
+../sb-ui30/assets/PipelineGraphEditor.stories-Zj-o9Hdd.js                   3.68 kB │ gzip:   1.20 kB
+../sb-ui30/assets/ActiveCoverageInterim.acceptance.stories-CTs8a8Sj.js      3.69 kB │ gzip:   1.17 kB
+../sb-ui30/assets/ValidationSection-DpzqY1w_.js                             3.72 kB │ gzip:   1.32 kB
+../sb-ui30/assets/RightHandPanel-DbZGx74d.js                                4.02 kB │ gzip:   1.82 kB
+../sb-ui30/assets/index-hHGLVoxj.js                                         4.14 kB │ gzip:   1.55 kB
+../sb-ui30/assets/Commercial.styles-Bwv3ta1i.js                             4.15 kB │ gzip:   1.21 kB
+../sb-ui30/assets/GuestQuotePage.stories-BkW4tG7H.js                        4.31 kB │ gzip:   1.50 kB
+../sb-ui30/assets/preview-B0GEC7uH.js                                       5.06 kB │ gzip:   1.88 kB
+../sb-ui30/assets/Signing.styles-VFnxW5Tf.js                                5.21 kB │ gzip:   1.86 kB
+../sb-ui30/assets/InsurerOnboarding.stories-DII4bKDw.js                     5.24 kB │ gzip:   1.87 kB
+../sb-ui30/assets/ApplicationNavigation.stories-B1b-rlW8.js                 5.34 kB │ gzip:   1.30 kB
+../sb-ui30/assets/BusinessConstitution.stories-D-RO3q2c.js                  5.39 kB │ gzip:   2.26 kB
+../sb-ui30/assets/ModelSettings.live.stories-DF70GYdu.js                    5.51 kB │ gzip:   1.59 kB
+../sb-ui30/assets/Marketplace-Dji-hNP3.js                                   5.54 kB │ gzip:   2.16 kB
+../sb-ui30/assets/AnalyticsDashboard-J_vN7RhT.js                            5.88 kB │ gzip:   2.49 kB
+../sb-ui30/assets/ConfiguredDashboard.stories-CCWm0Yj6.js                   5.92 kB │ gzip:   2.63 kB
+../sb-ui30/assets/palette-BZ9Jimj_.js                                       6.01 kB │ gzip:   1.56 kB
+../sb-ui30/assets/SideNavBar-8nAEWYA5.js                                    6.07 kB │ gzip:   1.79 kB
+../sb-ui30/assets/LineOfBusinessPage.stories-CcVQfiG7.js                    6.11 kB │ gzip:   2.32 kB
+../sb-ui30/assets/FilterPanels.stories-Dv0ChzgF.js                          6.14 kB │ gzip:   2.06 kB
+../sb-ui30/assets/PipelineGraph.stories-EVRBa77c.js                         6.17 kB │ gzip:   2.00 kB
+../sb-ui30/assets/SubmissionFilterDrawer-CI2J3BYO.js                        6.48 kB │ gzip:   2.51 kB
+../sb-ui30/assets/SFTPConfig-B8Ii7kvl.js                                    6.60 kB │ gzip:   2.73 kB
+../sb-ui30/assets/DynamicFormSection.stories-Cu1wEuhf.js                    6.85 kB │ gzip:   1.98 kB
+../sb-ui30/assets/index-CNKS55iw.js                                         6.95 kB │ gzip:   1.76 kB
+../sb-ui30/assets/PipelineExecutionSettings-JuWFoijj.js                     7.07 kB │ gzip:   2.56 kB
+../sb-ui30/assets/PipelineGraphEditor-BYMfQc0m.js                           7.25 kB │ gzip:   1.95 kB
+../sb-ui30/assets/EmailInbox.stories-CWvYDLVA.js                            7.37 kB │ gzip:   2.25 kB
+../sb-ui30/assets/QuotePanel.stories-lolIo6LT.js                            7.46 kB │ gzip:   2.41 kB
+../sb-ui30/assets/SubmissionFilterDrawer.stories-CdpXlgld.js                7.48 kB │ gzip:   2.06 kB
+../sb-ui30/assets/NewSubmission-C5kTXoSe.js                                 7.49 kB │ gzip:   2.49 kB
+../sb-ui30/assets/preview-CCCznEf4.js                                       7.62 kB │ gzip:   1.56 kB
+../sb-ui30/assets/AIChat.live.stories-_C_wdN9R.js                           7.67 kB │ gzip:   2.18 kB
+../sb-ui30/assets/QuotePanel-BC9g-WB6.js                                    7.76 kB │ gzip:   2.94 kB
+../sb-ui30/assets/LiveSummaryAside.stories-nHcN8sC7.js                      7.82 kB │ gzip:   2.40 kB
+../sb-ui30/assets/InsurerOnboarding-AE2Kzf62.js                             7.98 kB │ gzip:   3.07 kB
+../sb-ui30/assets/WebhookConfig-DCff5INp.js                                 8.03 kB │ gzip:   3.22 kB
+../sb-ui30/assets/RequestedCoverageEditor.stories-COZ0yw0x.js               8.05 kB │ gzip:   2.51 kB
+../sb-ui30/assets/InsurerDashboard.stories-Ny-R8AGp.js                      8.11 kB │ gzip:   2.62 kB
+../sb-ui30/assets/preview-BBWR9nbA.js                                       8.12 kB │ gzip:   3.10 kB
+../sb-ui30/assets/DynamicFormSection-CTp6HMHI.js                            8.25 kB │ gzip:   2.80 kB
+../sb-ui30/assets/RequestedCoverageEditor-DuDc2x5s.js                       8.45 kB │ gzip:   3.15 kB
+../sb-ui30/assets/CoverageRequestedSummary-CRpo8BM5.js                      8.60 kB │ gzip:   3.34 kB
+../sb-ui30/assets/index-v1M-TlC-.js                                         8.74 kB │ gzip:   3.39 kB
+../sb-ui30/assets/CloudStorageConfig-D61hOjxI.js                            9.03 kB │ gzip:   3.64 kB
+../sb-ui30/assets/index-BCE7Jb96.js                                         9.07 kB │ gzip:   3.58 kB
+../sb-ui30/assets/ModelLibrary.live.stories-CU8UqzJd.js                     9.25 kB │ gzip:   2.07 kB
+../sb-ui30/assets/BindingPanel.stories-CUyCQ2Mf.js                          9.27 kB │ gzip:   2.46 kB
+../sb-ui30/assets/AppAuthenticationSignIn.stories-DUBpDjQ-.js               9.44 kB │ gzip:   3.20 kB
+../sb-ui30/assets/PipelineExecutionSettings.stories-DijiB5hM.js             9.53 kB │ gzip:   1.93 kB
+../sb-ui30/assets/PreferencePage.stories-U4yFDAD7.js                       10.44 kB │ gzip:   3.37 kB
+../sb-ui30/assets/AIChatContext-CMPc-drA.js                                10.56 kB │ gzip:   3.17 kB
+../sb-ui30/assets/TrancheStructureSection-C053e-A3.js                      10.62 kB │ gzip:   2.47 kB
+../sb-ui30/assets/Investors-CalbcpdS.js                                    10.62 kB │ gzip:   3.55 kB
+../sb-ui30/assets/NewSubmission.stories-CseqSMGu.js                        10.84 kB │ gzip:   2.70 kB
+../sb-ui30/assets/EmailIngestConfig.stories-B3II__tb.js                    11.11 kB │ gzip:   2.45 kB
+../sb-ui30/assets/SubmissionDocuments.stories-pRzb8zwN.js                  11.17 kB │ gzip:   2.73 kB
+../sb-ui30/assets/BindingPanel-CmWOzvDR.js                                 11.22 kB │ gzip:   3.98 kB
+../sb-ui30/assets/SubmissionActivity.stories-DJoFfPc2.js                   11.49 kB │ gzip:   2.97 kB
+../sb-ui30/assets/QueueConfig-DLxmcwO9.js                                  11.82 kB │ gzip:   4.36 kB
+../sb-ui30/assets/BasePageTemplate.stories-B32zPPS-.js                     11.88 kB │ gzip:   3.87 kB
+../sb-ui30/assets/InstitutionalAllocationStrategy.stories-fgApRIrD.js      11.88 kB │ gzip:   3.67 kB
+../sb-ui30/assets/InsurerMGAProfile.stories-C6IJfXGK.js                    12.31 kB │ gzip:   3.71 kB
+../sb-ui30/assets/InsurerDashboard.renderers-bbsoPttk.js                   13.05 kB │ gzip:   4.28 kB
+../sb-ui30/assets/EmailInbox-BZRa-yKL.js                                   13.08 kB │ gzip:   4.77 kB
+../sb-ui30/assets/AdminSeedPage-yN0ZKAd7.js                                13.12 kB │ gzip:   5.10 kB
+../sb-ui30/assets/ManualInput.stories-Cazk0Gs8.js                          13.17 kB │ gzip:   3.47 kB
+../sb-ui30/assets/submissionForm.fixtures-CkcdhLPW.js                      13.22 kB │ gzip:   3.91 kB
+../sb-ui30/assets/SubjectInsuranceSection-CNiuN4d1.js                      13.83 kB │ gzip:   2.52 kB
+../sb-ui30/assets/PipelineIngestion-DevvQOes.js                            13.95 kB │ gzip:   5.16 kB
+../sb-ui30/assets/EmailIngestConfig-yOHQ2LQ9.js                            14.71 kB │ gzip:   4.94 kB
+../sb-ui30/assets/ConnectedChatbot-Dz8qwe8n.js                             15.41 kB │ gzip:   4.90 kB
+../sb-ui30/assets/SubjectInsuranceCard-V32NxdmB.js                         15.50 kB │ gzip:   3.43 kB
+../sb-ui30/assets/AdminPage-BR4ldkO7.js                                    15.53 kB │ gzip:   6.31 kB
+../sb-ui30/assets/CommercialPalette.stories-BiAPie0M.js                    15.80 kB │ gzip:   4.08 kB
+../sb-ui30/assets/SubmissionReferenceSettings-Dmu-DifG.js                  15.81 kB │ gzip:   4.97 kB
+../sb-ui30/assets/users-BVSmiXiF.js                                        16.00 kB │ gzip:   3.23 kB
+../sb-ui30/assets/ModelSettings-GoyOOVWJ.js                                16.60 kB │ gzip:   3.85 kB
+../sb-ui30/assets/PipelineGraph-B15pZOiT.js                                16.84 kB │ gzip:   5.47 kB
+../sb-ui30/assets/SubmissionDocuments-B1fBrlEG.js                          19.53 kB │ gzip:   5.93 kB
+../sb-ui30/assets/SubmissionActivity-BZxGYXVQ.js                           19.74 kB │ gzip:   6.10 kB
+../sb-ui30/assets/LineOfBusinessPage-D86S2U5F.js                           21.75 kB │ gzip:   6.61 kB
+../sb-ui30/assets/Settings.stories-BuXBRVkb.js                             22.11 kB │ gzip:   3.98 kB
+../sb-ui30/assets/ModelSettings.stories-0LHY-1n6.js                        22.24 kB │ gzip:   3.90 kB
+../sb-ui30/assets/SubmissionProblemNotice-BMPVJoII.js                      22.95 kB │ gzip:   6.97 kB
+../sb-ui30/assets/PipelineProcesses.stories-hAp46JX1.js                    23.95 kB │ gzip:   5.98 kB
+../sb-ui30/assets/AllocateCapitalPage.stories-BwvGQk0r.js                  24.28 kB │ gzip:   7.44 kB
+../sb-ui30/assets/AIChat.stories-C_ulKSne.js                               24.67 kB │ gzip:   4.99 kB
+../sb-ui30/assets/TopNavBar-Bzkt8JZR.js                                    25.16 kB │ gzip:   6.88 kB
+../sb-ui30/assets/ModelLibrary.stories-DAVmaJjJ.js                         25.85 kB │ gzip:   4.78 kB
+../sb-ui30/assets/styled-components.browser.esm-gXwad4SM.js                27.82 kB │ gzip:  11.37 kB
+../sb-ui30/assets/SubmissionWorkspaceEdit.stories-DSeSUBLc.js              28.36 kB │ gzip:   6.23 kB
+../sb-ui30/assets/index-LqzqLpqx.js                                        29.14 kB │ gzip:   8.26 kB
+../sb-ui30/assets/Color-YHDXOIA2-CgwH7N1V.js                               29.34 kB │ gzip:  11.05 kB
+../sb-ui30/assets/entry-preview-CFaiH4SK.js                                29.75 kB │ gzip:   9.51 kB
+../sb-ui30/assets/Settings-lr1Pj89U.js                                     30.01 kB │ gzip:   3.81 kB
+../sb-ui30/assets/LandingPage-Cz1pdfHb.js                                  31.47 kB │ gzip:   8.14 kB
+../sb-ui30/assets/Parties.stories-CHOxi7tt.js                              40.46 kB │ gzip:   8.58 kB
+../sb-ui30/assets/QuoteTermsSummary-B7DxaLaX.js                            41.51 kB │ gzip:  11.53 kB
+../sb-ui30/assets/ModelLibrary-CZ_SoO08.js                                 43.07 kB │ gzip:   8.21 kB
+../sb-ui30/assets/SigningSection-D5_3BoeE.js                               46.00 kB │ gzip:  11.15 kB
+../sb-ui30/assets/PipelineProcesses-CPzKATqt.js                            52.25 kB │ gzip:  14.01 kB
+../sb-ui30/assets/InsurerDashboard.styles-P6cxjkpR.js                      52.38 kB │ gzip:   8.22 kB
+../sb-ui30/assets/PartiesPage-nvLbGSoj.js                                  54.31 kB │ gzip:  12.91 kB
+../sb-ui30/assets/index-_C1_vaFD.js                                        57.14 kB │ gzip:  16.28 kB
+../sb-ui30/assets/network-gzdSpijp.js                                      67.34 kB │ gzip:  19.60 kB
+../sb-ui30/assets/SubjectTemplateFields-vW8suCzs.js                        76.75 kB │ gzip:  13.08 kB
+../sb-ui30/assets/chunk-OB3PAWPO-DeaWdZCg.js                               94.77 kB │ gzip:  32.00 kB
+../sb-ui30/assets/App.stories-BeyeDzqN.js                                 161.76 kB │ gzip:  43.09 kB
+../sb-ui30/assets/react-18-BYKd5WGV.js                                    209.45 kB │ gzip:  65.51 kB
+../sb-ui30/assets/iframe-DZ6s1mWk.js                                      231.82 kB │ gzip:  78.15 kB
+../sb-ui30/assets/entry-preview-docs-DW7NE6_i.js                          244.67 kB │ gzip:  73.42 kB
+../sb-ui30/assets/registration-B0x8bhVR.js                                365.11 kB │ gzip: 114.67 kB
+../sb-ui30/assets/ConfiguredDashboard-ZE415TJK.js                         582.07 kB │ gzip: 134.22 kB
+../sb-ui30/assets/index-DeN4tkzB.js                                       662.40 kB │ gzip: 157.06 kB
+../sb-ui30/assets/PipelineObservatory-CEIRckFU.js                         683.57 kB │ gzip: 169.63 kB
+../sb-ui30/assets/CommercialWorkspace-CMV8oDaO.js                         693.96 kB │ gzip:  89.39 kB
+../sb-ui30/assets/DocsRenderer-CFRXHY34-D0JPCMl_.js                       883.40 kB │ gzip: 275.60 kB
+../sb-ui30/assets/marketplace-DshpC-8v.js                               1,968.35 kB │ gzip: 554.56 kB
+../sb-ui30/assets/InsurerDashboard-J0OkP6Ol.js                          2,056.33 kB │ gzip: 576.32 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 33.33s
+info => Preview built ([38;2;181;126;229m34 s[39m)
+info => Output directory: /tmp/claude-0/wt/sb-ui30
+
+attention => Storybook now collects completely anonymous telemetry regarding usage.
+This information is used to shape Storybook's roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://storybook.js.org/telemetry
+

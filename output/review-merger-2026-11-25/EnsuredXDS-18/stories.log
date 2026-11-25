@@ -1,0 +1,18 @@
+PASS play | axe 0 | xds-datatable--legacy-rows
+PASS play | axe 1 | xds-datatable--generic :: empty-table-header(minor)
+PASS play | axe 0 | xds-datatable--loading
+PASS play | axe 0 | xds-datatable--error-state
+PASS play | axe 0 | xds-datatable--empty
+PASS play | axe 1 | xds-datatable--interactive :: empty-table-header(minor)
+PASS play | axe 0 | xds-datatable--submissions
+PASS play | axe 0 | xds-datatable--submissions-light
+PASS play | axe 0 | xds-datatable--sortable-header
+PASS play | axe 0 | xds-datatable--skeleton
+PASS play | axe 0 | xds-datatable--caption-focus
+PASS play | axe 0 | xds-datatable--dark-375
+PASS play | axe 0 | xds-datatable--dark-768
+PASS play | axe 0 | xds-datatable--dark-1440
+PASS play | axe 0 | xds-datatable--light-375
+PASS play | axe 0 | xds-datatable--light-768
+PASS play | axe 0 | xds-datatable--light-1440
+stories=17 playFail=0 axeFail=2

@@ -1,0 +1,11 @@
+PASS src/Pages/Underwriting/SubmissionResultControl.test.tsx
+  ✓ binds zero to a read-only number and false to an unchecked switch (28 ms)
+  ✓ keeps saved selections visible when options are missing (5 ms)
+  ✓ adapts currency and coverage aliases without dropping zero or false (28 ms)
+  ✓ preserves structured values and incompatible or unknown mappings (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        0.812 s
+Ran all test suites.

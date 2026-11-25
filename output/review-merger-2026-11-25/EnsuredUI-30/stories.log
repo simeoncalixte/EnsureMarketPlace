@@ -1,0 +1,5 @@
+PASS play | axe 0 | pages-insurer-dashboard-active-coverage--interim-not-connected
+PASS play | axe 0 | pages-insurer-dashboard-active-coverage--interim-view
+PASS play | axe 0 | acceptance-ain-296--interim-state-on-direct-visit
+PASS play | axe 0 | acceptance-ain-296--insurer-navigation-hides-active-coverage
+stories=4 playFail=0 axeFail=0

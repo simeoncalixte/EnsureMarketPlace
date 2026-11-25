@@ -1,0 +1,32 @@
+PASS test/acceptance/AIN-296/activeCoverageInterim.acceptance.test.tsx
+  AIN-296 interim: no fictitious coverage on the page
+    ✓ does not render the fixture text TRX-9902 (17 ms)
+    ✓ does not render the fixture text TRX-8871 (2 ms)
+    ✓ does not render the fixture text US WIND (1 ms)
+    ✓ does not render the fixture text FLOOD (2 ms)
+    ✓ does not render the fixture text Attachment: (2 ms)
+    ✓ does not render the fixture text Exhaustion: (1 ms)
+    ✓ renders no money: no "$", no ISO currency amount, no grouped digits (2 ms)
+    ✓ shows no count and no table while the list is not connected (1 ms)
+    ✓ names no endpoint or URL in the visible text (2 ms)
+  AIN-296 interim: the designed "isn't available yet" state
+    ✓ has the interim heading (1 ms)
+    ✓ has exactly one h1 (2 ms)
+    ✓ says the list is not connected and that nothing is example data (1 ms)
+    ✓ links "Go to submissions" to a submissions route (2 ms)
+    ✓ links "Open dashboard" to the insurer dashboard (2 ms)
+  AIN-296 interim: nav item hidden, route kept
+    ✓ insurerSidebar (sidebarConfig.ts) does not list Active coverage (1 ms)
+    ✓ insurerRoutes (ApplicationNavigation) does not list Active coverage (3 ms)
+    ✓ insurerSidebar keeps the rest of the insurer navigation (guard) (1 ms)
+    ✓ insurerRoutes keeps the rest of the insurer navigation (guard)
+    ✓ keeps the coverage-active route, rendered by a page and not a redirect (guard) (1 ms)
+  AIN-296 interim: fixtures live only in Storybook
+    ✓ the Active Coverage page files do not contain the TRX fixtures (1 ms)
+    ✓ the Active Coverage page files hold no hard-coded money values (4 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       21 passed, 21 total
+Snapshots:   0 total
+Time:        0.678 s
+Ran all test suites.

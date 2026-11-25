@@ -1,0 +1,144 @@
+
+> @simeoncalixte/ensured-xds@0.2.0 build-storybook
+> storybook build --quiet -o /tmp/claude-0/wt/sb-18
+
+@storybook/core v8.6.18
+
+info => Cleaning outputDir: ../sb-18
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+info => Loading presets
+info => Building manager..
+info => Manager built ([38;2;181;126;229m518 ms[39m)
+info => Building preview..
+vite v5.4.21 building for production...
+transforming...
+node_modules/react-router/dist/development/index.mjs (11:0): Module level directives cause errors when bundled, "use client" in "node_modules/react-router/dist/development/index.mjs" was ignored.
+✓ 845 modules transformed.
+node_modules/@storybook/core/dist/preview/runtime.js (3683:15): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+node_modules/@storybook/core/dist/preview/runtime.js (3685:16): Use of eval in "node_modules/@storybook/core/dist/preview/runtime.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+rendering chunks...
+computing gzip size...
+../sb-18/iframe.html                                             18.04 kB │ gzip:   5.17 kB
+../sb-18/assets/preview-BhOiwLel.css                              7.71 kB │ gzip:   1.56 kB
+../sb-18/assets/preview-CvbIS5ZJ.js                               0.18 kB │ gzip:   0.16 kB
+../sb-18/assets/index-C9DmNn2p.js                                 0.42 kB │ gzip:   0.27 kB
+../sb-18/assets/tokens-UfE_4Ljc.js                                0.44 kB │ gzip:   0.33 kB
+../sb-18/assets/formatDateOnly-CYdzgID2.js                        0.47 kB │ gzip:   0.34 kB
+../sb-18/assets/chunk-XP5HYGXS-BHXC9YeQ.js                        0.71 kB │ gzip:   0.40 kB
+../sb-18/assets/preview-DGUiP6tS.js                               0.71 kB │ gzip:   0.50 kB
+../sb-18/assets/ValidationMessage-C8tvudT8.js                     0.75 kB │ gzip:   0.44 kB
+../sb-18/assets/index-Bhqu_tAV.js                                 0.79 kB │ gzip:   0.47 kB
+../sb-18/assets/preview-yU9Zqlgm.js                               0.86 kB │ gzip:   0.55 kB
+../sb-18/assets/Checkbox-CHS9JVI6.js                              1.00 kB │ gzip:   0.56 kB
+../sb-18/assets/theme-T5BZ2bd-.js                                 1.00 kB │ gzip:   0.60 kB
+../sb-18/assets/test-utils-B7m40138.js                            1.03 kB │ gzip:   0.65 kB
+../sb-18/assets/TreatyRenewalCard.stories-DcxPm744.js             1.45 kB │ gzip:   0.65 kB
+../sb-18/assets/IconGrid.stories-DELU814b.js                      1.75 kB │ gzip:   0.86 kB
+../sb-18/assets/AllocationList.stories-CnFH0DzF.js                1.81 kB │ gzip:   0.79 kB
+../sb-18/assets/Navigation.stories-BtqQIA63.js                    1.82 kB │ gzip:   0.70 kB
+../sb-18/assets/ResultsPanel.stories-BzChraQG.js                  1.97 kB │ gzip:   0.76 kB
+../sb-18/assets/HeroHeader.stories-eVP12oSw.js                    1.97 kB │ gzip:   0.92 kB
+../sb-18/assets/Input.stories-CHfAjTlp.js                         2.10 kB │ gzip:   0.86 kB
+../sb-18/assets/AllocationList-DDbPzp1p.js                        2.11 kB │ gzip:   1.01 kB
+../sb-18/assets/ResultsToolbar.stories-Dz_eeAyV.js                2.13 kB │ gzip:   0.86 kB
+../sb-18/assets/ResultsToolbar-B5ZoSWLU.js                        2.34 kB │ gzip:   0.97 kB
+../sb-18/assets/colors-DE-en_rj.js                                2.42 kB │ gzip:   1.03 kB
+../sb-18/assets/ProgressBar-DssqS15B.js                           2.67 kB │ gzip:   1.16 kB
+../sb-18/assets/Badge-arjpQuRg.js                                 2.68 kB │ gzip:   1.01 kB
+../sb-18/assets/Card-Dis7oYLy.js                                  2.68 kB │ gzip:   1.18 kB
+../sb-18/assets/PipelineStageCard.stories-CfDFNIOj.js             2.72 kB │ gzip:   1.08 kB
+../sb-18/assets/Button-CGkdWiL5.js                                2.82 kB │ gzip:   0.99 kB
+../sb-18/assets/Textarea.stories-Buj0yG-d.js                      2.83 kB │ gzip:   1.24 kB
+../sb-18/assets/ResultsPanel-VwtWamiu.js                          2.87 kB │ gzip:   1.21 kB
+../sb-18/assets/Input-CKYGhXvq.js                                 2.98 kB │ gzip:   1.17 kB
+../sb-18/assets/Checkbox.stories-D2xZX5KO.js                      3.05 kB │ gzip:   1.14 kB
+../sb-18/assets/tokens.stories-FVskahSe.js                        3.11 kB │ gzip:   0.96 kB
+../sb-18/assets/InfoCard-B8eCtVcM.js                              3.44 kB │ gzip:   1.32 kB
+../sb-18/assets/preview-DD_OYowb.js                               3.51 kB │ gzip:   1.69 kB
+../sb-18/assets/SubNavigation.stories-CanbuUVR.js                 3.57 kB │ gzip:   1.63 kB
+../sb-18/assets/Navigation-DzRUsbgJ.js                            3.59 kB │ gzip:   1.55 kB
+../sb-18/assets/index-DaSxx5jD.js                                 3.82 kB │ gzip:   1.50 kB
+../sb-18/assets/NumberInput.stories-D2SZtvOo.js                   3.90 kB │ gzip:   1.37 kB
+../sb-18/assets/Select.stories-CtxtkcU-.js                        3.95 kB │ gzip:   1.42 kB
+../sb-18/assets/ResultMetricCard.stories-DJGxGRWO.js              4.03 kB │ gzip:   1.33 kB
+../sb-18/assets/MetricCard-B6DjwM82.js                            4.07 kB │ gzip:   1.47 kB
+../sb-18/assets/PipelineStageCard-DVlMSDy9.js                     4.13 kB │ gzip:   1.44 kB
+../sb-18/assets/ProgressBar.stories-CAWTLHcC.js                   4.25 kB │ gzip:   1.42 kB
+../sb-18/assets/Badge.stories-D-v7pMIx.js                         4.39 kB │ gzip:   1.42 kB
+../sb-18/assets/Card.stories-jF8ES3Zy.js                          4.45 kB │ gzip:   1.52 kB
+../sb-18/assets/MaskedSecretInput.stories-K2S1vYVE.js             4.57 kB │ gzip:   1.75 kB
+../sb-18/assets/MetricCard.stories-DeKhpCSl.js                    4.73 kB │ gzip:   1.68 kB
+../sb-18/assets/ResultMetricCard-MYVn_-py.js                      4.83 kB │ gzip:   1.61 kB
+../sb-18/assets/Stepper.stories-BU22lw1j.js                       4.93 kB │ gzip:   1.89 kB
+../sb-18/assets/Breadcrumb.stories-jxmV8cYS.js                    4.93 kB │ gzip:   1.91 kB
+../sb-18/assets/PriorityUnderwriterQueue.stories-D44RKaVg.js      5.05 kB │ gzip:   1.97 kB
+../sb-18/assets/preview-B0GEC7uH.js                               5.06 kB │ gzip:   1.88 kB
+../sb-18/assets/Button.stories-NNYRQNbC.js                        5.10 kB │ gzip:   1.55 kB
+../sb-18/assets/Range.stories-BBz47z8R.js                         5.12 kB │ gzip:   1.95 kB
+../sb-18/assets/AvatarStack.stories-Bx-TJLm6.js                   5.13 kB │ gzip:   2.02 kB
+../sb-18/assets/ConfidenceBadge.stories-DPWxNnjM.js               5.23 kB │ gzip:   1.75 kB
+../sb-18/assets/SegmentedSwitch.stories-AdKG3cEe.js               5.30 kB │ gzip:   1.88 kB
+../sb-18/assets/SlaVelocityPanel.stories-BzHpMM7b.js              5.32 kB │ gzip:   1.76 kB
+../sb-18/assets/ConnectedGrid-2Eo5oKyO.js                         5.36 kB │ gzip:   1.59 kB
+../sb-18/assets/SectionHeader.stories-CkYFLmkl.js                 5.45 kB │ gzip:   1.96 kB
+../sb-18/assets/FileDropzone.stories-D7GtxeYW.js                  5.54 kB │ gzip:   2.09 kB
+../sb-18/assets/AppetiteDistribution.stories-BjY9IFbc.js          5.67 kB │ gzip:   2.09 kB
+../sb-18/assets/FormField.stories-BOlmNlru.js                     5.78 kB │ gzip:   2.10 kB
+../sb-18/assets/Typography.stories-DhHUIi8s.js                    5.79 kB │ gzip:   2.00 kB
+../sb-18/assets/palette-BZ9Jimj_.js                               6.01 kB │ gzip:   1.56 kB
+../sb-18/assets/Modal.stories-D_a9SvNj.js                         6.33 kB │ gzip:   1.98 kB
+../sb-18/assets/InfoCard.stories-DucBPEI4.js                      6.45 kB │ gzip:   2.04 kB
+../sb-18/assets/DealCard.stories-OkbvCUXj.js                      6.64 kB │ gzip:   2.11 kB
+../sb-18/assets/SubmissionPipelineOverview.stories-BhYJdx0i.js    6.96 kB │ gzip:   2.56 kB
+../sb-18/assets/ActivityFeed.stories-DdkF4DmN.js                  7.00 kB │ gzip:   2.35 kB
+../sb-18/assets/ConnectedGrid.stories-Bjiy0Okf.js                 7.30 kB │ gzip:   2.57 kB
+../sb-18/assets/preview-CCCznEf4.js                               7.62 kB │ gzip:   1.56 kB
+../sb-18/assets/preview-BBWR9nbA.js                               8.12 kB │ gzip:   3.10 kB
+../sb-18/assets/StatCard.stories-BuW7v3-p.js                      8.14 kB │ gzip:   2.59 kB
+../sb-18/assets/RightHandPanel.stories-BR9V9N5J.js                8.15 kB │ gzip:   3.04 kB
+../sb-18/assets/index-OHqKpUGr.js                                 8.39 kB │ gzip:   3.27 kB
+../sb-18/assets/SideNavBar.stories-BeUyFUC3.js                    8.46 kB │ gzip:   2.50 kB
+../sb-18/assets/OnboardingChecklist.stories-BuP1X9go.js           9.19 kB │ gzip:   3.28 kB
+../sb-18/assets/ToggleSwitch.stories-CFtDYOud.js                  9.21 kB │ gzip:   2.80 kB
+../sb-18/assets/preview-B6rcd4c0.js                               9.87 kB │ gzip:   3.97 kB
+../sb-18/assets/KanbanBoard.stories-Cv5u419P.js                  10.00 kB │ gzip:   3.27 kB
+../sb-18/assets/DocumentRow.stories-7W4bUmy7.js                  10.04 kB │ gzip:   2.86 kB
+../sb-18/assets/colors.stories-BAbXn8WL.js                       10.08 kB │ gzip:   3.09 kB
+../sb-18/assets/ScrollableNavigation.stories-1U5lN-Nu.js         10.20 kB │ gzip:   3.62 kB
+../sb-18/assets/CollapsibleSection.stories-Bfa51CvV.js           10.29 kB │ gzip:   2.94 kB
+../sb-18/assets/NatCatRiskBanner.stories-BUl3BhGI.js             10.56 kB │ gzip:   3.25 kB
+../sb-18/assets/SelectionCard.stories-vy-C2y0T.js                10.96 kB │ gzip:   3.25 kB
+../sb-18/assets/ConnectedGridWorkspace.stories-DoJZ1lyC.js       11.41 kB │ gzip:   3.55 kB
+../sb-18/assets/palette.stories-bERvdqSD.js                      12.44 kB │ gzip:   4.23 kB
+../sb-18/assets/TreatyRenewalWatchlist.stories-Djr5mGcd.js       13.07 kB │ gzip:   3.81 kB
+../sb-18/assets/Pagination.stories-B2ahKhb4.js                   14.62 kB │ gzip:   4.11 kB
+../sb-18/assets/KeyValueList.stories-hQCYEQj6.js                 15.56 kB │ gzip:   4.83 kB
+../sb-18/assets/UnsupportedField.stories-BTLaq2-B.js             20.63 kB │ gzip:   6.07 kB
+../sb-18/assets/FinancialValue.stories-5Tk2_z-m.js               26.58 kB │ gzip:   7.74 kB
+../sb-18/assets/RequestedCoverageEditor.stories-BFkuHuAb.js      26.96 kB │ gzip:   6.01 kB
+../sb-18/assets/DataTable.stories-DdkKaW8C.js                    27.09 kB │ gzip:   8.01 kB
+../sb-18/assets/styled-components.browser.esm-CsSoQN9L.js        27.75 kB │ gzip:  11.35 kB
+../sb-18/assets/Color-YHDXOIA2-DqH5ERYm.js                       29.30 kB │ gzip:  11.03 kB
+../sb-18/assets/entry-preview-c2TxRWsI.js                        29.75 kB │ gzip:   9.51 kB
+../sb-18/assets/index-COKtM4y0.js                                57.14 kB │ gzip:  16.28 kB
+../sb-18/assets/chunk-BV7QT456-C470GbEB.js                       91.44 kB │ gzip:  30.93 kB
+../sb-18/assets/react-18-Cn_UnKfT.js                            180.99 kB │ gzip:  57.05 kB
+../sb-18/assets/iframe-DYysltcD.js                              221.68 kB │ gzip:  75.00 kB
+../sb-18/assets/entry-preview-docs-D2AJFTE2.js                  244.67 kB │ gzip:  73.42 kB
+../sb-18/assets/UnderwritingResults.stories-iBIWjVov.js         394.17 kB │ gzip: 115.44 kB
+../sb-18/assets/index-DeN4tkzB.js                               662.40 kB │ gzip: 157.06 kB
+../sb-18/assets/DocsRenderer-CFRXHY34-D3MXgw5F.js               883.96 kB │ gzip: 275.80 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 18.74s
+info => Preview built ([38;2;181;126;229m19 s[39m)
+info => Output directory: /tmp/claude-0/wt/sb-18
+
+attention => Storybook now collects completely anonymous telemetry regarding usage.
+This information is used to shape Storybook's roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://storybook.js.org/telemetry
+
