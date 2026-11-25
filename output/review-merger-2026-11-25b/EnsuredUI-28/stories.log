@@ -1,0 +1,3 @@
+PASS play | axe 0 | pages-admin-impersonate-user-button--administrator-required
+PASS play | axe 0 | pages-admin-impersonate-user-button--identity-not-linked
+stories=2 playFail=0 axeFail=0
