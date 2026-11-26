@@ -1,0 +1,10 @@
+Checking formatting...
+[warn] test/acceptance/AIN-238/insuredName.db.test.ts
+[warn] test/acceptance/AIN-238/listView.contract.test.ts
+[warn] test/acceptance/AIN-238/listView.db.test.ts
+[warn] test/acceptance/AIN-239/purgeIntegrity.db.test.ts
+[warn] test/acceptance/AIN-269/agentArchived.contract.test.ts
+[warn] test/acceptance/AIN-269/agentArchived.db.test.ts
+[warn] test/acceptance/AIN-279/purgeFeedbackGuard.db.test.ts
+[warn] test/acceptance/AIN-279/purgeGate.test.ts
+[warn] Code style issues found in 8 files. Run Prettier with --write to fix.

@@ -1,0 +1,132 @@
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-238/insuredName.db.test.ts
+   59:1   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+   78:19  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  113:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  113:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  113:64  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  123:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  130:18  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  130:18  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  135:47  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  165:25  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  171:14  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  188:14  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  396:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-238/listView.contract.test.ts
+  58:48  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  58:48  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  68:49  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  68:49  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  74:58  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  74:58  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  84:50  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-238/listView.db.test.ts
+   71:1   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+   80:1   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+   81:1   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  177:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  177:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  177:58  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  183:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  214:16  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  220:14  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  237:14  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  284:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  284:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  431:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  431:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  438:21  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  438:21  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  446:21  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  446:21  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  450:22  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  450:22  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  464:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  464:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  471:21  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  471:21  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  476:31  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  476:31  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  532:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  532:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  559:22  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  559:22  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  566:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  566:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  599:47  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  603:7   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  686:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-239/purgeAuthorization.test.ts
+   54:10  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+   54:10  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  139:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-239/purgeIntegrity.db.test.ts
+  200:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  204:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  237:36  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  237:36  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-242/draftDeletion.contract.test.ts
+  56:50  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  56:50  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-242/draftDeletion.db.test.ts
+   53:1   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  180:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  559:51  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-243/legacyArtifacts.db.test.ts
+   41:1  error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  246:7  error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-269/agentArchived.contract.test.ts
+  119:45  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-269/agentArchived.db.test.ts
+   68:1   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  231:7   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  238:18  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-279/feedbackStub.ts
+   40:16  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+   40:34  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+   53:7   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+   59:7   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+   82:11  error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+   94:35  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+   95:3   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  108:20  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-279/purgeFeedbackGuard.db.test.ts
+  134:41  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  134:41  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  148:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  153:5   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  153:35  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-279/purgeGate.test.ts
+  35:1   error  Expected blank line before this statement  @stylistic/padding-line-between-statements
+  45:10  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+  45:10  error  Do not use any type assertions             @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-282/editability.contract.test.ts
+  28:3  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+
+/tmp/claude-0/wt-api36/test/acceptance/AIN-282/editability.db.test.ts
+  138:5   error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  138:5   error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  154:42  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  194:16  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  200:14  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  225:16  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  409:23  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+  441:25  error  Do not use any type assertions  @typescript-eslint/consistent-type-assertions
+
+✖ 98 problems (98 errors, 0 warnings)
+  25 errors and 0 warnings potentially fixable with the `--fix` option.
+

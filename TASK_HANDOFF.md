@@ -5,6 +5,52 @@ Navigation aid, not evidence. Reconcile with Jira and current code before resumi
 [docs/history/task-handoff-archive-2026-11.md](docs/history/task-handoff-archive-2026-11.md).
 Older docs that say evidence is "recorded in TASK_HANDOFF.md" now refer to that archive.
 
+## review-merger run (2026-11-26, scheduled, ~12:40 UTC)
+
+Scope: every non-draft open PR in the root repo, its submodules and EnsuredXDS. That is 17 PRs: root #94, #95 and #96;
+EnsuredAPI #35, #36 and #38; EnsuredUI #26–#29, #32, #34 and #35; EnsuredXDS #22, #25 and #26. This branch carries
+run 3's handoff (#95, which already includes run 2's #94), so it supersedes #94 and #95.
+
+While this run was triaging, the owner merged EnsuredXDS #19, #20, #21, #23 and #24 (main `b8237c6`) and EnsuredUI #30,
+#31 and #33 (main `cb0ef69`) by hand, between 12:39 and 12:42 UTC. Those merges were not reviewed by this run.
+
+Logs: `output/review-merger-2026-11-26/<repo>-<pr>/`.
+
+**No PR merged.**
+
+| PR                        | Head verified   | Decision          | Failed gates                                                            | Jira subtasks      |
+| ------------------------- | --------------- | ----------------- | ----------------------------------------------------------------------- | ------------------ |
+| EnsuredAPI#35 (AIN-235)   | 9dc39bf         | changes requested | 1 (no status checks), 2 (`npm run check` red: typecheck/lint/format)    | AIN-346 (new)      |
+| EnsuredAPI#36 (AIN-321)   | d9e38d5         | changes requested | 1 (no status checks), 2 (`npm run check` red), 3 (must land after #35)  | AIN-347 (new)      |
+| EnsuredAPI#38 (AIN-282)   | 5211612         | blocked           | 1 (stacked on draft #32), 3 (AIN-344 open)                              | AIN-351 (new)      |
+| EnsuredUI#29 (AIN-270)    | 8fb64f8         | changes requested | 1 (10 behind main), 4 (no Jira Before/After)                            | AIN-352 (new)      |
+| EnsuredUI#34 (AIN-309)    | 47802c4         | changes requested | 1 (10 behind main), 4 (no Jira Before/After)                            | AIN-350 (new)      |
+| EnsuredUI#32 (AIN-290)    | 064c3dd         | blocked           | 1 (conflicts with main)                                                 | AIN-349 (new)      |
+| EnsuredUI#35 (AIN-317)    | 98fe4b8         | blocked           | 1 and 3 (stacked on #32); head unchanged since run 3                    | AIN-341 (existing) |
+| EnsuredUI#26 (AIN-289)    | 0888b8d         | changes requested | 1 (behind main), 4 (head unchanged; still no Jira attachments)          | AIN-327 (existing) |
+| EnsuredUI#27 (AIN-294)    | a5461c0         | changes requested | 1 (behind main), 4 (head unchanged; still no Jira attachments)          | AIN-328 (existing) |
+| EnsuredUI#28 (AIN-298)    | 27f646d         | changes requested | 1 (behind main), 4 (head unchanged; still no Jira attachments)          | AIN-329 (existing) |
+| EnsuredXDS#25 (AIN-315)   | 39133c9         | blocked           | 1 (22 behind main, conflicts)                                           | AIN-348 (new)      |
+| EnsuredXDS#26 (AIN-315)   | 98299f0         | blocked           | 1 (22 behind main, conflicts)                                           | AIN-348 (new)      |
+| EnsuredXDS#22 (release)   | dce4c01         | changes requested | 1 (26 behind main), 3 (AIN-340 still To Do); head unchanged since run 3 | AIN-340 (existing) |
+| EnsureMarketPlace#96      | f958b9f         | blocked           | 3 (EnsuredUI pointer 8fb64f8 is not on EnsuredUI main)                  | AIN-352 (new)      |
+| EnsureMarketPlace#94, #95 | a0765ba/76cfab6 | superseded        | 3 (no Jira key; handoff-only docs); this branch supersedes both         | none               |
+
+- **EnsuredAPI main baseline is red.** On #36's head (which only removes files), `typecheck` exit 2 (26 TS errors),
+  `check:type-safety` 1, `lint` 1 (112 errors) and `format:check` 1 (8 files); `check:contracts` 0. The errors are
+  in unbuilt `test/acceptance/**` (AIN-238/279/282) and `scripts/*browser-test.ts`. Until main passes `npm run check`
+  or the owner records an exemption, no EnsuredAPI PR can pass gate 2. EnsuredAPI also has no PR CI (AIN-311).
+- New PRs only got short comments on their cheap gate failures. Full local runs were done for EnsuredAPI #35 and #36.
+- **Jira:** AIN-235, AIN-270, AIN-290 and AIN-309 moved from AI Review back to In Progress, and AIN-282 from Human Review back to In Progress. Nothing was moved to Done.
+- Reviews were posted as COMMENT, because GitHub refuses REQUEST_CHANGES on your own PR.
+
+Next:
+
+- Owner: decide whether to fix EnsuredAPI main's `npm run check` baseline first (recommended), or to record an exemption. Then #35, then #36.
+- Update XDS #25/#26 (AIN-348) and UI #32 (AIN-349) from main. Then #35 can be retargeted (AIN-341).
+- Update UI #29 and #34 from main and attach Before/After evidence (AIN-352, AIN-350). Then root #96 can be re-pointed.
+- No PR is unblocked for merge right now.
+
 ## review-merger run 3 (2026-11-25, scheduled, ~19:40 UTC)
 
 Scope: every non-draft open PR in the root repo and its submodules, plus EnsuredXDS. That is 11 PRs:

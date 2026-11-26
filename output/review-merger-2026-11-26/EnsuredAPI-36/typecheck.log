@@ -1,0 +1,26 @@
+scripts/opportunities-browser-test.ts(20,42): error TS2307: Cannot find module '../../EnsuredAuth/src/proxy.ts' or its corresponding type declarations.
+scripts/opportunities-browser-test.ts(21,46): error TS2307: Cannot find module '../../EnsuredAuth/src/config.ts' or its corresponding type declarations.
+scripts/opportunities-browser-test.ts(23,18): error TS2307: Cannot find module '../../EnsuredUI/node_modules/vite/dist/node/index.js' or its corresponding type declarations.
+scripts/opportunities-browser-test.ts(88,46): error TS7006: Parameter 'request' implicitly has an 'any' type.
+scripts/opportunities-browser-test.ts(106,51): error TS18048: 'gateway' is possibly 'undefined'.
+scripts/reinsurance-browser-test.ts(24,42): error TS2307: Cannot find module '../../EnsuredAuth/src/proxy.ts' or its corresponding type declarations.
+scripts/reinsurance-browser-test.ts(25,46): error TS2307: Cannot find module '../../EnsuredAuth/src/config.ts' or its corresponding type declarations.
+scripts/reinsurance-browser-test.ts(27,18): error TS2307: Cannot find module '../../EnsuredUI/node_modules/vite/dist/node/index.js' or its corresponding type declarations.
+scripts/reinsurance-browser-test.ts(121,46): error TS7006: Parameter 'request' implicitly has an 'any' type.
+scripts/reinsurance-browser-test.ts(139,51): error TS18048: 'gateway' is possibly 'undefined'.
+scripts/relationships-browser-test.ts(26,42): error TS2307: Cannot find module '../../EnsuredAuth/src/proxy.ts' or its corresponding type declarations.
+scripts/relationships-browser-test.ts(27,46): error TS2307: Cannot find module '../../EnsuredAuth/src/config.ts' or its corresponding type declarations.
+scripts/relationships-browser-test.ts(29,18): error TS2307: Cannot find module '../../EnsuredUI/node_modules/vite/dist/node/index.js' or its corresponding type declarations.
+scripts/relationships-browser-test.ts(133,46): error TS7006: Parameter 'request' implicitly has an 'any' type.
+scripts/relationships-browser-test.ts(149,51): error TS18048: 'gateway' is possibly 'undefined'.
+scripts/testing/browserTypes.ts(4,8): error TS2307: Cannot find module '../../../EnsuredNetwork/frontend/node_modules/@playwright/test' or its corresponding type declarations.
+scripts/testing/browserTypes.ts(10,8): error TS2307: Cannot find module '../../../EnsuredNetwork/frontend/node_modules/@playwright/test' or its corresponding type declarations.
+scripts/testing/browserTypes.ts(12,17): error TS2307: Cannot find module '../../../EnsuredNetwork/frontend/node_modules/@playwright/test' or its corresponding type declarations.
+test/acceptance/AIN-238/insuredName.db.test.ts(39,3): error TS2305: Module '"../../../src/services/submissions/submissionService"' has no exported member 'listSubmissionSummaries'.
+test/acceptance/AIN-238/insuredName.db.test.ts(41,3): error TS2724: '"../../../src/services/submissions/submissionService"' has no exported member named 'viewSubmission'. Did you mean 'getSubmission'?
+test/acceptance/AIN-238/listView.contract.test.ts(27,3): error TS2305: Module '"../../../src/services/submissions/submissionService"' has no exported member 'listSubmissionSummaries'.
+test/acceptance/AIN-238/listView.contract.test.ts(28,3): error TS2724: '"../../../src/services/submissions/submissionService"' has no exported member named 'viewSubmission'. Did you mean 'getSubmission'?
+test/acceptance/AIN-238/listView.db.test.ts(50,3): error TS2305: Module '"../../../src/services/submissions/submissionService"' has no exported member 'listSubmissionSummaries'.
+test/acceptance/AIN-238/listView.db.test.ts(52,3): error TS2724: '"../../../src/services/submissions/submissionService"' has no exported member named 'viewSubmission'. Did you mean 'getSubmission'?
+test/acceptance/AIN-282/editability.contract.test.ts(23,36): error TS2307: Cannot find module '../../../src/services/submissions/submissionEditability' or its corresponding type declarations.
+test/acceptance/AIN-282/editability.db.test.ts(47,3): error TS2724: '"../../../src/services/submissions/submissionService"' has no exported member named 'viewSubmission'. Did you mean 'getSubmission'?
