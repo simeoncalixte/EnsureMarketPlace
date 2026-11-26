@@ -1,0 +1,18 @@
+
+> ensured-ui@0.1.0 check
+> npm run typecheck && npm run lint && npm run format:check
+
+
+> ensured-ui@0.1.0 typecheck
+> tsc --noEmit
+
+
+> ensured-ui@0.1.0 lint
+> eslint src test config .storybook *.ts *.cjs *.mjs --max-warnings 0
+
+
+> ensured-ui@0.1.0 format:check
+> prettier --check src test config .storybook *.ts *.cjs *.json eslint.config.mjs .github/workflows/*.yml
+
+Checking formatting...
+All matched files use Prettier code style!

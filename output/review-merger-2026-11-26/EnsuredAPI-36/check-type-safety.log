@@ -1,0 +1,15 @@
+EnsuredAPI source, migrations, tests, and scripts: { casts: 85, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-235/archive.contract.test.ts { casts: 9, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-235/archiveDelete.db.test.ts { casts: 6, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-238/insuredName.db.test.ts { casts: 10, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-238/listView.contract.test.ts { casts: 7, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-238/listView.db.test.ts { casts: 29, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-239/purgeAuthorization.test.ts { casts: 2, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-239/purgeIntegrity.db.test.ts { casts: 2, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-269/agentArchived.contract.test.ts { casts: 1, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-269/agentArchived.db.test.ts { casts: 1, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-279/feedbackStub.ts { casts: 4, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-279/purgeFeedbackGuard.db.test.ts { casts: 3, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-279/purgeGate.test.ts { casts: 2, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-282/editability.contract.test.ts { casts: 1, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }
+test/acceptance/AIN-282/editability.db.test.ts { casts: 8, constAssertions: 0, nonNull: 0, any: 0, suppression: 0 }

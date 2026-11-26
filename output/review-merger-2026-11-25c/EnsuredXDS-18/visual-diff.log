@@ -1,0 +1,10 @@
+IDENTICAL xds-datatable--generic
+DIFFERENT xds-datatable--submissions
+IDENTICAL xds-datatable--submissions-light
+DIFFERENT xds-datatable--sortable-header
+IDENTICAL xds-datatable--skeleton
+DIFFERENT xds-datatable--caption-focus
+self-vs-self: IDENTICAL xds-datatable--submissions
+self-vs-self: IDENTICAL xds-datatable--sortable-header
+self-vs-self: IDENTICAL xds-datatable--caption-focus
+self-vs-self: IDENTICAL xds-datatable--submissions
